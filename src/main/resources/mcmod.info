@@ -1,0 +1,16 @@
+[
+{
+  "modid": "gtc_expansion",
+  "name": "GregTech Classic Expansion",
+  "description": "an experiment with Forge 1.12.2.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["e99999, trinsdar"],
+  "credits": "e99999, trinsdar, muramasa, speiger for making ic2 classic, Gregorious T for making the GT",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
