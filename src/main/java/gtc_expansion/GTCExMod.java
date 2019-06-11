@@ -1,19 +1,15 @@
 package gtc_expansion;
 
 import gtc_expansion.proxy.GTProxyCommon;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = GTMod.MODID, name = GTMod.MODNAME, version = GTMod.MODVERSION, dependencies = GTMod.DEPENDS, useMetadata = true)
-public class GTMod {
+@Mod(modid = GTCExMod.MODID, name = GTCExMod.MODNAME, version = GTCExMod.MODVERSION, dependencies = GTCExMod.DEPENDS, useMetadata = true)
+public class GTCExMod {
 
 	public static final String MODID = "gtc_expansion";
 	public static final String MODNAME = "GregTech Classic Expansion";
@@ -22,7 +18,7 @@ public class GTMod {
 	@SidedProxy(clientSide = MODID + ".proxy.GTProxyClient", serverSide = MODID + ".proxy.GTProxyServer")
 	public static GTProxyCommon proxy;
 	@Mod.Instance
-	public static GTMod instance;
+	public static GTCExMod instance;
 	public static Logger logger;
 
 	@Mod.EventHandler
