@@ -1,7 +1,7 @@
 package gtc_expansion.block;
 
-import gtc_expansion.GTCExMod;
-import gtc_expansion.material.GTCExMaterial;
+import gtc_expansion.GTMod2;
+import gtc_expansion.material.GTMaterial2;
 import gtclassic.GTMod;
 import gtclassic.color.GTColorBlockInterface;
 import gtclassic.material.GTMaterial;
@@ -51,7 +51,7 @@ public class GTBlockBloom extends Block implements ITexturedBlock, ILocaleBlock,
         this.name = mat.getDisplayName();
         this.comp = Ic2Lang.nullKey;
         setRegistryName(this.name.toLowerCase() + "_bloom");
-        setUnlocalizedName(GTCExMod.MODID + "." + this.name.toLowerCase() + "_bloom");
+        setUnlocalizedName(GTMod2.MODID + "." + this.name.toLowerCase() + "_bloom");
         setCreativeTab(GTMod.creativeTabGT);
         setHardness(1.0F);
         setHarvestLevel("pickaxe", 0);
@@ -62,12 +62,12 @@ public class GTBlockBloom extends Block implements ITexturedBlock, ILocaleBlock,
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state,
                              @Nullable TileEntity te, ItemStack stack) {
         super.harvestBlock(worldIn, player, pos, state, te, stack);
-        if (this.mat.equals(GTCExMaterial.RefinedIron.getMaterial())) {
+        if (this.mat.equals(GTMaterial2.RefinedIron.getMaterial())) {
             ItemHandlerHelper.giveItemToPlayer(player, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, count));
             ItemHandlerHelper.giveItemToPlayer(player, GTMaterialGen.getDust(GTMaterial.Slag, 1));
             return;
         }
-        if (this.mat.equals(GTCExMaterial.Bronze.getMaterial())) {
+        if (this.mat.equals(GTMaterial2.Bronze.getMaterial())) {
             ItemHandlerHelper.giveItemToPlayer(player, GTMaterialGen.getIc2(Ic2Items.bronzeIngot, count));
             ItemHandlerHelper.giveItemToPlayer(player, GTMaterialGen.getDust(GTMaterial.Slag, 1));
             return;
@@ -94,7 +94,7 @@ public class GTBlockBloom extends Block implements ITexturedBlock, ILocaleBlock,
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState iBlockState, EnumFacing enumFacing) {
-        return Ic2Icons.getTextures(GTCExMod.MODID + "_materials")[53];
+        return Ic2Icons.getTextures(GTMod2.MODID + "_materials")[53];
     }
 
     @Override
@@ -147,10 +147,10 @@ public class GTBlockBloom extends Block implements ITexturedBlock, ILocaleBlock,
     }
 
     public ItemStack getOutput() {
-        if (this.mat.equals(GTCExMaterial.RefinedIron.getMaterial())) {
+        if (this.mat.equals(GTMaterial2.RefinedIron.getMaterial())) {
             return GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, this.count);
         }
-        if (this.mat.equals(GTCExMaterial.Bronze.getMaterial())) {
+        if (this.mat.equals(GTMaterial2.Bronze.getMaterial())) {
             return GTMaterialGen.getIc2(Ic2Items.bronzeIngot, this.count);
         }
         return GTMaterialGen.getIngot(this.mat, this.count);

@@ -3,7 +3,7 @@ package gtc_expansion.material;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialFlag;
 
-public class GTCExMaterial {
+public class GTMaterial2 {
     static GTMaterialFlag particle = new GTMaterialFlag("_particle", 15, false);
     static GTMaterialFlag fluid = GTMaterialFlag.FLUID;
     static GTMaterialFlag gas = GTMaterialFlag.GAS;
@@ -30,16 +30,16 @@ public class GTCExMaterial {
     static GTMaterialFlag[] metalMC = { smalldust, plate, stick, gear, casing };
     static GTMaterialFlag[] slurryBase = { smalldust, dust, fluid };
 
-    public static GTCExMaterial
-    Bronze = new GTCExMaterial(new GTMaterial("Bronze", 230, 83, 34, metalIc2),6.0F, 192, 2),
-    RefinedIron = new GTCExMaterial(new GTMaterial("RefinedIron", 220, 235, 235, stick, plate, gear, casing),6.0F, 384, 2);
+    public static GTMaterial2
+    Bronze = new GTMaterial2(new GTMaterial("Bronze", 230, 83, 34, metalIc2),6.0F, 192, 2),
+    RefinedIron = new GTMaterial2(new GTMaterial("RefinedIron", 220, 235, 235, stick, plate, gear, casing),6.0F, 384, 2);
 
 
     private GTMaterial material;
     private float speed;
     private int durability;
     private int level;
-    public GTCExMaterial(GTMaterial material, float speed, int durability, int level){
+    public GTMaterial2(GTMaterial material, float speed, int durability, int level){
         this.material = material;
         this.speed = speed;
         this.durability = durability;
