@@ -9,4 +9,28 @@ public class GTGuiMachine2 {
             super(container);
         }
     }
+
+    public static class GTAlloySmelterGui extends MachineGui{
+        public GTAlloySmelterGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GTAssemblingMachineGui extends MachineGui{
+        public GTAssemblingMachineGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GTChemicalReactorGui extends MachineGui{
+        public GTChemicalReactorGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GTIndustrialGrinderGui extends MachineGui{
+        public GTIndustrialGrinderGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

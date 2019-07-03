@@ -1,14 +1,16 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTGuiMachine2;
-import gtc_expansion.GTMod2;
-import gtc_expansion.container.GTContainerElectrolyzer;
+import gtc_expansion.container.GTContainerAlloySmelter;
+import gtclassic.GTBlocks;
 import gtclassic.GTItems;
 import gtclassic.GTMod;
+import gtclassic.container.GTContainerCentrifuge;
+import gtclassic.gui.GTGuiMachine;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
-import gtclassic.util.recipe.GTRecipeHelpers;
+import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
@@ -32,9 +34,11 @@ import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
@@ -43,18 +47,20 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GTTileElectrolyzer extends GTTileBaseMachine {
+public class GTTileAlloySmelter extends GTTileBaseMachine {
 
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.electrolyzer");
-    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTMod2.MODID, "textures/gui/industrialelectrolyzer.png");
-    IFilter filter = new MachineFilter(this);
-    public static final int slotFuel = 8;
-    protected static final int[] slotInputs = { 0, 1 };
-    protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
-    private static final int defaultEu = 32;
+    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.alloysmelter");
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTMod.MODID, "textures/gui/electricsmelter.png");
+    public static final int slotInput0 = 0;
+    public static final int slotInput1 = 1;
+    public static final int slotOutput = 2;
+    public static final int slotFuel = 3;
+    protected static final int[] slotInputs = { slotInput0, slotInput1 };
+    public IFilter filter = new MachineFilter(this);
+    private static final int defaultEu = 16;
 
-    public GTTileElectrolyzer() {
-        super(11, 2, defaultEu, 100, 128);
+    public GTTileAlloySmelter() {
+        super(9, 2, defaultEu, 100, 32);
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
     }
@@ -64,17 +70,22 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
         handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
         handler.registerDefaultSlotAccess(AccessRule.Both, slotFuel);
         handler.registerDefaultSlotAccess(AccessRule.Import, slotInputs);
-        handler.registerDefaultSlotAccess(AccessRule.Export, slotOutputs);
+        handler.registerDefaultSlotAccess(AccessRule.Export, slotOutput);
         handler.registerDefaultSlotsForSide(RotationList.UP, slotInputs);
-        handler.registerDefaultSlotsForSide(RotationList.DOWN, slotFuel);
         handler.registerDefaultSlotsForSide(RotationList.HORIZONTAL, slotInputs);
-        handler.registerDefaultSlotsForSide(RotationList.UP.invert(), slotOutputs);
+        handler.registerDefaultSlotsForSide(RotationList.UP.invert(), slotOutput);
         handler.registerInputFilter(new ArrayFilter(CommonFilters.DischargeEU, new BasicItemFilter(Items.REDSTONE), new BasicItemFilter(Ic2Items.suBattery)), slotFuel);
         handler.registerInputFilter(filter, slotInputs);
         handler.registerOutputFilter(CommonFilters.NotDischargeEU, slotFuel);
         handler.registerSlotType(SlotType.Fuel, slotFuel);
         handler.registerSlotType(SlotType.Input, slotInputs);
-        handler.registerSlotType(SlotType.Output, slotOutputs);
+        handler.registerSlotType(SlotType.Output, slotOutput);
+    }
+
+    @Override
+    public TileEntity getImportTile() {
+        int3 dir = new int3(getPos(), getFacing());
+        return world.getTileEntity(dir.left(1).asBlockPos());
     }
 
     @Override
@@ -84,17 +95,17 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
 
     @Override
     public Set<IMachineUpgradeItem.UpgradeType> getSupportedTypes() {
-        return new LinkedHashSet<IMachineUpgradeItem.UpgradeType>(Arrays.asList(IMachineUpgradeItem.UpgradeType.values()));
+        return new LinkedHashSet<>(Arrays.asList(IMachineUpgradeItem.UpgradeType.values()));
     }
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer player) {
-        return new GTContainerElectrolyzer(player.inventory, this);
+        return new GTContainerAlloySmelter(player.inventory, this);
     }
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GTGuiMachine2.GTIndustrialElectrolyzerGui.class;
+        return GTGuiMachine2.GTAlloySmelterGui.class;
     }
 
     @Override
@@ -114,7 +125,7 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
 
     @Override
     public int[] getOutputSlots() {
-        return slotOutputs;
+        return new int[]{slotOutput};
     }
 
     @Override
@@ -133,50 +144,60 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.magnetizerOp;
+        return Ic2Sounds.extractorOp;
+    }
+    /**
+     * Recipes not handled by the iterator class
+     */
+    public static void init() {
+
+
     }
 
-    public static void addCustomRecipe(ItemStack stack0, ItemStack stack1, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                       ItemStack... outputs) {
-        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(stack0),
-                new RecipeInputItemStack(stack1), }, modifiers, outputs);
+    /**
+     * Simple utility to generate recipe variants for the Alloy Smelter
+     */
+    public static void addAlloyRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
+        addRecipe("ingot" + input1, amount1, "ingot" + input2, amount2, output);
+        addRecipe("dust" + input1, amount1, "dust" + input2, amount2, output);
+        addRecipe("dust" + input1, amount1, "ingot" + input2, amount2, output);
+        addRecipe("ingot" + input1, amount1, "dust" + input2, amount2, output);
     }
 
-    public static void addCustomRecipe(String input, int amount, ItemStack stack, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                       ItemStack... outputs) {
-        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount),
-                new RecipeInputItemStack(stack), }, modifiers, outputs);
+    /**
+     * Simple utility to generate mold recipe variants for the Alloy Smelter
+     */
+    public static void addMoldingRecipe(String input1, int amount1, ItemStack input2, ItemStack output) {
+        addRecipe("ingot" + input1, amount1, input2, output);
+        addRecipe("dust" + input1, amount1, input2, output);
     }
 
-    public static void addMethaneRecipe(ItemStack stack) {
-        addRecipe(stack, 1, totalEu(25000), GTMaterialGen.getFluid(GTMaterial.Methane, 1));
+    public static void addRecipe(String input1, int amount1, ItemStack input2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add((IRecipeInput) (new RecipeInputOreDict(input1, amount1)));
+        inputs.add((IRecipeInput) (new RecipeInputItemStack(input2)));
+        addRecipe(inputs, new MachineOutput(null, output));
     }
 
-    public static void addMethaneRecipe(String input, int amount) {
-        addRecipe(input, amount, 1, totalEu(25000), GTMaterialGen.getFluid(GTMaterial.Methane, 1));
+    public static void addRecipe(ItemStack input1, String input2, int amount2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add((IRecipeInput) (new RecipeInputItemStack(input1)));
+        inputs.add((IRecipeInput) (new RecipeInputOreDict(input2, amount2)));
+        addRecipe(inputs, new MachineOutput(null, output));
     }
 
-    public static void addRecipe(ItemStack stack, int cells, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
-        if (cells > 0) {
-            addRecipe(new IRecipeInput[] { new RecipeInputItemStack(stack),
-                    new RecipeInputItemStack(GTMaterialGen.get(GTItems.testTube, cells)) }, modifiers, outputs);
-        } else {
-            addRecipe(new IRecipeInput[] { new RecipeInputItemStack(stack) }, modifiers, outputs);
-        }
+    public static void addRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add((IRecipeInput) (new RecipeInputOreDict(input1, amount1)));
+        inputs.add((IRecipeInput) (new RecipeInputOreDict(input2, amount2)));
+        addRecipe(inputs, new MachineOutput(null, output));
     }
 
-    public static void addRecipe(String input, int amount, int cells, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                 ItemStack... outputs) {
-        if (cells > 0) {
-            addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount),
-                    new RecipeInputItemStack(GTMaterialGen.get(GTItems.testTube, cells)) }, modifiers, outputs);
-        } else {
-            addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount) }, modifiers, outputs);
-        }
-    }
-
-    public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
-        return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((amount / defaultEu) - 100) };
+    public static void addRecipe(ItemStack input1, ItemStack input2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add((IRecipeInput) (new RecipeInputItemStack(input1)));
+        inputs.add((IRecipeInput) (new RecipeInputItemStack(input2)));
+        addRecipe(inputs, new MachineOutput(null, output));
     }
 
     public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
@@ -196,6 +217,6 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getDisplayName(), 16);
     }
 }
