@@ -77,7 +77,7 @@ dependencies {
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
     compile curse.resolve("baubles", "2518667")
     compile curse.resolve("ic2-classic", "2721286")
-    compile curse.resolve("gregtech-classic", "2733460")
+    deobfCompile curse.resolve("gregtech-classic", "2733460")
 }
 
 processResources {
