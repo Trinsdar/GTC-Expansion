@@ -68,7 +68,10 @@ public class GTMaterial2 {
     Granite = new GTMaterial("Granite", 165, 89, 39, dustAll),
     Grossular = new GTMaterial("Gunpowder", 128, 128, 128, smalldust),
     Gunpowder = new GTMaterial("Gunpowder", 128, 128, 128, smalldust),
-    Iridium = new GTMaterial("Iridium", 255, 255, 255, smalldust, nugget, gear, stick, casing);
+    Iridium = new GTMaterial("Iridium", 255, 255, 255, smalldust, nugget, gear, stick, casing),
+    Lazurite = new GTMaterial("Lazurite", 100, 120, 255, dustAll),
+    Limonite = new GTMaterial("Limonite", 200, 100, 0, dustAll),
+    Lithium = new GTMaterial("Lithium", 87, 150, 204, dustAll);
 
 
     public static GTMaterial2
@@ -77,7 +80,7 @@ public class GTMaterial2 {
     BismuthBronze = new GTMaterial2(new GTMaterial("BismuthBronze", 100, 125, 125, smalldust, dust, nugget, ingot, plate), 6.0F, 128, 2),
     Brass = new GTMaterial2(new GTMaterial("Brass", 255, 180, 0, metalFull), 7.0F, 96, 1),
     Bronze = new GTMaterial2(new GTMaterial("Bronze", 230, 83, 34, metalIc2),6.0F, 192, 2),
-    ChromeTool = new GTMaterial2(GTMaterial.Chrome, GTMaterial2.Chrome, 11.0F, 256, 3),
+    ChromeTool = new GTMaterial2(GTMaterial.Chrome, 11.0F, 256, 3),
     Cobalt = new GTMaterial2(new GTMaterial("Cobalt", 80, 80, 250, metalBase), 8.0F, 512, 4),
     Constantan = new GTMaterial2(new GTMaterial("Constantan", 196, 116, 77, smalldust, dust, nugget, ingot, plate, stick, coil), 8.0F, 128, 2),
     ElectrumTool = new GTMaterial2(new GTMaterial("Electrum", 255, 255, 100, metalFull), 12.0F, 64, 2),
@@ -85,10 +88,7 @@ public class GTMaterial2 {
     IridiumTool = new GTMaterial2(GTMaterial.Iridium, 6.0F, 5120, 4),
     Iron = new GTMaterial2(new GTMaterial("Iron", 184, 184, 184, smalldust, plate, stick, gear, casing, magnetic), 6.0F, 256, 2),
     Invar = new GTMaterial2(new GTMaterial("Invar", 220, 220, 150, metalFull), 6.0F, 256, 2),
-    Lazurite = new GTMaterial2(new GTMaterial("Lazurite", 100, 120, 255, dustAll), 1.0F, 0, 1),
     Lead = new GTMaterial2(new GTMaterial("Lead", 140, 100, 140, smalldust, dust, nugget, ingot, plate, stick, wire, gear, block, casing), 8.0F, 64, 1),
-    Limonite = new GTMaterial2(new GTMaterial("Limonite", 200, 100, 0, dustAll), 3.0F, 0, 1),
-    Lithium = new GTMaterial2(new GTMaterial("Lithium", 87, 150, 204, dustAll), 1.0F, 0, 1),
     Malachite = new GTMaterial2(new GTMaterial("Malachite", 5, 95, 5, dustAll), 3.0F, 0, 1),
     Maganlium = new GTMaterial2(new GTMaterial("Magnalium", 200, 190, 255, metalBase), 6.0F, 256, 2),
     Magnesium = new GTMaterial2(new GTMaterial("Magnesium", 255, 200, 200, dustAll), 1.0F, 0, 1),
@@ -150,12 +150,9 @@ public class GTMaterial2 {
         this.level = level;
     }
 
-    public GTMaterial2(GTMaterial oldMaterial, GTMaterial newMaterial, float speed, int durability, int level){
-        this.material = newMaterial;
+    public GTMaterial replaceMaterial(GTMaterial oldMaterial, GTMaterial newMaterial){
         oldMaterial = newMaterial;
-        this.speed = speed;
-        this.durability = durability;
-        this.level = level;
+        return newMaterial;
     }
 
     public GTMaterial getMaterial() {
