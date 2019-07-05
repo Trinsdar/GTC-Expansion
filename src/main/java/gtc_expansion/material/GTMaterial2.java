@@ -1,29 +1,32 @@
 package gtc_expansion.material;
 
+import gtc_expansion.GTMod2;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialFlag;
 
 public class GTMaterial2 extends GTMaterial{
-    static GTMaterialFlag particle = new GTMaterialFlag("_particle", 15, false);
+    static String tex = GTMod2.MODID + "_materials";
+
+    static GTMaterialFlag particle = new GTMaterialFlag("_particle", tex,15, false);
     static GTMaterialFlag fluid = GTMaterialFlag.FLUID;
     static GTMaterialFlag gas = GTMaterialFlag.GAS;
-    static GTMaterialFlag smalldust = new GTMaterialFlag("_dustsmall", 1, false);
+    static GTMaterialFlag smalldust = new GTMaterialFlag("_dustsmall", tex, 1, false);
     static GTMaterialFlag dust = GTMaterialFlag.DUST;
     static GTMaterialFlag gemRubyShape = GTMaterialFlag.RUBY;
     static GTMaterialFlag gemSapphireShape = GTMaterialFlag.SAPPHIRE;
-    static GTMaterialFlag gemGarnetShape = new GTMaterialFlag("_gem", 7, false);
+    static GTMaterialFlag gemGarnetShape = new GTMaterialFlag("_gem", tex, 0, false);
     static GTMaterialFlag ingot = GTMaterialFlag.INGOT;
-    static GTMaterialFlag nugget = new GTMaterialFlag("_nugget", 5, false);
-    static GTMaterialFlag plate = new GTMaterialFlag("_plate", 6, false);
-    static GTMaterialFlag smallplate = new GTMaterialFlag("_smallplate", 7, false);
-    static GTMaterialFlag stick = new GTMaterialFlag("_stick", 8, false);
-    static GTMaterialFlag magnetic = new GTMaterialFlag("_magneticstick", 8, true);
-    static GTMaterialFlag wire = new GTMaterialFlag("_finewire", 12, false);
-    static GTMaterialFlag gear = new GTMaterialFlag("_gear", 10, false);
-    static GTMaterialFlag foil = new GTMaterialFlag("_foil", 11, false);
+    static GTMaterialFlag nugget = new GTMaterialFlag("_nugget", tex, 5, false);
+    static GTMaterialFlag plate = new GTMaterialFlag("_plate", tex, 6, false);
+    static GTMaterialFlag smallplate = new GTMaterialFlag("_smallplate", tex, 7, false);
+    static GTMaterialFlag stick = new GTMaterialFlag("_stick", tex, 8, false);
+    static GTMaterialFlag magnetic = new GTMaterialFlag("_magneticstick", tex, 8, true);
+    static GTMaterialFlag wire = new GTMaterialFlag("_finewire", tex, 12, false);
+    static GTMaterialFlag gear = new GTMaterialFlag("_gear", tex, 10, false);
+    static GTMaterialFlag foil = new GTMaterialFlag("_foil", tex, 11, false);
     static GTMaterialFlag block = GTMaterialFlag.BLOCK;
-    static GTMaterialFlag casing = new GTMaterialFlag("_casing", 50, false);
-    static GTMaterialFlag coil = new GTMaterialFlag("_coil", 52, false);
+    static GTMaterialFlag casing = new GTMaterialFlag("_casing", tex, 50, false);
+    static GTMaterialFlag coil = new GTMaterialFlag("_coil", tex, 52, false);
     static GTMaterialFlag[] dustAll = { smalldust, dust };
     static GTMaterialFlag[] gemAll1 = { smalldust, dust, gemRubyShape, block };
     static GTMaterialFlag[] gemAll2 = { smalldust, dust, gemSapphireShape, block };
