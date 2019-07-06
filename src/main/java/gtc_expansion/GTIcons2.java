@@ -8,9 +8,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static ic2.core.platform.textures.Ic2Icons.addSprite;
+import static ic2.core.platform.textures.Ic2Icons.addTextureEntry;
+
 public class GTIcons2 {
     @SideOnly(Side.CLIENT)
     public static void loadSprites() {
+        addSprite(new Sprites.SpriteData(GTMod2.MODID + "_materials", GTMod2.MODID
+                + ":textures/sprites/sprites_materials.png", new Sprites.SpriteInfo(16, 16)));
+        addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_materials", 0, 0, 16, 4));
         collectBasicTileSprites();
         GTMod.debugLogger("All GregTech textures generated without error");
     }
