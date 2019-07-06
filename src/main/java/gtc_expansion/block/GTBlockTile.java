@@ -1,22 +1,20 @@
 package gtc_expansion.block;
 
-import gtclassic.block.GTBlockTile;
+import gtclassic.block.GTBlockMachine;
 import ic2.core.block.base.tile.TileEntityBlock;
 import net.minecraft.world.World;
 
-public class GTBlockTile2 extends GTBlockTile {
+public class GTBlockTile extends GTBlockMachine {
     TileEntityBlock tile;
-    public GTBlockTile2(String name, TileEntityBlock tile) {
+    public GTBlockTile(String name, TileEntityBlock tile) {
         super(name);
         this.tile = tile;
-        this.setRegistryName(name.toLowerCase());
         this.setUnlocalizedName("gtc_expansion." + name.toLowerCase());
     }
 
-    public GTBlockTile2(String name, TileEntityBlock tile, int additionalInfo) {
+    public GTBlockTile(String name, TileEntityBlock tile, int additionalInfo) {
         super(name, additionalInfo);
         this.tile = tile;
-        this.setRegistryName(name.toLowerCase());
         this.setUnlocalizedName("gtc_expansion." + name.toLowerCase());
     }
 

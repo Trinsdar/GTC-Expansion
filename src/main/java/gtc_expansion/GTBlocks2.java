@@ -1,13 +1,11 @@
 package gtc_expansion;
 
-import gtc_expansion.block.GTBlockTile2;
+import gtc_expansion.block.GTBlockTile;
 import gtc_expansion.tile.GTTileElectrolyzer;
-import gtclassic.GTBlocks;
 import gtclassic.color.GTColorBlockInterface;
 import gtclassic.color.GTColorItemBlock;
 import gtclassic.itemblock.GTItemBlockInterface;
 import gtclassic.itemblock.GTItemBlockRare;
-import gtclassic.material.GTMaterialGen;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
@@ -20,19 +18,11 @@ import java.util.List;
 
 public class GTBlocks2 {
     static final List<Block> toRegister = new ArrayList();
-    public static GTBlockTile2 electrolyzer = registerBlock(new GTBlockTile2("industrialElectrolyzer", new GTTileElectrolyzer()));
+    public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", new GTTileElectrolyzer()));
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer"};
     public static void registerBlocks() {
-        Iterator var0 = GTMaterialGen.blockMap.values().iterator();
-
+        Iterator var0 = toRegister.iterator();
         Block block;
-        while(var0.hasNext()) {
-            block = (Block)var0.next();
-            createBlock(block);
-        }
-
-        var0 = toRegister.iterator();
-
         while(var0.hasNext()) {
             block = (Block)var0.next();
             createBlock(block);

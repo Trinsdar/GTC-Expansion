@@ -54,7 +54,7 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
     private static final int defaultEu = 32;
 
     public GTTileElectrolyzer() {
-        super(11, 2, defaultEu, 100, 128);
+        super(9, 2, defaultEu, 100, 128);
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
     }
@@ -134,6 +134,10 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
     @Override
     public ResourceLocation getStartSoundFile() {
         return Ic2Sounds.magnetizerOp;
+    }
+
+    public static void init(){
+
     }
 
     public static void addCustomRecipe(ItemStack stack0, ItemStack stack1, RecipeModifierHelpers.IRecipeModifier[] modifiers,
