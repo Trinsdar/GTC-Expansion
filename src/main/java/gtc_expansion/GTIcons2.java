@@ -1,6 +1,5 @@
 package gtc_expansion;
 
-import gtclassic.GTBlocks;
 import gtclassic.GTMod;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.Sprites;
@@ -16,7 +15,7 @@ public class GTIcons2 {
     public static void loadSprites() {
         addSprite(new Sprites.SpriteData(GTMod2.MODID + "_materials", GTMod2.MODID
                 + ":textures/sprites/sprites_materials.png", new Sprites.SpriteInfo(16, 16)));
-        addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_materials", 0, 0, 16, 4));
+        addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_materials", 0, 0, 16, 16));
         collectBasicTileSprites();
         GTMod.debugLogger("All GregTech textures generated without error");
     }

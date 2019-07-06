@@ -1,5 +1,7 @@
 package gtc_expansion;
 
+import gtc_expansion.material.GTMaterial2;
+import gtc_expansion.material.GTMaterialGen2;
 import gtc_expansion.proxy.GTProxyCommon2;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -20,6 +22,11 @@ public class GTMod2 {
 	@Mod.Instance
 	public static GTMod2 instance;
 	public static Logger logger;
+
+	static {
+		System.out.println(GTMaterial2.Almandine.getDisplayName());
+		GTMaterialGen2.init();
+	}
 
 	@Mod.EventHandler
 	public synchronized void preInit(FMLPreInitializationEvent event) {
