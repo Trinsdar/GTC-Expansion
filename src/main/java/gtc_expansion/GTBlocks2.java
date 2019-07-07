@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GTBlocks2 {
     static final List<Block> toRegister = new ArrayList();
-    public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", new GTTileElectrolyzer()));
+    public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", new GTTileElectrolyzer(), 1));
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer"};
     public static void registerBlocks() {
         Iterator var0 = toRegister.iterator();

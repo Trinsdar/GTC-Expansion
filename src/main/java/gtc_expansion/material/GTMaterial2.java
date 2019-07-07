@@ -16,23 +16,25 @@ public class GTMaterial2 extends GTMaterial{
     static GTMaterialFlag gemSapphireShape = GTMaterialFlag.SAPPHIRE;
     static GTMaterialFlag gemGarnetShape = new GTMaterialFlag("_gem", tex, 0, false);
     static GTMaterialFlag ingot = GTMaterialFlag.INGOT;
-    static GTMaterialFlag nugget = new GTMaterialFlag("_nugget", tex, 5, false);
-    static GTMaterialFlag plate = new GTMaterialFlag("_plate", tex, 6, false);
-    static GTMaterialFlag smallplate = new GTMaterialFlag("_smallplate", tex, 7, false);
-    static GTMaterialFlag stick = new GTMaterialFlag("_stick", tex, 8, false);
-    static GTMaterialFlag magnetic = new GTMaterialFlag("_magneticstick", tex, 8, true);
-    static GTMaterialFlag wire = new GTMaterialFlag("_finewire", tex, 12, false);
-    static GTMaterialFlag gear = new GTMaterialFlag("_gear", tex, 10, false);
-    static GTMaterialFlag foil = new GTMaterialFlag("_foil", tex, 11, false);
+    static GTMaterialFlag hotIngot = new GTMaterialFlag("_hotingot", tex, 2, true);
+    static GTMaterialFlag nugget = new GTMaterialFlag("_nugget", tex, 4, false);
+    static GTMaterialFlag plate = new GTMaterialFlag("_plate", tex, 5, false);
+    static GTMaterialFlag smallplate = new GTMaterialFlag("_smallplate", tex, 6, false);
+    static GTMaterialFlag stick = new GTMaterialFlag("_stick", tex, 7, false);
+    static GTMaterialFlag magnetic = new GTMaterialFlag("_magneticstick", tex, 7, true);
+    static GTMaterialFlag wire = new GTMaterialFlag("_finewire", tex, 11, false);
+    static GTMaterialFlag gear = new GTMaterialFlag("_gear", tex, 9, false);
+    static GTMaterialFlag foil = new GTMaterialFlag("_foil", tex, 10, false);
     static GTMaterialFlag block = GTMaterialFlag.BLOCK;
-    static GTMaterialFlag gemBlock = new GTMaterialFlag("_block", 17, false);
-    static GTMaterialFlag casing = new GTMaterialFlag("_casing", tex, 48, false);
+    static GTMaterialFlag gemBlock = GTMaterialFlag.GEMBLOCK;
+    static GTMaterialFlag casing = new GTMaterialFlag("_casing", tex, 50, false);
     static GTMaterialFlag coil = new GTMaterialFlag("_coil", tex, 52, false);
     static GTMaterialFlag[] dustAll = { smalldust, dust };
-    static GTMaterialFlag[] gemAll1 = { smalldust, dust, gemRubyShape, block };
-    static GTMaterialFlag[] gemAll2 = { smalldust, dust, gemSapphireShape, block };
+    static GTMaterialFlag[] gemAll1 = { smalldust, dust, gemRubyShape, gemBlock };
+    static GTMaterialFlag[] gemAll2 = { smalldust, dust, gemSapphireShape, gemBlock };
     static GTMaterialFlag[] gemAll3 = { smalldust, dust, gemGarnetShape, gemBlock };
     static GTMaterialFlag[] metalFull = { smalldust, dust, nugget, ingot, plate, stick, gear, block, casing };
+    static GTMaterialFlag[] metalFullHot = { smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, block, casing };
     static GTMaterialFlag[] metalSemiFull = { smalldust, nugget, plate, stick, gear, casing };
     static GTMaterialFlag[] metalBase = { smalldust, dust, nugget, ingot, plate, stick };
     static GTMaterialFlag[] metalIc2 = { smalldust, nugget, plate, stick, gear, casing };
@@ -86,13 +88,14 @@ public class GTMaterial2 extends GTMaterial{
     Limonite,
     Lithium,
     Malachite,
-    Maganlium,
+    Magnalium,
     Magnesium,
     Magnetite,
     Manganese,
     Marble,
     Neodymium,
     Netherrack,
+    Nickel,
     Nichrome,
     Obsidian,
     OilCrude,
@@ -212,7 +215,7 @@ public class GTMaterial2 extends GTMaterial{
         Electrum = replaceMaterial(GTMaterial.Electrum, new GTMaterial2("Electrum", 255, 255, 100, 12.0F, 64, 2, metalFull));
         Emerald = replaceMaterial(GTMaterial.Emerald, new GTMaterial2("Emerald", 80, 255, 80, dustAll));
         EnderEye = replaceMaterial(GTMaterial.EnderEye, new GTMaterial2("EnderEye", 160, 250, 230, dustAll));
-        EnderPearl = replaceMaterial(GTMaterial.EnderPearl, new GTMaterial2("Enderpearl", 108, 220, 200, dustAll));
+        EnderPearl = replaceMaterial(GTMaterial.EnderPearl, new GTMaterial2("EnderPearl", 108, 220, 200, dustAll));
         Endstone = new GTMaterial2("Endstone", 250, 250, 198, dustAll);
         Flint = replaceMaterial(GTMaterial.Flint, new GTMaterial2("Flint", 0, 32, 64, 2.5F, 64, 1, dustAll));
         Galena = new GTMaterial2("Galena", 100, 60, 100, 3.0F, 0, 1, dustAll);
@@ -223,7 +226,7 @@ public class GTMaterial2 extends GTMaterial{
         Granite = new GTMaterial2("Granite", 165, 89, 39, dustAll);
         Grossular = new GTMaterial2("Grossular", 200, 100, 0, dustAll);
         Gunpowder = new GTMaterial2("Gunpowder", 128, 128, 128, smalldust);
-        Iridium = replaceMaterial(GTMaterial.Iridium, new GTMaterial2("Iridium", 255, 255, 255, false, 6.0F, 5120, 4, smalldust, dust, nugget, ingot, gear, stick, block, casing));
+        Iridium = replaceMaterial(GTMaterial.Iridium, new GTMaterial2("Iridium", 255, 255, 255, false, 6.0F, 5120, 4, smalldust, dust, nugget, ingot, hotIngot, gear, stick, block, casing));
         Iron = new GTMaterial2("Iron", 184, 184, 184, 6.0F, 256, 2, smalldust, plate, stick, gear, casing, magnetic);
         Invar = new GTMaterial2("Invar", 220, 220, 150, 6.0F, 256, 2, metalFull);
         Lazurite = replaceMaterial(GTMaterial.Lazurite, new GTMaterial2("Lazurite", 100, 120, 255, dustAll));
@@ -231,18 +234,19 @@ public class GTMaterial2 extends GTMaterial{
         Limonite = new GTMaterial2("Limonite", 200, 100, 0, 3.0F, 0, 1, dustAll);
         Lithium = replaceMaterial(GTMaterial.Lithium, new GTMaterial2("Lithium", 87, 150, 204, dustAll));
         Malachite = new GTMaterial2("Malachite", 5, 95, 5, 3.0F, 0, 1, dustAll);
-        Maganlium = new GTMaterial2("Magnalium", 200, 190, 255, 6.0F, 256, 2, metalBase);
+        Magnalium = new GTMaterial2("Magnalium", 200, 190, 255, 6.0F, 256, 2, metalBase);
         Magnesium = new GTMaterial2("Magnesium", 255, 200, 200, dustAll);
         Magnetite = new GTMaterial2("Magnetite", 0, 0, 0, 3.0F, 0, 1, dustAll);
         Manganese = new GTMaterial2("Manganese", 250, 235, 250, smalldust, dust, nugget, ingot, plate, block);
         Marble = new GTMaterial2("Marble", 200, 200, 200, dustAll);
         Neodymium = new GTMaterial2("Neodymium", 100, 100, 100, 7.0F, 3347, 3, smalldust, dust, nugget, ingot, plate, stick, magnetic);
         Netherrack = new GTMaterial2("Netherrack", 200, 0, 0, smalldust);
+        Nickel = new GTMaterial2("Nickel", 200, 200, 250, 6.0F, 64, 2, smalldust, dust, nugget, ingot, plate, stick, wire, gear, block, casing);
         Nichrome = new GTMaterial2("Nichrome", 205, 206, 246, 10.0F, 256, 3, smalldust, dust, nugget, ingot, plate, stick, coil);
         Obsidian = new GTMaterial2("Obsidian", 80, 50, 100, smalldust);
         OilCrude = new GTMaterial2("Crude_Oil", 0, 0, 0, fluid);
         Olivine = new GTMaterial2("Olivine", 150, 255, 150, 7.0F, 256, 2, gemAll1);
-        Osmium = new GTMaterial2("Osmium", 50, 50, 255, 16.0F, 1280, 4, metalFull);
+        Osmium = new GTMaterial2("Osmium", 50, 50, 255, 16.0F, 1280, 4, metalFullHot);
         Phosphorus = new GTMaterial2("Phosphorus", 190, 0, 0, dustAll);
         Platinum = new GTMaterial2("Platinum", 100, 180, 250, 12.0F, 64, 2, smalldust, dust, nugget, ingot, plate, stick, wire, gear, block, casing);
         Plutonium = new GTMaterial2("Plutonium", 240, 50, 50, 6.0F, 512, 3, smalldust, dust, nugget, ingot, plate);
@@ -273,8 +277,8 @@ public class GTMaterial2 extends GTMaterial{
         Thorium = new GTMaterial2("Thorium", 0, 30, 0, 6.0F, 512, 2, smalldust, dust, nugget, ingot);
         Tin = new GTMaterial2("Tin", 220, 220, 220, smalldust, nugget, plate, stick, wire, gear, casing);
         Titanium = replaceMaterial(GTMaterial.Titanium, new GTMaterial2("Titanium", 170, 143, 222, 8.0F, 2560, 3, smalldust, dust, nugget, ingot, plate, stick, gear, block, casing));
-        Tungsten = replaceMaterial(GTMaterial.Tungsten, new GTMaterial2("Tungsten", 50, 50, 50, 8.0F, 5120, 3, smalldust, dust, nugget, ingot, plate, stick, wire, gear, block, casing));
-        TungstenSteel = new GTMaterial2("Tungstensteel", 100, 100, 160, 10.0F, 5120, 4, smalldust, dust, nugget, ingot, plate, stick, gear, block, casing);
+        Tungsten = replaceMaterial(GTMaterial.Tungsten, new GTMaterial2("Tungsten", 50, 50, 50, 8.0F, 5120, 3, smalldust, dust, nugget, ingot, hotIngot, plate, stick, wire, gear, block, casing));
+        TungstenSteel = new GTMaterial2("Tungstensteel", 100, 100, 160, 10.0F, 5120, 4, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, block, casing);
         Uranium = replaceMaterial(GTMaterial.Uranium, new GTMaterial2("Uranium", 50, 240, 50, 6.0F, 512, 3, dustAll));
         Uvarovite = new GTMaterial2("Uvarovite", 180, 255, 180, dustAll);
         Wood = new GTMaterial2("Wood", 137, 103, 39, dustAll);
