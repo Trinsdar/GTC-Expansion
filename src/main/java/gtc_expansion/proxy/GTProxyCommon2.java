@@ -1,13 +1,9 @@
 package gtc_expansion.proxy;
 
 import gtc_expansion.GTBlocks2;
-import gtclassic.GTConfig;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import java.io.File;
 
 public class GTProxyCommon2 {
 

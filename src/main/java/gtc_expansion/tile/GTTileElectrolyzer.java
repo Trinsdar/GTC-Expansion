@@ -4,11 +4,9 @@ import gtc_expansion.GTGuiMachine2;
 import gtc_expansion.GTMod2;
 import gtc_expansion.container.GTContainerElectrolyzer;
 import gtclassic.GTItems;
-import gtclassic.GTMod;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
-import gtclassic.util.recipe.GTRecipeHelpers;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
@@ -109,7 +107,12 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
 
     @Override
     public boolean isRecipeSlot(int slot) {
-        return slot != slotFuel;
+        for (int i : this.getInputSlots()) {
+            if (slot <= i) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

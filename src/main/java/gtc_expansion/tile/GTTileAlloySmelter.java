@@ -1,14 +1,9 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTGuiMachine2;
+import gtc_expansion.GTMod2;
 import gtc_expansion.container.GTContainerAlloySmelter;
-import gtclassic.GTBlocks;
-import gtclassic.GTItems;
 import gtclassic.GTMod;
-import gtclassic.container.GTContainerCentrifuge;
-import gtclassic.gui.GTGuiMachine;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
@@ -34,7 +29,6 @@ import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -50,7 +44,7 @@ import java.util.Set;
 public class GTTileAlloySmelter extends GTTileBaseMachine {
 
     public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.alloysmelter");
-    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTMod.MODID, "textures/gui/electricsmelter.png");
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTMod2.MODID, "textures/gui/alloysmelter.png");
     public static final int slotInput0 = 0;
     public static final int slotInput1 = 1;
     public static final int slotOutput = 2;

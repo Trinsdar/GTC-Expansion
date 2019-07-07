@@ -1,6 +1,8 @@
 package gtc_expansion;
 
+import gtc_expansion.block.GTBlockCasing2;
 import gtc_expansion.block.GTBlockTile;
+import gtc_expansion.tile.GTTileAlloySmelter;
 import gtc_expansion.tile.GTTileElectrolyzer;
 import gtclassic.color.GTColorBlockInterface;
 import gtclassic.color.GTColorItemBlock;
@@ -18,8 +20,12 @@ import java.util.List;
 
 public class GTBlocks2 {
     static final List<Block> toRegister = new ArrayList();
-    public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", new GTTileElectrolyzer(), 1));
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer"};
+    public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", 1));
+    public static GTBlockTile alloySmelter = registerBlock(new GTBlockTile("alloysmelter"));
+
+    public static GTBlockCasing2 casingStandard = registerBlock(new GTBlockCasing2("standard", 2));
+    public static GTBlockCasing2 casingAdvanced = registerBlock(new GTBlockCasing2("advanced", 1));
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "implosioncompressor"};
     public static void registerBlocks() {
         Iterator var0 = toRegister.iterator();
         Block block;
@@ -49,6 +55,7 @@ public class GTBlocks2 {
 
     public static void registerTiles() {
         registerUtil(GTTileElectrolyzer.class, "IndustrialElectrolyzer");
+        registerUtil(GTTileAlloySmelter.class, "AlloySmelter");
     }
 
     public static void registerUtil(Class tile, String name) {
