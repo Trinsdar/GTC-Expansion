@@ -3,6 +3,9 @@ package gtc_expansion.block;
 import gtc_expansion.GTBlocks2;
 import gtc_expansion.tile.GTTileAlloySmelter;
 import gtc_expansion.tile.GTTileElectrolyzer;
+import gtc_expansion.tile.multi.GTTileMultiImplosionCompressor;
+import gtc_expansion.tile.multi.GTTileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GTTileMultiVacuumFreezer;
 import gtclassic.GTBlocks;
 import gtclassic.block.GTBlockMachine;
 import ic2.core.block.base.tile.TileEntityBlock;
@@ -26,6 +29,15 @@ public class GTBlockTile extends GTBlockMachine {
         }
         if (this == GTBlocks2.alloySmelter){
             return new GTTileAlloySmelter();
+        }
+        if (this == GTBlocks2.industrialGrinder){
+            return new GTTileMultiIndustrialGrinder();
+        }
+        if (this == GTBlocks2.implosionCompressor){
+            return new GTTileMultiImplosionCompressor();
+        }
+        if (this == GTBlocks2.vacuumFreezer){
+            return new GTTileMultiVacuumFreezer();
         }
         return new TileEntityBlock();
     }

@@ -16,14 +16,14 @@ public class GTGuiMachine2 {
         }
     }
 
-    public static class GTAssemblingMachineGui extends MachineGui{
-        public GTAssemblingMachineGui(ContainerComponent container) {
+    public static class GTImplosionCompressorGui extends MachineGui{
+        public GTImplosionCompressorGui(ContainerComponent container) {
             super(container);
         }
     }
 
-    public static class GTChemicalReactorGui extends MachineGui{
-        public GTChemicalReactorGui(ContainerComponent container) {
+    public static class GTVacuumFreezerGui extends MachineGui{
+        public GTVacuumFreezerGui(ContainerComponent container) {
             super(container);
         }
     }

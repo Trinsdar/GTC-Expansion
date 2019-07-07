@@ -13,8 +13,11 @@ import static ic2.core.platform.textures.Ic2Icons.addTextureEntry;
 public class GTIcons2 {
     @SideOnly(Side.CLIENT)
     public static void loadSprites() {
+        addSprite(new Sprites.SpriteData(GTMod2.MODID + "_blocks", GTMod2.MODID
+                + ":textures/sprites/sprites_blocks.png", new Sprites.SpriteInfo(16, 16)));
         addSprite(new Sprites.SpriteData(GTMod2.MODID + "_materials", GTMod2.MODID
                 + ":textures/sprites/sprites_materials.png", new Sprites.SpriteInfo(16, 16)));
+        addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_blocks", 0, 0, 16, 12));
         addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_materials", 0, 0, 16, 16));
         collectBasicTileSprites();
         GTMod.debugLogger("All GregTech textures generated without error");

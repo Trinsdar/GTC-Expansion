@@ -1,6 +1,7 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTBlocks2;
+import gtc_expansion.GTGuiMachine2;
 import gtc_expansion.GTMod2;
 import gtc_expansion.container.GTContainerIndustrialGrinder;
 import gtclassic.GTBlocks;
@@ -9,12 +10,22 @@ import gtclassic.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
+import ic2.core.inventory.filters.ArrayFilter;
+import ic2.core.inventory.filters.BasicItemFilter;
+import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.filters.MachineFilter;
+import ic2.core.inventory.management.AccessRule;
+import ic2.core.inventory.management.InventoryHandler;
+import ic2.core.inventory.management.SlotType;
+import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
@@ -37,6 +48,23 @@ public class GTTileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
 
     public GTTileMultiIndustrialGrinder() {
         super(9, 2, defaultEu, 128);
+    }
+
+    @Override
+    protected void addSlots(InventoryHandler handler) {
+        handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
+        handler.registerDefaultSlotAccess(AccessRule.Both, slotFuel);
+        handler.registerDefaultSlotAccess(AccessRule.Import, slotInputs);
+        handler.registerDefaultSlotAccess(AccessRule.Export, slotOutputs);
+        handler.registerDefaultSlotsForSide(RotationList.UP, slotInputs);
+        handler.registerDefaultSlotsForSide(RotationList.HORIZONTAL, slotInputs);
+        handler.registerDefaultSlotsForSide(RotationList.UP.invert(), slotOutputs);
+        handler.registerInputFilter(new ArrayFilter(CommonFilters.DischargeEU, new BasicItemFilter(Items.REDSTONE), new BasicItemFilter(Ic2Items.suBattery)), slotFuel);
+        handler.registerInputFilter(filter, slotInputs);
+        handler.registerOutputFilter(CommonFilters.NotDischargeEU, slotFuel);
+        handler.registerSlotType(SlotType.Fuel, slotFuel);
+        handler.registerSlotType(SlotType.Input, slotInputs);
+        handler.registerSlotType(SlotType.Output, slotOutputs);
     }
 
     @Override
@@ -67,6 +95,11 @@ public class GTTileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
     @Override
     public GTRecipeMultiInputList getRecipeList() {
         return RECIPE_LIST;
+    }
+
+    @Override
+    public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
+        return GTGuiMachine2.GTIndustrialGrinderGui.class;
     }
 
     public ResourceLocation getGuiTexture() {

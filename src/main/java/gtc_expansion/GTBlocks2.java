@@ -4,6 +4,9 @@ import gtc_expansion.block.GTBlockCasing2;
 import gtc_expansion.block.GTBlockTile;
 import gtc_expansion.tile.GTTileAlloySmelter;
 import gtc_expansion.tile.GTTileElectrolyzer;
+import gtc_expansion.tile.multi.GTTileMultiImplosionCompressor;
+import gtc_expansion.tile.multi.GTTileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GTTileMultiVacuumFreezer;
 import gtclassic.color.GTColorBlockInterface;
 import gtclassic.color.GTColorItemBlock;
 import gtclassic.itemblock.GTItemBlockInterface;
@@ -22,6 +25,9 @@ public class GTBlocks2 {
     static final List<Block> toRegister = new ArrayList();
     public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", 1));
     public static GTBlockTile alloySmelter = registerBlock(new GTBlockTile("alloysmelter"));
+    public static GTBlockTile industrialGrinder = registerBlock(new GTBlockTile("industrialgrinder"));
+    public static GTBlockTile implosionCompressor = registerBlock(new GTBlockTile("implosioncompressor"));
+    public static GTBlockTile vacuumFreezer = registerBlock(new GTBlockTile("vacuumfreezer"));
 
     public static GTBlockCasing2 casingStandard = registerBlock(new GTBlockCasing2("standard", 2));
     public static GTBlockCasing2 casingAdvanced = registerBlock(new GTBlockCasing2("advanced", 1));
@@ -56,6 +62,9 @@ public class GTBlocks2 {
     public static void registerTiles() {
         registerUtil(GTTileElectrolyzer.class, "IndustrialElectrolyzer");
         registerUtil(GTTileAlloySmelter.class, "AlloySmelter");
+        registerUtil(GTTileMultiIndustrialGrinder.class, "IndustrialGrinder");
+        registerUtil(GTTileMultiImplosionCompressor.class, "ImplosionCompressor");
+        registerUtil(GTTileMultiVacuumFreezer.class, "VacuumFreezer");
     }
 
     public static void registerUtil(Class tile, String name) {
