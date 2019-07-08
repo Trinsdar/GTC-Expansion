@@ -118,7 +118,6 @@ public class GTTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
         Map<BlockPos, IBlockState> states = super.provideStructure();
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
-        states.put(dir.down(1).asBlockPos(), casingAdvancedState);
         states.put(dir.back(1).asBlockPos(), casingReinforcedState);
         states.put(dir.left(1).asBlockPos(), casingReinforcedState);
         int i;
@@ -164,10 +163,6 @@ public class GTTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
         }
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
-
-        if (!isAdvancedCasing(dir.down(1))){
-            return false;
-        }
         if (!(isReinforcedCasing(dir.back(1)))) {
             return false;
         }
@@ -191,16 +186,16 @@ public class GTTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
             }
         }
         //Middle Layer
-        if (!isReinforcedCasing(dir.down(1))) {
+        if (!(isReinforcedCasing(dir.down(1)))) {
             return false;
         }
-        if (isAdvancedCasing(dir.forward(1))) {
+        if (!isAdvancedCasing(dir.forward(1))) {
             return false;
         }
         if (!(isReinforcedCasing(dir.forward(1)))) {
             return false;
         }
-        if (!isAdvancedCasing(dir.left(1))) {
+        if (!(isAdvancedCasing(dir.left(1)))) {
             return false;
         }
         if (!(isReinforcedCasing(dir.left(1)))) {
@@ -229,7 +224,7 @@ public class GTTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isReinforcedCasing(dir.forward(1))) {
+            if (!(isReinforcedCasing(dir.forward(1)))) {
                 return false;
             }
         }

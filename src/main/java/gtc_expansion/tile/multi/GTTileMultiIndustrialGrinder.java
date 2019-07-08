@@ -120,7 +120,6 @@ public class GTTileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
     public Map<BlockPos, IBlockState> provideStructure() {
         Map<BlockPos, IBlockState> states = super.provideStructure();
         int3 dir = new int3(getPos(), getFacing());
-        states.put(dir.back(1).asBlockPos(), casingStandardState);
         states.put(dir.up(1).asBlockPos(), casingReinforcedState);
         states.put(dir.up(1).asBlockPos(), casingStandardState);
         states.put(dir.left(1).asBlockPos(), casingStandardState);
@@ -157,9 +156,6 @@ public class GTTileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
         }
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
-        if (!isStandardCasing(dir.back(1))){
-            return false;
-        }
         if (!(isReinforcedCasing(dir.up(1)))) {
             return false;
         }

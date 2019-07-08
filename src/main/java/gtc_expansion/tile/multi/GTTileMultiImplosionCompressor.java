@@ -120,7 +120,6 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         Map<BlockPos, IBlockState> states = super.provideStructure();
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
-        states.put(dir.down(1).asBlockPos(), casingReinforcedState);
         states.put(dir.back(1).asBlockPos(), casingReinforcedState);
         states.put(dir.left(1).asBlockPos(), casingStandardState);
         states.put(dir.forward(1).asBlockPos(), casingReinforcedState);
@@ -163,16 +162,13 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         }
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
-        if (!isReinforcedCasing(dir.down(1))){
-            return false;
-        }
         if (!(isReinforcedCasing(dir.back(1)))) {
             return false;
         }
         if (!(isStandardCasing(dir.left(1)))) {
             return false;
         }
-        if (!isReinforcedCasing(dir.forward(1))) {
+        if (!(isReinforcedCasing(dir.forward(1)))) {
             return false;
         }
         if (!(isStandardCasing(dir.forward(1)))) {
@@ -181,7 +177,7 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         if (!(isReinforcedCasing(dir.right(1)))) {
             return false;
         }
-        if (!isStandardCasing(dir.right(1))){
+        if (!(isStandardCasing(dir.right(1)))){
             return false;
         }
         if (!(isReinforcedCasing(dir.back(1)))) {
@@ -191,17 +187,17 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
             return false;
         }
         //Middle Layer
-        if (!isReinforcedCasing(dir.down(1))) {
+        if (!(isReinforcedCasing(dir.down(1)))) {
             return false;
         }
         int i;
         for (i = 0; i < 2; i++){
-            if (isReinforcedCasing(dir.forward(1))) {
+            if (!(isReinforcedCasing(dir.forward(1)))) {
                 return false;
             }
         }
         for (i = 0; i < 2; i++){
-            if (!isReinforcedCasing(dir.left(1))) {
+            if (!(isReinforcedCasing(dir.left(1)))) {
                 return false;
             }
         }
@@ -217,7 +213,7 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
             return false;
         }
         //Bottom Layer
-        if (!isReinforcedCasing(dir.down(1))){
+        if (!(isReinforcedCasing(dir.down(1)))){
             return false;
         }
         if (!(isReinforcedCasing(dir.back(1)))) {
@@ -226,7 +222,7 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         if (!(isStandardCasing(dir.left(1)))) {
             return false;
         }
-        if (!isReinforcedCasing(dir.forward(1))) {// left
+        if (!(isReinforcedCasing(dir.forward(1)))) {// left
             return false;
         }
         if (!(isStandardCasing(dir.forward(1)))) {
@@ -235,7 +231,7 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         if (!(isReinforcedCasing(dir.right(1)))) {
             return false;
         }
-        if (!isStandardCasing(dir.right(1))){
+        if (!(isStandardCasing(dir.right(1)))){
             return false;
         }
         if (!(isReinforcedCasing(dir.back(1)))) {

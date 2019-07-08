@@ -4,6 +4,7 @@ import gtc_expansion.tile.multi.GTTileMultiIndustrialGrinder;
 import gtclassic.util.GTSlotUpgrade;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerTileComponent;
+import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;
 import ic2.core.inventory.slots.SlotCharge;
 import ic2.core.inventory.slots.SlotCustom;
@@ -14,6 +15,8 @@ import ic2.core.util.math.Vec2i;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTContainerIndustrialGrinder extends ContainerTileComponent<GTTileMultiIndustrialGrinder> {
     public static final Box2D machineProgressBox = new Box2D(78, 29, 20, 11);
@@ -33,6 +36,12 @@ public class GTContainerIndustrialGrinder extends ContainerTileComponent<GTTileM
             this.addSlotToContainer(new GTSlotUpgrade(tile, 9 + i, 80 + (i * 18), 62));
         }
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onGuiLoaded(GuiIC2 gui) {
+        gui.dissableInvName();
     }
 
     @Override
