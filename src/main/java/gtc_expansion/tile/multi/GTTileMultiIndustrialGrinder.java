@@ -20,6 +20,8 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.platform.lang.components.base.LangComponentHolder;
+import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
@@ -65,6 +67,11 @@ public class GTTileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
         handler.registerSlotType(SlotType.Fuel, slotFuel);
         handler.registerSlotType(SlotType.Input, slotInputs);
         handler.registerSlotType(SlotType.Output, slotOutputs);
+    }
+
+    @Override
+    public LocaleComp getBlockName() {
+        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
     }
 
     @Override
