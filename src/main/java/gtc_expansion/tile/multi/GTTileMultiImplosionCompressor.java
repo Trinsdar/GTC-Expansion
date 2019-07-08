@@ -6,6 +6,7 @@ import gtc_expansion.GTMod2;
 import gtc_expansion.container.GTContainerImplosionCompressor;
 import gtclassic.GTBlocks;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
+import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.core.RotationList;
@@ -22,11 +23,14 @@ import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
@@ -36,6 +40,7 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     public IFilter filter = new MachineFilter(this);
     public static final IBlockState casingStandardState = GTBlocks2.casingStandard.getDefaultState();
     public static final IBlockState casingReinforcedState = GTBlocks.casingReinforced.getDefaultState();
+    public static final IBlockState airState = Blocks.AIR.getDefaultState();
     public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.implosioncompressor");
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTMod2.MODID, "textures/gui/implosioncompressor.png");
     private static final int defaultEu = 32;
@@ -108,5 +113,145 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
         return new GTContainerImplosionCompressor(entityPlayer.inventory, this);
+    }
+
+    @Override
+    public Map<BlockPos, IBlockState> provideStructure() {
+        Map<BlockPos, IBlockState> states = super.provideStructure();
+        int3 dir = new int3(getPos(), getFacing());
+        //Top Layer
+        states.put(dir.down(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.back(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.left(1).asBlockPos(), casingStandardState);
+        states.put(dir.forward(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.forward(1).asBlockPos(), casingStandardState);
+        states.put(dir.right(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.right(1).asBlockPos(), casingStandardState);
+        states.put(dir.back(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.back(1).asBlockPos(), casingStandardState);
+        //Middle Layer
+        states.put(dir.down(1).asBlockPos(), casingReinforcedState);
+        int i;
+        for (i = 0; i < 2; i++){
+            states.put(dir.forward(1).asBlockPos(), casingReinforcedState);
+        }
+        for (i = 0; i < 2; i++){
+            states.put(dir.left(1).asBlockPos(), casingReinforcedState);
+        }
+        for (i = 0; i < 2; i++){
+            states.put(dir.back(1).asBlockPos(), casingReinforcedState);
+        }
+        states.put(dir.right(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.forward(1).asBlockPos(), airState);
+        //Bottom Layer
+        states.put(dir.down(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.back(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.left(1).asBlockPos(), casingStandardState);
+        states.put(dir.forward(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.forward(1).asBlockPos(), casingStandardState);
+        states.put(dir.right(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.right(1).asBlockPos(), casingStandardState);
+        states.put(dir.back(1).asBlockPos(), casingReinforcedState);
+        states.put(dir.back(1).asBlockPos(), casingStandardState);
+        return states;
+    }
+
+    @Override
+    public boolean checkStructure() {
+        if (!world.isAreaLoaded(pos, 3)) {
+            return false;
+        }
+        int3 dir = new int3(getPos(), getFacing());
+        //Top Layer
+        if (!isReinforcedCasing(dir.down(1))){
+            return false;
+        }
+        if (!(isReinforcedCasing(dir.back(1)))) {
+            return false;
+        }
+        if (!(isStandardCasing(dir.left(1)))) {
+            return false;
+        }
+        if (!isReinforcedCasing(dir.forward(1))) {
+            return false;
+        }
+        if (!(isStandardCasing(dir.forward(1)))) {
+            return false;
+        }
+        if (!(isReinforcedCasing(dir.right(1)))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.right(1))){
+            return false;
+        }
+        if (!(isReinforcedCasing(dir.back(1)))) {
+            return false;
+        }
+        if (!(isStandardCasing(dir.back(1)))) {
+            return false;
+        }
+        //Middle Layer
+        if (!isReinforcedCasing(dir.down(1))) {
+            return false;
+        }
+        int i;
+        for (i = 0; i < 2; i++){
+            if (isReinforcedCasing(dir.forward(1))) {
+                return false;
+            }
+        }
+        for (i = 0; i < 2; i++){
+            if (!isReinforcedCasing(dir.left(1))) {
+                return false;
+            }
+        }
+        for (i = 0; i < 2; i++){
+            if (!(isReinforcedCasing(dir.back(1)))) {
+                return false;
+            }
+        }
+        if (!(isReinforcedCasing(dir.right(1)))) {
+            return false;
+        }
+        if (world.getBlockState(dir.forward(1).asBlockPos()) != airState) {
+            return false;
+        }
+        //Bottom Layer
+        if (!isReinforcedCasing(dir.down(1))){
+            return false;
+        }
+        if (!(isReinforcedCasing(dir.back(1)))) {
+            return false;
+        }
+        if (!(isStandardCasing(dir.left(1)))) {
+            return false;
+        }
+        if (!isReinforcedCasing(dir.forward(1))) {// left
+            return false;
+        }
+        if (!(isStandardCasing(dir.forward(1)))) {
+            return false;
+        }
+        if (!(isReinforcedCasing(dir.right(1)))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.right(1))){
+            return false;
+        }
+        if (!(isReinforcedCasing(dir.back(1)))) {
+            return false;
+        }
+        if (!(isStandardCasing(dir.back(1)))) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isStandardCasing(int3 pos) {
+        return world.getBlockState(pos.asBlockPos()) == casingStandardState;
+    }
+
+    public boolean isReinforcedCasing(int3 pos) {
+        return world.getBlockState(pos.asBlockPos()) == casingReinforcedState;
     }
 }
