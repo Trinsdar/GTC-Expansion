@@ -36,7 +36,6 @@ public class GTMod2 {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent e) {
-
 		proxy.init(e);
 	}
 

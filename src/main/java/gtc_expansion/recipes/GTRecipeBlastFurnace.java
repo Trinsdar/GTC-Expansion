@@ -31,7 +31,7 @@ public class GTRecipeBlastFurnace {
         addRecipe(new IRecipeInput[] {
                 input("dustGalena", 2) }, 256000, GTMaterialGen.getIngot(GTMaterial2.Lead, 1), GTMaterialGen.getIc2(Ic2Items.silverIngot, 1));
         addRecipe(new IRecipeInput[] {
-                input("dusOsmium", 1) }, 256000, GTMaterialGen.getStack(GTMaterial2.Osmium, GTMaterial2.hotIngot, 1));
+                input("dustOsmium", 1) }, 256000, GTMaterialGen.getStack(GTMaterial2.Osmium, GTMaterial2.hotIngot, 1));
         addRecipe(new IRecipeInput[] {
                 input("dustPlatinum", 1) }, 256000, GTMaterialGen.getIngot(GTMaterial2.Platinum, 1));
         addRecipe(new IRecipeInput[] {

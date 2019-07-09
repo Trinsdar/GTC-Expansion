@@ -76,6 +76,9 @@ tile.gtmodern.stainlesssteel_drum.name=Drum
 tile.gtc_expansion.bloomery.name=Bloomery Controller
 tile.gtc_expansion.charcoalpit.name=Charcoal Pit Controller
 tile.gtc_expansion.industrialelectrolyzer.name=Industrial Electrolyzer
+tile.gtc_expansion.implosioncompressor.name=Implosion Compressor
+tile.gtc_expansion.industrialgrinder.name=Industrial Grinder
+tile.gtc_expansion.vacuumfreezer.name=Vacuum Freezer
 tile.gtc_expansion.chemicalreactor.name=Chemical Reactor
 tile.gtc_expansion.alloysmelter.name=Alloy Smelter
 tile.gtc_expansion.fluidsmelter_lv.name=Fluid Smelter
@@ -608,13 +611,13 @@ fluid.silicon=Silicon
 fluid.crude_oil=Crude Oil
 
 #block tooltips
-tooltip.gtc_expansion.alloysmelter0=Used to melt and shape low heat materials
+tooltip.gtc_expansion.alloysmelter0=HighTech combination smelter
+tooltip.gtc_expansion.implosioncompressor0=Over 9000 Gibbl!
+tooltip.gtc_expansion.industrialgrinder0=Ultimaceratron 42a
+tooltip.gtc_expansion.vacuumfreezer0=Cools down anything
 
 tooltip.gtc_expansion.block_mortar=Macerates things into dust
 tooltip.gtc_expansion.block_ducttape=The solution to all your problems
-tooltip.gtc_expansion.block_resinbottle=Click to pour liquid resin
-tooltip.gtc_expansion.block_resinchunk=Melts if on a stone slab over a flame
-tooltip.gtc_expansion.block_resinboard=Can be clicked with a knife to cut
 
 #item tooltips
 tooltip.gtc_expansion.magnifying_glass=Debugs multi-blocks and gives general info
