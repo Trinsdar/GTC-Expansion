@@ -1,11 +1,9 @@
 package gtc_expansion.recipes;
 
 import gtclassic.tile.GTTileCentrifuge;
+import gtclassic.tile.multi.GTTileMultiBlastFurnace;
 
 public class GTRecipeRemove {
-    public static void init(){
-        initCentrifugeRemoval();
-    }
 
     public static void initCentrifugeRemoval(){
         GTTileCentrifuge.RECIPE_LIST.startMassChange();
@@ -28,5 +26,14 @@ public class GTRecipeRemove {
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustLithium");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustSilicon_2");
         GTTileCentrifuge.RECIPE_LIST.finishMassChange();
+    }
+
+    public static void initBlastFurnaceRemoval(){
+        GTTileMultiBlastFurnace.RECIPE_LIST.startMassChange();
+        GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotIridium");
+        GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotIridium_1");
+        GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotIridium_2");
+        GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotTungsten");
+        GTTileMultiBlastFurnace.RECIPE_LIST.finishMassChange();
     }
 }

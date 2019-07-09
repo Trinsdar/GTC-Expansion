@@ -2,6 +2,8 @@ package gtc_expansion.material;
 
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialFlag;
+import gtclassic.material.GTMaterialGen;
+import net.minecraft.item.ItemStack;
 
 import static gtclassic.material.GTMaterialGen.materialBlockUtil;
 import static gtclassic.material.GTMaterialGen.materialItemUtil;
@@ -34,5 +36,17 @@ public class GTMaterialGen2 {
                 materialItemUtil(mat, GTMaterial2.gemGarnetShape);
             }
         }
+    }
+
+    public static ItemStack getSmallDust(GTMaterial mat, int count){
+        return GTMaterialGen.getStack(mat, GTMaterial2.smalldust, count);
+    }
+
+    public static ItemStack getNugget(GTMaterial mat, int count){
+        return GTMaterialGen.getStack(mat, GTMaterial2.nugget, count);
+    }
+
+    public static ItemStack getPlate(GTMaterial mat, int count){
+        return GTMaterialGen.getStack(mat, GTMaterial2.plate, count);
     }
 }
