@@ -1,6 +1,7 @@
 package gtc_expansion.proxy;
 
 import gtc_expansion.GTBlocks2;
+import gtc_expansion.GTOreDict2;
 import gtc_expansion.recipes.GTRecipe2;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -14,6 +15,7 @@ public class GTProxyCommon2 {
     }
 
     public void init(FMLInitializationEvent e) {
+        GTOreDict2.init();
         GTRecipe2.init();
     }
 

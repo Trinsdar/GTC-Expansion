@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTContainerImplosionCompressor extends ContainerTileComponent<GTTileMultiImplosionCompressor> {
-    public static final Box2D machineProgressBox = new Box2D(78, 28, 20, 11);
+    public static final Box2D machineProgressBox = new Box2D(78, 27, 20, 11);
     public static final Vec2i machineProgressPos = new Vec2i(176, 0);
     public GTContainerImplosionCompressor(InventoryPlayer player, GTTileMultiImplosionCompressor tile) {
         super(tile);

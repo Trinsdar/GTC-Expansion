@@ -1,17 +1,34 @@
 package gtc_expansion.recipes;
 
+import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.tile.GTTileCentrifuge;
 import gtclassic.tile.multi.GTTileMultiBlastFurnace;
+import ic2.api.classic.recipe.ClassicRecipes;
+import ic2.core.item.recipe.entry.RecipeInputOreDict;
 
 public class GTRecipeRemove {
+
+    public static void init(){
+        initCentrifugeRemoval();
+        initCompressorRemoval();
+    }
+
+    public static void initCompressorRemoval(){
+        ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustRuby", 1));
+        ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustSapphire", 1));
+        ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustGreenSapphire", 1));
+        ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustOlivine", 1));
+        ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustRedGarnet", 1));
+        ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustYellowGarnet", 1));
+    }
 
     public static void initCentrifugeRemoval(){
         GTTileCentrifuge.RECIPE_LIST.startMassChange();
         GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube");
         GTTileCentrifuge.removeRecipe("item.itemCellEmpty");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustCarbon");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminum");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminum_1");
+        GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminium");
+        GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminium_1");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustSapphire");
         GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_4");
         GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_5");

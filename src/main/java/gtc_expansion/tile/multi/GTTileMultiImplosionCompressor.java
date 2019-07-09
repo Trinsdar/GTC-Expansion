@@ -4,11 +4,17 @@ import gtc_expansion.GTBlocks2;
 import gtc_expansion.GTGuiMachine2;
 import gtc_expansion.GTMod2;
 import gtc_expansion.container.GTContainerImplosionCompressor;
+import gtc_expansion.material.GTMaterial2;
 import gtclassic.GTBlocks;
+import gtclassic.GTItems;
+import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.recipe.RecipeModifierHelpers;
+import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
@@ -19,6 +25,8 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.item.recipe.entry.RecipeInputItemStack;
+import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
@@ -27,11 +35,15 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -120,6 +132,60 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
         return new GTContainerImplosionCompressor(entityPlayer.inventory, this);
+    }
+
+    public static void init(){
+        addRecipe("dustRuby", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.Ruby, 1));
+        addRecipe("dustSapphire", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.Sapphire, 1));
+        addRecipe("dustGreenSapphire", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.SapphireGreen, 1));
+        addRecipe("dustEmerald", 1, 24, totalEu(2560), GTMaterialGen.get(Items.EMERALD, 1));
+        addRecipe("dustDiamond", 1, 32, totalEu(2560), GTMaterialGen.getIc2(Ic2Items.industrialDiamond, 1));
+        addRecipe("dustOlivine", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.Olivine, 1));
+        addRecipe("dustRedGarnet", 1, 16, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.GarnetRed, 1));
+        addRecipe("dustYellowGarnet", 1, 16, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.GarnetYellow, 1));
+    }
+
+    public static void addRecipe(ItemStack stack, int tnt, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+        if (tnt > 0) {
+            addRecipe(new IRecipeInput[] { new RecipeInputItemStack(stack),
+                    new RecipeInputItemStack(GTMaterialGen.getIc2(Ic2Items.industrialTNT, tnt)) }, modifiers, outputs);
+        } else {
+            addRecipe(new IRecipeInput[] { new RecipeInputItemStack(stack) }, modifiers, outputs);
+        }
+    }
+
+    public static void addRecipe(String input, int amount, int tnt, RecipeModifierHelpers.IRecipeModifier[] modifiers,
+                                 ItemStack... outputs) {
+        if (tnt > 0) {
+            addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount),
+                    new RecipeInputItemStack(GTMaterialGen.getIc2(Ic2Items.industrialTNT, tnt)) }, modifiers, outputs);
+        } else {
+            addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount) }, modifiers, outputs);
+        }
+    }
+
+    public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
+        return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((amount / defaultEu) - 100) };
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+        List<IRecipeInput> inlist = new ArrayList<>();
+        List<ItemStack> outlist = new ArrayList<>();
+        for (IRecipeInput input : inputs) {
+            inlist.add(input);
+        }
+        NBTTagCompound mods = new NBTTagCompound();
+        for (RecipeModifierHelpers.IRecipeModifier modifier : modifiers) {
+            modifier.apply(mods);
+        }
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        addRecipe(inlist, new MachineOutput(mods, outlist));
+    }
+
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
     @Override

@@ -14,7 +14,7 @@ public enum GTJeiRegistry2 {
     ELECTROLYZER(GTTileElectrolyzer.RECIPE_LIST, GTBlocks2.electrolyzer, GTGuiMachine2.GTIndustrialElectrolyzerGui.class, 78, 24, 20, 18),
     ALLOYSMELTER(GTTileAlloySmelter.RECIPE_LIST, GTBlocks2.alloySmelter, GTGuiMachine2.GTAlloySmelterGui.class, 78, 24, 20, 18),
     INDUSTRIALGRINDER(GTTileMultiIndustrialGrinder.RECIPE_LIST, GTBlocks2.industrialGrinder, GTGuiMachine2.GTIndustrialGrinderGui.class, 78, 29, 20, 11),
-    IMPLOSIONCOMPRESSOR(GTTileMultiImplosionCompressor.RECIPE_LIST, GTBlocks2.implosionCompressor, GTGuiMachine2.GTImplosionCompressorGui.class, 78, 28, 20, 11),
+    IMPLOSIONCOMPRESSOR(GTTileMultiImplosionCompressor.RECIPE_LIST, GTBlocks2.implosionCompressor, GTGuiMachine2.GTImplosionCompressorGui.class, 78, 27, 20, 11),
     VACUUMFREEZER(GTTileMultiVacuumFreezer.RECIPE_LIST, GTBlocks2.vacuumFreezer, GTGuiMachine2.GTVacuumFreezerGui.class, 78, 28, 20, 11);
     private GTRecipeMultiInputList list;
     private Block catalyst;
