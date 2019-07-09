@@ -164,9 +164,6 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
 
         /** New Recipes I added **/
         addRecipe(GTMaterialGen.get(Items.QUARTZ, 1), 2, totalEu(8000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getFluid(GTMaterial.Oxygen, 2));
-        //commented these out for now as I don't know yet whether to keep them in the centrifuge or move them to the electrolyzer
-        //addRecipe(GTMaterialGen.get(Items.ROTTEN_FLESH, 16), 4, totalEu(6000), GTMaterialGen.getFluid(GTMaterial.Methane, 4), GTMaterialGen.get(Items.LEATHER, 4), GTMaterialGen.get(Items.SLIME_BALL, 1));
-        //addRecipe(GTMaterialGen.get(Blocks.SOUL_SAND, 12), 0, totalEu(16000), GTMaterialGen.get(Blocks.SAND, 11), GTMaterialGen.getFluid(GTMaterial.Oil, 1));
     }
 
     public static void addCustomRecipe(ItemStack stack0, ItemStack stack1, RecipeModifierHelpers.IRecipeModifier[] modifiers,
