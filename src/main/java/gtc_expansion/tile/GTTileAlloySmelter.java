@@ -77,12 +77,6 @@ public class GTTileAlloySmelter extends GTTileBaseMachine {
     }
 
     @Override
-    public TileEntity getImportTile() {
-        int3 dir = new int3(getPos(), getFacing());
-        return world.getTileEntity(dir.left(1).asBlockPos());
-    }
-
-    @Override
     public LocaleComp getBlockName() {
         return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
     }

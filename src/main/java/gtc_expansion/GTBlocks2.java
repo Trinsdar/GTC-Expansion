@@ -7,6 +7,7 @@ import gtc_expansion.tile.GTTileElectrolyzer;
 import gtc_expansion.tile.multi.GTTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTTileMultiVacuumFreezer;
+import gtc_expansion.util.GTLang2;
 import gtclassic.color.GTColorBlockInterface;
 import gtclassic.color.GTColorItemBlock;
 import gtclassic.itemblock.GTItemBlockInterface;
@@ -23,14 +24,14 @@ import java.util.List;
 
 public class GTBlocks2 {
     static final List<Block> toRegister = new ArrayList();
-    public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", 1));
-    public static GTBlockTile alloySmelter = registerBlock(new GTBlockTile("alloysmelter"));
-    public static GTBlockTile industrialGrinder = registerBlock(new GTBlockTile("industrialgrinder"));
-    public static GTBlockTile implosionCompressor = registerBlock(new GTBlockTile("implosioncompressor"));
-    public static GTBlockTile vacuumFreezer = registerBlock(new GTBlockTile("vacuumfreezer"));
+    public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", GTLang2.INDUSTRIAL_ELECTROLYZER, 1));
+    public static GTBlockTile alloySmelter = registerBlock(new GTBlockTile("alloysmelter", GTLang2.ALLOY_SMELTER));
+    public static GTBlockTile industrialGrinder = registerBlock(new GTBlockTile("industrialgrinder", GTLang2.INDUSTRIAL_GRINDER));
+    public static GTBlockTile implosionCompressor = registerBlock(new GTBlockTile("implosioncompressor", GTLang2.IMPLOSION_COMPRESSOR));
+    public static GTBlockTile vacuumFreezer = registerBlock(new GTBlockTile("vacuumfreezer", GTLang2.VACUUM_FREEZER));
 
-    public static GTBlockCasing2 casingStandard = registerBlock(new GTBlockCasing2("standard", 2));
-    public static GTBlockCasing2 casingAdvanced = registerBlock(new GTBlockCasing2("advanced", 1));
+    public static GTBlockCasing2 casingStandard = registerBlock(new GTBlockCasing2("standard", 2,100F));
+    public static GTBlockCasing2 casingAdvanced = registerBlock(new GTBlockCasing2("advanced", 1, 200F));
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "implosioncompressor"};
     public static void registerBlocks() {
         Iterator var0 = toRegister.iterator();

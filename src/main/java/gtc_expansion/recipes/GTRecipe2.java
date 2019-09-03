@@ -7,6 +7,7 @@ import gtc_expansion.tile.multi.GTTileMultiVacuumFreezer;
 public class GTRecipe2 {
     public static void init(){
         GTRecipeRemove.init();
+        GTRecipeBlastFurnace.init();
         GTRecipeCentrifuge.init();
         GTTileElectrolyzer.init();
         GTTileMultiVacuumFreezer.init();
@@ -15,8 +16,7 @@ public class GTRecipe2 {
     }
 
     public static void postInit(){
-        GTRecipeRemove.initBlastFurnaceRemoval();
         GTRecipeBlastFurnace.removals();
-        GTRecipeBlastFurnace.init();
+
     }
 }

@@ -14,11 +14,11 @@ import net.minecraft.item.ItemStack;
 public class GTRecipeCentrifuge {
 
     public static void init(){
-        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.GOLDEN_APPLE, 1), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_INGOT, 6), GTMaterialGen.getFluid(GTMaterial.Methane, 1));
-        GTTileCentrifuge.addRecipe(new ItemStack(Items.GOLDEN_APPLE, 1, 1), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_INGOT, 64), GTMaterialGen.getFluid(GTMaterial.Methane, 2));
-        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.GOLDEN_CARROT, 1), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_NUGGET, 6), GTMaterialGen.getFluid(GTMaterial.Methane, 1));
-        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.SPECKLED_MELON, 8), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_NUGGET, 6), GTMaterialGen.getFluid(GTMaterial.Methane, 1));
-        GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.Endstone, 64), 2, totalEu(100000), GTMaterialGen.get(Blocks.SAND, 48), GTMaterialGen.getFluid(GTMaterial.Helium3, 4), GTMaterialGen.getFluid(GTMaterial.Helium, 4), GTMaterialGen.getDust(GTMaterial2.Tungsten, 1));
+        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.GOLDEN_APPLE, 1), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_INGOT, 6), GTMaterialGen.getTube(GTMaterial.Methane, 1));
+        GTTileCentrifuge.addRecipe(new ItemStack(Items.GOLDEN_APPLE, 1, 1), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_INGOT, 64), GTMaterialGen.getTube(GTMaterial.Methane, 2));
+        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.GOLDEN_CARROT, 1), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_NUGGET, 6), GTMaterialGen.getTube(GTMaterial.Methane, 1));
+        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.SPECKLED_MELON, 8), 0, totalEu(50000), GTMaterialGen.get(Items.GOLD_NUGGET, 6), GTMaterialGen.getTube(GTMaterial.Methane, 1));
+        GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.Endstone, 64), 2, totalEu(100000), GTMaterialGen.get(Blocks.SAND, 48), GTMaterialGen.getTube(GTMaterial.Helium3, 4), GTMaterialGen.getTube(GTMaterial.Helium, 4), GTMaterialGen.getDust(GTMaterial2.Tungsten, 1));
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.GarnetRed, 16), 0, totalEu(15000), GTMaterialGen.getDust(GTMaterial2.Pyrope, 3), GTMaterialGen.getDust(GTMaterial2.Almandine, 5), GTMaterialGen.getDust(GTMaterial2.Spessartine, 8));
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.GarnetYellow, 16), 0, totalEu(17500), GTMaterialGen.getDust(GTMaterial2.Uvarovite, 3), GTMaterialGen.getDust(GTMaterial2.Andradite, 5), GTMaterialGen.getDust(GTMaterial2.Grossular, 8));
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.DarkAshes, 2), 0, totalEu(1250), GTMaterialGen.getDust(GTMaterial2.Ashes, 1), GTMaterialGen.getDust(GTMaterial2.Slag, 1));

@@ -2,6 +2,7 @@ package gtc_expansion.recipes;
 
 import gtc_expansion.material.GTMaterial2;
 import gtclassic.GTConfig;
+import gtclassic.helpers.GTHelperStack;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.recipe.GTRecipeProcessing;
@@ -45,10 +46,9 @@ public class GTRecipeBlastFurnace {
                 NonNullList<ItemStack> items = NonNullList.create();
                 item.getSubItems(CreativeTabs.SEARCH, items);
                 for (ItemStack stack : items) {
-                    String oreNames = GTValues.getOreName(stack);
-                    if (oreNames.contains("ingotOsmium") || oreNames.contains("ingotPlatinum")
-                            || oreNames.contains("ingotStainlessSteel") || oreNames.contains("ingotThorium")) {
-                        GTRecipeProcessing.removeSmelting(GTMaterialGen.get(item));
+                    if (GTHelperStack.matchOreDict(stack,"ingotOsmium") || GTHelperStack.matchOreDict(stack,"ingotPlatinum")
+                            || GTHelperStack.matchOreDict(stack,"ingotStainlessSteel") || GTHelperStack.matchOreDict(stack,"ingotThorium")) {
+                        GTRecipeProcessing.removeSmelting(stack);
                     }
                 }
             }

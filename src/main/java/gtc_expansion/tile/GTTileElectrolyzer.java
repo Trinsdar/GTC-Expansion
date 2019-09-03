@@ -144,26 +144,26 @@ public class GTTileElectrolyzer extends GTTileBaseMachine {
     public static void init() {
         Item tube = GTItems.testTube;
         /** Recipes from GT1 **/
-        addRecipe(GTMaterialGen.getWater(6), 0, totalEu(3000), GTMaterialGen.getFluid(GTMaterial.Hydrogen, 4), GTMaterialGen.getFluid(GTMaterial.Oxygen, 2));
-        addRecipe(GTMaterialGen.getIc2(Ic2Items.waterCell, 6), 6, totalEu(3000), GTMaterialGen.getIc2(Ic2Items.emptyCell, 6), GTMaterialGen.getFluid(GTMaterial.Hydrogen, 4), GTMaterialGen.getFluid(GTMaterial.Oxygen, 2));
+        addRecipe(GTMaterialGen.getWater(6), 0, totalEu(3000), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
+        addRecipe(GTMaterialGen.getIc2(Ic2Items.waterCell, 6), 6, totalEu(3000), GTMaterialGen.getIc2(Ic2Items.emptyCell, 6), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
         addRecipe("dustCoal", 4, 0, totalEu(7500), GTMaterialGen.getDust(GTMaterial.Carbon, 8));
-        addRecipe("dustRuby", 9, 3, totalEu(25000), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getDust(GTMaterial.Chrome, 1), GTMaterialGen.getFluid(GTMaterial.Oxygen, 3));
-        addRecipe("dustSapphire", 8, 3, totalEu(20000), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getFluid(GTMaterial.Oxygen, 3));
+        addRecipe("dustRuby", 9, 3, totalEu(25000), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getDust(GTMaterial.Chrome, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 3));
+        addRecipe("dustSapphire", 8, 3, totalEu(20000), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 3));
         addRecipe("dustGreenSapphire", 4, 0, totalEu(15000), GTMaterialGen.getDust(GTMaterial.Sapphire, 4));
-        addRecipe("dustEmerald", 29, 12, totalEu(30000), GTMaterialGen.getFluid(GTMaterial.Oxygen, 9), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getFluid(GTMaterial.Beryllium, 3), GTMaterialGen.getDust(GTMaterial.Silicon, 6));
-        addRecipe("dustEnderPearl", 16, 16, totalEu(65000), GTMaterialGen.getFluid(GTMaterial.Chlorine, 6), GTMaterialGen.getFluid(GTMaterial.Nitrogen, 5), GTMaterialGen.getFluid(GTMaterial.Beryllium, 1), GTMaterialGen.getFluid(GTMaterial.Potassium, 4));
-        addRecipe("dustLazurite", 28, 5, totalEu(295000), GTMaterialGen.getFluid(GTMaterial.Sodium, 8), GTMaterialGen.getDust(GTMaterial.Aluminium, 6), GTMaterialGen.getDust(GTMaterial.Silicon, 6), GTMaterialGen.getFluid(GTMaterial.Calcium, 8));
+        addRecipe("dustEmerald", 29, 12, totalEu(30000), GTMaterialGen.getTube(GTMaterial.Oxygen, 9), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getTube(GTMaterial.Beryllium, 3), GTMaterialGen.getDust(GTMaterial.Silicon, 6));
+        addRecipe("dustEnderPearl", 16, 16, totalEu(65000), GTMaterialGen.getTube(GTMaterial.Chlorine, 6), GTMaterialGen.getTube(GTMaterial.Nitrogen, 5), GTMaterialGen.getTube(GTMaterial.Beryllium, 1), GTMaterialGen.getTube(GTMaterial.Potassium, 4));
+        addRecipe("dustLazurite", 28, 5, totalEu(295000), GTMaterialGen.getTube(GTMaterial.Sodium, 8), GTMaterialGen.getDust(GTMaterial.Aluminium, 6), GTMaterialGen.getDust(GTMaterial.Silicon, 6), GTMaterialGen.getTube(GTMaterial.Calcium, 8));
         addRecipe("dustPyrite", 2, 0, totalEu(15000), GTMaterialGen.getIc2(Ic2Items.ironDust, 1));
-        addRecipe("dustCalcite", 10, 5, totalEu(50000), GTMaterialGen.getFluid(GTMaterial.Calcium, 2), GTMaterialGen.getDust(GTMaterial.Carbon, 2), GTMaterialGen.getFluid(GTMaterial.Oxygen, 3));
-        addRecipe("dustSodalite", 11, 5, totalEu(115000), GTMaterialGen.getFluid(GTMaterial.Chlorine, 1), GTMaterialGen.getFluid(GTMaterial.Sodium, 4), GTMaterialGen.getDust(GTMaterial.Aluminium, 3), GTMaterialGen.getDust(GTMaterial.Silicon, 3));
-        addRecipe("dustBauxite", 24, 16, totalEu(250000), GTMaterialGen.getFluid(GTMaterial.Oxygen, 6), GTMaterialGen.getDust(GTMaterial.Aluminium, 16), GTMaterialGen.getDust(GTMaterial.Titanium, 1), GTMaterialGen.getFluid(GTMaterial.Hydrogen, 10));
+        addRecipe("dustCalcite", 10, 5, totalEu(50000), GTMaterialGen.getTube(GTMaterial.Calcium, 2), GTMaterialGen.getDust(GTMaterial.Carbon, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 3));
+        addRecipe("dustSodalite", 11, 5, totalEu(115000), GTMaterialGen.getTube(GTMaterial.Chlorine, 1), GTMaterialGen.getTube(GTMaterial.Sodium, 4), GTMaterialGen.getDust(GTMaterial.Aluminium, 3), GTMaterialGen.getDust(GTMaterial.Silicon, 3));
+        addRecipe("dustBauxite", 24, 16, totalEu(250000), GTMaterialGen.getTube(GTMaterial.Oxygen, 6), GTMaterialGen.getDust(GTMaterial.Aluminium, 16), GTMaterialGen.getDust(GTMaterial.Titanium, 1), GTMaterialGen.getTube(GTMaterial.Hydrogen, 10));
         addRecipe(GTMaterialGen.get(Items.BLAZE_POWDER, 8), 0, totalEu(15000), GTMaterialGen.getIc2(Ic2Items.coalDust, 2), GTMaterialGen.get(Items.GUNPOWDER, 1));
-        addRecipe("sand", 32, 1, totalEu(50000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getFluid(GTMaterial.Oxygen, 1));
-        addRecipe("dustFlint", 8, 1, totalEu(5000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getFluid(GTMaterial.Oxygen, 1));
+        addRecipe("sand", 32, 1, totalEu(50000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 1));
+        addRecipe("dustFlint", 8, 1, totalEu(5000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 1));
         addRecipe(GTMaterialGen.getIc2(Ic2Items.clayDust, 4), 0, totalEu(5000), GTMaterialGen.getDust(GTMaterial.Lithium, 1), GTMaterialGen.getDust(GTMaterial.Silicon, 1));
 
         /** New Recipes I added **/
-        addRecipe(GTMaterialGen.get(Items.QUARTZ, 1), 2, totalEu(8000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getFluid(GTMaterial.Oxygen, 2));
+        addRecipe(GTMaterialGen.get(Items.QUARTZ, 1), 2, totalEu(8000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
     }
 
     public static void addCustomRecipe(ItemStack stack0, ItemStack stack1, RecipeModifierHelpers.IRecipeModifier[] modifiers,

@@ -12,8 +12,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTBlockCasing2 extends GTBlockCasing {
     int index;
-    public GTBlockCasing2(String name, int index) {
-        super(name, index);
+    public GTBlockCasing2(String name, int index, float resistence) {
+        super(name, index, resistence);
         this.index = index;
     }
 

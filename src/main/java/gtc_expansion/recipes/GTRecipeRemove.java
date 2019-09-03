@@ -11,6 +11,7 @@ public class GTRecipeRemove {
     public static void init(){
         initCentrifugeRemoval();
         initCompressorRemoval();
+        initBlastFurnaceRemoval();
     }
 
     public static void initCompressorRemoval(){

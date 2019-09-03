@@ -18,8 +18,6 @@ public class GTRecipeIterators2 {
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
 
     public static void init(){
-        createGemRecipe(GTMaterial2.GarnetRed);
-        createGemRecipe(GTMaterial2.GarnetYellow);
         for (GTMaterial mat : GTMaterial.values()){
             createSmallDustRecipe(mat);
             createPlateRecipe(mat);
@@ -46,22 +44,6 @@ public class GTRecipeIterators2 {
         ingotUtil(Ic2Items.tinIngot, GTMaterial2.Tin);
         ingotUtil(Ic2Items.bronzeIngot, GTMaterial2.Bronze);
         ingotUtil(Ic2Items.silverIngot, GTMaterial2.Silver);
-    }
-
-    public static void createGemRecipe(GTMaterial mat) {
-        String dust = "dust" + mat.getDisplayName();
-        String gem = "gem" + mat.getDisplayName();
-        String block = "block" + mat.getDisplayName();
-        // Gem to dust
-        TileEntityMacerator.addRecipe(gem, 1, GTMaterialGen.getDust(mat, 1), 0.0F);
-        if (mat.hasFlag(GTMaterialFlag.GEMBLOCK)) {
-            // Block and gem related logic
-            recipes.addShapelessRecipe(GTMaterialGen.getGem(mat, 9), new Object[]{block});
-            TileEntityCompressor.addRecipe(gem, 9, GTMaterialGen.getMaterialBlock(mat, 1), 0.0F);
-            TileEntityMacerator.addRecipe(block, 1, GTMaterialGen.getDust(mat, 9), 0.0F);
-            recipes.addRecipe(GTMaterialGen.getMaterialBlock(mat, 1), new Object[]{"XXX", "XXX", "XXX", 'X',
-                    gem});
-        }
     }
 
     public static void createSmallDustRecipe(GTMaterial mat) {

@@ -9,16 +9,16 @@ import gtc_expansion.tile.multi.GTTileMultiVacuumFreezer;
 import gtclassic.GTBlocks;
 import gtclassic.block.GTBlockMachine;
 import ic2.core.block.base.tile.TileEntityBlock;
+import ic2.core.platform.lang.components.base.LocaleComp;
 import net.minecraft.world.World;
 
 public class GTBlockTile extends GTBlockMachine {
-    public GTBlockTile(String name) {
-        super(name);
-        this.setUnlocalizedName("gtc_expansion." + name.toLowerCase());
+    public GTBlockTile(String name, LocaleComp comp) {
+        this(name, comp, 0);
     }
 
-    public GTBlockTile(String name, int additionalInfo) {
-        super(name, additionalInfo);
+    public GTBlockTile(String name, LocaleComp comp, int additionalInfo) {
+        super(name, comp, additionalInfo);
         this.setUnlocalizedName("gtc_expansion." + name.toLowerCase());
     }
 
