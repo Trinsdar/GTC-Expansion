@@ -147,6 +147,22 @@ public class GTTileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
         addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial2.Ruby, 1), GTMaterialGen2.getSmallDust(GTMaterial2.Ruby, 6), GTMaterialGen2.getSmallDust(GTMaterial2.GarnetRed, 2));
         //addWaterRecipe("oreGreenSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial2.SapphireGreen, 1), GTMaterialGen2.getSmallDust(GTMaterial2.SapphireGreen, 6), GTMaterialGen2.getSmallDust(GTMaterial2.Sapphire, 2));
         addWaterRecipe("oreSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial2.Sapphire, 1), GTMaterialGen2.getSmallDust(GTMaterial2.Sapphire, 6), GTMaterialGen2.getSmallDust(GTMaterial2.SapphireGreen, 2));
+        addWaterRecipe("oreTungsten", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Tungsten, 2), GTMaterialGen2.getSmallDust(GTMaterial2.Iron, 3), GTMaterialGen2.getSmallDust(GTMaterial2.Manganese, 3));
+        addWaterRecipe("oreCoal", 1, totalEu(12800), GTMaterialGen.get(Items.COAL), Ic2Items.coalDust, GTMaterialGen2.getSmallDust(GTMaterial2.Thorium, 1));
+        addWaterRecipe("oreLapis", 1, totalEu(12800), new ItemStack(Items.DYE, 12, 4), GTMaterialGen.getDust(GTMaterial2.Lazurite, 3));
+        addWaterRecipe("oreRedstone", 1, totalEu(12800), GTMaterialGen.get(Items.REDSTONE, 10), GTMaterialGen2.getSmallDust(GTMaterial2.Glowstone, 2));
+        addWaterRecipe("oreDiamond", 1, totalEu(12800), GTMaterialGen.get(Items.DIAMOND), GTMaterialGen2.getSmallDust(GTMaterial2.Diamond, 8), Ic2Items.hydratedCoalDust);
+        addWaterRecipe("oreEmerald", 1, totalEu(12800), GTMaterialGen.get(Items.EMERALD), GTMaterialGen2.getSmallDust(GTMaterial2.Emerald, 6), GTMaterialGen2.getSmallDust(GTMaterial2.Olivine, 2));
+        addWaterRecipe("oreGalena", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Galena, 2), GTMaterialGen.getDust(GTMaterial2.Sulfur, 1));
+        addWaterRecipe("oreIridium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Iridium, 2), GTMaterialGen2.getSmallDust(GTMaterial2.Platinum, 2));
+        addWaterRecipe("oreBauxite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Bauxite, 4), GTMaterialGen.getDust(GTMaterial2.Aluminium, 1));
+        addWaterRecipe("orePyrite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Pyrite, 5), GTMaterialGen.getDust(GTMaterial2.Sulfur, 2));
+        addWaterRecipe("oreCinnabar", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Cinnabar, 5), GTMaterialGen2.getSmallDust(GTMaterial2.Redstone, 2), GTMaterialGen2.getSmallDust(GTMaterial2.Glowstone, 1));
+        addWaterRecipe("oreSphalerite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Sphalerite, 5), GTMaterialGen.getDust(GTMaterial2.Zinc, 2), GTMaterialGen2.getSmallDust(GTMaterial2.GarnetYellow, 1));
+        addWaterRecipe("oreTungstate", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Tungsten, 2), GTMaterialGen2.getSmallDust(GTMaterial2.Iron, 3), GTMaterialGen2.getSmallDust(GTMaterial2.Manganese, 3));
+        addWaterRecipe("oreSheldonite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Sheldonite, 2), GTMaterialGen.getDust(GTMaterial2.Nickel, 1), GTMaterialGen2.getNugget(GTMaterial2.Iridium, 2));
+        addWaterRecipe("oreOlivine", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial2.Olivine, 1), GTMaterialGen2.getSmallDust(GTMaterial2.Olivine, 6), GTMaterialGen2.getSmallDust(GTMaterial2.Emerald, 2));
+        addWaterRecipe("oreSodalite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial2.Sodalite, 12), GTMaterialGen.getDust(GTMaterial2.Aluminium, 3));
     }
 
     public static void addWaterCellRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
