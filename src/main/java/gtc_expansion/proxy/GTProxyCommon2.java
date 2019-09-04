@@ -1,6 +1,7 @@
 package gtc_expansion.proxy;
 
 import gtc_expansion.GTBlocks2;
+import gtc_expansion.GTItems2;
 import gtc_expansion.GTOreDict2;
 import gtc_expansion.recipes.GTRecipe2;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -12,6 +13,7 @@ public class GTProxyCommon2 {
     public void preInit(FMLPreInitializationEvent e) {
         GTBlocks2.registerBlocks();
         GTBlocks2.registerTiles();
+        GTItems2.registerItems();
     }
 
     public void init(FMLInitializationEvent e) {

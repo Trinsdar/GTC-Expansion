@@ -14,7 +14,7 @@ public class GTMaterialGen2 {
             materialItemUtil(mat, GTMaterial2.hotIngot);
         }
         for (GTMaterial mat : GTMaterial.values()){
-            materialBlockUtil(mat, GTMaterial2.casing);
+            materialBlockUtil(mat, GTMaterial2.hull);
         }
         for (GTMaterial mat : GTMaterial.values()){
             materialItemUtil(mat, GTMaterial2.stick);

@@ -13,18 +13,21 @@ import static ic2.core.platform.textures.Ic2Icons.addTextureEntry;
 public class GTIcons2 {
     @SideOnly(Side.CLIENT)
     public static void loadSprites() {
-        addSprite(new Sprites.SpriteData(GTMod2.MODID + "_blocks", GTMod2.MODID
-                + ":textures/sprites/sprites_blocks.png", new Sprites.SpriteInfo(16, 16)));
-        addSprite(new Sprites.SpriteData(GTMod2.MODID + "_materials", GTMod2.MODID
-                + ":textures/sprites/sprites_materials.png", new Sprites.SpriteInfo(16, 16)));
-        addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_blocks", 0, 0, 16, 12));
-        addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_materials", 0, 0, 16, 16));
+        makeSprite("blocks", 16, 16);
+        makeSprite("materials", 16, 16);
+        makeSprite("items", 16, 16);
         collectBasicTileSprites();
         GTMod.debugLogger("All GregTech textures generated without error");
     }
 
     private static ResourceLocation location(String name) {
         return new ResourceLocation("gtclassic", "animations/" + name);
+    }
+
+    public static void makeSprite(String name, int maxX, int maxY){
+        addSprite(new Sprites.SpriteData(GTMod2.MODID + "_" + name, GTMod2.MODID
+                + ":textures/sprites/sprites_" + name + ".png", new Sprites.SpriteInfo(maxX, maxY)));
+        addTextureEntry(new Sprites.TextureEntry(GTMod2.MODID + "_" + name, 0, 0, maxX, maxY));
     }
 
     public static void collectBasicTileSprites() {

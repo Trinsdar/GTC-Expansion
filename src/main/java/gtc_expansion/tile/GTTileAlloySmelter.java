@@ -3,7 +3,10 @@ package gtc_expansion.tile;
 import gtc_expansion.GTGuiMachine2;
 import gtc_expansion.GTMod2;
 import gtc_expansion.container.GTContainerAlloySmelter;
+import gtc_expansion.material.GTMaterial2;
 import gtclassic.GTMod;
+import gtclassic.material.GTMaterial;
+import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
@@ -138,8 +141,11 @@ public class GTTileAlloySmelter extends GTTileBaseMachine {
      * Recipes not handled by the iterator class
      */
     public static void init() {
-
-
+        addAlloyRecipe("Copper", 3, "Tin", 1, GTMaterialGen.getIc2(Ic2Items.bronzeIngot, 4));
+        addAlloyRecipe("Copper", 3, "Zinc", 1, GTMaterialGen.getIngot(GTMaterial2.Brass, 4));
+        addAlloyRecipe("Silver", 1, "Gold", 1, GTMaterialGen.getIngot(GTMaterial2.Electrum, 2));
+        addAlloyRecipe("Iron", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial2.Invar, 3));
+        addAlloyRecipe("Copper", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial2.Constantan, 3));
     }
 
     /**

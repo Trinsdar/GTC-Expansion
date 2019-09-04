@@ -24,7 +24,7 @@ public class GTRecipeCentrifuge {
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.DarkAshes, 2), 0, totalEu(1250), GTMaterialGen.getDust(GTMaterial2.Ashes, 1), GTMaterialGen.getDust(GTMaterial2.Slag, 1));
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.RedRock, 16), 0, totalEu(2000), GTMaterialGen.getDust(GTMaterial2.Calcite, 8), GTMaterialGen.getDust(GTMaterial2.Flint, 4), GTMaterialGen.getIc2(Ic2Items.clayDust, 4));
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.Marble, 8), 0, totalEu(5275), GTMaterialGen.getDust(GTMaterial2.Magnesium, 1), GTMaterialGen.getDust(GTMaterial2.Calcite, 7));
-        GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.Basalt, 16), 0, totalEu(10200), GTMaterialGen.getDust(GTMaterial2.Olivine, 1), GTMaterialGen.getDust(GTMaterial2.Calcite, 3), GTMaterialGen.getDust(GTMaterial2.Flint, 8), GTMaterialGen.getDust(GTMaterial2.DarkAshes, 4));
+        //GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.Basalt, 16), 0, totalEu(10200), GTMaterialGen.getDust(GTMaterial2.Olivine, 1), GTMaterialGen.getDust(GTMaterial2.Calcite, 3), GTMaterialGen.getDust(GTMaterial2.Flint, 8), GTMaterialGen.getDust(GTMaterial2.DarkAshes, 4));
     }
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
         return GTTileCentrifuge.totalEu(amount);

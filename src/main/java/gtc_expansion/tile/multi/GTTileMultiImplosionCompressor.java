@@ -2,6 +2,7 @@ package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTBlocks2;
 import gtc_expansion.GTGuiMachine2;
+import gtc_expansion.GTItems2;
 import gtc_expansion.GTMod2;
 import gtc_expansion.container.GTContainerImplosionCompressor;
 import gtc_expansion.material.GTMaterial2;
@@ -143,6 +144,7 @@ public class GTTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         addRecipe("dustOlivine", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.Olivine, 1));
         addRecipe("dustRedGarnet", 1, 16, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.GarnetRed, 1));
         addRecipe("dustYellowGarnet", 1, 16, totalEu(2560), GTMaterialGen.getGem(GTMaterial2.GarnetYellow, 1));
+        addRecipe(GTMaterialGen.get(GTItems2.iridiumAlloyIngot), 8, totalEu(2560), Ic2Items.iridiumPlate, GTMaterialGen.getDust(GTMaterial2.DarkAshes, 4));
     }
 
     public static void addRecipe(ItemStack stack, int tnt, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {

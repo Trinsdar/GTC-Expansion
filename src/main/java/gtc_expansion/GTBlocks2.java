@@ -23,6 +23,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GTBlocks2 {
+    private GTBlocks2() {
+        throw new IllegalStateException("Utility class");
+    }
+
     static final List<Block> toRegister = new ArrayList();
     public static GTBlockTile electrolyzer = registerBlock(new GTBlockTile("industrialelectrolyzer", GTLang2.INDUSTRIAL_ELECTROLYZER, 1));
     public static GTBlockTile alloySmelter = registerBlock(new GTBlockTile("alloysmelter", GTLang2.ALLOY_SMELTER));

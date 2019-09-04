@@ -19,7 +19,6 @@ public class GTBlockTile extends GTBlockMachine {
 
     public GTBlockTile(String name, LocaleComp comp, int additionalInfo) {
         super(name, comp, additionalInfo);
-        this.setUnlocalizedName("gtc_expansion." + name.toLowerCase());
     }
 
     @Override
