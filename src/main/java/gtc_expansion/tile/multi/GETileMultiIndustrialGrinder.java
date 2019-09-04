@@ -8,6 +8,7 @@ import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtclassic.GTBlocks;
 import gtclassic.GTItems;
+import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.util.int3;
@@ -163,6 +164,14 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
         addWaterRecipe("oreSheldonite", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Sheldonite, 2), GTMaterialGen.getDust(GEMaterial.Nickel, 1), GEMaterialGen.getNugget(GEMaterial.Iridium, 2));
         addWaterRecipe("oreOlivine", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Olivine, 1), GEMaterialGen.getSmallDust(GEMaterial.Olivine, 6), GEMaterialGen.getSmallDust(GEMaterial.Emerald, 2));
         addWaterRecipe("oreSodalite", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Sodalite, 12), GTMaterialGen.getDust(GEMaterial.Aluminium, 3));
+        addMercuryRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 8), totalEu(102400), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getDust(GEMaterial.Netherrack, 8));
+        addMercuryRecipe("oreSilver", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.silverDust, 3), GEMaterialGen.getSmallDust(GEMaterial.Lead, 2));
+        addMercuryRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.goldDust, 3), GEMaterialGen.getSmallDust(GEMaterial.Copper, 1), GEMaterialGen.getSmallDust(GEMaterial.Nickel, 1));
+        addMercuryRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.copperDust, 2), Ic2Items.goldDust);
+        addMercuryRecipe("oreLead", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Lead, 2), Ic2Items.silverDust);
+        addMercuryRecipe("oreGalena", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Galena, 2), GTMaterialGen.getDust(GEMaterial.Sulfur, 1), Ic2Items.silverDust);
+        addMercuryRecipe("oreIridium", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Iridium, 2), GTMaterialGen.getDust(GEMaterial.Platinum, 1));
+        addMercuryRecipe("oreSheldonite", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Sheldonite, 3), GTMaterialGen.getDust(GEMaterial.Nickel, 1), GEMaterialGen.getNugget(GEMaterial.Iridium, 2));
     }
 
     public static void addWaterCellRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -247,6 +256,26 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
             outlist.add(output);
         }
         addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount) }, modifiers, outlist);
+    }
+
+    public static void addMercuryRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
+                                          ItemStack... outputs) {
+        List<ItemStack> outlist = new ArrayList<>();
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        outlist.add(GTMaterialGen.get(GTItems.testTube));
+        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputItemStack(GTMaterialGen.getTube(GTMaterial.Mercury, 1)) }, modifiers, outlist);
+    }
+
+    public static void addMercuryRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
+                                          ItemStack... outputs) {
+        List<ItemStack> outlist = new ArrayList<>();
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        outlist.add(GTMaterialGen.get(GTItems.testTube));
+        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputItemStack(GTMaterialGen.getTube(GTMaterial.Mercury, 1)) }, modifiers, outlist);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
