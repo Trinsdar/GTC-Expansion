@@ -10,17 +10,19 @@ public class GTRecipeRemove {
 
     public static void init(){
         initCentrifugeRemoval();
-        initCompressorRemoval();
+        initIc2Removals();
         initBlastFurnaceRemoval();
     }
 
-    public static void initCompressorRemoval(){
+    public static void initIc2Removals(){
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustRuby", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustSapphire", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustGreenSapphire", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustOlivine", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustRedGarnet", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustYellowGarnet", 1));
+
+        ClassicRecipes.macerator.removeRecipe(GTTileBaseMachine.input("oreRedstone", 1));
     }
 
     public static void initCentrifugeRemoval(){

@@ -14,38 +14,54 @@ import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
+import ic2.core.item.recipe.AdvRecipe;
+import ic2.core.item.recipe.AdvRecipeBase;
+import ic2.core.item.recipe.AdvShapelessRecipe;
 import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistry;
 
 public class GTRecipe2 {
+    static GTRecipe2 instance = new GTRecipe2();
     static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
 
     static String ingotRefinedIron = IC2.getRefinedIron();
     static IRecipeInput ingotMachine = new RecipeInputCombined(1, new IRecipeInput[] {
             new RecipeInputOreDict(ingotRefinedIron), new RecipeInputOreDict("ingotAluminium") });
+    static IRecipeInput plateMachine = new RecipeInputCombined(1, new IRecipeInput[] {
+            new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateAluminium") });
     static IRecipeInput reinforcedGlass = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.reinforcedGlass), new RecipeInputItemStack(Ic2Items.reinforcedGlassClear));
     static IRecipeInput grinder = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(GTItems2.diamondGrinder)), new RecipeInputItemStack(GTMaterialGen.get(GTItems2.wolframiumGrinder)));
 
+    public static String getRefinedIronPlate() {
+        return IC2.config.getFlag("SteelRecipes") ? "plateSteel" : "plateRefinedIron";
+    }
+
     public static void init(){
         GTRecipeRemove.init();
-        GTRecipeBlastFurnace.init();
-        GTRecipeCentrifuge.init();
+        GTRecipeProcessing.init();
         GTTileElectrolyzer.init();
         GTTileMultiVacuumFreezer.init();
         GTTileMultiImplosionCompressor.init();
         GTTileAlloySmelter.init();
         initIc2();
+        initOverrideGTClassic();
         initShapedItemRecipes();
         initShapedBlockRecipes();
         GTRecipeIterators2.init();
     }
 
     public static void postInit(){
-        GTRecipeBlastFurnace.removals();
+        GTRecipeProcessing.removals();
 
     }
 
@@ -78,4 +94,30 @@ public class GTRecipe2 {
                     "circuitBasic");
         }
     }
+
+    public static void initOverrideGTClassic(){
+        //instance.overrideGTRecipe("shaped_tile.gtclassic.computercube_404275118", GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', "circuitMaster", 'M', GTItems2.computerMonitor, 'O', "circuitUltimate", 'A', Ic2Items.advMachine);
+    }
+
+//    public void overrideGTRecipe(String recipeId, ItemStack output, Object... input) {
+//        Loader loader = Loader.instance();
+//        ModContainer old = loader.activeModContainer();
+//        loader.setActiveModContainer(loader.getIndexedModList().get("gtclassic"));
+//        recipes.getRecipes().add(overrideRecipe(new AdvRecipe(recipeId, true, output, input));
+//        loader.setActiveModContainer(old);
+//    }
+//
+//    public void overrideShapelessGTRecipe(String recipeId, ItemStack output, Object... input) {
+//        Loader loader = Loader.instance();
+//        ModContainer old = loader.activeModContainer();
+//        loader.setActiveModContainer(loader.getIndexedModList().get("gtclassic"));
+//        recipes.getRecipes().add(overrideRecipe(new AdvShapelessRecipe(recipeId, true, output, input)));
+//        loader.setActiveModContainer(old);
+//    }
+//
+//    public static <T extends AdvRecipeBase> T overrideRecipe(T recipe) {
+//        ((ForgeRegistry) ForgeRegistries.RECIPES).remove(new ResourceLocation("gtclassic", recipe.getRecipeID()));
+//        AdvRecipeBase.duplicates.remove(new ResourceLocation("gtclassic", recipe.getRecipeID()));
+//        return AdvRecipeBase.registerRecipe(recipe);
+//    }
 }
