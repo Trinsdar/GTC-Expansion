@@ -38,7 +38,7 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     replace "@VERSION@", project.version
-    replaceIn "GTMod2.java"
+    replaceIn "GTCExpansion.java"
 }
 
 repositories{
