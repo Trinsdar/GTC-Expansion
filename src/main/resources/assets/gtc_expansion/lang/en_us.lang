@@ -59,17 +59,6 @@ tile.gtmodern.electrum_bloom.name=Electrum Bloom
 tile.gtmodern.constantan_bloom.name=Constantan Bloom
 tile.gtmodern.bismuthbronze_bloom.name=Bismuth Bronze Bloom
 
-#blocks
-tile.gtmodern.magnesia_block.name=Magnesia Carbon Block
-tile.gtmodern.resin_block.name=Uncut Sticky Resin Board
-tile.gtmodern.slag_sand.name=Slag Sand
-tile.gtmodern.slagcrete_sand.name=Reinforced Concrete
-tile.gtmodern.slag_glass.name=Slag Glass
-tile.gtmodern.charcoal_sand.name=Charcoal Ash Pile
-tile.gtmodern.tailings_block.name=Dried Bauxite Tailings
-tile.gtmodern.brine_block.name=Dried Brine
-tile.gtmodern.lithium_block.name=Dried Lithium
-
 #tiles
 tile.gtmodern.stainlesssteel_drum.name=Drum
 
@@ -83,9 +72,15 @@ tile.gtc_expansion.chemicalreactor.name=Chemical Reactor
 tile.gtc_expansion.alloysmelter.name=Alloy Smelter
 tile.gtc_expansion.fluidsmelter_lv.name=Fluid Smelter
 tile.gtc_expansion.block_ducttape.name=Braintech Aerospace Advanced Reinforced Duct Tape FAL-84
+tile.gtclassic.standard.name=Standard Machine Casing
+tile.gtclassic.advanced.name=Advanced Machine Casing
 
 #small dusts
 item.gtclassic.dustsmallSaltpeter.name=Small Saltpeter Dust
+item.gtclassic.dustsmallGlowstone.name=Small Glowstone Dust
+item.gtclassic.dustsmallTungsten.name=Small Tungsten Dust
+item.gtclassic.dustsmallCarbon.name=Small Carbon Dust
+item.gtclassic.dustsmallIron.name=Small Iron Dust
 item.gtclassic.dustsmallThorium.name=Small Thorium Dust
 item.gtclassic.dustsmallInvar.name=Small Invar Dust
 item.gtclassic.dustsmallSulfur.name=Small Sulfur Dust
@@ -273,6 +268,7 @@ item.gtclassic.hotingotIridium.name=Hot Iridium Ingot
 item.gtclassic.hotingotOsmium.name=Hot Osmium Ingot
 
 #nuggets
+item.gtclassic.nuggetTungsten.name=Tungsten Nugget
 item.gtclassic.nuggetRedAlloy.name=Red Alloy Nugget
 item.gtclassic.nuggetThorium.name=Thorium Nugget
 item.gtclassic.nuggetInvar.name=Invar Nugget
@@ -588,6 +584,11 @@ item.gtc_expansion.pickaxeStainlessSteel.name=Stainless Steel Pickaxe
 
 
 #components
+item.gtc_expansion.iridium_alloy_ingot.name=Iridium Alloy Ingot
+item.gtc_expansion.conveyor_module.name=Conveyor Module
+item.gtc_expansion.computer_monitor.name=Computer Monitor
+item.gtc_expansion.diamond_grinder.name=Diamond Grinder
+item.gtc_expansion.wolframium_grinder.name=Wolframium Grinder
 item.gtc_expansion.match.name=Match
 item.gtc_expansion.magnifying_glass.name=Magnifying Glass
 

@@ -17,6 +17,8 @@ public class GTItems2 {
     public static final GTItemComponent2 iridiumAlloyIngot = createItem(new GTItemComponent2("iridium_alloy_ingot", 0, 0));
     public static final GTItemComponent2 computerMonitor = createItem(new GTItemComponent2("computer_monitor", 1, 0));
     public static final GTItemComponent2 conveyorModule = createItem(new GTItemComponent2("conveyor_module",2, 0));
+    public static final GTItemComponent2 diamondGrinder = createItem(new GTItemComponent2("diamond_grinder", 4, 0));
+    public static final GTItemComponent2 wolframiumGrinder = createItem(new GTItemComponent2("wolframium_grinder", 5, 0));
 
 
     public static <T extends Item> T createItem(T item) {
