@@ -49,20 +49,15 @@ public class GEMaterial extends GTMaterial{
     Ashes,
     Basalt,
     Bauxite,
-    Bismuth,
-    BismuthBronze,
-    Bismuthtine,
     Brass,
     Bronze,
     Calcite,
     Carbon,
-    Cassiterite,
     Charcoal,
     Chrome,
     Cinnabar,
     Clay,
     Coal,
-    Cobalt,
     Constantan,
     Copper,
     DarkAshes,
@@ -86,15 +81,11 @@ public class GEMaterial extends GTMaterial{
     Invar,
     Lazurite,
     Lead,
-    Limonite,
     Lithium,
-    Malachite,
     Magnalium,
     Magnesium,
-    Magnetite,
     Manganese,
     Marble,
-    Neodymium,
     Netherrack,
     Nickel,
     Nichrome,
@@ -106,7 +97,6 @@ public class GEMaterial extends GTMaterial{
     Platinum,
     Plutonium,
     Pyrite,
-    Pyrolusite,
     Pyrope,
     RedAlloy,
     RedRock,
@@ -116,7 +106,6 @@ public class GEMaterial extends GTMaterial{
     Saltpeter,
     Sapphire,
     SapphireGreen,
-    Sheldonite,
     Silicon,
     Silver,
     Slag,
@@ -128,7 +117,6 @@ public class GEMaterial extends GTMaterial{
     Stone,
     Sulfur,
     SulfuricAcid,
-    Tetrahedrite,
     Thorium,
     Tin,
     Titanium,
@@ -195,20 +183,15 @@ public class GEMaterial extends GTMaterial{
         Ashes = new GEMaterial("Ashes", 192, 192, 192, dustAll);
         Basalt = replaceMaterial(GTMaterial.Basalt, new GEMaterial("Basalt", 30, 20, 20, 5.0F, 0, 2, dustAll));
         Bauxite = replaceMaterial(GTMaterial.Bauxite, new GEMaterial("Bauxite", 200, 100, 0, 3.0F, 0, 1, dustAll));
-        Bismuth = new GEMaterial("Bismuth", 100, 160, 160, 6.0F, 96, 2, metalFull);
-        BismuthBronze = new GEMaterial("BismuthBronze", 100, 125, 125, 6.0F, 128, 2, smalldust, dust, nugget, ingot, plate);
-        Bismuthtine = new GEMaterial("Bismuthtine", 75, 135, 135, 3.0F, 0, 1, dustAll);
         Brass = new GEMaterial("Brass", 255, 180, 0, 7.0F, 96, 1, metalFullWHull);
         Bronze = new GEMaterial("Bronze", 230, 83, 34, 6.0F, 192, 2, smalldust, nugget, plate, stick, gear, hull);
         Calcite = replaceMaterial(GTMaterial.Calcite, new GEMaterial("Calcite", 250, 230, 220, 3.0F, 0, 1, dustAll));
         Carbon = replaceMaterial(GTMaterial.Carbon, new GEMaterial("Carbon", 0, 0, 0,dustAll));
-        Cassiterite = new GEMaterial("Cassiterite", 220, 220, 220, 3.0F, 0, 1, dustAll);
         Charcoal = new GEMaterial("Charcoal", 100, 70, 70, smalldust);
         Chrome = replaceMaterial(GTMaterial.Chrome, new GEMaterial("Chrome", 240, 210, 230, false, 11.0F, 256, 3, metalFull));
         Cinnabar = new GEMaterial("Cinnabar", 150, 0, 0, 3.0F, 0, 2, dustAll);
         Clay = new GEMaterial("Clay", 200, 200, 220, smalldust);
         Coal = new GEMaterial("Coal", 70, 70, 70, 3.0F, 0, 1, smalldust);
-        Cobalt = new GEMaterial("Cobalt", 80, 80, 250, false, 8.0F, 512, 4, metalBase);
         Constantan = new GEMaterial("Constantan", 196, 116, 77, 8.0F, 128, 2, smalldust, dust, nugget, ingot, plate, stick, coil);
         Copper = new GEMaterial("Copper", 180, 113, 61, smalldust, nugget, plate, stick, wire, gear, coil, foil);
         DarkAshes = new GEMaterial("DarkAshes", 50, 50, 50, dustAll);
@@ -232,15 +215,11 @@ public class GEMaterial extends GTMaterial{
         Invar = new GEMaterial("Invar", 220, 220, 150, 6.0F, 256, 2, metalFull);
         Lazurite = replaceMaterial(GTMaterial.Lazurite, new GEMaterial("Lazurite", 100, 120, 255, dustAll));
         Lead = new GEMaterial("Lead", 140, 100, 140, 8.0F, 64, 1, smalldust, dust, nugget, ingot, plate, stick, wire, gear, blockMetal);
-        Limonite = new GEMaterial("Limonite", 200, 100, 0, 3.0F, 0, 1, dustAll);
         Lithium = replaceMaterial(GTMaterial.Lithium, new GEMaterial("Lithium", 87, 150, 204, dustAll));
-        Malachite = new GEMaterial("Malachite", 5, 95, 5, 3.0F, 0, 1, dustAll);
         Magnalium = new GEMaterial("Magnalium", 200, 190, 255, 6.0F, 256, 2, metalBase);
         Magnesium = new GEMaterial("Magnesium", 255, 200, 200, dustAll);
-        Magnetite = new GEMaterial("Magnetite", 0, 0, 0, 3.0F, 0, 1, dustAll);
         Manganese = new GEMaterial("Manganese", 250, 235, 250, smalldust, dust, nugget, ingot, plate, blockMetal);
         Marble = new GEMaterial("Marble", 200, 200, 200, dustAll);
-        Neodymium = new GEMaterial("Neodymium", 100, 100, 100, 7.0F, 3347, 3, smalldust, dust, nugget, ingot, plate, stick, magnetic);
         Netherrack = new GEMaterial("Netherrack", 200, 0, 0, smalldust);
         Nickel = new GEMaterial("Nickel", 200, 200, 250, 6.0F, 64, 2, smalldust, dust, nugget, ingot, plate, stick, wire, gear, blockMetal);
         Nichrome = new GEMaterial("Nichrome", 205, 206, 246, 10.0F, 256, 3, smalldust, dust, nugget, ingot, plate, stick, coil);
@@ -252,7 +231,6 @@ public class GEMaterial extends GTMaterial{
         Platinum = replaceMaterial(GTMaterial.Platinum, new GEMaterial("Platinum", 255, 255, 200, false, 12.0F, 64, 2, smalldust, dust, nugget, ingot, plate, stick, wire, gear, blockMetal));
         Plutonium = replaceMaterial(GTMaterial.Plutonium, new GEMaterial("Plutonium", 240, 50, 50, 6.0F, 512, 3, smalldust, dust, nugget, ingot, plate));
         Pyrite = replaceMaterial(GTMaterial.Pyrite, new GEMaterial("Pyrite", 150, 120, 40, 3.0F, 0, 1, dustAll));
-        Pyrolusite = new GEMaterial("Pyrolusite", 70, 70, 90, 5.0F, 0, 2, dustAll);
         Pyrope = new GEMaterial("Pyrope", 120, 50, 100, dustAll);
         RedAlloy = new GEMaterial("RedAlloy", 200, 0, 0, smalldust, dust, ingot, nugget, stick, wire);
         RedRock = new GEMaterial("RedRock", 255, 80, 50, dustAll);
@@ -262,7 +240,6 @@ public class GEMaterial extends GTMaterial{
         Saltpeter = new GEMaterial("Saltpeter", 230, 230, 230, 3.0F, 0, 1, dustAll);
         Sapphire = replaceMaterial(GTMaterial.Sapphire, new GEMaterial("Sapphire", 100, 100, 200, 7.0F, 256, 2, gemAll2));
         SapphireGreen = replaceMaterial(GTMaterial.SapphireGreen, new GEMaterial("GreenSapphire", 100, 200, 130, 7.0F, 256, 2, gemAll2));
-        Sheldonite = new GEMaterial("Sheldonite", 215, 212, 137, 3.5F, 0, 3, dustAll);
         Silicon = replaceMaterial(GTMaterial.Silicon, new GEMaterial("Silicon", 60, 60, 80, 1.0F, 0, 1, fluid, smalldust, dust, nugget, ingot, plate, smallplate));
         Silver = new GEMaterial("Silver", 215, 225, 230, 10.0F, 64, 2, smalldust, nugget, plate, stick, wire, gear, foil);
         Slag = new GEMaterial("Slag", 64, 48, 0, dustAll);
@@ -274,7 +251,6 @@ public class GEMaterial extends GTMaterial{
         Stone = new GEMaterial("Stone", 196, 196, 196, dustAll);
         Sulfur = new GEMaterial("Sulfur", 200, 200, 0, 2.0F, 0, 1, smalldust, dust);
         SulfuricAcid = new GEMaterial("SulfuricAcid", 255, 106, 0, fluid);
-        Tetrahedrite = new GEMaterial("Tetrahedrite", 200, 32, 0, 3.0F, 0, 1, dustAll);
         Thorium = replaceMaterial(GTMaterial.Thorium, new GEMaterial("Thorium", 0, 30, 0, false, 6.0F, 512, 2, smalldust, dust, nugget, ingot));
         Tin = new GEMaterial("Tin", 220, 220, 220, smalldust, nugget, plate, stick, wire, gear);
         Titanium = replaceMaterial(GTMaterial.Titanium, new GEMaterial("Titanium", 170, 143, 222, 8.0F, 2560, 3, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull));

@@ -5,9 +5,11 @@ import gtclassic.GTConfig;
 import gtclassic.helpers.GTHelperStack;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
+import gtclassic.recipe.GTRecipeProcessing;
 import gtclassic.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.block.machine.low.TileEntityExtractor;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,10 +26,17 @@ public class GERecipeProcessing {
     public static void init(){
         initCentrifugeRecipes();
         initBlastFurnaceRecipes();
+        initIc2Recipes();
     }
 
     public static void initIc2Recipes(){
         TileEntityMacerator.addRecipe("oreRedstone", 1, GTMaterialGen.get(Items.REDSTONE, 10));
+        GTRecipeProcessing.maceratorUtil("orePyrite", 1, GTMaterialGen.getDust(GEMaterial.Pyrite, 5));
+        GTRecipeProcessing.maceratorUtil("oreCinnabar", 1, GTMaterialGen.getDust(GEMaterial.Cinnabar, 3));
+        GTRecipeProcessing.maceratorUtil("oreSphalerite", 1, GTMaterialGen.getDust(GEMaterial.Sphalerite, 4));
+        GTRecipeProcessing.maceratorUtil("oreSheldonite", 1, GTMaterialGen.getDust(GEMaterial.Platinum, 2));
+        GTRecipeProcessing.maceratorUtil("oreSodalite", 1, GTMaterialGen.getDust(GEMaterial.Sodalite, 12));
+        TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GEMaterial.Olivine, 3));
     }
 
     public static void initCentrifugeRecipes(){

@@ -5,6 +5,7 @@ import gtc_expansion.GEItems;
 import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
+import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
 import gtclassic.GTBlocks;
 import gtclassic.GTConfig;
@@ -41,6 +42,7 @@ public class GERecipe {
         GERecipeProcessing.init();
         GETileElectrolyzer.init();
         GETileMultiVacuumFreezer.init();
+        GETileMultiIndustrialGrinder.init();
         GETileMultiImplosionCompressor.init();
         GETileAlloySmelter.init();
         initIc2();

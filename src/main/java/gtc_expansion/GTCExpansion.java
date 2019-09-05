@@ -3,6 +3,7 @@ package gtc_expansion;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.proxy.GECommonProxy;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -37,6 +38,7 @@ public class GTCExpansion {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent e) {
 		proxy.init(e);
+		MinecraftForge.EVENT_BUS.register(new GEEvents());
 	}
 
 	@Mod.EventHandler

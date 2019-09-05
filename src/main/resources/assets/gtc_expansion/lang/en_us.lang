@@ -15,63 +15,19 @@ tile.gtclassic.blockYellowGarnet.name=Block of Yellow Garnet
 tile.gtclassic.blockGreenSapphire.name=Block of Green Sapphire
 tile.gtclassic.blockOlivine.name=Block of Olivine
 
-#material casings
-tile.gtclassic.casingInvar.name=Invar Machine Block
-tile.gtclassic.casingZinc.name=Zinc Machine Block
-tile.gtclassic.casingBronze.name=Bronze Machine Block
-tile.gtclassic.casingSilver.name=Silver Machine Block
-tile.gtclassic.casingSteel.name=Steel Machine Block
-tile.gtclassic.casingGold.name=Gold Machine Block
-tile.gtclassic.casingCopper.name=Copper Machine Block
-tile.gtclassic.casingElectrum.name=Electrum Machine Block
-tile.gtclassic.casingLead.name=Lead Machine Block
-tile.gtclassic.casingAluminium.name=Aluminium Machine Block
-tile.gtclassic.casingPlatinum.name=Platinum Machine Block
-tile.gtclassic.casingTin.name=Tin Machine Block
-tile.gtclassic.casingChrome.name=Chrome Machine Block
-tile.gtclassic.casingBrass.name=Brass Machine Block
-tile.gtclassic.casingTungsten.name=Tungsten Machine Block
-tile.gtclassic.casingTungstensteel.name=Tungstensteel Machine Block
-tile.gtclassic.casingTitanium.name=Titanium Machine Block
-tile.gtclassic.casingIridium.name=Iridium Machine Block
-tile.gtclassic.casingNickel.name=Nickel Machine Block
-tile.gtclassic.casingOsmium.name=Osmium Machine Block
-tile.gtclassic.casingIron.name=Iron Machine Block
-tile.gtclassic.casingRefinedIron.name=Refined Iron Machine Block
-tile.gtclassic.casingStainlessSteel.name=Stainless Steel Machine Block
-tile.gtclassic.casingBismuth.name=Bismuth Machine Block
+tile.gtc_expansion.orepyrite.name=Pyrite Ore
+tile.gtc_expansion.orecinnabar.name=Cinnabar Ore
+tile.gtc_expansion.oresphalerite.name=Sphalerite Ore
+tile.gtc_expansion.oretungstate.name=Tungstate Ore
+tile.gtc_expansion.oresheldonite.name=Sheldonite Ore
+tile.gtc_expansion.oreolivine.name=Olivine Ore
+tile.gtc_expansion.oresodalite.name=Sodalite Ore
 
-#material coils
-tile.gtclassic.copper_coil.name=Copper Coil
-tile.gtclassic.constantan_coil.name=Constantan Coil
-tile.gtclassic.graphite_coil.name=Graphite Coil
-tile.gtclassic.nichrome_coil.name=Nichrome Coil
-tile.gtclassic.niobiumtitanium_coil.name=Niobium Titanium Coil
-
-
-#blooms
-tile.gtmodern.refinediron_bloom.name=Refined Iron Bloom
-tile.gtmodern.bronze_bloom.name=Bronze Bloom
-tile.gtmodern.redalloy_bloom.name=Red Alloy Bloom
-tile.gtmodern.invar_bloom.name=Invar Bloom
-tile.gtmodern.brass_bloom.name=Brass Bloom
-tile.gtmodern.electrum_bloom.name=Electrum Bloom
-tile.gtmodern.constantan_bloom.name=Constantan Bloom
-tile.gtmodern.bismuthbronze_bloom.name=Bismuth Bronze Bloom
-
-#tiles
-tile.gtmodern.stainlesssteel_drum.name=Drum
-
-tile.gtc_expansion.bloomery.name=Bloomery Controller
-tile.gtc_expansion.charcoalpit.name=Charcoal Pit Controller
 tile.gtc_expansion.industrialelectrolyzer.name=Industrial Electrolyzer
 tile.gtc_expansion.implosioncompressor.name=Implosion Compressor
 tile.gtc_expansion.industrialgrinder.name=Industrial Grinder
 tile.gtc_expansion.vacuumfreezer.name=Vacuum Freezer
-tile.gtc_expansion.chemicalreactor.name=Chemical Reactor
 tile.gtc_expansion.alloysmelter.name=Alloy Smelter
-tile.gtc_expansion.fluidsmelter_lv.name=Fluid Smelter
-tile.gtc_expansion.block_ducttape.name=Braintech Aerospace Advanced Reinforced Duct Tape FAL-84
 tile.gtclassic.standard.name=Standard Machine Casing
 tile.gtclassic.advanced.name=Advanced Machine Casing
 

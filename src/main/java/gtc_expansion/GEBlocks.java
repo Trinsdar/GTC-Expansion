@@ -1,6 +1,7 @@
 package gtc_expansion;
 
 import gtc_expansion.block.GEBlockCasing;
+import gtc_expansion.block.GEBlockOre;
 import gtc_expansion.block.GEBlockTile;
 import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
@@ -34,8 +35,17 @@ public class GEBlocks {
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
     public static GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
 
-    public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,100F));
+    public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
     public static GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
+
+    public static GEBlockOre orePyrite = registerBlock(new GEBlockOre("pyrite", 16, 2.0F, 1));
+    public static GEBlockOre oreCinnabar = registerBlock(new GEBlockOre("cinnabar", 17, 3.0F, 2));
+    public static GEBlockOre oreSphalerite = registerBlock(new GEBlockOre("sphalerite", 18, 2.0F, 1));
+    public static GEBlockOre oreTungstate = registerBlock(new GEBlockOre("tungstate", 19, 4.0F, 2));
+    public static GEBlockOre oreSheldonite = registerBlock(new GEBlockOre("sheldonite", 20, 3.5F, 3));
+    public static GEBlockOre oreOlivine = registerBlock(new GEBlockOre("olivine", 21, 3.0F, 3));
+    public static GEBlockOre oreSodalite = registerBlock(new GEBlockOre("sodalite", 22, 3.0F, 2));
+
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "implosioncompressor"};
     public static void registerBlocks() {
         Iterator var0 = toRegister.iterator();
