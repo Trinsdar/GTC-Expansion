@@ -107,7 +107,7 @@ public class GEBlockOre extends Block implements ITexturedBlock, ILocaleBlock {
     @Override
     public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState blockstate, int fortune) {
         ArrayList<ItemStack> drops = new ArrayList<>();
-        Random random = new Random();
+        Random random = world instanceof World ? ((World) world).rand : new Random();
         if (this.equals(GEBlocks.orePyrite)){
             drops.add(GTMaterialGen.getDust(GEMaterial.Pyrite, 2 + random.nextInt(1 + fortune)));
         } else if (this.equals(GEBlocks.oreCinnabar)) {
@@ -140,11 +140,11 @@ public class GEBlockOre extends Block implements ITexturedBlock, ILocaleBlock {
     public int getExpDrop(IBlockState state, net.minecraft.world.IBlockAccess world, BlockPos pos, int fortune) {
         Random rand = world instanceof World ? ((World) world).rand : new Random();
         int xp = 0;
-        if (this.equals(GTBlocks.oreIridium)) {
-            xp = MathHelper.getInt(rand, 3, 7);
-        }
-        if (this.equals(GTBlocks.oreRuby) || this.equals(GTBlocks.oreSapphire)) {
+        if (this.equals(GEBlocks.oreOlivine)) {
             xp = MathHelper.getInt(rand, 2, 5);
+        }
+        if (this.equals(GEBlocks.orePyrite) || this.equals(GEBlocks.oreSphalerite) ||this.equals(GEBlocks.oreSodalite) || this.equals(GEBlocks.oreCinnabar)) {
+            xp = MathHelper.getInt(rand, 3, 7);
         }
         return xp;
     }
