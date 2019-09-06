@@ -3,12 +3,14 @@ package gtc_expansion;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.proxy.GECommonProxy;
+import gtclassic.GTWorldGen;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = GTCExpansion.MODID, name = GTCExpansion.MODNAME, version = GTCExpansion.MODVERSION, dependencies = GTCExpansion.DEPENDS, useMetadata = true)
@@ -39,6 +41,7 @@ public class GTCExpansion {
 	public void init(FMLInitializationEvent e) {
 		proxy.init(e);
 		MinecraftForge.EVENT_BUS.register(new GEEvents());
+		GameRegistry.registerWorldGenerator(new GEWorldGen(), 0);
 	}
 
 	@Mod.EventHandler

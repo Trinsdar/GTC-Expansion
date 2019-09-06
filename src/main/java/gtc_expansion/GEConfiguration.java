@@ -11,17 +11,17 @@ public class GEConfiguration {
     // generation
     public static boolean pyriteGenerate = true;
     public static int pyriteSize = 32;
-    public static int pyriteWeight = 16;
+    public static int pyriteWeight = 8;
     public static boolean cinnabarGenerate = true;
     public static int cinnabarSize = 16;
-    public static int cinnabarWeight = 8;
+    public static int cinnabarWeight = 4;
     public static boolean sphaleriteGenerate = true;
     public static int sphaleriteSize = 32;
-    public static int sphaleriteWeight = 16;
+    public static int sphaleriteWeight = 8;
 
     public static boolean tungstateGenerate = true;
     public static int tungstateSize = 16;
-    public static int tungstateWeight = 4;
+    public static int tungstateWeight = 2;
     public static boolean sheldoniteGenerate = true;
     public static int sheldoniteSize = 4;
     public static int sheldoniteWeight = 2;
@@ -30,7 +30,7 @@ public class GEConfiguration {
     public static int olivineWeight = 5;
     public static boolean sodaliteGenerate = true;
     public static int sodaliteSize = 16;
-    public static int sodaliteWeight = 8;
+    public static int sodaliteWeight = 6;
     // mod compat options
 
     public static void readConfig() {
