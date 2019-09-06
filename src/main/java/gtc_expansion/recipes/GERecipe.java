@@ -96,8 +96,8 @@ public class GERecipe {
 
     public static void initIc2(){
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GEItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
-        recipes.overrideRecipe("shaped_tile.blockitnt_1517595819", GTMaterialGen.getIc2(Ic2Items.industrialTNT, 4), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
-        recipes.overrideRecipe("shaped_tile.blockitnt_-952709973", GTMaterialGen.getIc2(Ic2Items.industrialTNT, 4), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
+        recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
+        recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
         if (GEConfiguration.harderTools){
             recipes.overrideRecipe("shaped_item.itemtooldrill_1955483893", Ic2Items.diamondDrill, " D ", "DdD", "TCT", 'D', "dustDiamond", 'd', Ic2Items.electricDrill, 'T', titanium, 'C', "circuitAdvanced");
             recipes.overrideRecipe("shaped_item.itemtooldrill_-1588477206", Ic2Items.electricDrill, " S ", "SCS", "SBS", 'S', steel, 'C', "circuitBasic", 'B', Ic2Items.battery);
