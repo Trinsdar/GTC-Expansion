@@ -8,6 +8,9 @@ public class GEConfiguration {
     private static final String CATEGORY_CONFIG = "config";
     private static final String CATEGORY_GENERATION = "generation";
 
+    public static boolean usePlates = false;
+    public static boolean harderTools = true;
+
     // generation
     public static boolean pyriteGenerate = true;
     public static int pyriteSize = 32;
@@ -50,7 +53,8 @@ public class GEConfiguration {
 
     private static void initGeneralConfig(Configuration cfg) {
         cfg.addCustomCategoryComment(CATEGORY_CONFIG, "Configuration");
-
+        usePlates = cfg.getBoolean("usePlates", CATEGORY_CONFIG, usePlates, "Enables quite a few of GT recipes using plates instead of ingots.");
+        harderTools = cfg.getBoolean("harderTools", CATEGORY_CONFIG, harderTools, "Enables harder recipes for some ic2 and gtclassic electric tools.");
     }
 
     private static void initGenerationConfig(Configuration cfg) {

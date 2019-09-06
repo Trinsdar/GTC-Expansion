@@ -51,6 +51,9 @@ public class GERecipeProcessing {
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GEMaterial.RedRock, 16), 0, totalCentrifugeEu(2000), GTMaterialGen.getDust(GEMaterial.Calcite, 8), GTMaterialGen.getDust(GEMaterial.Flint, 4), GTMaterialGen.getIc2(Ic2Items.clayDust, 4));
         GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GEMaterial.Marble, 8), 0, totalCentrifugeEu(5275), GTMaterialGen.getDust(GEMaterial.Magnesium, 1), GTMaterialGen.getDust(GEMaterial.Calcite, 7));
         //GTTileCentrifuge.addRecipe(GTMaterialGen.getDust(GTMaterial2.Basalt, 16), 0, totalCentrifugeEu(10200), GTMaterialGen.getDust(GTMaterial2.Olivine, 1), GTMaterialGen.getDust(GTMaterial2.Calcite, 3), GTMaterialGen.getDust(GTMaterial2.Flint, 8), GTMaterialGen.getDust(GTMaterial2.DarkAshes, 4));
+        GTTileCentrifuge.addRecipe("dustBrass", 4,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GEMaterial.Zinc, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 3));
+        GTTileCentrifuge.addRecipe("dustInvar", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GEMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.ironDust, 2));
+        GTTileCentrifuge.addRecipe("dustConstantan", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GEMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 2));
     }
 
     public static void initBlastFurnaceRecipes(){
