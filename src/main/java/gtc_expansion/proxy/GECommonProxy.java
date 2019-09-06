@@ -25,10 +25,10 @@ public class GECommonProxy {
         GEBlocks.registerBlocks();
         GEBlocks.registerTiles();
         GEItems.registerItems();
+        GEOreDict.init();
     }
 
     public void init(FMLInitializationEvent e) {
-        GEOreDict.init();
         GERecipe.init();
     }
 

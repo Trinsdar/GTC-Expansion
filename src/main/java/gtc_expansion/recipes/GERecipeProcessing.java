@@ -1,5 +1,6 @@
 package gtc_expansion.recipes;
 
+import gtc_expansion.GEConfiguration;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTConfig;
 import gtclassic.helpers.GTHelperStack;
@@ -9,6 +10,7 @@ import gtclassic.recipe.GTRecipeProcessing;
 import gtclassic.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityExtractor;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.platform.registry.Ic2Items;
@@ -37,6 +39,9 @@ public class GERecipeProcessing {
         GTRecipeProcessing.maceratorUtil("oreSheldonite", 1, GTMaterialGen.getDust(GEMaterial.Platinum, 2));
         GTRecipeProcessing.maceratorUtil("oreSodalite", 1, GTMaterialGen.getDust(GEMaterial.Sodalite, 12));
         TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GEMaterial.Olivine, 3));
+        if (GEConfiguration.usePlates){
+            TileEntityCompressor.addRecipe("plateCopper", 8, Ic2Items.denseCopperPlate);
+        }
     }
 
     public static void initCentrifugeRecipes(){

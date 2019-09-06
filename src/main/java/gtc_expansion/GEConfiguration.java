@@ -8,7 +8,7 @@ public class GEConfiguration {
     private static final String CATEGORY_CONFIG = "config";
     private static final String CATEGORY_GENERATION = "generation";
 
-    public static boolean usePlates = false;
+    public static boolean usePlates = true;
     public static boolean harderTools = true;
 
     // generation

@@ -77,6 +77,18 @@ dependencies {
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
     compile curse.resolve("baubles", "2518667")
     compile curse.resolve("ic2-classic", "2743828")
+    deobfCompile(group: 'CraftTweaker2', name: 'ZenScript', version: craft_tweaker_version) {
+        exclude group: 'org.ow2.asm'
+        exclude group: 'com.google.code.gson'
+    }
+    deobfCompile(group: 'CraftTweaker2', name: 'CraftTweaker2-API', version: craft_tweaker_version) {
+        exclude group: 'org.ow2.asm'
+        exclude group: 'com.google.code.gson'
+    }
+    deobfCompile(group: 'CraftTweaker2', name: 'CraftTweaker2-MC1120-Main', version: "1.12-${craft_tweaker_version}") {
+        exclude group: 'org.ow2.asm'
+        exclude group: 'com.google.code.gson'
+    }
     //deobfCompile curse.resolve("gregtech-classic", "2733460")
 }
 
