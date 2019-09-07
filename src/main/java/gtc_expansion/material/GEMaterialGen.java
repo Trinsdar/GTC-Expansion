@@ -49,4 +49,8 @@ public class GEMaterialGen {
     public static ItemStack getPlate(GTMaterial mat, int count){
         return GTMaterialGen.getStack(mat, GEMaterial.plate, count);
     }
+
+    public static ItemStack getHull(GTMaterial mat, int count){
+        return GTMaterialGen.getBlockStack(mat, GEMaterial.hull, count);
+    }
 }

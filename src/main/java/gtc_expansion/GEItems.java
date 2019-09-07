@@ -18,6 +18,7 @@ public class GEItems {
     public static final GEItemMisc conveyorModule = createItem(new GEItemMisc("conveyor_module",2, 0));
     public static final GEItemMisc diamondGrinder = createItem(new GEItemMisc("diamond_grinder", 4, 0));
     public static final GEItemMisc wolframiumGrinder = createItem(new GEItemMisc("wolframium_grinder", 5, 0));
+    public static final GEItemMisc constantanHeatingCoil = createItem(new GEItemMisc("constantan_heating_coil",8, 0));
 
 
     public static <T extends Item> T createItem(T item) {

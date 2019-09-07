@@ -27,7 +27,7 @@ public class GEMaterial extends GTMaterial{
     static GTMaterialFlag foil = new GTMaterialFlag("_foil", tex, 10, false);
     static GTMaterialFlag blockMetal = GTMaterialFlag.BLOCKMETAL;
     public static GTMaterialFlag blockGem = GTMaterialFlag.BLOCKGEM;
-    static GTMaterialFlag hull = new GTMaterialFlag("_hull", tex, 50, false);
+    public static GTMaterialFlag hull = new GTMaterialFlag("_hull", tex, 50, false);
     static GTMaterialFlag coil = new GTMaterialFlag("_coil", tex, 52, false);
     static GTMaterialFlag[] dustAll = { smalldust, dust };
     static GTMaterialFlag[] gemAll1 = { smalldust, dust, gemRubyShape, blockGem };
