@@ -24,11 +24,11 @@ tile.gtc_expansion.oreolivine.name=Olivine Ore
 tile.gtc_expansion.oresodalite.name=Sodalite Ore
 tile.gtc_expansion.oreolivine_overworld.name=Olivine Ore
 
-tile.gtc_expansion.hullBronze.name=Bronze Machine Hull
-tile.gtc_expansion.hullSteel.name=Steel Machine Hull
-tile.gtc_expansion.hullAluminium.name=Aluminium Machine Hull
-tile.gtc_expansion.hullBrass.name=Brass Machine Hull
-tile.gtc_expansion.hullTitanium.name=Titanium Machine Hull
+tile.gtclassic.hullBronze.name=Bronze Machine Hull
+tile.gtclassic.hullSteel.name=Steel Machine Hull
+tile.gtclassic.hullAluminium.name=Aluminium Machine Hull
+tile.gtclassic.hullBrass.name=Brass Machine Hull
+tile.gtclassic.hullTitanium.name=Titanium Machine Hull
 
 tile.gtc_expansion.industrialelectrolyzer.name=Industrial Electrolyzer
 tile.gtc_expansion.implosioncompressor.name=Implosion Compressor
