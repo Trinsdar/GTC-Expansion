@@ -1,0 +1,47 @@
+package gtc_expansion.item.tools;
+
+import com.google.common.collect.ImmutableMap;
+import gtc_expansion.material.GEMaterial;
+import gtclassic.material.GTMaterial;
+import gtclassic.material.GTMaterialGen;
+import ic2.core.util.helpers.ToolHelper;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.EnumHelper;
+
+public class GEToolMaterial {
+    /*
+     * This where materials for tools specifically - are handled, although it seems
+     * weird to have a second smaller materials list, this ensures integration with
+     * vanilla and other mods using the tool classes and more control over tool
+     * values. So quit bitchin.
+     */
+
+    public static final ToolMaterial Flint = createToolMaterial("Flint", 1, 2.5F, 64, new ItemStack(Items.FLINT));
+    public static final ToolMaterial Steel = createToolMaterial(GEMaterial.Steel, 2, 6.0F, 512);
+    public static final ToolMaterial TungstenSteel = createToolMaterial(GEMaterial.TungstenSteel, 4, 10.0F, 5120);
+    public static final ToolMaterial Ruby = createToolMaterial("Ruby", 2, 7.0F, 256, GTMaterialGen.getGem(GTMaterial.Sapphire, 1));
+    public static final ToolMaterial Sapphire = createToolMaterial("Sapphire", 2, 7.0f, 256, GTMaterialGen.getGem(GTMaterial.Ruby, 1));
+
+    public static float attackDamage(float speed, int durability) {
+        // creates attack damage from speed
+        return (speed / 2.0F) + (durability / 1000);
+    }
+
+    public static int efficiency(int level) {
+        // creates enchantment level from tool level
+        return level * 7;
+    }
+
+    public static ToolMaterial createToolMaterial(GTMaterial mat, int level, float speed, int durability) {
+        // takes everything above and creates the tool material enum entry
+        return EnumHelper.addToolMaterial(mat.getDisplayName(), level, durability, speed, attackDamage(speed, durability), efficiency(level)).setRepairItem(GTMaterialGen.getIngot(mat, 1));
+    }
+
+    public static ToolMaterial createToolMaterial(String displayName, int level, float speed, int durability, ItemStack repair) {
+        // takes everything above and creates the tool material enum entry
+        return EnumHelper.addToolMaterial(displayName, level, durability, speed, attackDamage(speed, durability), efficiency(level)).setRepairItem(repair);
+    }
+}

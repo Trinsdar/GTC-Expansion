@@ -1,6 +1,7 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GEConfiguration;
+import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtclassic.material.GTMaterial;
@@ -45,6 +46,10 @@ public class GERecipeIterators {
         ingotUtil(Ic2Items.tinIngot, GEMaterial.Tin);
         ingotUtil(Ic2Items.bronzeIngot, GEMaterial.Bronze);
         ingotUtil(Ic2Items.silverIngot, GEMaterial.Silver);
+        createFullToolRecipes(GEMaterial.Steel, false);
+        createFullToolRecipes(GEMaterial.TungstenSteel, false);
+        createFullToolRecipes(GEMaterial.Ruby, true);
+        createFullToolRecipes(GEMaterial.Sapphire, true);
     }
 
     public static void createSmallDustRecipe(GTMaterial mat) {
@@ -96,6 +101,24 @@ public class GERecipeIterators {
             //Ingots from hulls
             recipes.addShapelessRecipe(GTMaterialGen.getIngot(mat, 8), GEMaterialGen.getHull(mat, 1));
         }
+    }
+
+    public static void createFullToolRecipes(GTMaterial mat, boolean gemInput){
+        String ingot = "ingot" + mat.getDisplayName();
+        String plate = "plate" + mat.getDisplayName();
+        String gem = "gem" + mat.getDisplayName();
+        if (gemInput){
+            ingot = gem;
+            plate = gem;
+        }
+        String stick = "stickWood";
+        GEToolGen G = new GEToolGen();
+        recipes.addRecipe(G.getPickaxe(mat), "PII", "FSH", " S ", 'P', plate, 'I', ingot, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
+        recipes.addRecipe(G.getAxe(mat), "PIH", "PS ", "FS ", 'P', plate, 'I', ingot, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
+        recipes.addRecipe(G.getShovel(mat), "FPH", " S ", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
+        recipes.addRecipe(G.getSword(mat), " P ", "FPH", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
+        recipes.addRecipe(G.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
+        recipes.addRecipe(G.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
     }
 
     public static void dustUtil(ItemStack stack, GTMaterial material) {

@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.proxy.GECommonProxy;
@@ -27,8 +28,9 @@ public class GTCExpansion {
 	public static Logger logger;
 
 	static {
-		System.out.println(GEMaterial.Almandine.getDisplayName());
+		GEMaterial.initMaterials();
 		GEMaterialGen.init();
+		GEToolGen.init();
 	}
 
 	@Mod.EventHandler

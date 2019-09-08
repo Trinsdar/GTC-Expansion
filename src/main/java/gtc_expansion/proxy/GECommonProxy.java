@@ -22,9 +22,9 @@ public class GECommonProxy {
         config = new Configuration(new File(directory.getPath(), "ic2/gtc_expansion.cfg"));
         GEConfiguration.readConfig();
         config.save();
+        GEItems.registerItems();
         GEBlocks.registerBlocks();
         GEBlocks.registerTiles();
-        GEItems.registerItems();
         GEOreDict.init();
     }
 

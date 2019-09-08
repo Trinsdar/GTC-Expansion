@@ -1,7 +1,10 @@
 package gtc_expansion.material;
 
+import gtc_expansion.GEItems;
+import gtc_expansion.item.tools.GEToolGen;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class GEMaterialDict {
@@ -25,5 +28,18 @@ public class GEMaterialDict {
                 OreDictionary.registerOre("rod" + mat.getDisplayName(), GTMaterialGen.getStack(mat, GEMaterial.stick, 1));
             }
         }
+        registerToolDicts(GEMaterial.Iron);
+        registerToolDicts(GEMaterial.Diamond);
+        registerToolDicts(GEMaterial.Steel);
+        registerToolDicts(GEMaterial.TungstenSteel);
+        registerToolDicts(GEMaterial.Ruby);
+        registerToolDicts(GEMaterial.Sapphire);
+        OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GEItems.bronzeHammer, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("craftingToolFile", new ItemStack(GEItems.bronzeFile, 1, OreDictionary.WILDCARD_VALUE));
+    }
+
+    public static void registerToolDicts(GTMaterial mat){
+        OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GEToolGen.getHammer(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("craftingToolFile", new ItemStack(GEToolGen.getFile(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
     }
 }

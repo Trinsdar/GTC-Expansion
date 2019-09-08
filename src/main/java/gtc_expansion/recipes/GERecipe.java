@@ -3,6 +3,7 @@ package gtc_expansion.recipes;
 import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
+import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.tile.GETileAlloySmelter;
@@ -24,8 +25,10 @@ import ic2.core.item.recipe.AdvRecipeBase;
 import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
+import ic2.core.item.recipe.upgrades.EnchantmentModifier;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
@@ -81,13 +84,13 @@ public class GERecipe {
         initOverrideGTClassic();
         initShapedItemRecipes();
         initShapedBlockRecipes();
+        initRemainingToolRecipes();
         initShapelessRecipes();
         GERecipeIterators.init();
     }
 
     public static void postInit(){
         GERecipeProcessing.removals();
-
     }
 
     public static void initShapedItemRecipes(){
@@ -97,6 +100,25 @@ public class GERecipe {
         recipes.addRecipe(GTMaterialGen.get(GEItems.diamondGrinder, 2), "DSD", "SdS", "DSD", 'D', "dustDiamond", 'S', steel, 'd', "gemDiamond");
         recipes.addRecipe(GTMaterialGen.get(GEItems.wolframiumGrinder, 2), "TST", "SBS", "TST", 'T', tungsten, 'S', steel, 'B', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GEItems.constantanHeatingCoil), " I ", "I I", " I ", 'I', "ingotConstantan");
+    }
+
+    public static void initRemainingToolRecipes(){
+        String stick = "stickWood";
+        recipes.addRecipe(GEToolGen.getPickaxe(GTMaterial.Flint), "FFF", " S ", " S ", new EnchantmentModifier(GEToolGen.getPickaxe(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
+                Items.FLINT, 'S', stick);
+        recipes.addRecipe(GEToolGen.getAxe(GTMaterial.Flint), "FF ", "FS ", " S ", new EnchantmentModifier(GEToolGen.getAxe(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
+                Items.FLINT, 'S', stick);
+        recipes.addRecipe(GEToolGen.getShovel(GTMaterial.Flint), "F", "S", "S", new EnchantmentModifier(GEToolGen.getShovel(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
+                Items.FLINT, 'S', stick);
+        recipes.addRecipe(GEToolGen.getSword(GTMaterial.Flint), "F", "F", "S", new EnchantmentModifier(GEToolGen.getSword(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
+                Items.FLINT, 'S', stick);
+        recipes.addRecipe(GTMaterialGen.get(GEItems.bronzeFile), "P", "P", "S", 'P', "plateBronze", 'S', stick);
+        recipes.addRecipe(GTMaterialGen.get(GEItems.bronzeHammer), "PPP", "PPP", " S ", 'P', "plateBronze", 'S', stick);
+        recipes.addRecipe(GEToolGen.getFile(GEMaterial.Iron), "P", "P", "S", 'P', "plateIron", 'S', stick);
+        recipes.addRecipe(GEToolGen.getHammer(GEMaterial.Iron), "PPP", "PPP", " S ", 'P', "plateIron", 'S', stick);
+        recipes.addRecipe(GEToolGen.getFile(GEMaterial.Diamond), "G", "G", "S", 'G', "gemDiamond", 'S', stick);
+        recipes.addRecipe(GEToolGen.getHammer(GEMaterial.Diamond), "GGG", "GGG", " S ", 'G', "gemDiamond", 'S', stick);
+
     }
 
     public static void initShapedBlockRecipes(){
@@ -166,7 +188,7 @@ public class GERecipe {
         instance.overrideGTRecipe("shaped_item.itemingotalloy_1844373769", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', materialMixedMetal2, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         instance.overrideGTRecipe("shaped_item.itemingotalloy_-470293062", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 8), "TTT", "MMM", "BBB", 'T', tungstenSteel, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         if (GEConfiguration.harderTools){
-            instance.overrideGTRecipe("shaped_item.gtclassic.rockcutter_1664690250", GTMaterialGen.get(GTItems.rockCutter), "DT ", "DT ", "DCB", 'T', titanium, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
+            instance.overrideGTRecipe("shaped_item.gtclassic.rockcutter_1664690250", GTMaterialGen.get(GTItems.rockCutter), "DT ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'T', titanium, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
             instance.overrideGTRecipe("shaped_item.gtclassic.jackhammer_2107301811", GTMaterialGen.get(GTItems.jackHammer), "TBT", " C ", " D ", 'T', titanium, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
             instance.overrideGTRecipe("shaped_item.itemtoolmininglaser_1482495812", Ic2Items.miningLaser,"REH", "TTC", " AA", 'R', "gemRuby", 'H', GTItems.heatStorageHelium6, 'E', tier2Energy, 'T', titanium, 'C', "circuitAdvanced", 'A', Ic2Items.advancedAlloy);
         }
