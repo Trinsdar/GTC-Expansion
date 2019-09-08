@@ -6,8 +6,13 @@ import gtc_expansion.container.GEContainerAlloyFurnace;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
+import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
+import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.filters.IFilter;
+import ic2.core.inventory.management.AccessRule;
+import ic2.core.inventory.management.InventoryHandler;
+import ic2.core.inventory.management.SlotType;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -22,7 +27,24 @@ public class GETileAlloyFurnace extends GETileFuelBaseMachine {
     public IFilter filter = new FuelMachineFilter(this);
 
     public GETileAlloyFurnace() {
-        super(4, 400, 1);
+        super(4, 200, 1);
+    }
+
+    @Override
+    protected void addSlots(InventoryHandler handler) {
+        handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
+        handler.registerDefaultSlotAccess(AccessRule.Both, getFuelSlot());
+        handler.registerDefaultSlotAccess(AccessRule.Import, getInputSlots());
+        handler.registerDefaultSlotAccess(AccessRule.Export, getOutputSlots());
+        handler.registerDefaultSlotsForSide(RotationList.UP.invert(), getFuelSlot());
+        handler.registerDefaultSlotsForSide(RotationList.UP.invert(), getOutputSlots());
+        handler.registerDefaultSlotsForSide(RotationList.DOWN.invert(), getInputSlots());
+        handler.registerInputFilter(CommonFilters.IronFurnaceFuelWithLava, getFuelSlot());
+        handler.registerOutputFilter(CommonFilters.NotIronFurnaceFuelWithLava, getFuelSlot());
+        handler.registerInputFilter(filter, getInputSlots());
+        handler.registerSlotType(SlotType.Fuel, getFuelSlot());
+        handler.registerSlotType(SlotType.Input, getInputSlots());
+        handler.registerSlotType(SlotType.Output, getOutputSlots());
     }
 
     @Override

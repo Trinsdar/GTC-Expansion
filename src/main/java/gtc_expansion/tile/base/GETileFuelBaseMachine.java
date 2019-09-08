@@ -12,15 +12,23 @@ import ic2.api.info.Info;
 import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
+import ic2.core.RotationList;
 import ic2.core.audio.AudioSource;
 import ic2.core.block.base.tile.TileEntityBasicElectricMachine;
 import ic2.core.block.base.tile.TileEntityMachine;
+import ic2.core.block.base.util.comparator.ComparatorManager;
+import ic2.core.block.base.util.comparator.comparators.ComparatorFuelMachine;
+import ic2.core.block.base.util.comparator.comparators.ComparatorProgress;
 import ic2.core.block.base.util.info.FuelMachineInfo;
 import ic2.core.block.base.util.info.ProgressInfo;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.base.IHasInventory;
+import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.filters.IFilter;
+import ic2.core.inventory.management.AccessRule;
+import ic2.core.inventory.management.InventoryHandler;
+import ic2.core.inventory.management.SlotType;
 import ic2.core.inventory.transport.wrapper.RangedInventoryWrapper;
 import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
@@ -494,5 +502,12 @@ public abstract class GETileFuelBaseMachine extends TileEntityMachine implements
 
         nbt.setTag("Results", list);
         return nbt;
+    }
+
+    @Override
+    protected void addComparators(ComparatorManager manager) {
+        super.addComparators(manager);
+        manager.addComparatorMode(new ComparatorProgress(this));
+        manager.addComparatorMode(new ComparatorFuelMachine(this));
     }
 }

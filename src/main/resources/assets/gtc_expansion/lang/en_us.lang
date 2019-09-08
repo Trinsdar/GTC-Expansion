@@ -35,6 +35,7 @@ tile.gtc_expansion.implosioncompressor.name=Implosion Compressor
 tile.gtc_expansion.industrialgrinder.name=Industrial Grinder
 tile.gtc_expansion.vacuumfreezer.name=Vacuum Freezer
 tile.gtc_expansion.alloysmelter.name=Alloy Smelter
+tile.gtc_expansion.alloyfurnace.name=Alloy Furnace
 tile.gtclassic.standard.name=Standard Machine Casing
 tile.gtclassic.advanced.name=Advanced Machine Casing
 
@@ -457,6 +458,7 @@ tooltip.gtc_expansion.alloysmelter0=HighTech combination smelter
 tooltip.gtc_expansion.implosioncompressor0=Over 9000 Gibbl!
 tooltip.gtc_expansion.industrialgrinder0=Ultimaceratron 42a
 tooltip.gtc_expansion.vacuumfreezer0=Cools down anything
+tooltip.gtc_expansion.alloyfurnace0=Smelts together alloys using fuel.
 
 tooltip.gtc_expansion.block_mortar=Macerates things into dust
 tooltip.gtc_expansion.block_ducttape=The solution to all your problems

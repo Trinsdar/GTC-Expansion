@@ -150,10 +150,7 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
      * Simple utility to generate recipe variants for the Alloy Smelter
      */
     public static void addAlloyRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
-        addRecipe("ingot" + input1, amount1, "ingot" + input2, amount2, output);
-        addRecipe("dust" + input1, amount1, "dust" + input2, amount2, output);
-        addRecipe("dust" + input1, amount1, "ingot" + input2, amount2, output);
-        addRecipe("ingot" + input1, amount1, "dust" + input2, amount2, output);
+        addRecipe(metal(input1, amount1), metal(input2, amount2), output);
     }
 
     /**
@@ -166,29 +163,36 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
 
     public static void addRecipe(String input1, int amount1, ItemStack input2, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add((IRecipeInput) (new RecipeInputOreDict(input1, amount1)));
-        inputs.add((IRecipeInput) (new RecipeInputItemStack(input2)));
+        inputs.add(new RecipeInputOreDict(input1, amount1));
+        inputs.add(new RecipeInputItemStack(input2));
         addRecipe(inputs, new MachineOutput(null, output));
     }
 
     public static void addRecipe(ItemStack input1, String input2, int amount2, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add((IRecipeInput) (new RecipeInputItemStack(input1)));
-        inputs.add((IRecipeInput) (new RecipeInputOreDict(input2, amount2)));
+        inputs.add(new RecipeInputItemStack(input1));
+        inputs.add(new RecipeInputOreDict(input2, amount2));
         addRecipe(inputs, new MachineOutput(null, output));
     }
 
     public static void addRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add((IRecipeInput) (new RecipeInputOreDict(input1, amount1)));
-        inputs.add((IRecipeInput) (new RecipeInputOreDict(input2, amount2)));
+        inputs.add(new RecipeInputOreDict(input1, amount1));
+        inputs.add(new RecipeInputOreDict(input2, amount2));
+        addRecipe(inputs, new MachineOutput(null, output));
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add(input1);
+        inputs.add(input2);
         addRecipe(inputs, new MachineOutput(null, output));
     }
 
     public static void addRecipe(ItemStack input1, ItemStack input2, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add((IRecipeInput) (new RecipeInputItemStack(input1)));
-        inputs.add((IRecipeInput) (new RecipeInputItemStack(input2)));
+        inputs.add(new RecipeInputItemStack(input1));
+        inputs.add(new RecipeInputItemStack(input2));
         addRecipe(inputs, new MachineOutput(null, output));
     }
 

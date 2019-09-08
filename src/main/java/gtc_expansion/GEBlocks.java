@@ -17,6 +17,7 @@ import gtclassic.itemblock.GTItemBlockRare;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -35,7 +36,7 @@ public class GEBlocks {
     public static GEBlockTile industrialGrinder = registerBlock(new GEBlockTile("industrialgrinder", GELang.INDUSTRIAL_GRINDER));
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
     public static GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
-    public static GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE));
+    public static GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE, Material.ROCK));
 
     public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
     public static GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
