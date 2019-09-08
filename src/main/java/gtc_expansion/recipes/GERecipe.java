@@ -141,6 +141,7 @@ public class GERecipe {
         recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Brass, 4), "dustCopper", "dustCopper", "dustCopper", "dustZinc");
         recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Constantan, 3), "dustCopper", "dustCopper", "dustNickel");
         recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Invar, 3), "dustIron", "dustIron", "dustNickel");
+        recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Magnalium, 1), "dustMagnesium", "dustAluminum", "dustAluminum");
         String lead = GEConfiguration.usePlates ? "plateLead" : "ingotLead";
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, lead);
     }

@@ -49,6 +49,7 @@ public class GERecipeRemove {
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustSilicon_1");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustLithium");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustSilicon_2");
+        GTTileCentrifuge.removeRecipe("item.gtclassic.dustSodalite_1");
         GTTileCentrifuge.RECIPE_LIST.finishMassChange();
     }
 
