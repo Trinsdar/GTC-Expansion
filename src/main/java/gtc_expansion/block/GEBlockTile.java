@@ -1,6 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GEBlocks;
+import gtc_expansion.tile.GETileAlloyFurnace;
 import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
@@ -36,6 +37,9 @@ public class GEBlockTile extends GTBlockMachine {
         }
         if (this == GEBlocks.vacuumFreezer){
             return new GETileMultiVacuumFreezer();
+        }
+        if (this == GEBlocks.alloyFurnace){
+            return new GETileAlloyFurnace();
         }
         return new TileEntityBlock();
     }

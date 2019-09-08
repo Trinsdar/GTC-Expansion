@@ -74,7 +74,7 @@ public abstract class GETileFuelBaseMachine extends TileEntityMachine implements
         this.fuelConsume = fuelPerTick;
         shouldCheckRecipe = true;
         addNetworkFields("soundLevel");
-        addGuiFields("recipeOperation",  "progress");
+        addGuiFields("recipeOperation",  "progress", "fuel", "maxFuel", "maxProgress");
         addInfos(new FuelMachineInfo(this), new ProgressInfo(this));
     }
 
@@ -128,12 +128,20 @@ public abstract class GETileFuelBaseMachine extends TileEntityMachine implements
             setActive(true);
             progress += 1;
             this.fuel -= fuelConsume;
+            if (this.fuel < 0) {
+                this.fuel = 0;
+            }
             if (progress >= recipeOperation) {
                 process(lastRecipe);
                 progress = 0;
             }
             getNetwork().updateTileGuiField(this, "progress");
+            getNetwork().updateTileGuiField(this, "fuel");
         } else {
+            if (isBurning()){
+                --this.fuel;
+                this.getNetwork().updateTileGuiField(this, "fuel");
+            }
             if (getActive()) {
                 if (progress != 0) {
                     getNetwork().initiateTileEntityEvent(this, 1, false);
@@ -145,27 +153,37 @@ public abstract class GETileFuelBaseMachine extends TileEntityMachine implements
                 progress = 0;
                 getNetwork().updateTileGuiField(this, "progress");
             }
-            setActive(false);
+            if (this.fuel <= 0) {
+                this.fuel = 0;
+            }
+
+            if (this.getActive() != this.isBurning()) {
+                this.setActive(this.isBurning());
+            }
         }
         updateComparators();
     }
 
+    public boolean isBurning() {
+        return this.fuel > 0;
+    }
+
     public boolean hasNewFuel() {
-        return TileEntityFurnace.isItemFuel((ItemStack)this.inventory.get(getFuelSlot()));
+        return TileEntityFurnace.isItemFuel(this.inventory.get(getFuelSlot()));
     }
 
     public void handleFuelSlot(){
         if (this.fuel <= 0  && this.hasNewFuel()) {
-            int newValue = Info.itemInfo.getFuelValue((ItemStack)this.inventory.get(getFuelSlot()), true) / 2;
+            int newValue = Info.itemInfo.getFuelValue(this.inventory.get(getFuelSlot()), true) / 2;
             this.fuel += newValue;
             this.maxFuel = newValue;
             this.getNetwork().updateTileGuiField(this, "maxFuel");
             this.getNetwork().updateTileGuiField(this, "fuel");
             if (this.fuel > 0) {
-                if (((ItemStack)this.inventory.get(getFuelSlot())).getItem().hasContainerItem((ItemStack)this.inventory.get(getFuelSlot()))) {
-                    this.inventory.set(getFuelSlot(), ((ItemStack)this.inventory.get(getFuelSlot())).getItem().getContainerItem((ItemStack)this.inventory.get(getFuelSlot())));
+                if (this.inventory.get(getFuelSlot()).getItem().hasContainerItem(this.inventory.get(getFuelSlot()))) {
+                    this.inventory.set(getFuelSlot(), this.inventory.get(getFuelSlot()).getItem().getContainerItem(this.inventory.get(getFuelSlot())));
                 } else {
-                    ((ItemStack)this.inventory.get(0)).shrink(1);
+                    this.inventory.get(getFuelSlot()).shrink(1);
                 }
             }
         }
@@ -376,6 +394,10 @@ public abstract class GETileFuelBaseMachine extends TileEntityMachine implements
     public abstract int[] getOutputSlots();
 
     public abstract GTRecipeMultiInputList getRecipeList();
+
+    public boolean isValidInput(ItemStack par1) {
+        return getRecipeList().isValidRecipeInput(par1);
+    }
 
     public boolean canWork() {
         return true;

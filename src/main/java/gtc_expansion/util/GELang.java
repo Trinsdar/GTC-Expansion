@@ -9,4 +9,5 @@ public class GELang {
     public static final LocaleComp VACUUM_FREEZER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.vacuumfreezer");
     public static final LocaleComp INDUSTRIAL_ELECTROLYZER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.industrialelectrolyzer");
     public static final LocaleComp ALLOY_SMELTER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.alloysmelter");
+    public static final LocaleComp ALLOY_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.alloyfurnace");
 }

@@ -1,5 +1,6 @@
 package gtc_expansion.util.jei;
 
+import gtc_expansion.GEBlocks;
 import gtclassic.util.jei.GTJeiPlugin;
 import ic2.jeiIntigration.SubModul;
 import mezz.jei.api.IJeiRuntime;
@@ -7,6 +8,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -23,6 +25,7 @@ public class GEJeiPlugin implements IModPlugin {
             for (GEJeiRegistry entry : GEJeiRegistry.values()) {
                 GTJeiPlugin.wrapperUtil(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
             }
+            registry.addRecipeCatalyst(new ItemStack(GEBlocks.alloyFurnace), "gt.alloysmelter");
         }
     }
 
