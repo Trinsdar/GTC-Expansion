@@ -4,6 +4,8 @@ import gtc_expansion.GEConfiguration;
 import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
+import gtc_expansion.util.GEIc2cECompat;
+import gtclassic.GTConfig;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialFlag;
 import gtclassic.material.GTMaterialGen;
@@ -14,6 +16,7 @@ import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 
 public class GERecipeIterators {
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
@@ -85,6 +88,9 @@ public class GERecipeIterators {
             } else {
                 recipes.addRecipe(GEMaterialGen.getPlate(mat, 1), "H", "X", 'H',
                         "craftingToolForgeHammer", 'X', ingot);
+            }
+            if (Loader.isModLoaded("ic2c_extras") && GTConfig.compatIc2Extras){
+                GEIc2cECompat.addRollerRecipe(ingot, 1, GEMaterialGen.getPlate(mat, 1));
             }
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTMaterialFlag.DUST)) {
