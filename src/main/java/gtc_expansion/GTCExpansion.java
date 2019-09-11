@@ -5,7 +5,6 @@ import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.proxy.GECommonProxy;
 import gtclassic.GTWorldGen;
-import gtclassic.worldgen.GTWorldGenOreOcean;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -39,7 +38,7 @@ public class GTCExpansion {
 		logger = event.getModLog();
 		proxy.preInit(event);
 		if (GEConfiguration.olivineGenerate){
-			GTWorldGenOreOcean.addOreDeposit(GEBlocks.oreOlivineOverworld);
+			GTWorldGen.addOreDeposit(GEBlocks.oreOlivineOverworld);
 		}
 	}
 

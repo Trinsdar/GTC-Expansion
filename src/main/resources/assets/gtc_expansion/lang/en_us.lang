@@ -443,6 +443,20 @@ item.gtc_expansion.machine_switch.name=Machine Switch
 fluid.sulfuricacid=Sulfuric Acid
 fluid.silicon=Silicon
 fluid.crude_oil=Crude Oil
+#molten fluids
+fluid.redalloy=Molten Red Alloy
+fluid.invar=Molten Invar
+fluid.zinc=Molten Zinc
+fluid.manganese=Molten Manganese
+fluid.magnalium=Molten Magnalium
+fluid.constantan=Molten Constantan
+fluid.lead=Molten Lead
+fluid.brass=Molten Brass
+fluid.stainlesssteel=Molten Stainless Steel
+fluid.tungstensteel=Molten Tungstensteel
+fluid.nickel=Molten Nickel
+fluid.osmium=Molten Osmium
+fluid.nichrome=Molten Nichrome
 
 #block tooltips
 tooltip.gtc_expansion.orepyrite=Spawns between Y level 0 - 64 in the NETHER.
