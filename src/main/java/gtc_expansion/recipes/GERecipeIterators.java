@@ -124,7 +124,7 @@ public class GERecipeIterators {
         recipes.addRecipe(G.getShovel(mat), "FPH", " S ", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
         recipes.addRecipe(G.getSword(mat), " P ", "FPH", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
         recipes.addRecipe(G.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
-        recipes.addRecipe(G.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
+        recipes.addRecipe(G.getHammer(mat), "III", "III", " S ", 'I', plate, 'S', stick);
     }
 
     public static void dustUtil(ItemStack stack, GTMaterial material) {
