@@ -1,6 +1,8 @@
 package gtc_expansion;
 
+import gtc_expansion.material.GEMaterial;
 import gtclassic.GTWorldGen;
+import gtclassic.material.GTMaterialGen;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.DimensionType;
@@ -30,6 +32,9 @@ public class GEWorldGen implements IWorldGenerator {
             }
         }
         if (world.provider.getDimensionType().equals(DimensionType.NETHER)){
+            GTWorldGen worldGen = new GTWorldGen();
+            worldGen.generateFluid(GTMaterialGen.getFluidBlock(GEMaterial.Nickel), 3, 1, 0, 64, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
+            worldGen.generateFluid(GTMaterialGen.getFluidBlock(GEMaterial.Invar), 3, 1, 0, 64, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
             if (GEConfiguration.pyriteGenerate){
                 instance.generate(GEBlocks.orePyrite, GEConfiguration.pyriteSize, GEConfiguration.pyriteWeight, 0, 64, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
             }
