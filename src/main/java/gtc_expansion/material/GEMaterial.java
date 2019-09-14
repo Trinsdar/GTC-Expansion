@@ -210,7 +210,7 @@ public class GEMaterial {
         Titanium = new GTMaterial("Titanium", 170, 143, 222, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull);
         Tungsten = new GTMaterial("Tungsten", 50, 50, 50, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, wire, gear, blockMetal);
         TungstenSteel = new GTMaterial("Tungstensteel", 100, 100, 160, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal);
-        Uranium = new GTMaterial("Uranium", 50, 240, 50, dustAll);
+        Uranium = new GTMaterial("Uranium", 50, 240, 50, dust, smalldust, molten);
         Uvarovite = new GTMaterial("Uvarovite", 180, 255, 180, dustAll);
         Wood = new GTMaterial("Wood", 137, 103, 39, dustAll);
         Zinc = new GTMaterial("Zinc", 250, 240, 240, metalFull);
