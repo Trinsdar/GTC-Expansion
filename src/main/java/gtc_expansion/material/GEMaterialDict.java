@@ -30,10 +30,11 @@ public class GEMaterialDict {
         }
         registerToolDicts(GEMaterial.Iron);
         registerToolDicts(GEMaterial.Diamond);
-        registerToolDicts(GEMaterial.Steel);
-        registerToolDicts(GEMaterial.TungstenSteel);
-        registerToolDicts(GEMaterial.Ruby);
-        registerToolDicts(GEMaterial.Sapphire);
+        registerToolDictsWithAxe(GEMaterial.Steel);
+        registerToolDictsWithAxe(GEMaterial.TungstenSteel);
+        registerToolDictsWithAxe(GEMaterial.Ruby);
+        registerToolDictsWithAxe(GEMaterial.Sapphire);
+        OreDictionary.registerOre("toolAxe", new ItemStack(GEToolGen.getAxe(GEMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GEItems.bronzeHammer, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolFile", new ItemStack(GEItems.bronzeFile, 1, OreDictionary.WILDCARD_VALUE));
     }
@@ -41,5 +42,11 @@ public class GEMaterialDict {
     public static void registerToolDicts(GTMaterial mat){
         OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GEToolGen.getHammer(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolFile", new ItemStack(GEToolGen.getFile(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+    }
+
+    public static void registerToolDictsWithAxe(GTMaterial mat){
+        OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GEToolGen.getHammer(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("craftingToolFile", new ItemStack(GEToolGen.getFile(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("toolAxe", new ItemStack(GEToolGen.getAxe(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
     }
 }
