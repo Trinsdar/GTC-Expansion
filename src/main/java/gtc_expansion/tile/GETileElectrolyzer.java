@@ -170,7 +170,7 @@ public class GETileElectrolyzer extends GTTileBaseMachine {
         addRecipe("dustOlivine", 9, 2, totalEu(36000), GTMaterialGen.getDust(GEMaterial.Magnesium, 2), GTMaterialGen.getDust(GEMaterial.Silicon, 1), GTMaterialGen.getIc2(Ic2Items.ironDust, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
         addRecipe("dustGalena", 2, 0, totalEu(120000), GEMaterialGen.getSmallDust(GEMaterial.Silver, 3), GEMaterialGen.getSmallDust(GEMaterial.Lead, 3), GEMaterialGen.getSmallDust(GEMaterial.Sulfur, 2));
         addRecipe("dustObsidian", 8, 4, totalEu(5000), GTMaterialGen.getDust(GEMaterial.Magnesium, 1), Ic2Items.ironDust.copy(), GTMaterialGen.getDust(GEMaterial.Silicon, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 4));
-        addRecipe("dustCoal", 4, 0, totalEu(7500), GTMaterialGen.getDust(GTMaterial.Carbon, 4));
+        addRecipe("dustCharcoal", 4, 0, totalEu(7500), GTMaterialGen.getDust(GTMaterial.Carbon, 4));
         addRecipe("dustPyrope", 20, 6, totalEu(89500), GTMaterialGen.getDust(GEMaterial.Magnesium, 3), GTMaterialGen.getDust(GEMaterial.Aluminium, 2), GTMaterialGen.getDust(GEMaterial.Silicon, 3), GTMaterialGen.getTube(GTMaterial.Oxygen, 6));
         addRecipe("dustAlmandine", 20, 6, totalEu(82000), GTMaterialGen.getIc2(Ic2Items.ironDust, 3), GTMaterialGen.getDust(GEMaterial.Aluminium, 2), GTMaterialGen.getDust(GEMaterial.Silicon, 3), GTMaterialGen.getTube(GTMaterial.Oxygen, 6));
         addRecipe("dustSpessartine", 20, 6, totalEu(90500), GTMaterialGen.getDust(GEMaterial.Manganese, 3), GTMaterialGen.getDust(GEMaterial.Aluminium, 2), GTMaterialGen.getDust(GEMaterial.Silicon, 3), GTMaterialGen.getTube(GTMaterial.Oxygen, 6));
