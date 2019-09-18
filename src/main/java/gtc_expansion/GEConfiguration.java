@@ -15,19 +15,19 @@ public class GEConfiguration {
     // generation
     public static boolean pyriteGenerate = true;
     public static int pyriteSize = 32;
-    public static int pyriteWeight = 8;
+    public static int pyriteWeight = 6;
     public static boolean cinnabarGenerate = true;
     public static int cinnabarSize = 16;
     public static int cinnabarWeight = 4;
     public static boolean sphaleriteGenerate = true;
     public static int sphaleriteSize = 32;
-    public static int sphaleriteWeight = 8;
+    public static int sphaleriteWeight = 6;
 
     public static boolean tungstateGenerate = true;
     public static int tungstateSize = 16;
     public static int tungstateWeight = 2;
     public static boolean sheldoniteGenerate = true;
-    public static int sheldoniteSize = 4;
+    public static int sheldoniteSize = 5;
     public static int sheldoniteWeight = 2;
     public static boolean olivineGenerate = true;
     public static int olivineSize = 8;
