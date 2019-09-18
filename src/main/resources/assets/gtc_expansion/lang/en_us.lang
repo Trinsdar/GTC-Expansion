@@ -38,6 +38,8 @@ tile.gtc_expansion.alloysmelter.name=Alloy Smelter
 tile.gtc_expansion.alloyfurnace.name=Alloy Furnace
 tile.gtclassic.standard.name=Standard Machine Casing
 tile.gtclassic.advanced.name=Advanced Machine Casing
+tile.gtc_expansion.fire_clay_block.name=Fire Clay
+tile.gtc_expansion.fire_brick_block.name=Fire Bricks
 
 #small dusts
 item.gtclassic.dustsmallSaltpeter.name=Small Saltpeter Dust
@@ -425,6 +427,11 @@ item.gtc_expansion.wolframium_grinder.name=Wolframium Grinder
 item.gtc_expansion.constantan_heating_coil.name=Constantan Heating Coil
 item.gtc_expansion.match.name=Match
 item.gtc_expansion.magnifying_glass.name=Magnifying Glass
+item.gtc_expansion.fire_clay_ball.name=Fire Clay
+item.gtc_expansion.unfired_fire_brick.name=Unfired Fire Brick
+item.gtc_expansion.fire_brick.name=Fire Brick
+item.gtc_expansion.unfired_brick.name=Unfired Brick
+item.gtc_expansion.brick_press.name=Stone Brick Press
 
 item.gtc_expansion.mold_blank.name=Blank Mold
 item.gtc_expansion.mold_block.name=Block Mold

@@ -1,11 +1,14 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GEConfiguration;
+import gtclassic.recipe.GTRecipeProcessing;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.tile.GTTileCentrifuge;
 import gtclassic.tile.multi.GTTileMultiBlastFurnace;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 
 public class GERecipeRemove {
 
@@ -13,6 +16,7 @@ public class GERecipeRemove {
         initCentrifugeRemoval();
         initIc2Removals();
         initBlastFurnaceRemoval();
+        GTRecipeProcessing.removeSmelting(new ItemStack(Items.BRICK));
     }
 
     public static void initIc2Removals(){

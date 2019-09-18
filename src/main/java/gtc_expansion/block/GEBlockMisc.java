@@ -46,17 +46,12 @@ public class GEBlockMisc extends Block implements ITexturedBlock, ILocaleBlock {
         this.id = id;
         this.comp = Ic2Lang.nullKey;
         setRegistryName(this.name);
-        setUnlocalizedName(GTCExpansion.MODID + this.name);
+        setUnlocalizedName(GTCExpansion.MODID + "." + this.name);
         setCreativeTab(GTMod.creativeTabGT);
         setHardness(hardness);
         setResistance(resistence);
         setHarvestLevel(toolRequired, level);
         setSoundType(type);
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip")));
     }
 
     @Override

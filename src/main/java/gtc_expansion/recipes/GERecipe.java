@@ -3,6 +3,7 @@ package gtc_expansion.recipes;
 import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
+import gtc_expansion.block.GEBlockMisc;
 import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
@@ -31,6 +32,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 
@@ -100,6 +103,11 @@ public class GERecipe {
         recipes.addRecipe(GTMaterialGen.get(GEItems.diamondGrinder, 2), "DSD", "SdS", "DSD", 'D', "dustDiamond", 'S', steel, 'd', "gemDiamond");
         recipes.addRecipe(GTMaterialGen.get(GEItems.wolframiumGrinder, 2), "TST", "SBS", "TST", 'T', tungsten, 'S', steel, 'B', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GEItems.constantanHeatingCoil), " I ", "I I", " I ", 'I', "ingotConstantan");
+        recipes.addRecipe(GTMaterialGen.get(GEItems.brickPress), "FSH", 'F', "craftingToolFile", 'S', "stone", 'H', "craftingToolForgeHammer");
+        recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick), "CP", 'C', Items.CLAY_BALL, 'P', GEItems.brickPress);
+        recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick), "CP", 'C', GEItems.fireClayBall, 'P', GEItems.brickPress);
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.fireBrickBlock), "BB", "BB", 'B', GEItems.fireBrick);
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.fireClayBlock), "CC", "CC", 'C', GEItems.fireClayBall);
     }
 
     public static void initRemainingToolRecipes(){
@@ -134,6 +142,7 @@ public class GERecipe {
     }
 
     public static void initShapelessRecipes(){
+        FluidStack water = new FluidStack(FluidRegistry.WATER, 1000);
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.GUNPOWDER, 3), "dustCoal", "dustSulfur", "dustSaltpeter", "dustSaltpeter");
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.GUNPOWDER, 2), "dustCharcoal", "dustSulfur", "dustSaltpeter", "dustSaltpeter");
         recipes.addShapelessRecipe(GTMaterialGen.getIc2(Ic2Items.fertilizer, 3), Ic2Items.fertilizer, "dustSulfur", GTMaterialGen.getTube(GTMaterial.Calcium, 1));
@@ -145,6 +154,7 @@ public class GERecipe {
         recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Magnalium, 1), "dustMagnesium", "dustAluminum", "dustAluminum");
         String lead = GEConfiguration.usePlates ? "plateLead" : "ingotLead";
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, lead);
+        recipes.addShapelessRecipe(GTMaterialGen.get(GEItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
     }
 
     public static void initIc2(){

@@ -1,6 +1,7 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GEConfiguration;
+import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTConfig;
 import gtclassic.helpers.GTHelperStack;
@@ -20,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static gtclassic.tile.GTTileBaseMachine.input;
 import static gtclassic.tile.multi.GTTileMultiBlastFurnace.addRecipe;
@@ -29,6 +31,12 @@ public class GERecipeProcessing {
         initCentrifugeRecipes();
         initBlastFurnaceRecipes();
         initIc2Recipes();
+        initFurnaceRecipes();
+    }
+
+    public static void initFurnaceRecipes(){
+        GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredFireBrick), GTMaterialGen.get(GEItems.fireBrick), 0.1F);
+        GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredBrick), GTMaterialGen.get(Items.BRICK), 0.1F);
     }
 
     public static void initIc2Recipes(){

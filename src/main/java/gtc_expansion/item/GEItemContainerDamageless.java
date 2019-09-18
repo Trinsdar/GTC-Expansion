@@ -33,6 +33,7 @@ public class GEItemContainerDamageless extends Item implements IStaticTexturedIt
         setRegistryName(this.name.toLowerCase());
         setUnlocalizedName(GTCExpansion.MODID + "." + this.name.toLowerCase());
         setCreativeTab(GTMod.creativeTabGT);
+        this.setMaxStackSize(1);
     }
 
     @Override
