@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtc_expansion.item.GEItemContainerDamageless;
 import gtc_expansion.item.GEItemMisc;
 import gtc_expansion.item.tools.GEItemToolAxe;
 import gtc_expansion.item.tools.GEItemToolFile;
@@ -30,6 +31,11 @@ public class GEItems {
     public static final GEItemMisc diamondGrinder = createItem(new GEItemMisc("diamond_grinder", 4, 0));
     public static final GEItemMisc wolframiumGrinder = createItem(new GEItemMisc("wolframium_grinder", 5, 0));
     public static final GEItemMisc constantanHeatingCoil = createItem(new GEItemMisc("constantan_heating_coil",8, 0));
+    public static final GEItemMisc fireClayBall = createItem(new GEItemMisc("fire_clay_ball", 11, 0));
+    public static final GEItemMisc unfiredFireBrick = createItem(new GEItemMisc("unfired_fire_brick", 12, 0));
+    public static final GEItemMisc fireBrick = createItem(new GEItemMisc("fire_brick", 13, 0));
+    public static final GEItemContainerDamageless brickPress = createItem(new GEItemContainerDamageless("brick_press", 14, 0));
+    public static final GEItemMisc unfiredBrick = createItem(new GEItemMisc("unfired_brick", 15, 0));
 
 
     public static <T extends Item> T createItem(T item) {

@@ -1,6 +1,7 @@
 package gtc_expansion;
 
 import gtc_expansion.block.GEBlockCasing;
+import gtc_expansion.block.GEBlockMisc;
 import gtc_expansion.block.GEBlockOre;
 import gtc_expansion.block.GEBlockTile;
 import gtc_expansion.tile.GETileAlloyFurnace;
@@ -17,7 +18,9 @@ import gtclassic.itemblock.GTItemBlockRare;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -40,6 +43,9 @@ public class GEBlocks {
 
     public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
     public static GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
+
+    public static GEBlockMisc fireClayBlock = registerBlock(new GEBlockMisc("fire_clay_block", "shovel", 4, 0.6F, 3.0F, 0, Material.CLAY, SoundType.GROUND));
+    public static GEBlockMisc fireBrickBlock = registerBlock(new GEBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
 
     public static GEBlockOre orePyrite = registerBlock(new GEBlockOre("pyrite", 16, 2.0F, 1));
     public static GEBlockOre oreCinnabar = registerBlock(new GEBlockOre("cinnabar", 17, 3.0F, 2));
