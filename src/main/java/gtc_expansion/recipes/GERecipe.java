@@ -77,12 +77,14 @@ public class GERecipe {
     public static void init(){
         GERecipeRemove.init();
         GERecipeProcessing.init();
+
         GETileElectrolyzer.init();
         GETileMultiVacuumFreezer.init();
         GETileMultiIndustrialGrinder.init();
         GETileMultiImplosionCompressor.init();
         GETileAlloySmelter.init();
         GETileMultiPrimitiveBlastFurnace.init();
+        GERecipeMods.init();
         initIc2();
         initOverrideGTClassic();
         initShapedItemRecipes();
@@ -106,7 +108,6 @@ public class GERecipe {
         recipes.addRecipe(GTMaterialGen.get(GEItems.brickPress), "H", "S", "F", 'F', "craftingToolFile", 'S', "stone", 'H', "craftingToolForgeHammer");
         recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick), "CP", 'C', Items.CLAY_BALL, 'P', GEItems.brickPress);
         recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick), "CP", 'C', GEItems.fireClayBall, 'P', GEItems.brickPress);
-        recipes.addRecipe(GTMaterialGen.get(GEBlocks.fireBrickBlock), "BB", "BB", 'B', GEItems.fireBrick);
     }
 
     public static void initRemainingToolRecipes(){
@@ -130,14 +131,16 @@ public class GERecipe {
 
     public static void initShapedBlockRecipes(){
         String invar = GEConfiguration.usePlates ? "plateInvar" : "ingotInvar";
-        recipes.addRecipe(GTMaterialGen.get(GEBlocks.implosionCompressor), "AMA", "cCc", "AMA", 'A', Ic2Items.advancedAlloy.copy(), 'M', Ic2Items.advMachine.copy(), 'c', "circuitBasic", 'C', Ic2Items.compressor.copy());
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.implosionCompressor), "AMA", "cCc", "AMA", 'A', Ic2Items.advancedAlloy.copy(), 'M', "machineBlockAdvanced", 'c', "circuitBasic", 'C', Ic2Items.compressor.copy());
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.electrolyzer), "IEI", "AeA", "IEI", 'I', materialMachine, 'E', Ic2Items.extractor.copy(), 'A', "circuitAdvanced", 'e', Ic2Items.electrolyzer.copy());
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.vacuumFreezer), "IPI", "AGA", "IPI", 'I', materialMachine, 'P', Ic2Items.pump.copy(), 'A', "circuitAdvanced", 'G', reinforcedGlass);
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.alloySmelter), "IHI", "CFC", "IMI", 'I', invar, 'H', GEItems.constantanHeatingCoil, 'C', "circuitBasic", 'F', Ic2Items.electroFurnace.copy(), 'M', GEItems.conveyorModule);
-        recipes.addRecipe(GTMaterialGen.get(GEBlocks.industrialGrinder), "ECP", "GGG", "CMC", 'E', GEBlocks.electrolyzer, 'C', "circuitAdvanced", 'P', Ic2Items.pump.copy(), 'G', grinder, 'M', Ic2Items.advMachine);
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.industrialGrinder), "ECP", "GGG", "CMC", 'E', GEBlocks.electrolyzer, 'C', "circuitAdvanced", 'P', Ic2Items.pump.copy(), 'G', grinder, 'M', "machineBlockAdvanced");
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.primitiveBlastFurnace), "BBB", "BPB", "BBB", 'B', GEBlocks.fireBrickBlock, 'P', "plateIron");
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.alloyFurnace), "CCC", "FHF", "CCC", 'C', "cobblestone", 'F', Blocks.FURNACE, 'H', Blocks.HOPPER);
-        recipes.addRecipe(GTMaterialGen.get(GEBlocks.casingStandard, 4), "III", "CBC", "III", 'I', materialMachine, 'C', "circuitBasic", 'B', Ic2Items.machine.copy());
-        recipes.addRecipe(GTMaterialGen.get(GEBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', "ingotChrome", 'C', "circuitElite", 'B', GTBlocks.casingHighlyAdvanced);
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.casingStandard, 4), "III", "CBC", "III", 'I', materialMachine, 'C', "circuitBasic", 'B', "machineBlockBasic");
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', "ingotChrome", 'C', "circuitElite", 'B', "machineBlockElite");
+        recipes.addRecipe(GTMaterialGen.get(GEBlocks.fireBrickBlock), "BB", "BB", 'B', GEItems.fireBrick);
     }
 
     public static void initShapelessRecipes(){
@@ -160,7 +163,8 @@ public class GERecipe {
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GEItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
-        recipes.overrideRecipe("shaped_tile.blocknuke_-814805840", Ic2Items.nuke, "UCU", "BAB", "UCU", 'U', Ic2Items.reactorReEnrichedUraniumRod, 'C', "circuitAdvanced", 'B', "blockUranium", 'A', Ic2Items.advMachine);
+        recipes.overrideRecipe("shaped_tile.blockmachine_527557260", Ic2Items.machine, "PPP", "P P", "PPP", getRefinedIronPlate());
+        recipes.overrideRecipe("shaped_tile.blocknuke_-814805840", Ic2Items.nuke, "UCU", "BAB", "UCU", 'U', Ic2Items.reactorReEnrichedUraniumRod, 'C', "circuitAdvanced", 'B', "blockUranium", 'A', "machineBlockAdvanced");
         if (GEConfiguration.harderTools){
             ItemStack battery = Ic2Items.battery;
             String circuit = "circuitBasic";
@@ -177,9 +181,9 @@ public class GERecipe {
         if (GTConfig.harderIC2Macerator) {
             recipes.overrideRecipe("shaped_tile.blockMacerator_127744036", Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', ingotRefinedIron, 'M', Ic2Items.stoneMacerator.copy(), 'C',
                     "circuitAdvanced");
-            recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', "gemDiamond", 'F', Items.FLINT, 'M', Ic2Items.machine, 'C',
+            recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', "gemDiamond", 'F', Items.FLINT, 'M', "machineBlockBasic", 'C',
                     "circuitAdvanced");
-            recipes.addRecipe(Ic2Items.macerator.copy(), "FGF", "CMC", "FCF", 'G', grinder, 'F', Items.FLINT, 'M', Ic2Items.machine, 'C',
+            recipes.addRecipe(Ic2Items.macerator.copy(), "FGF", "CMC", "FCF", 'G', grinder, 'F', Items.FLINT, 'M', "machineBlockBasic", 'C',
                     "circuitBasic");
         }
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.suBattery, 32), "C", "S", "L", 'C', Ic2Items.insulatedCopperCable, 'S', GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1), 'L', "dustLead");
@@ -194,7 +198,7 @@ public class GERecipe {
     }
 
     public static void initOverrideGTClassic(){
-        //instance.overrideGTRecipe("shaped_tile.gtclassic.computercube_404275118", GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', "circuitMaster", 'M', GEItems.computerMonitor, 'O', "circuitUltimate", 'A', Ic2Items.advMachine);
+        //instance.overrideGTRecipe("shaped_tile.gtclassic.computercube_404275118", GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', "circuitMaster", 'M', GEItems.computerMonitor, 'O', "circuitUltimate", 'A', "machineBlockAdvanced");
         instance.overrideGTRecipe("shaped_item.itemingotalloy_1703663469", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 3), "TTT", "MMM", "BBB", 'T', materialRefinedIron, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         instance.overrideGTRecipe("shaped_item.itemingotalloy_1844373769", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', materialMixedMetal2, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         instance.overrideGTRecipe("shaped_item.itemingotalloy_-470293062", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 8), "TTT", "MMM", "BBB", 'T', tungstenSteel, 'M', materialBrassBronze, 'B', materialMixedMetal1);
@@ -205,7 +209,7 @@ public class GERecipe {
         }
         if (GEConfiguration.usePlates){
             instance.overrideGTRecipe("shaped_item.reactorvent_-735496828", Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', "plateAluminium", 'B', Blocks.IRON_BARS);
-            instance.overrideGTRecipe("shaped_tile.gtclassic.industrialcentrifuge_-1533289434", GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', getRefinedIronPlate(), 'C', "circuitAdvanced", 'M', Ic2Items.advMachine, 'E', Ic2Items.extractor);
+            instance.overrideGTRecipe("shaped_tile.gtclassic.industrialcentrifuge_-1533289434", GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', getRefinedIronPlate(), 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
         }
         instance.overrideGTRecipe("shaped_tile.gtclassic.translocator_-145313936", GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', GEMaterialGen.getHull(GEMaterial.Brass, 1), 'M', GEItems.conveyorModule);
         instance.overrideGTRecipe("shaped_tile.gtclassic.bufferlarge_1098362261", GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', GEMaterialGen.getHull(GEMaterial.Brass, 1), 'c', "chestWood");

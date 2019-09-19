@@ -11,6 +11,7 @@ import gtclassic.material.GTMaterialFlag;
 import gtclassic.material.GTMaterialGen;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
+import ic2.core.IC2;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.platform.registry.Ic2Items;
@@ -101,7 +102,11 @@ public class GERecipeIterators {
 
     public static void createHullRecipe(GTMaterial mat) {
         String plate = "plate" + mat.getDisplayName();
-        if (mat.hasFlag(GEMaterial.hull) && mat.hasFlag(GEMaterial.plate)) {
+        boolean steel = false;
+        if (mat.equals(GEMaterial.Steel)){
+            steel = IC2.config.getFlag("SteelRecipes");
+        }
+        if (mat.hasFlag(GEMaterial.hull) && mat.hasFlag(GEMaterial.plate) && !steel) {
             // Hull crafting recipe
             recipes.addRecipe(GEMaterialGen.getHull(mat, 1), "PPP", "P P", "PPP", 'P', plate);
             //Ingots from hulls

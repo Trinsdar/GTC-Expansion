@@ -1,13 +1,18 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GEConfiguration;
+import gtclassic.GTConfig;
+import gtclassic.GTMod;
+import gtclassic.material.GTMaterialGen;
 import gtclassic.recipe.GTRecipeProcessing;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.tile.GTTileCentrifuge;
 import gtclassic.tile.multi.GTTileMultiBlastFurnace;
 import ic2.api.classic.recipe.ClassicRecipes;
+import ic2.api.recipe.IRecipeInput;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 
 public class GERecipeRemove {
 
@@ -64,6 +69,10 @@ public class GERecipeRemove {
         GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotTungsten");
         GTTileMultiBlastFurnace.removeRecipe("item.itemIngotBronze");
         GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotElectrum");
+        if (GTConfig.compatIE && Loader.isModLoaded("immersiveengineering") && (!Loader.isModLoaded("thermalfoundation") || !GTConfig.compatThermal)) {
+            GTTileMultiBlastFurnace.removeRecipe("item.immersiveengineering.metal.ingot_constantan");
+
+        }
         GTTileMultiBlastFurnace.RECIPE_LIST.finishMassChange();
     }
 }

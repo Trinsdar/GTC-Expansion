@@ -37,6 +37,11 @@ public class GEMaterialDict {
         OreDictionary.registerOre("toolAxe", new ItemStack(GEToolGen.getAxe(GEMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GEItems.bronzeHammer, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolFile", new ItemStack(GEItems.bronzeFile, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Aluminium, 1));
+        OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Bronze, 1));
+        OreDictionary.registerOre("machineBlockAdvanced", GEMaterialGen.getHull(GEMaterial.Steel, 1));
+        OreDictionary.registerOre("machineBlockAdvanced", GEMaterialGen.getHull(GEMaterial.Titanium, 1));
+
     }
 
     public static void registerToolDicts(GTMaterial mat){
