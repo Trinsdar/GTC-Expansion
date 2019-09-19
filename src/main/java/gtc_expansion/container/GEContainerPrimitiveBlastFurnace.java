@@ -1,9 +1,6 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
-import gtclassic.gui.GTGuiCompMachinePower;
-import gtclassic.tile.multi.GTTileMultiBlastFurnace;
-import gtclassic.util.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.gui.GuiIC2;

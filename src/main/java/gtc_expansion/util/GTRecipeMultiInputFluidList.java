@@ -1,15 +1,10 @@
 package gtc_expansion.util;
 
-import gtclassic.GTMod;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
-import ic2.core.block.machine.recipes.managers.RecipeManager;
-import ic2.core.util.helpers.ItemWithMeta;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GTRecipeMultiInputFluidList extends GTRecipeMultiInputList {

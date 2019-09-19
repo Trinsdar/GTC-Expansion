@@ -1,8 +1,8 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GEBlocks;
-import gtc_expansion.GEMachineGui;
 import gtc_expansion.GEItems;
+import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerImplosionCompressor;
 import gtc_expansion.material.GEMaterial;

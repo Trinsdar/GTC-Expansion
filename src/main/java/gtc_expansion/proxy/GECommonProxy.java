@@ -5,7 +5,6 @@ import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
 import gtc_expansion.GEOreDict;
 import gtc_expansion.recipes.GERecipe;
-import gtclassic.GTConfig;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

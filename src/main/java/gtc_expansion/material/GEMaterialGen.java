@@ -5,7 +5,6 @@ import gtclassic.material.GTMaterialFlag;
 import gtclassic.material.GTMaterialGen;
 import net.minecraft.item.ItemStack;
 
-import static gtclassic.material.GTMaterialGen.materialBlockUtil;
 import static gtclassic.material.GTMaterialGen.materialItemUtil;
 
 public class GEMaterialGen {

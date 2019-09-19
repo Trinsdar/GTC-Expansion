@@ -1,6 +1,5 @@
 package gtc_expansion;
 
-import gtc_expansion.block.GEBlockOre;
 import gtc_expansion.material.GEMaterialDict;
 import net.minecraftforge.oredict.OreDictionary;
 

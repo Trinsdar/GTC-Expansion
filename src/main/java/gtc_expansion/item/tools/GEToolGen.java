@@ -3,12 +3,8 @@ package gtc_expansion.item.tools;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
-import ic2.core.util.helpers.ToolHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
-
-import java.util.LinkedHashMap;
 
 public class GEToolGen {
 

@@ -1,20 +1,16 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.GETileAlloyFurnace;
-import gtc_expansion.tile.GETileAlloySmelter;
-import gtclassic.util.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.gui.components.base.MachineFuelComp;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;
 import ic2.core.inventory.slots.SlotCustom;
-import ic2.core.inventory.slots.SlotDischarge;
 import ic2.core.inventory.slots.SlotOutput;
 import ic2.core.util.math.Box2D;
 import ic2.core.util.math.Vec2i;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.SlotFurnaceFuel;
 import net.minecraft.util.ResourceLocation;
 
 public class GEContainerAlloyFurnace extends ContainerTileComponent<GETileAlloyFurnace> {

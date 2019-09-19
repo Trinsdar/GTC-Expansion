@@ -3,7 +3,6 @@ package gtc_expansion;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTWorldGen;
 import gtclassic.material.GTMaterialGen;
-import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;

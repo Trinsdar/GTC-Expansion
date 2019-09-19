@@ -1,12 +1,9 @@
 package gtc_expansion.item.tools;
 
-import com.google.common.collect.ImmutableMap;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
-import ic2.core.util.helpers.ToolHelper;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;

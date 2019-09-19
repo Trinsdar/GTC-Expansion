@@ -6,7 +6,6 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerPrimitiveBlastFurnace;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
-import gtclassic.GTBlocks;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.core.RotationList;

@@ -6,7 +6,6 @@ import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.tile.GTTileCentrifuge;
 import gtclassic.tile.multi.GTTileMultiBlastFurnace;
 import ic2.api.classic.recipe.ClassicRecipes;
-import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
