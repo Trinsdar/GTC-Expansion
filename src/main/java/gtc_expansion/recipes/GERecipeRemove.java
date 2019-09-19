@@ -62,6 +62,8 @@ public class GERecipeRemove {
         GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotIridium_1");
         GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotIridium_2");
         GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotTungsten");
+        GTTileMultiBlastFurnace.removeRecipe("item.itemIngotBronze");
+        GTTileMultiBlastFurnace.removeRecipe("item.gtclassic.ingotElectrum");
         GTTileMultiBlastFurnace.RECIPE_LIST.finishMassChange();
     }
 }

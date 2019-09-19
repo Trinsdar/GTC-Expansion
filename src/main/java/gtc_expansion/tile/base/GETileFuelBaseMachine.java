@@ -97,7 +97,7 @@ public abstract class GETileFuelBaseMachine extends TileEntityMachine implements
 
     @Override
     public float getMaxProgress() {
-        return maxProgress;
+        return recipeOperation;
     }
 
     @Override
@@ -376,6 +376,7 @@ public abstract class GETileFuelBaseMachine extends TileEntityMachine implements
                 recipeOperation = 1;
             }
             getNetwork().updateTileGuiField(this, "recipeOperation");
+
         }
     }
 

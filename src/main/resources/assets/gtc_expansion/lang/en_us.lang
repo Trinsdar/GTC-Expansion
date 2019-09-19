@@ -32,6 +32,7 @@ tile.gtc_expansion.industrialgrinder.name=Industrial Grinder
 tile.gtc_expansion.vacuumfreezer.name=Vacuum Freezer
 tile.gtc_expansion.alloysmelter.name=Alloy Smelter
 tile.gtc_expansion.alloyfurnace.name=Alloy Furnace
+tile.gtc_expansion.primitiveblastfurnace.name=Primitive Blast Furnace
 tile.gtclassic.standard.name=Standard Machine Casing
 tile.gtclassic.advanced.name=Advanced Machine Casing
 tile.gtc_expansion.fire_clay_block.name=Fire Clay
@@ -485,8 +486,10 @@ tooltip.gtc_expansion.industrialgrinder0=Ultimaceratron 42a
 tooltip.gtc_expansion.vacuumfreezer0=Cools down anything
 tooltip.gtc_expansion.alloyfurnace0=Smelts together alloys using fuel.
 
-tooltip.gtc_expansion.block_mortar=Macerates things into dust
-tooltip.gtc_expansion.block_ducttape=The solution to all your problems
+tooltip.gtc_expansion.primitiveblastfurnace0=You'll have a blast!
+tooltip.gtc_expansion.primitiveblastfurnace1=Structure:
+tooltip.gtc_expansion.primitiveblastfurnace2=3x5x3 hollow rectangle of (41) Fire Bricks,
+tooltip.gtc_expansion.primitiveblastfurnace3=Controller centered at the second lowest layer
 
 #item tooltips
 tooltip.gtc_expansion.magnifying_glass=Debugs multi-blocks and gives general info

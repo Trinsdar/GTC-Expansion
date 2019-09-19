@@ -10,4 +10,5 @@ public class GELang {
     public static final LocaleComp INDUSTRIAL_ELECTROLYZER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.industrialelectrolyzer");
     public static final LocaleComp ALLOY_SMELTER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.alloysmelter");
     public static final LocaleComp ALLOY_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.alloyfurnace");
+    public static final LocaleComp PRIMITIVE_BLAST_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.primitiveblastfurnace");
 }

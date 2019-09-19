@@ -4,6 +4,7 @@ import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerAlloySmelter;
 import gtc_expansion.material.GEMaterial;
+import gtc_expansion.recipes.GERecipeLists;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
@@ -42,7 +43,6 @@ import java.util.Set;
 
 public class GETileAlloySmelter extends GTTileBaseMachine {
 
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.alloysmelter");
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/alloysmelter.png");
     public static final int slotInput0 = 0;
     public static final int slotInput1 = 1;
@@ -117,7 +117,7 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GERecipeLists.ALLOY_SMELTER_RECIPE_LIST;
     }
 
     public ResourceLocation getGuiTexture() {
@@ -213,6 +213,6 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getDisplayName(), 16);
+        GERecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getDisplayName(), 16);
     }
 }

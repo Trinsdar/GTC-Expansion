@@ -9,6 +9,7 @@ import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
 import gtc_expansion.util.GELang;
 import gtclassic.color.GTColorBlockInterface;
@@ -39,6 +40,7 @@ public class GEBlocks {
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
     public static GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
     public static GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE, Material.ROCK));
+    public static GEBlockTile primitiveBlastFurnace = registerBlock(new GEBlockTile("primitiveblastfurnace", GELang.PRIMITIVE_BLAST_FURNACE, Material.ROCK, 3));
 
     public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
     public static GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
@@ -54,7 +56,7 @@ public class GEBlocks {
     public static GEBlockOre oreSodalite = registerBlock(new GEBlockOre("sodalite", 22, 3.0F, 2));
     public static GEBlockOre oreOlivineOverworld = registerBlock(new GEBlockOre("olivine_overworld", 23, 3.0F, 3));
 
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "implosioncompressor", "alloyfurnace"};
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
     public static void registerBlocks() {
         Iterator var0 = toRegister.iterator();
         Block block;
@@ -89,6 +91,7 @@ public class GEBlocks {
         registerUtil(GETileMultiImplosionCompressor.class, "ImplosionCompressor");
         registerUtil(GETileMultiVacuumFreezer.class, "VacuumFreezer");
         registerUtil(GETileAlloyFurnace.class, "AlloyFurnace");
+        registerUtil(GETileMultiPrimitiveBlastFurnace.class, "PrimitiveBlastFurnace");
     }
 
     public static void registerUtil(Class tile, String name) {

@@ -5,6 +5,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerElectrolyzer;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
+import gtc_expansion.recipes.GERecipeLists;
 import gtclassic.GTItems;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
@@ -46,7 +47,6 @@ import java.util.Set;
 
 public class GETileElectrolyzer extends GTTileBaseMachine {
 
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.electrolyzer");
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialelectrolyzer.png");
     IFilter filter = new MachineFilter(this);
     public static final int slotFuel = 8;
@@ -125,7 +125,7 @@ public class GETileElectrolyzer extends GTTileBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GERecipeLists.ELECTROLYZER_RECIPE_LIST;
     }
 
     public ResourceLocation getGuiTexture() {
@@ -238,10 +238,10 @@ public class GETileElectrolyzer extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        GERecipeLists.ELECTROLYZER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
     public static void removeRecipe(String id) {
-        RECIPE_LIST.removeRecipe(id);
+        GERecipeLists.ELECTROLYZER_RECIPE_LIST.removeRecipe(id);
     }
 }

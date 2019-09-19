@@ -6,6 +6,7 @@ import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
 import gtclassic.block.GTBlockMachine;
 import ic2.core.block.base.tile.TileEntityBlock;
@@ -13,6 +14,9 @@ import ic2.core.platform.lang.components.base.LocaleComp;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -20,21 +24,37 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
 import java.util.Random;
 
 public class GEBlockTile extends GTBlockMachine {
+    int size;
     public GEBlockTile(String name, LocaleComp comp) {
         this(name, comp, 0);
     }
 
     public GEBlockTile(String name, LocaleComp comp, int additionalInfo) {
         super(name, comp, additionalInfo);
+        this.size = additionalInfo + 1;
     }
 
     public GEBlockTile(String name, LocaleComp comp, Material material){
+        this(name, comp, material, 0);
+    }
+
+    public GEBlockTile(String name, LocaleComp comp, Material material, int additionalInfo){
         super(name, comp, material);
         this.setSoundType(SoundType.STONE);
         this.setHardness(4.0F);
+        this.size = additionalInfo + 1;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        for(int i = 0; i < this.size; ++i) {
+            tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + i));
+        }
+
     }
 
     @Override
@@ -56,6 +76,9 @@ public class GEBlockTile extends GTBlockMachine {
         }
         if (this == GEBlocks.alloyFurnace){
             return new GETileAlloyFurnace();
+        }
+        if (this == GEBlocks.primitiveBlastFurnace){
+            return new GETileMultiPrimitiveBlastFurnace();
         }
         return new TileEntityBlock();
     }

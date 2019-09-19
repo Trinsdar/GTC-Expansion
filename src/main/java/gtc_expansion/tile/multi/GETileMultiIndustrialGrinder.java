@@ -6,6 +6,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerIndustrialGrinder;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
+import gtc_expansion.recipes.GERecipeLists;
 import gtclassic.GTBlocks;
 import gtclassic.GTConfig;
 import gtclassic.GTItems;
@@ -59,7 +60,6 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
     public static final IBlockState casingStandardState = GEBlocks.casingStandard.getDefaultState();
     public static final IBlockState casingReinforcedState = GTBlocks.casingReinforced.getDefaultState();
     public static final IBlockState waterState = Blocks.WATER.getDefaultState();
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.industrialgrinder");
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialgrinder.png");
     private static final int defaultEu = 120;
 
@@ -116,7 +116,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GERecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST;
     }
 
     @Override
@@ -313,7 +313,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        GERecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
     @Override

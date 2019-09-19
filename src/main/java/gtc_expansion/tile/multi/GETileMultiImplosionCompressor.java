@@ -6,6 +6,7 @@ import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerImplosionCompressor;
 import gtc_expansion.material.GEMaterial;
+import gtc_expansion.recipes.GERecipeLists;
 import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
@@ -55,7 +56,6 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     public static final IBlockState casingStandardState = GEBlocks.casingStandard.getDefaultState();
     public static final IBlockState casingReinforcedState = GTBlocks.casingReinforced.getDefaultState();
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.implosioncompressor");
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/implosioncompressor.png");
     private static final int defaultEu = 32;
 
@@ -112,7 +112,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GERecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST;
     }
 
     @Override
@@ -186,7 +186,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        GERecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
     @Override

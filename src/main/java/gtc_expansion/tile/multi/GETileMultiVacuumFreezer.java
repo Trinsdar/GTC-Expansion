@@ -5,6 +5,7 @@ import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerVacuumFreezer;
 import gtc_expansion.material.GEMaterial;
+import gtc_expansion.recipes.GERecipeLists;
 import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
@@ -54,7 +55,6 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
     public static final IBlockState casingAdvancedState = GEBlocks.casingAdvanced.getDefaultState();
     public static final IBlockState casingReinforcedState = GTBlocks.casingReinforced.getDefaultState();
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.vacuumfreezer");
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/vacuumfreezer.png");
     private static final int defaultEu = 64;
 
@@ -109,7 +109,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GERecipeLists.VACUUM_FREEZER_RECIPE_LIST;
     }
 
     @Override
@@ -167,7 +167,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        GERecipeLists.VACUUM_FREEZER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
     @Override

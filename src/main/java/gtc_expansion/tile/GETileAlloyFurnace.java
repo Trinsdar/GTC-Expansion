@@ -3,6 +3,7 @@ package gtc_expansion.tile;
 import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerAlloyFurnace;
+import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
@@ -72,7 +73,7 @@ public class GETileAlloyFurnace extends GETileFuelBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GETileAlloySmelter.RECIPE_LIST;
+        return GERecipeLists.ALLOY_SMELTER_RECIPE_LIST;
     }
 
     @Override

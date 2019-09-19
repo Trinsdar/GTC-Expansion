@@ -4,10 +4,17 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerPrimitiveBlastFurnace;
+import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
+import gtclassic.material.GTMaterial;
+import gtclassic.material.GTMaterialGen;
+import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
+import ic2.api.classic.recipe.RecipeModifierHelpers;
+import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.CommonFilters;
@@ -15,14 +22,20 @@ import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.primitiveblastfurnace");
     public boolean lastState;
     public boolean firstCheck = true;
     public static final IBlockState brickState = GEBlocks.fireBrickBlock.getDefaultState();
@@ -33,7 +46,7 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
     public IFilter filter = new FuelMachineFilter(this);
 
     public GETileMultiPrimitiveBlastFurnace() {
-        super(9, 800, 1);
+        super(9, 100, 1);
     }
 
     @Override
@@ -82,7 +95,7 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GERecipeLists.PRIMITIVE_BLAST_FURNACE_RECIPE_LIST;
     }
 
     @Override
@@ -97,6 +110,45 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer entityPlayer) {
         return GEMachineGui.GEPrimitiveBlastFurnaceGui.class;
+    }
+
+    public static void init() {
+        /** Iron Processing **/
+        addRecipe(new IRecipeInput[] {GTTileBaseMachine.input("oreIron", 1),
+                GTTileBaseMachine.input("dustCalcite", 1) }, 800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 3));
+        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("dustPyrite", 3),
+                GTTileBaseMachine.input("dustCalcite", 1) }, 800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 2));
+        /** Steel **/
+        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("dustSteel", 1) }, 1600, GTMaterialGen.getIngot(GTMaterial.Steel, 1));
+        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("ingotRefinedIron", 1),
+                GTTileBaseMachine.input("dustCoal", 2) }, 1600, GTMaterialGen.getIngot(GTMaterial.Steel, 1));
+        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("ingotRefinedIron", 1),
+                GTTileBaseMachine.input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GTMaterial.Steel, 1));
+    }
+
+    public static RecipeModifierHelpers.IRecipeModifier[] totalTime(int total) {
+        return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create(total - 100) };
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, int totalTime, ItemStack... outputs) {
+        List<IRecipeInput> inlist = new ArrayList<>();
+        List<ItemStack> outlist = new ArrayList<>();
+        RecipeModifierHelpers.IRecipeModifier[] modifiers = totalTime(totalTime);
+        for (IRecipeInput input : inputs) {
+            inlist.add(input);
+        }
+        NBTTagCompound mods = new NBTTagCompound();
+        for (RecipeModifierHelpers.IRecipeModifier modifier : modifiers) {
+            modifier.apply(mods);
+        }
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        addRecipe(inlist, new MachineOutput(mods, outlist));
+    }
+
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        GERecipeLists.PRIMITIVE_BLAST_FURNACE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 1);
     }
 
     @Override
@@ -138,10 +190,13 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
         if (!isBrick(dir.right(1))) {// right
             return false;
         }
-        for (int i = 0; i < 4; i++) {
-            if (!(isBrick(dir.down(1)))) {
+        for (int i = 0; i < 3; i++) {
+            if (world.getBlockState(dir.down(1).asBlockPos()) != Blocks.AIR.getDefaultState()) {
                 return false;
             }
+        }
+        if (!(isBrick(dir.down(1)))) {
+            return false;
         }
         if (!isBrick(dir.right(1))) {// right
             return false;
