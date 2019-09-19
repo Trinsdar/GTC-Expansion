@@ -95,7 +95,7 @@ public class GETileElectrolyzer extends GTTileBaseMachine {
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GEMachineGui.GTIndustrialElectrolyzerGui.class;
+        return GEMachineGui.GEIndustrialElectrolyzerGui.class;
     }
 
     @Override

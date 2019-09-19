@@ -121,7 +121,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GEMachineGui.GTIndustrialGrinderGui.class;
+        return GEMachineGui.GEIndustrialGrinderGui.class;
     }
 
     public ResourceLocation getGuiTexture() {

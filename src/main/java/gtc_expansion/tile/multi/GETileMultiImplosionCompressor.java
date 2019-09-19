@@ -117,7 +117,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GEMachineGui.GTImplosionCompressorGui.class;
+        return GEMachineGui.GEImplosionCompressorGui.class;
     }
 
     public ResourceLocation getGuiTexture() {

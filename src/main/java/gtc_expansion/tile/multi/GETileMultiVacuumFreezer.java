@@ -114,7 +114,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GEMachineGui.GTVacuumFreezerGui.class;
+        return GEMachineGui.GEVacuumFreezerGui.class;
     }
 
     public ResourceLocation getGuiTexture() {

@@ -92,7 +92,7 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GEMachineGui.GTAlloySmelterGui.class;
+        return GEMachineGui.GEAlloySmelterGui.class;
     }
 
     @Override

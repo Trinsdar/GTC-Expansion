@@ -19,11 +19,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class GETileAlloyFurnace extends GETileFuelBaseMachine {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/alloyfurnace.png");
-    public static final int slotInput0 = 0;
-    public static final int slotInput1 = 1;
+    protected static final int[] slotInputs = { 0, 1 };
     public static final int slotOutput = 2;
     public static final int slotFuel = 3;
-    protected static final int[] slotInputs = { slotInput0, slotInput1 };
     public IFilter filter = new FuelMachineFilter(this);
 
     public GETileAlloyFurnace() {
@@ -88,6 +86,6 @@ public class GETileAlloyFurnace extends GETileFuelBaseMachine {
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer entityPlayer) {
-        return GEMachineGui.GTAlloySmelterGui.class;
+        return GEMachineGui.GEAlloySmelterGui.class;
     }
 }
