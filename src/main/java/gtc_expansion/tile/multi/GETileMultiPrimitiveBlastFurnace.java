@@ -10,10 +10,13 @@ import gtc_expansion.util.FuelMachineFilter;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
+import gtclassic.util.energy.MultiBlockHelper;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
@@ -23,6 +26,7 @@ import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.platform.registry.Ic2Items;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,15 +34,19 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;
     public static final IBlockState brickState = GEBlocks.fireBrickBlock.getDefaultState();
+    public static final IBlockState airState = Blocks.AIR.getDefaultState();
 
     protected static final int[] slotInputs = { 0, 1, 2, 3 };
     public static final int[] slotOutputs = {4, 5, 6, 7};
@@ -154,10 +162,85 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
     @Override
     public boolean canWork() {
         if (world.getTotalWorldTime() % 256 == 0 || firstCheck) {
+            boolean lastCheck = this.lastState;
             lastState = checkStructure();
             firstCheck = false;
+            if (lastCheck != this.lastState) {
+                MultiBlockHelper.INSTANCE.removeCore(this.getWorld(), this.getPos());
+                if (this.lastState) {
+                    MultiBlockHelper.INSTANCE.addCore(this.getWorld(), this.getPos(), new ArrayList<>(this.provideStructure().keySet()));
+                }
+            }
         }
         return lastState;
+    }
+
+    @Override
+    public void onUnloaded() {
+        MultiBlockHelper.INSTANCE.removeCore(getWorld(), getPos());
+        super.onUnloaded();
+    }
+
+    public Map<BlockPos, IBlockState> provideStructure() {
+        Map<BlockPos, IBlockState> states = new Object2ObjectLinkedOpenHashMap<>();
+        int3 dir = new int3(this.getPos(), this.getFacing());
+
+        int i;
+        for(i = 0; i < 3; ++i) {
+            states.put(dir.up(1).asBlockPos(), brickState);
+        }
+
+        states.put(dir.left(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 4; ++i) {
+            states.put(dir.down(1).asBlockPos(), brickState);
+        }
+
+        states.put(dir.back(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 4; ++i) {
+            states.put(dir.up(1).asBlockPos(), brickState);
+        }
+
+        states.put(dir.right(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 3; ++i) {
+            states.put(dir.down(1).asBlockPos(), airState);
+        }
+        states.put(dir.down(1).asBlockPos(), brickState);
+
+        states.put(dir.right(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 4; ++i) {
+            states.put(dir.up(1).asBlockPos(), brickState);
+        }
+
+        states.put(dir.back(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 4; ++i) {
+            states.put(dir.down(1).asBlockPos(), brickState);
+        }
+
+        states.put(dir.left(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 4; ++i) {
+            states.put(dir.up(1).asBlockPos(), brickState);
+        }
+
+        states.put(dir.left(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 4; ++i) {
+            states.put(dir.down(1).asBlockPos(), brickState);
+        }
+
+        states.put(dir.forward(2).right(1).asBlockPos(), brickState);
+        states.put(dir.right(1).asBlockPos(), brickState);
+
+        for(i = 0; i < 3; ++i) {
+            states.put(dir.up(1).asBlockPos(), brickState);
+        }
+
+        return states;
     }
 
     public boolean checkStructure() {
