@@ -163,7 +163,7 @@ public class GETileElectrolyzer extends GTTileBaseMachine {
         addRecipe("dustFlint", 8, 1, totalEu(5000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 1));
 
         /** Recipes from GT2 **/
-        addRecipe("dustClay", 8, 2, totalEu(10000), GTMaterialGen.getDust(GTMaterial.Lithium, 1), GTMaterialGen.getDust(GTMaterial.Silicon, 2), GTMaterialGen.getDust(GEMaterial.Aluminium, 2), GTMaterialGen.getTube(GTMaterial.Sodium, 2));
+        addRecipe("dustClay", 7, 2, totalEu(20000), GTMaterialGen.getDust(GTMaterial.Lithium, 1), GTMaterialGen.getDust(GTMaterial.Silicon, 2), GTMaterialGen.getDust(GEMaterial.Aluminium, 2), GTMaterialGen.getTube(GTMaterial.Sodium, 2));
         addRecipe("dustSaltpeter", 10, 7, totalEu(5500), GTMaterialGen.getTube(GTMaterial.Potassium, 2), GTMaterialGen.getTube(GTMaterial.Nitrogen, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 3));
         addRecipe("dustCinnabar", 4, 2, totalEu(12800), GTMaterialGen.getTube(GTMaterial.Mercury, 2), GTMaterialGen.getDust(GEMaterial.Sulfur, 2));
         addRecipe("dustSphalerite", 4, 0, totalEu(15000), GTMaterialGen.getDust(GEMaterial.Zinc, 2), GTMaterialGen.getDust(GEMaterial.Sulfur, 2));

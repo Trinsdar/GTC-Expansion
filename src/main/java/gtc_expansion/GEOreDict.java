@@ -15,5 +15,7 @@ public class GEOreDict {
         OreDictionary.registerOre("oreOlivine", GEBlocks.oreOlivine);
         OreDictionary.registerOre("oreSodalite", GEBlocks.oreSodalite);
         OreDictionary.registerOre("oreOlivine", GEBlocks.oreOlivineOverworld);
+        OreDictionary.registerOre("ingotIridiumAlloy", GEItems.iridiumAlloyIngot);
+        OreDictionary.registerOre("craftingDiamondGrinder", GEItems.diamondGrinder);
     }
 }

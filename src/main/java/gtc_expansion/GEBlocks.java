@@ -44,7 +44,6 @@ public class GEBlocks {
     public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
     public static GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
 
-    public static GEBlockMisc fireClayBlock = registerBlock(new GEBlockMisc("fire_clay_block", "shovel", 4, 0.6F, 3.0F, 0, Material.CLAY, SoundType.GROUND));
     public static GEBlockMisc fireBrickBlock = registerBlock(new GEBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
 
     public static GEBlockOre orePyrite = registerBlock(new GEBlockOre("pyrite", 16, 2.0F, 1));

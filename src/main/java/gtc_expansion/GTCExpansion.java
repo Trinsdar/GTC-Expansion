@@ -38,9 +38,9 @@ public class GTCExpansion {
 	public synchronized void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 		proxy.preInit(event);
-		if (GEConfiguration.olivineGenerate){
-			GTWorldGenOceanDeposit.addOreDeposit(GEBlocks.oreOlivineOverworld);
-		}
+//		if (GEConfiguration.olivineGenerate){
+//			GTWorldGenOceanDeposit.addOreDeposit(GEBlocks.oreOlivineOverworld);
+//		}
 	}
 
 	@Mod.EventHandler

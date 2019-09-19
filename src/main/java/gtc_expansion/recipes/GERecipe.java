@@ -103,11 +103,10 @@ public class GERecipe {
         recipes.addRecipe(GTMaterialGen.get(GEItems.diamondGrinder, 2), "DSD", "SdS", "DSD", 'D', "dustDiamond", 'S', steel, 'd', "gemDiamond");
         recipes.addRecipe(GTMaterialGen.get(GEItems.wolframiumGrinder, 2), "TST", "SBS", "TST", 'T', tungsten, 'S', steel, 'B', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GEItems.constantanHeatingCoil), " I ", "I I", " I ", 'I', "ingotConstantan");
-        recipes.addRecipe(GTMaterialGen.get(GEItems.brickPress), "FSH", 'F', "craftingToolFile", 'S', "stone", 'H', "craftingToolForgeHammer");
+        recipes.addRecipe(GTMaterialGen.get(GEItems.brickPress), "H", "S", "F", 'F', "craftingToolFile", 'S', "stone", 'H', "craftingToolForgeHammer");
         recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick), "CP", 'C', Items.CLAY_BALL, 'P', GEItems.brickPress);
         recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick), "CP", 'C', GEItems.fireClayBall, 'P', GEItems.brickPress);
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.fireBrickBlock), "BB", "BB", 'B', GEItems.fireBrick);
-        recipes.addRecipe(GTMaterialGen.get(GEBlocks.fireClayBlock), "CC", "CC", 'C', GEItems.fireClayBall);
     }
 
     public static void initRemainingToolRecipes(){
@@ -121,9 +120,9 @@ public class GERecipe {
         recipes.addRecipe(GEToolGen.getSword(GTMaterial.Flint), "F", "F", "S", new EnchantmentModifier(GEToolGen.getSword(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
                 Items.FLINT, 'S', stick);
         recipes.addRecipe(GTMaterialGen.get(GEItems.bronzeFile), "P", "P", "S", 'P', "plateBronze", 'S', stick);
-        recipes.addRecipe(GTMaterialGen.get(GEItems.bronzeHammer), "PPP", "PPP", " S ", 'P', "plateBronze", 'S', stick);
+        recipes.addRecipe(GTMaterialGen.get(GEItems.bronzeHammer), "PPP", "PPP", " S ", 'P', "ingotBronze", 'S', stick);
         recipes.addRecipe(GEToolGen.getFile(GEMaterial.Iron), "P", "P", "S", 'P', "plateIron", 'S', stick);
-        recipes.addRecipe(GEToolGen.getHammer(GEMaterial.Iron), "PPP", "PPP", " S ", 'P', "plateIron", 'S', stick);
+        recipes.addRecipe(GEToolGen.getHammer(GEMaterial.Iron), "PPP", "PPP", " S ", 'P', "ingotIron", 'S', stick);
         recipes.addRecipe(GEToolGen.getFile(GEMaterial.Diamond), "G", "G", "S", 'G', "gemDiamond", 'S', stick);
         recipes.addRecipe(GEToolGen.getHammer(GEMaterial.Diamond), "GGG", "GGG", " S ", 'G', "gemDiamond", 'S', stick);
 

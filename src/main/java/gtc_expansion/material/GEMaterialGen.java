@@ -14,7 +14,7 @@ public class GEMaterialGen {
             materialItemUtil(mat, GEMaterial.hotIngot);
         }
         for (GTMaterial mat : GTMaterial.values()){
-            materialBlockUtil(mat, GEMaterial.hull);
+            materialItemUtil(mat, GEMaterial.hull);
         }
         for (GTMaterial mat : GTMaterial.values()){
             materialItemUtil(mat, GEMaterial.stick);
@@ -51,6 +51,6 @@ public class GEMaterialGen {
     }
 
     public static ItemStack getHull(GTMaterial mat, int count){
-        return GTMaterialGen.getBlockStack(mat, GEMaterial.hull, count);
+        return GTMaterialGen.getStack(mat, GEMaterial.hull, count);
     }
 }

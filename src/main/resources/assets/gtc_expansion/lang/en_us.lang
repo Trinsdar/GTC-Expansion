@@ -24,11 +24,7 @@ tile.gtc_expansion.oreolivine.name=Olivine Ore
 tile.gtc_expansion.oresodalite.name=Sodalite Ore
 tile.gtc_expansion.oreolivine_overworld.name=Olivine Ore
 
-tile.gtclassic.hullBronze.name=Bronze Machine Hull
-tile.gtclassic.hullSteel.name=Steel Machine Hull
-tile.gtclassic.hullAluminium.name=Aluminium Machine Hull
-tile.gtclassic.hullBrass.name=Brass Machine Hull
-tile.gtclassic.hullTitanium.name=Titanium Machine Hull
+
 
 tile.gtc_expansion.industrialelectrolyzer.name=Industrial Electrolyzer
 tile.gtc_expansion.implosioncompressor.name=Implosion Compressor
@@ -366,6 +362,13 @@ item.gtclassic.stickCobalt.name=Cobalt Rod
 item.gtclassic.stickRedAlloy.name=Red Alloy Rod
 item.gtclassic.stickMagnalium.name=Magnalium Rod
 item.gtclassic.stickNeodymium.name=Neodymium Rod
+
+#hulls
+item.gtclassic.hullBronze.name=Bronze Machine Hull
+item.gtclassic.hullSteel.name=Steel Machine Hull
+item.gtclassic.hullAluminium.name=Aluminium Machine Hull
+item.gtclassic.hullBrass.name=Brass Machine Hull
+item.gtclassic.hullTitanium.name=Titanium Machine Hull
 
 #material tools
 #files

@@ -96,16 +96,4 @@ public class GEBlockMisc extends Block implements ITexturedBlock, ILocaleBlock {
         this.comp = new LangComponentHolder.LocaleBlockComp("tile." + name);
         return super.setUnlocalizedName(name);
     }
-
-    @Override
-    public ArrayList<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState blockstate, int fortune) {
-        ArrayList<ItemStack> drops = new ArrayList<>();
-        Random random = world instanceof World ? ((World) world).rand : new Random();
-        if (this.equals(GEBlocks.fireClayBlock)){
-            drops.add(GTMaterialGen.get(GEItems.fireClayBall, 4));
-        } else {
-            drops.add(new ItemStack(this));
-        }
-        return drops;
-    }
 }
