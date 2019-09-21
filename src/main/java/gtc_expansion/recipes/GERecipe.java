@@ -163,7 +163,7 @@ public class GERecipe {
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GEItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
-        recipes.overrideRecipe("shaped_tile.blockmachine_527557260", Ic2Items.machine, "PPP", "P P", "PPP", getRefinedIronPlate());
+        recipes.overrideRecipe("shaped_tile.blockmachine_527557260", Ic2Items.machine, "PPP", "P P", "PPP", 'P', getRefinedIronPlate());
         recipes.overrideRecipe("shaped_tile.blocknuke_-814805840", Ic2Items.nuke, "UCU", "BAB", "UCU", 'U', Ic2Items.reactorReEnrichedUraniumRod, 'C', "circuitAdvanced", 'B', "blockUranium", 'A', "machineBlockAdvanced");
         if (GEConfiguration.harderTools){
             ItemStack battery = Ic2Items.battery;
