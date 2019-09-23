@@ -177,7 +177,7 @@ public class GEMaterial {
         Olivine = new GTMaterial("Olivine", 150, 255, 150, gemAll1);
         Osmium = new GTMaterial("Osmium", 50, 50, 255, false, metalFullHot);
         Phosphorus = new GTMaterial("Phosphorus", 190, 0, 0, dustAll);
-        Platinum = new GTMaterial("Platinum", 255, 255, 200, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
+        Platinum = new GTMaterial("Platinum", 255, 255, 200, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
         Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate);
         Pyrite = new GTMaterial("Pyrite", 150, 120, 40, dustAll);
         Pyrope = new GTMaterial("Pyrope", 120, 50, 100, dustAll);

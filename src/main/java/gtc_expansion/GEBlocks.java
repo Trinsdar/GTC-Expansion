@@ -55,6 +55,10 @@ public class GEBlocks {
     public static GEBlockOre oreOlivine = registerBlock(new GEBlockOre("olivine", 21, 3.0F, 3));
     public static GEBlockOre oreSodalite = registerBlock(new GEBlockOre("sodalite", 22, 3.0F, 2));
     public static GEBlockOre oreOlivineOverworld = registerBlock(new GEBlockOre("olivine_overworld", 23, 3.0F, 3));
+    public static GEBlockOre oreCassiterite = registerBlock(new GEBlockOre("cassiterite", 24, 3.0F, 1));
+    public static GEBlockOre oreTetrahedrite = registerBlock(new GEBlockOre("tetrahedrite", 25, 3.0F, 1));
+    public static GEBlockOre oreGalena = registerBlock(new GEBlockOre("galena", 26, 4.0F, 2));
+
 
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
     public static void registerBlocks() {

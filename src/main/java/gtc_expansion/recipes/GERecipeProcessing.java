@@ -1,5 +1,6 @@
 package gtc_expansion.recipes;
 
+import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
@@ -37,6 +38,7 @@ public class GERecipeProcessing {
     public static void initFurnaceRecipes(){
         GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredFireBrick), GTMaterialGen.get(GEItems.fireBrick), 0.1F);
         GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredBrick), GTMaterialGen.get(Items.BRICK), 0.1F);
+        GameRegistry.addSmelting(GEBlocks.oreSheldonite, GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
     }
 
     public static void initIc2Recipes(){
@@ -83,8 +85,6 @@ public class GERecipeProcessing {
         addRecipe(new IRecipeInput[] {
                 input("dustOsmium", 1) }, 256000, GTMaterialGen.getStack(GEMaterial.Osmium, GEMaterial.hotIngot, 1));
         addRecipe(new IRecipeInput[] {
-                input("dustPlatinum", 1) }, 256000, GTMaterialGen.getIngot(GEMaterial.Platinum, 1));
-        addRecipe(new IRecipeInput[] {
                 input("dustThorium", 1) }, 256000, GTMaterialGen.getIngot(GEMaterial.Thorium, 1));
     }
 
@@ -95,7 +95,7 @@ public class GERecipeProcessing {
                 NonNullList<ItemStack> items = NonNullList.create();
                 item.getSubItems(CreativeTabs.SEARCH, items);
                 for (ItemStack stack : items) {
-                    if (GTHelperStack.matchOreDict(stack,"ingotOsmium") || GTHelperStack.matchOreDict(stack,"ingotPlatinum")
+                    if (GTHelperStack.matchOreDict(stack,"ingotOsmium")
                             || GTHelperStack.matchOreDict(stack,"ingotStainlessSteel") || GTHelperStack.matchOreDict(stack,"ingotThorium")) {
                         gtclassic.recipe.GTRecipeProcessing.removeSmelting(stack);
                     }

@@ -106,8 +106,8 @@ public class GERecipe {
         recipes.addRecipe(GTMaterialGen.get(GEItems.wolframiumGrinder, 2), "TST", "SBS", "TST", 'T', tungsten, 'S', steel, 'B', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GEItems.constantanHeatingCoil), " I ", "I I", " I ", 'I', "ingotConstantan");
         recipes.addRecipe(GTMaterialGen.get(GEItems.brickPress), "H", "S", "F", 'F', "craftingToolFile", 'S', "stone", 'H', "craftingToolForgeHammer");
-        recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick), "CP", 'C', Items.CLAY_BALL, 'P', GEItems.brickPress);
-        recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick), "CP", 'C', GEItems.fireClayBall, 'P', GEItems.brickPress);
+        recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick), "C", "P", 'C', Items.CLAY_BALL, 'P', GEItems.brickPress);
+        recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick), "C", "P", 'C', GEItems.fireClayBall, 'P', GEItems.brickPress);
     }
 
     public static void initRemainingToolRecipes(){
