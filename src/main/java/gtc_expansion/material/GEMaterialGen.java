@@ -31,6 +31,15 @@ public class GEMaterialGen {
             materialItemUtil(mat, GEMaterial.smalldust);
         }
         for (GTMaterial mat : GTMaterial.values()){
+            materialItemUtil(mat, GEMaterial.crushedore);
+        }
+        for (GTMaterial mat : GTMaterial.values()){
+            materialItemUtil(mat, GEMaterial.crushedorePurified);
+        }
+        for (GTMaterial mat : GTMaterial.values()){
+            materialItemUtil(mat, GEMaterial.tinydust);
+        }
+        for (GTMaterial mat : GTMaterial.values()){
             if (!mat.hasFlag(GTMaterialFlag.RUBY) && !mat.hasFlag(GTMaterialFlag.SAPPHIRE)) {
                 materialItemUtil(mat, GEMaterial.gemGarnetShape);
             }
@@ -51,5 +60,17 @@ public class GEMaterialGen {
 
     public static ItemStack getHull(GTMaterial mat, int count){
         return GTMaterialGen.getStack(mat, GEMaterial.hull, count);
+    }
+
+    public static ItemStack getCrushedOre(GTMaterial mat, int count){
+        return GTMaterialGen.getStack(mat, GEMaterial.crushedore, count);
+    }
+
+    public static ItemStack getPurifiedCrushedOre(GTMaterial mat, int count){
+        return GTMaterialGen.getStack(mat, GEMaterial.crushedorePurified, count);
+    }
+
+    public static ItemStack getTinyDust(GTMaterial mat, int count){
+        return GTMaterialGen.getStack(mat, GEMaterial.tinydust, count);
     }
 }

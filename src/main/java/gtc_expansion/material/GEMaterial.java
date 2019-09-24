@@ -12,6 +12,9 @@ public class GEMaterial {
     static GTMaterialFlag molten = GTMaterialFlag.MOLTEN;
     static GTMaterialFlag gas = GTMaterialFlag.GAS;
     public static GTMaterialFlag smalldust = new GTMaterialFlag("_dustsmall", tex, 1, false);
+    public static GTMaterialFlag tinydust = new GTMaterialFlag("_dusttiny", tex, 12, false);
+    public static GTMaterialFlag crushedore = new GTMaterialFlag("_crushedore", tex, 9, true);
+    public static GTMaterialFlag crushedorePurified = new GTMaterialFlag("_crushedorepurified", tex, 11, false);
     static GTMaterialFlag dust = GTMaterialFlag.DUST;
     static GTMaterialFlag gemRubyShape = GTMaterialFlag.RUBY;
     static GTMaterialFlag gemSapphireShape = GTMaterialFlag.SAPPHIRE;
@@ -113,6 +116,7 @@ public class GEMaterial {
     Stone,
     Sulfur,
     SulfuricAcid,
+    Tetrahedrite,
     Thorium,
     Tin,
     Titanium,
@@ -151,7 +155,7 @@ public class GEMaterial {
         EnderPearl = new GTMaterial("EnderPearl", 108, 220, 200, dustAll);
         Endstone = new GTMaterial("Endstone", 250, 250, 198, dustAll);
         Flint = new GTMaterial("Flint", 0, 32, 64, dustAll);
-        Galena = new GTMaterial("Galena", 100, 60, 100, dustAll);
+        Galena = new GTMaterial("Galena", 100, 60, 100, smalldust, dust, crushedore, crushedorePurified);
         GarnetRed = new GTMaterial("RedGarnet", 200, 80, 80, gemAll3);
         GarnetYellow = new GTMaterial("YellowGarnet", 200, 200, 80, gemAll3);
         Glowstone = new GTMaterial("Glowstone", 255, 255, 0, smalldust);
@@ -178,7 +182,7 @@ public class GEMaterial {
         Osmium = new GTMaterial("Osmium", 50, 50, 255, false, metalFullHot);
         Phosphorus = new GTMaterial("Phosphorus", 190, 0, 0, dustAll);
         Platinum = new GTMaterial("Platinum", 255, 255, 200, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
-        Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate);
+        Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate, blockMetal, fluid);
         Pyrite = new GTMaterial("Pyrite", 150, 120, 40, dustAll);
         Pyrope = new GTMaterial("Pyrope", 120, 50, 100, dustAll);
         RedAlloy = new GTMaterial("RedAlloy", 200, 0, 0, molten, smalldust, dust, ingot, nugget, stick);
@@ -198,9 +202,10 @@ public class GEMaterial {
         StainlessSteel = new GTMaterial("StainlessSteel", 200, 200, 220, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
         Steel = new GTMaterial("Steel", 128, 128, 128, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull);
         Stone = new GTMaterial("Stone", 196, 196, 196, dustAll);
-        Sulfur = new GTMaterial("Sulfur", 200, 200, 0, smalldust, dust);
+        Sulfur = new GTMaterial("Sulfur", 200, 200, 0, smalldust, dust, tinydust);
         SulfuricAcid = new GTMaterial("SulfuricAcid", 255, 106, 0, fluid);
-        Thorium = new GTMaterial("Thorium", 0, 30, 0, false, smalldust, dust, nugget, ingot);
+        Tetrahedrite = new GTMaterial("Tetrahedrite", 200, 32, 0 , smalldust, dust, crushedore, crushedorePurified);
+        Thorium = new GTMaterial("Thorium", 0, 30, 0, false, smalldust, dust, nugget, ingot, blockMetal, fluid);
         Tin = new GTMaterial("Tin", 220, 220, 220, molten, smalldust, nugget, plate, stick, gear);
         Titanium = new GTMaterial("Titanium", 170, 143, 222, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull);
         Tungsten = new GTMaterial("Tungsten", 50, 50, 50, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal);
@@ -208,6 +213,6 @@ public class GEMaterial {
         Uranium = new GTMaterial("Uranium", 50, 240, 50, dust, smalldust, molten);
         Uvarovite = new GTMaterial("Uvarovite", 180, 255, 180, dustAll);
         Wood = new GTMaterial("Wood", 137, 103, 39, dustAll);
-        Zinc = new GTMaterial("Zinc", 250, 240, 240, metalFull);
+        Zinc = new GTMaterial("Zinc", 250, 240, 240, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
     }
 }

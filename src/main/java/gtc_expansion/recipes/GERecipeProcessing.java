@@ -4,6 +4,7 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
+import gtc_expansion.material.GEMaterialGen;
 import gtclassic.GTConfig;
 import gtclassic.helpers.GTHelperStack;
 import gtclassic.material.GTMaterial;
@@ -39,6 +40,9 @@ public class GERecipeProcessing {
         GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredFireBrick), GTMaterialGen.get(GEItems.fireBrick), 0.1F);
         GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredBrick), GTMaterialGen.get(Items.BRICK), 0.1F);
         GameRegistry.addSmelting(GEBlocks.oreSheldonite, GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
+        GameRegistry.addSmelting(GEBlocks.oreCassiterite, GTMaterialGen.getIc2(Ic2Items.tinIngot, 2), 0.5F);
+        GameRegistry.addSmelting(GEBlocks.oreTetrahedrite, Ic2Items.copperIngot, 0.5F);
+        GameRegistry.addSmelting(GTMaterialGen.getDust(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
     }
 
     public static void initIc2Recipes(){

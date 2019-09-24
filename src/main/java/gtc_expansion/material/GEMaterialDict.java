@@ -27,6 +27,15 @@ public class GEMaterialDict {
             if (mat.hasFlag(GEMaterial.stick)){
                 OreDictionary.registerOre("rod" + mat.getDisplayName(), GTMaterialGen.getStack(mat, GEMaterial.stick, 1));
             }
+            if (mat.hasFlag(GEMaterial.crushedore)){
+                OreDictionary.registerOre("crushed" + mat.getDisplayName(), GEMaterialGen.getCrushedOre(mat, 1));
+            }
+            if (mat.hasFlag(GEMaterial.crushedorePurified)){
+                OreDictionary.registerOre("crushedPurified" + mat.getDisplayName(), GEMaterialGen.getPurifiedCrushedOre(mat, 1));
+            }
+            if (mat.hasFlag(GEMaterial.tinydust)){
+                OreDictionary.registerOre("dustTiny" + mat.getDisplayName(), GEMaterialGen.getTinyDust(mat, 1));
+            }
         }
         registerToolDicts(GEMaterial.Iron);
         registerToolDicts(GEMaterial.Diamond);

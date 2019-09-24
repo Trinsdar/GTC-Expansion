@@ -23,6 +23,16 @@ public class GEConfiguration {
     public static int sphaleriteSize = 32;
     public static int sphaleriteWeight = 6;
 
+    public static boolean galenaGenerate = true;
+    public static int galenaSize = 10;
+    public static int galenaWeight = 10;
+    public static boolean cassiteriteGenerate = true;
+    public static int cassiteriteSize = 6;
+    public static int cassiteriteWeight = 5;
+    public static boolean tetrahedriteGenerate = true;
+    public static int tetrahedriteSize = 6;
+    public static int tetrahedriteWeight = 5;
+
     public static boolean tungstateGenerate = true;
     public static int tungstateSize = 16;
     public static int tungstateWeight = 2;
@@ -65,7 +75,6 @@ public class GEConfiguration {
         pyriteGenerate = cfg.getBoolean("pyriteGenerate", CATEGORY_GENERATION, pyriteGenerate, "Generate Pyrite ore in the nether");
         pyriteSize = cfg.getInt("pyriteSize", CATEGORY_GENERATION, pyriteSize, 1, 64, "Max size of Pyrite veins");
         pyriteWeight = cfg.getInt("pyriteWeight", CATEGORY_GENERATION, pyriteWeight, 1, 32, "Chance of Pyrite veins to spawn");
-
         // cinnabar nether ore
         cinnabarGenerate = cfg.getBoolean("cinnabarGenerate", CATEGORY_GENERATION, cinnabarGenerate, "Generate Cinnabar ore in the nether");
         cinnabarSize = cfg.getInt("cinnabarSize", CATEGORY_GENERATION, cinnabarSize, 1, 32, "Max size of Cinnabar veins");
@@ -74,6 +83,19 @@ public class GEConfiguration {
         sphaleriteGenerate = cfg.getBoolean("sphaleriteGenerate", CATEGORY_GENERATION, sphaleriteGenerate, "Generate Sphalerite ore in the nether");
         sphaleriteSize = cfg.getInt("sphaleriteSize", CATEGORY_GENERATION, sphaleriteSize, 1, 64, "Max size of Sphalerite veins");
         sphaleriteWeight = cfg.getInt("sphaleriteWeight", CATEGORY_GENERATION, sphaleriteWeight, 1, 32, "Chance of Sphalerite veins to spawn");
+
+        // galena ore
+        galenaGenerate = cfg.getBoolean("galenaGenerate", CATEGORY_GENERATION, galenaGenerate, "Generate Galena ore in the overworld.");
+        galenaSize = cfg.getInt("galenaSize", CATEGORY_GENERATION, galenaSize, 1, 16, "Max size of Galena veins");
+        galenaWeight = cfg.getInt("galenaWeight", CATEGORY_GENERATION, galenaWeight, 1, 16, "Chance of Galena veins to spawn");
+        // cassiterite ore
+        cassiteriteGenerate = cfg.getBoolean("cassiteriteGenerate", CATEGORY_GENERATION, cassiteriteGenerate, "Generate Cassiterite ore in the overworld.");
+        cassiteriteSize = cfg.getInt("cassiteriteSize", CATEGORY_GENERATION, cassiteriteSize, 1, 16, "Max size of Cassiterite veins");
+        cassiteriteWeight = cfg.getInt("cassiteriteWeight", CATEGORY_GENERATION, cassiteriteWeight, 1, 16, "Chance of Cassiterite veins to spawn");
+        // tetrahedrite ore
+        tetrahedriteGenerate = cfg.getBoolean("tetrahedriteGenerate", CATEGORY_GENERATION, tetrahedriteGenerate, "Generate Tetrahedrite ore in the overworld.");
+        tetrahedriteSize = cfg.getInt("tetrahedriteSize", CATEGORY_GENERATION, tetrahedriteSize, 1, 16, "Max size of Tetrahedrite veins");
+        tetrahedriteWeight = cfg.getInt("tetrahedriteWeight", CATEGORY_GENERATION, tetrahedriteWeight, 1, 16, "Chance of Tetrahedrite veins to spawn");
 
         // tungstate end ore
         tungstateGenerate = cfg.getBoolean("tungstateGenerate", CATEGORY_GENERATION, tungstateGenerate, "Generate Tungstate ore in the end");

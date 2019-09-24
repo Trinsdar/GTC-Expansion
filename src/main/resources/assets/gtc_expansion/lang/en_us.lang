@@ -139,7 +139,6 @@ item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 
 #dust
 item.gtclassic.dustSaltpeter.name=Saltpeter Dust
-item.gtclassic.dustThorium.name=Thorium Dust
 item.gtclassic.dustInvar.name=Invar Dust
 item.gtclassic.dustSulfur.name=Sulfur Dust
 item.gtclassic.dustZinc.name=Zinc Dust
@@ -157,12 +156,10 @@ item.gtclassic.dustAlmandine.name=Almandine Dust
 item.gtclassic.dustPyrope.name=Pyrope Dust
 item.gtclassic.dustGreenSapphire.name=Green Sapphire Dust
 item.gtclassic.dustGalena.name=Galena Dust
-item.gtclassic.dustPlatinum.name=Platinum Dust
 item.gtclassic.dustEndstone.name=Endstone Dust
 item.gtclassic.dustWood.name=Sawdust
 item.gtclassic.dustChrome.name=Chrome Dust
 item.gtclassic.dustBrass.name=Brass Dust
-item.gtclassic.dustPlutonium.name=Plutonium Dust
 item.gtclassic.dustMarble.name=Marble Dust
 item.gtclassic.dustTungstensteel.name=Tungstensteel Dust
 item.gtclassic.dustSphalerite.name=Sphalerite Dust
@@ -176,15 +173,8 @@ item.gtclassic.dustOsmium.name=Osmium Dust
 item.gtclassic.dustDiamond.name=Diamond Dust
 item.gtclassic.dustGranite.name=Granite Dust
 item.gtclassic.dustMichrome.name=Nichrome Dust
-item.gtclassic.dustSheldonite.name=Sheldonite Dust
 item.gtclassic.dustSlag.name=Slag Dust
 item.gtclassic.dustStainlessSteel.name=Stainless Steel Dust
-item.gtclassic.dustBismuthtine.name=Bismuthtine Dust
-item.gtclassic.dustBismuth.name=Bismuth Dust
-item.gtclassic.dustBismuthBronze.name=Bismuth Bronze Dust
-item.gtclassic.dustMalachite.name=Malachite Dust
-item.gtclassic.dustLimonite.name=Limonite Dust
-item.gtclassic.dustCassiterite.name=Cassiterite Dust
 item.gtclassic.dustTetrahedrite.name=Tetrahedrite Dust
 item.gtclassic.dustStone.name=Stone Dust
 item.gtclassic.dustCobalt.name=Cobalt Dust
@@ -194,7 +184,6 @@ item.gtclassic.dustYellowGarnet.name=Yellow Garnet Dust
 item.gtclassic.dustRedAlloy.name=Red Alloy Dust
 item.gtclassic.dustMagnalium.name=Magnalium Dust
 item.gtclassic.dustNichrome.name=Nichrome Dust
-item.gtclassic.dustNeodymium.name=Neodymium Dust
 item.gtclassic.dustUvarovite.name=Uvarovite Dust
 
 #gems
@@ -204,28 +193,19 @@ item.gtclassic.gemRedGarnet.name=Red Garnet
 item.gtclassic.gemYellowGarnet.name=Yellow Garnet
 
 #ingots
-item.gtclassic.ingotThorium.name=Thorium Ingot
 item.gtclassic.ingotInvar.name=Invar Ingot
 item.gtclassic.ingotZinc.name=Zinc Ingot
 item.gtclassic.ingotMagnalium.name=Magnalium Ingot
 item.gtclassic.ingotConstantan.name=Constantan Ingot
 item.gtclassic.ingotLead.name=Lead Ingot
-item.gtclassic.ingotPlatinum.name=Platinum Ingot
 item.gtclassic.ingotBrass.name=Brass Ingot
-item.gtclassic.ingotPlutonium.name=Plutonium Ingot
 item.gtclassic.ingotTungstensteel.name=Tungstensteel Ingot
 item.gtclassic.ingotNickel.name=Nickel Ingot
 item.gtclassic.ingotOsmium.name=Osmium Ingot
 item.gtclassic.ingotNichrome.name=Nichrome Ingot
-item.gtclassic.ingotGermanium.name=Germanium Ingot
-item.gtclassic.ingotTantalum.name=Tantalum Ingot
 item.gtclassic.ingotManganese.name=Manganese Ingot
 item.gtclassic.ingotStainlessSteel.name=Stainless Steel Ingot
-item.gtclassic.ingotBismuth.name=Bismuth Ingot
-item.gtclassic.ingotBismuthBronze.name=Bismuth Bronze Ingot
-item.gtclassic.ingotCobalt.name=Cobalt Ingot
 item.gtclassic.ingotRedAlloy.name=Red Alloy Ingot
-item.gtclassic.ingotNeodymium.name=Neodymium Ingot
 
 #hot ingots
 item.gtclassic.hotingotTungsten.name=Hot Tungsten Ingot
@@ -242,7 +222,6 @@ item.gtclassic.nuggetZinc.name=Zinc Nugget
 item.gtclassic.nuggetBronze.name=Bronze Nugget
 item.gtclassic.nuggetSilver.name=Silver Nugget
 item.gtclassic.nuggetSteel.name=Steel Nugget
-item.gtclassic.nuggetCobalt.name=Cobalt Nugget
 item.gtclassic.nuggetManganese.name=Manganese Nugget
 item.gtclassic.nuggetMagnalium.name=Magnalium Nugget
 item.gtclassic.nuggetBismuthBronze.name=Bismuth Bronze Nugget
@@ -250,7 +229,6 @@ item.gtclassic.nuggetCopper.name=Copper Nugget
 item.gtclassic.nuggetElectrum.name=Electrum Nugget
 item.gtclassic.nuggetConstantan.name=Constantan Nugget
 item.gtclassic.nuggetLead.name=Lead Nugget
-item.gtclassic.nuggetNeodymium.name=Neodymium Nugget
 item.gtclassic.nuggetAluminium.name=Aluminium Nugget
 item.gtclassic.nuggetPlatinum.name=Platinum Nugget
 item.gtclassic.nuggetTin.name=Tin Nugget
@@ -265,7 +243,6 @@ item.gtclassic.nuggetNickel.name=Nickel Nugget
 item.gtclassic.nuggetOsmium.name=Osmium Nugget
 item.gtclassic.nuggetSilicon.name=Silicon Nugget
 item.gtclassic.nuggetNichrome.name=Nichrome Nugget
-item.gtclassic.nuggetBismuth.name=Bismuth Nugget
 
 #plates
 item.gtclassic.plateTungsten.name=Tungsten Plate
@@ -296,10 +273,6 @@ item.gtclassic.plateManganese.name=Manganese Plate
 item.gtclassic.plateConstantan.name=Constantan Plate
 item.gtclassic.plateNichrome.name=Nichrome Plate
 item.gtclassic.plateStainlessSteel.name=Stainless Steel Plate
-item.gtclassic.plateBismuth.name=Bismuth Plate
-item.gtclassic.plateBismuthBronze.name=Bismuth Bronze Plate
-item.gtclassic.plateCobalt.name=Cobalt Plate
-item.gtclassic.plateNeodymium.name=Neodymium Plate
 
 #gear
 item.gtclassic.gearTungsten.name=Tungsten Gear
@@ -373,6 +346,16 @@ item.gtclassic.hullSteel.name=Steel Machine Hull
 item.gtclassic.hullAluminium.name=Aluminium Machine Hull
 item.gtclassic.hullBrass.name=Brass Machine Hull
 item.gtclassic.hullTitanium.name=Titanium Machine Hull
+
+#ic2c extras compat materials
+item.gtclassic.crushedoreGalena.name=Crushed Galena Ore
+item.gtclassic.crushedorepurifiedGalena.name=Purified Crushed Galena Ore
+item.gtclassic.crushedoreTetrahedrite.name=Crushed Tetrahedrite Ore
+item.gtclassic.crushedorepurifiedTetrahedrite.name=Purified Crushed Tetrahedrite Ore
+
+item.gtclassic.dusttinyGalena.name=Tiny Galena Dust
+item.gtclassic.dusttinyTetrahedrite.name=Tiny Tetrahedrite Dust
+item.gtclassic.dusttinyZinc.name=Tiny Zinc Dust
 
 #material tools
 #files
@@ -482,6 +465,9 @@ tooltip.gtc_expansion.oresheldonite=Spawns very rarely between Y level 0 - 80 in
 tooltip.gtc_expansion.oreolivine=Spawns semi rarely between Y level 0 - 80 in the END.
 tooltip.gtc_expansion.oresodalite=Spawns between Y level 0 - 80 in the END.
 tooltip.gtc_expansion.oreolivine_overworld=Spawns in deposits at the bottom of the OCEAN.
+tooltip.gtc_expansion.orecassiterite=Spawns between Y level 0 - 40 in COLD, CONIFEROUS, MOUNTAIN, and MUSHROOM biomes.
+tooltip.gtc_expansion.oretetrahedrite=Spawns between Y level 20 - 70 in JUNGLE, MOUNTAIN, MUSHROOM, and SWAMPY biomes.
+tooltip.gtc_expansion.oregalena=Spawns between Y levels 0 - 64 in ALL biomes.
 
 tooltip.gtc_expansion.alloysmelter0=HighTech combination smelter
 tooltip.gtc_expansion.implosioncompressor0=Over 9000 Gibbl!
