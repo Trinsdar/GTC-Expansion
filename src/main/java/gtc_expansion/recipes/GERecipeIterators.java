@@ -9,6 +9,7 @@ import gtclassic.GTConfig;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialFlag;
 import gtclassic.material.GTMaterialGen;
+import gtclassic.util.GTValues;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.core.IC2;
@@ -28,6 +29,9 @@ public class GERecipeIterators {
             createPlateRecipe(mat);
             createNuggetRecipe(mat);
             createHullRecipe(mat);
+            if (Loader.isModLoaded(GTValues.IC2_EXTRAS) && GTConfig.compatIc2Extras){
+                createTinyDustRecipe(mat);
+            }
         }
         final ItemStack dustGlowstone = new ItemStack(Items.GLOWSTONE_DUST);
         final ItemStack dustGunpowder = new ItemStack(Items.GUNPOWDER);
@@ -54,6 +58,18 @@ public class GERecipeIterators {
         createFullToolRecipes(GEMaterial.TungstenSteel, false);
         createFullToolRecipes(GEMaterial.Ruby, true);
         createFullToolRecipes(GEMaterial.Sapphire, true);
+    }
+
+    public static void createTinyDustRecipe(GTMaterial mat) {
+        String tinyDust = "dustTiny" + mat.getDisplayName();
+        if (mat.hasFlag(GTMaterialFlag.DUST)) {
+            if (mat.hasFlag(GEMaterial.smalldust)) {
+                // Block crafting recipe
+                recipes.addRecipe(GTMaterialGen.getDust(mat, 1), "XXX", "XXX", "XXX", 'X',
+                        tinyDust);
+                TileEntityCompressor.addRecipe(tinyDust, 9, GTMaterialGen.getDust(mat, 1), 0.0F);
+            }
+        }
     }
 
     public static void createSmallDustRecipe(GTMaterial mat) {

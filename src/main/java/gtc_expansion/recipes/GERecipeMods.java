@@ -18,6 +18,7 @@ import ic2.api.recipe.IRecipeInput;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.platform.registry.Ic2Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -33,33 +34,42 @@ public class GERecipeMods {
         }
 
         if (GTConfig.compatIc2Extras && Loader.isModLoaded(GTValues.IC2_EXTRAS)){
-            GEIc2cECompat.addOreWashingMachineRecipe("crushedTetrahedrite", 1, GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Tetrahedrite, 1), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "coppertinydust", 2), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "stonedust"));
-            GEIc2cECompat.addOreWashingMachineRecipe("crushedGalena", 1, GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Galena, 1), GEMaterialGen.getSmallDust(GEMaterial.Sulfur, 1), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "stonedust"));
-            GEIc2cECompat.addThermalCentrifugeRecipe("crushedTetrahedrite", 1, 600, GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Tetrahedrite, 1), GEMaterialGen.getTinyDust(GEMaterial.Zinc, 1), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "stonedust"));
-            GEIc2cECompat.addThermalCentrifugeRecipe("crushedGalena", 1, 600, GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Galena, 1), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "silvertinydust"), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "stonedust"));
-            GEIc2cECompat.addThermalCentrifugeRecipe("crushedPurifiedTetrahedrite", 1, 400, GTMaterialGen.getDust(GEMaterial.Tetrahedrite, 1), GEMaterialGen.getTinyDust(GEMaterial.Zinc, 1));
-            GEIc2cECompat.addThermalCentrifugeRecipe("crushedPurifiedGalena", 1, 400, GTMaterialGen.getDust(GEMaterial.Galena, 1), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "silvertinydust"));
+            addCrushedOreRecipes(GEMaterial.Tetrahedrite, GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "coppertinydust", 2), GEMaterialGen.getTinyDust(GEMaterial.Zinc, 1));
+            addCrushedOreRecipes(GEMaterial.Galena, GEMaterialGen.getTinyDust(GEMaterial.Sulfur, 2), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "silvertinydust"));
+            addCrushedOreRecipes(GEMaterial.Cinnabar, GEMaterialGen.getTinyDust(GEMaterial.Redstone, 1), GEMaterialGen.getTinyDust(GEMaterial.Sulfur, 1));
+            addCrushedOreRecipes(GEMaterial.Sphalerite, GEMaterialGen.getTinyDust(GEMaterial.Zinc, 1), GEMaterialGen.getTinyDust(GEMaterial.GarnetYellow, 1));
+            addCrushedOreRecipes(GEMaterial.Pyrite, GEMaterialGen.getTinyDust(GEMaterial.Sulfur, 1), GEMaterialGen.getTinyDust(GEMaterial.Phosphorus, 1));
+            addCrushedOreRecipes(GEMaterial.Bauxite, GEMaterialGen.getTinyDust(GEMaterial.Grossular, 1), GEMaterialGen.getTinyDust(GEMaterial.Titanium, 1));
+            addCrushedOreRecipes(GEMaterial.Platinum, GEMaterialGen.getTinyDust(GEMaterial.Sulfur, 2), GEMaterialGen.getTinyDust(GEMaterial.Nickel, 1));
+            addCrushedOreRecipes(GEMaterial.Tungsten, GEMaterialGen.getTinyDust(GEMaterial.Manganese, 1), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "silvertinydust"));
+            addCrushedOreRecipes(GEMaterial.Iridium, GEMaterialGen.getTinyDust(GEMaterial.Platinum, 1), GEMaterialGen.getTinyDust(GEMaterial.Osmium, 1));
             GTRecipeProcessing.maceratorUtil("oreGalena", 1, GEMaterialGen.getCrushedOre(GEMaterial.Galena, 2));
             GTRecipeProcessing.maceratorUtil("oreTetrahedrite", 1, GEMaterialGen.getCrushedOre(GEMaterial.Tetrahedrite, 2));
             GTRecipeProcessing.maceratorUtil("oreCassiterite", 1, GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "tincrushedore", 4));
-            TileEntityMacerator.addRecipe("crushedPurifiedTetrahedrite", 1, GTMaterialGen.getDust(GEMaterial.Tetrahedrite, 1));
-            TileEntityMacerator.addRecipe("crushedPurifiedGalena", 1, GTMaterialGen.getDust(GEMaterial.Galena, 1));
+            GTRecipeProcessing.maceratorUtil("orePyrite", 1, GEMaterialGen.getCrushedOre(GEMaterial.Pyrite, 5));
+            GTRecipeProcessing.maceratorUtil("oreCinnabar", 1, GEMaterialGen.getCrushedOre(GEMaterial.Cinnabar, 3));
+            GTRecipeProcessing.maceratorUtil("oreSphalerite", 1, GEMaterialGen.getCrushedOre(GEMaterial.Sphalerite, 4));
+            GTRecipeProcessing.maceratorUtil("orePlatinum", 1, GEMaterialGen.getCrushedOre(GEMaterial.Platinum, 2));
+            GTRecipeProcessing.maceratorUtil("oreTungstate", 1, GEMaterialGen.getCrushedOre(GEMaterial.Tungsten, 2));
+            ClassicRecipes.macerator.removeRecipe(input("oreBauxite", 1));
+            TileEntityMacerator.addRecipe("oreBauxite", 1, GEMaterialGen.getCrushedOre(GEMaterial.Bauxite, 4));
+            ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));
+            GTRecipeProcessing.maceratorUtil("oreIridium", 1, GEMaterialGen.getCrushedOre(GEMaterial.Iridium, 2));
             GameRegistry.addSmelting(GEMaterialGen.getCrushedOre(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
             GameRegistry.addSmelting(GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
-            createTinyDustRecipe(GEMaterial.Zinc);
-            createTinyDustRecipe(GEMaterial.Sulfur);
+            GameRegistry.addSmelting(GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Platinum, 1), GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
+            GameRegistry.addSmelting(GEMaterialGen.getCrushedOre(GEMaterial.Platinum, 1), GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
         }
     }
+
+    public static void addCrushedOreRecipes(GTMaterial main, ItemStack outputWashSide, ItemStack outputThermalSide){
+        GEIc2cECompat.addOreWashingMachineRecipe("crushed" + main.getDisplayName(), 1, GEMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "stonedust"));
+        GEIc2cECompat.addThermalCentrifugeRecipe("crushedPurified" + main.getDisplayName(), 1, 400, GTMaterialGen.getDust(main, 1), outputThermalSide);
+        GEIc2cECompat.addThermalCentrifugeRecipe("crushed" + main.getDisplayName(), 1, 600, GTMaterialGen.getDust(main, 1), outputThermalSide, GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "stonedust"));
+        TileEntityMacerator.addRecipe("crushed" + main.getDisplayName(), 1, GTMaterialGen.getDust(main, 1));
+        TileEntityMacerator.addRecipe("crushedPurified" + main.getDisplayName(), 1, GTMaterialGen.getDust(main, 1));
+    }
+
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
-    public static void createTinyDustRecipe(GTMaterial mat) {
-        String tinyDust = "dustTiny" + mat.getDisplayName();
-        if (mat.hasFlag(GTMaterialFlag.DUST)) {
-            if (mat.hasFlag(GEMaterial.smalldust)) {
-                // Block crafting recipe
-                recipes.addRecipe(GTMaterialGen.getDust(mat, 1), "XXX", "XXX", "XXX", 'X',
-                        tinyDust);
-                TileEntityCompressor.addRecipe(tinyDust, 4, GTMaterialGen.getDust(mat, 1), 0.0F);
-            }
-        }
-    }
+
 }

@@ -44,6 +44,5 @@ public class GEWorldGen implements IWorldGenerator {
             instance.generate(GEBlocks.oreCinnabar, GEConfiguration.cinnabarGenerate, GEConfiguration.cinnabarSize, GEConfiguration.cinnabarWeight, 64, 128, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
             instance.generate(GEBlocks.oreSphalerite, GEConfiguration.sphaleriteGenerate, GEConfiguration.sphaleriteSize, GEConfiguration.sphaleriteWeight, 32, 96, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
         }
-
     }
 }
