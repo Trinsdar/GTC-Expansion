@@ -16,11 +16,11 @@ public class GEToolMaterial {
      * values. So quit bitchin.
      */
 
-    public static final ToolMaterial Flint = createToolMaterial("Flint", 1, 2.5F, 64, new ItemStack(Items.FLINT));
+    public static final ToolMaterial Flint = createToolMaterial("Flint", 1, 2.5F, 128, new ItemStack(Items.FLINT));
     public static final ToolMaterial Steel = createToolMaterial(GEMaterial.Steel, 2, 6.0F, 512);
     public static final ToolMaterial TungstenSteel = createToolMaterial(GEMaterial.TungstenSteel, 4, 10.0F, 5120);
-    public static final ToolMaterial Ruby = createToolMaterial("Ruby", 2, 7.0F, 256, GTMaterialGen.getGem(GTMaterial.Sapphire, 1));
-    public static final ToolMaterial Sapphire = createToolMaterial("Sapphire", 2, 7.0f, 256, GTMaterialGen.getGem(GTMaterial.Ruby, 1));
+    public static final ToolMaterial Ruby = createToolMaterial("Ruby", 2, 7.0F, 1024, GTMaterialGen.getGem(GTMaterial.Sapphire, 1));
+    public static final ToolMaterial Sapphire = createToolMaterial("Sapphire", 2, 7.0f, 1024, GTMaterialGen.getGem(GTMaterial.Ruby, 1));
 
     public static float attackDamage(float speed, int durability) {
         // creates attack damage from speed
