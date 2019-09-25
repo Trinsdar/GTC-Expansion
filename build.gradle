@@ -89,7 +89,6 @@ dependencies {
         exclude group: 'org.ow2.asm'
         exclude group: 'com.google.code.gson'
     }
-    //deobfCompile curse.resolve("gregtech-classic", "2733460")
 }
 
 processResources {
