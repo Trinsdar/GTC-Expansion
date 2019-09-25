@@ -41,6 +41,11 @@ tile.gtclassic.advanced.name=Advanced Machine Casing
 tile.gtc_expansion.fire_clay_block.name=Fire Clay
 tile.gtc_expansion.fire_brick_block.name=Fire Bricks
 
+#crops
+ic2.crop.Olivia.name=Olivia
+ic2.crop.Nickelback.name=Nickelback
+ic2.crop.Galvania.name=Galvania
+
 #small dusts
 item.gtclassic.dustsmallSaltpeter.name=Small Saltpeter Dust
 item.gtclassic.dustsmallGlowstone.name=Small Glowstone Dust

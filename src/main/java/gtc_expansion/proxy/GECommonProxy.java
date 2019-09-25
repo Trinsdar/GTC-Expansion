@@ -2,6 +2,7 @@ package gtc_expansion.proxy;
 
 import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
+import gtc_expansion.GECrops;
 import gtc_expansion.GEItems;
 import gtc_expansion.GEOreDict;
 import gtc_expansion.recipes.GERecipe;
@@ -24,6 +25,7 @@ public class GECommonProxy {
         GEItems.registerItems();
         GEBlocks.registerBlocks();
         GEBlocks.registerTiles();
+        GECrops.init();
         GEOreDict.init();
     }
 

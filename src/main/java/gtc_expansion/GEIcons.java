@@ -16,6 +16,7 @@ public class GEIcons {
         makeSprite("blocks", 16, 16);
         makeSprite("materials", 16, 16);
         makeSprite("items", 16, 16);
+        makeSprite("crops", 3, 1);
         collectBasicTileSprites();
         GTMod.debugLogger("All GregTech textures generated without error");
     }

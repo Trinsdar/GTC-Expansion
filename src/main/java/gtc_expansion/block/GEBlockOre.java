@@ -51,11 +51,17 @@ public class GEBlockOre extends Block implements ITexturedBlock, ILocaleBlock {
         setResistance(10.0F);
         setHarvestLevel("pickaxe", level);
         setSoundType(SoundType.STONE);
+        setLightLevel(15);
     }
 
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip")));
+    }
+
+    @Override
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        return this == GEBlocks.oreTetrahedrite || this == GEBlocks.oreCassiterite;
     }
 
     @Override
