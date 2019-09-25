@@ -27,8 +27,8 @@ public class GEConfiguration {
     public static int galenaSize = 10;
     public static int galenaWeight = 10;
     public static boolean cassiteriteGenerate = true;
-    public static int cassiteriteSize = 6;
-    public static int cassiteriteWeight = 5;
+    public static int cassiteriteSize = 32;
+    public static int cassiteriteWeight = 1;
     public static boolean tetrahedriteGenerate = true;
     public static int tetrahedriteSize = 6;
     public static int tetrahedriteWeight = 5;

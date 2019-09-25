@@ -29,10 +29,10 @@ public class GEWorldGen implements IWorldGenerator {
         }
         if (world.provider.getDimensionType().equals(DimensionType.OVERWORLD)){
             instance.generate(GEBlocks.oreGalena, GEConfiguration.galenaGenerate, GEConfiguration.galenaSize, GEConfiguration.galenaWeight, 0, 64, Blocks.STONE, world, random, chunkX, chunkZ);
-            if (BiomeDictionary.hasType(biomegenbase, Type.COLD) || BiomeDictionary.hasType(biomegenbase, Type.CONIFEROUS) || BiomeDictionary.hasType(biomegenbase, Type.MOUNTAIN) || BiomeDictionary.hasType(biomegenbase, Type.MUSHROOM)){
-                instance.generate(GEBlocks.oreCassiterite, GEConfiguration.cassiteriteGenerate, GEConfiguration.cassiteriteSize, GEConfiguration.cassiteriteWeight, 0, 40, Blocks.STONE, world, random, chunkX, chunkZ);
+            if ((BiomeDictionary.hasType(biomegenbase, Type.COLD) || BiomeDictionary.hasType(biomegenbase, Type.CONIFEROUS) || BiomeDictionary.hasType(biomegenbase, Type.MOUNTAIN) || BiomeDictionary.hasType(biomegenbase, Type.MUSHROOM) && !BiomeDictionary.hasType(biomegenbase, Type.JUNGLE))){
+                instance.generate(GEBlocks.oreCassiterite, GEConfiguration.cassiteriteGenerate, GEConfiguration.cassiteriteSize, GEConfiguration.cassiteriteWeight, 30, 80, Blocks.STONE, world, random, chunkX, chunkZ);
             }
-            if (BiomeDictionary.hasType(biomegenbase, Type.JUNGLE) || BiomeDictionary.hasType(biomegenbase, Type.SWAMP) || BiomeDictionary.hasType(biomegenbase, Type.MOUNTAIN) || BiomeDictionary.hasType(biomegenbase, Type.MUSHROOM)){
+            if ((BiomeDictionary.hasType(biomegenbase, Type.JUNGLE) || BiomeDictionary.hasType(biomegenbase, Type.SWAMP) || BiomeDictionary.hasType(biomegenbase, Type.MOUNTAIN) || BiomeDictionary.hasType(biomegenbase, Type.MUSHROOM)) && !BiomeDictionary.hasType(biomegenbase, Type.COLD)){
                 instance.generate(GEBlocks.oreTetrahedrite, GEConfiguration.tetrahedriteGenerate, GEConfiguration.tetrahedriteSize, GEConfiguration.tetrahedriteWeight, 20, 70, Blocks.STONE, world, random, chunkX, chunkZ);
             }
         }
