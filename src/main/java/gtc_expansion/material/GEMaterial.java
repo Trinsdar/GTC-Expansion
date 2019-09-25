@@ -170,7 +170,7 @@ public class GEMaterial {
         Manganese = new GTMaterial("Manganese", 250, 235, 250, molten, smalldust, dust, tinydust, nugget, ingot, plate, blockMetal);
         Marble = new GTMaterial("Marble", 200, 200, 200, dustAll);
         Netherrack = new GTMaterial("Netherrack", 200, 0, 0, smalldust);
-        Nickel = new GTMaterial("Nickel", 200, 200, 250, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
+        Nickel = new GTMaterial("Nickel", 200, 200, 250, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
         Nichrome = new GTMaterial("Nichrome", 205, 206, 246, molten, smalldust, dust, nugget, ingot, plate, stick);
         Obsidian = new GTMaterial("Obsidian", 80, 50, 100, smalldust);
         OilCrude = new GTMaterial("Crude_Oil", 0, 0, 0, fluid);

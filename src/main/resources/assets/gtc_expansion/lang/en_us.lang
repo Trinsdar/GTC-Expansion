@@ -348,14 +348,38 @@ item.gtclassic.hullBrass.name=Brass Machine Hull
 item.gtclassic.hullTitanium.name=Titanium Machine Hull
 
 #ic2c extras compat materials
+item.gtclassic.crushedoreTungsten.name=Crushed Tungsten Ore
+item.gtclassic.crushedoreBauxite.name=Crushed Bauxite Ore
 item.gtclassic.crushedoreGalena.name=Crushed Galena Ore
-item.gtclassic.crushedorepurifiedGalena.name=Purified Crushed Galena Ore
+item.gtclassic.crushedorePyrite.name=Crushed Pyrite Ore
+item.gtclassic.crushedorePlatinum.name=Crushed Platinum Ore
+item.gtclassic.crushedoreSphalerite.name=Crushed Sphalerite Ore
+item.gtclassic.crushedoreCinnabar.name=Crushed Cinnabar Ore
+item.gtclassic.crushedoreIridium.name=Crushed Iridium Ore
 item.gtclassic.crushedoreTetrahedrite.name=Crushed Tetrahedrite Ore
+
+item.gtclassic.crushedorepurifiedTungsten.name=Purified Crushed Tungsten Ore
+item.gtclassic.crushedorepurifiedBauxite.name=Purified Crushed Bauxite Ore
+item.gtclassic.crushedorepurifiedGalena.name=Purified Crushed Galena Ore
+item.gtclassic.crushedorepurifiedPyrite.name=Purified Crushed Pyrite Ore
+item.gtclassic.crushedorepurifiedPlatinum.name=Purified Crushed Platinum Ore
+item.gtclassic.crushedorepurifiedSphalerite.name=Purified Crushed Sphalerite Ore
+item.gtclassic.crushedorepurifiedCinnabar.name=Purified Crushed Cinnabar Ore
+item.gtclassic.crushedorepurifiedIridium.name=Purified Crushed Iridium Ore
 item.gtclassic.crushedorepurifiedTetrahedrite.name=Purified Crushed Tetrahedrite Ore
 
-item.gtclassic.dusttinyGalena.name=Tiny Galena Dust
-item.gtclassic.dusttinyTetrahedrite.name=Tiny Tetrahedrite Dust
+item.gtclassic.dusttinySulfur.name=Tiny Sulfur Dust
 item.gtclassic.dusttinyZinc.name=Tiny Zinc Dust
+item.gtclassic.dusttinyGrossular.name=Tiny Grossular Dust
+item.gtclassic.dusttinyYellowGarnet.name=Tiny Yellow Garnet Dust
+item.gtclassic.dusttinyRedstone.name=Tiny Redstone Dust
+item.gtclassic.dusttinyManganese.name=Tiny Manganese Dust
+item.gtclassic.dusttinyPlatinum.name=Tiny Platinum Dust
+item.gtclassic.dusttinyPhosphorus.name=Tiny Phosphorus Dust
+item.gtclassic.dusttinyTitanium.name=Tiny Titanium Dust
+item.gtclassic.dusttinyIridium.name=Tiny Iridium Dust
+item.gtclassic.dusttinyNickel.name=Tiny Nickel Dust
+item.gtclassic.dusttinyOsmium.name=Tiny Osmium Dust
 
 #material tools
 #files

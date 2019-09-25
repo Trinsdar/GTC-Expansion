@@ -54,7 +54,7 @@ public class GERecipeMods {
             ClassicRecipes.macerator.removeRecipe(input("oreBauxite", 1));
             TileEntityMacerator.addRecipe("oreBauxite", 1, GEMaterialGen.getCrushedOre(GEMaterial.Bauxite, 4));
             ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));
-            GTRecipeProcessing.maceratorUtil("oreIridium", 1, GEMaterialGen.getCrushedOre(GEMaterial.Iridium, 2));
+            TileEntityMacerator.addRecipe("oreIridium", 1, GEMaterialGen.getCrushedOre(GEMaterial.Iridium, 2));
             GameRegistry.addSmelting(GEMaterialGen.getCrushedOre(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
             GameRegistry.addSmelting(GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
             GameRegistry.addSmelting(GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Platinum, 1), GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
