@@ -5,8 +5,12 @@ import gtc_expansion.GEConfiguration;
 import gtc_expansion.GECrops;
 import gtc_expansion.GEItems;
 import gtc_expansion.GEOreDict;
+import gtc_expansion.GEWorldGenTwilightForest;
 import gtc_expansion.recipes.GERecipe;
+import gtclassic.GTConfig;
+import gtclassic.util.GTValues;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -35,5 +39,8 @@ public class GECommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
         GERecipe.postInit();
+        if (GTConfig.compatTwilightForest && Loader.isModLoaded(GTValues.TFOREST)) {
+            GEWorldGenTwilightForest.init();
+        }
     }
 }
