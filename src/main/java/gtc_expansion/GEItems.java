@@ -30,7 +30,6 @@ public class GEItems {
     public static final GEItemMisc fireClayBall = createItem(new GEItemMisc("fire_clay_ball", 11, 0));
     public static final GEItemMisc unfiredFireBrick = createItem(new GEItemMisc("unfired_fire_brick", 12, 0));
     public static final GEItemMisc fireBrick = createItem(new GEItemMisc("fire_brick", 13, 0));
-    public static final GEItemContainerDamageless brickPress = createItem(new GEItemContainerDamageless("brick_press", 14, 0));
     public static final GEItemMisc unfiredBrick = createItem(new GEItemMisc("unfired_brick", 15, 0));
 
 

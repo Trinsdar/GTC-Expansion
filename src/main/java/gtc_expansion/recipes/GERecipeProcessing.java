@@ -39,8 +39,11 @@ public class GERecipeProcessing {
     }
 
     public static void initFurnaceRecipes(){
-        GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredFireBrick), GTMaterialGen.get(GEItems.fireBrick), 0.1F);
-        GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredBrick), GTMaterialGen.get(Items.BRICK), 0.1F);
+        Item clay = GEConfiguration.unfiredBricks ? GEItems.unfiredFireBrick : GEItems.fireClayBall;
+        GameRegistry.addSmelting(GTMaterialGen.get(clay), GTMaterialGen.get(GEItems.fireBrick), 0.1F);
+        if (GEConfiguration.unfiredBricks){
+            GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredBrick), GTMaterialGen.get(Items.BRICK), 0.1F);
+        }
         GameRegistry.addSmelting(GEBlocks.oreSheldonite, GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
         GameRegistry.addSmelting(GEBlocks.oreCassiterite, GTMaterialGen.getIc2(Ic2Items.tinIngot, 2), 0.5F);
         GameRegistry.addSmelting(GEBlocks.oreTetrahedrite, Ic2Items.copperIngot, 0.5F);

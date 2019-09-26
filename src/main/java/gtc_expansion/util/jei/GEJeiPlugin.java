@@ -1,6 +1,8 @@
 package gtc_expansion.util.jei;
 
 import gtc_expansion.GEBlocks;
+import gtc_expansion.GEConfiguration;
+import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtclassic.GTConfig;
@@ -47,6 +49,13 @@ public class GEJeiPlugin implements IModPlugin {
                         blacklist.addIngredientToBlacklist(GEMaterialGen.getTinyDust(mat, 1));
                     }
                 }
+            }
+            if (!Loader.isModLoaded(GTValues.TFOREST) || !GTConfig.compatTwilightForest){
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEBlocks.oreOlivineOverworld));
+            }
+            if (!GEConfiguration.unfiredBricks){
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredBrick));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredFireBrick));
             }
 
         }

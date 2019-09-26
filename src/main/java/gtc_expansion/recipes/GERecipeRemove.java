@@ -20,7 +20,9 @@ public class GERecipeRemove {
         initCentrifugeRemoval();
         initIc2Removals();
         initBlastFurnaceRemoval();
-        GTRecipeProcessing.removeSmelting(new ItemStack(Items.BRICK));
+        if (GEConfiguration.unfiredBricks){
+            GTRecipeProcessing.removeSmelting(new ItemStack(Items.BRICK));
+        }
     }
 
     public static void initIc2Removals(){

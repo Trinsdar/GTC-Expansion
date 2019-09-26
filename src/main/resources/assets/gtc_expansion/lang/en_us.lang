@@ -450,7 +450,6 @@ item.gtc_expansion.fire_clay_ball.name=Fire Clay
 item.gtc_expansion.unfired_fire_brick.name=Unfired Fire Brick
 item.gtc_expansion.fire_brick.name=Fire Brick
 item.gtc_expansion.unfired_brick.name=Unfired Brick
-item.gtc_expansion.brick_press.name=Stone Brick Press
 
 item.gtc_expansion.mold_blank.name=Blank Mold
 item.gtc_expansion.mold_block.name=Block Mold
@@ -493,7 +492,7 @@ tooltip.gtc_expansion.oretungstate=Spawns between Y level 0 - 80 in the END.
 tooltip.gtc_expansion.oresheldonite=Spawns very rarely between Y level 0 - 80 in the END.
 tooltip.gtc_expansion.oreolivine=Spawns semi rarely between Y level 0 - 80 in the END.
 tooltip.gtc_expansion.oresodalite=Spawns between Y level 0 - 80 in the END.
-tooltip.gtc_expansion.oreolivine_overworld=Spawns in deposits at the bottom of the OCEAN.
+tooltip.gtc_expansion.oreolivine_overworld=Spawns in stalactites in hollows hills in the Twilight Forest.
 tooltip.gtc_expansion.orecassiterite=Spawns very rarely but as huge veins between Y level 30 - 80 in COLD, CONIFEROUS, MOUNTAIN, and MUSHROOM biomes.
 tooltip.gtc_expansion.oretetrahedrite=Spawns between Y level 20 - 70 in JUNGLE, MOUNTAIN, MUSHROOM, and SWAMPY biomes.
 tooltip.gtc_expansion.oregalena=Spawns between Y levels 0 - 64 in ALL biomes.
@@ -510,16 +509,7 @@ tooltip.gtc_expansion.primitiveblastfurnace2=3x5x3 hollow rectangle of (41) Fire
 tooltip.gtc_expansion.primitiveblastfurnace3=Controller centered at the second lowest layer
 
 #item tooltips
-tooltip.gtc_expansion.magnifying_glass=Debugs multi-blocks and gives general info
 tooltip.gtc_expansion.crafting_tablet=Temporary crafting on the go
-
-#extended tooltips
-tooltip.gtc_expansion.machine_bloomery0=Turns Iron into Refined Iron
-tooltip.gtc_expansion.machine_bloomery1=Use a Flint & Steel to start processing
-tooltip.gtc_expansion.machine_bloomery2=Structure Requirements:
-tooltip.gtc_expansion.machine_bloomery3=1 Controller,
-tooltip.gtc_expansion.machine_bloomery4=1 Iron Trapdoor,
-tooltip.gtc_expansion.machine_bloomery5=30 Brick Blocks
 
 tooltip.gtc_expansion.industrialelectrolyzer0=*Slaps roof of Electrolyzer*
 tooltip.gtc_expansion.industrialelectrolyzer1=This bad boy can process so much stuff!
