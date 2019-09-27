@@ -13,5 +13,8 @@ public class GEWorldGenTwilightForest {
         if (GEConfiguration.cassiteriteGenerate) {
             TFGenCaveStalactite.addStalactite(1, GEBlocks.oreCassiterite.getDefaultState(), 0.7F, 12, 1, 16);
         }
+        if (GEConfiguration.galenaGenerate){
+            TFGenCaveStalactite.addStalactite(1, GEBlocks.oreGalena.getDefaultState(), 0.5F, 10, 1, 12);
+        }
     }
 }
