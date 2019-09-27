@@ -164,7 +164,8 @@ public class GERecipe {
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GEItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
-        recipes.overrideRecipe("shaped_tile.blockmachine_527557260", Ic2Items.machine, "PPP", "P P", "PPP", 'P', getRefinedIronPlate());
+        String machineId = IC2.config.getFlag("SteelRecipes") ? "480320652" : "527557260";
+        recipes.overrideRecipe("shaped_tile.blockmachine_" + machineId, Ic2Items.machine, "PPP", "P P", "PPP", 'P', getRefinedIronPlate());
         recipes.overrideRecipe("shaped_tile.blocknuke_-814805840", Ic2Items.nuke, "UCU", "BAB", "UCU", 'U', Ic2Items.reactorReEnrichedUraniumRod, 'C', "circuitAdvanced", 'B', "blockUranium", 'A', "machineBlockAdvanced");
         if (GEConfiguration.harderTools){
             ItemStack battery = Ic2Items.battery;
@@ -210,10 +211,10 @@ public class GERecipe {
         }
         if (GEConfiguration.usePlates){
             instance.overrideGTRecipe("shaped_item.reactorvent_-735496828", Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', "plateAluminium", 'B', Blocks.IRON_BARS);
-            instance.overrideGTRecipe("shaped_tile.gtclassic.industrialcentrifuge_-1533289434", GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', getRefinedIronPlate(), 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
+            instance.overrideGTRecipe("shaped_tile.gtclassic.industrialcentrifuge_-1110475998", GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', getRefinedIronPlate(), 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
         }
-        instance.overrideGTRecipe("shaped_tile.gtclassic.translocator_-145313936", GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', GEMaterialGen.getHull(GEMaterial.Brass, 1), 'M', GEItems.conveyorModule);
-        instance.overrideGTRecipe("shaped_tile.gtclassic.bufferlarge_1098362261", GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', GEMaterialGen.getHull(GEMaterial.Brass, 1), 'c', "chestWood");
+        instance.overrideGTRecipe("shaped_tile.gtclassic.translocator_-1819938803", GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', GEMaterialGen.getHull(GEMaterial.Brass, 1), 'M', GEItems.conveyorModule);
+        instance.overrideGTRecipe("shaped_tile.gtclassic.bufferlarge_1044342104", GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', GEMaterialGen.getHull(GEMaterial.Brass, 1), 'c', "chestWood");
     }
 
     public void overrideGTRecipe(String recipeId, ItemStack output, Object... input) {
