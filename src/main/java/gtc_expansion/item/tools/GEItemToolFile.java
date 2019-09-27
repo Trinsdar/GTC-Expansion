@@ -26,6 +26,7 @@ public class GEItemToolFile extends Item implements IStaticTexturedItem, GTColor
         this.maxStackSize = 1;
         this.material = mat;
         this.setMaxDamage(tmat.getMaxUses());
+        this.setNoRepair();
         setRegistryName(this.material.getName() + "_file");
         setUnlocalizedName(GTCExpansion.MODID + "." + this.material.getName() + "_file");
         setCreativeTab(GTMod.creativeTabGT);

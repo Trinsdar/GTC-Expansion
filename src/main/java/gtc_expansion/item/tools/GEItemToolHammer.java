@@ -30,6 +30,7 @@ public class GEItemToolHammer extends ItemPickaxe
         this.material = mat;
         this.efficiency /= 2;
         this.setHarvestLevel("pickaxe", tmat.getHarvestLevel());
+        this.setNoRepair();
         setRegistryName(this.material.getName() + "_hammer");
         setUnlocalizedName(GTCExpansion.MODID + "." + this.material.getName() + "_hammer");
         setCreativeTab(GTMod.creativeTabGT);
