@@ -29,7 +29,7 @@ public class GECommonProxy {
         GEItems.registerItems();
         GEBlocks.registerBlocks();
         GEBlocks.registerTiles();
-        //GECrops.init();
+        GECrops.init();
         GEOreDict.init();
     }
 

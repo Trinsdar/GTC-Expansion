@@ -62,12 +62,14 @@ public class GERecipeIterators {
 
     public static void createTinyDustRecipe(GTMaterial mat) {
         String tinyDust = "dustTiny" + mat.getDisplayName();
+        String dust = "dust" + mat.getDisplayName();
         if (mat.hasFlag(GTMaterialFlag.DUST)) {
-            if (mat.hasFlag(GEMaterial.smalldust)) {
+            if (mat.hasFlag(GEMaterial.tinydust)) {
                 // Block crafting recipe
                 recipes.addRecipe(GTMaterialGen.getDust(mat, 1), "XXX", "XXX", "XXX", 'X',
                         tinyDust);
                 TileEntityCompressor.addRecipe(tinyDust, 9, GTMaterialGen.getDust(mat, 1), 0.0F);
+                recipes.addRecipe(GTMaterialGen.getStack(mat, GEMaterial.tinydust, 9), "D ", 'D', dust);
             }
         }
     }
@@ -82,7 +84,7 @@ public class GERecipeIterators {
                         smallDust);
                 TileEntityCompressor.addRecipe(smallDust, 4, GTMaterialGen.getDust(mat, 1), 0.0F);
                 // Inverse
-                recipes.addShapelessRecipe(GTMaterialGen.getStack(mat, GEMaterial.smalldust, 4), dust);
+                recipes.addRecipe(GTMaterialGen.getStack(mat, GEMaterial.smalldust, 4), " D", 'D', dust);
             }
         }
     }
