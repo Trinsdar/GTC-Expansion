@@ -99,7 +99,7 @@ public class GERecipeIterators {
     public static void createPlateRecipe(GTMaterial mat) {
         String ingot = "ingot" + mat.getDisplayName();
         String plate = "plate" + mat.getDisplayName();
-        if (mat.hasFlag(GEMaterial.plate) && mat != GEMaterial.Silicon) {
+        if (mat.hasFlag(GEMaterial.plate)) {
             // Plate crafting recipe
             if (GEConfiguration.harderPlates) {
                 recipes.addRecipe(GEMaterialGen.getPlate(mat, 1), "H", "X", "X", 'H',

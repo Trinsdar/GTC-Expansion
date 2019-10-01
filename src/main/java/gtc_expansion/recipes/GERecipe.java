@@ -12,6 +12,7 @@ import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
+import gtclassic.helpers.GTHelperAdvRecipe;
 import gtclassic.GTBlocks;
 import gtclassic.GTConfig;
 import gtclassic.GTItems;
@@ -21,7 +22,6 @@ import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
-import ic2.core.item.recipe.AdvRecipe;
 import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
@@ -33,8 +33,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.ModContainer;
 
 public class GERecipe {
     static GERecipe instance = new GERecipe();
@@ -58,6 +56,11 @@ public class GERecipe {
     static String materialRefinedIron = GEConfiguration.usePlates ? getRefinedIronPlate() : ingotRefinedIron;
     static IRecipeInput materialMachine = GEConfiguration.usePlates ? plateMachine : ingotMachine;
 
+
+    static IRecipeInput plateElectric = new RecipeInputCombined(1, new IRecipeInput[] {
+            new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateSilicon"),
+            new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"),
+            new RecipeInputOreDict("plateElectrum"), new RecipeInputOreDict("platePlatinum") });
     static IRecipeInput reinforcedGlass = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.reinforcedGlass), new RecipeInputItemStack(Ic2Items.reinforcedGlassClear));
     static IRecipeInput grinder = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(GEItems.diamondGrinder)), new RecipeInputItemStack(GTMaterialGen.get(GEItems.wolframiumGrinder)));
     static IRecipeInput tier2Energy = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.energyCrystal), new RecipeInputItemStack(GTMaterialGen.get(GTItems.lithiumBattery)));
@@ -161,6 +164,8 @@ public class GERecipe {
     }
 
     public static void initIc2(){
+        recipes.overrideRecipe("shaped_item.itempartcircuit_1058514721", Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', plateElectric);
+        recipes.overrideRecipe("shaped_item.itempartcircuit_1521116961", Ic2Items.electricCircuit, "CRC", "CEC", "CRC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', plateElectric);
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GEItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
@@ -200,6 +205,8 @@ public class GERecipe {
     }
 
     public static void initOverrideGTClassic(){
+        instance.removeGTRecipe("shaped_item.itempartcircuit_1303953836");
+        instance.removeGTRecipe("shaped_item.itempartcircuit_-181743188");
         //instance.overrideGTRecipe("shaped_tile.gtclassic.computercube_404275118", GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', "circuitMaster", 'M', GEItems.computerMonitor, 'O', "circuitUltimate", 'A', "machineBlockAdvanced");
         instance.overrideGTRecipe("shaped_item.itemingotalloy_1703663469", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 3), "TTT", "MMM", "BBB", 'T', materialRefinedIron, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         instance.overrideGTRecipe("shaped_item.itemingotalloy_1844373769", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', materialMixedMetal2, 'M', materialBrassBronze, 'B', materialMixedMetal1);
@@ -207,7 +214,7 @@ public class GERecipe {
         if (GEConfiguration.harderTools){
             instance.overrideGTRecipe("shaped_item.gtclassic.rockcutter_1664690250", GTMaterialGen.get(GTItems.rockCutter), "DT ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'T', titanium, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
             instance.overrideGTRecipe("shaped_item.gtclassic.jackhammer_2107301811", GTMaterialGen.get(GTItems.jackHammer), "TBT", " C ", " D ", 'T', titanium, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
-            instance.overrideGTRecipe("shaped_item.itemtoolmininglaser_1482495812", Ic2Items.miningLaser,"REH", "TTC", " AA", 'R', "gemRuby", 'H', GTItems.heatStorageHelium6, 'E', tier2Energy, 'T', titanium, 'C', "circuitAdvanced", 'A', Ic2Items.advancedAlloy);
+            instance.removeGTRecipe("shaped_item.itemtoolmininglaser_1482495812");
         }
         if (GEConfiguration.usePlates){
             instance.overrideGTRecipe("shaped_item.reactorvent_-735496828", Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', "plateAluminium", 'B', Blocks.IRON_BARS);
@@ -218,25 +225,17 @@ public class GERecipe {
     }
 
     public void overrideGTRecipe(String recipeId, ItemStack output, Object... input) {
-        Loader loader = Loader.instance();
-        ModContainer old = loader.activeModContainer();
-        loader.setActiveModContainer(loader.getIndexedModList().get("gtclassic"));
-        //temporarily doing it this way till speiger makes a variable and 2 contructors public.
-        recipes.getRecipes().add(AdvRecipe.overrideAndGet(recipeId, output, input));
-        loader.setActiveModContainer(old);
+        GTHelperAdvRecipe instance = new GTHelperAdvRecipe();
+        instance.overrideGTRecipe("gtclassic", recipeId, output, input);
     }
       //commented out this code till speiger makes a variable and 2 contructors public.
-//    public void overrideShapelessGTRecipe(String recipeId, ItemStack output, Object... input) {
-//        Loader loader = Loader.instance();
-//        ModContainer old = loader.activeModContainer();
-//        loader.setActiveModContainer(loader.getIndexedModList().get("gtclassic"));
-//        recipes.getRecipes().add(overrideRecipe(new AdvShapelessRecipe(recipeId, true, output, input)));
-//        loader.setActiveModContainer(old);
-//    }
-//
-//    public static <T extends AdvRecipeBase> T overrideRecipe(T recipe) {
-//        ((ForgeRegistry) ForgeRegistries.RECIPES).remove(new ResourceLocation("gtclassic", recipe.getRecipeID()));
-//        AdvRecipeBase.duplicates.remove(new ResourceLocation("gtclassic", recipe.getRecipeID()));
-//        return AdvRecipeBase.registerRecipe(recipe);
-//    }
+    public void overrideShapelessGTRecipe(String recipeId, ItemStack output, Object... input){
+        GTHelperAdvRecipe instance = new GTHelperAdvRecipe();
+        instance.overrideShapelessGTRecipe("gtclassic", recipeId, output, input);
+    }
+
+    public void removeGTRecipe(String recipeId){
+        GTHelperAdvRecipe instance = new GTHelperAdvRecipe();
+        instance.removeRecipe("gtclassic", recipeId);
+    }
 }

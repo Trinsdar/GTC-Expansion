@@ -181,7 +181,7 @@ public class GEMaterial {
         Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate, blockMetal, fluid);
         Pyrite = new GTMaterial("Pyrite", 150, 120, 40, crushedAll);
         Pyrope = new GTMaterial("Pyrope", 120, 50, 100, dustAll);
-        RedAlloy = new GTMaterial("RedAlloy", 200, 0, 0, molten, smalldust, dust, ingot, nugget, stick);
+        RedAlloy = new GTMaterial("RedAlloy", 200, 0, 0, molten, smalldust, dust, ingot, plate, nugget, stick);
         RedRock = new GTMaterial("RedRock", 255, 80, 50, dustAll);
         Redstone = new GTMaterial("Redstone", 200, 0, 0, smalldust, tinydust);
         RefinedIron = new GTMaterial("RefinedIron", 220, 235, 235, stick, plate, gear);
