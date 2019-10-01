@@ -192,7 +192,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
             addMercuryRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.copperDust, 2), Ic2Items.goldDust);
             addMercuryRecipe("oreLead", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Lead, 2), Ic2Items.silverDust);
         }
-        addWaterRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 16), totalEu(204800), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getDust(GEMaterial.Netherrack, 16));
+        addWaterRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 16), totalEu(204800), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 16));
         addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Ruby, 1), GEMaterialGen.getSmallDust(GEMaterial.Ruby, 6), GEMaterialGen.getSmallDust(GEMaterial.GarnetRed, 2));
         //addWaterRecipe("oreGreenSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial2.SapphireGreen, 1), GTMaterialGen2.getSmallDust(GTMaterial2.SapphireGreen, 6), GTMaterialGen2.getSmallDust(GTMaterial2.Sapphire, 2));
         addWaterRecipe("oreSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Sapphire, 1), GEMaterialGen.getSmallDust(GEMaterial.Sapphire, 6), GEMaterialGen.getSmallDust(GEMaterial.SapphireGreen, 2));
@@ -204,7 +204,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
         addWaterRecipe("oreEmerald", 1, totalEu(12800), GTMaterialGen.get(Items.EMERALD), GEMaterialGen.getSmallDust(GEMaterial.Emerald, 6), GEMaterialGen.getSmallDust(GEMaterial.Olivine, 2));
         addWaterRecipe("oreOlivine", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Olivine, 1), GEMaterialGen.getSmallDust(GEMaterial.Olivine, 6), GEMaterialGen.getSmallDust(GEMaterial.Emerald, 2));
         addWaterRecipe("oreSodalite", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Sodalite, 12), GTMaterialGen.getDust(GEMaterial.Aluminium, 3));
-        addMercuryRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 8), totalEu(102400), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getDust(GEMaterial.Netherrack, 8));
+        addMercuryRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 8), totalEu(102400), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 8));
 
     }
 
