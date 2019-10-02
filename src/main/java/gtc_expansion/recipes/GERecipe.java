@@ -118,7 +118,7 @@ public class GERecipe {
         String stick = "stickWood";
         recipes.addRecipe(GEToolGen.getPickaxe(GTMaterial.Flint), "FFF", " S ", " S ", new EnchantmentModifier(GEToolGen.getPickaxe(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
                 Items.FLINT, 'S', stick);
-        recipes.addRecipe(GEToolGen.getAxe(GTMaterial.Flint), "FF ", "FS ", " S ", new EnchantmentModifier(GEToolGen.getAxe(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
+        recipes.addRecipe(GEToolGen.getAxe(GTMaterial.Flint), "FF", "FS", " S", new EnchantmentModifier(GEToolGen.getAxe(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
                 Items.FLINT, 'S', stick);
         recipes.addRecipe(GEToolGen.getShovel(GTMaterial.Flint), "F", "S", "S", new EnchantmentModifier(GEToolGen.getShovel(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
                 Items.FLINT, 'S', stick);
