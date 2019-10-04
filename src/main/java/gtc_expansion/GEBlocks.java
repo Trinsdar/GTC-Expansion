@@ -4,6 +4,7 @@ import gtc_expansion.block.GEBlockCasing;
 import gtc_expansion.block.GEBlockMisc;
 import gtc_expansion.block.GEBlockOre;
 import gtc_expansion.block.GEBlockTile;
+import gtc_expansion.item.GEItemBlockRare;
 import gtc_expansion.tile.GETileAlloyFurnace;
 import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
@@ -84,7 +85,7 @@ public class GEBlocks {
         if (block instanceof GTItemBlockInterface) {
             return ((GTItemBlockInterface)block).getCustomItemBlock();
         } else {
-            return block instanceof GTColorBlockInterface ? GTColorItemBlock.class : GTItemBlockRare.class;
+            return block instanceof GTColorBlockInterface ? GTColorItemBlock.class : GEItemBlockRare.class;
         }
     }
 
