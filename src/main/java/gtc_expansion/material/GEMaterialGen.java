@@ -3,6 +3,7 @@ package gtc_expansion.material;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialFlag;
 import gtclassic.material.GTMaterialGen;
+import gtclassic.material.GTMaterialItem;
 import net.minecraft.item.ItemStack;
 
 import static gtclassic.material.GTMaterialGen.materialItemUtil;
@@ -10,7 +11,7 @@ import static gtclassic.material.GTMaterialGen.materialItemUtil;
 public class GEMaterialGen {
     public static void init() {
         for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.hotIngot);
+            materialHotItemUtil(mat, GEMaterial.hotIngot);
         }
         for (GTMaterial mat : GTMaterial.values()){
             materialItemUtil(mat, GEMaterial.hull);
@@ -44,6 +45,13 @@ public class GEMaterialGen {
                 materialItemUtil(mat, GEMaterial.gemGarnetShape);
             }
         }
+    }
+
+    public static void materialHotItemUtil(GTMaterial mat, GTMaterialFlag flag) {
+        if (mat.hasFlag(flag)) {
+            GTMaterialGen.itemMap.put(mat.getName() + "_" + flag.getSuffix(), new GEMaterialItemHot(mat, flag));
+        }
+
     }
 
     public static ItemStack getSmallDust(GTMaterial mat, int count){
