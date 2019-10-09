@@ -28,6 +28,13 @@ public class GEMachineGui {
         }
     }
 
+    public static class GEIndustrialBlastFurnaceGui extends MachineGui {
+        public GEIndustrialBlastFurnaceGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+
     public static class GEIndustrialGrinderGui extends MachineGui{
         public GEIndustrialGrinderGui(ContainerComponent container) {
             super(container);

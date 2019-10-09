@@ -12,6 +12,7 @@ public class GEConfiguration {
     public static boolean harderTools = true;
     public static boolean harderPlates = false;
     public static boolean unfiredBricks = false;
+    public static boolean ingotsRequireBlastFurnace = true;
 
     // generation
     public static boolean pyriteGenerate = true;
@@ -69,6 +70,7 @@ public class GEConfiguration {
         harderTools = cfg.getBoolean("harderTools", CATEGORY_CONFIG, harderTools, "Enables harder recipes for some ic2 and gtclassic electric tools.");
         harderPlates = cfg.getBoolean("harderPlates", CATEGORY_CONFIG, harderPlates, "Enables plates taking 2 ingots instead of 1 ingot in the crafting table recipes.");
         unfiredBricks = cfg.getBoolean("unfiredBricks", CATEGORY_CONFIG, unfiredBricks, "Enables regular and fire bricks taking unfired bricks in the furnace recipe.");
+        ingotsRequireBlastFurnace = cfg.getBoolean("ingotsRequireBlastFurnace", CATEGORY_CONFIG, ingotsRequireBlastFurnace, "Enables removing of vanilla smelting of end game metals from all loaded mods");
     }
 
     private static void initGenerationConfig(Configuration cfg) {

@@ -39,11 +39,13 @@ public class GEBlocks {
     public static GEBlockTile alloySmelter = registerBlock(new GEBlockTile("alloysmelter", GELang.ALLOY_SMELTER));
     public static GEBlockTile industrialGrinder = registerBlock(new GEBlockTile("industrialgrinder", GELang.INDUSTRIAL_GRINDER));
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
+    public static GEBlockTile industrialBlastFurnace = registerBlock(new GEBlockTile("industrialblastfurnace", GELang.INDUSTRIAL_BLAST_FURNACE, 3));
     public static GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
     public static GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE, Material.ROCK));
     public static GEBlockTile primitiveBlastFurnace = registerBlock(new GEBlockTile("primitiveblastfurnace", GELang.PRIMITIVE_BLAST_FURNACE, Material.ROCK, 3));
 
     public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
+    public static final GEBlockCasing casingReinforced = registerBlock(new GEBlockCasing("reinforced", 4, 150.0F));
     public static GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
 
     public static GEBlockMisc fireBrickBlock = registerBlock(new GEBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
@@ -61,7 +63,7 @@ public class GEBlocks {
     public static GEBlockOre oreGalena = registerBlock(new GEBlockOre("galena", 26, 4.0F, 2));
 
 
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
     public static void registerBlocks() {
         Iterator var0 = toRegister.iterator();
         Block block;

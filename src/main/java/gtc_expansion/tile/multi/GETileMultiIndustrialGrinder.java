@@ -59,7 +59,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
     protected static final int slotFuel = 8;
     public IFilter filter = new MachineFilter(this);
     public static final IBlockState casingStandardState = GEBlocks.casingStandard.getDefaultState();
-    public static final IBlockState casingReinforcedState = GTBlocks.casingReinforced.getDefaultState();
+    public static final IBlockState casingReinforcedState = GEBlocks.casingReinforced.getDefaultState();
     public static final IBlockState waterState = Blocks.WATER.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialgrinder.png");
     private static final int defaultEu = 120;

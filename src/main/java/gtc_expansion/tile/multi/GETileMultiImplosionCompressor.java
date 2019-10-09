@@ -54,7 +54,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     protected static final int slotFuel = 4;
     public IFilter filter = new MachineFilter(this);
     public static final IBlockState casingStandardState = GEBlocks.casingStandard.getDefaultState();
-    public static final IBlockState casingReinforcedState = GTBlocks.casingReinforced.getDefaultState();
+    public static final IBlockState casingReinforcedState = GEBlocks.casingReinforced.getDefaultState();
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/implosioncompressor.png");
     private static final int defaultEu = 32;

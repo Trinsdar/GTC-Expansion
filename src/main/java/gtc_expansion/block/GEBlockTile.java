@@ -5,6 +5,7 @@ import gtc_expansion.tile.GETileAlloyFurnace;
 import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
+import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
@@ -73,6 +74,9 @@ public class GEBlockTile extends GTBlockMachine {
         }
         if (this == GEBlocks.vacuumFreezer){
             return new GETileMultiVacuumFreezer();
+        }
+        if (this == GEBlocks.industrialBlastFurnace){
+            return new GETileMultiIndustrialBlastFurnace();
         }
         if (this == GEBlocks.alloyFurnace){
             return new GETileAlloyFurnace();

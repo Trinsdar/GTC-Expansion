@@ -28,7 +28,7 @@ public class GEItemBlockRare extends GTItemBlockRare {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(32));
             }
 
-            if (this.compare(stack, GEBlocks.electrolyzer) || this.compare(stack, GEBlocks.vacuumFreezer) || this.compare(stack, GEBlocks.industrialGrinder)) {
+            if (this.compare(stack, GEBlocks.electrolyzer) || this.compare(stack, GEBlocks.vacuumFreezer) || this.compare(stack, GEBlocks.industrialGrinder) || this.compare(stack, GEBlocks.industrialBlastFurnace)) {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
             }
         }

@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtclassic.GTConfig;
 import gtclassic.GTMod;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.Sprites;
@@ -7,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static ic2.core.platform.textures.Ic2Icons.addCustomTexture;
 import static ic2.core.platform.textures.Ic2Icons.addSprite;
 import static ic2.core.platform.textures.Ic2Icons.addTextureEntry;
 
@@ -18,6 +20,9 @@ public class GEIcons {
         makeSprite("items", 16, 16);
         makeSprite("crops", 3, 1);
         collectBasicTileSprites();
+        if (GTConfig.animatedTextures){
+            addCustomTexture("industrialblastfurnace", 0, 9, location("bf_front"));
+        }
         GTMod.debugLogger("All GregTech textures generated without error");
     }
 

@@ -1,4 +1,5 @@
 #blocks
+tile.gtclassic.blockSteel.name=Block of Steel
 tile.gtclassic.blockInvar.name=Block of Invar
 tile.gtclassic.blockZinc.name=Block of Zinc
 tile.gtclassic.blockLead.name=Block of Lead
@@ -28,7 +29,7 @@ tile.gtc_expansion.oretetrahedrite.name=Tetrahedrite Ore
 tile.gtc_expansion.oregalena.name=Galena Ore
 
 
-
+tile.gtc_expansion.industrialblastfurnace.name=Industrial Blast Furnace
 tile.gtc_expansion.industrialelectrolyzer.name=Industrial Electrolyzer
 tile.gtc_expansion.implosioncompressor.name=Implosion Compressor
 tile.gtc_expansion.industrialgrinder.name=Industrial Grinder
@@ -143,6 +144,7 @@ item.gtclassic.dustsmallNeodymium.name=Small Neodymium Dust
 item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 
 #dust
+item.gtclassic.dustSteel.name=Steel Dust
 item.gtclassic.dustSaltpeter.name=Saltpeter Dust
 item.gtclassic.dustInvar.name=Invar Dust
 item.gtclassic.dustSulfur.name=Sulfur Dust
@@ -198,6 +200,7 @@ item.gtclassic.gemRedGarnet.name=Red Garnet
 item.gtclassic.gemYellowGarnet.name=Yellow Garnet
 
 #ingots
+item.gtclassic.ingotSteel.name=Steel Ingot
 item.gtclassic.ingotInvar.name=Invar Ingot
 item.gtclassic.ingotZinc.name=Zinc Ingot
 item.gtclassic.ingotMagnalium.name=Magnalium Ingot
@@ -498,6 +501,10 @@ tooltip.gtc_expansion.orecassiterite=Spawns very rarely but as huge veins betwee
 tooltip.gtc_expansion.oretetrahedrite=Spawns between Y level 20 - 70 in JUNGLE, MOUNTAIN, MUSHROOM, and SWAMPY biomes.
 tooltip.gtc_expansion.oregalena=Spawns between Y levels 0 - 64 in ALL biomes.
 
+tooltip.gtc_expansion.industrialblastfurnace0=You'll have a blast!
+tooltip.gtc_expansion.industrialblastfurnace1=Structure:
+tooltip.gtc_expansion.industrialblastfurnace2=3x4x3 solid of (35) Reinforced Machine Blocks,
+tooltip.gtc_expansion.industrialblastfurnace3=Controller centered at the bottom
 tooltip.gtc_expansion.alloysmelter0=HighTech combination smelter
 tooltip.gtc_expansion.implosioncompressor0=Over 9000 Gibbl!
 tooltip.gtc_expansion.industrialgrinder0=Ultimaceratron 42a

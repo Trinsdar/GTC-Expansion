@@ -38,8 +38,6 @@ public class GEWorldGen implements IWorldGenerator {
         }
         if (world.provider.getDimensionType().equals(DimensionType.NETHER)){
             GTWorldGen worldGen = new GTWorldGen();
-            worldGen.generateFluid(GTMaterialGen.getFluidBlock(GEMaterial.Nickel), 3, 1, 0, 64, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
-            worldGen.generateFluid(GTMaterialGen.getFluidBlock(GEMaterial.Invar), 3, 1, 0, 64, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
             instance.generate(GEBlocks.orePyrite, GEConfiguration.pyriteGenerate, GEConfiguration.pyriteSize, GEConfiguration.pyriteWeight, 0, 64, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
             instance.generate(GEBlocks.oreCinnabar, GEConfiguration.cinnabarGenerate, GEConfiguration.cinnabarSize, GEConfiguration.cinnabarWeight, 64, 128, Blocks.NETHERRACK, world, random, chunkX, chunkZ);
             instance.generate(GEBlocks.oreSphalerite, GEConfiguration.sphaleriteGenerate, GEConfiguration.sphaleriteSize, GEConfiguration.sphaleriteWeight, 32, 96, Blocks.NETHERRACK, world, random, chunkX, chunkZ);

@@ -4,6 +4,7 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerPrimitiveBlastFurnace;
+import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
@@ -127,11 +128,11 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
         addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("dustPyrite", 3),
                 GTTileBaseMachine.input("dustCalcite", 1) }, 800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 2));
         /** Steel **/
-        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("dustSteel", 1) }, 1600, GTMaterialGen.getIngot(GTMaterial.Steel, 1));
+        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("dustSteel", 1) }, 1600, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
         addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("ingotRefinedIron", 1),
-                GTTileBaseMachine.input("dustCoal", 2) }, 1600, GTMaterialGen.getIngot(GTMaterial.Steel, 1));
+                GTTileBaseMachine.input("dustCoal", 2) }, 1600, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
         addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("ingotRefinedIron", 1),
-                GTTileBaseMachine.input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GTMaterial.Steel, 1));
+                GTTileBaseMachine.input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalTime(int total) {

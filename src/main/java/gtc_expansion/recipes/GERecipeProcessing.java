@@ -4,7 +4,6 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
-import gtc_expansion.material.GEMaterialGen;
 import gtclassic.GTConfig;
 import gtclassic.helpers.GTHelperStack;
 import gtclassic.material.GTMaterial;
@@ -13,7 +12,6 @@ import gtclassic.recipe.GTRecipeProcessing;
 import gtclassic.tile.GTTileCentrifuge;
 import gtclassic.util.GTValues;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
-import ic2.api.recipe.IRecipeInput;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityExtractor;
 import ic2.core.block.machine.low.TileEntityMacerator;
@@ -27,13 +25,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import static gtclassic.tile.GTTileBaseMachine.input;
-import static gtclassic.tile.multi.GTTileMultiBlastFurnace.addRecipe;
-
 public class GERecipeProcessing {
     public static void init(){
         initCentrifugeRecipes();
-        initBlastFurnaceRecipes();
         initIc2Recipes();
         initFurnaceRecipes();
     }
@@ -82,38 +76,29 @@ public class GERecipeProcessing {
         GTTileCentrifuge.addRecipe("dustConstantan", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GEMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 2));
     }
 
-    public static void initBlastFurnaceRecipes(){
-        addRecipe(new IRecipeInput[]{input("ingotTungsten", 1), input("ingotSteel", 1)}, 256000, GTMaterialGen.getStack(GEMaterial.TungstenSteel, GEMaterial.hotIngot, 2), GTMaterialGen.getDust(GEMaterial.DarkAshes, 4));
-        addRecipe(new IRecipeInput[] {
-                input("dustTungsten", 1) }, 256000, GTMaterialGen.getStack(GEMaterial.Tungsten, GEMaterial.hotIngot, 1));
-        addRecipe(new IRecipeInput[] {
-                input("dustIridium", 1) }, 256000, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
-        addRecipe(new IRecipeInput[] { input("oreIridium", 1) }, 256000, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
-        addRecipe(new IRecipeInput[] {
-                input(GTMaterialGen.getIc2(Ic2Items.iridiumOre, 1)) }, 256000, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
-        addRecipe(new IRecipeInput[] {
-                input("dustGalena", 2) }, 256000, GTMaterialGen.getIngot(GEMaterial.Lead, 1), GTMaterialGen.getIc2(Ic2Items.silverIngot, 1));
-        addRecipe(new IRecipeInput[] {
-                input("dustOsmium", 1) }, 256000, GTMaterialGen.getStack(GEMaterial.Osmium, GEMaterial.hotIngot, 1));
-        addRecipe(new IRecipeInput[] {
-                input("dustThorium", 1) }, 256000, GTMaterialGen.getIngot(GEMaterial.Thorium, 1));
-    }
-
     public static void removals() {
         // Remove smelting from mods who dont respect my authority
-        if (GTConfig.ingotsRequireBlastFurnace) {
+        if (GEConfiguration.ingotsRequireBlastFurnace) {
             for (Item item : Item.REGISTRY) {
                 NonNullList<ItemStack> items = NonNullList.create();
                 item.getSubItems(CreativeTabs.SEARCH, items);
                 for (ItemStack stack : items) {
                     if (GTHelperStack.matchOreDict(stack,"ingotOsmium")
-                            || GTHelperStack.matchOreDict(stack,"ingotStainlessSteel") || GTHelperStack.matchOreDict(stack,"ingotThorium")) {
-                        gtclassic.recipe.GTRecipeProcessing.removeSmelting(stack);
+                            || GTHelperStack.matchOreDict(stack,"ingotSteel")
+                            || GTHelperStack.matchOreDict(stack,"ingotStainlessSteel")
+                            || GTHelperStack.matchOreDict(stack,"ingotThorium")
+                            || GTHelperStack.matchOreDict(stack, "ingotIridium")
+                            || GTHelperStack.matchOreDict(stack, "ingotTungsten")
+                            || GTHelperStack.matchOreDict(stack, "ingotChrome")
+                            || GTHelperStack.matchOreDict(stack, "ingotTitanium")) {
+                        GTHelperStack.removeSmelting(stack);
                     }
                 }
             }
         }
     }
+
+
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalCentrifugeEu(int amount) {
         return GTTileCentrifuge.totalEu(amount);
