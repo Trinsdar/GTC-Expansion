@@ -9,6 +9,8 @@ import net.minecraft.block.Block;
 public enum GEJeiRegistry {
     ELECTROLYZER(GERecipeLists.ELECTROLYZER_RECIPE_LIST, GEBlocks.electrolyzer, GEMachineGui.GEIndustrialElectrolyzerGui.class, 78, 24, 20, 18),
     ALLOYSMELTER(GERecipeLists.ALLOY_SMELTER_RECIPE_LIST, GEBlocks.alloySmelter, GEMachineGui.GEAlloySmelterGui.class, 78, 24, 20, 18),
+    ASSEMBLINGMACHINE(GERecipeLists.ASSEMBLING_MACHINE_RECIPE_LIST, GEBlocks.assemblingMachine, GEMachineGui.GEAssemblingMachineGui.class, 78, 24, 20, 18),
+    CHEMICALREACTOR(GERecipeLists.CHEMICAL_REACTOR_RECIPE_LIST, GEBlocks.chemicalReactor, GEMachineGui.GEChemicalReactorGui.class, 73, 34, 30, 10),
     INDUSTRIALGRINDER(GERecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST, GEBlocks.industrialGrinder, GEMachineGui.GEIndustrialGrinderGui.class, 78, 29, 20, 11),
     IMPLOSIONCOMPRESSOR(GERecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST, GEBlocks.implosionCompressor, GEMachineGui.GEImplosionCompressorGui.class, 78, 27, 20, 11),
     INDUSTRIALBLASTFURNACE(GERecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GEBlocks.industrialBlastFurnace, GEMachineGui.GEIndustrialBlastFurnaceGui.class, 78, 24, 20, 18),

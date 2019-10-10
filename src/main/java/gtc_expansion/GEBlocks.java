@@ -42,6 +42,7 @@ public class GEBlocks {
     public static GEBlockTile electrolyzer = registerBlock(new GEBlockTile("industrialelectrolyzer", GELang.INDUSTRIAL_ELECTROLYZER, 1));
     public static GEBlockTile alloySmelter = registerBlock(new GEBlockTile("alloysmelter", GELang.ALLOY_SMELTER));
     public static GEBlockTile assemblingMachine = registerBlock(new GEBlockTile("assemblingmachine", GELang.ASSEMBLING_MACHINE));
+    public static GEBlockTile chemicalReactor = registerBlock(new GEBlockTile("chemicalreactor", GELang.CHEMICAL_REACTOR));
     public static GEBlockTile industrialGrinder = registerBlock(new GEBlockTile("industrialgrinder", GELang.INDUSTRIAL_GRINDER));
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
     public static GEBlockTile industrialBlastFurnace = registerBlock(new GEBlockTile("industrialblastfurnace", GELang.INDUSTRIAL_BLAST_FURNACE, 3));

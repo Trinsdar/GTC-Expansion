@@ -7,6 +7,9 @@ import gtc_expansion.recipes.GERecipeLists;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.recipe.RecipeModifierHelpers;
+import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
@@ -17,6 +20,8 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.item.recipe.entry.RecipeInputItemStack;
+import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
@@ -24,10 +29,14 @@ import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GETileAssemblingMachine extends GTTileBaseMachine {
@@ -118,5 +127,64 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
     @Override
     public ResourceLocation getStartSoundFile() {
         return Ic2Sounds.extractorOp;
+    }
+
+    public static void init() {
+
+    }
+
+    public static void addRecipe(String input1, int amount1, ItemStack input2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add(new RecipeInputOreDict(input1, amount1));
+        inputs.add(new RecipeInputItemStack(input2));
+        addRecipe(inputs, new MachineOutput(null, output));
+    }
+
+    public static void addRecipe(ItemStack input1, String input2, int amount2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add(new RecipeInputItemStack(input1));
+        inputs.add(new RecipeInputOreDict(input2, amount2));
+        addRecipe(inputs, new MachineOutput(null, output));
+    }
+
+    public static void addRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add(new RecipeInputOreDict(input1, amount1));
+        inputs.add(new RecipeInputOreDict(input2, amount2));
+        addRecipe(inputs, new MachineOutput(null, output));
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add(input1);
+        inputs.add(input2);
+        addRecipe(inputs, new MachineOutput(null, output));
+    }
+
+    public static void addRecipe(ItemStack input1, ItemStack input2, ItemStack output) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add(new RecipeInputItemStack(input1));
+        inputs.add(new RecipeInputItemStack(input2));
+        addRecipe(inputs, new MachineOutput(null, output));
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+        List<IRecipeInput> inlist = new ArrayList<>();
+        List<ItemStack> outlist = new ArrayList<>();
+        for (IRecipeInput input : inputs) {
+            inlist.add(input);
+        }
+        NBTTagCompound mods = new NBTTagCompound();
+        for (RecipeModifierHelpers.IRecipeModifier modifier : modifiers) {
+            modifier.apply(mods);
+        }
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        addRecipe(inlist, new MachineOutput(mods, outlist));
+    }
+
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        GERecipeLists.ASSEMBLING_MACHINE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getDisplayName(), 16);
     }
 }

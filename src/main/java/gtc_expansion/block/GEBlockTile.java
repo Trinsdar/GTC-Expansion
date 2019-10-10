@@ -4,6 +4,7 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.tile.GETileAlloyFurnace;
 import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileAssemblingMachine;
+import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
@@ -69,6 +70,9 @@ public class GEBlockTile extends GTBlockMachine {
         }
         if (this == GEBlocks.assemblingMachine){
             return new GETileAssemblingMachine();
+        }
+        if (this == GEBlocks.chemicalReactor){
+            return new GETileChemicalReactor();
         }
         if (this == GEBlocks.industrialGrinder){
             return new GETileMultiIndustrialGrinder();
