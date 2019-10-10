@@ -16,6 +16,24 @@ public class GEMachineGui {
         }
     }
 
+    public static class GEAssemblingMachineGui extends MachineGui{
+        public GEAssemblingMachineGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GEChemicalReactorGui extends MachineGui{
+        public GEChemicalReactorGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GEDistillationTowerGui extends MachineGui{
+        public GEDistillationTowerGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
     public static class GEImplosionCompressorGui extends MachineGui{
         public GEImplosionCompressorGui(ContainerComponent container) {
             super(container);
@@ -34,12 +52,12 @@ public class GEMachineGui {
         }
     }
 
-
     public static class GEIndustrialGrinderGui extends MachineGui{
         public GEIndustrialGrinderGui(ContainerComponent container) {
             super(container);
         }
     }
+
     public static class GEPrimitiveBlastFurnaceGui extends MachineGui{
         public GEPrimitiveBlastFurnaceGui(ContainerComponent container) {
             super(container);

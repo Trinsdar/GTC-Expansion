@@ -7,7 +7,10 @@ import gtc_expansion.block.GEBlockTile;
 import gtc_expansion.item.GEItemBlockRare;
 import gtc_expansion.tile.GETileAlloyFurnace;
 import gtc_expansion.tile.GETileAlloySmelter;
+import gtc_expansion.tile.GETileAssemblingMachine;
+import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.GETileElectrolyzer;
+import gtc_expansion.tile.multi.GETileMultiDistillationTower;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
@@ -38,6 +41,7 @@ public class GEBlocks {
     static final List<Block> toRegister = new ArrayList();
     public static GEBlockTile electrolyzer = registerBlock(new GEBlockTile("industrialelectrolyzer", GELang.INDUSTRIAL_ELECTROLYZER, 1));
     public static GEBlockTile alloySmelter = registerBlock(new GEBlockTile("alloysmelter", GELang.ALLOY_SMELTER));
+    public static GEBlockTile assemblingMachine = registerBlock(new GEBlockTile("assemblingmachine", GELang.ASSEMBLING_MACHINE));
     public static GEBlockTile industrialGrinder = registerBlock(new GEBlockTile("industrialgrinder", GELang.INDUSTRIAL_GRINDER));
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
     public static GEBlockTile industrialBlastFurnace = registerBlock(new GEBlockTile("industrialblastfurnace", GELang.INDUSTRIAL_BLAST_FURNACE, 3));
@@ -64,7 +68,7 @@ public class GEBlocks {
     public static GEBlockOre oreGalena = registerBlock(new GEBlockOre("galena", 26, 4.0F, 2));
 
 
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
     public static void registerBlocks() {
         Iterator var0 = toRegister.iterator();
         Block block;
@@ -99,6 +103,9 @@ public class GEBlocks {
         registerUtil(GETileMultiImplosionCompressor.class, "ImplosionCompressor");
         registerUtil(GETileMultiVacuumFreezer.class, "VacuumFreezer");
         registerUtil(GETileAlloyFurnace.class, "AlloyFurnace");
+        registerUtil(GETileAssemblingMachine.class, "AssemblingMachine");
+        registerUtil(GETileChemicalReactor.class, "ChemicalReactor");
+        registerUtil(GETileMultiDistillationTower.class, "DistillationTower");
         registerUtil(GETileMultiPrimitiveBlastFurnace.class, "PrimitiveBlastFurnace");
         registerUtil(GETileMultiIndustrialBlastFurnace.class, "IndustrialBlastFurnace");
     }

@@ -53,7 +53,7 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
     private static final int defaultEu = 16;
 
     public GETileAlloySmelter() {
-        super(9, 2, defaultEu, 100, 32);
+        super(4, 2, defaultEu, 100, 32);
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
     }
@@ -133,9 +133,7 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
     public ResourceLocation getStartSoundFile() {
         return Ic2Sounds.extractorOp;
     }
-    /**
-     * Recipes not handled by the iterator class
-     */
+
     public static void init() {
         addAlloyRecipe("Copper", 3, "Tin", 1, GTMaterialGen.getIc2(Ic2Items.bronzeIngot, 4));
         addAlloyRecipe("Copper", 3, "Zinc", 1, GTMaterialGen.getIngot(GEMaterial.Brass, 4));

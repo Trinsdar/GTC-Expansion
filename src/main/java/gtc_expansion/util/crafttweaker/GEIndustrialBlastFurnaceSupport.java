@@ -54,7 +54,7 @@ public class GEIndustrialBlastFurnaceSupport {
 
 		@Override
 		public String describe() {
-			return String.format(Locale.ENGLISH, "Add Recipe[%s -> %s] to %s", Arrays.deepToString(this.input), Arrays.deepToString(this.output), GERecipeLists.INDUSTRIAL_BLAST_FURNACE);
+			return String.format(Locale.ENGLISH, "Add Recipe[%s -> %s] to %s", Arrays.deepToString(this.input), Arrays.deepToString(this.output), GERecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST);
 		}
 	}
 }

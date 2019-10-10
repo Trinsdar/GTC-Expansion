@@ -7,7 +7,6 @@ import gtc_expansion.container.GEContainerIndustrialBlastFurnace;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GELang;
-import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
@@ -113,7 +112,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 
 	@Override
 	public GTRecipeMultiInputList getRecipeList() {
-		return GERecipeLists.INDUSTRIAL_BLAST_FURNACE;
+		return GERecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST;
 	}
 
 	public ResourceLocation getGuiTexture() {
@@ -184,11 +183,11 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	}
 
 	static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-		GERecipeLists.INDUSTRIAL_BLAST_FURNACE.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+		GERecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
 	}
 
 	public static void removeRecipe(String id) {
-		GERecipeLists.INDUSTRIAL_BLAST_FURNACE.removeRecipe(id);
+		GERecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST.removeRecipe(id);
 	}
 
 	@Override
