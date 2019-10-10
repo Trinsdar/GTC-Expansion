@@ -29,7 +29,6 @@ public class GTCExpansion {
 	static {
 		GEMaterial.initMaterials();
 		GEMaterialGen.init();
-		GEToolGen.init();
 	}
 
 	@Mod.EventHandler

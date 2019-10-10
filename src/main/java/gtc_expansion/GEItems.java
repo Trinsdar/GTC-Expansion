@@ -4,6 +4,7 @@ import gtc_expansion.item.GEItemContainerDamageless;
 import gtc_expansion.item.GEItemMisc;
 import gtc_expansion.item.tools.GEItemToolFile;
 import gtc_expansion.item.tools.GEItemToolHammer;
+import gtc_expansion.item.tools.GEItemToolWrench;
 import gtc_expansion.material.GEMaterial;
 import ic2.core.IC2;
 import ic2.core.util.helpers.ToolHelper;
@@ -18,8 +19,6 @@ public class GEItems {
     }
 
     static List<Item> toRegister = new ArrayList<>();
-    public static final GEItemToolHammer bronzeHammer = createItem(new GEItemToolHammer(GEMaterial.Bronze, ToolHelper.bronzeToolMaterial));
-    public static final GEItemToolFile bronzeFile = createItem(new GEItemToolFile(GEMaterial.Bronze, ToolHelper.bronzeToolMaterial));
 
     public static final GEItemMisc iridiumAlloyIngot = createItem(new GEItemMisc("iridium_alloy_ingot", 0, 0));
     public static final GEItemMisc computerMonitor = createItem(new GEItemMisc("computer_monitor", 1, 0));

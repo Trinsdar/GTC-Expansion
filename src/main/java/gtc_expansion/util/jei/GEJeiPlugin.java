@@ -10,6 +10,7 @@ import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.util.GTValues;
 import gtclassic.util.jei.GTJeiPlugin;
+import ic2.core.platform.registry.Ic2Items;
 import ic2.jeiIntigration.SubModul;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
@@ -57,6 +58,7 @@ public class GEJeiPlugin implements IModPlugin {
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredBrick));
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredFireBrick));
             }
+            blacklist.addIngredientToBlacklist(Ic2Items.wrench);
 
         }
     }

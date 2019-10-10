@@ -49,7 +49,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
 	public IFilter filter = new MachineFilter(this);
 	public static final IBlockState casingState = GEBlocks.casingReinforced.getDefaultState();
-	public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/blastfurnace.png");
+	public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialblastfurnace.png");
 	private static final int defaultEu = 120;
 	public static final int COST_MED = 128000;
 	public static final int COST_HIGH = 256000;

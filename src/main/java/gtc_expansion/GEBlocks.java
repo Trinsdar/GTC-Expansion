@@ -9,6 +9,7 @@ import gtc_expansion.tile.GETileAlloyFurnace;
 import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
+import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
@@ -99,6 +100,7 @@ public class GEBlocks {
         registerUtil(GETileMultiVacuumFreezer.class, "VacuumFreezer");
         registerUtil(GETileAlloyFurnace.class, "AlloyFurnace");
         registerUtil(GETileMultiPrimitiveBlastFurnace.class, "PrimitiveBlastFurnace");
+        registerUtil(GETileMultiIndustrialBlastFurnace.class, "IndustrialBlastFurnace");
     }
 
     public static void registerUtil(Class tile, String name) {

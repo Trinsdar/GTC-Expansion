@@ -409,6 +409,7 @@ item.gtc_expansion.tungstensteel_hammer.name=Tungstensteel Hammer
 item.gtc_expansion.ruby_hammer.name=Ruby Hammer
 item.gtc_expansion.sapphire_hammer.name=Sapphire Hammer
 #wrenches
+item.gtc_expansion.bronze_wrench.name=Bronze Wrench
 item.gtc_expansion.iron_wrench.name=Iron Wrench
 item.gtc_expansion.diamond_wrench.name=Diamond Wrench
 item.gtc_expansion.steel_wrench.name=Steel Wrench

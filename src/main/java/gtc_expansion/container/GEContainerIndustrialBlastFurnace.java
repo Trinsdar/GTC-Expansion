@@ -40,9 +40,6 @@ public class GEContainerIndustrialBlastFurnace extends ContainerTileComponent<GE
 		this.addPlayerInventory(player);
 		this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
 		this.addComponent(new GTGuiCompMachinePower(tile));
-		if (tile.isSimulating()) {
-		IC2.platform.messagePlayer(player.player, "WARNING: this tile will be moved to be part of GTC Expansion next release");
-		}
 	}
 
 	@Override

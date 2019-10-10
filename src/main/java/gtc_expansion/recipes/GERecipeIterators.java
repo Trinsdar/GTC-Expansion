@@ -126,7 +126,7 @@ public class GERecipeIterators {
         }
         if (mat.hasFlag(GEMaterial.hull) && mat.hasFlag(GEMaterial.plate) && !steel) {
             // Hull crafting recipe
-            recipes.addRecipe(GEMaterialGen.getHull(mat, 1), "PPP", "P P", "PPP", 'P', plate);
+            recipes.addRecipe(GEMaterialGen.getHull(mat, 1), "PPP", "PWP", "PPP", 'P', plate, 'W', "craftingToolWrench");
             //Ingots from hulls
             recipes.addShapelessRecipe(GTMaterialGen.getIngot(mat, 8), GEMaterialGen.getHull(mat, 1));
         }
@@ -146,8 +146,11 @@ public class GERecipeIterators {
         recipes.addRecipe(G.getAxe(mat), "PIH", "PS ", "FS ", 'P', plate, 'I', ingot, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
         recipes.addRecipe(G.getShovel(mat), "FPH", " S ", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
         recipes.addRecipe(G.getSword(mat), " P ", "FPH", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
-        recipes.addRecipe(G.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
-        recipes.addRecipe(G.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
+        if (!gemInput){
+            recipes.addRecipe(G.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
+            recipes.addRecipe(G.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
+            recipes.addRecipe(G.getWrench(mat), "I I", "III", " I ", 'I', ingot);
+        }
     }
 
     public static void dustUtil(ItemStack stack, GTMaterial material) {
