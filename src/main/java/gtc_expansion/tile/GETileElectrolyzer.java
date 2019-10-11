@@ -48,7 +48,7 @@ import java.util.Set;
 public class GETileElectrolyzer extends GTTileBaseMachine {
 
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialelectrolyzer.png");
-    IFilter filter = new MachineFilter(this);
+    public IFilter filter = new MachineFilter(this);
     public static final int slotFuel = 8;
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };

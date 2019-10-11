@@ -21,10 +21,12 @@ public class GEContainerChemicalReactor extends ContainerTileComponent<GETileChe
 
     public GEContainerChemicalReactor(InventoryPlayer player, GETileChemicalReactor tile) {
         super(tile);
-        this.addSlotToContainer(new SlotCustom(tile, 0, 70, 16, null));// main slot
-        this.addSlotToContainer(new SlotCustom(tile, 1, 90, 16, null)); // second slot
-        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 3, 80, 64)); // battery
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 80, 46)); // output
+        this.addSlotToContainer(new SlotCustom(tile, 0, 60, 16, tile.filter));// main slot
+        this.addSlotToContainer(new SlotCustom(tile, 1, 80, 16, tile.filter)); // second slot
+        this.addSlotToContainer(new SlotCustom(tile, 2, 100, 16, tile.filter)); // third output
+        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 5, 8, 62)); // battery
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 70, 46)); // output
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 4, 90, 46)); // second output
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 26 + i * 18));
         }

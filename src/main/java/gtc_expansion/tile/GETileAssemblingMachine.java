@@ -1,15 +1,24 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GEItems;
 import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerAssemblingMachine;
+import gtc_expansion.item.GEItemMisc;
+import gtc_expansion.material.GEMaterial;
+import gtc_expansion.material.GEMaterialGen;
+import gtc_expansion.recipes.GERecipe;
 import gtc_expansion.recipes.GERecipeLists;
+import gtclassic.GTBlocks;
+import gtclassic.GTItems;
+import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
@@ -20,6 +29,7 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
@@ -28,6 +38,7 @@ import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -130,42 +141,60 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
     }
 
     public static void init() {
-
+        addRecipe(input("stickWood", 1), new RecipeInputCombined(1, input(new ItemStack(Items.COAL, 1, 0)), input(new ItemStack(Items.COAL, 1, 1))), 400, GTMaterialGen.get(Blocks.TORCH, 4));
+        addRecipe("slimeball", 1, "string", 1, 400, GTMaterialGen.get(Items.LEAD, 2));
+        addRecipe(GTMaterialGen.getIc2(Ic2Items.coalBall, 8), GTMaterialGen.get(Blocks.BRICK_BLOCK), 1600, Ic2Items.coalChunk);
+        addRecipe(GTMaterialGen.get(GEItems.advancedCircuitBoard), GTMaterialGen.get(GEItems.advancedCircuitParts, 2), 3200, Ic2Items.advancedCircuit);
+        addRecipe(GTMaterialGen.get(GEItems.processorCircuitBoard), GTMaterialGen.get(GTItems.chipData), 12800, GTMaterialGen.get(GTItems.circuitData));
+        addRecipe(GTMaterialGen.get(GEItems.processorCircuitBoard), Ic2Items.lapotronCrystal, 12800, GTMaterialGen.get(GTItems.circuitEnergy));
+        addRecipe(GTMaterialGen.get(GTItems.circuitData), GTMaterialGen.get(GTItems.chipData, 8), 204800, GTMaterialGen.get(GTItems.orbData));
+        addRecipe(GTMaterialGen.get(GTBlocks.tileEchotron), GTMaterialGen.get(GTItems.chipData, 4), 51200, GTMaterialGen.get(GTItems.echotron));
+        addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 3200, GTMaterialGen.get(GEItems.advancedCircuitBoard));
+        addRecipe("plateAluminium", 4, "plateSilicon", 1, 3200, GTMaterialGen.get(GEItems.advancedCircuitBoard, 2));
+        addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GEItems.machineParts, 3));
+        addRecipe(GERecipe.plateMachine, input("plateRedAlloy", 2), 800, GTMaterialGen.get(GEItems.basicCircuitBoard));
+        addRecipe(GERecipe.plateMachine, input("plateElectrum", 2), 800, GTMaterialGen.get(GEItems.basicCircuitBoard, 2));
+        addRecipe(GERecipe.getRefinedIronPlate(), 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GEItems.machineParts, 4));
+        addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 12800, GTMaterialGen.get(GEItems.processorCircuitBoard));
+        addRecipe(new RecipeInputCombined(8, input("gemEmerald", 1), input("gemOlivine", 1)), new RecipeInputItemStack(Ic2Items.advancedCircuit), 51200, GTMaterialGen.get(GTItems.chipData, 4));
+        addRecipe("plateAluminium", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Aluminium, 1));
+        addRecipe("plateBronze", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Bronze, 1));
+        addRecipe("plateBrass", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Brass, 1));
+        if (!IC2.config.getFlag("SteelRecipes")) addRecipe("plateSteel", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Steel, 1));
+        addRecipe("plateTitanium", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Titanium, 1));
+        addRecipe(GERecipe.getRefinedIronPlate(), 6, GTMaterialGen.get(GEItems.machineParts), 3200, Ic2Items.machine);
+        addRecipe("plateTungstensteel", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.TungstenSteel, 1));
+        addRecipe("plateStainlessSteel", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.StainlessSteel, 1));
+        addRecipe("dustFlint", 5, GTMaterialGen.get(Blocks.TNT), 1600, GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5));
+        addRecipe("dustGunpowder", 4, GTMaterialGen.get(Blocks.SAND), 400, GTMaterialGen.get(Blocks.TNT));
+        addRecipe(input("dustGlowstone", 1), GERecipe.anyLapis, 1600, GTMaterialGen.get(GEItems.advancedCircuitParts, 2));
+        addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), Ic2Items.cropAnalyzer, 204800, GTMaterialGen.get(GTItems.portableScanner));
+        addRecipe(GTMaterialGen.get(GEItems.basicCircuitBoard), GTMaterialGen.getIc2(Ic2Items.copperCable, 3), 800, Ic2Items.electricCircuit);
+        addRecipe("plateIridiumAlloy", 1, Ic2Items.reinforcedStone, 1600, Ic2Items.iridiumStone);
     }
 
-    public static void addRecipe(String input1, int amount1, ItemStack input2, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputOreDict(input1, amount1));
-        inputs.add(new RecipeInputItemStack(input2));
-        addRecipe(inputs, new MachineOutput(null, output));
+    public static void addRecipe(String input1, int amount1, ItemStack input2, int totalEu, ItemStack output) {
+        addRecipe(new IRecipeInput[]{new RecipeInputOreDict(input1, amount1), new RecipeInputItemStack(input2)}, totalEu(totalEu), output);
     }
 
-    public static void addRecipe(ItemStack input1, String input2, int amount2, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputItemStack(input1));
-        inputs.add(new RecipeInputOreDict(input2, amount2));
-        addRecipe(inputs, new MachineOutput(null, output));
+    public static void addRecipe(ItemStack input1, String input2, int amount2, int totalEu, ItemStack output) {
+        addRecipe(new IRecipeInput[]{new RecipeInputItemStack(input1), new RecipeInputOreDict(input2, amount2)}, totalEu(totalEu), output);
     }
 
-    public static void addRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputOreDict(input1, amount1));
-        inputs.add(new RecipeInputOreDict(input2, amount2));
-        addRecipe(inputs, new MachineOutput(null, output));
+    public static void addRecipe(String input1, int amount1, String input2, int amount2, int totalEu, ItemStack output) {
+        addRecipe(new IRecipeInput[]{new RecipeInputOreDict(input1, amount1), new RecipeInputOreDict(input2, amount2)}, totalEu(totalEu), output);
     }
 
-    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(input1);
-        inputs.add(input2);
-        addRecipe(inputs, new MachineOutput(null, output));
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack output) {
+        addRecipe(new IRecipeInput[]{input1, input2}, totalEu(totalEu), output);
     }
 
-    public static void addRecipe(ItemStack input1, ItemStack input2, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputItemStack(input1));
-        inputs.add(new RecipeInputItemStack(input2));
-        addRecipe(inputs, new MachineOutput(null, output));
+    public static void addRecipe(ItemStack input1, ItemStack input2, int totalEu, ItemStack output) {
+        addRecipe(new IRecipeInput[]{new RecipeInputItemStack(input1), new RecipeInputItemStack(input2)}, totalEu(totalEu), output);
+    }
+
+    public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
+        return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((amount / defaultEu) - 100) };
     }
 
     public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {

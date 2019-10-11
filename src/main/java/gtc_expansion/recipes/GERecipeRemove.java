@@ -39,6 +39,7 @@ public class GERecipeRemove {
         GTTileCentrifuge.RECIPE_LIST.startMassChange();
         GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube");
         GTTileCentrifuge.removeRecipe("item.itemCellEmpty");
+        GTTileCentrifuge.removeRecipe("item.itemCellEmpty_1");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustCarbon");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminium");
         GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminium_1");

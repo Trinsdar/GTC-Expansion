@@ -21,8 +21,8 @@ public class GEContainerImplosionCompressor extends ContainerTileComponent<GETil
     public static final Vec2i machineProgressPos = new Vec2i(176, 0);
     public GEContainerImplosionCompressor(InventoryPlayer player, GETileMultiImplosionCompressor tile) {
         super(tile);
-        this.addSlotToContainer(new SlotCustom(tile, 0, 35, 25, null));// main slot
-        this.addSlotToContainer(new SlotCustom(tile, 1, 53, 25, null)); // second slot
+        this.addSlotToContainer(new SlotCustom(tile, 0, 35, 25, tile.filter));// main slot
+        this.addSlotToContainer(new SlotCustom(tile, 1, 53, 25, tile.filter)); // second slot
         this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 4, 80, 63)); // battery
         this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 107, 25)); // output
         this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 125, 25)); // output

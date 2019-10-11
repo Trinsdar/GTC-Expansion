@@ -358,6 +358,8 @@ item.gtclassic.hullSteel.name=Steel Machine Hull
 item.gtclassic.hullAluminium.name=Aluminium Machine Hull
 item.gtclassic.hullBrass.name=Brass Machine Hull
 item.gtclassic.hullTitanium.name=Titanium Machine Hull
+item.gtclassic.hullTungstensteel.name=Tungstensteel Machine Hull
+item.gtclassic.hullStainlessSteel.name=Stainless Machine Hull
 
 #ic2c extras compat materials
 item.gtclassic.crushedoreTungsten.name=Crushed Tungsten Ore
@@ -458,6 +460,11 @@ item.gtc_expansion.fire_clay_ball.name=Fire Clay
 item.gtc_expansion.unfired_fire_brick.name=Unfired Fire Brick
 item.gtc_expansion.fire_brick.name=Fire Brick
 item.gtc_expansion.unfired_brick.name=Unfired Brick
+item.gtc_expansion.machine_parts.name=Machine Parts
+item.gtc_expansion.advanced_circuit_parts.name=Advanced Circuit Parts
+item.gtc_expansion.basic_circuit_board.name=Basic Circuit Board
+item.gtc_expansion.advanced_circuit_board.name=Advanced Circuit Board
+item.gtc_expansion.processor_circuit_board.name=Processor Circuit Board
 
 item.gtc_expansion.mold_blank.name=Blank Mold
 item.gtc_expansion.mold_block.name=Block Mold

@@ -21,7 +21,7 @@ public class GEContainerVacuumFreezer extends ContainerTileComponent<GETileMulti
     public static final Vec2i machineProgressPos = new Vec2i(176, 0);
     public GEContainerVacuumFreezer(InventoryPlayer player, GETileMultiVacuumFreezer tile) {
         super(tile);
-        this.addSlotToContainer(new SlotCustom(tile, 0, 53, 25, null));// main slot
+        this.addSlotToContainer(new SlotCustom(tile, 0, 53, 25, tile.filter));// main slot
         this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 2, 80, 63)); // battery
         this.addSlotToContainer(new SlotOutput(player.player, tile, 1, 107, 25)); // output
         this.addPlayerInventory(player);

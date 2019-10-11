@@ -24,7 +24,7 @@ public class GEContainerElectrolyzer extends ContainerTileComponent<GETileElectr
     public GEContainerElectrolyzer(InventoryPlayer player, GETileElectrolyzer tile) {
         super(tile);
         for (int x = 0; x < 2; ++x) {
-            this.addSlotToContainer(new SlotCustom(tile, x, 35 + x * 18, 17, null));
+            this.addSlotToContainer(new SlotCustom(tile, x, 35 + x * 18, 17, tile.filter));
         }
 
         for (int y = 0; y < 2; ++y) {
