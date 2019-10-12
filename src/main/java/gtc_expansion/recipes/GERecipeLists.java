@@ -7,6 +7,7 @@ public class GERecipeLists {
     public static final GTRecipeMultiInputList ALLOY_SMELTER_RECIPE_LIST = new GTRecipeMultiInputList("gt.alloysmelter");
     public static final GTRecipeMultiInputList ASSEMBLING_MACHINE_RECIPE_LIST = new GTRecipeMultiInputList("gt.assemblingmachine");
     public static final GTRecipeMultiInputList CHEMICAL_REACTOR_RECIPE_LIST = new GTRecipeMultiInputList("gt.chemicalreactor");
+    public static final GTRecipeMultiInputList DISTILLATION_TOWER_RECIPE_LIST = new GTRecipeMultiInputList("gt.distillationtower");
     public static final GTRecipeMultiInputList VACUUM_FREEZER_RECIPE_LIST = new GTRecipeMultiInputList("gt.vacuumfreezer");
     public static final GTRecipeMultiInputList PRIMITIVE_BLAST_FURNACE_RECIPE_LIST = new GTRecipeMultiInputList("gt.primitiveblastfurnace");
     public static final GTRecipeMultiInputList INDUSTRIAL_GRINDER_RECIPE_LIST = new GTRecipeMultiInputList("gt.industrialgrinder");

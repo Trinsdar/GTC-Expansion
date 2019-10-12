@@ -212,6 +212,6 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GERecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getDisplayName(), 16);
+        GERecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 16);
     }
 }

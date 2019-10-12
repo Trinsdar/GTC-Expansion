@@ -22,9 +22,9 @@ public class GEContainerAssemblingMachine extends ContainerTileComponent<GETileA
         super(tile);
         this.addSlotToContainer(new SlotCustom(tile, 0, 35, 25, tile.filter));// main slot
         this.addSlotToContainer(new SlotCustom(tile, 1, 53, 25, tile.filter)); // second slot
-        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 3, 80, 63)); // battery
+        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 4, 80, 63)); // battery
         this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 107, 25)); // output
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 125, 25)); // second output
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 125, 25)); // second output
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 26 + i * 18));
         }
