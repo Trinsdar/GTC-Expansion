@@ -10,6 +10,7 @@ import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.util.GTValues;
 import gtclassic.util.jei.GTJeiPlugin;
+import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.jeiIntigration.SubModul;
 import mezz.jei.api.IJeiRuntime;
@@ -18,6 +19,7 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 
@@ -34,7 +36,11 @@ public class GEJeiPlugin implements IModPlugin {
     public void register(@Nonnull IModRegistry registry) {
         if (SubModul.load) {
             for (GEJeiRegistry entry : GEJeiRegistry.values()) {
-                GTJeiPlugin.wrapperUtil(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
+                if (entry == GEJeiRegistry.DISTILLATIONTOWER){
+                    wrapperUtil(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
+                } else {
+                    GTJeiPlugin.wrapperUtil(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
+                }
             }
             registry.addRecipeCatalyst(new ItemStack(GEBlocks.alloyFurnace), "gt.alloysmelter");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
@@ -66,8 +72,28 @@ public class GEJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
         for (GEJeiRegistry entry : GEJeiRegistry.values()) {
-            GTJeiPlugin.categoryUtil(registry, entry.getRecipeList(), entry.getCatalyst());
+            if (entry == GEJeiRegistry.DISTILLATIONTOWER){
+                categoryUtil(registry, entry.getRecipeList(), entry.getCatalyst());
+            } else {
+                GTJeiPlugin.categoryUtil(registry, entry.getRecipeList(), entry.getCatalyst());
+            }
         }
 
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public static void wrapperUtil(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
+                                   Class gui, int clickX, int clickY, int sizeX, int sizeY) {
+        String recipeList = list.getCategory();
+        registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GEJeiDistillationTowerWrapper::new, recipeList);
+        registry.addRecipes(list.getRecipeList(), recipeList);
+        registry.addRecipeCatalyst(new ItemStack(catalyst), recipeList);
+        if (gui != null) {
+            registry.addRecipeClickArea(gui, clickX, clickY, sizeX, sizeY, recipeList);
+        }
+    }
+
+    public static void categoryUtil(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
+        registry.addRecipeCategories(new GEJeiDistillationTowerCategory(registry.getJeiHelpers().getGuiHelper(), list.getCategory(), catalyst));
     }
 }

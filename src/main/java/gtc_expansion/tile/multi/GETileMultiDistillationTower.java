@@ -1,11 +1,13 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GEBlocks;
 import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerDistillationTower;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GTFluidMachineOutput;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
+import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
@@ -33,13 +35,16 @@ import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
 import ic2.core.util.obj.ITankListener;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -51,11 +56,15 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
 public class GETileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/distillationtower.png");
+    public static final IBlockState standardCasingState = GEBlocks.casingStandard.getDefaultState();
+    public static final IBlockState advancedCasingState = GEBlocks.casingAdvanced.getDefaultState();
+    public static final IBlockState airState = Blocks.AIR.getDefaultState();
     public static final int slotDisplayIn = 0;
     public static final int slotFuel = 1;
     public static final int slotDisplayOut1 = 2;
@@ -64,11 +73,11 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
     public static final int slotDisplayOut4 = 5;
     public static final int[] slotOutputs = { 6, 7 };
     private static final int defaultEu = 16;
-    private IC2Tank inputTank = new IC2Tank(10000);
-    private IC2Tank outputTank1 = new IC2Tank(10000);
-    private IC2Tank outputTank2 = new IC2Tank(10000);
-    private IC2Tank outputTank3 = new IC2Tank(10000);
-    private IC2Tank outputTank4 = new IC2Tank(10000);
+    private IC2Tank inputTank = new IC2Tank(16000);
+    private IC2Tank outputTank1 = new IC2Tank(16000);
+    private IC2Tank outputTank2 = new IC2Tank(16000);
+    private IC2Tank outputTank3 = new IC2Tank(16000);
+    private IC2Tank outputTank4 = new IC2Tank(16000);
 
     public GETileMultiDistillationTower() {
         super(8, 2, defaultEu, 128);
@@ -468,5 +477,227 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
 
     private static void addRecipe(List<IRecipeInput> input, GTFluidMachineOutput output) {
         GERecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+    }
+
+    @Override
+    public Map<BlockPos, IBlockState> provideStructure() {
+        Map<BlockPos, IBlockState> states = super.provideStructure();
+        int3 dir = new int3(getPos(), getFacing());
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.left(1).asBlockPos(), standardCasingState);
+        states.put(dir.down(1).asBlockPos(), advancedCasingState);
+        states.put(dir.down(1).asBlockPos(), standardCasingState);
+        states.put(dir.down(1).asBlockPos(), advancedCasingState);
+        states.put(dir.down(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.back(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.right(1).asBlockPos(), standardCasingState);
+        states.put(dir.down(1).asBlockPos(), airState);
+        states.put(dir.down(1).asBlockPos(), airState);
+        states.put(dir.down(1).asBlockPos(), airState);
+        states.put(dir.down(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.right(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.back(1).asBlockPos(), standardCasingState);
+        states.put(dir.down(1).asBlockPos(), advancedCasingState);
+        states.put(dir.down(1).asBlockPos(), standardCasingState);
+        states.put(dir.down(1).asBlockPos(), advancedCasingState);
+        states.put(dir.down(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.left(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.left(1).asBlockPos(), standardCasingState);
+        states.put(dir.down(1).asBlockPos(), advancedCasingState);
+        states.put(dir.down(1).asBlockPos(), standardCasingState);
+        states.put(dir.down(1).asBlockPos(), advancedCasingState);
+        states.put(dir.down(1).asBlockPos(), standardCasingState);
+
+        states.put(dir.forward(2).right(2).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+        states.put(dir.up(1).asBlockPos(), advancedCasingState);
+        states.put(dir.up(1).asBlockPos(), standardCasingState);
+        return states;
+    }
+
+    @Override
+    public boolean checkStructure() {
+        if (!world.isAreaLoaded(pos, 3)) {
+            return false;
+        }
+        // we doing it "big math" style not block by block
+        int3 dir = new int3(getPos(), getFacing());
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.left(1))) {// left
+            return false;
+        }
+        if (!isAdvancedCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.down(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.back(1))) {// back
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.right(1))) {// right
+            return false;
+        }
+        if (!isAir(dir.down(1))) {
+            return false;
+        }
+        if (!isAir(dir.down(1))) {
+            return false;
+        }
+        if (!isAir(dir.down(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.down(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.right(1))) {// right
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.back(1))) {// back
+            return false;
+        }
+        if (!isAdvancedCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.down(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.left(1))) {// left
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.left(1))) {// left
+            return false;
+        }
+        if (!isAdvancedCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.down(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.down(1))) {
+            return false;
+        }
+
+        if (!isStandardCasing(dir.forward(2).right(2))) {// missing front right column
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isAdvancedCasing(dir.up(1))) {
+            return false;
+        }
+        if (!isStandardCasing(dir.up(1))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isStandardCasing(int3 pos) {
+        return world.getBlockState(pos.asBlockPos()) == standardCasingState;
+    }
+
+    public boolean isAdvancedCasing(int3 pos) {
+        return world.getBlockState(pos.asBlockPos()) == advancedCasingState;
+    }
+
+    public boolean isAir(int3 pos) {
+        return world.getBlockState(pos.asBlockPos()) == airState;
     }
 }

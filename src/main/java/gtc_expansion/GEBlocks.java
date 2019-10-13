@@ -47,6 +47,7 @@ public class GEBlocks {
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
     public static GEBlockTile industrialBlastFurnace = registerBlock(new GEBlockTile("industrialblastfurnace", GELang.INDUSTRIAL_BLAST_FURNACE, 3));
     public static GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
+    public static GEBlockTile distillationTower = registerBlock(new GEBlockTile("distillationtower", GELang.DISTILLATION_TOWER));
     public static GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE, Material.ROCK));
     public static GEBlockTile primitiveBlastFurnace = registerBlock(new GEBlockTile("primitiveblastfurnace", GELang.PRIMITIVE_BLAST_FURNACE, Material.ROCK, 3));
 
