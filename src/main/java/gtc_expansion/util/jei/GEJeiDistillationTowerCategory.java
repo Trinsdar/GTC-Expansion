@@ -7,6 +7,7 @@ import gtclassic.util.jei.wrapper.GTJeiMultiRecipeWrapper;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.item.misc.ItemDisplayIcon;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableAnimated;
@@ -103,6 +104,9 @@ public class GEJeiDistillationTowerCategory implements IRecipeCategory<GEJeiDist
             for (ItemStack stack : output.getAllOutputs()) {
                 if (index >= 6) {
                     break;
+                }
+                if (stack.getItem() instanceof ItemDisplayIcon){
+                    continue;
                 }
                 int x = index % 3;
                 int y = index / 3;

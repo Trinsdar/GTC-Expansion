@@ -4,18 +4,21 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.GEMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerDistillationTower;
+import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GELang;
 import gtc_expansion.util.GTFluidMachineOutput;
+import gtclassic.GTBlocks;
+import gtclassic.material.GTMaterial;
+import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
-import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
-import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
@@ -29,7 +32,6 @@ import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.inventory.transport.wrapper.RangedInventoryWrapper;
 import ic2.core.item.misc.ItemDisplayIcon;
-import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
@@ -52,9 +54,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -72,7 +72,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
     public static final int slotDisplayOut3 = 4;
     public static final int slotDisplayOut4 = 5;
     public static final int[] slotOutputs = { 6, 7 };
-    private static final int defaultEu = 16;
+    private static final int defaultEu = 64;
     private IC2Tank inputTank = new IC2Tank(16000);
     private IC2Tank outputTank1 = new IC2Tank(16000);
     private IC2Tank outputTank2 = new IC2Tank(16000);
@@ -109,7 +109,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
 
     @Override
     public LocaleComp getBlockName() {
-        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
+        return GELang.DISTILLATION_TOWER;
     }
 
     @Override
@@ -124,6 +124,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         this.inventory.set(slotDisplayOut3, ItemDisplayIcon.createWithFluidStack(this.outputTank3.getFluid()));
         this.getNetwork().updateTileGuiField(this, "outputTank4");
         this.inventory.set(slotDisplayOut4, ItemDisplayIcon.createWithFluidStack(this.outputTank4.getFluid()));
+        shouldCheckRecipe = true;
     }
 
     @Override
@@ -177,7 +178,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.extractorOp;
+        return Ic2Sounds.electrolyzerOp;
     }
 
     @Override
@@ -403,7 +404,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
     public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input) {
         IRecipeInput recipeInput = entry.getInput(0);
         if (recipeInput instanceof RecipeInputFluid){
-            return input.containsFluid(((RecipeInputFluid)recipeInput).fluid);
+            return input != null && input.containsFluid(((RecipeInputFluid)recipeInput).fluid);
         }
         return false;
     }
@@ -413,6 +414,12 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         int[] input = getInputSlots();
         RangedInventoryWrapper result = new RangedInventoryWrapper(this, input).addFilters(getInputFilters(input));
         return result;
+    }
+
+    public static void init(){
+        addRecipe(GTMaterialGen.getFluidStack(GEMaterial.OilCrude, 8000), 256000, GTMaterialGen.getFluidStack(GEMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GEMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GEMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GEMaterial.Naphtha, 4000));
+        addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Oil, 8000), 256000, GTMaterialGen.getFluidStack(GEMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GEMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GEMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GEMaterial.Naphtha, 4000));
+        addRecipe(GTMaterialGen.getFluidStack(GEMaterial.Naphtha, 4000), 64000, new FluidStack[]{GTMaterialGen.getFluidStack(GEMaterial.Gasoline, 4000), GTMaterialGen.getFluidStack(GTMaterial.Methane,3500)}, GTMaterialGen.getDust(GEMaterial.Carbon, 1));
     }
 
     public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, ItemStack... outputItem){
@@ -432,7 +439,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         addRecipe(new IRecipeInput[]{new RecipeInputFluid(input)}, totalEu(totalEu), outListFluid, outListItem);
     }
 
-    public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid){
+    public static void addRecipe(FluidStack input, int totalEu, FluidStack... outputFluid){
         if (outputFluid.length > 4){
             GTCExpansion.logger.info("There can only be up to 4 fluid outputs");
             return;
@@ -476,7 +483,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
     }
 
     private static void addRecipe(List<IRecipeInput> input, GTFluidMachineOutput output) {
-        GERecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
     @Override
@@ -492,7 +499,10 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         states.put(dir.down(1).asBlockPos(), advancedCasingState);
         states.put(dir.down(1).asBlockPos(), standardCasingState);
         states.put(dir.down(1).asBlockPos(), advancedCasingState);
-        states.put(dir.down(1).asBlockPos(), standardCasingState);
+        BlockPos down = dir.down(1).asBlockPos();
+        if (world.getBlockState(down) != GTBlocks.tileBufferFluid.getDefaultState()){
+            states.put(down, standardCasingState);
+        }
 
         states.put(dir.back(1).asBlockPos(), standardCasingState);
         states.put(dir.up(1).asBlockPos(), advancedCasingState);
@@ -570,7 +580,8 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         if (!isAdvancedCasing(dir.down(1))) {
             return false;
         }
-        if (!isStandardCasing(dir.down(1))) {
+        BlockPos down = dir.down(1).asBlockPos();
+        if (world.getBlockState(down) != standardCasingState && world.getBlockState(down) != GTBlocks.tileBufferFluid.getDefaultState()) {
             return false;
         }
 

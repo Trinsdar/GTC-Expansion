@@ -57,6 +57,7 @@ public class GEMaterial {
     Copper,
     DarkAshes,
     Diamond,
+    Diesel,
     Electrum,
     Emerald,
     EnderEye,
@@ -66,7 +67,9 @@ public class GEMaterial {
     Galena,
     GarnetRed,
     GarnetYellow,
+    Gasoline,
     Glowstone,
+    Glyceryl,
     Gold,
     Granite,
     Grossular,
@@ -81,6 +84,7 @@ public class GEMaterial {
     Magnesium,
     Manganese,
     Marble,
+    Naphtha,
     Netherrack,
     Nickel,
     Nichrome,
@@ -145,6 +149,7 @@ public class GEMaterial {
         Copper = new GTMaterial("Copper", 180, 113, 61, molten, smalldust, nugget, plate, stick, gear);
         DarkAshes = new GTMaterial("DarkAshes", 50, 50, 50, dustAll);
         Diamond = new GTMaterial("Diamond", 51, 235, 203, dustAll);
+        Diesel = new GTMaterial("Diesel", 255, 255, 0, fluid);
         Electrum = new GTMaterial("Electrum", 255, 255, 100, metalFull);
         Emerald = new GTMaterial("Emerald", 80, 255, 80, dustAll);
         EnderEye = new GTMaterial("EnderEye", 160, 250, 230, dustAll);
@@ -154,7 +159,9 @@ public class GEMaterial {
         Galena = new GTMaterial("Galena", 100, 60, 100, smalldust, dust, crushedore, crushedorePurified);
         GarnetRed = new GTMaterial("RedGarnet", 200, 80, 80, gemAll3);
         GarnetYellow = new GTMaterial("YellowGarnet", 200, 200, 80, dust, smalldust, gemGarnetShape, blockGem, tinydust);
+        Gasoline = new GTMaterial("Gasoline", 132, 114, 62, fluid);
         Glowstone = new GTMaterial("Glowstone", 255, 255, 0, smalldust);
+        Glyceryl = new GTMaterial("Glyceryl",52, 157, 157, fluid);
         Gold = new GTMaterial("Gold", 255, 255, 30, molten, smalldust, plate, stick, gear);
         Granite = new GTMaterial("Granite", 165, 89, 39, dustAll);
         Grossular = new GTMaterial("Grossular", 200, 100, 0, dust, smalldust, tinydust);
@@ -169,6 +176,7 @@ public class GEMaterial {
         Magnesium = new GTMaterial("Magnesium", 255, 200, 200, dustAll);
         Manganese = new GTMaterial("Manganese", 250, 235, 250, molten, smalldust, dust, tinydust, nugget, ingot, plate, blockMetal);
         Marble = new GTMaterial("Marble", 200, 200, 200, dustAll);
+        Naphtha = new GTMaterial("Naphtha", 255, 255, 100, fluid);
         Netherrack = new GTMaterial("Netherrack", 200, 0, 0, smalldust);
         Nickel = new GTMaterial("Nickel", 200, 200, 250, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
         Nichrome = new GTMaterial("Nichrome", 205, 206, 246, molten, smalldust, dust, nugget, ingot, plate, stick);

@@ -7,6 +7,7 @@ import gtc_expansion.container.GEContainerIndustrialGrinder;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GELang;
 import gtclassic.GTBlocks;
 import gtclassic.GTConfig;
 import gtclassic.GTItems;
@@ -87,7 +88,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
+        return GELang.INDUSTRIAL_GRINDER;
     }
 
     @Override

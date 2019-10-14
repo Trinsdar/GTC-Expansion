@@ -10,6 +10,7 @@ import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.GETileAssemblingMachine;
 import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.GETileElectrolyzer;
+import gtc_expansion.tile.multi.GETileMultiDistillationTower;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
@@ -94,6 +95,7 @@ public class GERecipe {
         GETileMultiIndustrialGrinder.init();
         GETileMultiImplosionCompressor.init();
         GETileMultiIndustrialBlastFurnace.init();
+        GETileMultiDistillationTower.init();
         GETileAlloySmelter.init();
         GETileAssemblingMachine.init();
         GETileChemicalReactor.init();

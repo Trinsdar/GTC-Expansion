@@ -6,6 +6,7 @@ import gtc_expansion.container.GEContainerAlloySmelter;
 import gtc_expansion.container.GEContainerChemicalReactor;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GELang;
 import gtclassic.GTItems;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
@@ -77,7 +78,7 @@ public class GETileChemicalReactor extends GTTileBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
+        return GELang.CHEMICAL_REACTOR;
     }
 
     @Override

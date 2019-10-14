@@ -32,7 +32,7 @@ public class GEContainerDistillationTower extends ContainerTileComponent<GETileM
         this.addSlotToContainer(new SlotOutput(player.player, tile, 6, 116, 41)); // output
         this.addSlotToContainer(new SlotOutput(player.player, tile, 7, 116, 59)); // second output
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 26 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 8 + i, 152, 26 + i * 18));
         }
         this.addPlayerInventory(player);
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.UP));

@@ -6,6 +6,7 @@ import gtc_expansion.container.GEContainerAlloyFurnace;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
+import gtc_expansion.util.GELang;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
@@ -14,6 +15,7 @@ import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.platform.lang.components.base.LocaleComp;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -44,6 +46,11 @@ public class GETileAlloyFurnace extends GETileFuelBaseMachine {
         handler.registerSlotType(SlotType.Fuel, getFuelSlot());
         handler.registerSlotType(SlotType.Input, getInputSlots());
         handler.registerSlotType(SlotType.Output, getOutputSlots());
+    }
+
+    @Override
+    public LocaleComp getBlockName() {
+        return GELang.ALLOY_FURNACE;
     }
 
     @Override

@@ -7,6 +7,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerImplosionCompressor;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GELang;
 import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
@@ -82,7 +83,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
+        return GELang.IMPLOSION_COMPRESSOR;
     }
 
     @Override

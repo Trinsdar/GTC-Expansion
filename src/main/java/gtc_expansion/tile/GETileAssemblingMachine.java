@@ -9,6 +9,7 @@ import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.recipes.GERecipe;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GELang;
 import gtclassic.GTBlocks;
 import gtclassic.GTItems;
 import gtclassic.material.GTMaterialGen;
@@ -83,7 +84,7 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
+        return GELang.ASSEMBLING_MACHINE;
     }
 
     @Override

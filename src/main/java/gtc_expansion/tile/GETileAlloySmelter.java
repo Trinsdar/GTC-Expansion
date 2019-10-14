@@ -5,6 +5,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerAlloySmelter;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GELang;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
@@ -77,7 +78,7 @@ public class GETileAlloySmelter extends GTTileBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
+        return GELang.ALLOY_SMELTER;
     }
 
     @Override

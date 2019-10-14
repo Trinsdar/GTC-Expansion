@@ -6,6 +6,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerVacuumFreezer;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GELang;
 import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachine;
@@ -81,7 +82,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return new LangComponentHolder.LocaleBlockComp(this.getBlockType().getUnlocalizedName());
+        return GELang.VACUUM_FREEZER;
     }
 
     @Override

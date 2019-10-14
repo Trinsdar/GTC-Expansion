@@ -8,6 +8,7 @@ import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
+import gtc_expansion.util.GELang;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
@@ -26,6 +27,7 @@ import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.state.IBlockState;
@@ -75,7 +77,10 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
         handler.registerSlotType(SlotType.Output, getOutputSlots());
     }
 
-
+    @Override
+    public LocaleComp getBlockName() {
+        return GELang.PRIMITIVE_BLAST_FURNACE;
+    }
 
     @Override
     public int getFuelSlot() {
