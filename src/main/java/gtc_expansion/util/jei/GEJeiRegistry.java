@@ -12,7 +12,7 @@ public enum GEJeiRegistry {
     ASSEMBLINGMACHINE(GERecipeLists.ASSEMBLING_MACHINE_RECIPE_LIST, GEBlocks.assemblingMachine, GEMachineGui.GEAssemblingMachineGui.class, 78, 24, 20, 18),
     CHEMICALREACTOR(GERecipeLists.CHEMICAL_REACTOR_RECIPE_LIST, GEBlocks.chemicalReactor, GEMachineGui.GEChemicalReactorGui.class, 73, 34, 30, 10),
     INDUSTRIALGRINDER(GERecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST, GEBlocks.industrialGrinder, GEMachineGui.GEIndustrialGrinderGui.class, 78, 29, 20, 11),
-    DISTILLATIONTOWER(GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GEBlocks.industrialGrinder, GEMachineGui.GEDistillationTowerGui.class, 80, 4, 16, 72),
+    DISTILLATIONTOWER(GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GEBlocks.distillationTower, GEMachineGui.GEDistillationTowerGui.class, 80, 4, 16, 72),
     IMPLOSIONCOMPRESSOR(GERecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST, GEBlocks.implosionCompressor, GEMachineGui.GEImplosionCompressorGui.class, 78, 27, 20, 11),
     INDUSTRIALBLASTFURNACE(GERecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GEBlocks.industrialBlastFurnace, GEMachineGui.GEIndustrialBlastFurnaceGui.class, 78, 24, 20, 18),
     VACUUMFREEZER(GERecipeLists.VACUUM_FREEZER_RECIPE_LIST, GEBlocks.vacuumFreezer, GEMachineGui.GEVacuumFreezerGui.class, 78, 28, 20, 11),

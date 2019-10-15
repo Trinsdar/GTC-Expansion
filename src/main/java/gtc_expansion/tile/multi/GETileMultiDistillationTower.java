@@ -48,6 +48,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -232,6 +233,35 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
             return EnumFacing.NORTH;
         }
         return this.getFacing();
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        List<ItemStack> list = new ArrayList<>();
+
+        for(int i = 0; i < this.inventory.size(); ++i) {
+            ItemStack stack = this.inventory.get(i);
+            if (!stack.isEmpty()) {
+                if (stack.getItem() instanceof ItemDisplayIcon){
+                    continue;
+                }
+                list.add(stack);
+            }
+        }
+
+        InventoryHandler handler = this.getHandler();
+        if (handler != null) {
+            IHasInventory inv = handler.getUpgradeSlots();
+
+            for(int i = 0; i < inv.getSlotCount(); ++i) {
+                ItemStack result = inv.getStackInSlot(i);
+                if (result != null) {
+                    list.add(result);
+                }
+            }
+        }
+
+        return list;
     }
 
     @Override
@@ -444,12 +474,14 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
             GTCExpansion.logger.info("There can only be up to 4 fluid outputs");
             return;
         }
+        List<ItemStack> outListItem = new ArrayList<>();
+        outListItem.add(ItemDisplayIcon.createWithFluidStack(new FluidStack(FluidRegistry.WATER, 1000)));
         List<FluidStack> outListFluid = new ArrayList<>();
         for (FluidStack fluid : outputFluid){
             outListFluid.add(fluid);
         }
 
-        addRecipe(new IRecipeInput[]{new RecipeInputFluid(input)}, totalEu(totalEu), outListFluid);
+        addRecipe(new IRecipeInput[]{new RecipeInputFluid(input)}, totalEu(totalEu), outListFluid, outListItem);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
@@ -466,24 +498,11 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
             modifier.apply(mods);
         }
 
-        addRecipe(inlist, new GTFluidMachineOutput(mods, outputs, fluidOutputs));
+        addRecipe(inlist, new GTFluidMachineOutput(mods, outputs, fluidOutputs), fluidOutputs.get(0).getUnlocalizedName());
     }
 
-    private static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, List<FluidStack> fluidOutputs) {
-        List<IRecipeInput> inlist = new ArrayList<>();
-        for (IRecipeInput input : inputs) {
-            inlist.add(input);
-        }
-        NBTTagCompound mods = new NBTTagCompound();
-        for (RecipeModifierHelpers.IRecipeModifier modifier : modifiers) {
-            modifier.apply(mods);
-        }
-
-        addRecipe(inlist, new GTFluidMachineOutput(mods, fluidOutputs));
-    }
-
-    private static void addRecipe(List<IRecipeInput> input, GTFluidMachineOutput output) {
-        GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+    private static void addRecipe(List<IRecipeInput> input, GTFluidMachineOutput output, String recipeId) {
+        GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST.addRecipe(input, output, recipeId, defaultEu);
     }
 
     @Override
