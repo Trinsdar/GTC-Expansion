@@ -30,6 +30,7 @@ import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -47,7 +48,9 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	protected static final int[] slotInputs = { 0, 1, 2, 3 };
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
 	public IFilter filter = new MachineFilter(this);
-	public static final IBlockState casingState = GEBlocks.casingReinforced.getDefaultState();
+	public static final IBlockState casingReinforcedState = GEBlocks.casingReinforced.getDefaultState();
+	public static final IBlockState casingStandardState = GEBlocks.casingStandard.getDefaultState();
+	public static final IBlockState casingAdvancedState = GEBlocks.casingAdvanced.getDefaultState();
 	public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialblastfurnace.png");
 	private static final int defaultEu = 120;
 	public static final int COST_MED = 128000;
@@ -195,39 +198,39 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		Map<BlockPos, IBlockState> states = super.provideStructure();
 		int3 dir = new int3(getPos(), getFacing());
 		for (int i = 0; i < 3; i++) {// above tile
-			states.put(dir.up(1).asBlockPos(), casingState);
+			states.put(dir.up(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.left(1).asBlockPos(), casingState);
+		states.put(dir.left(1).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingState);
+			states.put(dir.down(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.back(1).asBlockPos(), casingState);
+		states.put(dir.back(1).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingState);
+			states.put(dir.up(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.right(1).asBlockPos(), casingState);
+		states.put(dir.right(1).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingState);
+			states.put(dir.down(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.right(1).asBlockPos(), casingState);
+		states.put(dir.right(1).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingState);
+			states.put(dir.up(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.back(1).asBlockPos(), casingState);
+		states.put(dir.back(1).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingState);
+			states.put(dir.down(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.left(1).asBlockPos(), casingState);
+		states.put(dir.left(1).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingState);
+			states.put(dir.up(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.left(1).asBlockPos(), casingState);
+		states.put(dir.left(1).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingState);
+			states.put(dir.down(1).asBlockPos(), casingStandardState);
 		}
-		states.put(dir.forward(2).right(2).asBlockPos(), casingState);
+		states.put(dir.forward(2).right(2).asBlockPos(), casingStandardState);
 		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingState);
+			states.put(dir.up(1).asBlockPos(), casingStandardState);
 		}
 		return states;
 	}
@@ -263,10 +266,14 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		if (!isCasing(dir.right(1))) {// right
 			return false;
 		}
-		for (int i = 0; i < 3; i++) {
-			if (!(isCasing(dir.down(1)))) {
-				return false;
-			}
+		if (!isAir(dir.down(1))){
+			return false;
+		}
+		if (!isAir(dir.down(1))){
+			return false;
+		}
+		if (!(isCasing(dir.down(1)))) {
+			return false;
 		}
 		if (!isCasing(dir.right(1))) {// right
 			return false;
@@ -311,7 +318,11 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		return true;
 	}
 
+	public boolean isAir(int3 pos){
+		return world.getBlockState(pos.asBlockPos()) == Blocks.AIR.getDefaultState();
+	}
+
 	public boolean isCasing(int3 pos) {
-		return world.getBlockState(pos.asBlockPos()) == casingState;
+		return world.getBlockState(pos.asBlockPos()) == casingStandardState || world.getBlockState(pos.asBlockPos()) == casingReinforcedState || world.getBlockState(pos.asBlockPos()) == casingAdvancedState;
 	}
 }
