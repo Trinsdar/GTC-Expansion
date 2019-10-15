@@ -2,11 +2,17 @@ package gtc_expansion.util;
 
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import net.minecraft.item.ItemStack;
+import trinsdar.ic2c_extras.recipes.MachineRecipes;
 import trinsdar.ic2c_extras.tileentity.TileEntityOreWashingPlant;
 import trinsdar.ic2c_extras.tileentity.TileEntityRoller;
 import trinsdar.ic2c_extras.tileentity.TileEntityThermalCentrifuge;
 
 public class GEIc2cECompat {
+
+    public static void addToRollerIngotBlacklist(String name){
+        MachineRecipes.ingotBlacklist.add("ingot" + name);
+    }
+
     public static void addRollerRecipe(String input, int count, ItemStack output){
         TileEntityRoller.addRecipe(input, count, output);
     }

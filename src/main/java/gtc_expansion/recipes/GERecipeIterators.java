@@ -108,8 +108,12 @@ public class GERecipeIterators {
                 recipes.addRecipe(GEMaterialGen.getPlate(mat, 1), "H", "X", 'H',
                         "craftingToolForgeHammer", 'X', ingot);
             }
-            if (Loader.isModLoaded("ic2c_extras") && GTConfig.compatIc2Extras){
-                GEIc2cECompat.addRollerRecipe(ingot, 1, GEMaterialGen.getPlate(mat, 1));
+            if (Loader.isModLoaded("ic2c_extras")){
+                // Add to auto add blacklist first
+                GEIc2cECompat.addToRollerIngotBlacklist(mat.getDisplayName());
+                if (GTConfig.compatIc2Extras){
+                    GEIc2cECompat.addRollerRecipe(ingot, 1, GEMaterialGen.getPlate(mat, 1));
+                }
             }
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTMaterialFlag.DUST)) {

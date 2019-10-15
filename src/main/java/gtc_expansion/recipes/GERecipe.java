@@ -89,7 +89,6 @@ public class GERecipe {
     public static void init(){
         GERecipeRemove.init();
         GERecipeProcessing.init();
-
         GETileElectrolyzer.init();
         GETileMultiVacuumFreezer.init();
         GETileMultiIndustrialGrinder.init();
