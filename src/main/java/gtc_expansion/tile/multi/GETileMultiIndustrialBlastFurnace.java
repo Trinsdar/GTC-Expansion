@@ -55,6 +55,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	private static final int defaultEu = 120;
 	public static final int COST_MED = 128000;
 	public static final int COST_HIGH = 256000;
+	private int currentHeat = 0;
 
 	public GETileMultiIndustrialBlastFurnace() {
 		super(8, 2, defaultEu, 128);
@@ -240,6 +241,8 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		if (!world.isAreaLoaded(pos, 3)) {
 			return false;
 		}
+		// resetting the heat value to avoid continous upcount
+		currentHeat = 0;
 		// we doing it "big math" style not block by block
 		int3 dir = new int3(getPos(), getFacing());
 		for (int i = 0; i < 3; i++) {// above tile
@@ -323,6 +326,18 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	}
 
 	public boolean isCasing(int3 pos) {
-		return world.getBlockState(pos.asBlockPos()) == casingStandardState || world.getBlockState(pos.asBlockPos()) == casingReinforcedState || world.getBlockState(pos.asBlockPos()) == casingAdvancedState;
+		if (world.getBlockState(pos.asBlockPos()) == casingStandardState){
+			currentHeat += 30;
+			return true;
+		}
+		if (world.getBlockState(pos.asBlockPos()) == casingReinforcedState){
+			currentHeat += 50;
+			return true;
+		}
+		if (world.getBlockState(pos.asBlockPos()) == casingAdvancedState){
+			currentHeat +=70;
+			return true;
+		}
+		return false;
 	}
 }
