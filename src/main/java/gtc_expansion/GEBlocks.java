@@ -1,6 +1,7 @@
 package gtc_expansion;
 
 import gtc_expansion.block.GEBlockCasing;
+import gtc_expansion.block.GEBlockIndustrialBlastFurnace;
 import gtc_expansion.block.GEBlockMisc;
 import gtc_expansion.block.GEBlockOre;
 import gtc_expansion.block.GEBlockTile;
@@ -45,7 +46,7 @@ public class GEBlocks {
     public static GEBlockTile chemicalReactor = registerBlock(new GEBlockTile("chemicalreactor", GELang.CHEMICAL_REACTOR));
     public static GEBlockTile industrialGrinder = registerBlock(new GEBlockTile("industrialgrinder", GELang.INDUSTRIAL_GRINDER));
     public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
-    public static GEBlockTile industrialBlastFurnace = registerBlock(new GEBlockTile("industrialblastfurnace", GELang.INDUSTRIAL_BLAST_FURNACE, 3));
+    public static GEBlockIndustrialBlastFurnace industrialBlastFurnace = registerBlock(new GEBlockIndustrialBlastFurnace());
     public static GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
     public static GEBlockTile distillationTower = registerBlock(new GEBlockTile("distillationtower", GELang.DISTILLATION_TOWER));
     public static GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE, Material.ROCK));

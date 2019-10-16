@@ -1,11 +1,13 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GEBlocks;
+import gtc_expansion.GEItems;
 import gtc_expansion.GEMachineGui.GEIndustrialBlastFurnaceGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerIndustrialBlastFurnace;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GEIc2cECompat;
 import gtc_expansion.util.GELang;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
@@ -19,6 +21,7 @@ import ic2.api.classic.recipe.RecipeModifierHelpers.ModifierType;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
+import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.filters.MachineFilter;
@@ -28,6 +31,8 @@ import ic2.core.inventory.management.SlotType;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
+import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
@@ -35,8 +40,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
+public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine implements IClickable {
 
 	protected static final int[] slotInputs = { 0, 1, 2, 3 };
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
@@ -60,6 +68,9 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	@NetworkField(index = 13)
 	public int currentHeat = 0;
 	public static final String neededHeat = "minHeat";
+
+	private boolean kanthal = false;
+	private boolean nichrome = false;
 
 	public GETileMultiIndustrialBlastFurnace() {
 		super(8, 2, defaultEu, 128);
@@ -136,6 +147,60 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	@Override
 	public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, List<ItemStack> inputs) {
 		return super.checkRecipe(entry, inputs) && currentHeat >= getRequiredHeat(entry.getOutputs());
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		this.currentHeat = nbt.getInteger("currentHeat");
+		this.kanthal = nbt.getBoolean("Kanthal");
+		this.nichrome = nbt.getBoolean("Nichrome");
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setInteger("currentHeat", this.currentHeat);
+		nbt.setBoolean("Kanthal", kanthal);
+		nbt.setBoolean("Nichrome", nichrome);
+		return nbt;
+	}
+
+	@Override
+	public List<ItemStack> getDrops() {
+		List<ItemStack> list = new ArrayList<ItemStack>();
+		ItemStack machine = GTMaterialGen.get(GEBlocks.industrialBlastFurnace);
+		StackUtil.getOrCreateNbtData(machine).setBoolean("Kanthal", kanthal);
+		StackUtil.getOrCreateNbtData(machine).setBoolean("Nichrome", nichrome);
+		list.add(machine);
+
+		for(int i = 0; i < this.inventory.size(); ++i) {
+			ItemStack stack = this.inventory.get(i);
+			if (!stack.isEmpty()) {
+				list.add(stack);
+			}
+		}
+
+		InventoryHandler handler = this.getHandler();
+		if (handler != null) {
+			IHasInventory inv = handler.getUpgradeSlots();
+
+			for(int i = 0; i < inv.getSlotCount(); ++i) {
+				ItemStack result = inv.getStackInSlot(i);
+				if (result != null) {
+					list.add(result);
+				}
+			}
+		}
+		return list;
+	}
+
+	public void setKanthal(boolean kanthal) {
+		this.kanthal = kanthal;
+	}
+
+	public void setNichrome(boolean nichrome) {
+		this.nichrome = nichrome;
 	}
 
 	public static void init() {
@@ -232,7 +297,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 			return false;
 		}
 		// resetting the heat value to avoid continous upcount
-		currentHeat = 0;
+		currentHeat = nichrome ? 1000 : (kanthal ? 500 : 0);
 		stateMap.clear();
 		// we doing it "big math" style not block by block
 		int3 dir = new int3(getPos(), getFacing());
@@ -314,7 +379,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 
 	public boolean isAirOrLava(int3 pos){
 		if (world.getBlockState(pos.asBlockPos()) == Blocks.LAVA.getDefaultState()){
-			currentHeat += 500;
+			currentHeat += 250;
 			this.getNetwork().updateTileGuiField(this, "currentHeat");
 			return true;
 		}
@@ -341,5 +406,38 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean hasRightClick() {
+		return true;
+	}
+
+	@Override
+	public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing facing, Side side) {
+		ItemStack stack = player.getHeldItem(hand);
+		if (stack.getCount() >= 4){
+			if (stack.getItem() == GEItems.kanthalHeatingCoil && !kanthal){
+				stack.shrink(4);
+				kanthal = true;
+				return true;
+			}
+			if (kanthal && stack.getItem() == GEItems.nichromeHeatingCoil && !nichrome){
+				stack.shrink(4);
+				nichrome = true;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean hasLeftClick() {
+		return false;
+	}
+
+	@Override
+	public void onLeftClick(EntityPlayer entityPlayer, Side side) {
+
 	}
 }
