@@ -28,6 +28,7 @@ import ic2.core.inventory.management.SlotType;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -214,44 +215,13 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		GERecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST.removeRecipe(id);
 	}
 
+	private Map<BlockPos, IBlockState> stateMap = new Object2ObjectLinkedOpenHashMap<>();
+
 	@Override
 	public Map<BlockPos, IBlockState> provideStructure() {
 		Map<BlockPos, IBlockState> states = super.provideStructure();
-		int3 dir = new int3(getPos(), getFacing());
-		for (int i = 0; i < 3; i++) {// above tile
-			states.put(dir.up(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.left(1).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.back(1).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.right(1).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.right(1).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.back(1).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.left(1).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.left(1).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.down(1).asBlockPos(), casingStandardState);
-		}
-		states.put(dir.forward(2).right(2).asBlockPos(), casingStandardState);
-		for (int i = 0; i < 3; i++) {
-			states.put(dir.up(1).asBlockPos(), casingStandardState);
+		for (Map.Entry<BlockPos, IBlockState> entry : stateMap.entrySet()) {
+			states.put(entry.getKey(), entry.getValue());
 		}
 		return states;
 	}
@@ -263,6 +233,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		}
 		// resetting the heat value to avoid continous upcount
 		currentHeat = 0;
+		stateMap.clear();
 		// we doing it "big math" style not block by block
 		int3 dir = new int3(getPos(), getFacing());
 		for (int i = 0; i < 3; i++) {// above tile
@@ -354,16 +325,19 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		if (world.getBlockState(pos.asBlockPos()) == casingStandardState){
 			currentHeat += 30;
 			this.getNetwork().updateTileGuiField(this, "currentHeat");
+			stateMap.put(pos.asBlockPos(), casingStandardState);
 			return true;
 		}
 		if (world.getBlockState(pos.asBlockPos()) == casingReinforcedState){
 			currentHeat += 50;
 			this.getNetwork().updateTileGuiField(this, "currentHeat");
+			stateMap.put(pos.asBlockPos(), casingReinforcedState);
 			return true;
 		}
 		if (world.getBlockState(pos.asBlockPos()) == casingAdvancedState){
 			currentHeat +=70;
 			this.getNetwork().updateTileGuiField(this, "currentHeat");
+			stateMap.put(pos.asBlockPos(), casingAdvancedState);
 			return true;
 		}
 		return false;
