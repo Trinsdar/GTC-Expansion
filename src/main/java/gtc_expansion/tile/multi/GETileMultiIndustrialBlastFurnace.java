@@ -241,6 +241,10 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine im
 		/** Chrome **/
 		addRecipe(new IRecipeInput[] {
 				input("dustChrome", 1) }, 1700, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.Chrome, 1));
+
+		/** Stainless Steel **/
+		addRecipe(new IRecipeInput[]{metal("Iron", 6), metal("Nickel", 1), metal("Chrome", 1), metal("Manganese", 1)}, 1700, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.StainlessSteel, 9));
+		addRecipe(new IRecipeInput[]{input("dustStainlessSteel", 1)}, 1700, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.StainlessSteel, 1));
 	}
 
 	public static int getRequiredHeat(MachineOutput output) {
