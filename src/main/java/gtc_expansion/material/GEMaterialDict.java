@@ -51,8 +51,13 @@ public class GEMaterialDict {
         OreDictionary.registerOre("toolAxe", new ItemStack(GEToolGen.getAxe(GEMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Aluminium, 1));
         OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Bronze, 1));
-        OreDictionary.registerOre("machineBlockAdvanced", GEMaterialGen.getHull(GEMaterial.Steel, 1));
+        OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Steel, 1));
+        OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.StainlessSteel, 1));
         OreDictionary.registerOre("machineBlockAdvanced", GEMaterialGen.getHull(GEMaterial.Titanium, 1));
+        OreDictionary.registerOre("machineBlockAdvanced", GEMaterialGen.getHull(GEMaterial.TungstenSteel, 1));
+        OreDictionary.registerOre("machineBlockAdvanced", GEMaterialGen.getHull(GEMaterial.StainlessSteel, 1));
+        OreDictionary.registerOre("machineBlockVeryAdvanced", GEMaterialGen.getHull(GEMaterial.Titanium, 1));
+        OreDictionary.registerOre("machineBlockVeryAdvanced", GEMaterialGen.getHull(GEMaterial.TungstenSteel, 1));
 
     }
 
