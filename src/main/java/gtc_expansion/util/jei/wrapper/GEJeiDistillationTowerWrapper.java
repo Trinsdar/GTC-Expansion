@@ -1,4 +1,4 @@
-package gtc_expansion.util.jei;
+package gtc_expansion.util.jei.wrapper;
 
 import gtc_expansion.util.GTFluidMachineOutput;
 import gtclassic.GTConfig;

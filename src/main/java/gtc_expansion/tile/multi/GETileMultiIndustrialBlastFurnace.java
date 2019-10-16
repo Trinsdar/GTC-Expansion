@@ -13,6 +13,7 @@ import gtclassic.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem.UpgradeType;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers.IRecipeModifier;
 import ic2.api.classic.recipe.RecipeModifierHelpers.ModifierType;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -55,11 +56,14 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 	private static final int defaultEu = 120;
 	public static final int COST_MED = 128000;
 	public static final int COST_HIGH = 256000;
-	private int currentHeat = 0;
+	@NetworkField(index = 13)
+	public int currentHeat = 0;
+	public static final String neededHeat = "minHeat";
 
 	public GETileMultiIndustrialBlastFurnace() {
 		super(8, 2, defaultEu, 128);
 		maxEnergy = 8192;
+		this.addGuiFields("currentHeat");
 	}
 
 	@Override
@@ -128,48 +132,63 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		return Ic2Sounds.generatorLoop;
 	}
 
+	@Override
+	public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, List<ItemStack> inputs) {
+		return super.checkRecipe(entry, inputs) && currentHeat >= getRequiredHeat(entry.getOutputs());
+	}
+
 	public static void init() {
 		/** Iron Processing **/
 		addRecipe(new IRecipeInput[] { input("oreIron", 1),
-				input("dustCalcite", 1) }, 12800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 3));
+				input("dustCalcite", 1) }, 1500, 12800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 3));
 		addRecipe(new IRecipeInput[] { input("dustPyrite", 3),
-				input("dustCalcite", 1) }, 12800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 2));
+				input("dustCalcite", 1) }, 1500, 12800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 2));
 		/** Steel **/
-		addRecipe(new IRecipeInput[] { input("dustSteel", 1) }, COST_MED, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
+		addRecipe(new IRecipeInput[] { input("dustSteel", 1) }, 1000, COST_MED, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
 		addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
-				input("dustCoal", 2) }, COST_MED, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
+				input("dustCoal", 2) }, 1000, COST_MED, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
 		addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
-				input("dustCarbon", 1) }, COST_MED, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
+				input("dustCarbon", 1) }, 1000, COST_MED, GTMaterialGen.getIngot(GEMaterial.Steel, 1));
 		/** Titanium **/
 		addRecipe(new IRecipeInput[] {
-				input("dustTitanium", 1) }, COST_MED, GTMaterialGen.getIngot(GTMaterial.Titanium, 1));
+				input("dustTitanium", 1) }, 1500, COST_MED, GTMaterialGen.getIngot(GTMaterial.Titanium, 1));
 		/** Tungsten Steel **/
-		addRecipe(new IRecipeInput[]{input("ingotTungsten", 1), input("ingotSteel", 1)}, COST_HIGH, GTMaterialGen.getStack(GEMaterial.TungstenSteel, GEMaterial.hotIngot, 2), GTMaterialGen.getDust(GEMaterial.DarkAshes, 4));
+		addRecipe(new IRecipeInput[]{input("ingotTungsten", 1), input("ingotSteel", 1)}, 3000, COST_HIGH, GTMaterialGen.getStack(GEMaterial.TungstenSteel, GEMaterial.hotIngot, 2), GTMaterialGen.getDust(GEMaterial.DarkAshes, 4));
 		/** Tungsten **/
 		addRecipe(new IRecipeInput[] {
-				input("dustTungsten", 1) }, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Tungsten, GEMaterial.hotIngot, 1));
+				input("dustTungsten", 1) }, 2500, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Tungsten, GEMaterial.hotIngot, 1));
 		/** Iridium **/
 		addRecipe(new IRecipeInput[] {
-				input("dustIridium", 1) }, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
-		addRecipe(new IRecipeInput[] { input("oreIridium", 1) }, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
+				input("dustIridium", 1) }, 2500, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
+		addRecipe(new IRecipeInput[] { input("oreIridium", 1) }, 2500, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
 		addRecipe(new IRecipeInput[] {
-				input(GTMaterialGen.getIc2(Ic2Items.iridiumOre, 1)) }, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
+				input(GTMaterialGen.getIc2(Ic2Items.iridiumOre, 1)) }, 2500, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1));
 		/** Galena **/
 		addRecipe(new IRecipeInput[] {
-				input("dustGalena", 2) }, COST_MED, GTMaterialGen.getIngot(GEMaterial.Lead, 1), GTMaterialGen.getIc2(Ic2Items.silverIngot, 1));
+				input("dustGalena", 2) }, 1500, COST_MED, GTMaterialGen.getIngot(GEMaterial.Lead, 1), GTMaterialGen.getIc2(Ic2Items.silverIngot, 1));
 		/** Osmium **/
 		addRecipe(new IRecipeInput[] {
-				input("dustOsmium", 1) }, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Osmium, GEMaterial.hotIngot, 1));
+				input("dustOsmium", 1) }, 3000, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Osmium, GEMaterial.hotIngot, 1));
 		/** Thorium **/
 		addRecipe(new IRecipeInput[] {
-				input("dustThorium", 1) }, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.Thorium, 1));
+				input("dustThorium", 1) }, 1500, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.Thorium, 1));
+		/** Chrome **/
+		addRecipe(new IRecipeInput[] {
+				input("dustChrome", 1) }, 1700, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.Chrome, 1));
+	}
+
+	public static int getRequiredHeat(MachineOutput output) {
+		if (output == null || output.getMetadata() == null) {
+			return 1;
+		}
+		return output.getMetadata().getInteger(neededHeat);
 	}
 
 	public static IRecipeModifier[] totalEu(int total) {
 		return new IRecipeModifier[] { ModifierType.RECIPE_LENGTH.create((total / defaultEu) - 100) };
 	}
 
-	public static void addRecipe(IRecipeInput[] inputs, int totalEu, ItemStack... outputs) {
+	public static void addRecipe(IRecipeInput[] inputs, int heat, int totalEu, ItemStack... outputs) {
 		List<IRecipeInput> inlist = new ArrayList<>();
 		List<ItemStack> outlist = new ArrayList<>();
 		IRecipeModifier[] modifiers = totalEu(totalEu);
@@ -180,6 +199,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		for (IRecipeModifier modifier : modifiers) {
 			modifier.apply(mods);
 		}
+		mods.setInteger(neededHeat, heat);
 		for (ItemStack output : outputs) {
 			outlist.add(output);
 		}
@@ -269,10 +289,10 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		if (!isCasing(dir.right(1))) {// right
 			return false;
 		}
-		if (!isAir(dir.down(1))){
+		if (!isAirOrLava(dir.down(1))){
 			return false;
 		}
-		if (!isAir(dir.down(1))){
+		if (!isAirOrLava(dir.down(1))){
 			return false;
 		}
 		if (!(isCasing(dir.down(1)))) {
@@ -321,21 +341,29 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine {
 		return true;
 	}
 
-	public boolean isAir(int3 pos){
-		return world.getBlockState(pos.asBlockPos()) == Blocks.AIR.getDefaultState();
+	public boolean isAirOrLava(int3 pos){
+		if (world.getBlockState(pos.asBlockPos()) == Blocks.LAVA.getDefaultState()){
+			currentHeat += 500;
+			this.getNetwork().updateTileGuiField(this, "currentHeat");
+			return true;
+		}
+		return world.getBlockState(pos.asBlockPos()) == Blocks.AIR.getDefaultState() || world.getBlockState(pos.asBlockPos()) == Blocks.FLOWING_LAVA.getDefaultState();
 	}
 
 	public boolean isCasing(int3 pos) {
 		if (world.getBlockState(pos.asBlockPos()) == casingStandardState){
 			currentHeat += 30;
+			this.getNetwork().updateTileGuiField(this, "currentHeat");
 			return true;
 		}
 		if (world.getBlockState(pos.asBlockPos()) == casingReinforcedState){
 			currentHeat += 50;
+			this.getNetwork().updateTileGuiField(this, "currentHeat");
 			return true;
 		}
 		if (world.getBlockState(pos.asBlockPos()) == casingAdvancedState){
 			currentHeat +=70;
+			this.getNetwork().updateTileGuiField(this, "currentHeat");
 			return true;
 		}
 		return false;

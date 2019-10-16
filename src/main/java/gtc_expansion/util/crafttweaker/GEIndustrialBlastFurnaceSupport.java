@@ -48,7 +48,7 @@ public class GEIndustrialBlastFurnaceSupport {
 				CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
 						+ "Eu amount must be greater then 0!!");
 			} else {
-				GETileMultiIndustrialBlastFurnace.addRecipe(input, totalEu, output);
+				//GETileMultiIndustrialBlastFurnace.addRecipe(input, totalEu, output);
 			}
 		}
 

@@ -26,6 +26,8 @@ public class GEItems {
     public static final GEItemMisc diamondGrinder = createItem(new GEItemMisc("diamond_grinder", 4, 0));
     public static final GEItemMisc wolframiumGrinder = createItem(new GEItemMisc("wolframium_grinder", 5, 0));
     public static final GEItemMisc constantanHeatingCoil = createItem(new GEItemMisc("constantan_heating_coil",8, 0));
+    public static final GEItemMisc kanthalHeatingCoil = createItem(new GEItemMisc("kanthal_heating_coil",6, 0));
+    public static final GEItemMisc nichromeHeatingCoil = createItem(new GEItemMisc("nichrome_heating_coil",7, 0));
     public static final GEItemMisc fireClayBall = createItem(new GEItemMisc("fire_clay_ball", 11, 0));
     public static final GEItemMisc unfiredFireBrick = createItem(new GEItemMisc("unfired_fire_brick", 12, 0));
     public static final GEItemMisc fireBrick = createItem(new GEItemMisc("fire_brick", 13, 0));
