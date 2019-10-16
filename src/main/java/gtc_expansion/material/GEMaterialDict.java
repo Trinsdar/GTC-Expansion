@@ -49,6 +49,8 @@ public class GEMaterialDict {
         registerAxeDict(GEMaterial.Ruby);
         registerAxeDict(GEMaterial.Sapphire);
         OreDictionary.registerOre("toolAxe", new ItemStack(GEToolGen.getAxe(GEMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("machineBlockCheap", GEMaterialGen.getHull(GEMaterial.Bronze, 1));
+        OreDictionary.registerOre("machineBlockCheap", GEMaterialGen.getHull(GEMaterial.Brass, 1));
         OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Aluminium, 1));
         OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Bronze, 1));
         OreDictionary.registerOre("machineBlockBasic", GEMaterialGen.getHull(GEMaterial.Steel, 1));

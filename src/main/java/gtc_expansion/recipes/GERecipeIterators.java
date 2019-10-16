@@ -27,6 +27,7 @@ public class GERecipeIterators {
         for (GTMaterial mat : GTMaterial.values()){
             createSmallDustRecipe(mat);
             createPlateRecipe(mat);
+            createRodRecipe(mat);
             createNuggetRecipe(mat);
             createHullRecipe(mat);
             if (Loader.isModLoaded(GTValues.IC2_EXTRAS) && GTConfig.compatIc2Extras){
@@ -118,6 +119,20 @@ public class GERecipeIterators {
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTMaterialFlag.DUST)) {
                 TileEntityMacerator.addRecipe(plate, 1, GTMaterialGen.getDust(mat, 1), 0.0F);
+            }
+        }
+    }
+
+    public static void createRodRecipe(GTMaterial mat) {
+        String ingot = "ingot" + mat.getDisplayName();
+        String rod = "rod" + mat.getDisplayName();
+        if (mat.hasFlag(GEMaterial.stick)) {
+            // Rod crafting recipe
+            recipes.addRecipe(GEMaterialGen.getPlate(mat, 2), "XF", 'F',
+                    "craftingToolFile", 'X', ingot);
+            // If a dust is present create a maceration recipe
+            if (mat.hasFlag(GTMaterialFlag.DUST)) {
+                TileEntityMacerator.addRecipe(rod, 2, GTMaterialGen.getDust(mat, 1), 0.0F);
             }
         }
     }

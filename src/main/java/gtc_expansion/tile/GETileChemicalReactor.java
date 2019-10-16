@@ -182,6 +182,6 @@ public class GETileChemicalReactor extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GERecipeLists.CHEMICAL_REACTOR_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getDisplayName(), 16);
+        GERecipeLists.CHEMICAL_REACTOR_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 16);
     }
 }

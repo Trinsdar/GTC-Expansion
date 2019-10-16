@@ -157,7 +157,7 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GERecipe.plateMachine, input("plateElectrum", 2), 800, GTMaterialGen.get(GEItems.basicCircuitBoard, 2));
         addRecipe(GERecipe.getRefinedIronPlate(), 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GEItems.machineParts, 4));
         addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 12800, GTMaterialGen.get(GEItems.processorCircuitBoard));
-        addRecipe(new RecipeInputCombined(8, input("gemEmerald", 1), input("gemOlivine", 1)), new RecipeInputItemStack(Ic2Items.advancedCircuit), 51200, GTMaterialGen.get(GTItems.chipData, 4));
+        addRecipe(new RecipeInputCombined(1, input("gemEmerald", 8), input("gemOlivine", 8)), new RecipeInputItemStack(Ic2Items.advancedCircuit), 51200, GTMaterialGen.get(GTItems.chipData, 4));
         addRecipe("plateAluminium", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Aluminium, 1));
         addRecipe("plateBronze", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Bronze, 1));
         addRecipe("plateBrass", 6, GTMaterialGen.get(GEItems.machineParts), 3200, GEMaterialGen.getHull(GEMaterial.Brass, 1));
@@ -215,6 +215,6 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GERecipeLists.ASSEMBLING_MACHINE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getDisplayName(), 16);
+        GERecipeLists.ASSEMBLING_MACHINE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 16);
     }
 }
