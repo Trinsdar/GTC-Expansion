@@ -70,6 +70,10 @@ public class GEMaterialGen {
         return GTMaterialGen.getStack(mat, GEMaterial.stick, count);
     }
 
+    public static ItemStack getGear(GTMaterial mat, int count){
+        return GTMaterialGen.getStack(mat, GEMaterial.gear, count);
+    }
+
     public static ItemStack getHull(GTMaterial mat, int count){
         return GTMaterialGen.getStack(mat, GEMaterial.hull, count);
     }

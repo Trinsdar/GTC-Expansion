@@ -28,6 +28,7 @@ public class GERecipeIterators {
             createSmallDustRecipe(mat);
             createPlateRecipe(mat);
             createRodRecipe(mat);
+            createGearRecipe(mat);
             createNuggetRecipe(mat);
             createHullRecipe(mat);
             if (Loader.isModLoaded(GTValues.IC2_EXTRAS) && GTConfig.compatIc2Extras){
@@ -67,9 +68,9 @@ public class GERecipeIterators {
         if (mat.hasFlag(GTMaterialFlag.DUST)) {
             if (mat.hasFlag(GEMaterial.tinydust)) {
                 // Block crafting recipe
-                recipes.addRecipe(GTMaterialGen.getDust(mat, 1), "XXX", "XXX", "XXX", 'X',
+                recipes.addRecipe(getDust(mat, 1), "XXX", "XXX", "XXX", 'X',
                         tinyDust);
-                TileEntityCompressor.addRecipe(tinyDust, 9, GTMaterialGen.getDust(mat, 1), 0.0F);
+                TileEntityCompressor.addRecipe(tinyDust, 9, getDust(mat), 0.0F);
                 recipes.addRecipe(GTMaterialGen.getStack(mat, GEMaterial.tinydust, 9), "D ", 'D', dust);
             }
         }
@@ -81,9 +82,9 @@ public class GERecipeIterators {
         if (mat.hasFlag(GTMaterialFlag.DUST)) {
             if (mat.hasFlag(GEMaterial.smalldust)) {
                 // Block crafting recipe
-                recipes.addRecipe(GTMaterialGen.getDust(mat, 1), "XX", "XX", 'X',
+                recipes.addRecipe(getDust(mat, 1), "XX", "XX", 'X',
                         smallDust);
-                TileEntityCompressor.addRecipe(smallDust, 4, GTMaterialGen.getDust(mat, 1), 0.0F);
+                TileEntityCompressor.addRecipe(smallDust, 4, getDust(mat), 0.0F);
                 // Inverse
                 recipes.addRecipe(GTMaterialGen.getStack(mat, GEMaterial.smalldust, 4), " D", 'D', dust);
             }
@@ -117,8 +118,8 @@ public class GERecipeIterators {
                 }
             }
             // If a dust is present create a maceration recipe
-            if (mat.hasFlag(GTMaterialFlag.DUST)) {
-                TileEntityMacerator.addRecipe(plate, 1, GTMaterialGen.getDust(mat, 1), 0.0F);
+            if (mat.hasFlag(GEMaterial.smalldust)) {
+                TileEntityMacerator.addRecipe(plate, 1, getDust(mat), 0.0F);
             }
         }
     }
@@ -131,8 +132,23 @@ public class GERecipeIterators {
             recipes.addRecipe(GEMaterialGen.getRod(mat, 2), "XF", 'F',
                     "craftingToolFile", 'X', ingot);
             // If a dust is present create a maceration recipe
-            if (mat.hasFlag(GTMaterialFlag.DUST)) {
-                TileEntityMacerator.addRecipe(rod, 2, GTMaterialGen.getDust(mat, 1), 0.0F);
+            if (mat.hasFlag(GEMaterial.smalldust)) {
+                TileEntityMacerator.addRecipe(rod, 2, getDust(mat), 0.0F);
+            }
+        }
+    }
+
+    public static void createGearRecipe(GTMaterial mat) {
+        String ingot = "ingot" + mat.getDisplayName();
+        String gear = "gear" + mat.getDisplayName();
+        String rod = "rod" + mat.getDisplayName();
+        if (mat.hasFlag(GEMaterial.gear)) {
+            // Rod crafting recipe
+            recipes.addRecipe(GEMaterialGen.getGear(mat, 1), "RIR", "IWI", "RIR", 'R', rod,
+                    'W', "craftingToolWrench", 'I', ingot);
+            // If a dust is present create a maceration recipe
+            if (mat.hasFlag(GEMaterial.smalldust)) {
+                TileEntityMacerator.addRecipe(gear, 1, getDust(mat, 6), 0.0F);
             }
         }
     }
@@ -181,5 +197,31 @@ public class GERecipeIterators {
     public static void ingotUtil(ItemStack stack, GTMaterial material) {
         String nugget = "nugget" + material.getDisplayName();
         recipes.addRecipe(stack, "XXX", "XXX", "XXX", 'X', nugget);
+    }
+
+    public static ItemStack getDust(GTMaterial mat){
+        return getDust(mat, 1);
+    }
+
+    public static ItemStack getDust(GTMaterial mat, int count){
+        if (mat.equals(GEMaterial.Bronze)){
+            return GTMaterialGen.getIc2(Ic2Items.bronzeDust, count);
+        }
+        if (mat.equals(GEMaterial.Silver)){
+            return GTMaterialGen.getIc2(Ic2Items.silverDust, count);
+        }
+        if (mat.equals(GEMaterial.Gold)){
+            return GTMaterialGen.getIc2(Ic2Items.goldDust, count);
+        }
+        if (mat.equals(GEMaterial.Copper)){
+            return GTMaterialGen.getIc2(Ic2Items.copperDust, count);
+        }
+        if (mat.equals(GEMaterial.Tin)){
+            return GTMaterialGen.getIc2(Ic2Items.tinDust, count);
+        }
+        if (mat.equals(GEMaterial.Iron) || mat.equals(GEMaterial.RefinedIron)){
+            return GTMaterialGen.getIc2(Ic2Items.ironDust, count);
+        }
+        return GTMaterialGen.getDust(mat, count);
     }
 }
