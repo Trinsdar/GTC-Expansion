@@ -128,7 +128,7 @@ public class GERecipeIterators {
         String rod = "rod" + mat.getDisplayName();
         if (mat.hasFlag(GEMaterial.stick)) {
             // Rod crafting recipe
-            recipes.addRecipe(GEMaterialGen.getPlate(mat, 2), "XF", 'F',
+            recipes.addRecipe(GEMaterialGen.getRod(mat, 2), "XF", 'F',
                     "craftingToolFile", 'X', ingot);
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTMaterialFlag.DUST)) {

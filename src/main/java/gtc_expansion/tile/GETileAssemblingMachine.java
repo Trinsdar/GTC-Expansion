@@ -148,7 +148,7 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTMaterialGen.get(GEItems.advancedCircuitBoard), GTMaterialGen.get(GEItems.advancedCircuitParts, 2), 3200, Ic2Items.advancedCircuit);
         addRecipe(GTMaterialGen.get(GEItems.processorCircuitBoard), GTMaterialGen.get(GTItems.chipData), 12800, GTMaterialGen.get(GTItems.circuitData));
         addRecipe(GTMaterialGen.get(GEItems.processorCircuitBoard), Ic2Items.lapotronCrystal, 12800, GTMaterialGen.get(GTItems.circuitEnergy));
-        addRecipe(GTMaterialGen.get(GTItems.circuitData), GTMaterialGen.get(GTItems.chipData, 8), 204800, GTMaterialGen.get(GTItems.orbData));
+        addRecipe(GTMaterialGen.get(GTItems.circuitData), GTMaterialGen.get(GTItems.chipData, 8), 204800, GTMaterialGen.get(GTItems.orbData, 4));
         addRecipe(GTMaterialGen.get(GTBlocks.tileEchotron), GTMaterialGen.get(GTItems.chipData, 4), 51200, GTMaterialGen.get(GTItems.echotron));
         addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 3200, GTMaterialGen.get(GEItems.advancedCircuitBoard));
         addRecipe("plateAluminium", 4, "plateSilicon", 1, 3200, GTMaterialGen.get(GEItems.advancedCircuitBoard, 2));
@@ -172,6 +172,9 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), Ic2Items.cropAnalyzer, 204800, GTMaterialGen.get(GTItems.portableScanner));
         addRecipe(GTMaterialGen.get(GEItems.basicCircuitBoard), GTMaterialGen.getIc2(Ic2Items.copperCable, 3), 800, Ic2Items.electricCircuit);
         addRecipe("plateIridiumAlloy", 1, Ic2Items.reinforcedStone, 1600, Ic2Items.iridiumStone);
+        addRecipe("plateAluminium", 4, Ic2Items.generator, 51200, GTMaterialGen.getIc2(Ic2Items.waterMill, 2));
+        addRecipe("plateAluminium", 2, Ic2Items.generator, 51200, Ic2Items.windMill);
+        addRecipe(GTMaterialGen.getIc2(Ic2Items.carbonPlate, 4), Ic2Items.generator, 51200, Ic2Items.windMill);
     }
 
     public static void addRecipe(String input1, int amount1, ItemStack input2, int totalEu, ItemStack output) {
