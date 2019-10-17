@@ -224,6 +224,10 @@ public class GERecipe {
         instance.overrideGTRecipe("shaped_tile.gtclassic.computercube_-2131399632", GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', "circuitMaster", 'M', GEItems.computerMonitor, 'O', "circuitUltimate", 'A', "machineBlockAdvanced");
         instance.overrideGTRecipe("shaped_tile.gtclassic.fusion_-786678229", GTMaterialGen.get(GTBlocks.casingFusion), "CSC", "NMN", "CRC", 'C', "circuitMaster", 'S', "craftingSuperconductor", 'N', GEItems.nichromeHeatingCoil, 'M',
                 "machineBlockElite", 'R', Ic2Items.reactorReflectorIridium);
+        if (GEConfiguration.usePlates){
+            instance.overrideGTRecipe("shaped_tile.gtclassic.highlyadvanced_-1637699060", GTMaterialGen.get(GTBlocks.casingHighlyAdvanced), "CTC", "TMT", "CTC", 'C', "plateChrome", 'T', "plateTitanium", 'M', "machineBlockAdvanced");
+            instance.overrideGTRecipe("shaped_tile.gtclassic.highlyadvanced_-1504256580", GTMaterialGen.get(GTBlocks.casingHighlyAdvanced), "TCT", "CMC", "TCT", 'C', "plateChrome", 'T', "plateTitanium", 'M', "machineBlockAdvanced");
+        }
         instance.overrideGTRecipe("shaped_item.itemingotalloy_1703663469", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 3), "TTT", "MMM", "BBB", 'T', materialRefinedIron, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         instance.overrideGTRecipe("shaped_item.itemingotalloy_1844373769", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', materialMixedMetal2, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         instance.overrideGTRecipe("shaped_item.itemingotalloy_-470293062", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 8), "TTT", "MMM", "BBB", 'T', tungstenSteel, 'M', materialBrassBronze, 'B', materialMixedMetal1);
