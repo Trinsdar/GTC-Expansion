@@ -9,7 +9,7 @@ public class GEMaterial {
 
     static GTMaterialFlag particle = new GTMaterialFlag("_particle", tex,15, false);
     static GTMaterialFlag fluid = GTMaterialFlag.FLUID;
-    static GTMaterialFlag molten = new GTMaterialFlag("", 13, true);
+    public static GTMaterialFlag molten = new GTMaterialFlag("", 13, true);
     static GTMaterialFlag gas = GTMaterialFlag.GAS;
     public static GTMaterialFlag smalldust = new GTMaterialFlag("_dustsmall", tex, 1, false);
     public static GTMaterialFlag tinydust = new GTMaterialFlag("_dusttiny", tex, 12, false);
@@ -186,7 +186,7 @@ public class GEMaterial {
         Osmium = new GTMaterial("Osmium", 50, 50, 255, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, tinydust);
         Phosphorus = new GTMaterial("Phosphorus", 190, 0, 0, dust, smalldust, tinydust);
         Platinum = new GTMaterial("Platinum", 255, 255, 200, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust, crushedore, crushedorePurified);
-        Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate, blockMetal, fluid);
+        Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate, blockMetal, molten);
         Pyrite = new GTMaterial("Pyrite", 150, 120, 40, crushedAll);
         Pyrope = new GTMaterial("Pyrope", 120, 50, 100, dustAll);
         RedAlloy = new GTMaterial("RedAlloy", 200, 0, 0, molten, smalldust, dust, ingot, plate, nugget, stick);
@@ -209,7 +209,7 @@ public class GEMaterial {
         Sulfur = new GTMaterial("Sulfur", 200, 200, 0, smalldust, dust, tinydust);
         SulfuricAcid = new GTMaterial("SulfuricAcid", 255, 106, 0, fluid);
         Tetrahedrite = new GTMaterial("Tetrahedrite", 200, 32, 0 , smalldust, dust, crushedore, crushedorePurified);
-        Thorium = new GTMaterial("Thorium", 0, 30, 0, false, smalldust, dust, nugget, ingot, blockMetal, fluid);
+        Thorium = new GTMaterial("Thorium", 0, 30, 0, false, smalldust, dust, nugget, ingot, blockMetal, molten);
         Tin = new GTMaterial("Tin", 220, 220, 220, molten, smalldust, nugget, plate, stick, gear);
         Titanium = new GTMaterial("Titanium", 170, 143, 222, false, molten, smalldust, dust, tinydust, nugget, ingot, plate, stick, gear, blockMetal, hull);
         Tungsten = new GTMaterial("Tungsten", 50, 50, 50, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, crushedore, crushedorePurified);

@@ -3,6 +3,7 @@ package gtc_expansion.proxy;
 import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GECrops;
+import gtc_expansion.GEFluids;
 import gtc_expansion.GEItems;
 import gtc_expansion.GEOreDict;
 import gtc_expansion.GEWorldGenTwilightForest;
@@ -27,6 +28,7 @@ public class GECommonProxy {
         config = new Configuration(new File(directory.getPath(), "ic2/gtc_expansion.cfg"));
         GEConfiguration.readConfig();
         config.save();
+        GEFluids.registerFluids();
         GEBlocks.registerBlocks();
         GEItems.registerItems();
         GEToolGen.initTools();

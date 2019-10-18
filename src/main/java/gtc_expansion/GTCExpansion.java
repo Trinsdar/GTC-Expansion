@@ -4,6 +4,7 @@ import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.proxy.GECommonProxy;
+import gtclassic.GTFluids;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -29,6 +30,7 @@ public class GTCExpansion {
 	static {
 		GEMaterial.initMaterials();
 		GEMaterialGen.init();
+		GTFluids.fluidFlags.add(GEMaterial.molten);
 	}
 
 	@Mod.EventHandler
