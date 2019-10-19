@@ -19,6 +19,7 @@ import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
+import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
@@ -303,7 +304,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
             output = (GTFluidMachineOutput) recipe.getOutputs();
             for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
                 if (!(stack.getItem() instanceof ItemDisplayIcon)){
-                    //outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
+                    // outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
                 }
             }
             inputTank.drain(((RecipeInputFluid) input).fluid, true);
@@ -449,7 +450,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
     public static void init(){
         addRecipe(GTMaterialGen.getFluidStack(GEMaterial.OilCrude, 8000), 256000, GTMaterialGen.getFluidStack(GEMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GEMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GEMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GEMaterial.Naphtha, 4000));
         addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Oil, 8000), 256000, GTMaterialGen.getFluidStack(GEMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GEMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GEMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GEMaterial.Naphtha, 4000));
-        addRecipe(GTMaterialGen.getFluidStack(GEMaterial.Naphtha, 4000), 64000, new FluidStack[]{GTMaterialGen.getFluidStack(GEMaterial.Gasoline, 4000), GTMaterialGen.getFluidStack(GTMaterial.Methane,3500)}, GTMaterialGen.getDust(GEMaterial.Carbon, 1));
+        addRecipe(GTMaterialGen.getFluidStack(GEMaterial.Naphtha, 4000), 64000, new FluidStack[]{GTMaterialGen.getFluidStack(GEMaterial.Gasoline, 4000), GTMaterialGen.getFluidStack(GEMaterial.Propane, 4000), GTMaterialGen.getFluidStack(GTMaterial.Methane,3500)}, GTMaterialGen.getDust(GEMaterial.Carbon, 1));
     }
 
     public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, ItemStack... outputItem){

@@ -127,6 +127,10 @@ public class GERecipeGT4 {
     }
 
     public static void initOverrideGTClassic(){
+        instance.removeGTRecipe("shaped_item.itempartcircuit_1303953836");
+        instance.removeGTRecipe("shaped_item.itempartcircuit_-181743188");
+        instance.removeGTRecipe("shaped_item.itempartcircuitadv_1366235615");
+        instance.removeGTRecipe("shaped_item.itempartcircuitadv_55792611");
         IRecipeInput rod = new RecipeInputCombined(1, input("rodTitanium", 1), input("rodTungstensteel", 1));
         IRecipeInput plate = new RecipeInputCombined(1, input(titanium, 1), input(tungstenSteel, 1));
         instance.overrideGTRecipe("shaped_item.gtclassic.rockcutter_1664690250", GTMaterialGen.get(GTItems.rockCutter), "DR ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'R', rod, 'T', plate, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");

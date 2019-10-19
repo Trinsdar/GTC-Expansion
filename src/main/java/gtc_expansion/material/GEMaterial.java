@@ -99,6 +99,7 @@ public class GEMaterial {
     Phosphorus,
     Platinum,
     Plutonium,
+    Propane,
     Pyrite,
     Pyrope,
     RedAlloy,
@@ -197,6 +198,7 @@ public class GEMaterial {
         Phosphorus = new GTMaterial("Phosphorus", 190, 0, 0, dust, smalldust, tinydust);
         Platinum = new GTMaterial("Platinum", 255, 255, 200, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust, crushedore, crushedorePurified);
         Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate, blockMetal, molten);
+        Propane = new GTMaterial("Propane", 81, 27, 27, gas);
         Pyrite = new GTMaterial("Pyrite", 150, 120, 40, crushedAll);
         Pyrope = new GTMaterial("Pyrope", 120, 50, 100, dustAll);
         RedAlloy = new GTMaterial("RedAlloy", 200, 0, 0, molten, smalldust, dust, ingot, plate, nugget, stick);

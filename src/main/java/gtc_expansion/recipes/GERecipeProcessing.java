@@ -11,6 +11,7 @@ import gtclassic.material.GTMaterialGen;
 import gtclassic.recipe.GTRecipeProcessing;
 import gtclassic.tile.GTTileCentrifuge;
 import gtclassic.util.GTValues;
+import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityExtractor;
@@ -30,6 +31,14 @@ public class GERecipeProcessing {
         initCentrifugeRecipes();
         initIc2Recipes();
         initFurnaceRecipes();
+        initLiquidFuelRecipes();
+    }
+
+    public static void initLiquidFuelRecipes(){
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Diesel), 32, 3000);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Gasoline), 32, 3000);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Naphtha), 32, 3000);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Propane), 16, 8000);
     }
 
     public static void initFurnaceRecipes(){
