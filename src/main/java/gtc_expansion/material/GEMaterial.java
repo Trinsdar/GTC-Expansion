@@ -186,11 +186,10 @@ public class GEMaterial {
         Netherrack = new GTMaterial("Netherrack", 200, 0, 0, smalldust);
         Nickel = new GTMaterial("Nickel", 200, 200, 250, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
         Nichrome = new GTMaterial("Nichrome", 205, 206, 246, molten, smalldust, dust, nugget, ingot, plate, stick);
-        // TODO: colors for nitrogen fluids
-        NitroCarbon = new GTMaterial("NitroCarbon", 255, 255, 255, fluid);
-        NitroCoalFuel = new GTMaterial("NitroCoalFuel", 255, 255, 255, fluid);
-        NitroDiesel = new GTMaterial("NitroDiesel", 255, 255, 255, fluid);
-        NitrogenDioxide = new GTMaterial("NitrogenDioxide", 255, 255, 255, fluid);
+        NitroCarbon = new GTMaterial("NitroCarbon", 31, 94, 94, fluid);
+        NitroCoalFuel = new GTMaterial("NitroCoalFuel", 0, 43, 43, fluid);
+        NitroDiesel = new GTMaterial("NitroDiesel", 191, 255, 100, fluid);
+        NitrogenDioxide = new GTMaterial("NitrogenDioxide", 109, 185, 185, fluid);
         Obsidian = new GTMaterial("Obsidian", 80, 50, 100, smalldust);
         OilCrude = new GTMaterial("Crude_Oil", 0, 0, 0, fluid);
         Olivine = new GTMaterial("Olivine", 150, 255, 150, gemAll1);
@@ -212,9 +211,8 @@ public class GEMaterial {
         Silver = new GTMaterial("Silver", 215, 225, 230, molten, smalldust, nugget, plate, stick, gear);
         Slag = new GTMaterial("Slag", 64, 48, 0, dustAll);
         Sodalite = new GTMaterial("Sodalite", 20, 20, 255,dustAll);
-        // TODO: colors for sodium fluids
-        SodiumPersulfate = new GTMaterial("SodiumPersulfate", 255, 255, 255, fluid);
-        SodiumSulfide = new GTMaterial("SodiumSulfide", 255, 255, 255, fluid);
+        SodiumPersulfate = new GTMaterial("SodiumPersulfate", 0, 102, 70, fluid);
+        SodiumSulfide = new GTMaterial("SodiumSulfide", 161, 168, 73, fluid);
         Spessartine = new GTMaterial("Spessartine", 255, 100, 100, dustAll);
         Sphalerite = new GTMaterial("Sphalerite", 200, 140, 40, crushedAll);
         StainlessSteel = new GTMaterial("StainlessSteel", 200, 200, 220, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull);
