@@ -35,10 +35,12 @@ public class GERecipeProcessing {
     }
 
     public static void initLiquidFuelRecipes(){
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Diesel), 32, 3000);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Gasoline), 32, 3000);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Naphtha), 32, 3000);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Propane), 16, 8000);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Diesel), 4000, 30);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.NitroDiesel), 8000, 30);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Gasoline), 4000, 30);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Naphtha), 4000, 30);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.Propane), 3000, 16);
+        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GEMaterial.NitroCoalFuel), 4000, 12);
     }
 
     public static void initFurnaceRecipes(){

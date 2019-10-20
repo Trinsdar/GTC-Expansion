@@ -138,7 +138,7 @@ public class GETileChemicalReactor extends GTTileBaseMachine {
     public static void init() {
         addRecipe(input(GTMaterialGen.getTube(GTMaterial.Calcium, 1)), input("dustCarbon", 1), 7500, GTMaterialGen.getDust(GEMaterial.Calcite, 2), GTMaterialGen.get(GTItems.testTube));
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getTube(GTMaterial.Hydrogen, 4)), 1, 105000, GTMaterialGen.getTube(GTMaterial.Methane, 5));
-        addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getTube(GTMaterial.Nitrogen, 1)), 1, 45000, GTMaterialGen.getTube(GEMaterial.NitroCarbon, 5));
+        addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getTube(GTMaterial.Nitrogen, 1)), 1, 45000, GTMaterialGen.getTube(GEMaterial.NitroCarbon, 2));
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getTube(GTMaterial.Sodium, 1)), 1, 3000, GTMaterialGen.getTube(GEMaterial.SodiumSulfide, 2));
         addRecipe(input(GTMaterialGen.getTube(GEMaterial.NitroCarbon, 1)), input(GTMaterialGen.getModdedTube("water", 1)), 17490, GTMaterialGen.getTube(GEMaterial.Glyceryl, 2));
         addRecipe(input(GTMaterialGen.getTube(GEMaterial.SodiumSulfide, 1)), input(GTMaterialGen.getTube(GTMaterial.Oxygen, 1)), 60000, GTMaterialGen.getTube(GEMaterial.SodiumPersulfate, 2));
@@ -147,6 +147,7 @@ public class GETileChemicalReactor extends GTTileBaseMachine {
         addRecipe(input(GTMaterialGen.getTube(GEMaterial.Glyceryl, 1)), input(GTMaterialGen.getIc2(Ic2Items.coalFuelCell, 4)), 4, 30000, GTMaterialGen.getTube(GEMaterial.NitroCoalFuel, 5), GTMaterialGen.getIc2(Ic2Items.emptyCell, 4));
         addRecipe(input(GTMaterialGen.getDust(GEMaterial.Sulfur, 1)), input(GTMaterialGen.getModdedTube("water", 2)), 1, 34500, GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 3));
         addRecipe(input(GTMaterialGen.getTube(GTMaterial.Hydrogen, 4)), input(GTMaterialGen.getTube(GTMaterial.Oxygen, 2)), 300, GTMaterialGen.getModdedTube("water", 6));
+        addRecipe(input(GTMaterialGen.getTube(GEMaterial.NitrogenDioxide, 5)), input(GTMaterialGen.getTube(GTMaterial.Sodium, 2)), 1000, GTMaterialGen.get(Items.GUNPOWDER, 5), GTMaterialGen.get(GTItems.testTube, 7));
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack... output) {

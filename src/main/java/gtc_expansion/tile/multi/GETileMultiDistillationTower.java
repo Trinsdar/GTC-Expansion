@@ -304,7 +304,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
             output = (GTFluidMachineOutput) recipe.getOutputs();
             for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
                 if (!(stack.getItem() instanceof ItemDisplayIcon)){
-                    // outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
+                    outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
                 }
             }
             inputTank.drain(((RecipeInputFluid) input).fluid, true);

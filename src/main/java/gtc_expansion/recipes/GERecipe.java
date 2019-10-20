@@ -218,6 +218,8 @@ public class GERecipe {
         instance.removeGTRecipe("shaped_item.gtclassic.data_orb_1768015763");
         instance.removeGTRecipe("shaped_tile.blockwatergenerator_-495936330");
         instance.removeGTRecipe("shaped_tile.blockwindgenerator_-1843388748");
+        instance.removeGTRecipe("shapeless_item.gtclassic.test_tube_-1487325092");
+        instance.removeGTRecipe("shapeless_item.sulphur_1317221415");
         instance.overrideGTRecipe("shaped_tile.gtclassic.quantumchest_771359385", GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GEItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         instance.overrideGTRecipe("shaped_tile.gtclassic.digitalchest_1446441976", GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         instance.overrideGTRecipe("shaped_tile.gtclassic.quantumtank_-1923909130", GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);
@@ -238,17 +240,14 @@ public class GERecipe {
     }
 
     public void overrideGTRecipe(String recipeId, ItemStack output, Object... input) {
-        GTHelperAdvRecipe instance = new GTHelperAdvRecipe();
-        instance.overrideGTRecipe("gtclassic", recipeId, output, input);
+        GTHelperAdvRecipe.overrideGTRecipe("gtclassic", recipeId, output, input);
     }
       //commented out this code till speiger makes a variable and 2 contructors public.
     public void overrideShapelessGTRecipe(String recipeId, ItemStack output, Object... input){
-        GTHelperAdvRecipe instance = new GTHelperAdvRecipe();
-        instance.overrideShapelessGTRecipe("gtclassic", recipeId, output, input);
+        GTHelperAdvRecipe.overrideShapelessGTRecipe("gtclassic", recipeId, output, input);
     }
 
     public void removeGTRecipe(String recipeId){
-        GTHelperAdvRecipe instance = new GTHelperAdvRecipe();
-        instance.removeRecipe("gtclassic", recipeId);
+        GTHelperAdvRecipe.removeRecipe("gtclassic", recipeId);
     }
 }

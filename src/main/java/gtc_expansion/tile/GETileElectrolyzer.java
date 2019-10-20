@@ -179,8 +179,12 @@ public class GETileElectrolyzer extends GTTileBaseMachine {
         addRecipe("dustGrossular", 20, 9, totalEu(102500), GTMaterialGen.getTube(GTMaterial.Calcium, 3), GTMaterialGen.getDust(GEMaterial.Aluminium, 2), GTMaterialGen.getDust(GEMaterial.Silicon, 3), GTMaterialGen.getTube(GTMaterial.Oxygen, 6));
         addRecipe("dustUvarovite", 20, 9, totalEu(110000), GTMaterialGen.getTube(GTMaterial.Calcium, 3), GTMaterialGen.getDust(GEMaterial.Chrome, 2), GTMaterialGen.getDust(GEMaterial.Silicon, 3), GTMaterialGen.getTube(GTMaterial.Oxygen, 6));
 
-
-
+        addRecipe(GTMaterialGen.getTube(GEMaterial.Glyceryl, 20), 0, totalEu(720000), GTMaterialGen.getDust(GEMaterial.Carbon, 3), GTMaterialGen.getTube(GTMaterial.Hydrogen, 5), GTMaterialGen.getTube(GTMaterial.Nitrogen, 3), GTMaterialGen.get(GTItems.testTube, 12));
+        addRecipe(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 7), 0, totalEu(35280), GTMaterialGen.getTube(GTMaterial.Hydrogen, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 2), GTMaterialGen.getDust(GEMaterial.Sulfur, 1), GTMaterialGen.get(GTItems.testTube, 3));
+        addRecipe(GTMaterialGen.getTube(GEMaterial.SodiumPersulfate, 6), 0, totalEu(38880), GTMaterialGen.getTube(GTMaterial.Oxygen, 2), GTMaterialGen.getTube(GTMaterial.Sodium, 1), GTMaterialGen.getDust(GEMaterial.Sulfur, 1), GTMaterialGen.get(GTItems.testTube, 3));
+        addRecipe(GTMaterialGen.getTube(GEMaterial.NitroCarbon, 2), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Nitrogen, 1), GTMaterialGen.getDust(GEMaterial.Carbon, 1), GTMaterialGen.get(GTItems.testTube));
+        addRecipe(GTMaterialGen.getTube(GTMaterial.Methane, 5), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getDust(GEMaterial.Carbon, 1), GTMaterialGen.get(GTItems.testTube));
+        addRecipe(GTMaterialGen.getTube(GEMaterial.SodiumSulfide, 2), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Sodium, 1), GTMaterialGen.getDust(GEMaterial.Sulfur, 1), GTMaterialGen.get(GTItems.testTube));
 
         /** New Recipes I added **/
         addRecipe(GTMaterialGen.get(Items.QUARTZ, 1), 2, totalEu(8000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
