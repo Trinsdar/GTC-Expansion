@@ -77,7 +77,7 @@ public class GEJeiDistillationTowerCategory implements IRecipeCategory<GEJeiDist
             if (list instanceof RecipeInputFluid){
                 int x = index % 3;
                 int y = index / 3;
-                fluidGroup.init(actualIndex, true, (18 * x), (18 * y));
+                fluidGroup.init(actualIndex, true, (18 * x), (18 * y), 16, 16, ((RecipeInputFluid)list).fluid.amount, true, null);
                 fluidGroup.set(actualIndex, ((RecipeInputFluid)list).fluid);
                 index++;
                 actualIndex++;
@@ -93,7 +93,7 @@ public class GEJeiDistillationTowerCategory implements IRecipeCategory<GEJeiDist
             for (FluidStack stack : ((GTFluidMachineOutput)output).getFluids()) {
                 int x = index % 3;
                 int y = index / 3;
-                fluidGroup.init(actualIndex, false, 90 + (18 * x), (18 * y));
+                fluidGroup.init(actualIndex, false, 90 + (18 * x), (18 * y), 16, 16, stack.amount, true, null);
                 fluidGroup.set(actualIndex, stack);
                 index++;
                 actualIndex++;
