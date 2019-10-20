@@ -37,6 +37,7 @@ public class GEItems {
     public static final GEItemMisc basicCircuitBoard = createItem(new GEItemMisc("basic_circuit_board", 5, 1));
     public static final GEItemMisc advancedCircuitBoard = createItem(new GEItemMisc("advanced_circuit_board", 6, 1));
     public static final GEItemMisc processorCircuitBoard = createItem(new GEItemMisc("processor_circuit_board", 7, 1));
+    public static final GEItemMisc oilberry = createItem(new GEItemMisc("oilberry", 8, 1));
 
 
     public static <T extends Item> T createItem(T item) {

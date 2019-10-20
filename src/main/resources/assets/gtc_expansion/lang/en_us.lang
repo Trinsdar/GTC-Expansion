@@ -49,6 +49,7 @@ tile.gtc_expansion.fire_brick_block.name=Fire Bricks
 ic2.crop.Olivia.name=Olivia
 ic2.crop.Nickelback.name=Nickelback
 ic2.crop.Galvania.name=Galvania
+ic2.crop.Oilberry.name=Oilberry
 
 #small dusts
 item.gtclassic.dustsmallSaltpeter.name=Small Saltpeter Dust
@@ -465,6 +466,7 @@ item.gtc_expansion.advanced_circuit_parts.name=Advanced Circuit Parts
 item.gtc_expansion.basic_circuit_board.name=Basic Circuit Board
 item.gtc_expansion.advanced_circuit_board.name=Advanced Circuit Board
 item.gtc_expansion.processor_circuit_board.name=Processor Circuit Board
+item.gtc_expansion.oilberry.name=Oilberry
 
 item.gtc_expansion.mold_blank.name=Blank Mold
 item.gtc_expansion.mold_block.name=Block Mold
@@ -484,6 +486,17 @@ item.gtc_expansion.machine_switch.name=Machine Switch
 fluid.sulfuricacid=Sulfuric Acid
 fluid.silicon=Silicon
 fluid.crude_oil=Crude Oil
+fluid.propane=Propane
+fluid.diesel=Diesel
+fluid.nitrocoalfuel=Nitro-CoalFuel
+fluid.naphtha=Naphtha
+fluid.nitrodiesel=Nitro Diesel
+fluid.glyceryl=Glyceryl
+fluid.nitrogendioxide=Nitrogen Dioxide
+fluid.sodiumsulfide=Sodium Sulfide
+fluid.sodiumpersulfate=Sodium Persulfate
+fluid.gasoline=Gasoline
+fluid.nitrocarbon=Nitro-Carbon
 #molten fluids
 fluid.iron=Molten Iron
 fluid.gold=Molten Gold

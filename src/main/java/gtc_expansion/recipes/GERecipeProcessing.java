@@ -5,10 +5,12 @@ import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTConfig;
+import gtclassic.GTItems;
 import gtclassic.helpers.GTHelperStack;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.recipe.GTRecipeProcessing;
+import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.tile.GTTileCentrifuge;
 import gtclassic.util.GTValues;
 import ic2.api.classic.recipe.ClassicRecipes;
@@ -68,6 +70,7 @@ public class GERecipeProcessing {
         if (GEConfiguration.usePlates && (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
             TileEntityCompressor.addRecipe("plateCopper", 8, Ic2Items.denseCopperPlate);
         }
+        ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.testTube), GTTileBaseMachine.input(GTMaterialGen.get(GEItems.oilberry)), GTMaterialGen.getTube(GTMaterial.Oil, 1));
     }
 
     public static void initCentrifugeRecipes(){
