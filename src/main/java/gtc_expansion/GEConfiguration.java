@@ -14,6 +14,7 @@ public class GEConfiguration {
     public static boolean unfiredBricks = false;
     public static boolean ingotsRequireBlastFurnace = true;
     public static boolean gt2Mode = false;
+    public static boolean removeCraftingUURecipes = false;
 
     // generation
     public static boolean pyriteGenerate = true;
@@ -73,6 +74,7 @@ public class GEConfiguration {
         unfiredBricks = cfg.getBoolean("unfiredBricks", CATEGORY_CONFIG, unfiredBricks, "Enables regular and fire bricks taking unfired bricks in the furnace recipe.");
         ingotsRequireBlastFurnace = cfg.getBoolean("ingotsRequireBlastFurnace", CATEGORY_CONFIG, ingotsRequireBlastFurnace, "Enables removing of vanilla smelting of end game metals from all loaded mods");
         gt2Mode = cfg.getBoolean("gt2Mode", CATEGORY_CONFIG, gt2Mode, "Enables GT2 mode, meaning recipes will be like gt2 and crafting tools will be hidden.");
+        removeCraftingUURecipes = cfg.getBoolean("removeCraftingUURecipes", CATEGORY_CONFIG, removeCraftingUURecipes, "Removes all ic2 and gt crafting uu recipes and forces uu through the uu assembler.");
     }
 
     private static void initGenerationConfig(Configuration cfg) {

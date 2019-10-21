@@ -8,6 +8,7 @@ import gtc_expansion.GEItems;
 import gtc_expansion.GEOreDict;
 import gtc_expansion.GEWorldGenTwilightForest;
 import gtc_expansion.item.tools.GEToolGen;
+import gtc_expansion.material.GEMaterialElement;
 import gtc_expansion.recipes.GERecipe;
 import gtclassic.GTConfig;
 import gtclassic.util.GTValues;
@@ -31,6 +32,7 @@ public class GECommonProxy {
         GEFluids.registerFluids();
         GEBlocks.registerBlocks();
         GEItems.registerItems();
+        GEMaterialElement.init();
         GEToolGen.initTools();
         GEToolGen.initToolGen();
         GEBlocks.registerTiles();

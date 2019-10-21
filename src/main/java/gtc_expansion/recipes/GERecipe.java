@@ -23,6 +23,7 @@ import gtclassic.GTItems;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
+import gtclassic.tile.GTTileUUMAssembler;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
@@ -106,6 +107,7 @@ public class GERecipe {
         GETileChemicalReactor.init();
         GETileMultiPrimitiveBlastFurnace.init();
         GERecipeMods.init();
+        initUURecipes();
         initIc2();
         initOverrideGTClassic();
         if (GEConfiguration.gt2Mode){
@@ -133,6 +135,23 @@ public class GERecipe {
         if (GEConfiguration.unfiredBricks){
             recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick, 2), "C", "C", 'C', Items.CLAY_BALL);
             recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick, 2), "C", "C", 'C', GEItems.fireClayBall);
+        }
+    }
+
+    public static void initUURecipes(){
+        if (GTConfig.gregtechUURecipes){
+            if (!GEConfiguration.removeCraftingUURecipes){
+                recipes.addRecipe(GTMaterialGen.getGem(GEMaterial.SapphireGreen, 1), " UU", "UUU", " UU", 'U', Ic2Items.uuMatter, true);
+                recipes.addRecipe(GTMaterialGen.getGem(GEMaterial.Olivine, 1), "UU ", "UUU", "UU ", 'U', Ic2Items.uuMatter, true);
+                recipes.addRecipe(GTMaterialGen.getDust(GEMaterial.Zinc, 10), "   ", "U U", "U  ", 'U', Ic2Items.uuMatter, true);
+                recipes.addRecipe(GTMaterialGen.getDust(GEMaterial.Nickel, 10), "U  ", "U U", "   ", 'U', Ic2Items.uuMatter, true);
+                recipes.addRecipe(GEMaterialGen.getSmallDust(GEMaterial.Osmium, 1), "U U", "UUU", "U U", 'U', Ic2Items.uuMatter, true);
+            }
+            GTTileUUMAssembler.addUUMAssemblerValue(7, GTMaterialGen.getGem(GEMaterial.SapphireGreen, 1));
+            GTTileUUMAssembler.addUUMAssemblerValue(7, GTMaterialGen.getGem(GEMaterial.Olivine, 1));
+            GTTileUUMAssembler.addUUMAssemblerValue(3, GTMaterialGen.getDust(GEMaterial.Zinc, 10));
+            GTTileUUMAssembler.addUUMAssemblerValue(3, GTMaterialGen.getDust(GEMaterial.Nickel, 10));
+            GTTileUUMAssembler.addUUMAssemblerValue(7, GEMaterialGen.getSmallDust(GEMaterial.Osmium, 1));
         }
     }
 
@@ -201,7 +220,7 @@ public class GERecipe {
         recipes.overrideRecipe("shaped_item.itemtreetapelectric_-1455688385", Ic2Items.electricTreeTap, " B ", "SCS", "T  ", 'T', Ic2Items.treeTap, 'S', materialSteels, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.electricsprayer_-335930196", Ic2Items.electricCfSprayer, "sS ", "SC ", "  B", 's', Ic2Items.cfSprayer, 'S', materialSteels, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.itemnanosaber_644260803", Ic2Items.nanoSaber, "PI ", "PI ", "CEC", 'P', platinum, 'I', Ic2Items.iridiumPlate, 'C', Ic2Items.carbonPlate, 'E', Ic2Items.energyCrystal);
-        recipes.overrideRecipe("shaped_item.itemtoolmininglaser_1732214669", Ic2Items.miningLaser,"RHE", "TTC", " AA", 'R', "gemRuby", 'H', GTItems.heatStorageHelium6, 'E', "energyCrystal", 'T', titanium, 'C', "circuitAdvanced", 'A', Ic2Items.advancedAlloy);
+        recipes.overrideRecipe("shaped_item.itemtoolmininglaser_1732214669", Ic2Items.miningLaser,"RHE", "TTC", " AA", 'R', "gemRuby", 'H', GTItems.heatStorageHelium6, 'E', tier2Energy, 'T', titanium, 'C', "circuitAdvanced", 'A', Ic2Items.advancedAlloy);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.suBattery, 32), "C", "S", "L", 'C', Ic2Items.insulatedCopperCable, 'S', GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1), 'L', "dustLead");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.suBattery, 32), "C", "L", "S", 'C', Ic2Items.insulatedCopperCable, 'S', GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1), 'L', "dustLead");
         String tin = GEConfiguration.usePlates ? "plateTin" : "ingotTin";
@@ -220,8 +239,6 @@ public class GERecipe {
         instance.removeGTRecipe("shaped_tile.blockwindgenerator_-1843388748");
         instance.removeGTRecipe("shapeless_item.gtclassic.test_tube_-1487325092");
         instance.removeGTRecipe("shapeless_item.sulphur_1317221415");
-        instance.overrideGTRecipe("shaped_item.gtclassic.lithiumbatpack_-1372018261", GTMaterialGen.get(GTItems.lithiumBatpack), "BCB", "BAB", "B B", 'B', GTItems.lithiumBattery, 'C', "circuitAdvanced", 'A', aluminium);
-        instance.overrideGTRecipe("shaped_item.gtclassic.portable_scanner_1761100103", GTMaterialGen.get(GTItems.portableScanner), "AEA", "CcC", "ABA", 'A', aluminium, 'E', Ic2Items.euReader, 'C', "circuitAdvanced", 'c', Ic2Items.cropAnalyzer, 'B', "batteryRegular");
         instance.overrideGTRecipe("shaped_tile.gtclassic.quantumchest_771359385", GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GEItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         instance.overrideGTRecipe("shaped_tile.gtclassic.digitalchest_1446441976", GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         instance.overrideGTRecipe("shaped_tile.gtclassic.quantumtank_-1923909130", GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);
@@ -229,6 +246,8 @@ public class GERecipe {
         instance.overrideGTRecipe("shaped_tile.gtclassic.fusion_-786678229", GTMaterialGen.get(GTBlocks.casingFusion), "CSC", "NMN", "CRC", 'C', "circuitMaster", 'S', "craftingSuperconductor", 'N', GEItems.nichromeHeatingCoil, 'M',
                 "machineBlockElite", 'R', Ic2Items.reactorReflectorIridium);
         if (GEConfiguration.usePlates){
+            instance.overrideGTRecipe("shaped_item.gtclassic.lithiumbatpack_-1372018261", GTMaterialGen.get(GTItems.lithiumBatpack), "BCB", "BAB", "B B", 'B', GTItems.lithiumBattery, 'C', "circuitAdvanced", 'A', "plateAluminium");
+            instance.overrideGTRecipe("shaped_item.gtclassic.portable_scanner_1761100103", GTMaterialGen.get(GTItems.portableScanner), "AEA", "CcC", "ABA", 'A', "plateAluminium", 'E', Ic2Items.euReader, 'C', "circuitAdvanced", 'c', Ic2Items.cropAnalyzer, 'B', GTItems.lithiumBattery);
             instance.overrideGTRecipe("shaped_tile.gtclassic.highlyadvanced_-1637699060", GTMaterialGen.get(GTBlocks.casingHighlyAdvanced), "CTC", "TMT", "CTC", 'C', "plateChrome", 'T', "plateTitanium", 'M', "machineBlockAdvanced");
             instance.overrideGTRecipe("shaped_tile.gtclassic.highlyadvanced_-1504256580", GTMaterialGen.get(GTBlocks.casingHighlyAdvanced), "TCT", "CMC", "TCT", 'C', "plateChrome", 'T', "plateTitanium", 'M', "machineBlockAdvanced");
         }

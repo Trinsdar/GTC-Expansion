@@ -41,9 +41,11 @@ public class GEMaterial {
     Almandine,
     Aluminium,
     Andradite,
+    Antimony,
     Ashes,
     Basalt,
     Bauxite,
+    BatteryAlloy,
     Brass,
     Bronze,
     Calcite,
@@ -140,9 +142,11 @@ public class GEMaterial {
         Almandine = new GTMaterial("Almandine", 255, 0, 0, dustAll);
         Aluminium = new GTMaterial("Aluminium", 128, 200, 240, metalFullWHull);
         Andradite = new GTMaterial("Andradite", 150, 120, 0, dustAll);
+        Antimony = new GTMaterial("Antimony", 255, 255, 255, molten, smalldust, dust, tinydust, nugget, ingot, plate, stick, gear, blockMetal);
         Ashes = new GTMaterial("Ashes", 192, 192, 192, dustAll);
         Basalt = new GTMaterial("Basalt", 30, 20, 20, dustAll);
         Bauxite = new GTMaterial("Bauxite", 200, 100, 0, crushedAll);
+        BatteryAlloy = new GTMaterial("BatteryAlloy", 255, 255, 255, dust, ingot, smalldust, nugget, plate);
         Brass = new GTMaterial("Brass", 255, 180, 0, metalFullWHull);
         Bronze = new GTMaterial("Bronze", 230, 83, 34, molten, smalldust, nugget, plate, stick, gear, hull);
         Calcite = new GTMaterial("Calcite", 250, 230, 220, dustAll);
