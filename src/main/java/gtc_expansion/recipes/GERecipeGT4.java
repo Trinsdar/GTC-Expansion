@@ -85,9 +85,14 @@ public class GERecipeGT4 {
     }
 
     public static void init(){
+        initShapedItemRecipes();
         initRemainingToolRecipes();
         initIc2();
         initOverrideGTClassic();
+    }
+
+    public static void initShapedItemRecipes(){
+        recipes.addRecipe(GTMaterialGen.get(GTItems.lithiumBatpack), "BCB", " A ", 'B', GEItems.largeLithiumBattery, 'C', "circuitAdvanced", 'A', aluminium);
     }
 
     public static void initRemainingToolRecipes(){

@@ -1,5 +1,7 @@
 package gtc_expansion;
 
+import gtc_expansion.item.GEItemBatteryReusable;
+import gtc_expansion.item.GEItemBatterySingleUse;
 import gtc_expansion.item.GEItemContainerDamageless;
 import gtc_expansion.item.GEItemMisc;
 import gtc_expansion.item.tools.GEItemToolFile;
@@ -39,6 +41,15 @@ public class GEItems {
     public static final GEItemMisc processorCircuitBoard = createItem(new GEItemMisc("processor_circuit_board", 7, 1));
     public static final GEItemMisc oilberry = createItem(new GEItemMisc("oilberry", 8, 1));
 
+    public static final GEItemMisc batteryHull = createItem(new GEItemMisc("battery_hull", 0, 5));
+    public static final GEItemMisc largeBatteryHull = createItem(new GEItemMisc("large_battery_hull", 1, 5));
+    public static final GEItemBatterySingleUse acidBattery = createItem(new GEItemBatterySingleUse("acid", 12000, 1, 82));
+    public static final GEItemBatterySingleUse mercuryBattery = createItem(new GEItemBatterySingleUse("mercury", 32000, 1, 84));
+    public static final GEItemBatteryReusable sodiumBattery = createItem(new GEItemBatteryReusable("sodium", 50000, 128, 1, 86));
+    public static final GEItemBatterySingleUse largeAcidBattery = createItem(new GEItemBatterySingleUse("large_acid", 48000, 2, 88));
+    public static final GEItemBatterySingleUse largeMercuryBattery = createItem(new GEItemBatterySingleUse("large_mercury", 128000, 2, 90));
+    public static final GEItemBatteryReusable largeLithiumBattery = createItem(new GEItemBatteryReusable("large_lithium", 400000, 256, 2, 92));
+    public static final GEItemBatteryReusable largeSodiumBattery = createItem(new GEItemBatteryReusable("large_sodium", 200000, 256, 2, 94));
 
     public static <T extends Item> T createItem(T item) {
         toRegister.add(item);

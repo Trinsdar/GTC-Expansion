@@ -467,6 +467,15 @@ item.gtc_expansion.basic_circuit_board.name=Basic Circuit Board
 item.gtc_expansion.advanced_circuit_board.name=Advanced Circuit Board
 item.gtc_expansion.processor_circuit_board.name=Processor Circuit Board
 item.gtc_expansion.oilberry.name=Oilberry
+item.gtc_expansion.battery_hull.name=Battery Hull
+item.gtc_expansion.large_battery_hull.name=Large Battery Hull
+item.gtc_expansion.acid_battery.name=Acid Battery
+item.gtc_expansion.mercury_battery.name=Mercury Battery
+item.gtc_expansion.sodium_battery.name=Sodium Battery
+item.gtc_expansion.large_acid_battery.name=Large Acid Battery
+item.gtc_expansion.large_mercury_battery.name=Large Mercury Battery
+item.gtc_expansion.large_lithium_battery.name=Large Lithium Battery
+item.gtc_expansion.large_sodium_battery.name=Large Sodium Battery
 
 item.gtc_expansion.mold_blank.name=Blank Mold
 item.gtc_expansion.mold_block.name=Block Mold
