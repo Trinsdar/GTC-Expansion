@@ -73,14 +73,15 @@ public class GERecipeProcessing {
         }
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.testTube), GTTileBaseMachine.input(GTMaterialGen.get(GEItems.oilberry)), GTMaterialGen.getTube(GTMaterial.Oil, 1));
         if (!GEConfiguration.gt2Mode){
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1)), GEItems.acidBattery.getFull());
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 1)), GEItems.mercuryBattery.getFull());
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input("dustLithium", 1), GTMaterialGen.get(GTItems.lithiumBattery));
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Sodium, 1)), GTMaterialGen.get(GEItems.sodiumBattery));
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 3)), GEItems.largeAcidBattery.getFull());
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 3)), GEItems.largeMercuryBattery.getFull());
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input("dustLithium", 3), GTMaterialGen.get(GEItems.largeLithiumBattery));
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Sodium, 3)), GTMaterialGen.get(GEItems.largeSodiumBattery));
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 2)), GEItems.acidBattery.getFull());
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 2)), GEItems.mercuryBattery.getFull());
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input("dustLithium", 2), GTMaterialGen.get(GTItems.lithiumBattery));
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Sodium, 2)), GTMaterialGen.get(GEItems.sodiumBattery));
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.get(Items.REDSTONE, 2)), Ic2Items.battery);
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 6)), GEItems.largeAcidBattery.getFull());
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 6)), GEItems.largeMercuryBattery.getFull());
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input("dustLithium", 6), GTMaterialGen.get(GEItems.largeLithiumBattery));
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Sodium, 6)), GTMaterialGen.get(GEItems.largeSodiumBattery));
             TileEntityExtractor.addRecipe(GEItems.acidBattery.getEmpty(), GTMaterialGen.get(GEItems.batteryHull));
             TileEntityExtractor.addRecipe(GEItems.mercuryBattery.getEmpty(), GTMaterialGen.get(GEItems.batteryHull));
             TileEntityExtractor.addRecipe(GEItems.largeAcidBattery.getEmpty(), GTMaterialGen.get(GEItems.largeBatteryHull));
