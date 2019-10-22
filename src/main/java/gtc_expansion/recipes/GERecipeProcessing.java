@@ -4,6 +4,7 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
+import gtc_expansion.material.GEMaterialGen;
 import gtclassic.GTConfig;
 import gtclassic.GTItems;
 import gtclassic.helpers.GTHelperStack;
@@ -54,7 +55,7 @@ public class GERecipeProcessing {
         GameRegistry.addSmelting(GEBlocks.oreSheldonite, GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
         GameRegistry.addSmelting(GEBlocks.oreCassiterite, GTMaterialGen.getIc2(Ic2Items.tinIngot, 2), 0.5F);
         GameRegistry.addSmelting(GEBlocks.oreTetrahedrite, Ic2Items.copperIngot, 0.5F);
-        GameRegistry.addSmelting(GTMaterialGen.getDust(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
+        GameRegistry.addSmelting(GTMaterialGen.getDust(GEMaterial.Tetrahedrite, 1), GEMaterialGen.getNugget(GEMaterial.Copper, 10), 0.5F);
     }
 
     public static void initIc2Recipes(){
@@ -74,11 +75,11 @@ public class GERecipeProcessing {
         if (!GEConfiguration.gt2Mode){
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1)), GEItems.acidBattery.getFull());
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 1)), GEItems.mercuryBattery.getFull());
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input("dustLithium", 2), GTMaterialGen.get(GTItems.lithiumBattery));
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input("dustLithium", 1), GTMaterialGen.get(GTItems.lithiumBattery));
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Sodium, 1)), GTMaterialGen.get(GEItems.sodiumBattery));
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 3)), GEItems.largeAcidBattery.getFull());
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 3)), GEItems.largeMercuryBattery.getFull());
-            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input("dustLithium", 6), GTMaterialGen.get(GEItems.largeLithiumBattery));
+            ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input("dustLithium", 3), GTMaterialGen.get(GEItems.largeLithiumBattery));
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Sodium, 3)), GTMaterialGen.get(GEItems.largeSodiumBattery));
             TileEntityExtractor.addRecipe(GEItems.acidBattery.getEmpty(), GTMaterialGen.get(GEItems.batteryHull));
             TileEntityExtractor.addRecipe(GEItems.mercuryBattery.getEmpty(), GTMaterialGen.get(GEItems.batteryHull));
@@ -102,6 +103,8 @@ public class GERecipeProcessing {
         GTTileCentrifuge.addRecipe("dustBrass", 4,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GEMaterial.Zinc, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 3));
         GTTileCentrifuge.addRecipe("dustInvar", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GEMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.ironDust, 2));
         GTTileCentrifuge.addRecipe("dustConstantan", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GEMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 2));
+        GTTileCentrifuge.addRecipe("dustTetrahedrite", 8, 0, totalCentrifugeEu(18240), GTMaterialGen.getIc2(Ic2Items.copperDust, 3), GTMaterialGen.getDust(GEMaterial.Antimony, 1), GTMaterialGen.getDust(GEMaterial.Sulfur, 3));
+        GTTileCentrifuge.addRecipe("dustBatteryAlloy", 5, 0, totalCentrifugeEu(37800), GTMaterialGen.getDust(GEMaterial.Antimony, 1), GTMaterialGen.getDust(GEMaterial.Lead, 4));
     }
 
     public static void removals() {

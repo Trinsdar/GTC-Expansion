@@ -121,7 +121,7 @@ public class GERecipeMods {
         }*/
 
         if (GTConfig.compatIc2Extras && Loader.isModLoaded(GTValues.IC2_EXTRAS)){
-            addCrushedOreRecipes(GEMaterial.Tetrahedrite, GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "coppertinydust", 2), GEMaterialGen.getTinyDust(GEMaterial.Zinc, 1));
+            addCrushedOreRecipes(GEMaterial.Tetrahedrite, GEMaterialGen.getTinyDust(GEMaterial.Antimony, 1), GEMaterialGen.getTinyDust(GEMaterial.Zinc, 1));
             addCrushedOreRecipes(GEMaterial.Galena, GEMaterialGen.getTinyDust(GEMaterial.Sulfur, 2), GTMaterialGen.getModItem(GTValues.IC2_EXTRAS, "silvertinydust"));
             addCrushedOreRecipes(GEMaterial.Cinnabar, GEMaterialGen.getTinyDust(GEMaterial.Redstone, 1), GEMaterialGen.getTinyDust(GEMaterial.Sulfur, 1));
             addCrushedOreRecipes(GEMaterial.Sphalerite, GEMaterialGen.getTinyDust(GEMaterial.Zinc, 1), GEMaterialGen.getTinyDust(GEMaterial.GarnetYellow, 1));
@@ -142,8 +142,8 @@ public class GERecipeMods {
             TileEntityMacerator.addRecipe("oreBauxite", 1, GEMaterialGen.getCrushedOre(GEMaterial.Bauxite, 4));
             ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));
             TileEntityMacerator.addRecipe("oreIridium", 1, GEMaterialGen.getCrushedOre(GEMaterial.Iridium, 2));
-            GameRegistry.addSmelting(GEMaterialGen.getCrushedOre(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
-            GameRegistry.addSmelting(GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Tetrahedrite, 1), Ic2Items.copperIngot, 0.5F);
+            GameRegistry.addSmelting(GEMaterialGen.getCrushedOre(GEMaterial.Tetrahedrite, 1), GEMaterialGen.getNugget(GEMaterial.Copper, 10), 0.5F);
+            GameRegistry.addSmelting(GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Tetrahedrite, 1), GEMaterialGen.getNugget(GEMaterial.Copper, 10), 0.5F);
             GameRegistry.addSmelting(GEMaterialGen.getPurifiedCrushedOre(GEMaterial.Platinum, 1), GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
             GameRegistry.addSmelting(GEMaterialGen.getCrushedOre(GEMaterial.Platinum, 1), GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
         }

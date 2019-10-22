@@ -75,6 +75,7 @@ public class GERecipeGT4 {
     static String titanium = GEConfiguration.usePlates ? "plateTitanium" : "ingotTitanium";
     static String platinum = GEConfiguration.usePlates ? "platePlatinum" : "ingotPlatinum";
     static String electrum = GEConfiguration.usePlates ? "plateElectrum" : "ingotElectrum";
+    static String lead = GEConfiguration.usePlates ? "plateLead" : "ingotLead";
 
     static IRecipeInput getSteelMachineBlock(){
         return IC2.config.getFlag("SteelRecipes") ? new RecipeInputCombined(1,input(Ic2Items.machine), input(GEMaterialGen.getHull(GEMaterial.StainlessSteel,1))) : new RecipeInputCombined(1,input(GEMaterialGen.getHull(GEMaterial.Steel, 1)), input(GEMaterialGen.getHull(GEMaterial.StainlessSteel,1)));
@@ -93,6 +94,11 @@ public class GERecipeGT4 {
 
     public static void initShapedItemRecipes(){
         recipes.addRecipe(GTMaterialGen.get(GTItems.lithiumBatpack), "BCB", " A ", 'B', GEItems.largeLithiumBattery, 'C', "circuitAdvanced", 'A', aluminium);
+        recipes.addRecipe(GTMaterialGen.get(GEItems.batteryHull), "C", "B", "B", 'C', Ic2Items.copperCable, 'B', "plateBatteryAlloy");
+        recipes.addRecipe(GTMaterialGen.get(GEItems.largeBatteryHull), "C C", "BBB", "BBB", 'C', Ic2Items.goldCable, 'B', "plateBatteryAlloy");
+        recipes.addRecipe(GTMaterialGen.get(GEItems.acidBattery), " C ", "LAL", "LAL", 'C', Ic2Items.copperCable, 'L', lead, 'A', GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1));
+        recipes.addRecipe(GTMaterialGen.get(GEItems.mercuryBattery), " C ", "LAL", "LAL", 'C', Ic2Items.copperCable, 'L', lead, 'A', GTMaterialGen.getTube(GTMaterial.Mercury, 1));
+        recipes.addRecipe(GTMaterialGen.get(GEItems.sodiumBattery), " C ", "LAL", "LAL", 'C', Ic2Items.goldCable, 'L', aluminium, 'A', GTMaterialGen.getTube(GTMaterial.Sodium, 1));
     }
 
     public static void initRemainingToolRecipes(){

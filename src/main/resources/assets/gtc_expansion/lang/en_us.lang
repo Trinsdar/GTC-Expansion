@@ -1,4 +1,5 @@
 #blocks
+tile.gtclassic.blockAntimony.name=Block of Antimony
 tile.gtclassic.blockSteel.name=Block of Steel
 tile.gtclassic.blockInvar.name=Block of Invar
 tile.gtclassic.blockZinc.name=Block of Zinc
@@ -52,6 +53,8 @@ ic2.crop.Galvania.name=Galvania
 ic2.crop.Oilberry.name=Oilberry
 
 #small dusts
+item.gtclassic.dustsmallBatteryAlloy.name=Small Battery Alloy Dust
+item.gtclassic.dustsmallAntimony.name=Small Antimony Dust
 item.gtclassic.dustsmallSaltpeter.name=Small Saltpeter Dust
 item.gtclassic.dustsmallGlowstone.name=Small Glowstone Dust
 item.gtclassic.dustsmallTungsten.name=Small Tungsten Dust
@@ -148,6 +151,8 @@ item.gtclassic.dustsmallNeodymium.name=Small Neodymium Dust
 item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 
 #dust
+item.gtclassic.dustBatteryAlloy.name=Battery Alloy Dust
+item.gtclassic.dustAntimony.name=Antimony Dust
 item.gtclassic.dustSteel.name=Steel Dust
 item.gtclassic.dustSaltpeter.name=Saltpeter Dust
 item.gtclassic.dustInvar.name=Invar Dust
@@ -204,6 +209,8 @@ item.gtclassic.gemRedGarnet.name=Red Garnet
 item.gtclassic.gemYellowGarnet.name=Yellow Garnet
 
 #ingots
+item.gtclassic.ingotBatteryAlloy.name=Battery Alloy Ingot
+item.gtclassic.ingotAntimony.name=Antimony Ingot
 item.gtclassic.ingotSteel.name=Steel Ingot
 item.gtclassic.ingotInvar.name=Invar Ingot
 item.gtclassic.ingotZinc.name=Zinc Ingot
@@ -226,6 +233,8 @@ item.gtclassic.hotingotIridium.name=Hot Iridium Ingot
 item.gtclassic.hotingotOsmium.name=Hot Osmium Ingot
 
 #nuggets
+item.gtclassic.nuggetBatteryAlloy.name=Battery Alloy Nugget
+item.gtclassic.nuggetAntimony.name=Antimony Nugget
 item.gtclassic.nuggetTungsten.name=Tungsten Nugget
 item.gtclassic.nuggetRedAlloy.name=Red Alloy Nugget
 item.gtclassic.nuggetThorium.name=Thorium Nugget
@@ -257,6 +266,8 @@ item.gtclassic.nuggetSilicon.name=Silicon Nugget
 item.gtclassic.nuggetNichrome.name=Nichrome Nugget
 
 #plates
+item.gtclassic.plateBatteryAlloy.name=Battery Alloy Plate
+item.gtclassic.plateAntimony.name=Antimony Plate
 item.gtclassic.plateTungsten.name=Tungsten Plate
 item.gtclassic.plateInvar.name=Invar Plate
 item.gtclassic.plateZinc.name=Zinc Plate
@@ -288,6 +299,7 @@ item.gtclassic.plateNichrome.name=Nichrome Plate
 item.gtclassic.plateStainlessSteel.name=Stainless Steel Plate
 
 #gear
+item.gtclassic.gearAntimony.name=Antimony Gear
 item.gtclassic.gearTungsten.name=Tungsten Gear
 item.gtclassic.gearInvar.name=Invar Gear
 item.gtclassic.gearZinc.name=Zinc Gear
@@ -319,6 +331,7 @@ item.gtclassic.gearStainlessSteel.name=Stainless Gear
 item.gtclassic.gearBismuth.name=Bismuth Gear
 
 #sticks
+item.gtclassic.stickAntimony.name=Antimony Rod
 item.gtclassic.stickTungsten.name=Tungsten Rod
 item.gtclassic.stickInvar.name=Invar Rod
 item.gtclassic.stickZinc.name=Zinc Rod
@@ -383,6 +396,7 @@ item.gtclassic.crushedorepurifiedCinnabar.name=Purified Crushed Cinnabar Ore
 item.gtclassic.crushedorepurifiedIridium.name=Purified Crushed Iridium Ore
 item.gtclassic.crushedorepurifiedTetrahedrite.name=Purified Crushed Tetrahedrite Ore
 
+item.gtclassic.dusttinyAntimony.name=Tiny Antimony Dust
 item.gtclassic.dusttinySulfur.name=Tiny Sulfur Dust
 item.gtclassic.dusttinyZinc.name=Tiny Zinc Dust
 item.gtclassic.dusttinyGrossular.name=Tiny Grossular Dust
@@ -507,6 +521,7 @@ fluid.sodiumpersulfate=Sodium Persulfate
 fluid.gasoline=Gasoline
 fluid.nitrocarbon=Nitro-Carbon
 #molten fluids
+fluid.antimony=Molten Antimony
 fluid.iron=Molten Iron
 fluid.gold=Molten Gold
 fluid.copper=Molten Copper
