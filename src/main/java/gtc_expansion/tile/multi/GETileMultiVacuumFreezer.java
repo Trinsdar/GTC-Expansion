@@ -7,9 +7,8 @@ import gtc_expansion.container.GEContainerVacuumFreezer;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GELang;
-import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.multi.GTTileMultiBaseMachine;
+import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
@@ -28,7 +27,6 @@ import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
-import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.state.IBlockState;
@@ -39,16 +37,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
+public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple {
     protected static final int slotInput = 0;
     protected static final int slotOutput = 1;
     protected static final int slotFuel = 2;
@@ -137,6 +133,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
         addRecipe(GTMaterialGen.getStack(GEMaterial.TungstenSteel, GEMaterial.hotIngot, 1), 57600, GTMaterialGen.getIngot(GEMaterial.TungstenSteel, 1));
         addRecipe(GTMaterialGen.getStack(GEMaterial.Iridium, GEMaterial.hotIngot, 1), 57600, GTMaterialGen.getIngot(GEMaterial.Iridium, 1));
         addRecipe(GTMaterialGen.getStack(GEMaterial.Osmium, GEMaterial.hotIngot, 1), 57600, GTMaterialGen.getIngot(GEMaterial.Osmium, 1));
+        addRecipe(GTMaterialGen.getStack(GEMaterial.Kanthal, GEMaterial.hotIngot, 1), 57600, GTMaterialGen.getIngot(GEMaterial.Kanthal, 1));
     }
 
     public static void addRecipe(ItemStack input, int eu, ItemStack output){
@@ -171,7 +168,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
         GERecipeLists.VACUUM_FREEZER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
-    @Override
+    /*@Override
     public Map<BlockPos, IBlockState> provideStructure() {
         Map<BlockPos, IBlockState> states = super.provideStructure();
         int3 dir = new int3(getPos(), getFacing());
@@ -212,7 +209,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
             states.put(dir.back(1).asBlockPos(), casingReinforcedState);
         }
         return states;
-    }
+    }*/
 
     @Override
     public boolean checkStructure() {
@@ -221,6 +218,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
         }
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
+        if (!isAdvancedCasing(dir.down(1)))
         if (!(isReinforcedCasing(dir.back(1)))) {
             return false;
         }

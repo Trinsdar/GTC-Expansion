@@ -133,6 +133,8 @@ public class GERecipe {
         recipes.addRecipe(GTMaterialGen.get(GEItems.diamondGrinder, 2), "DSD", "SdS", "DSD", 'D', "dustDiamond", 'S', steel, 'd', "gemDiamond");
         recipes.addRecipe(GTMaterialGen.get(GEItems.wolframiumGrinder, 2), "TST", "SBS", "TST", 'T', tungsten, 'S', steel, 'B', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GEItems.constantanHeatingCoil), " I ", "I I", " I ", 'I', "ingotConstantan");
+        recipes.addRecipe(GTMaterialGen.get(GEItems.kanthalHeatingCoil), " I ", "I I", " I ", 'I', "ingotKanthal");
+        recipes.addRecipe(GTMaterialGen.get(GEItems.nichromeHeatingCoil), " I ", "III", " I ", 'I', "ingotNichrome");
         if (GEConfiguration.unfiredBricks){
             recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick, 2), "C", "C", 'C', Items.CLAY_BALL);
             recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick, 2), "C", "C", 'C', GEItems.fireClayBall);

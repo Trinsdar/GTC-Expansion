@@ -11,7 +11,7 @@ import gtc_expansion.util.GTFluidMachineOutput;
 import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.multi.GTTileMultiBaseMachine;
+import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
@@ -58,11 +58,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GETileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener {
+public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple implements ITankListener {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/distillationtower.png");
     public static final IBlockState standardCasingState = GEBlocks.casingStandard.getDefaultState();
     public static final IBlockState advancedCasingState = GEBlocks.casingAdvanced.getDefaultState();
@@ -506,7 +505,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST.addRecipe(input, output, recipeId, defaultEu);
     }
 
-    @Override
+    /*@Override
     public Map<BlockPos, IBlockState> provideStructure() {
         Map<BlockPos, IBlockState> states = super.provideStructure();
         int3 dir = new int3(getPos(), getFacing());
@@ -566,7 +565,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         states.put(dir.up(1).asBlockPos(), advancedCasingState);
         states.put(dir.up(1).asBlockPos(), standardCasingState);
         return states;
-    }
+    }*/
 
     @Override
     public boolean checkStructure() {
@@ -575,6 +574,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         }
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
+        if (!isStandardCasing(dir.back(1)))
         if (!isAdvancedCasing(dir.up(1))) {
             return false;
         }
@@ -600,8 +600,7 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachine impleme
         if (!isAdvancedCasing(dir.down(1))) {
             return false;
         }
-        BlockPos down = dir.down(1).asBlockPos();
-        if (world.getBlockState(down) != standardCasingState && world.getBlockState(down) != GTBlocks.tileBufferFluid.getDefaultState()) {
+        if (!isStandardCasing(dir.down(1))) {
             return false;
         }
 

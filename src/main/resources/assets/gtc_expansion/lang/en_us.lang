@@ -53,6 +53,7 @@ ic2.crop.Galvania.name=Galvania
 ic2.crop.Oilberry.name=Oilberry
 
 #small dusts
+item.gtclassic.dustsmallKanthal.name=Small Kanthal Dust
 item.gtclassic.dustsmallBatteryAlloy.name=Small Battery Alloy Dust
 item.gtclassic.dustsmallAntimony.name=Small Antimony Dust
 item.gtclassic.dustsmallSaltpeter.name=Small Saltpeter Dust
@@ -151,6 +152,7 @@ item.gtclassic.dustsmallNeodymium.name=Small Neodymium Dust
 item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 
 #dust
+item.gtclassic.dustKanthal.name=Kanthal Dust
 item.gtclassic.dustBatteryAlloy.name=Battery Alloy Dust
 item.gtclassic.dustAntimony.name=Antimony Dust
 item.gtclassic.dustSteel.name=Steel Dust
@@ -209,6 +211,7 @@ item.gtclassic.gemRedGarnet.name=Red Garnet
 item.gtclassic.gemYellowGarnet.name=Yellow Garnet
 
 #ingots
+item.gtclassic.ingotKanthal.name=Kanthal Ingot
 item.gtclassic.ingotBatteryAlloy.name=Battery Alloy Ingot
 item.gtclassic.ingotAntimony.name=Antimony Ingot
 item.gtclassic.ingotSteel.name=Steel Ingot
@@ -227,12 +230,14 @@ item.gtclassic.ingotStainlessSteel.name=Stainless Steel Ingot
 item.gtclassic.ingotRedAlloy.name=Red Alloy Ingot
 
 #hot ingots
+item.gtclassic.hotingotKanthal.name=Hot Kanthal Ingot
 item.gtclassic.hotingotTungsten.name=Hot Tungsten Ingot
 item.gtclassic.hotingotTungstensteel.name=Hot Tungstensteel Ingot
 item.gtclassic.hotingotIridium.name=Hot Iridium Ingot
 item.gtclassic.hotingotOsmium.name=Hot Osmium Ingot
 
 #nuggets
+item.gtclassic.nuggetKanthal.name=Kanthal Nugget
 item.gtclassic.nuggetBatteryAlloy.name=Battery Alloy Nugget
 item.gtclassic.nuggetAntimony.name=Antimony Nugget
 item.gtclassic.nuggetTungsten.name=Tungsten Nugget
@@ -266,6 +271,7 @@ item.gtclassic.nuggetSilicon.name=Silicon Nugget
 item.gtclassic.nuggetNichrome.name=Nichrome Nugget
 
 #plates
+item.gtclassic.plateKanthal.name=Kanthal Plate
 item.gtclassic.plateBatteryAlloy.name=Battery Alloy Plate
 item.gtclassic.plateAntimony.name=Antimony Plate
 item.gtclassic.plateTungsten.name=Tungsten Plate
@@ -469,6 +475,8 @@ item.gtc_expansion.computer_monitor.name=Computer Monitor
 item.gtc_expansion.diamond_grinder.name=Diamond Grinder
 item.gtc_expansion.wolframium_grinder.name=Wolframium Grinder
 item.gtc_expansion.constantan_heating_coil.name=Constantan Heating Coil
+item.gtc_expansion.nichrome_heating_coil.name=Nichrome Heating Coil
+item.gtc_expansion.kanthal_heating_coil.name=Kanthal Heating Coil
 item.gtc_expansion.match.name=Match
 item.gtc_expansion.magnifying_glass.name=Magnifying Glass
 item.gtc_expansion.fire_clay_ball.name=Fire Clay

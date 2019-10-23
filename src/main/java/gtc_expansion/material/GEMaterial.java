@@ -79,6 +79,7 @@ public class GEMaterial {
     Iridium,
     Iron,
     Invar,
+    Kanthal,
     Lazurite,
     Lead,
     Lithium,
@@ -180,6 +181,7 @@ public class GEMaterial {
         Iridium = new GTMaterial("Iridium", 255, 255, 255, false, molten, smalldust, dust, nugget, ingot, hotIngot, gear, stick, blockMetal, tinydust, crushedore, crushedorePurified);
         Iron = new GTMaterial("Iron", 184, 184, 184, molten, smalldust, plate, stick, gear);
         Invar = new GTMaterial("Invar", 220, 220, 150, metalFull);
+        Kanthal = new GTMaterial("Kanthal", 219, 191, 111, false, dust, smalldust, nugget, ingot, plate, hotIngot);
         Lazurite = new GTMaterial("Lazurite", 100, 120, 255, dustAll);
         Lead = new GTMaterial("Lead", 140, 100, 140, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
         Lithium = new GTMaterial("Lithium", 87, 150, 204, dustAll);

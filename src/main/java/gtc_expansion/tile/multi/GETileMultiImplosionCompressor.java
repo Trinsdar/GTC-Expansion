@@ -8,9 +8,8 @@ import gtc_expansion.container.GEContainerImplosionCompressor;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GELang;
-import gtclassic.GTBlocks;
 import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.multi.GTTileMultiBaseMachine;
+import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
@@ -29,7 +28,6 @@ import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
-import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.state.IBlockState;
@@ -40,16 +38,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
+public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple {
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3 };
     protected static final int slotFuel = 4;
@@ -190,7 +186,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         GERecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
-    @Override
+    /*@Override
     public Map<BlockPos, IBlockState> provideStructure() {
         Map<BlockPos, IBlockState> states = super.provideStructure();
         int3 dir = new int3(getPos(), getFacing());
@@ -228,7 +224,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         states.put(dir.back(1).asBlockPos(), casingReinforcedState);
         states.put(dir.back(1).asBlockPos(), casingStandardState);
         return states;
-    }
+    }*/
 
     @Override
     public boolean checkStructure() {
@@ -237,6 +233,9 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         }
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
+        if (!isReinforcedCasing(dir.down(1))){
+            return false;
+        }
         if (!(isReinforcedCasing(dir.back(1)))) {
             return false;
         }

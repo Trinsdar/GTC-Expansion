@@ -7,11 +7,10 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerIndustrialBlastFurnace;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
-import gtc_expansion.util.GEIc2cECompat;
 import gtc_expansion.util.GELang;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.multi.GTTileMultiBaseMachine;
+import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem.UpgradeType;
@@ -53,7 +52,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine implements IClickable {
+public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSimple implements IClickable {
 
 	protected static final int[] slotInputs = { 0, 1, 2, 3 };
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
@@ -245,6 +244,9 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine im
 		/** Stainless Steel **/
 		addRecipe(new IRecipeInput[]{metal("Iron", 6), metal("Nickel", 1), metal("Chrome", 1), metal("Manganese", 1)}, 1700, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.StainlessSteel, 9));
 		addRecipe(new IRecipeInput[]{input("dustStainlessSteel", 1)}, 1700, COST_HIGH, GTMaterialGen.getIngot(GEMaterial.StainlessSteel, 1));
+		/** Kanthal **/
+		addRecipe(new IRecipeInput[]{metal("Iron", 1), metal("Aluminium", 1), metal("Chrome", 1)}, 1500, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Kanthal, GEMaterial.hotIngot, 3));
+		addRecipe(new IRecipeInput[]{input("dustKanthal", 1)}, 1500, COST_HIGH, GTMaterialGen.getStack(GEMaterial.Kanthal, GEMaterial.hotIngot, 1));
 	}
 
 	public static int getRequiredHeat(MachineOutput output) {
@@ -286,14 +288,14 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine im
 
 	private Map<BlockPos, IBlockState> stateMap = new Object2ObjectLinkedOpenHashMap<>();
 
-	@Override
+	/*@Override
 	public Map<BlockPos, IBlockState> provideStructure() {
 		Map<BlockPos, IBlockState> states = super.provideStructure();
 		for (Map.Entry<BlockPos, IBlockState> entry : stateMap.entrySet()) {
 			states.put(entry.getKey(), entry.getValue());
 		}
 		return states;
-	}
+	}*/
 
 	@Override
 	public boolean checkStructure() {
@@ -305,6 +307,9 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine im
 		stateMap.clear();
 		// we doing it "big math" style not block by block
 		int3 dir = new int3(getPos(), getFacing());
+		if (!isCasing(dir.back(1))){
+			return false;
+		}
 		for (int i = 0; i < 3; i++) {// above tile
 			if (!(isCasing(dir.up(1)))) {
 				return false;
@@ -424,14 +429,17 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine im
 			if (stack.getItem() == GEItems.kanthalHeatingCoil && !kanthal){
 				stack.shrink(4);
 				kanthal = true;
+				GTCExpansion.logger.info("returning true");
 				return true;
 			}
 			if (kanthal && stack.getItem() == GEItems.nichromeHeatingCoil && !nichrome){
 				stack.shrink(4);
 				nichrome = true;
+				GTCExpansion.logger.info("returning true");
 				return true;
 			}
 		}
+		GTCExpansion.logger.info("returning false");
 		return false;
 	}
 
