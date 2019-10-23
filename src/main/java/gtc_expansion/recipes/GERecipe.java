@@ -302,6 +302,13 @@ public class GERecipe {
     }
 
     public static void initOverrideGTClassic(){
+//        if (GTConfig.removeIC2Plasmafier){
+//            recipes.overrideRecipe("shaped_tile.blockPlasmafier_679353211", GTMaterialGen.get(GEBlocks.fusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
+//                    "batteryUltimate", 'C', GTBlocks.tileComputer);
+//        } else {
+//            instance.overrideGTRecipe("shaped_tile.gtclassic.fusionreactor_1659066354",GTMaterialGen.get(GEBlocks.fusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
+//                    "batteryUltimate", 'C', GTBlocks.tileComputer);
+//        }
         instance.removeGTRecipe("shaped_item.gtclassic.data_chip_-270689326");
         instance.removeGTRecipe("shaped_item.gtclassic.data_orb_1768015763");
         instance.removeGTRecipe("shaped_tile.blockwatergenerator_-495936330");

@@ -9,6 +9,7 @@ import gtc_expansion.util.jei.category.GEJeiDistillationTowerCategory;
 import gtc_expansion.util.jei.category.GEJeiIBFCategory;
 import gtc_expansion.util.jei.wrapper.GEJeiDistillationTowerWrapper;
 import gtc_expansion.util.jei.wrapper.GEJeiIBFWrapper;
+import gtclassic.GTBlocks;
 import gtclassic.GTConfig;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
@@ -70,7 +71,10 @@ public class GEJeiPlugin implements IModPlugin {
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredBrick));
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredFireBrick));
             }
-            blacklist.addIngredientToBlacklist(Ic2Items.wrench);
+            if (!GEConfiguration.gt2Mode){
+                blacklist.addIngredientToBlacklist(Ic2Items.wrench);
+            }
+            //blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTBlocks.tileFusionReactor));
 
         }
     }

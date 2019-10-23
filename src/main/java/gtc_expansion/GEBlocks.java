@@ -12,6 +12,7 @@ import gtc_expansion.tile.GETileAssemblingMachine;
 import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiDistillationTower;
+import gtc_expansion.tile.multi.GETileMultiFusionReactor;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
@@ -22,6 +23,7 @@ import gtclassic.color.GTColorBlockInterface;
 import gtclassic.color.GTColorItemBlock;
 import gtclassic.itemblock.GTItemBlockInterface;
 import gtclassic.itemblock.GTItemBlockRare;
+import gtclassic.util.GTLang;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
@@ -40,35 +42,37 @@ public class GEBlocks {
     }
 
     static final List<Block> toRegister = new ArrayList();
-    public static GEBlockTile electrolyzer = registerBlock(new GEBlockTile("industrialelectrolyzer", GELang.INDUSTRIAL_ELECTROLYZER, 1));
-    public static GEBlockTile alloySmelter = registerBlock(new GEBlockTile("alloysmelter", GELang.ALLOY_SMELTER));
-    public static GEBlockTile assemblingMachine = registerBlock(new GEBlockTile("assemblingmachine", GELang.ASSEMBLING_MACHINE));
-    public static GEBlockTile chemicalReactor = registerBlock(new GEBlockTile("chemicalreactor", GELang.CHEMICAL_REACTOR));
-    public static GEBlockTile industrialGrinder = registerBlock(new GEBlockTile("industrialgrinder", GELang.INDUSTRIAL_GRINDER));
-    public static GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
-    public static GEBlockIndustrialBlastFurnace industrialBlastFurnace = registerBlock(new GEBlockIndustrialBlastFurnace());
-    public static GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
-    public static GEBlockTile distillationTower = registerBlock(new GEBlockTile("distillationtower", GELang.DISTILLATION_TOWER));
-    public static GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE, Material.ROCK));
-    public static GEBlockTile primitiveBlastFurnace = registerBlock(new GEBlockTile("primitiveblastfurnace", GELang.PRIMITIVE_BLAST_FURNACE, Material.ROCK, 3));
+    public static final GEBlockTile electrolyzer = registerBlock(new GEBlockTile("industrialelectrolyzer", GELang.INDUSTRIAL_ELECTROLYZER, 1));
+    public static final GEBlockTile alloySmelter = registerBlock(new GEBlockTile("alloysmelter", GELang.ALLOY_SMELTER));
+    public static final GEBlockTile assemblingMachine = registerBlock(new GEBlockTile("assemblingmachine", GELang.ASSEMBLING_MACHINE));
+    public static final GEBlockTile chemicalReactor = registerBlock(new GEBlockTile("chemicalreactor", GELang.CHEMICAL_REACTOR));
+    public static final GEBlockTile industrialGrinder = registerBlock(new GEBlockTile("industrialgrinder", GELang.INDUSTRIAL_GRINDER));
+    public static final GEBlockTile implosionCompressor = registerBlock(new GEBlockTile("implosioncompressor", GELang.IMPLOSION_COMPRESSOR));
+    public static final GEBlockIndustrialBlastFurnace industrialBlastFurnace = registerBlock(new GEBlockIndustrialBlastFurnace());
+    public static final GEBlockTile vacuumFreezer = registerBlock(new GEBlockTile("vacuumfreezer", GELang.VACUUM_FREEZER));
+    public static final GEBlockTile distillationTower = registerBlock(new GEBlockTile("distillationtower", GELang.DISTILLATION_TOWER));
+    public static final GEBlockTile alloyFurnace = registerBlock(new GEBlockTile("alloyfurnace", GELang.ALLOY_FURNACE, Material.ROCK));
+    public static final GEBlockTile primitiveBlastFurnace = registerBlock(new GEBlockTile("primitiveblastfurnace", GELang.PRIMITIVE_BLAST_FURNACE, Material.ROCK, 3));
+    //public static final GEBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
 
-    public static GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
+
+    public static final GEBlockCasing casingStandard = registerBlock(new GEBlockCasing("standard", 2,75F));
     public static final GEBlockCasing casingReinforced = registerBlock(new GEBlockCasing("reinforced", 4, 150.0F));
-    public static GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
+    public static final GEBlockCasing casingAdvanced = registerBlock(new GEBlockCasing("advanced", 1, 200F));
 
-    public static GEBlockMisc fireBrickBlock = registerBlock(new GEBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
+    public static final GEBlockMisc fireBrickBlock = registerBlock(new GEBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
 
-    public static GEBlockOre orePyrite = registerBlock(new GEBlockOre("pyrite", 16, 2.0F, 1));
-    public static GEBlockOre oreCinnabar = registerBlock(new GEBlockOre("cinnabar", 17, 3.0F, 2));
-    public static GEBlockOre oreSphalerite = registerBlock(new GEBlockOre("sphalerite", 18, 2.0F, 1));
-    public static GEBlockOre oreTungstate = registerBlock(new GEBlockOre("tungstate", 19, 4.0F, 2));
-    public static GEBlockOre oreSheldonite = registerBlock(new GEBlockOre("sheldonite", 20, 3.5F, 3));
-    public static GEBlockOre oreOlivine = registerBlock(new GEBlockOre("olivine", 21, 3.0F, 3));
-    public static GEBlockOre oreSodalite = registerBlock(new GEBlockOre("sodalite", 22, 3.0F, 2));
-    public static GEBlockOre oreOlivineOverworld = registerBlock(new GEBlockOre("olivine_overworld", 23, 3.0F, 3));
-    public static GEBlockOre oreCassiterite = registerBlock(new GEBlockOre("cassiterite", 24, 3.0F, 1));
-    public static GEBlockOre oreTetrahedrite = registerBlock(new GEBlockOre("tetrahedrite", 25, 3.0F, 1));
-    public static GEBlockOre oreGalena = registerBlock(new GEBlockOre("galena", 26, 4.0F, 2));
+    public static final GEBlockOre orePyrite = registerBlock(new GEBlockOre("pyrite", 16, 2.0F, 1));
+    public static final GEBlockOre oreCinnabar = registerBlock(new GEBlockOre("cinnabar", 17, 3.0F, 2));
+    public static final GEBlockOre oreSphalerite = registerBlock(new GEBlockOre("sphalerite", 18, 2.0F, 1));
+    public static final GEBlockOre oreTungstate = registerBlock(new GEBlockOre("tungstate", 19, 4.0F, 2));
+    public static final GEBlockOre oreSheldonite = registerBlock(new GEBlockOre("sheldonite", 20, 3.5F, 3));
+    public static final GEBlockOre oreOlivine = registerBlock(new GEBlockOre("olivine", 21, 3.0F, 3));
+    public static final GEBlockOre oreSodalite = registerBlock(new GEBlockOre("sodalite", 22, 3.0F, 2));
+    public static final GEBlockOre oreOlivineOverworld = registerBlock(new GEBlockOre("olivine_overworld", 23, 3.0F, 3));
+    public static final GEBlockOre oreCassiterite = registerBlock(new GEBlockOre("cassiterite", 24, 3.0F, 1));
+    public static final GEBlockOre oreTetrahedrite = registerBlock(new GEBlockOre("tetrahedrite", 25, 3.0F, 1));
+    public static final GEBlockOre oreGalena = registerBlock(new GEBlockOre("galena", 26, 4.0F, 2));
 
 
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
@@ -111,6 +115,7 @@ public class GEBlocks {
         registerUtil(GETileMultiDistillationTower.class, "DistillationTower");
         registerUtil(GETileMultiPrimitiveBlastFurnace.class, "PrimitiveBlastFurnace");
         registerUtil(GETileMultiIndustrialBlastFurnace.class, "IndustrialBlastFurnace");
+        //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }
 
     public static void registerUtil(Class tile, String name) {

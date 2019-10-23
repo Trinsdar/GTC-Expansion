@@ -7,6 +7,7 @@ import gtc_expansion.tile.GETileAssemblingMachine;
 import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiDistillationTower;
+import gtc_expansion.tile.multi.GETileMultiFusionReactor;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
@@ -96,6 +97,9 @@ public class GEBlockTile extends GTBlockMachine {
         if (this == GEBlocks.primitiveBlastFurnace){
             return new GETileMultiPrimitiveBlastFurnace();
         }
+//        if (this == GEBlocks.fusionReactor){
+//            return new GETileMultiFusionReactor();
+//        }
         return new TileEntityBlock();
     }
 
