@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
+import gtc_expansion.util.GEGuiCompRedOverlay;
 import gtclassic.util.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
@@ -28,6 +29,7 @@ public class GEContainerVacuumFreezer extends ContainerTileComponent<GETileMulti
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 3 + i, 152, 26 + i * 18));
         }
+        this.addComponent(new GEGuiCompRedOverlay(tile, new Box2D(12, 6, 12, 48)));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }
 

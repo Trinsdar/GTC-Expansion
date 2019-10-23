@@ -8,6 +8,7 @@ import gtc_expansion.container.GEContainerImplosionCompressor;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GELang;
+import gtc_expansion.util.IStatus;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
 import gtclassic.util.int3;
@@ -45,7 +46,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple {
+public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple implements IStatus {
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3 };
     protected static final int slotFuel = 4;
@@ -55,9 +56,11 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/implosioncompressor.png");
     private static final int defaultEu = 32;
+    private boolean structureValid = false;
 
     public GETileMultiImplosionCompressor() {
         super(5, 2, defaultEu, 32);
+        this.addGuiFields("structureValid");
     }
 
     @Override
@@ -230,6 +233,8 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple
         if (!world.isAreaLoaded(pos, 3)) {
             return false;
         }
+        this.structureValid = false;
+        this.getNetwork().updateTileGuiField(this, "structureValid");
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
         if (!isReinforcedCasing(dir.down(1))){
@@ -313,6 +318,8 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple
         if (!(isStandardCasing(dir.back(1)))) {
             return false;
         }
+        this.structureValid = true;
+        this.getNetwork().updateTileGuiField(this, "structureValid");
         return true;
     }
 
@@ -322,5 +329,10 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple
 
     public boolean isReinforcedCasing(int3 pos) {
         return world.getBlockState(pos.asBlockPos()) == casingReinforcedState;
+    }
+
+    @Override
+    public boolean getStructureValid() {
+        return structureValid;
     }
 }

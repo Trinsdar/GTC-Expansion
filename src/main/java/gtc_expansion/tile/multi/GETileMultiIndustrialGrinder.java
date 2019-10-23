@@ -8,6 +8,7 @@ import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GELang;
+import gtc_expansion.util.IStatus;
 import gtclassic.GTConfig;
 import gtclassic.GTItems;
 import gtclassic.material.GTMaterial;
@@ -50,7 +51,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple {
+public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple implements IStatus {
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
     protected static final int slotFuel = 8;
@@ -60,9 +61,11 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple {
     public static final IBlockState waterState = Blocks.WATER.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialgrinder.png");
     private static final int defaultEu = 120;
+    private boolean structureValid = false;
 
     public GETileMultiIndustrialGrinder() {
         super(9, 2, defaultEu, 128);
+        this.addGuiFields("structureValid");
     }
 
     @Override
@@ -367,6 +370,8 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple {
         if (!world.isAreaLoaded(pos, 3)) {
             return false;
         }
+        this.structureValid = false;
+        this.getNetwork().updateTileGuiField(this, "structureValid");
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
         if (!isStandardCasing(dir.back(1))){
@@ -450,6 +455,8 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple {
         if (!(isStandardCasing(dir.up(1)))) {
             return false;
         }
+        this.structureValid = true;
+        this.getNetwork().updateTileGuiField(this, "structureValid");
         return true;
     }
 
@@ -459,5 +466,10 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple {
 
     public boolean isReinforcedCasing(int3 pos) {
         return world.getBlockState(pos.asBlockPos()) == casingReinforcedState;
+    }
+
+    @Override
+    public boolean getStructureValid() {
+        return structureValid;
     }
 }

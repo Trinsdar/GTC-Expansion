@@ -8,6 +8,7 @@ import gtc_expansion.container.GEContainerIndustrialBlastFurnace;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GELang;
+import gtc_expansion.util.IStatus;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
@@ -52,7 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSimple implements IClickable {
+public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSimple implements IClickable, IStatus {
 
 	protected static final int[] slotInputs = { 0, 1, 2, 3 };
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
@@ -67,6 +68,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSim
 	@NetworkField(index = 13)
 	public int currentHeat = 0;
 	public static final String neededHeat = "minHeat";
+	private boolean structureValid = false;
 
 	private boolean kanthal = false;
 	private boolean nichrome = false;
@@ -74,7 +76,7 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSim
 	public GETileMultiIndustrialBlastFurnace() {
 		super(8, 2, defaultEu, 128);
 		maxEnergy = 8192;
-		this.addGuiFields("currentHeat");
+		this.addGuiFields("currentHeat", "structureValid");
 	}
 
 	@Override
@@ -302,6 +304,8 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSim
 		if (!world.isAreaLoaded(pos, 3)) {
 			return false;
 		}
+		this.structureValid = false;
+		this.getNetwork().updateTileGuiField(this, "structureValid");
 		// resetting the heat value to avoid continous upcount
 		currentHeat = nichrome ? 1000 : (kanthal ? 500 : 0);
 		stateMap.clear();
@@ -383,6 +387,8 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSim
 				return false;
 			}
 		}
+		this.structureValid = true;
+		this.getNetwork().updateTileGuiField(this, "structureValid");
 		return true;
 	}
 
@@ -448,5 +454,10 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSim
 	@Override
 	public void onLeftClick(EntityPlayer entityPlayer, Side side) {
 
+	}
+
+	@Override
+	public boolean getStructureValid() {
+		return structureValid;
 	}
 }

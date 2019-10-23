@@ -2,6 +2,7 @@ package gtc_expansion.container;
 
 import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.multi.GETileMultiDistillationTower;
+import gtc_expansion.util.GEGuiCompRedOverlay;
 import gtclassic.gui.GTGuiCompDirectionalProgress;
 import gtclassic.gui.GTGuiCompFluidTank;
 import gtclassic.util.GTSlotUpgrade;
@@ -35,6 +36,7 @@ public class GEContainerDistillationTower extends ContainerTileComponent<GETileM
             this.addSlotToContainer(new GTSlotUpgrade(tile, 8 + i, 152, 26 + i * 18));
         }
         this.addPlayerInventory(player);
+        this.addComponent(new GEGuiCompRedOverlay(tile,new Box2D(12, 6, 12, 63)));
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.UP));
     }
 

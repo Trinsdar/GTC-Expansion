@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
+import gtc_expansion.util.GEGuiCompRedOverlay;
 import gtclassic.util.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
@@ -33,6 +34,7 @@ public class GEContainerIndustrialGrinder extends ContainerTileComponent<GETileM
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 9 + i, 80 + (i * 18), 62));
         }
+        this.addComponent(new GEGuiCompRedOverlay(tile,new Box2D(12, 6, 12, 39)));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }
 

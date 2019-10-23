@@ -9,6 +9,7 @@ import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
 import gtc_expansion.util.GELang;
+import gtc_expansion.util.IStatus;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.GTTileBaseMachine;
@@ -44,7 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
+public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine implements IStatus {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;
@@ -55,9 +56,11 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
     public static final int[] slotOutputs = {4, 5, 6, 7};
     public static final int slotFuel = 8;
     public IFilter filter = new FuelMachineFilter(this);
+    private boolean structureValid = false;
 
     public GETileMultiPrimitiveBlastFurnace() {
         super(9, 100, 1);
+        this.addGuiFields("structureValid");
     }
 
     @Override
@@ -253,6 +256,8 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
         if (!world.isAreaLoaded(pos, 3)) {
             return false;
         }
+        this.structureValid = false;
+        this.getNetwork().updateTileGuiField(this, "structureValid");
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
         for (int i = 0; i < 3; i++) {// above tile
@@ -330,10 +335,17 @@ public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine {
                 return false;
             }
         }
+        this.structureValid = true;
+        this.getNetwork().updateTileGuiField(this, "structureValid");
         return true;
     }
 
     public boolean isBrick(int3 pos) {
         return world.getBlockState(pos.asBlockPos()) == brickState;
+    }
+
+    @Override
+    public boolean getStructureValid() {
+        return structureValid;
     }
 }
