@@ -134,7 +134,6 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple
     public static void init(){
         addRecipe("dustRuby", 1, 24, totalEu(2560), GTMaterialGen.getGem(GEMaterial.Ruby, 1));
         addRecipe("dustSapphire", 1, 24, totalEu(2560), GTMaterialGen.getGem(GEMaterial.Sapphire, 1));
-        addRecipe("dustGreenSapphire", 1, 24, totalEu(2560), GTMaterialGen.getGem(GEMaterial.SapphireGreen, 1));
         addRecipe("dustEmerald", 1, 24, totalEu(2560), GTMaterialGen.get(Items.EMERALD, 1));
         addRecipe("dustDiamond", 1, 32, totalEu(2560), GTMaterialGen.getIc2(Ic2Items.industrialDiamond, 1));
         addRecipe("dustOlivine", 1, 24, totalEu(2560), GTMaterialGen.getGem(GEMaterial.Olivine, 1));

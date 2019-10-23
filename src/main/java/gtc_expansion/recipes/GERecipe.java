@@ -144,13 +144,11 @@ public class GERecipe {
     public static void initUURecipes(){
         if (GTConfig.gregtechUURecipes){
             if (!GEConfiguration.removeCraftingUURecipes){
-                recipes.addRecipe(GTMaterialGen.getGem(GEMaterial.SapphireGreen, 1), " UU", "UUU", " UU", 'U', Ic2Items.uuMatter, true);
                 recipes.addRecipe(GTMaterialGen.getGem(GEMaterial.Olivine, 1), "UU ", "UUU", "UU ", 'U', Ic2Items.uuMatter, true);
                 recipes.addRecipe(GTMaterialGen.getDust(GEMaterial.Zinc, 10), "   ", "U U", "U  ", 'U', Ic2Items.uuMatter, true);
                 recipes.addRecipe(GTMaterialGen.getDust(GEMaterial.Nickel, 10), "U  ", "U U", "   ", 'U', Ic2Items.uuMatter, true);
                 recipes.addRecipe(GEMaterialGen.getSmallDust(GEMaterial.Osmium, 1), "U U", "UUU", "U U", 'U', Ic2Items.uuMatter, true);
             }
-            GTTileUUMAssembler.addUUMAssemblerValue(7, GTMaterialGen.getGem(GEMaterial.SapphireGreen, 1));
             GTTileUUMAssembler.addUUMAssemblerValue(7, GTMaterialGen.getGem(GEMaterial.Olivine, 1));
             GTTileUUMAssembler.addUUMAssemblerValue(3, GTMaterialGen.getDust(GEMaterial.Zinc, 10));
             GTTileUUMAssembler.addUUMAssemblerValue(3, GTMaterialGen.getDust(GEMaterial.Nickel, 10));

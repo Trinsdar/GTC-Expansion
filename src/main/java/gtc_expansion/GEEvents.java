@@ -21,11 +21,5 @@ public class GEEvents {
             }
 
         }
-        if (block == GTBlocks.oreSapphire.getDefaultState()){
-            if (random.nextInt(Math.max(1, 32/(event.getFortuneLevel() + 1))) == 0){
-                event.getDrops().add(GTMaterialGen.getGem(GEMaterial.SapphireGreen, 1));
-            }
-
-        }
     }
 }

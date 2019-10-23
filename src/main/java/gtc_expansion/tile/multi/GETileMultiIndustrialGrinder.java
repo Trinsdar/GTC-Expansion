@@ -191,8 +191,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple {
         }
         addWaterRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 16), totalEu(204800), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 16));
         addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Ruby, 1), GEMaterialGen.getSmallDust(GEMaterial.Ruby, 6), GEMaterialGen.getSmallDust(GEMaterial.GarnetRed, 2));
-        //addWaterRecipe("oreGreenSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial2.SapphireGreen, 1), GTMaterialGen2.getSmallDust(GTMaterial2.SapphireGreen, 6), GTMaterialGen2.getSmallDust(GTMaterial2.Sapphire, 2));
-        addWaterRecipe("oreSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Sapphire, 1), GEMaterialGen.getSmallDust(GEMaterial.Sapphire, 6), GEMaterialGen.getSmallDust(GEMaterial.SapphireGreen, 2));
+        addWaterRecipe("oreSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Sapphire, 1), GEMaterialGen.getSmallDust(GEMaterial.Sapphire, 6));
         //addWaterRecipe("oreTungsten", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Tungsten, 2), GEMaterialGen.getSmallDust(GEMaterial.Iron, 3), GEMaterialGen.getSmallDust(GEMaterial.Manganese, 3));
         addWaterRecipe("oreCoal", 1, totalEu(12800), GTMaterialGen.get(Items.COAL), Ic2Items.coalDust, GEMaterialGen.getSmallDust(GEMaterial.Thorium, 1));
         addWaterRecipe("oreLapis", 1, totalEu(12800), new ItemStack(Items.DYE, 12, 4), GTMaterialGen.getDust(GEMaterial.Lazurite, 3));

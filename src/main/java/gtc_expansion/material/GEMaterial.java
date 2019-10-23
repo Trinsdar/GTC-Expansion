@@ -112,7 +112,6 @@ public class GEMaterial {
     Ruby,
     Saltpeter,
     Sapphire,
-    SapphireGreen,
     Silicon,
     Silver,
     Slag,
@@ -214,7 +213,6 @@ public class GEMaterial {
         Ruby = new GTMaterial("Ruby", 255, 100, 100, gemAll1);
         Saltpeter = new GTMaterial("Saltpeter", 230, 230, 230, dustAll);
         Sapphire = new GTMaterial("Sapphire", 100, 100, 200, gemAll2);
-        SapphireGreen = new GTMaterial("GreenSapphire", 100, 200, 130, gemAll2);
         Silicon = new GTMaterial("Silicon", 60, 60, 80, fluid, smalldust, dust, nugget, ingot, plate);
         Silver = new GTMaterial("Silver", 215, 225, 230, molten, smalldust, nugget, plate, stick, gear);
         Slag = new GTMaterial("Slag", 64, 48, 0, dustAll);
