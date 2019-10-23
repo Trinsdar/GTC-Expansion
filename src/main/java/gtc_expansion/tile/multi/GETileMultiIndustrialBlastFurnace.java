@@ -429,17 +429,14 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSim
 			if (stack.getItem() == GEItems.kanthalHeatingCoil && !kanthal){
 				stack.shrink(4);
 				kanthal = true;
-				GTCExpansion.logger.info("returning true");
 				return true;
 			}
 			if (kanthal && stack.getItem() == GEItems.nichromeHeatingCoil && !nichrome){
 				stack.shrink(4);
 				nichrome = true;
-				GTCExpansion.logger.info("returning true");
 				return true;
 			}
 		}
-		GTCExpansion.logger.info("returning false");
 		return false;
 	}
 
