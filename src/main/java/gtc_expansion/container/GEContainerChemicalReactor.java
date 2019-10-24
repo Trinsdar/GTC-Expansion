@@ -28,7 +28,7 @@ public class GEContainerChemicalReactor extends ContainerTileComponent<GETileChe
         this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 70, 46)); // output
         this.addSlotToContainer(new SlotOutput(player.player, tile, 4, 90, 46)); // second output
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 26 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 6 + i, 152, 26 + i * 18));
         }
         this.addPlayerInventory(player);
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.DOWN));

@@ -26,7 +26,7 @@ public class GEContainerAssemblingMachine extends ContainerTileComponent<GETileA
         this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 107, 25)); // output
         this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 125, 25)); // second output
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 26 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 5 + i, 152, 26 + i * 18));
         }
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
