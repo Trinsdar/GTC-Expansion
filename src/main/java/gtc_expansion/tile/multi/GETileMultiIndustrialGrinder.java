@@ -65,6 +65,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
 
     public GETileMultiIndustrialGrinder() {
         super(9, 2, defaultEu, 128);
+        maxEnergy = 10000;
         this.addGuiFields("structureValid");
     }
 

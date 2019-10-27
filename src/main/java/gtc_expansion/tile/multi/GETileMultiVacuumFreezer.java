@@ -59,6 +59,7 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple imple
 
     public GETileMultiVacuumFreezer() {
         super(3, 2, defaultEu, 128);
+        maxEnergy = 10000;
         this.addGuiFields("structureValid");
     }
 

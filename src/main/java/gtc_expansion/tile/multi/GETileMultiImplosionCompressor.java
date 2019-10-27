@@ -60,6 +60,7 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple
 
     public GETileMultiImplosionCompressor() {
         super(5, 2, defaultEu, 32);
+        maxEnergy = 10000;
         this.addGuiFields("structureValid");
     }
 
