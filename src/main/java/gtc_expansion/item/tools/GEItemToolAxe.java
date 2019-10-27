@@ -29,7 +29,7 @@ public class GEItemToolAxe extends ItemAxe
     GTMaterial material;
 
     public GEItemToolAxe(GTMaterial mat, ToolMaterial tmat) {
-        super(tmat, tmat.getAttackDamage(), tmat.getEfficiency());
+        super(tmat, tmat.getAttackDamage() + 5, -3.0F);
         this.material = mat;
         setRegistryName(this.material.getName() + "_axe");
         setUnlocalizedName(GTCExpansion.MODID + "." + this.material.getName() + "_axe");
