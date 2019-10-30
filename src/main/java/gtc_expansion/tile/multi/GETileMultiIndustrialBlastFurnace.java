@@ -12,6 +12,7 @@ import gtc_expansion.util.IStatus;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
+import gtclassic.util.GTItemContainerInterface;
 import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem.UpgradeType;
@@ -53,7 +54,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSimple implements IClickable, IStatus {
+public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSimple implements IClickable, IStatus, GTItemContainerInterface {
 
 	protected static final int[] slotInputs = { 0, 1, 2, 3 };
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
@@ -175,6 +176,14 @@ public class GETileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachineSim
 		StackUtil.getOrCreateNbtData(machine).setBoolean("Nichrome", nichrome);
 		list.add(machine);
 
+		list.addAll(getInventoryDrops());
+
+		return list;
+	}
+
+	@Override
+	public List<ItemStack> getInventoryDrops() {
+		List<ItemStack> list = new ArrayList<>();
 		for(int i = 0; i < this.inventory.size(); ++i) {
 			ItemStack stack = this.inventory.get(i);
 			if (!stack.isEmpty()) {
