@@ -23,18 +23,20 @@ import java.util.Locale;
 public class GEIndustrialBlastFurnaceSupport {
 
 	@ZenMethod
-	public static void addRecipe(IItemStack[] output, IIngredient[] input1, @Optional(valueLong = 12000L) int totalEu) {
-		GTCraftTweakerActions.apply(new BlastFurnaceRecipeAction(GTCraftTweakerActions.of(input1), totalEu, CraftTweakerMC.getItemStacks(output)));
+	public static void addRecipe(IItemStack[] output, IIngredient[] input1, int requiredHeat, @Optional(valueLong = 12000L) int totalEu) {
+		GTCraftTweakerActions.apply(new BlastFurnaceRecipeAction(GTCraftTweakerActions.of(input1), requiredHeat, totalEu, CraftTweakerMC.getItemStacks(output)));
 	}
 
 	private static final class BlastFurnaceRecipeAction implements IAction {
 
 		private final IRecipeInput[] input;
 		private final int totalEu;
+		private final int requiredHeat;
 		private final ItemStack[] output;
 
-		BlastFurnaceRecipeAction(IRecipeInput[] input, int totalEu, ItemStack... output) {
+		BlastFurnaceRecipeAction(IRecipeInput[] input, int requiredHeat, int totalEu, ItemStack... output) {
 			this.input = input;
+			this.requiredHeat = requiredHeat;
 			this.totalEu = totalEu;
 			this.output = output;
 		}
@@ -47,8 +49,11 @@ public class GEIndustrialBlastFurnaceSupport {
 			} else if (totalEu <= 0) {
 				CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
 						+ "Eu amount must be greater then 0!!");
-			} else {
-				//GETileMultiIndustrialBlastFurnace.addRecipe(input, totalEu, output);
+			} else if (requiredHeat > 3880){
+				CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine()+ " > "
+						+ "Required heat cannot be greater then the max heat of the ibf!!!");
+			}else {
+				GETileMultiIndustrialBlastFurnace.addRecipe(input, requiredHeat, totalEu, output);
 			}
 		}
 
