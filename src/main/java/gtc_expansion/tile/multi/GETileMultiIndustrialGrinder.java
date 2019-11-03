@@ -19,6 +19,7 @@ import gtclassic.util.int3;
 import gtclassic.util.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
+import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
@@ -43,6 +44,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
@@ -220,46 +223,20 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
 
     public static void addWaterRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
                                       ItemStack... outputs) {
-        addWaterCellRecipe(input, modifiers, outputs);
-        addWaterTubeRecipe(input, modifiers, outputs);
-        addWaterBucketRecipe(input, modifiers, outputs);
-    }
-
-    public static void addWaterTubeRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                          ItemStack... outputs) {
         List<ItemStack> outlist = new ArrayList<>();
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        outlist.add(GTMaterialGen.get(GTItems.testTube));
-        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputItemStack(GTMaterialGen.getModdedTube("water", 1)) }, modifiers, outlist);
-    }
-
-    public static void addWaterBucketRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                            ItemStack... outputs) {
-        List<ItemStack> outlist = new ArrayList<>();
-        for (ItemStack output : outputs) {
-            outlist.add(output);
-        }
-        outlist.add(GTMaterialGen.get(Items.BUCKET));
-        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputItemStack(GTMaterialGen.get(Items.WATER_BUCKET)) }, modifiers, outlist);
-    }
-
-    public static void addWaterCellRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                 ItemStack... outputs) {
-        List<ItemStack> outlist = new ArrayList<>();
-        for (ItemStack output : outputs) {
-            outlist.add(output);
-        }
-        outlist.add(Ic2Items.emptyCell);
-        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputItemStack(Ic2Items.waterCell) }, modifiers, outlist);
+        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputFluid(new FluidStack(FluidRegistry.WATER, 1000)) }, modifiers, outlist);
     }
 
     public static void addWaterRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
                                           ItemStack... outputs) {
-        addWaterCellRecipe(input, amount, modifiers, outputs);
-        addWaterTubeRecipe(input, amount, modifiers, outputs);
-        addWaterBucketRecipe(input, amount, modifiers, outputs);
+        List<ItemStack> outlist = new ArrayList<>();
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputFluid(new FluidStack(FluidRegistry.WATER, 1000)) }, modifiers, outlist);
     }
 
     public static void addWaterTubeRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -270,16 +247,6 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
         }
         outlist.add(GTMaterialGen.get(GTItems.testTube));
         addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputItemStack(GTMaterialGen.getModdedTube("water", 1)) }, modifiers, outlist);
-    }
-
-    public static void addWaterBucketRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                          ItemStack... outputs) {
-        List<ItemStack> outlist = new ArrayList<>();
-        for (ItemStack output : outputs) {
-            outlist.add(output);
-        }
-        outlist.add(GTMaterialGen.get(Items.BUCKET));
-        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputItemStack(GTMaterialGen.get(Items.WATER_BUCKET)) }, modifiers, outlist);
     }
 
     public static void addRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -298,8 +265,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        outlist.add(GTMaterialGen.get(GTItems.testTube));
-        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputItemStack(GTMaterialGen.getTube(GTMaterial.Mercury, 1)) }, modifiers, outlist);
+        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Mercury)) }, modifiers, outlist);
     }
 
     public static void addMercuryRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -308,8 +274,16 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        outlist.add(GTMaterialGen.get(GTItems.testTube));
-        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputItemStack(GTMaterialGen.getTube(GTMaterial.Mercury, 1)) }, modifiers, outlist);
+        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Mercury)) }, modifiers, outlist);
+    }
+
+    public static void addRecipe(IRecipeInput input, FluidStack fluid, int totalEu,
+                                        ItemStack... outputs) {
+        List<ItemStack> outlist = new ArrayList<>();
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        addRecipe(new IRecipeInput[] { input, new RecipeInputFluid(fluid) }, totalEu(totalEu), outlist);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {

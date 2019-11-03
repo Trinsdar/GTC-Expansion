@@ -165,6 +165,16 @@ public class GETileMultiImplosionCompressor extends GTTileMultiBaseMachineSimple
         }
     }
 
+    public static void addRecipe(IRecipeInput input, int tnt, int totalEu,
+                                 ItemStack... outputs) {
+        if (tnt > 0) {
+            addRecipe(new IRecipeInput[] { input,
+                    new RecipeInputItemStack(GTMaterialGen.getIc2(Ic2Items.industrialTNT, tnt)) }, totalEu(totalEu), outputs);
+        } else {
+            addRecipe(new IRecipeInput[] { input }, totalEu(totalEu), outputs);
+        }
+    }
+
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
         return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((amount / defaultEu) - 100) };
     }
