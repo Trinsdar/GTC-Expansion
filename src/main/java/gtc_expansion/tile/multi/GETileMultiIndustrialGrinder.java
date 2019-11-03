@@ -178,11 +178,10 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
         boolean shiftContainers = nbt == null ? false : nbt.getBoolean(MOVE_CONTAINER_TAG);
         boolean fluidExtracted = false;
         List<ItemStack> inputs = getInputs();
-        List<IRecipeInput> recipeKeys = new LinkedList<IRecipeInput>(recipe.getInputs());
-        for (Iterator<IRecipeInput> keyIter = recipeKeys.iterator(); keyIter.hasNext();) {
-            IRecipeInput key = keyIter.next();
+        for (IRecipeInput key : recipe.getInputs()) {
             int count = key.getAmount();
             if (key instanceof RecipeInputFluid && !fluidExtracted){
+                GTCExpansion.logger.info("key has fluid");
                 inputTank.drain(((RecipeInputFluid)key).fluid, true);
                 fluidExtracted = true;
                 continue;
@@ -202,8 +201,7 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
                     }
                     input.shrink(count);
                     count = 0;
-                    keyIter.remove();
-                    break;
+                    continue;
                 }
                 if (input.getItem().hasContainerItem(input)) {
                     if (!shiftContainers) {
@@ -322,7 +320,6 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
                 hasItem = !inputItem.isEmpty() && recipeInput1.matches(inputItem);
             }
         }
-
         return hasFluid && hasItem;
     }
 
@@ -448,17 +445,8 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
         addWaterRecipe("oreOlivine", 1, totalEu(12800), GTMaterialGen.getGem(GEMaterial.Olivine, 1), GEMaterialGen.getSmallDust(GEMaterial.Olivine, 6), GEMaterialGen.getSmallDust(GEMaterial.Emerald, 2));
         addWaterRecipe("oreSodalite", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Sodalite, 12), GTMaterialGen.getDust(GEMaterial.Aluminium, 3));
         addMercuryRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 8), totalEu(102400), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 8));
-
-    }
-
-    public static void addWaterCellRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                          ItemStack... outputs) {
-        List<ItemStack> outlist = new ArrayList<>();
-        for (ItemStack output : outputs) {
-            outlist.add(output);
-        }
-        outlist.add(Ic2Items.emptyCell);
-        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputItemStack(Ic2Items.waterCell) }, modifiers, outlist);
+        addRecipe("ingotIron", 1, new FluidStack(FluidRegistry.WATER, 500), totalEu(12800), GTMaterialGen.getModItem(modid, "ironpurifiedcrushedore", 2), GEMaterialGen.getSmallDust(GEMaterial.Tin, 1), GEMaterialGen.getSmallDust(GEMaterial.Nickel, 1));
+        addRecipe("ingotGold", 1, new FluidStack(FluidRegistry.WATER, 2000), totalEu(12800), GTMaterialGen.getModItem(modid, "ironpurifiedcrushedore", 2), GEMaterialGen.getSmallDust(GEMaterial.Tin, 1), GEMaterialGen.getSmallDust(GEMaterial.Nickel, 1));
     }
 
     public static void addWaterRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -479,15 +467,6 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
         addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputFluid(new FluidStack(FluidRegistry.WATER, 1000)) }, modifiers, outlist);
     }
 
-    public static void addWaterTubeRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
-                                          ItemStack... outputs) {
-        List<ItemStack> outlist = new ArrayList<>();
-        for (ItemStack output : outputs) {
-            outlist.add(output);
-        }
-        outlist.add(GTMaterialGen.get(GTItems.testTube));
-        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputItemStack(GTMaterialGen.getModdedTube("water", 1)) }, modifiers, outlist);
-    }
 
     public static void addRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
                                       ItemStack... outputs) {
@@ -497,6 +476,16 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
             outlist.add(output);
         }
         addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount) }, modifiers, outlist);
+    }
+
+    public static void addRecipe(String input, int amount, FluidStack fluid, RecipeModifierHelpers.IRecipeModifier[] modifiers,
+                                 ItemStack... outputs) {
+
+        List<ItemStack> outlist = new ArrayList<>();
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputFluid(fluid) }, modifiers, outlist);
     }
 
     public static void addMercuryRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
