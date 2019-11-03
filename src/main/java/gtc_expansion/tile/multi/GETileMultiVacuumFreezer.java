@@ -224,7 +224,9 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple imple
         this.getNetwork().updateTileGuiField(this, "structureValid");
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
-        if (!isAdvancedCasing(dir.down(1)))
+        if (!isAdvancedCasing(dir.down(1))){
+            return false;
+        }
         if (!(isReinforcedCasing(dir.back(1)))) {
             return false;
         }

@@ -579,7 +579,9 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple i
         this.getNetwork().updateTileGuiField(this, "structureValid");
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
-        if (!isStandardCasing(dir.back(1)))
+        if (!isStandardCasing(dir.back(1))){
+            return false;
+        }
         if (!isAdvancedCasing(dir.up(1))) {
             return false;
         }
