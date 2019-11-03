@@ -7,9 +7,10 @@ import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.util.jei.category.GEJeiDistillationTowerCategory;
 import gtc_expansion.util.jei.category.GEJeiIBFCategory;
+import gtc_expansion.util.jei.category.GEJeiIndustrialGrinderCategory;
 import gtc_expansion.util.jei.wrapper.GEJeiDistillationTowerWrapper;
 import gtc_expansion.util.jei.wrapper.GEJeiIBFWrapper;
-import gtclassic.GTBlocks;
+import gtc_expansion.util.jei.wrapper.GEJeiIndustrialGrinderWrapper;
 import gtclassic.GTConfig;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
@@ -45,7 +46,9 @@ public class GEJeiPlugin implements IModPlugin {
                     wrapperUtil1(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
                 } else if ( entry == GEJeiRegistry.INDUSTRIALBLASTFURNACE){
                     wrapperUtil2(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
-                } else {
+                } else if (entry == GEJeiRegistry.INDUSTRIALGRINDER){
+                    wrapperUtil3(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
+                }else {
                     GTJeiPlugin.wrapperUtil(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
                 }
             }
@@ -86,6 +89,8 @@ public class GEJeiPlugin implements IModPlugin {
                 categoryUtil1(registry, entry.getRecipeList(), entry.getCatalyst());
             } else if (entry == GEJeiRegistry.INDUSTRIALBLASTFURNACE){
                 categoryUtil2(registry, entry.getRecipeList(), entry.getCatalyst());
+            } else if (entry == GEJeiRegistry.INDUSTRIALGRINDER){
+                categoryUtil3(registry, entry.getRecipeList(), entry.getCatalyst());
             } else {
                 GTJeiPlugin.categoryUtil(registry, entry.getRecipeList(), entry.getCatalyst());
             }
@@ -94,8 +99,8 @@ public class GEJeiPlugin implements IModPlugin {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static void wrapperUtil1(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
-                                   Class gui, int clickX, int clickY, int sizeX, int sizeY) {
+    private static void wrapperUtil1(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
+                                     Class gui, int clickX, int clickY, int sizeX, int sizeY) {
         String recipeList = list.getCategory();
         registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GEJeiDistillationTowerWrapper::new, recipeList);
         registry.addRecipes(list.getRecipeList(), recipeList);
@@ -106,8 +111,8 @@ public class GEJeiPlugin implements IModPlugin {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static void wrapperUtil2(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
-                                    Class gui, int clickX, int clickY, int sizeX, int sizeY) {
+    private static void wrapperUtil2(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
+                                     Class gui, int clickX, int clickY, int sizeX, int sizeY) {
         String recipeList = list.getCategory();
         registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GEJeiIBFWrapper::new, recipeList);
         registry.addRecipes(list.getRecipeList(), recipeList);
@@ -117,12 +122,28 @@ public class GEJeiPlugin implements IModPlugin {
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private static void wrapperUtil3(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
+                                     Class gui, int clickX, int clickY, int sizeX, int sizeY) {
+        String recipeList = list.getCategory();
+        registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GEJeiIndustrialGrinderWrapper::new, recipeList);
+        registry.addRecipes(list.getRecipeList(), recipeList);
+        registry.addRecipeCatalyst(new ItemStack(catalyst), recipeList);
+        if (gui != null) {
+            registry.addRecipeClickArea(gui, clickX, clickY, sizeX, sizeY, recipeList);
+        }
+    }
 
-    public static void categoryUtil1(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
+
+    private static void categoryUtil1(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
         registry.addRecipeCategories(new GEJeiDistillationTowerCategory(registry.getJeiHelpers().getGuiHelper(), list.getCategory(), catalyst));
     }
 
-    public static void categoryUtil2(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
+    private static void categoryUtil2(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
         registry.addRecipeCategories(new GEJeiIBFCategory(registry.getJeiHelpers().getGuiHelper(), list.getCategory(), catalyst));
+    }
+
+    private static void categoryUtil3(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
+        registry.addRecipeCategories(new GEJeiIndustrialGrinderCategory(registry.getJeiHelpers().getGuiHelper(), list.getCategory(), catalyst));
     }
 }
