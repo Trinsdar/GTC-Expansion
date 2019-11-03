@@ -8,6 +8,7 @@ import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;
 import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotDischarge;
+import ic2.core.inventory.slots.SlotDisplay;
 import ic2.core.inventory.slots.SlotOutput;
 import ic2.core.util.math.Box2D;
 import ic2.core.util.math.Vec2i;
@@ -22,7 +23,7 @@ public class GEContainerIndustrialGrinder extends ContainerTileComponent<GETileM
     public static final Vec2i machineProgressPos = new Vec2i(176, 0);
     public GEContainerIndustrialGrinder(InventoryPlayer player, GETileMultiIndustrialGrinder tile) {
         super(tile);
-        this.addSlotToContainer(new SlotCustom(tile, 0, 35, 25, tile.filter));
+        this.addSlotToContainer(new SlotDisplay(tile, 0, 35, 25));
         this.addSlotToContainer(new SlotCustom(tile, 1, 53, 25, tile.filter));
         for (int y = 0; y < 2; ++y) {
             for (int x = 0; x < 3; ++x) {
