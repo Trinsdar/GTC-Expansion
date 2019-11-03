@@ -70,11 +70,11 @@ public class GEJeiPlugin implements IModPlugin {
             if (!Loader.isModLoaded(GTValues.TFOREST) || !GTConfig.compatTwilightForest){
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEBlocks.oreOlivineOverworld));
             }
-            if (!GEConfiguration.unfiredBricks){
+            if (!GEConfiguration.general.unfiredBricks){
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredBrick));
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEItems.unfiredFireBrick));
             }
-            if (!GEConfiguration.gt2Mode){
+            if (!GEConfiguration.general.gt2Mode){
                 blacklist.addIngredientToBlacklist(Ic2Items.wrench);
             }
             //blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTBlocks.tileFusionReactor));

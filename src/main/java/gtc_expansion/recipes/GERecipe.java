@@ -23,7 +23,6 @@ import gtclassic.GTConfig;
 import gtclassic.GTItems;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.GTTileBaseMachine;
 import gtclassic.tile.GTTileUUMAssembler;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
@@ -52,23 +51,23 @@ public class GERecipe {
     public static IRecipeInput plateSteels = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateStainlessSteel"));
     static IRecipeInput ingotBrassBronze = new RecipeInputCombined(1, new RecipeInputOreDict("ingotBronze"), new RecipeInputOreDict("ingotBrass"));
     static IRecipeInput plateBrassBronze = new RecipeInputCombined(1, new RecipeInputOreDict("plateBronze"), new RecipeInputOreDict("plateBrass"));
-    static IRecipeInput materialBrassBronze = GEConfiguration.usePlates ? plateBrassBronze : ingotBrassBronze;
+    static IRecipeInput materialBrassBronze = GEConfiguration.general.usePlates ? plateBrassBronze : ingotBrassBronze;
     static IRecipeInput ingotTinZinc = new RecipeInputCombined(1, new RecipeInputOreDict("ingotZinc"), new RecipeInputOreDict("ingotTin"));
     static IRecipeInput plateTinZinc = new RecipeInputCombined(1, new RecipeInputOreDict("plateZinc"), new RecipeInputOreDict("plateTin"));
-    static IRecipeInput materialTinZinc = GEConfiguration.usePlates ? plateTinZinc : ingotTinZinc;
+    static IRecipeInput materialTinZinc = GEConfiguration.general.usePlates ? plateTinZinc : ingotTinZinc;
     static IRecipeInput ingotInvarAluminium = new RecipeInputCombined(1, new RecipeInputOreDict("ingotInvar"), new RecipeInputOreDict("ingotAluminium"));
     static IRecipeInput plateInvarAluminium = new RecipeInputCombined(1, new RecipeInputOreDict("plateInvar"), new RecipeInputOreDict("plateAluminium"));
-    static IRecipeInput materialInvarAluminium = GEConfiguration.usePlates ? plateInvarAluminium : ingotInvarAluminium;
+    static IRecipeInput materialInvarAluminium = GEConfiguration.general.usePlates ? plateInvarAluminium : ingotInvarAluminium;
     static IRecipeInput ingotMixedMetal1 = new RecipeInputCombined(1, new RecipeInputOreDict("ingotAluminium"), new RecipeInputOreDict("ingotSilver"), new RecipeInputOreDict("ingotElectrum"));
     static IRecipeInput plateMixedMetal1 = new RecipeInputCombined(1, new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"), new RecipeInputOreDict("plateElectrum"));
-    static IRecipeInput materialMixedMetal1 = GEConfiguration.usePlates ? plateMixedMetal1 : ingotMixedMetal1;
+    static IRecipeInput materialMixedMetal1 = GEConfiguration.general.usePlates ? plateMixedMetal1 : ingotMixedMetal1;
     static IRecipeInput ingotMixedMetal2 = new RecipeInputCombined(1, new RecipeInputOreDict("ingotTungsten"), new RecipeInputOreDict("ingotTitanium"));
     static IRecipeInput plateMixedMetal2 = new RecipeInputCombined(1, new RecipeInputOreDict("plateTungsten"), new RecipeInputOreDict("plateTitanium"));
-    static IRecipeInput materialMixedMetal2 = GEConfiguration.usePlates ? plateMixedMetal2 : ingotMixedMetal2;
-    static String materialRefinedIron = GEConfiguration.usePlates ? getRefinedIronPlate() : ingotRefinedIron;
-    static IRecipeInput materialMachine = GEConfiguration.usePlates ? plateMachine : ingotMachine;
-    static IRecipeInput materialSteels = GEConfiguration.usePlates ? plateSteels : ingotSteels;
-    static IRecipeInput materialMachineGT = GEConfiguration.gt2Mode ? materialMachine : materialSteels;
+    static IRecipeInput materialMixedMetal2 = GEConfiguration.general.usePlates ? plateMixedMetal2 : ingotMixedMetal2;
+    static String materialRefinedIron = GEConfiguration.general.usePlates ? getRefinedIronPlate() : ingotRefinedIron;
+    static IRecipeInput materialMachine = GEConfiguration.general.usePlates ? plateMachine : ingotMachine;
+    static IRecipeInput materialSteels = GEConfiguration.general.usePlates ? plateSteels : ingotSteels;
+    static IRecipeInput materialMachineGT = GEConfiguration.general.gt2Mode ? materialMachine : materialSteels;
 
     static IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateSilicon"),
             new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"),
@@ -80,15 +79,15 @@ public class GERecipe {
     static IRecipeInput tier2Energy = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.energyCrystal), new RecipeInputItemStack(GTMaterialGen.get(GTItems.lithiumBattery)));
     static IRecipeInput ingotDigital = new RecipeInputCombined(1, new RecipeInputOreDict("ingotChrome"), new RecipeInputOreDict("ingotTitanium"), new RecipeInputOreDict("ingotPlatinum"));
     static IRecipeInput plateDigital = new RecipeInputCombined(1, new RecipeInputOreDict("plateChrome"), new RecipeInputOreDict("plateTitanium"), new RecipeInputOreDict("platePlatinum"));
-    static IRecipeInput materialDigital = GEConfiguration.usePlates ? plateDigital : ingotDigital;
+    static IRecipeInput materialDigital = GEConfiguration.general.usePlates ? plateDigital : ingotDigital;
 
-    static String steel = GEConfiguration.usePlates ? "plateSteel" : "ingotSteel";
-    static String tungsten = GEConfiguration.usePlates ? "plateTungsten" : "ingotTungsten";
-    static String tungstenSteel = GEConfiguration.usePlates ? "plateTungstensteel" : "ingotTungstensteel";
-    static String aluminium = GEConfiguration.usePlates ? "plateAluminium" : "ingotAluminium";
-    static String titanium = GEConfiguration.usePlates ? "plateTitanium" : "ingotTitanium";
-    static String platinum = GEConfiguration.usePlates ? "platePlatinum" : "ingotPlatinum";
-    static String electrum = GEConfiguration.usePlates ? "plateElectrum" : "ingotElectrum";
+    static String steel = GEConfiguration.general.usePlates ? "plateSteel" : "ingotSteel";
+    static String tungsten = GEConfiguration.general.usePlates ? "plateTungsten" : "ingotTungsten";
+    static String tungstenSteel = GEConfiguration.general.usePlates ? "plateTungstensteel" : "ingotTungstensteel";
+    static String aluminium = GEConfiguration.general.usePlates ? "plateAluminium" : "ingotAluminium";
+    static String titanium = GEConfiguration.general.usePlates ? "plateTitanium" : "ingotTitanium";
+    static String platinum = GEConfiguration.general.usePlates ? "platePlatinum" : "ingotPlatinum";
+    static String electrum = GEConfiguration.general.usePlates ? "plateElectrum" : "ingotElectrum";
 
     public static String getRefinedIronPlate() {
         return IC2.config.getFlag("SteelRecipes") ? "plateSteel" : "plateRefinedIron";
@@ -111,7 +110,7 @@ public class GERecipe {
         initUURecipes();
         initIc2();
         initOverrideGTClassic();
-        if (GEConfiguration.gt2Mode){
+        if (GEConfiguration.general.gt2Mode){
             GERecipeGT2.init();
         } else {
             GERecipeGT4.init();
@@ -135,7 +134,7 @@ public class GERecipe {
         recipes.addRecipe(GTMaterialGen.get(GEItems.constantanHeatingCoil), " I ", "I I", " I ", 'I', "ingotConstantan");
         recipes.addRecipe(GTMaterialGen.get(GEItems.kanthalHeatingCoil), " I ", "I I", " I ", 'I', "ingotKanthal");
         recipes.addRecipe(GTMaterialGen.get(GEItems.nichromeHeatingCoil), " I ", "III", " I ", 'I', "ingotNichrome");
-        if (GEConfiguration.unfiredBricks){
+        if (GEConfiguration.general.unfiredBricks){
             recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredBrick, 2), "C", "C", 'C', Items.CLAY_BALL);
             recipes.addRecipe(GTMaterialGen.get(GEItems.unfiredFireBrick, 2), "C", "C", 'C', GEItems.fireClayBall);
         }
@@ -143,7 +142,7 @@ public class GERecipe {
 
     public static void initUURecipes(){
         if (GTConfig.gregtechUURecipes){
-            if (!GEConfiguration.removeCraftingUURecipes){
+            if (!GEConfiguration.general.removeCraftingUURecipes){
                 recipes.addRecipe(GTMaterialGen.getGem(GEMaterial.Olivine, 1), "UU ", "UUU", "UU ", 'U', Ic2Items.uuMatter, true);
                 recipes.addRecipe(GTMaterialGen.getDust(GEMaterial.Zinc, 10), "   ", "U U", "U  ", 'U', Ic2Items.uuMatter, true);
                 recipes.addRecipe(GTMaterialGen.getDust(GEMaterial.Nickel, 10), "U  ", "U U", "   ", 'U', Ic2Items.uuMatter, true);
@@ -154,7 +153,7 @@ public class GERecipe {
             GTTileUUMAssembler.addUUMAssemblerValue(3, GTMaterialGen.getDust(GEMaterial.Nickel, 10));
             GTTileUUMAssembler.addUUMAssemblerValue(7, GEMaterialGen.getSmallDust(GEMaterial.Osmium, 1));
         }
-        if (GEConfiguration.removeCraftingUURecipes){
+        if (GEConfiguration.general.removeCraftingUURecipes){
             GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.stonebrick_-602048670");
             GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.stone.stone_-217206169");
             GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.glass_1510125347");
@@ -235,7 +234,7 @@ public class GERecipe {
 
     public static void initShapedBlockRecipes(){
         // TODO: whole system for using only steel and stainless steel machine hulls in place of most basic machine casing recipes. Needs to factor in steel replace refined iron config.
-        String invar = GEConfiguration.usePlates ? "plateInvar" : "ingotInvar";
+        String invar = GEConfiguration.general.usePlates ? "plateInvar" : "ingotInvar";
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.assemblingMachine), "CPC", "SMS", "CSC", 'C', "circuitBasic", 'P', Blocks.PISTON, 'S', materialMachineGT, 'M', GEItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.chemicalReactor), "PMP", "CcC", "PEP", 'P', materialInvarAluminium, 'M', Ic2Items.magnetizer, 'C', "circuitAdvanced", 'c', Ic2Items.compressor, 'E', Ic2Items.extractor);
         recipes.addRecipe(GTMaterialGen.get(GEBlocks.distillationTower), "CEC", "PAP", "eEe", 'C', GTBlocks.tileCentrifuge, 'E', "circuitMaster", 'P', Ic2Items.pump.copy(), 'A', "machineBlockHighlyAdvanced", 'e', GEBlocks.electrolyzer);
@@ -264,7 +263,7 @@ public class GERecipe {
         recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Constantan, 3), "dustCopper", "dustCopper", "dustNickel");
         recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Invar, 3), "dustIron", "dustIron", "dustNickel");
         recipes.addShapelessRecipe(GTMaterialGen.getDust(GEMaterial.Magnalium, 1), "dustMagnesium", "dustAluminum", "dustAluminum");
-        String lead = GEConfiguration.usePlates ? "plateLead" : "ingotLead";
+        String lead = GEConfiguration.general.usePlates ? "plateLead" : "ingotLead";
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, lead);
         recipes.addShapelessRecipe(GTMaterialGen.get(GEItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
     }
@@ -289,12 +288,12 @@ public class GERecipe {
         recipes.overrideRecipe("shaped_item.itemtoolmininglaser_1732214669", Ic2Items.miningLaser,"RHE", "TTC", " AA", 'R', "gemRuby", 'H', GTItems.heatStorageHelium6, 'E', tier2Energy, 'T', titanium, 'C', "circuitAdvanced", 'A', Ic2Items.advancedAlloy);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.suBattery, 32), "C", "S", "L", 'C', Ic2Items.insulatedCopperCable, 'S', GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1), 'L', "dustLead");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.suBattery, 32), "C", "L", "S", 'C', Ic2Items.insulatedCopperCable, 'S', GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1), 'L', "dustLead");
-        String tin = GEConfiguration.usePlates ? "plateTin" : "ingotTin";
+        String tin = GEConfiguration.general.usePlates ? "plateTin" : "ingotTin";
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.battery, 2), " C ", "TST", "TLT", 'C', Ic2Items.copperCable, 'T', tin, 'S', GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 1), 'L', "dustLead");
         recipes.overrideRecipe("shaped_item.itembatre_2077392104", Ic2Items.battery, " C ", "TRT", "TRT", 'C', Ic2Items.copperCable, 'T', tin, 'R', "dustRedstone");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.glassFiberCable, 8), "GGG", "EDE", "GGG", 'G', "blockGlass", 'E', "ingotElectrum", 'D', "gemDiamond");
         recipes.overrideRecipe("shaped_item.itemingotalloy_-650149377", GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 2), "TTT", "MMM", "BBB", 'T', materialRefinedIron, 'M', materialBrassBronze, 'B', materialTinZinc);
-        if (GEConfiguration.usePlates){
+        if (GEConfiguration.general.usePlates){
             recipes.overrideRecipe("shaped_item.reactorvent_-795420664", Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', getRefinedIronPlate(), 'B', Blocks.IRON_BARS);
         }
     }
@@ -319,7 +318,7 @@ public class GERecipe {
         instance.overrideGTRecipe("shaped_tile.gtclassic.computercube_-2131399632", GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', "circuitMaster", 'M', GEItems.computerMonitor, 'O', "circuitUltimate", 'A', "machineBlockAdvanced");
         instance.overrideGTRecipe("shaped_tile.gtclassic.fusion_-786678229", GTMaterialGen.get(GTBlocks.casingFusion), "CSC", "NMN", "CRC", 'C', "circuitMaster", 'S', "craftingSuperconductor", 'N', GEItems.nichromeHeatingCoil, 'M',
                 "machineBlockElite", 'R', Ic2Items.reactorReflectorIridium);
-        if (GEConfiguration.usePlates){
+        if (GEConfiguration.general.usePlates){
             instance.overrideGTRecipe("shaped_item.gtclassic.lithiumbattery_1478518209", GTMaterialGen.get(GTItems.lithiumBattery), " C ", "ALA", "ALA", 'C', Ic2Items.goldCable, 'A', "plateAluminium", 'L', "dustLithium");
             instance.overrideGTRecipe("shaped_item.gtclassic.lithiumbatpack_-1372018261", GTMaterialGen.get(GTItems.lithiumBatpack), "BCB", "BAB", "B B", 'B', GTItems.lithiumBattery, 'C', "circuitAdvanced", 'A', "plateAluminium");
             instance.overrideGTRecipe("shaped_item.gtclassic.portable_scanner_1761100103", GTMaterialGen.get(GTItems.portableScanner), "AEA", "CcC", "ABA", 'A', "plateAluminium", 'E', Ic2Items.euReader, 'C', "circuitAdvanced", 'c', Ic2Items.cropAnalyzer, 'B', GTItems.lithiumBattery);

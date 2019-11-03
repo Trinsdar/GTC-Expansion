@@ -22,13 +22,7 @@ import java.io.File;
 
 public class GECommonProxy {
 
-    public static Configuration config;
-
     public void preInit(FMLPreInitializationEvent e) {
-        File directory = e.getModConfigurationDirectory();
-        config = new Configuration(new File(directory.getPath(), "ic2/gtc_expansion.cfg"));
-        GEConfiguration.readConfig();
-        config.save();
         GEFluids.registerFluids();
         GEBlocks.registerBlocks();
         GEItems.registerItems();

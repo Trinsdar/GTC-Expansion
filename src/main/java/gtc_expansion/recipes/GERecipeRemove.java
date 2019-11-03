@@ -16,7 +16,7 @@ public class GERecipeRemove {
     public static void init(){
         initCentrifugeRemoval();
         initIc2Removals();
-        if (GEConfiguration.unfiredBricks){
+        if (GEConfiguration.general.unfiredBricks){
             GTHelperStack.removeSmelting(new ItemStack(Items.BRICK));
         }
     }
@@ -30,7 +30,7 @@ public class GERecipeRemove {
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustYellowGarnet", 1));
 
         ClassicRecipes.macerator.removeRecipe(GTTileBaseMachine.input("oreRedstone", 1));
-        if (GEConfiguration.usePlates && (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
+        if (GEConfiguration.general.usePlates && (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
             ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("ingotCopper", 8));
         }
     }

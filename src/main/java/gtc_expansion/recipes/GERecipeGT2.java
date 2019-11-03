@@ -1,16 +1,10 @@
 package gtc_expansion.recipes;
 
-import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
-import gtc_expansion.item.tools.GEToolGen;
-import gtc_expansion.material.GEMaterial;
-import gtc_expansion.material.GEMaterialGen;
 import gtclassic.GTBlocks;
 import gtclassic.GTConfig;
 import gtclassic.GTItems;
-import gtclassic.helpers.GTHelperAdvRecipe;
-import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
@@ -21,12 +15,9 @@ import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.item.recipe.upgrades.EnchantmentModifier;
 import ic2.core.platform.registry.Ic2Items;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 public class GERecipeGT2 {
     static GERecipe instance = new GERecipe();
@@ -37,12 +28,12 @@ public class GERecipeGT2 {
     public static IRecipeInput plateMachine = new RecipeInputCombined(1, new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateAluminium"));
     static IRecipeInput ingotSteels = new RecipeInputCombined(1, new RecipeInputOreDict("ingotSteel"), new RecipeInputOreDict("ingotStainlessSteel"));
     public static IRecipeInput plateSteels = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateStainlessSteel"));
-    static IRecipeInput materialMachine = GEConfiguration.usePlates ? plateMachine : ingotMachine;
-    static IRecipeInput materialSteels = GEConfiguration.usePlates ? plateSteels : ingotSteels;
+    static IRecipeInput materialMachine = GEConfiguration.general.usePlates ? plateMachine : ingotMachine;
+    static IRecipeInput materialSteels = GEConfiguration.general.usePlates ? plateSteels : ingotSteels;
 
     static IRecipeInput grinder = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(GEItems.diamondGrinder)), new RecipeInputItemStack(GTMaterialGen.get(GEItems.wolframiumGrinder)));
 
-    static String titanium = GEConfiguration.usePlates ? "plateTitanium" : "ingotTitanium";
+    static String titanium = GEConfiguration.general.usePlates ? "plateTitanium" : "ingotTitanium";
 
     public static String getRefinedIronPlate() {
         return IC2.config.getFlag("SteelRecipes") ? "plateSteel" : "plateRefinedIron";

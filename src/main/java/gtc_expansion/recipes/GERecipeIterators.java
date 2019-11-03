@@ -103,7 +103,7 @@ public class GERecipeIterators {
         String plate = "plate" + mat.getDisplayName();
         if (mat.hasFlag(GEMaterial.plate)) {
             // Plate crafting recipe
-            if (GEConfiguration.harderPlates) {
+            if (GEConfiguration.general.harderPlates) {
                 recipes.addRecipe(GEMaterialGen.getPlate(mat, 1), "H", "X", "X", 'H',
                         "craftingToolForgeHammer", 'X', ingot);
             } else {

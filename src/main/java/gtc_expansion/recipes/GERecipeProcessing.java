@@ -47,9 +47,9 @@ public class GERecipeProcessing {
     }
 
     public static void initFurnaceRecipes(){
-        Item clay = GEConfiguration.unfiredBricks ? GEItems.unfiredFireBrick : GEItems.fireClayBall;
+        Item clay = GEConfiguration.general.unfiredBricks ? GEItems.unfiredFireBrick : GEItems.fireClayBall;
         GameRegistry.addSmelting(GTMaterialGen.get(clay), GTMaterialGen.get(GEItems.fireBrick), 0.1F);
-        if (GEConfiguration.unfiredBricks){
+        if (GEConfiguration.general.unfiredBricks){
             GameRegistry.addSmelting(GTMaterialGen.get(GEItems.unfiredBrick), GTMaterialGen.get(Items.BRICK), 0.1F);
         }
         GameRegistry.addSmelting(GEBlocks.oreSheldonite, GTMaterialGen.getIngot(GEMaterial.Platinum, 1), 1.0F);
@@ -68,11 +68,11 @@ public class GERecipeProcessing {
         }
         GTRecipeProcessing.maceratorUtil("oreSodalite", 1, GTMaterialGen.getDust(GEMaterial.Sodalite, 12));
         TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GEMaterial.Olivine, 3));
-        if (GEConfiguration.usePlates && (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
+        if (GEConfiguration.general.usePlates && (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
             TileEntityCompressor.addRecipe("plateCopper", 8, Ic2Items.denseCopperPlate);
         }
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.testTube), GTTileBaseMachine.input(GTMaterialGen.get(GEItems.oilberry)), GTMaterialGen.getTube(GTMaterial.Oil, 1));
-        if (!GEConfiguration.gt2Mode){
+        if (!GEConfiguration.general.gt2Mode){
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GEMaterial.SulfuricAcid, 2)), GEItems.acidBattery.getFull());
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 2)), GEItems.mercuryBattery.getFull());
             ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GEItems.batteryHull), GTTileBaseMachine.input("dustLithium", 2), GTMaterialGen.get(GTItems.lithiumBattery));
@@ -110,7 +110,7 @@ public class GERecipeProcessing {
 
     public static void removals() {
         // Remove smelting from mods who dont respect my authority
-        if (GEConfiguration.ingotsRequireBlastFurnace) {
+        if (GEConfiguration.general.ingotsRequireBlastFurnace) {
             for (Item item : Item.REGISTRY) {
                 NonNullList<ItemStack> items = NonNullList.create();
                 item.getSubItems(CreativeTabs.SEARCH, items);
