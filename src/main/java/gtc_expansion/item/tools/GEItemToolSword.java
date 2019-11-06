@@ -38,6 +38,12 @@ public class GEItemToolSword extends ItemSword
 
 
     @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack) {
+        return this.material != GEMaterial.Flint && super.hasEffect(stack);
+    }
+
+    @Override
     public List<Integer> getValidVariants() {
         return Arrays.asList(0);
     }

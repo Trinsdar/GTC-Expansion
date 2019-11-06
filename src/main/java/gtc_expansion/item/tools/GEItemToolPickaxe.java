@@ -37,6 +37,11 @@ public class GEItemToolPickaxe extends ItemPickaxe
         setCreativeTab(GTMod.creativeTabGT);
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack) {
+        return this.material != GEMaterial.Flint && super.hasEffect(stack);
+    }
 
     @Override
     public List<Integer> getValidVariants() {
