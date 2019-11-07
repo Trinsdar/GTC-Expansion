@@ -23,7 +23,7 @@ public class GTCExpansion {
 	public static final String MODID = "gtc_expansion";
 	public static final String MODNAME = "GregTech Classic Expansion";
 	public static final String MODVERSION = "@VERSION@";
-	public static final String DEPENDS = "required-after:ic2;required-after:ic2-classic-spmod;required-after:gtclassic@[1.0.5,);after:twilightforest@[3.9.984,);after:ic2c_extras";
+	public static final String DEPENDS = "required-after:ic2;required-after:ic2-classic-spmod;required-after:gtclassic@[1.0.6,);after:twilightforest@[3.9.984,);after:ic2c_extras";
 	@SidedProxy(clientSide = MODID + ".proxy.GEClientProxy", serverSide = MODID + ".proxy.GECommonProxy")
 	public static GECommonProxy proxy;
 	@Mod.Instance
