@@ -18,7 +18,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "${mod_version}"
 group = "gtc_expansion" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "GTC Expansion"
+archivesBaseName = "GTCExpansion"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
