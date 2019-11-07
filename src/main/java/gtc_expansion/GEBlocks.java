@@ -77,13 +77,9 @@ public class GEBlocks {
 
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace"};
     public static void registerBlocks() {
-        Iterator var0 = toRegister.iterator();
-        Block block;
-        while(var0.hasNext()) {
-            block = (Block)var0.next();
+        for(Block block : toRegister){
             createBlock(block);
         }
-
     }
 
     static <T extends Block> T registerBlock(T block) {
