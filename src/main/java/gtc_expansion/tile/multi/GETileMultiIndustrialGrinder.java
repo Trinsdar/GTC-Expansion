@@ -11,6 +11,7 @@ import gtc_expansion.util.GELang;
 import gtc_expansion.util.IStatus;
 import gtclassic.GTConfig;
 import gtclassic.GTItems;
+import gtclassic.helpers.GTHelperFluid;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
@@ -42,6 +43,7 @@ import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
@@ -51,6 +53,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -58,6 +61,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,7 +72,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple implements IStatus, ITankListener {
+public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple implements IStatus, ITankListener, IClickable {
     protected static final int slotDisplayIn = 0;
     protected static final int[] slotInputs = { 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
@@ -674,5 +678,24 @@ public class GETileMultiIndustrialGrinder extends GTTileMultiBaseMachineSimple i
         return structureValid;
     }
 
+
+    @Override
+    public boolean hasLeftClick() {
+        return false;
+    }
+
+    @Override
+    public boolean hasRightClick() {
+        return true;
+    }
+
+    @Override
+    public void onLeftClick(EntityPlayer var1, Side var2) {
+    }
+
+    @Override
+    public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
+        return GTHelperFluid.doClickableFluidContainerThings(player, hand, world, pos, this.inputTank);
+    }
 
 }

@@ -6,10 +6,12 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GEContainerDistillationTower;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
+import gtc_expansion.util.GEFluidHelper;
 import gtc_expansion.util.GELang;
 import gtc_expansion.util.GTFluidMachineOutput;
 import gtc_expansion.util.IStatus;
 import gtclassic.GTBlocks;
+import gtclassic.helpers.GTHelperFluid;
 import gtclassic.material.GTMaterial;
 import gtclassic.material.GTMaterialGen;
 import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
@@ -38,6 +40,7 @@ import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
@@ -47,13 +50,18 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,7 +70,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple implements ITankListener, IStatus {
+public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple implements ITankListener, IStatus, IClickable {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/distillationtower.png");
     public static final IBlockState standardCasingState = GEBlocks.casingStandard.getDefaultState();
     public static final IBlockState advancedCasingState = GEBlocks.casingAdvanced.getDefaultState();
@@ -742,5 +750,68 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple i
     @Override
     public boolean getStructureValid() {
         return structureValid;
+    }
+
+    @Override
+    public boolean hasLeftClick() {
+        return false;
+    }
+
+    @Override
+    public boolean hasRightClick() {
+        return true;
+    }
+
+    @Override
+    public void onLeftClick(EntityPlayer var1, Side var2) {
+    }
+
+    @Override
+    public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
+        ItemStack playerStack = player.getHeldItem(hand);
+        if ((GTHelperFluid.isConsumable(playerStack) || GTHelperFluid.isBCShard(playerStack)) && FluidUtil.tryEmptyContainer(playerStack, inputTank, inputTank.getCapacity() - inputTank.getFluidAmount(), player, true) != FluidActionResult.FAILURE) {
+            playerStack.shrink(1);
+            return true;
+        } else {
+            if (!playerStack.isEmpty()) {
+                FluidActionResult result = FluidUtil.tryEmptyContainer(playerStack, this.inputTank, this.inputTank.getCapacity() - this.inputTank.getFluidAmount(), player, true);
+                if (result.isSuccess()){
+                    playerStack.shrink(1);
+                    ItemStack resultStack = result.getResult();
+                    if (!resultStack.isEmpty()) {
+                        if (!player.inventory.addItemStackToInventory(resultStack)) {
+                            player.dropItem(resultStack, false);
+                        }
+                    }
+                    return true;
+                }
+                if (outputTank1.getFluidAmount() >= 1000){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
+                }
+                if (outputTank2.getFluidAmount() >= 1000){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
+                }
+                if (outputTank3.getFluidAmount() >= 1000){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
+                }
+                if (outputTank4.getFluidAmount() >= 1000){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
+                }
+                if (outputTank1.getFluidAmount() > 0){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
+                }
+                if (outputTank2.getFluidAmount() > 0){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
+                }
+                if (outputTank3.getFluidAmount() > 0){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
+                }
+                if (outputTank4.getFluidAmount() > 0){
+                    return GEFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
+                }
+            }
+
+            return false;
+        }
     }
 }
