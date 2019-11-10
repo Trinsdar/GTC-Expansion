@@ -175,6 +175,12 @@ public class GETileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("plateAluminium", 4, Ic2Items.generator, 51200, GTMaterialGen.getIc2(Ic2Items.waterMill, 2));
         addRecipe("plateAluminium", 2, Ic2Items.generator, 51200, Ic2Items.windMill);
         addRecipe(GTMaterialGen.getIc2(Ic2Items.carbonPlate, 4), Ic2Items.generator, 51200, Ic2Items.windMill);
+        addRecipe("plankWood", 4, 3200, new ItemStack(Blocks.CRAFTING_TABLE));
+        addRecipe("cobblestone", 8, 3200, new ItemStack(Blocks.FURNACE));
+    }
+
+    public static void addRecipe(String input1, int amount1, int totalEu, ItemStack output) {
+        addRecipe(new IRecipeInput[]{new RecipeInputOreDict(input1, amount1)}, totalEu(totalEu), output);
     }
 
     public static void addRecipe(String input1, int amount1, ItemStack input2, int totalEu, ItemStack output) {
