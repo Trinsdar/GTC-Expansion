@@ -12,6 +12,7 @@
  - Added click fluid support for industrial grinder and distillation tower.
  - Refactored config system in the background, may need to regenerate the config.
  - Made flint tools no longer have an enchantment glow.
+ - Fixed axe attack speeds and damages 
  
 # 0.0.3 
 
