@@ -1,13 +1,13 @@
 package gtc_expansion.util;
 
-import gtc_expansion.tile.base.GETileFuelBaseMachine;
+import gtc_expansion.tile.base.GTCXTileFuelBaseMachine;
 import ic2.core.inventory.filters.IFilter;
 import net.minecraft.item.ItemStack;
 
 public class FuelMachineFilter implements IFilter {
-    GETileFuelBaseMachine machine;
+    GTCXTileFuelBaseMachine machine;
 
-    public FuelMachineFilter(GETileFuelBaseMachine machine) {
+    public FuelMachineFilter(GTCXTileFuelBaseMachine machine) {
         this.machine = machine;
     }
 

@@ -1,8 +1,8 @@
 package gtc_expansion;
 
-import gtc_expansion.material.GEMaterial;
-import gtc_expansion.material.GEMaterialGen;
-import gtc_expansion.proxy.GECommonProxy;
+import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.material.GTCXMaterialGen;
+import gtc_expansion.proxy.GTCXCommonProxy;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -22,16 +22,16 @@ public class GTCExpansion {
 	public static final String MODID = "gtc_expansion";
 	public static final String MODNAME = "GregTech Classic Expansion";
 	public static final String MODVERSION = "@VERSION@";
-	public static final String DEPENDS = "required-after:ic2;required-after:ic2-classic-spmod;required-after:gtclassic@[1.0.6,);after:twilightforest@[3.9.984,);after:ic2c_extras";
-	@SidedProxy(clientSide = MODID + ".proxy.GEClientProxy", serverSide = MODID + ".proxy.GECommonProxy")
-	public static GECommonProxy proxy;
+	public static final String DEPENDS = "required-after:ic2;required-after:ic2-classic-spmod;required-after:gtclassic@[1.0.7,);after:twilightforest@[3.9.984,);after:ic2c_extras";
+	@SidedProxy(clientSide = MODID + ".proxy.GTCXClientProxy", serverSide = MODID + ".proxy.GTCXCommonProxy")
+	public static GTCXCommonProxy proxy;
 	@Mod.Instance
 	public static GTCExpansion instance;
 	public static Logger logger;
 
 	static {
-		GEMaterial.initMaterials();
-		GEMaterialGen.init();
+		GTCXMaterial.initMaterials();
+		GTCXMaterialGen.init();
 	}
 
 	public GTCExpansion(){
@@ -47,8 +47,8 @@ public class GTCExpansion {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent e) {
 		proxy.init(e);
-		MinecraftForge.EVENT_BUS.register(new GEEvents());
-		GameRegistry.registerWorldGenerator(new GEWorldGen(), 0);
+		MinecraftForge.EVENT_BUS.register(new GTCXEvents());
+		GameRegistry.registerWorldGenerator(new GTCXWorldGen(), 0);
 	}
 
 	@Mod.EventHandler
