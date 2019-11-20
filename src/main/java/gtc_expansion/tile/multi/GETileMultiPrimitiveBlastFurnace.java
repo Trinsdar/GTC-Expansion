@@ -9,17 +9,14 @@ import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
 import gtc_expansion.util.GELang;
-import gtc_expansion.util.IStatus;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.GTTileBaseMachine;
-import gtclassic.util.energy.MultiBlockHelper;
-import gtclassic.util.int3;
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+import gtc_expansion.util.MultiBlockHelper;
+import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTMultiTileStatus;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.api.tile.GTTileBaseMachine;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
-import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
@@ -39,13 +36,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine implements IStatus {
+public class GETileMultiPrimitiveBlastFurnace extends GETileFuelBaseMachine implements IGTMultiTileStatus {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;

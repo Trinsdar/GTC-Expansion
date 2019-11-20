@@ -5,11 +5,11 @@ import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.util.GEIc2cECompat;
-import gtclassic.GTConfig;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialFlag;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.util.GTValues;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialFlag;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.core.IC2;
@@ -31,7 +31,7 @@ public class GERecipeIterators {
             createGearRecipe(mat);
             createNuggetRecipe(mat);
             createHullRecipe(mat);
-            if (Loader.isModLoaded(GTValues.IC2_EXTRAS) && GTConfig.compatIc2Extras){
+            if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
         }

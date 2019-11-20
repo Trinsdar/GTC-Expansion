@@ -1,9 +1,9 @@
 package gtc_expansion.util.jei.wrapper;
 
 import gtc_expansion.util.GTFluidMachineOutput;
-import gtclassic.GTConfig;
-import gtclassic.util.GTValues;
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+import gtclassic.api.helpers.GTHelperString;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.energy.EnergyNet;
@@ -49,7 +49,7 @@ public class GEJeiDistillationTowerWrapper implements IRecipeWrapper {
         font.drawString("Ticks: " + getEntryTicks(multiRecipe.getOutputs()), 0, 40, Color.black.getRGB());
         font.drawString("Seconds: " + getEntryTicks(multiRecipe.getOutputs()) / 20.0F, 0, 50, Color.black.getRGB());
         font.drawString("Tier: "
-                + GTValues.getTierString(EnergyNet.instance.getTierFromPower(multiRecipe.getMachineEu())), 0, 60, Color.black.getRGB());
+                + GTHelperString.getTierString(EnergyNet.instance.getTierFromPower(multiRecipe.getMachineEu())), 0, 60, Color.black.getRGB());
         font.drawString("Usage: " + multiRecipe.getMachineEu() + " EU/t", 0, 70, Color.black.getRGB());
         font.drawString("Cost: " + getEntryTicks(multiRecipe.getOutputs()) * multiRecipe.getMachineEu()
                 + " EU", 0, 80, Color.black.getRGB());

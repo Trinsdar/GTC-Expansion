@@ -7,16 +7,14 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GERecipeLists;
-import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
-import gtclassic.util.crafttweaker.GTCraftTweakerActions;
+import gtclassic.api.crafttweaker.GTCraftTweakerActions;
 import ic2.api.recipe.IRecipeInput;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 @ZenClass("mods.gtclassic.VacuumFreezer")

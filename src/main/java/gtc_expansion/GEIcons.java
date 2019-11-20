@@ -1,7 +1,7 @@
 package gtc_expansion;
 
-import gtclassic.GTConfig;
 import gtclassic.GTMod;
+import gtclassic.common.GTConfig;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.Sprites;
 import net.minecraft.util.ResourceLocation;

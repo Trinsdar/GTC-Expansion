@@ -1,7 +1,6 @@
 package gtc_expansion.proxy;
 
 import gtc_expansion.GEBlocks;
-import gtc_expansion.GEConfiguration;
 import gtc_expansion.GECrops;
 import gtc_expansion.GEFluids;
 import gtc_expansion.GEItems;
@@ -10,15 +9,12 @@ import gtc_expansion.GEWorldGenTwilightForest;
 import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterialElement;
 import gtc_expansion.recipes.GERecipe;
-import gtclassic.GTConfig;
-import gtclassic.util.GTValues;
-import net.minecraftforge.common.config.Configuration;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.common.GTConfig;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import java.io.File;
 
 public class GECommonProxy {
 
@@ -40,7 +36,7 @@ public class GECommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
         GERecipe.postInit();
-        if (GTConfig.compatTwilightForest && Loader.isModLoaded(GTValues.TFOREST)) {
+        if (GTConfig.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)) {
             GEWorldGenTwilightForest.init();
         }
     }

@@ -1,18 +1,15 @@
 package gtc_expansion.material;
 
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialFlag;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.material.GTMaterialItem;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialFlag;
+import gtclassic.api.material.GTMaterialItem;
 import ic2.core.item.armor.electric.ItemArmorQuantumSuit;
 import ic2.core.item.armor.standart.ItemHazmatArmor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class GEMaterialItemHot extends GTMaterialItem {

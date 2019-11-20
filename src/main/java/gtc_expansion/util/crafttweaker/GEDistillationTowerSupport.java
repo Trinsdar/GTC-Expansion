@@ -3,21 +3,17 @@ package gtc_expansion.util.crafttweaker;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ZenRegister;
-import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GERecipeLists;
-import gtc_expansion.tile.GETileAlloySmelter;
 import gtc_expansion.tile.multi.GETileMultiDistillationTower;
-import gtclassic.util.crafttweaker.GTCraftTweakerActions;
-import ic2.api.recipe.IRecipeInput;
+import gtclassic.api.crafttweaker.GTCraftTweakerActions;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Locale;
 

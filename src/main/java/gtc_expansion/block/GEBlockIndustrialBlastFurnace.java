@@ -2,12 +2,9 @@ package gtc_expansion.block;
 
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.util.GELang;
-import gtclassic.util.GTItemContainerInterface;
+import gtclassic.api.interfaces.IGTItemContainerTile;
 import ic2.core.block.base.tile.TileEntityBlock;
-import ic2.core.item.misc.ItemDisplayIcon;
-import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.util.misc.StackUtil;
-import ic2.core.util.obj.IItemContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -59,8 +56,8 @@ public class GEBlockIndustrialBlastFurnace extends GEBlockTile {
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         List<ItemStack> items = new ArrayList<>();
         TileEntity te = this.getLocalTile() == null ? world.getTileEntity(pos) : this.getLocalTile();
-        if (te instanceof GTItemContainerInterface) {
-            items.addAll(((GTItemContainerInterface) te).getInventoryDrops());
+        if (te instanceof IGTItemContainerTile) {
+            items.addAll(((IGTItemContainerTile) te).getInventoryDrops());
             return items;
         }
         return items;
@@ -70,8 +67,8 @@ public class GEBlockIndustrialBlastFurnace extends GEBlockTile {
     public List<ItemStack> getWrenchDrops(World world, BlockPos pos, IBlockState state, TileEntity te,
                                           EntityPlayer player, int fortune) {
         List<ItemStack> items = new ArrayList<ItemStack>();
-        if (te instanceof GTItemContainerInterface) {
-            items.addAll(((GTItemContainerInterface) te).getDrops());
+        if (te instanceof IGTItemContainerTile) {
+            items.addAll(((IGTItemContainerTile) te).getDrops());
         }
         return items;
     }

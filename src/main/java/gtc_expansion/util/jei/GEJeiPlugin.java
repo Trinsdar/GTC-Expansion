@@ -3,20 +3,20 @@ package gtc_expansion.util.jei;
 import gtc_expansion.GEBlocks;
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
+import gtc_expansion.GEMachineGui;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
+import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.jei.category.GEJeiDistillationTowerCategory;
 import gtc_expansion.util.jei.category.GEJeiIBFCategory;
-import gtc_expansion.util.jei.category.GEJeiIndustrialGrinderCategory;
 import gtc_expansion.util.jei.wrapper.GEJeiDistillationTowerWrapper;
 import gtc_expansion.util.jei.wrapper.GEJeiIBFWrapper;
-import gtc_expansion.util.jei.wrapper.GEJeiIndustrialGrinderWrapper;
-import gtclassic.GTConfig;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.util.GTValues;
-import gtclassic.util.jei.GTJeiPlugin;
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.jei.GTJeiEntry;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.common.GTConfig;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.jeiIntigration.SubModul;
 import mezz.jei.api.IJeiRuntime;
@@ -41,20 +41,13 @@ public class GEJeiPlugin implements IModPlugin {
     @Override
     public void register(@Nonnull IModRegistry registry) {
         if (SubModul.load) {
-            for (GEJeiRegistry entry : GEJeiRegistry.values()) {
-                if (entry == GEJeiRegistry.DISTILLATIONTOWER){
-                    wrapperUtil1(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
-                } else if ( entry == GEJeiRegistry.INDUSTRIALBLASTFURNACE){
-                    wrapperUtil2(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
-                } else if (entry == GEJeiRegistry.INDUSTRIALGRINDER){
-                    wrapperUtil3(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
-                }else {
-                    GTJeiPlugin.wrapperUtil(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
-                }
-            }
+            GTJeiEntry entry = new GTJeiEntry(GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GEBlocks.distillationTower, GEMachineGui.GEDistillationTowerGui.class, 80, 4, 16, 72);
+            wrapperUtil1(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
+            entry = new GTJeiEntry(GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GEBlocks.distillationTower, GEMachineGui.GEDistillationTowerGui.class, 80, 4, 16, 72);
+            wrapperUtil2(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
             registry.addRecipeCatalyst(new ItemStack(GEBlocks.alloyFurnace), "gt.alloysmelter");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
-            if (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras){
+            if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.compatIc2Extras){
                 for (GTMaterial mat : GTMaterial.values()){
                     if (mat.hasFlag(GEMaterial.crushedore)){
                         blacklist.addIngredientToBlacklist(GEMaterialGen.getCrushedOre(mat, 1));
@@ -67,7 +60,7 @@ public class GEJeiPlugin implements IModPlugin {
                     }
                 }
             }
-            if (!Loader.isModLoaded(GTValues.TFOREST) || !GTConfig.compatTwilightForest){
+            if (!Loader.isModLoaded(GTHelperMods.TFOREST) || !GTConfig.compatTwilightForest){
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GEBlocks.oreOlivineOverworld));
             }
             if (!GEConfiguration.general.unfiredBricks){
@@ -84,17 +77,10 @@ public class GEJeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
-        for (GEJeiRegistry entry : GEJeiRegistry.values()) {
-            if (entry == GEJeiRegistry.DISTILLATIONTOWER){
-                categoryUtil1(registry, entry.getRecipeList(), entry.getCatalyst());
-            } else if (entry == GEJeiRegistry.INDUSTRIALBLASTFURNACE){
-                categoryUtil2(registry, entry.getRecipeList(), entry.getCatalyst());
-            } else if (entry == GEJeiRegistry.INDUSTRIALGRINDER){
-                categoryUtil3(registry, entry.getRecipeList(), entry.getCatalyst());
-            } else {
-                GTJeiPlugin.categoryUtil(registry, entry.getRecipeList(), entry.getCatalyst());
-            }
-        }
+        GTJeiEntry entry = new GTJeiEntry(GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GEBlocks.distillationTower, GEMachineGui.GEDistillationTowerGui.class, 80, 4, 16, 72);
+        categoryUtil1(registry, entry.getRecipeList(), entry.getCatalyst());
+        entry = new GTJeiEntry(GERecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GEBlocks.distillationTower, GEMachineGui.GEDistillationTowerGui.class, 80, 4, 16, 72);
+        categoryUtil2(registry, entry.getRecipeList(), entry.getCatalyst());
 
     }
 
@@ -122,18 +108,6 @@ public class GEJeiPlugin implements IModPlugin {
         }
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    private static void wrapperUtil3(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
-                                     Class gui, int clickX, int clickY, int sizeX, int sizeY) {
-        String recipeList = list.getCategory();
-        registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GEJeiIndustrialGrinderWrapper::new, recipeList);
-        registry.addRecipes(list.getRecipeList(), recipeList);
-        registry.addRecipeCatalyst(new ItemStack(catalyst), recipeList);
-        if (gui != null) {
-            registry.addRecipeClickArea(gui, clickX, clickY, sizeX, sizeY, recipeList);
-        }
-    }
-
 
     private static void categoryUtil1(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
         registry.addRecipeCategories(new GEJeiDistillationTowerCategory(registry.getJeiHelpers().getGuiHelper(), list.getCategory(), catalyst));
@@ -141,9 +115,5 @@ public class GEJeiPlugin implements IModPlugin {
 
     private static void categoryUtil2(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
         registry.addRecipeCategories(new GEJeiIBFCategory(registry.getJeiHelpers().getGuiHelper(), list.getCategory(), catalyst));
-    }
-
-    private static void categoryUtil3(IRecipeCategoryRegistration registry, GTRecipeMultiInputList list, Block catalyst) {
-        registry.addRecipeCategories(new GEJeiIndustrialGrinderCategory(registry.getJeiHelpers().getGuiHelper(), list.getCategory(), catalyst));
     }
 }

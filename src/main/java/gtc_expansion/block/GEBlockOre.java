@@ -4,7 +4,7 @@ import gtc_expansion.GEBlocks;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTMod;
-import gtclassic.material.GTMaterialGen;
+import gtclassic.api.material.GTMaterialGen;
 import ic2.core.platform.lang.ILocaleBlock;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LocaleComp;

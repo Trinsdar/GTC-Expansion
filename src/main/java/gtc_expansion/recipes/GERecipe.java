@@ -17,13 +17,13 @@ import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
 import gtclassic.GTMod;
-import gtclassic.helpers.GTHelperAdvRecipe;
-import gtclassic.GTBlocks;
-import gtclassic.GTConfig;
-import gtclassic.GTItems;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.GTTileUUMAssembler;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeCraftingHandler;
+import gtclassic.common.GTBlocks;
+import gtclassic.common.GTConfig;
+import gtclassic.common.GTItems;
+import gtclassic.common.tile.GTTileUUMAssembler;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
@@ -154,69 +154,69 @@ public class GERecipe {
             GTTileUUMAssembler.addUUMAssemblerValue(7, GEMaterialGen.getSmallDust(GEMaterial.Osmium, 1));
         }
         if (GEConfiguration.general.removeCraftingUURecipes){
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.stonebrick_-602048670");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.stone.stone_-217206169");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.glass_1510125347");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.grass_1277632969");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.log.oak_-1277881396");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.log.spruce_1770332581");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.log.birch_-1277881334");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.log.jungle_1730114793");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.log.acacia_569794864");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.log.big_oak_529577045");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.dirt.default_294096457");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.sponge.dry_-486870232");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.whitestone_1292746542");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.stonemoss_-71282124");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.sandstone.default_-222457682");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.redsandstone.default_1661771456");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.snow_-66319588");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.water_2131885151");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.lava_1530544253");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.oreiron_-329870047");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.oregold_-862634671");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.obsidian_-440375730");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.hellrock_-1150777333");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.netherstalkseeds_-1945039845");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.lightgem_-1357010811");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.cactus_1557334976");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.vine_-128181428");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.chorusfruit_-621965693");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.cloth.white_77283415");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.coal_-894344071");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.diamond_-839125610");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.redstone_609035693");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.netherquartz_-150174040");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.dyepowder.blue_-1943975137");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.feather_1656145116");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.leather_2089489131");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.snowball_-427886876");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.sulphur_-1833859045");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.enderpearl_2025630033");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.clay_916245029");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.blazerod_1662380818");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.prismarinecrystals_-886701636");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.prismarineshard_-2053819173");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.dyepowder.brown_1426380757");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.dyepowder.black_953740984");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.reeds_-459416326");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.flint_-1284138319");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.bone_-835878595");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.itemharz_2066627912");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.itemoreiridium_358070459");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.mycel_1348556715");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.stonebricksmooth.chiseled_1563944091");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.blockorecopper_-1838757257");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.blockoretin_1214808534");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.blockoresilver_1084210042");
-            GTHelperAdvRecipe.removeRecipe("ic2", "shaped_item.emerald_981588030");
-            GTHelperAdvRecipe.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.gemruby_891389810");
-            GTHelperAdvRecipe.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.gemsapphire_-674562982");
-            GTHelperAdvRecipe.removeRecipe(GTMod.MODID, "shaped_tile.gtclassic.orebauxite_-377989822");
-            GTHelperAdvRecipe.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dusttitanium_171358254");
-            GTHelperAdvRecipe.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dustaluminium_575613706");
-            GTHelperAdvRecipe.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dustplatinum_645900471");
-            GTHelperAdvRecipe.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dusttungsten_1935969503");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.stonebrick_-602048670");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.stone.stone_-217206169");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.glass_1510125347");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.grass_1277632969");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.log.oak_-1277881396");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.log.spruce_1770332581");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.log.birch_-1277881334");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.log.jungle_1730114793");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.log.acacia_569794864");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.log.big_oak_529577045");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.dirt.default_294096457");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.sponge.dry_-486870232");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.whitestone_1292746542");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.stonemoss_-71282124");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.sandstone.default_-222457682");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.redsandstone.default_1661771456");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.snow_-66319588");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.water_2131885151");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.lava_1530544253");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.oreiron_-329870047");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.oregold_-862634671");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.obsidian_-440375730");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.hellrock_-1150777333");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.netherstalkseeds_-1945039845");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.lightgem_-1357010811");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.cactus_1557334976");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.vine_-128181428");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.chorusfruit_-621965693");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.cloth.white_77283415");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.coal_-894344071");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.diamond_-839125610");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.redstone_609035693");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.netherquartz_-150174040");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.dyepowder.blue_-1943975137");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.feather_1656145116");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.leather_2089489131");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.snowball_-427886876");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.sulphur_-1833859045");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.enderpearl_2025630033");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.clay_916245029");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.blazerod_1662380818");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.prismarinecrystals_-886701636");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.prismarineshard_-2053819173");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.dyepowder.brown_1426380757");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.dyepowder.black_953740984");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.reeds_-459416326");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.flint_-1284138319");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.bone_-835878595");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.itemharz_2066627912");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.itemoreiridium_358070459");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.mycel_1348556715");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.stonebricksmooth.chiseled_1563944091");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockorecopper_-1838757257");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockoretin_1214808534");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockoresilver_1084210042");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.emerald_981588030");
+            GTRecipeCraftingHandler.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.gemruby_891389810");
+            GTRecipeCraftingHandler.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.gemsapphire_-674562982");
+            GTRecipeCraftingHandler.removeRecipe(GTMod.MODID, "shaped_tile.gtclassic.orebauxite_-377989822");
+            GTRecipeCraftingHandler.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dusttitanium_171358254");
+            GTRecipeCraftingHandler.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dustaluminium_575613706");
+            GTRecipeCraftingHandler.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dustplatinum_645900471");
+            GTRecipeCraftingHandler.removeRecipe(GTMod.MODID, "shaped_item.gtclassic.dusttungsten_1935969503");
         }
     }
 
@@ -273,9 +273,9 @@ public class GERecipe {
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
         recipes.overrideRecipe("shaped_tile.blocknuke_-814805840", Ic2Items.nuke, "UCU", "BAB", "UCU", 'U', Ic2Items.reactorReEnrichedUraniumRod, 'C', "circuitAdvanced", 'B', "blockUranium", 'A', "machineBlockAdvanced");
-        GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.blockiridiumstone_-48520064");
-        GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.blockwatergenerator_-2059790844");
-        GTHelperAdvRecipe.removeRecipe("ic2", "shaped_tile.blockwindgenerator_1669945012");
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockiridiumstone_-48520064");
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwatergenerator_-2059790844");
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwindgenerator_1669945012");
         ItemStack battery = Ic2Items.battery;
         String circuit = "circuitBasic";
         recipes.overrideRecipe("shaped_item.itemtoolddrill_1955483893", Ic2Items.diamondDrill, " D ", "DdD", "TCT", 'D', "dustDiamond", 'd', Ic2Items.electricDrill, 'T', titanium, 'C', "circuitAdvanced");
@@ -335,14 +335,14 @@ public class GERecipe {
     }
 
     public void overrideGTRecipe(String recipeId, ItemStack output, Object... input) {
-        GTHelperAdvRecipe.overrideGTRecipe("gtclassic", recipeId, output, input);
+        GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", recipeId, output, input);
     }
       //commented out this code till speiger makes a variable and 2 contructors public.
     public void overrideShapelessGTRecipe(String recipeId, ItemStack output, Object... input){
-        GTHelperAdvRecipe.overrideShapelessGTRecipe("gtclassic", recipeId, output, input);
+        GTRecipeCraftingHandler.overrideShapelessGTRecipe("gtclassic", recipeId, output, input);
     }
 
     public void removeGTRecipe(String recipeId){
-        GTHelperAdvRecipe.removeRecipe("gtclassic", recipeId);
+        GTRecipeCraftingHandler.removeRecipe("gtclassic", recipeId);
     }
 }

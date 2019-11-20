@@ -6,12 +6,10 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.GETileChemicalReactor;
-import gtclassic.GTItems;
-import gtclassic.tile.GTTileCentrifuge;
-import gtclassic.util.crafttweaker.GTCraftTweakerActions;
+import gtclassic.api.crafttweaker.GTCraftTweakerActions;
 import ic2.api.recipe.IRecipeInput;
-import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -61,7 +59,7 @@ public class GEChemicalReactorSupport {
 
         @Override
         public String describe() {
-            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s, %s -> %s] to %s", this.input1, this.input2, this.cells, this.totalEu, Arrays.deepToString(this.output), GTTileCentrifuge.RECIPE_LIST);
+            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s, %s -> %s] to %s", this.input1, this.input2, this.cells, this.totalEu, Arrays.deepToString(this.output), GERecipeLists.CHEMICAL_REACTOR_RECIPE_LIST);
         }
     }
 }

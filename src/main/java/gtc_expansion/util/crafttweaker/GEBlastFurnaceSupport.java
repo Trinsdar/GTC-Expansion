@@ -9,7 +9,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
-import gtclassic.util.crafttweaker.GTCraftTweakerActions;
+import gtclassic.api.crafttweaker.GTCraftTweakerActions;
 import ic2.api.recipe.IRecipeInput;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;

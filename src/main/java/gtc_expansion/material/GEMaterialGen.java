@@ -1,49 +1,14 @@
 package gtc_expansion.material;
 
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialFlag;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.material.GTMaterialItem;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialFlag;
+import gtclassic.api.material.GTMaterialGen;
 import net.minecraft.item.ItemStack;
-
-import static gtclassic.material.GTMaterialGen.materialItemUtil;
 
 public class GEMaterialGen {
     public static void init() {
         for (GTMaterial mat : GTMaterial.values()){
             materialHotItemUtil(mat, GEMaterial.hotIngot);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.hull);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.stick);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.plate);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.nugget);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.gear);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.smalldust);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.crushedore);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.crushedorePurified);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            materialItemUtil(mat, GEMaterial.tinydust);
-        }
-        for (GTMaterial mat : GTMaterial.values()){
-            if (!mat.hasFlag(GTMaterialFlag.RUBY) && !mat.hasFlag(GTMaterialFlag.SAPPHIRE)) {
-                materialItemUtil(mat, GEMaterial.gemGarnetShape);
-            }
         }
     }
 

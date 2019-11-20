@@ -2,11 +2,8 @@ package gtc_expansion;
 
 import gtc_expansion.fluid.GEFluidMolten;
 import gtc_expansion.material.GEMaterial;
-import gtclassic.GTBlocks;
 import gtclassic.GTMod;
-import gtclassic.fluid.GTFluid;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialFlag;
+import gtclassic.api.material.GTMaterial;
 import net.minecraftforge.fluids.FluidRegistry;
 
 public class GEFluids {

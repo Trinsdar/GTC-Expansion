@@ -2,8 +2,7 @@ package gtc_expansion.block;
 
 import gtc_expansion.GEItems;
 import gtc_expansion.GTCExpansion;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.util.GTCropType;
+import gtclassic.api.material.GTMaterialGen;
 import ic2.api.crops.CropProperties;
 import ic2.api.crops.ICropTile;
 import ic2.core.block.crop.crops.CropCardBase;

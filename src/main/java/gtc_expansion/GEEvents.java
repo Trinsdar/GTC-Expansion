@@ -1,8 +1,8 @@
 package gtc_expansion;
 
 import gtc_expansion.material.GEMaterial;
-import gtclassic.GTBlocks;
-import gtclassic.material.GTMaterialGen;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.common.GTBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;

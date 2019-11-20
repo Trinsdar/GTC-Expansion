@@ -6,10 +6,7 @@ import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
 import ic2.core.item.base.ItemIC2;
-import ic2.core.item.misc.ItemBatterySU;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
-import ic2.core.platform.lang.storage.Ic2ItemLang;
-import ic2.core.platform.player.PlayerHandler;
 import ic2.core.platform.registry.Ic2Lang;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.IAdvancedTexturedItem;
@@ -20,7 +17,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -33,7 +29,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

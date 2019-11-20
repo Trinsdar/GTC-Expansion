@@ -7,21 +7,20 @@ import gtc_expansion.tile.GETileAssemblingMachine;
 import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiDistillationTower;
-import gtc_expansion.tile.multi.GETileMultiFusionReactor;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
-import gtclassic.block.GTBlockMachine;
+import gtclassic.GTMod;
+import gtclassic.api.block.GTBlockBaseMachine;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -29,18 +28,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Random;
 
-public class GEBlockTile extends GTBlockMachine {
-    int size;
+public class GEBlockTile extends GTBlockBaseMachine {
+    String name;
     public GEBlockTile(String name, LocaleComp comp) {
         this(name, comp, 0);
     }
 
     public GEBlockTile(String name, LocaleComp comp, int additionalInfo) {
-        super(name, comp, additionalInfo);
-        this.size = additionalInfo + 1;
+        super(Material.IRON, comp, additionalInfo);
+        this.name = name;
+        setRegistryName(this.name.toLowerCase());
+        setCreativeTab(GTMod.creativeTabGT);
+        setHardness(100.0F);
+        setResistance(20.0F);
+        setSoundType(SoundType.METAL);
     }
 
     public GEBlockTile(String name, LocaleComp comp, Material material){
@@ -48,18 +51,12 @@ public class GEBlockTile extends GTBlockMachine {
     }
 
     public GEBlockTile(String name, LocaleComp comp, Material material, int additionalInfo){
-        super(name, comp, material);
+        super(material, comp, additionalInfo);
+        this.name = name;
+        setRegistryName(this.name.toLowerCase());
+        setCreativeTab(GTMod.creativeTabGT);
         this.setSoundType(SoundType.STONE);
         this.setHardness(4.0F);
-        this.size = additionalInfo + 1;
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        for(int i = 0; i < this.size; ++i) {
-            tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + i));
-        }
-
     }
 
     @Override
@@ -101,6 +98,12 @@ public class GEBlockTile extends GTBlockMachine {
 //            return new GETileMultiFusionReactor();
 //        }
         return new TileEntityBlock();
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public TextureAtlasSprite[] getIconSheet(int meta) {
+        return Ic2Icons.getTextures(this.name);
     }
 
     @SideOnly(Side.CLIENT)

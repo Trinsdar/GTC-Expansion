@@ -1,7 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
-import gtclassic.block.GTBlockCasing;
+import gtclassic.common.block.GTBlockCasing;
 import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

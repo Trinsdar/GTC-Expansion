@@ -2,8 +2,7 @@ package gtc_expansion.item.tools;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.material.GEMaterial;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
+import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
 import ic2.core.util.helpers.ToolHelper;
 import net.minecraft.item.Item;

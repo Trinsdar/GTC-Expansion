@@ -5,15 +5,15 @@ import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
-import gtclassic.GTConfig;
-import gtclassic.GTItems;
-import gtclassic.helpers.GTHelperStack;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.recipe.GTRecipeProcessing;
-import gtclassic.tile.GTTileBaseMachine;
-import gtclassic.tile.GTTileCentrifuge;
-import gtclassic.util.GTValues;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTConfig;
+import gtclassic.common.GTItems;
+import gtclassic.common.recipe.GTRecipeProcessing;
+import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.core.block.machine.low.TileEntityCompressor;
@@ -60,7 +60,7 @@ public class GERecipeProcessing {
 
     public static void initIc2Recipes(){
         TileEntityMacerator.addRecipe("oreRedstone", 1, GTMaterialGen.get(Items.REDSTONE, 10));
-        if (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras){
+        if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.compatIc2Extras){
             GTRecipeProcessing.maceratorUtil("orePyrite", 1, GTMaterialGen.getDust(GEMaterial.Pyrite, 5));
             GTRecipeProcessing.maceratorUtil("oreCinnabar", 1, GTMaterialGen.getDust(GEMaterial.Cinnabar, 3));
             GTRecipeProcessing.maceratorUtil("oreSphalerite", 1, GTMaterialGen.getDust(GEMaterial.Sphalerite, 4));
@@ -68,7 +68,7 @@ public class GERecipeProcessing {
         }
         GTRecipeProcessing.maceratorUtil("oreSodalite", 1, GTMaterialGen.getDust(GEMaterial.Sodalite, 12));
         TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GEMaterial.Olivine, 3));
-        if (GEConfiguration.general.usePlates && (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
+        if (GEConfiguration.general.usePlates && (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
             TileEntityCompressor.addRecipe("plateCopper", 8, Ic2Items.denseCopperPlate);
         }
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.testTube), GTTileBaseMachine.input(GTMaterialGen.get(GEItems.oilberry)), GTMaterialGen.getTube(GTMaterial.Oil, 1));

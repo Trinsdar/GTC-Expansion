@@ -1,11 +1,10 @@
 package gtc_expansion.material;
 
-import gtc_expansion.GEItems;
 import gtc_expansion.item.tools.GEToolGen;
-import gtclassic.GTConfig;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.util.GTValues;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.common.GTConfig;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
@@ -30,7 +29,7 @@ public class GEMaterialDict {
             if (mat.hasFlag(GEMaterial.stick)){
                 OreDictionary.registerOre("rod" + mat.getDisplayName(), GTMaterialGen.getStack(mat, GEMaterial.stick, 1));
             }
-            if (Loader.isModLoaded(GTValues.IC2_EXTRAS) && GTConfig.compatIc2Extras){
+            if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.compatIc2Extras){
                 if (mat.hasFlag(GEMaterial.crushedore)){
                     OreDictionary.registerOre("crushed" + mat.getDisplayName(), GEMaterialGen.getCrushedOre(mat, 1));
                 }

@@ -1,8 +1,8 @@
 package gtc_expansion.item.tools;
 
 import gtc_expansion.material.GEMaterial;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;

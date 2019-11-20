@@ -1,8 +1,9 @@
 package gtc_expansion.material;
 
 import gtc_expansion.GTCExpansion;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialFlag;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialFlag;
+import gtclassic.api.material.GTMaterialGen;
 
 public class GEMaterial {
     static String tex = GTCExpansion.MODID + "_materials";
@@ -136,7 +137,18 @@ public class GEMaterial {
     Wood,
     Zinc;
 
-    public static void initMaterials(){}
+    public static void initMaterials(){
+        GTMaterialGen.addItemFlag(smalldust);
+        GTMaterialGen.addItemFlag(tinydust);
+        GTMaterialGen.addItemFlag(crushedore);
+        GTMaterialGen.addItemFlag(crushedorePurified);
+        GTMaterialGen.addItemFlag(gemGarnetShape);
+        GTMaterialGen.addItemFlag(nugget);
+        GTMaterialGen.addItemFlag(plate);
+        GTMaterialGen.addItemFlag(gear);
+        GTMaterialGen.addItemFlag(stick);
+        GTMaterialGen.addItemFlag(hull);
+    }
 
     static {
         Almandine = new GTMaterial("Almandine", 255, 0, 0, dustAll);

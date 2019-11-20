@@ -2,10 +2,10 @@ package gtc_expansion.recipes;
 
 import gtc_expansion.GEConfiguration;
 import gtc_expansion.GEItems;
-import gtclassic.GTBlocks;
-import gtclassic.GTConfig;
-import gtclassic.GTItems;
-import gtclassic.material.GTMaterialGen;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.common.GTBlocks;
+import gtclassic.common.GTConfig;
+import gtclassic.common.GTItems;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;

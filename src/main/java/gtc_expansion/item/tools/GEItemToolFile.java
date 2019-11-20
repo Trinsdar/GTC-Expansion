@@ -3,8 +3,8 @@ package gtc_expansion.item.tools;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTMod;
-import gtclassic.color.GTColorItemInterface;
-import gtclassic.material.GTMaterial;
+import gtclassic.api.interfaces.IGTColorItem;
+import gtclassic.api.material.GTMaterial;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.ILayeredItemModel;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
@@ -18,7 +18,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class GEItemToolFile extends Item implements IStaticTexturedItem, GTColorItemInterface, ILayeredItemModel {
+public class GEItemToolFile extends Item implements IStaticTexturedItem, IGTColorItem, ILayeredItemModel {
 
     GTMaterial material;
 

@@ -2,8 +2,8 @@ package gtc_expansion.container;
 
 
 import gtc_expansion.tile.GETileChemicalReactor;
-import gtclassic.gui.GTGuiCompDirectionalProgress;
-import gtclassic.util.GTSlotUpgrade;
+import gtclassic.api.gui.GTGuiCompDirectionalProgress;
+import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotDischarge;

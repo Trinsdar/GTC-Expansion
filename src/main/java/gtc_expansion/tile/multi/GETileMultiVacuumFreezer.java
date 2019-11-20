@@ -7,11 +7,10 @@ import gtc_expansion.container.GEContainerVacuumFreezer;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GELang;
-import gtc_expansion.util.IStatus;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
-import gtclassic.util.int3;
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+import gtclassic.api.helpers.int3;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -45,7 +44,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple implements IStatus {
+public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachine {
     protected static final int slotInput = 0;
     protected static final int slotOutput = 1;
     protected static final int slotFuel = 2;
@@ -55,12 +54,10 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple imple
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/vacuumfreezer.png");
     private static final int defaultEu = 64;
-    private boolean structureValid = false;
 
     public GETileMultiVacuumFreezer() {
         super(3, 2, defaultEu, 128);
         maxEnergy = 10000;
-        this.addGuiFields("structureValid");
     }
 
     @Override
@@ -220,8 +217,6 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple imple
         if (!world.isAreaLoaded(pos, 3)) {
             return false;
         }
-        this.structureValid = false;
-        this.getNetwork().updateTileGuiField(this, "structureValid");
         int3 dir = new int3(getPos(), getFacing());
         //Top Layer
         if (!isAdvancedCasing(dir.down(1))){
@@ -302,8 +297,6 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple imple
                 return false;
             }
         }
-        this.structureValid = true;
-        this.getNetwork().updateTileGuiField(this, "structureValid");
         return true;
     }
 
@@ -313,10 +306,5 @@ public class GETileMultiVacuumFreezer extends GTTileMultiBaseMachineSimple imple
 
     public boolean isReinforcedCasing(int3 pos) {
         return world.getBlockState(pos.asBlockPos()) == casingReinforcedState;
-    }
-
-    @Override
-    public boolean getStructureValid() {
-        return structureValid;
     }
 }

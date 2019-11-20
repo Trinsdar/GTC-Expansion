@@ -9,14 +9,12 @@ import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.util.GEFluidHelper;
 import gtc_expansion.util.GELang;
 import gtc_expansion.util.GTFluidMachineOutput;
-import gtc_expansion.util.IStatus;
-import gtclassic.GTBlocks;
-import gtclassic.helpers.GTHelperFluid;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialGen;
-import gtclassic.tile.multi.GTTileMultiBaseMachineSimple;
-import gtclassic.util.int3;
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.helpers.int3;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -52,7 +50,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -61,7 +58,6 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,7 +66,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple implements ITankListener, IStatus, IClickable {
+public class GETileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener, IClickable {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/distillationtower.png");
     public static final IBlockState standardCasingState = GEBlocks.casingStandard.getDefaultState();
     public static final IBlockState advancedCasingState = GEBlocks.casingAdvanced.getDefaultState();
@@ -88,7 +84,6 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple i
     private IC2Tank outputTank2 = new IC2Tank(16000);
     private IC2Tank outputTank3 = new IC2Tank(16000);
     private IC2Tank outputTank4 = new IC2Tank(16000);
-    private boolean structureValid = false;
 
     public GETileMultiDistillationTower() {
         super(8, 2, defaultEu, 128);
@@ -104,7 +99,6 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple i
         this.addGuiFields("outputTank3");
         this.outputTank4.addListener(this);
         this.addGuiFields("outputTank4");
-        this.addGuiFields("structureValid");
     }
 
     @Override
@@ -583,8 +577,6 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple i
         if (!world.isAreaLoaded(pos, 3)) {
             return false;
         }
-        this.structureValid = false;
-        this.getNetwork().updateTileGuiField(this, "structureValid");
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
         if (!isStandardCasing(dir.back(1))){
@@ -730,8 +722,6 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple i
         if (!isStandardCasing(dir.up(1))) {
             return false;
         }
-        this.structureValid = true;
-        this.getNetwork().updateTileGuiField(this, "structureValid");
         return true;
     }
 
@@ -745,11 +735,6 @@ public class GETileMultiDistillationTower extends GTTileMultiBaseMachineSimple i
 
     public boolean isAir(int3 pos) {
         return world.getBlockState(pos.asBlockPos()) == airState;
-    }
-
-    @Override
-    public boolean getStructureValid() {
-        return structureValid;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package gtc_expansion.util.jei.category;
 
-import gtclassic.util.jei.category.GTJeiMultiRecipeCategory;
+import gtclassic.api.jei.GTJeiMultiRecipeCategory;
 import mezz.jei.api.IGuiHelper;
 import net.minecraft.block.Block;
 

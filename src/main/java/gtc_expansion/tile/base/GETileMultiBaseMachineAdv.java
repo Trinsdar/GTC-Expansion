@@ -1,10 +1,9 @@
 package gtc_expansion.tile.base;
 
-import gtclassic.tile.GTTileBaseMachine;
-import gtclassic.tile.multi.GTTileMultiBaseMachineAdv;
-import gtclassic.util.energy.EnergyConsumer;
-import gtclassic.util.energy.MultiBlockHelper;
-import gtclassic.util.int3;
+import gtc_expansion.util.EnergyConsumer;
+import gtc_expansion.util.MultiBlockHelper;
+import gtclassic.api.helpers.int3;
+import gtclassic.api.tile.GTTileBaseMachine;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyTile;

@@ -4,13 +4,12 @@ package gtc_expansion.fluid;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTMod;
-import gtclassic.fluid.GTFluid;
-import gtclassic.material.GTMaterial;
-import gtclassic.material.GTMaterialFlag;
+import gtclassic.api.fluid.GTFluid;
+import gtclassic.api.material.GTMaterial;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class GEFluidMolten extends GTFluid {
     public GEFluidMolten(GTMaterial mat) {

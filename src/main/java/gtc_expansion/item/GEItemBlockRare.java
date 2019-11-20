@@ -1,10 +1,10 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GEBlocks;
-import gtclassic.GTBlocks;
-import gtclassic.itemblock.GTItemBlockRare;
+import gtclassic.api.itemblock.GTItemBlockRare;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
 import ic2.core.platform.player.PlayerHandler;
+import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -32,5 +32,9 @@ public class GEItemBlockRare extends GTItemBlockRare {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
             }
         }
+    }
+
+    public boolean compare(ItemStack stack, Block block) {
+        return StackUtil.isStackEqual(stack, new ItemStack(block));
     }
 }

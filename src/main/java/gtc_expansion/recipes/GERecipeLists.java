@@ -1,6 +1,7 @@
 package gtc_expansion.recipes;
 
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+
+import gtclassic.api.recipe.GTRecipeMultiInputList;
 
 public class GERecipeLists {
     public static final GTRecipeMultiInputList ELECTROLYZER_RECIPE_LIST = new GTRecipeMultiInputList("gt.electrolyzer");

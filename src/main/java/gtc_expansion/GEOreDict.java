@@ -2,8 +2,8 @@ package gtc_expansion;
 
 import gtc_expansion.material.GEMaterialDict;
 import gtc_expansion.material.GEMaterialGen;
-import gtclassic.GTItems;
-import gtclassic.material.GTMaterial;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.common.GTItems;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;

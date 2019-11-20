@@ -3,8 +3,8 @@ package gtc_expansion.item.tools;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.material.GEMaterial;
 import gtclassic.GTMod;
-import gtclassic.color.GTColorItemInterface;
-import gtclassic.material.GTMaterial;
+import gtclassic.api.interfaces.IGTColorItem;
+import gtclassic.api.material.GTMaterial;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.ICustomItemCameraTransform;
 import ic2.core.platform.textures.obj.ILayeredItemModel;
@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GEItemToolSword extends ItemSword
-        implements IStaticTexturedItem, GTColorItemInterface, ILayeredItemModel, ICustomItemCameraTransform {
+        implements IStaticTexturedItem, IGTColorItem, ILayeredItemModel, ICustomItemCameraTransform {
 
     GTMaterial material;
 

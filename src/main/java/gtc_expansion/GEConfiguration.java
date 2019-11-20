@@ -1,6 +1,5 @@
 package gtc_expansion;
 
-import gtc_expansion.proxy.GECommonProxy;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.Comment;
 import net.minecraftforge.common.config.Config.RangeInt;

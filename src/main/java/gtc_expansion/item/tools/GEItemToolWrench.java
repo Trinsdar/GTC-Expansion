@@ -2,8 +2,8 @@ package gtc_expansion.item.tools;
 
 import gtc_expansion.GTCExpansion;
 import gtclassic.GTMod;
-import gtclassic.color.GTColorItemInterface;
-import gtclassic.material.GTMaterial;
+import gtclassic.api.interfaces.IGTColorItem;
+import gtclassic.api.material.GTMaterial;
 import ic2.core.item.tool.ItemToolWrench;
 import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -15,7 +15,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class GEItemToolWrench extends ItemToolWrench implements GTColorItemInterface {
+public class GEItemToolWrench extends ItemToolWrench implements IGTColorItem {
 
     GTMaterial material;
 

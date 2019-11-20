@@ -7,7 +7,7 @@ import gtc_expansion.recipes.GERecipeLists;
 import gtc_expansion.tile.base.GETileFuelBaseMachine;
 import gtc_expansion.util.FuelMachineFilter;
 import gtc_expansion.util.GELang;
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.CommonFilters;

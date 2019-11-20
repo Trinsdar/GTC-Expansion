@@ -12,18 +12,15 @@ import gtc_expansion.tile.GETileAssemblingMachine;
 import gtc_expansion.tile.GETileChemicalReactor;
 import gtc_expansion.tile.GETileElectrolyzer;
 import gtc_expansion.tile.multi.GETileMultiDistillationTower;
-import gtc_expansion.tile.multi.GETileMultiFusionReactor;
 import gtc_expansion.tile.multi.GETileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GETileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GETileMultiVacuumFreezer;
 import gtc_expansion.util.GELang;
-import gtclassic.color.GTColorBlockInterface;
-import gtclassic.color.GTColorItemBlock;
-import gtclassic.itemblock.GTItemBlockInterface;
-import gtclassic.itemblock.GTItemBlockRare;
-import gtclassic.util.GTLang;
+import gtclassic.api.color.GTColorItemBlock;
+import gtclassic.api.interfaces.IGTColorBlock;
+import gtclassic.api.interfaces.IGTItemBlock;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
@@ -33,7 +30,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class GEBlocks {
@@ -92,10 +88,10 @@ public class GEBlocks {
     }
 
     static Class<? extends ItemBlockRare> getItemBlock(Block block) {
-        if (block instanceof GTItemBlockInterface) {
-            return ((GTItemBlockInterface)block).getCustomItemBlock();
+        if (block instanceof IGTItemBlock) {
+            return ((IGTItemBlock)block).getCustomItemBlock();
         } else {
-            return block instanceof GTColorBlockInterface ? GTColorItemBlock.class : GEItemBlockRare.class;
+            return block instanceof IGTColorBlock ? GTColorItemBlock.class : GEItemBlockRare.class;
         }
     }
 

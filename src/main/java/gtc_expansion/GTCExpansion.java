@@ -1,6 +1,5 @@
 package gtc_expansion;
 
-import gtc_expansion.item.tools.GEToolGen;
 import gtc_expansion.material.GEMaterial;
 import gtc_expansion.material.GEMaterialGen;
 import gtc_expansion.proxy.GECommonProxy;

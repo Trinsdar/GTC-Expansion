@@ -1,11 +1,12 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GEConfiguration;
-import gtclassic.GTConfig;
-import gtclassic.helpers.GTHelperStack;
-import gtclassic.tile.GTTileBaseMachine;
-import gtclassic.tile.GTTileCentrifuge;
-import gtclassic.util.GTValues;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.recipe.GTRecipeMachineHandler;
+import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTConfig;
+import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -30,33 +31,37 @@ public class GERecipeRemove {
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustYellowGarnet", 1));
 
         ClassicRecipes.macerator.removeRecipe(GTTileBaseMachine.input("oreRedstone", 1));
-        if (GEConfiguration.general.usePlates && (!Loader.isModLoaded(GTValues.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
+        if (GEConfiguration.general.usePlates && (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
             ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("ingotCopper", 8));
         }
     }
 
     public static void initCentrifugeRemoval(){
         GTTileCentrifuge.RECIPE_LIST.startMassChange();
-        GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube");
-        GTTileCentrifuge.removeRecipe("item.itemCellEmpty");
-        GTTileCentrifuge.removeRecipe("item.itemCellEmpty_1");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustCarbon");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminium");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustAluminium_1");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustSapphire");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_4");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_5");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_6");
-        GTTileCentrifuge.removeRecipe("item.itemDustIron");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_7");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_8");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.test_tube_9");
-        GTTileCentrifuge.removeRecipe("item.itemDustCoal");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustSilicon");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustSilicon_1");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustLithium");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustSilicon_2");
-        GTTileCentrifuge.removeRecipe("item.gtclassic.dustSodalite_1");
+        removeCentrifugeRecipe("item.gtclassic.test_tube");
+        removeCentrifugeRecipe("item.itemCellEmpty");
+        removeCentrifugeRecipe("item.itemCellEmpty_1");
+        removeCentrifugeRecipe("item.gtclassic.dustCarbon");
+        removeCentrifugeRecipe("item.gtclassic.dustAluminium");
+        removeCentrifugeRecipe("item.gtclassic.dustAluminium_1");
+        removeCentrifugeRecipe("item.gtclassic.dustSapphire");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_4");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_5");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_6");
+        removeCentrifugeRecipe("item.itemDustIron");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_7");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_8");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_9");
+        removeCentrifugeRecipe("item.itemDustCoal");
+        removeCentrifugeRecipe("item.gtclassic.dustSilicon");
+        removeCentrifugeRecipe("item.gtclassic.dustSilicon_1");
+        removeCentrifugeRecipe("item.gtclassic.dustLithium");
+        removeCentrifugeRecipe("item.gtclassic.dustSilicon_2");
+        removeCentrifugeRecipe("item.gtclassic.dustSodalite_1");
         GTTileCentrifuge.RECIPE_LIST.finishMassChange();
+    }
+
+    public static void removeCentrifugeRecipe(String id){
+        GTRecipeMachineHandler.removeRecipe(GTTileCentrifuge.RECIPE_LIST, id);
     }
 }

@@ -2,8 +2,8 @@ package gtc_expansion.util.jei.category;
 
 import gtc_expansion.util.GTFluidMachineOutput;
 import gtc_expansion.util.jei.wrapper.GEJeiDistillationTowerWrapper;
-import gtclassic.GTConfig;
 import gtclassic.GTMod;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;

@@ -2,14 +2,8 @@ package gtc_expansion;
 
 import gtc_expansion.item.GEItemBatteryReusable;
 import gtc_expansion.item.GEItemBatterySingleUse;
-import gtc_expansion.item.GEItemContainerDamageless;
 import gtc_expansion.item.GEItemMisc;
-import gtc_expansion.item.tools.GEItemToolFile;
-import gtc_expansion.item.tools.GEItemToolHammer;
-import gtc_expansion.item.tools.GEItemToolWrench;
-import gtc_expansion.material.GEMaterial;
 import ic2.core.IC2;
-import ic2.core.util.helpers.ToolHelper;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;

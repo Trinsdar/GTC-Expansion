@@ -1,9 +1,9 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GEBlocks;
-import gtclassic.GTBlocks;
-import gtclassic.tile.multi.GTTileMultiFusionReactor;
-import gtclassic.util.int3;
+import gtclassic.api.helpers.int3;
+import gtclassic.common.GTBlocks;
+import gtclassic.common.tile.multi.GTTileMultiFusionReactor;
 import net.minecraft.block.state.IBlockState;
 
 public class GETileMultiFusionReactor extends GTTileMultiFusionReactor {

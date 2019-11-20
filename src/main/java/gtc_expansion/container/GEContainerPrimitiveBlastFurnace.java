@@ -1,7 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.multi.GETileMultiPrimitiveBlastFurnace;
-import gtc_expansion.util.GEGuiCompRedOverlay;
+import gtclassic.api.gui.GTGuiCompMultiTileStatus;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.gui.GuiIC2;
@@ -11,14 +11,11 @@ import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotOutput;
 import ic2.core.util.math.Box2D;
 import ic2.core.util.math.Vec2i;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.awt.*;
 
 public class GEContainerPrimitiveBlastFurnace extends ContainerTileComponent<GETileMultiPrimitiveBlastFurnace> {
 
@@ -42,7 +39,7 @@ public class GEContainerPrimitiveBlastFurnace extends ContainerTileComponent<GET
         this.addSlotToContainer(new SlotCustom(tile, 8, 80, 62, CommonFilters.IronFurnaceFuelWithLava));
         this.addPlayerInventory(player);
 
-        this.addComponent(new GEGuiCompRedOverlay(tile, new Box2D(12, 6, 12, 60)));
+        this.addComponent(new GTGuiCompMultiTileStatus(tile, new Box2D(12, 6, 12, 60)));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
         this.addComponent(new MachineFuelComp(tile, machineFuelBox, machineFuelPos));
     }

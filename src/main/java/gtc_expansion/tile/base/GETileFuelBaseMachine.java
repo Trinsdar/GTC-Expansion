@@ -1,6 +1,6 @@
 package gtc_expansion.tile.base;
 
-import gtclassic.util.recipe.GTRecipeMultiInputList;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.audio.PositionSpec;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -40,7 +40,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static gtclassic.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
+import static gtclassic.api.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
 
 public abstract class GETileFuelBaseMachine extends TileEntityMachine implements ITickable, IFuelMachine, IProgressMachine, IHasGui, INetworkTileEntityEventListener {
     @NetworkField(

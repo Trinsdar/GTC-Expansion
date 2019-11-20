@@ -1,9 +1,7 @@
 package gtc_expansion.material;
 
-import gtclassic.material.GTMaterialElement;
-import gtclassic.material.GTMaterialGen;
-import ic2.core.item.recipe.entry.RecipeInputItemStack;
-import ic2.core.item.recipe.entry.RecipeInputOreDict;
+import gtclassic.api.material.GTMaterialElement;
+import gtclassic.api.material.GTMaterialGen;
 import net.minecraft.item.ItemStack;
 
 public class GEMaterialElement {
