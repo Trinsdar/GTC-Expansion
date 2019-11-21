@@ -1,4 +1,4 @@
-package gtc_expansion.util.jei.category;
+package gtc_expansion.jei.category;
 
 import gtclassic.api.jei.GTJeiMultiRecipeCategory;
 import mezz.jei.api.IGuiHelper;

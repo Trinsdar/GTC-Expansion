@@ -1,7 +1,7 @@
-package gtc_expansion.util.jei.category;
+package gtc_expansion.jei.category;
 
 import gtc_expansion.util.GTFluidMachineOutput;
-import gtc_expansion.util.jei.wrapper.GTCXJeiDistillationTowerWrapper;
+import gtc_expansion.jei.wrapper.GTCXJeiDistillationTowerWrapper;
 import gtclassic.GTMod;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -77,7 +77,7 @@ public class GTCXJeiDistillationTowerCategory implements IRecipeCategory<GTCXJei
             if (list instanceof RecipeInputFluid){
                 int x = index % 3;
                 int y = index / 3;
-                fluidGroup.init(actualIndex, true, (18 * x), (18 * y), 16, 16, ((RecipeInputFluid)list).fluid.amount, true, null);
+                fluidGroup.init(actualIndex, true, (18 * x) + 1, (18 * y) + 1, 16, 16, ((RecipeInputFluid)list).fluid.amount, true, null);
                 fluidGroup.set(actualIndex, ((RecipeInputFluid)list).fluid);
                 index++;
                 actualIndex++;
@@ -93,7 +93,7 @@ public class GTCXJeiDistillationTowerCategory implements IRecipeCategory<GTCXJei
             for (FluidStack stack : ((GTFluidMachineOutput)output).getFluids()) {
                 int x = index % 3;
                 int y = index / 3;
-                fluidGroup.init(actualIndex, false, 90 + (18 * x), (18 * y), 16, 16, stack.amount, true, null);
+                fluidGroup.init(actualIndex, false, 91 + (18 * x), (18 * y) + 1, 16, 16, stack.amount, true, null);
                 fluidGroup.set(actualIndex, stack);
                 index++;
                 actualIndex++;

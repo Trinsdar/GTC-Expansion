@@ -6,27 +6,29 @@ import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
 
 public class GTCXMaterial {
-    static String tex = GTCExpansion.MODID + "_materials";
+    static String modid = GTCExpansion.MODID;
+    static String tex = modid + "_materials";
 
-    static GTMaterialFlag particle = new GTMaterialFlag("_particle", tex,15, false);
+
+    static GTMaterialFlag particle = new GTMaterialFlag("_particle", tex,15, false, modid);
     static GTMaterialFlag fluid = GTMaterialFlag.FLUID;
-    public static GTMaterialFlag molten = new GTMaterialFlag("", 13, true);
+    public static GTMaterialFlag molten = new GTMaterialFlag("molten", tex, 13, true, modid);
     static GTMaterialFlag gas = GTMaterialFlag.GAS;
-    public static GTMaterialFlag smalldust = new GTMaterialFlag("_dustsmall", tex, 1, false);
-    public static GTMaterialFlag tinydust = new GTMaterialFlag("_dusttiny", tex, 12, false);
-    public static GTMaterialFlag crushedore = new GTMaterialFlag("_crushedore", tex, 9, true);
-    public static GTMaterialFlag crushedorePurified = new GTMaterialFlag("_crushedorepurified", tex, 11, false);
+    public static GTMaterialFlag smalldust = new GTMaterialFlag("_dustsmall", tex, 1, false, modid);
+    public static GTMaterialFlag tinydust = new GTMaterialFlag("_dusttiny", tex, 12, false, modid);
+    public static GTMaterialFlag crushedore = new GTMaterialFlag("_crushedore", tex, 9, true, modid);
+    public static GTMaterialFlag crushedorePurified = new GTMaterialFlag("_crushedorepurified", tex, 11, false, modid);
     static GTMaterialFlag dust = GTMaterialFlag.DUST;
     static GTMaterialFlag gemRubyShape = GTMaterialFlag.RUBY;
     static GTMaterialFlag gemSapphireShape = GTMaterialFlag.SAPPHIRE;
-    public static GTMaterialFlag gemGarnetShape = new GTMaterialFlag("_gem", tex, 0, false);
+    public static GTMaterialFlag gemGarnetShape = new GTMaterialFlag("_gem", tex, 0, false, modid);
     static GTMaterialFlag ingot = GTMaterialFlag.INGOT;
-    public static GTMaterialFlag hotIngot = new GTMaterialFlag("_hotingot", tex, 2, true);
-    public static GTMaterialFlag nugget = new GTMaterialFlag("_nugget", tex, 4, false);
-    public static GTMaterialFlag plate = new GTMaterialFlag("_plate", tex, 5, false);
-    public static GTMaterialFlag gear = new GTMaterialFlag("_gear", tex, 6, false);
-    public static GTMaterialFlag stick = new GTMaterialFlag("_stick", tex, 7, false);
-    public static GTMaterialFlag hull = new GTMaterialFlag("_hull", tex, 8, false);
+    public static GTMaterialFlag hotIngot = GTMaterialFlag.INGOTHOT;
+    public static GTMaterialFlag nugget = new GTMaterialFlag("_nugget", tex, 4, false, modid);
+    public static GTMaterialFlag plate = new GTMaterialFlag("_plate", tex, 5, false, modid);
+    public static GTMaterialFlag gear = new GTMaterialFlag("_gear", tex, 6, false, modid);
+    public static GTMaterialFlag stick = new GTMaterialFlag("_stick", tex, 7, false, modid);
+    public static GTMaterialFlag hull = new GTMaterialFlag("_hull", tex, 8, false, modid);
     static GTMaterialFlag blockMetal = GTMaterialFlag.BLOCKMETAL;
     public static GTMaterialFlag blockGem = GTMaterialFlag.BLOCKGEM;
     static GTMaterialFlag[] dustAll = { smalldust, dust };
@@ -125,7 +127,6 @@ public class GTCXMaterial {
     Steel,
     Stone,
     Sulfur,
-    SulfuricAcid,
     Tetrahedrite,
     Thorium,
     Tin,
@@ -148,6 +149,7 @@ public class GTCXMaterial {
         GTMaterialGen.addItemFlag(gear);
         GTMaterialGen.addItemFlag(stick);
         GTMaterialGen.addItemFlag(hull);
+        GTMaterialGen.addFluidFlag(molten);
     }
 
     static {
@@ -237,7 +239,6 @@ public class GTCXMaterial {
         Steel = new GTMaterial("Steel", 128, 128, 128, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull);
         Stone = new GTMaterial("Stone", 196, 196, 196, dustAll);
         Sulfur = new GTMaterial("Sulfur", 200, 200, 0, smalldust, dust, tinydust);
-        SulfuricAcid = new GTMaterial("SulfuricAcid", 255, 106, 0, fluid);
         Tetrahedrite = new GTMaterial("Tetrahedrite", 200, 32, 0 , smalldust, dust, crushedore, crushedorePurified);
         Thorium = new GTMaterial("Thorium", 0, 30, 0, false, smalldust, dust, nugget, ingot, blockMetal, molten);
         Tin = new GTMaterial("Tin", 220, 220, 220, molten, smalldust, nugget, plate, stick, gear);

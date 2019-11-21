@@ -1,24 +1,10 @@
 package gtc_expansion.material;
 
 import gtclassic.api.material.GTMaterial;
-import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
 import net.minecraft.item.ItemStack;
 
 public class GTCXMaterialGen {
-    public static void init() {
-        for (GTMaterial mat : GTMaterial.values()){
-            materialHotItemUtil(mat, GTCXMaterial.hotIngot);
-        }
-    }
-
-    public static void materialHotItemUtil(GTMaterial mat, GTMaterialFlag flag) {
-        if (mat.hasFlag(flag)) {
-            GTMaterialGen.itemMap.put(mat.getName() + "_" + flag.getSuffix(), new GTCXMaterialItemHot(mat, flag));
-        }
-
-    }
-
     public static ItemStack getSmallDust(GTMaterial mat, int count){
         return GTMaterialGen.getStack(mat, GTCXMaterial.smalldust, count);
     }

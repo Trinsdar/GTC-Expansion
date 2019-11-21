@@ -1,4 +1,4 @@
-package gtc_expansion.util.crafttweaker;
+package gtc_expansion.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
@@ -7,7 +7,7 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
+import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.api.crafttweaker.GTCraftTweakerActions;
 import ic2.api.recipe.IRecipeInput;
 import net.minecraft.item.ItemStack;
@@ -15,27 +15,24 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.Arrays;
 import java.util.Locale;
 
-@ZenClass("mods.gtclassic.ImplosionCompressor")
+@ZenClass("mods.gtclassic.VacuumFreezer")
 @ZenRegister
-public class GTCXImplosionCompressorSupport {
+public class GTCXVacuumFreezerSupport {
     @ZenMethod
-    public static void addRecipe(IItemStack[] output, IIngredient input1, int tnt, @Optional(valueLong = 2560L)int totalEu){
-        GTCraftTweakerActions.apply(new ImplosionCompressorRecipeAction(GTCraftTweakerActions.of(input1), tnt, totalEu, CraftTweakerMC.getItemStacks(output)));
+    public static void addRecipe(IItemStack output, IIngredient input1, @Optional(valueLong = 2560L)int totalEu){
+        GTCraftTweakerActions.apply(new VacuumFreezerRecipeAction(GTCraftTweakerActions.of(input1), totalEu, CraftTweakerMC.getItemStack(output)));
     }
 
-    private static final class ImplosionCompressorRecipeAction implements IAction {
+    private static final class VacuumFreezerRecipeAction implements IAction {
 
         private final IRecipeInput input1;
-        private final int tnt;
         private final int totalEu;
-        private final ItemStack[] output;
+        private final ItemStack output;
 
-        ImplosionCompressorRecipeAction(IRecipeInput input1, int tnt, int totalEu, ItemStack... output) {
+        VacuumFreezerRecipeAction(IRecipeInput input1, int totalEu, ItemStack output) {
             this.input1 = input1;
-            this.tnt = tnt;
             this.totalEu = totalEu;
             this.output = output;
         }
@@ -47,12 +44,12 @@ public class GTCXImplosionCompressorSupport {
                         + "Eu amount must be greater then 0!!");
                 return;
             }
-            GTCXTileMultiImplosionCompressor.addRecipe(input1, tnt, totalEu, output);
+            GTCXTileMultiVacuumFreezer.addRecipe(input1, GTCXTileMultiVacuumFreezer.totalEu(totalEu), output);
         }
 
         @Override
         public String describe() {
-            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s -> %s] to %s", input1, tnt, totalEu, Arrays.deepToString(output), GTCXRecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST);
+            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s] to %s", input1, totalEu, output, GTCXRecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST);
         }
     }
 }

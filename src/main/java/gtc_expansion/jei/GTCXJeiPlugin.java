@@ -1,4 +1,4 @@
-package gtc_expansion.util.jei;
+package gtc_expansion.jei;
 
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
@@ -7,10 +7,10 @@ import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.jei.category.GTCXJeiDistillationTowerCategory;
-import gtc_expansion.util.jei.category.GTCXJeiIBFCategory;
-import gtc_expansion.util.jei.wrapper.GTCXJeiDistillationTowerWrapper;
-import gtc_expansion.util.jei.wrapper.GTCXJeiIBFWrapper;
+import gtc_expansion.jei.category.GTCXJeiDistillationTowerCategory;
+import gtc_expansion.jei.category.GTCXJeiIBFCategory;
+import gtc_expansion.jei.wrapper.GTCXJeiDistillationTowerWrapper;
+import gtc_expansion.jei.wrapper.GTCXJeiIBFWrapper;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.jei.GTJeiEntry;
 import gtclassic.api.material.GTMaterial;
@@ -43,7 +43,7 @@ public class GTCXJeiPlugin implements IModPlugin {
         if (SubModul.load) {
             GTJeiEntry entry = new GTJeiEntry(GTCXRecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GTCXBlocks.distillationTower, GTCXMachineGui.GTCXDistillationTowerGui.class, 80, 4, 16, 72);
             wrapperUtil1(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
-            entry = new GTJeiEntry(GTCXRecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GTCXBlocks.distillationTower, GTCXMachineGui.GTCXDistillationTowerGui.class, 80, 4, 16, 72);
+            entry = new GTJeiEntry(GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.industrialBlastFurnace, GTCXMachineGui.GTCXIndustrialBlastFurnaceGui.class, 78, 24, 20, 18);
             wrapperUtil2(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
@@ -79,7 +79,7 @@ public class GTCXJeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registry) {
         GTJeiEntry entry = new GTJeiEntry(GTCXRecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GTCXBlocks.distillationTower, GTCXMachineGui.GTCXDistillationTowerGui.class, 80, 4, 16, 72);
         categoryUtil1(registry, entry.getRecipeList(), entry.getCatalyst());
-        entry = new GTJeiEntry(GTCXRecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GTCXBlocks.distillationTower, GTCXMachineGui.GTCXDistillationTowerGui.class, 80, 4, 16, 72);
+        entry = new GTJeiEntry(GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.industrialBlastFurnace, GTCXMachineGui.GTCXIndustrialBlastFurnaceGui.class, 78, 24, 20, 18);
         categoryUtil2(registry, entry.getRecipeList(), entry.getCatalyst());
 
     }

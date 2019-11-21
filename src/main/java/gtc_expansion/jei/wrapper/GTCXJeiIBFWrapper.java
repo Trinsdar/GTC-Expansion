@@ -1,4 +1,4 @@
-package gtc_expansion.util.jei.wrapper;
+package gtc_expansion.jei.wrapper;
 
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtclassic.api.helpers.GTHelperString;

@@ -1,4 +1,4 @@
-package gtc_expansion.util.crafttweaker;
+package gtc_expansion.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;

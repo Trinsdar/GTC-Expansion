@@ -1,7 +1,6 @@
 package gtc_expansion;
 
 import gtc_expansion.material.GTCXMaterial;
-import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.proxy.GTCXCommonProxy;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
@@ -31,7 +30,6 @@ public class GTCExpansion {
 
 	static {
 		GTCXMaterial.initMaterials();
-		GTCXMaterialGen.init();
 	}
 
 	public GTCExpansion(){

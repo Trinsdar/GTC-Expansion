@@ -1,4 +1,4 @@
-package gtc_expansion.util.crafttweaker;
+package gtc_expansion.crafttweaker;
 
 import crafttweaker.IAction;
 import crafttweaker.annotations.ZenRegister;

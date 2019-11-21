@@ -1,20 +1,18 @@
 package gtc_expansion;
 
-import gtc_expansion.fluid.GTCXFluidMolten;
 import gtc_expansion.material.GTCXMaterial;
-import gtclassic.GTMod;
-import gtclassic.api.material.GTMaterial;
-import net.minecraftforge.fluids.FluidRegistry;
+import gtclassic.api.fluid.GTFluid;
+import gtclassic.api.material.GTMaterialGen;
+
+import java.awt.Color;
 
 public class GTCXFluids {
 
     public static void registerFluids() {
-        for (GTMaterial mat : GTMaterial.values()) {
-            if (mat.hasFlag(GTCXMaterial.molten)) {
-                GTMod.debugLogger("Generating GregTech molten metal: " + mat.getDisplayName());
-                FluidRegistry.registerFluid(new GTCXFluidMolten(mat));
-            }
-        }
+        GTFluid fluid = (GTFluid) GTMaterialGen.getFluid(GTCXMaterial.Iron);
+        fluid.setColor(Color.RED.getRGB());
+        fluid = (GTFluid) GTMaterialGen.getFluid(GTCXMaterial.Steel);
+        fluid.setColor(Color.RED.getRGB());
     }
 
     public static void registerFluidBlocks() {
