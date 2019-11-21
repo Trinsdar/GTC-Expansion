@@ -1,13 +1,13 @@
 package gtc_expansion.tile;
 
-import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAlloyFurnace;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.tile.base.GTCXTileFuelBaseMachine;
-import gtc_expansion.util.FuelMachineFilter;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.api.slot.GTFuelMachineFilter;
+import gtclassic.api.tile.GTTileFuelBaseMachine;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.CommonFilters;
@@ -20,12 +20,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class GTCXTileAlloyFurnace extends GTCXTileFuelBaseMachine {
+public class GTCXTileAlloyFurnace extends GTTileFuelBaseMachine {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/alloyfurnace.png");
     protected static final int[] slotInputs = { 0, 1 };
     public static final int slotOutput = 2;
     public static final int slotFuel = 3;
-    public IFilter filter = new FuelMachineFilter(this);
+    public IFilter filter = new GTFuelMachineFilter(this);
 
     public GTCXTileAlloyFurnace() {
         super(4, 200, 1);

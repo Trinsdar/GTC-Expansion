@@ -1,20 +1,20 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerPrimitiveBlastFurnace;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.tile.base.GTCXTileFuelBaseMachine;
-import gtc_expansion.util.FuelMachineFilter;
 import gtc_expansion.util.GTCXLang;
 import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.api.slot.GTFuelMachineFilter;
 import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.api.tile.GTTileFuelBaseMachine;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GTCXTileMultiPrimitiveBlastFurnace extends GTCXTileFuelBaseMachine implements IGTMultiTileStatus {
+public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine implements IGTMultiTileStatus {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;
@@ -51,7 +51,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTCXTileFuelBaseMachine 
     protected static final int[] slotInputs = { 0, 1, 2, 3 };
     public static final int[] slotOutputs = {4, 5, 6, 7};
     public static final int slotFuel = 8;
-    public IFilter filter = new FuelMachineFilter(this);
+    public IFilter filter = new GTFuelMachineFilter(this);
     private boolean structureValid = false;
 
     public GTCXTileMultiPrimitiveBlastFurnace() {

@@ -1,12 +1,11 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerDistillationTower;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXFluidHelper;
 import gtc_expansion.util.GTCXLang;
 import gtc_expansion.util.GTFluidMachineOutput;
 import gtclassic.api.helpers.GTHelperFluid;
@@ -754,49 +753,44 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     @Override
     public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
         ItemStack playerStack = player.getHeldItem(hand);
-        if ((GTHelperFluid.isConsumable(playerStack) || GTHelperFluid.isBCShard(playerStack)) && FluidUtil.tryEmptyContainer(playerStack, inputTank, inputTank.getCapacity() - inputTank.getFluidAmount(), player, true) != FluidActionResult.FAILURE) {
-            playerStack.shrink(1);
-            return true;
-        } else {
-            if (!playerStack.isEmpty()) {
-                FluidActionResult result = FluidUtil.tryEmptyContainer(playerStack, this.inputTank, this.inputTank.getCapacity() - this.inputTank.getFluidAmount(), player, true);
-                if (result.isSuccess()){
-                    playerStack.shrink(1);
-                    ItemStack resultStack = result.getResult();
-                    if (!resultStack.isEmpty()) {
-                        if (!player.inventory.addItemStackToInventory(resultStack)) {
-                            player.dropItem(resultStack, false);
-                        }
+        if (!playerStack.isEmpty()) {
+            FluidActionResult result = FluidUtil.tryEmptyContainer(playerStack, this.inputTank, this.inputTank.getCapacity() - this.inputTank.getFluidAmount(), player, true);
+            if (result.isSuccess()){
+                playerStack.shrink(1);
+                ItemStack resultStack = result.getResult();
+                if (!resultStack.isEmpty()) {
+                    if (!player.inventory.addItemStackToInventory(resultStack)) {
+                        player.dropItem(resultStack, false);
                     }
-                    return true;
                 }
-                if (outputTank1.getFluidAmount() >= 1000){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
-                }
-                if (outputTank2.getFluidAmount() >= 1000){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
-                }
-                if (outputTank3.getFluidAmount() >= 1000){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
-                }
-                if (outputTank4.getFluidAmount() >= 1000){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
-                }
-                if (outputTank1.getFluidAmount() > 0){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
-                }
-                if (outputTank2.getFluidAmount() > 0){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
-                }
-                if (outputTank3.getFluidAmount() > 0){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
-                }
-                if (outputTank4.getFluidAmount() > 0){
-                    return GTCXFluidHelper.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
-                }
+                return true;
             }
-
-            return false;
+            if (outputTank1.getFluidAmount() >= 1000){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
+            }
+            if (outputTank2.getFluidAmount() >= 1000){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
+            }
+            if (outputTank3.getFluidAmount() >= 1000){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
+            }
+            if (outputTank4.getFluidAmount() >= 1000){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
+            }
+            if (outputTank1.getFluidAmount() > 0){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
+            }
+            if (outputTank2.getFluidAmount() > 0){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
+            }
+            if (outputTank3.getFluidAmount() > 0){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
+            }
+            if (outputTank4.getFluidAmount() > 0){
+                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
+            }
         }
+
+        return false;
     }
 }

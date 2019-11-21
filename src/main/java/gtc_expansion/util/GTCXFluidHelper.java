@@ -14,10 +14,10 @@ public class GTCXFluidHelper {
     public static boolean doClickableFluidContainerFillThings(EntityPlayer player, EnumHand hand, World world, BlockPos pos, IC2Tank tank) {
         ItemStack playerStack = player.getHeldItem(hand);
         if (!playerStack.isEmpty()) {
-            FluidActionResult result2 = FluidUtil.tryFillContainer(playerStack, tank, tank.getCapacity(), player, true);
-            if (result2.isSuccess()){
+            FluidActionResult result = FluidUtil.tryFillContainer(playerStack, tank, tank.getCapacity(), player, true);
+            if (result.isSuccess()){
                 playerStack.shrink(1);
-                ItemStack resultStack = result2.getResult();
+                ItemStack resultStack = result.getResult();
                 if (!resultStack.isEmpty()) {
                     if (!player.inventory.addItemStackToInventory(resultStack)) {
                         player.dropItem(resultStack, false);
