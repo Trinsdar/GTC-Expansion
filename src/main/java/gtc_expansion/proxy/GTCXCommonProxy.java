@@ -8,7 +8,6 @@ import gtc_expansion.GTCXJei;
 import gtc_expansion.GTCXOreDict;
 import gtc_expansion.GTCXWorldGenTwilightForest;
 import gtc_expansion.item.tools.GTCXToolGen;
-import gtc_expansion.material.GTCXMaterialElement;
 import gtc_expansion.recipes.GTCXRecipe;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.common.GTConfig;
@@ -23,7 +22,6 @@ public class GTCXCommonProxy {
         GTCXFluids.registerFluids();
         GTCXBlocks.registerBlocks();
         GTCXItems.registerItems();
-        GTCXMaterialElement.init();
         GTCXToolGen.initTools();
         GTCXToolGen.initToolGen();
         GTCXBlocks.registerTiles();

@@ -156,7 +156,7 @@ public class GTCXMaterial {
         Almandine = new GTMaterial("Almandine", 255, 0, 0, dustAll);
         Aluminium = new GTMaterial("Aluminium", 128, 200, 240, metalFullWHull);
         Andradite = new GTMaterial("Andradite", 150, 120, 0, dustAll);
-        Antimony = new GTMaterial("Antimony", 220, 220, 240, molten, smalldust, dust, tinydust, nugget, ingot, plate, stick, gear, blockMetal);
+        Antimony = new GTMaterial(51,"Antimony", 220, 220, 240, molten, smalldust, dust, tinydust, nugget, ingot, plate, stick, gear, blockMetal);
         Ashes = new GTMaterial("Ashes", 192, 192, 192, dustAll);
         Basalt = new GTMaterial("Basalt", 30, 20, 20, dustAll);
         Bauxite = new GTMaterial("Bauxite", 200, 100, 0, crushedAll);
@@ -196,15 +196,15 @@ public class GTCXMaterial {
         Invar = new GTMaterial("Invar", 220, 220, 150, metalFull);
         Kanthal = new GTMaterial("Kanthal", 219, 191, 111, false, dust, smalldust, nugget, ingot, plate, hotIngot);
         Lazurite = new GTMaterial("Lazurite", 100, 120, 255, dustAll);
-        Lead = new GTMaterial("Lead", 140, 100, 140, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
+        Lead = new GTMaterial(82,"Lead", 140, 100, 140, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal);
         Lithium = new GTMaterial("Lithium", 87, 150, 204, dustAll);
         Magnalium = new GTMaterial("Magnalium", 200, 190, 255, metalBase);
-        Magnesium = new GTMaterial("Magnesium", 255, 200, 200, dustAll);
-        Manganese = new GTMaterial("Manganese", 250, 235, 250, molten, smalldust, dust, tinydust, nugget, ingot, plate, blockMetal);
+        Magnesium = new GTMaterial(12,"Magnesium", 255, 200, 200, dustAll);
+        Manganese = new GTMaterial(25,"Manganese", 250, 235, 250, molten, smalldust, dust, tinydust, nugget, ingot, plate, blockMetal);
         Marble = new GTMaterial("Marble", 200, 200, 200, dustAll);
         Naphtha = new GTMaterial("Naphtha", 255, 255, 100, fluid);
         Netherrack = new GTMaterial("Netherrack", 200, 0, 0, smalldust);
-        Nickel = new GTMaterial("Nickel", 200, 200, 250, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
+        Nickel = new GTMaterial(28,"Nickel", 200, 200, 250, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
         Nichrome = new GTMaterial("Nichrome", 205, 206, 246, molten, smalldust, dust, nugget, ingot, plate, stick);
         NitroCarbon = new GTMaterial("NitroCarbon", 31, 94, 94, fluid);
         NitroCoalFuel = new GTMaterial("NitroCoalFuel", 0, 43, 43, fluid);
@@ -213,8 +213,8 @@ public class GTCXMaterial {
         Obsidian = new GTMaterial("Obsidian", 80, 50, 100, smalldust);
         OilCrude = new GTMaterial("Crude_Oil", 0, 0, 0, fluid);
         Olivine = new GTMaterial("Olivine", 150, 255, 150, gemAll1);
-        Osmium = new GTMaterial("Osmium", 50, 50, 255, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, tinydust);
-        Phosphorus = new GTMaterial("Phosphorus", 190, 0, 0, dust, smalldust, tinydust);
+        Osmium = new GTMaterial(76,"Osmium", 50, 50, 255, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, tinydust);
+        Phosphorus = new GTMaterial(15,"Phosphorus", 190, 0, 0, dust, smalldust, tinydust);
         Platinum = new GTMaterial("Platinum", 255, 255, 200, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust, crushedore, crushedorePurified);
         Plutonium = new GTMaterial("Plutonium", 240, 50, 50, smalldust, dust, nugget, ingot, plate, blockMetal, molten);
         Propane = new GTMaterial("Propane", 81, 27, 27, gas);
@@ -238,7 +238,7 @@ public class GTCXMaterial {
         StainlessSteel = new GTMaterial("StainlessSteel", 200, 200, 220, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull);
         Steel = new GTMaterial("Steel", 128, 128, 128, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull);
         Stone = new GTMaterial("Stone", 196, 196, 196, dustAll);
-        Sulfur = new GTMaterial("Sulfur", 200, 200, 0, smalldust, dust, tinydust);
+        Sulfur = new GTMaterial(16,"Sulfur", 200, 200, 0, smalldust, dust, tinydust);
         Tetrahedrite = new GTMaterial("Tetrahedrite", 200, 32, 0 , smalldust, dust, crushedore, crushedorePurified);
         Thorium = new GTMaterial("Thorium", 0, 30, 0, false, smalldust, dust, nugget, ingot, blockMetal, molten);
         Tin = new GTMaterial("Tin", 220, 220, 220, molten, smalldust, nugget, plate, stick, gear);
@@ -248,6 +248,6 @@ public class GTCXMaterial {
         Uranium = new GTMaterial("Uranium", 50, 240, 50, dust, smalldust, molten);
         Uvarovite = new GTMaterial("Uvarovite", 180, 255, 180, dustAll);
         Wood = new GTMaterial("Wood", 137, 103, 39, dustAll);
-        Zinc = new GTMaterial("Zinc", 250, 240, 240, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
+        Zinc = new GTMaterial(30,"Zinc", 250, 240, 240, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
     }
 }
