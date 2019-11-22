@@ -154,6 +154,7 @@ public class GTCXRecipeIterators {
     }
 
     public static void createHullRecipe(GTMaterial mat) {
+        String ingot = "ingot" + mat.getDisplayName();
         String plate = "plate" + mat.getDisplayName();
         boolean steel = false;
         if (mat.equals(GTCXMaterial.Steel)){
@@ -161,7 +162,11 @@ public class GTCXRecipeIterators {
         }
         if (mat.hasFlag(GTCXMaterial.hull) && mat.hasFlag(GTCXMaterial.plate) && !steel) {
             // Hull crafting recipe
-            recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "PWP", "PPP", 'P', plate, 'W', "craftingToolWrench");
+            if (GTCXConfiguration.general.gt2Mode){
+                recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "P P", "PPP", 'P', ingot);
+            } else {
+                recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "PWP", "PPP", 'P', plate, 'W', "craftingToolWrench");
+            }
             //Ingots from hulls
             recipes.addShapelessRecipe(GTMaterialGen.getIngot(mat, 8), GTCXMaterialGen.getHull(mat, 1));
         }

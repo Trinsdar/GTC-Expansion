@@ -17,6 +17,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.GTMod;
+import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeCraftingHandler;
@@ -39,6 +40,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Loader;
 
 public class GTCXRecipe {
     static GTCXRecipe instance = new GTCXRecipe();
@@ -332,6 +334,11 @@ public class GTCXRecipe {
         instance.removeGTRecipe("shaped_item.itemtoolmininglaser_1482495812");
         instance.overrideGTRecipe("shaped_tile.gtclassic.translocator_-1819938803", GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', "machineBlockCheap", 'M', GTCXItems.conveyorModule);
         instance.overrideGTRecipe("shaped_tile.gtclassic.bufferlarge_1044342104", GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', "machineBlockCheap", 'c', "chestWood");
+        ItemStack top = GTConfig.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)
+                ? GTMaterialGen.getModItem(GTHelperMods.TFOREST, "uncrafting_table")
+                : GTMaterialGen.getIc2(Ic2Items.extractor);
+        instance.overrideGTRecipe("shaped_tile.gtclassic.disassembler_2069341086", GTMaterialGen.get(GTBlocks.tileDisassembler, 1), "RAR", "ECE", "RWR", 'A', top,
+                'W', GTCXBlocks.assemblingMachine, 'R', materialRefinedIron, 'E', Ic2Items.insulatedCopperCable.copy(), 'C', "circuitAdvanced" );
     }
 
     public void overrideGTRecipe(String recipeId, ItemStack output, Object... input) {
