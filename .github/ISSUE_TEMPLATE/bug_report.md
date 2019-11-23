@@ -5,6 +5,8 @@ labels:
 
 ---
 
+<!-- Please do not erase all this. If erased you will get 1 warning to remake the issue before I close and ignore it.-->
+
 **Description of the Bug**
 <!--A clear and concise description of what the bug is.-->
 
