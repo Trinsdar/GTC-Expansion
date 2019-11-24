@@ -36,7 +36,7 @@ public class GTCXCommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
         GTCXRecipe.postInit();
-        if (GTConfig.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)) {
+        if (GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)) {
             GTCXWorldGenTwilightForest.init();
         }
     }

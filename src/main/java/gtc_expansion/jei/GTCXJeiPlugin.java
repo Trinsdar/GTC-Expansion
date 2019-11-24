@@ -47,7 +47,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil2(registry, entry.getRecipeList(), entry.getCatalyst(), entry.getGuiClass(), entry.getClickX(), entry.getClickY(), entry.getSizeX(), entry.getSizeY());
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
-            if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.compatIc2Extras){
+            if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
                 for (GTMaterial mat : GTMaterial.values()){
                     if (mat.hasFlag(GTCXMaterial.crushedore)){
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getCrushedOre(mat, 1));
@@ -60,7 +60,7 @@ public class GTCXJeiPlugin implements IModPlugin {
                     }
                 }
             }
-            if (!Loader.isModLoaded(GTHelperMods.TFOREST) || !GTConfig.compatTwilightForest){
+            if (!Loader.isModLoaded(GTHelperMods.TFOREST) || !GTConfig.modcompat.compatTwilightForest){
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.oreOlivineOverworld));
             }
             if (!GTCXConfiguration.general.unfiredBricks){

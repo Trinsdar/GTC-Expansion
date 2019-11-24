@@ -39,7 +39,7 @@ public class GTCXJeiDistillationTowerCategory implements IRecipeCategory<GTCXJei
     }
 
     private int getHeight() {
-        return GTConfig.debugMode ? 100 : 90;
+        return GTConfig.general.debugMode ? 100 : 90;
     }
 
     @Override

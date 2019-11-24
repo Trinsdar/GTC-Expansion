@@ -53,7 +53,7 @@ public class GTCXJeiDistillationTowerWrapper implements IRecipeWrapper {
         font.drawString("Usage: " + multiRecipe.getMachineEu() + " EU/t", 0, 70, Color.black.getRGB());
         font.drawString("Cost: " + getEntryTicks(multiRecipe.getOutputs()) * multiRecipe.getMachineEu()
                 + " EU", 0, 80, Color.black.getRGB());
-        if (GTConfig.debugMode) {
+        if (GTConfig.general.debugMode) {
             font.drawString("Recipe Id: " + multiRecipe.getRecipeID(), 0, 90, Color.black.getRGB());
         }
     }

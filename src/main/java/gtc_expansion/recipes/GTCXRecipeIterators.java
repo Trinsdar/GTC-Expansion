@@ -31,7 +31,7 @@ public class GTCXRecipeIterators {
             createGearRecipe(mat);
             createNuggetRecipe(mat);
             createHullRecipe(mat);
-            if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.compatIc2Extras){
+            if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
         }
@@ -113,7 +113,7 @@ public class GTCXRecipeIterators {
             if (Loader.isModLoaded("ic2c_extras")){
                 // Add to auto add blacklist first
                 GTCXIc2cECompat.addToRollerIngotBlacklist(mat.getDisplayName());
-                if (GTConfig.compatIc2Extras){
+                if (GTConfig.modcompat.compatIc2Extras){
                     GTCXIc2cECompat.addRollerRecipe(ingot, 1, GTCXMaterialGen.getPlate(mat, 1));
                 }
             }

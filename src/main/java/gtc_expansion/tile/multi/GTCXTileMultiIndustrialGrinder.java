@@ -381,7 +381,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
 
     public static void init(){
         String modid = GTHelperMods.IC2_EXTRAS;
-        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.compatIc2Extras){
+        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "uraniumpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Plutonium, 1));
             addWaterRecipe("oreSilver", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "silverpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 2));
             addWaterRecipe("oreIron", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "ironpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Tin, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Nickel, 1));

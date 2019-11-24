@@ -52,7 +52,7 @@ public class GTCXRecipeGT2 {
         ItemStack battery = Ic2Items.battery;
         String circuit = "circuitBasic";
         recipes.overrideRecipe("shaped_item.itemtoolwrenchelectric_883008511", Ic2Items.electricWrench, "SWS", "SCS", " B ",'S', materialSteels, 'W', Ic2Items.wrench, 'C', circuit, 'B', battery);
-        if (GTConfig.harderIC2Macerator) {
+        if (GTConfig.general.harderIC2Macerator) {
             recipes.overrideRecipe("shaped_tile.blockMacerator_127744036", Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', ingotRefinedIron, 'M', Ic2Items.stoneMacerator.copy(), 'C',
                     "circuitAdvanced");
             recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', "gemDiamond", 'F', Items.FLINT, 'M', "machineBlockBasic", 'C',

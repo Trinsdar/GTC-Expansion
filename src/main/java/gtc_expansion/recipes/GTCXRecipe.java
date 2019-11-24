@@ -143,7 +143,7 @@ public class GTCXRecipe {
     }
 
     public static void initUURecipes(){
-        if (GTConfig.gregtechUURecipes){
+        if (GTConfig.general.gregtechUURecipes){
             if (!GTCXConfiguration.general.removeCraftingUURecipes){
                 recipes.addRecipe(GTMaterialGen.getGem(GTCXMaterial.Olivine, 1), "UU ", "UUU", "UU ", 'U', Ic2Items.uuMatter, true);
                 recipes.addRecipe(GTMaterialGen.getDust(GTCXMaterial.Zinc, 10), "   ", "U U", "U  ", 'U', Ic2Items.uuMatter, true);
@@ -334,7 +334,7 @@ public class GTCXRecipe {
         instance.removeGTRecipe("shaped_item.itemtoolmininglaser_1482495812");
         instance.overrideGTRecipe("shaped_tile.gtclassic.translocator_-1819938803", GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', "machineBlockCheap", 'M', GTCXItems.conveyorModule);
         instance.overrideGTRecipe("shaped_tile.gtclassic.bufferlarge_1044342104", GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', "machineBlockCheap", 'c', "chestWood");
-        ItemStack top = GTConfig.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)
+        ItemStack top = GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)
                 ? GTMaterialGen.getModItem(GTHelperMods.TFOREST, "uncrafting_table")
                 : GTMaterialGen.getIc2(Ic2Items.extractor);
         instance.overrideGTRecipe("shaped_tile.gtclassic.disassembler_2069341086", GTMaterialGen.get(GTBlocks.tileDisassembler, 1), "RAR", "ECE", "RWR", 'A', top,

@@ -117,7 +117,7 @@ public class GTCXRecipeGT4 {
         ItemStack battery = Ic2Items.battery;
         String circuit = "circuitBasic";
         recipes.overrideRecipe("shaped_item.itemtoolwrenchelectric_883008511", Ic2Items.electricWrench, "S S", "SCS", " B ",'S', materialSteels, 'C', circuit, 'B', battery);
-        if (GTConfig.harderIC2Macerator) {
+        if (GTConfig.general.harderIC2Macerator) {
             recipes.overrideRecipe("shaped_tile.blockMacerator_127744036", Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', ingotRefinedIron, 'M', Ic2Items.stoneMacerator.copy(), 'C',
                     "circuitAdvanced");
             recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', "gemDiamond", 'F', materialSteels, 'M', getSteelMachineBlock(), 'C',
@@ -125,7 +125,7 @@ public class GTCXRecipeGT4 {
             recipes.addRecipe(Ic2Items.macerator.copy(), "FGF", "CMC", "FCF", 'G', grinder, 'F', materialSteels, 'M', getSteelMachineBlock(), 'C',
                     "circuitBasic");
         }
-        if (GTConfig.addAdvCircuitRecipes){
+        if (GTConfig.general.addAdvCircuitRecipes){
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', "plateRedAlloy", 'G', "dustGlowstone", 'C', "circuitBasic", 'L', anyLapis);
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', "plateRedAlloy", 'G', "dustGlowstone", 'C', "circuitBasic", 'L', anyLapis);
         }

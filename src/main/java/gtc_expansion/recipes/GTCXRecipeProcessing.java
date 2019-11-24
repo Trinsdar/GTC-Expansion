@@ -60,7 +60,7 @@ public class GTCXRecipeProcessing {
 
     public static void initIc2Recipes(){
         TileEntityMacerator.addRecipe("oreRedstone", 1, GTMaterialGen.get(Items.REDSTONE, 10));
-        if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.compatIc2Extras){
+        if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
             GTRecipeProcessing.maceratorUtil("orePyrite", 1, GTMaterialGen.getDust(GTCXMaterial.Pyrite, 5));
             GTRecipeProcessing.maceratorUtil("oreCinnabar", 1, GTMaterialGen.getDust(GTCXMaterial.Cinnabar, 3));
             GTRecipeProcessing.maceratorUtil("oreSphalerite", 1, GTMaterialGen.getDust(GTCXMaterial.Sphalerite, 4));
@@ -68,7 +68,7 @@ public class GTCXRecipeProcessing {
         }
         GTRecipeProcessing.maceratorUtil("oreSodalite", 1, GTMaterialGen.getDust(GTCXMaterial.Sodalite, 12));
         TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GTCXMaterial.Olivine, 3));
-        if (GTCXConfiguration.general.usePlates && (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.compatIc2Extras)){
+        if (GTCXConfiguration.general.usePlates && (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras)){
             TileEntityCompressor.addRecipe("plateCopper", 8, Ic2Items.denseCopperPlate);
         }
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.testTube), GTTileBaseMachine.input(GTMaterialGen.get(GTCXItems.oilberry)), GTMaterialGen.getTube(GTMaterial.Oil, 1));

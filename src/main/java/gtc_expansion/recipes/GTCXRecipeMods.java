@@ -25,13 +25,13 @@ import static gtclassic.common.recipe.GTRecipeMods.metal;
 
 public class GTCXRecipeMods {
     public static void init(){
-        if (GTConfig.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)) {
+        if (GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)) {
             GTCXTileMultiPrimitiveBlastFurnace.addRecipe(new IRecipeInput[] { metal("Iron", 1),
                     input(GTMaterialGen.getModItem(GTHelperMods.TFOREST, "liveroot")),
                     input("nuggetGold", 1) }, 400, GTMaterialGen.getModItem(GTHelperMods.TFOREST, "ironwood_ingot", 2));
         }
 
-        if (GTConfig.compatEnderIO && Loader.isModLoaded(GTHelperMods.ENDERIO)) {
+        if (GTConfig.modcompat.compatEnderIO && Loader.isModLoaded(GTHelperMods.ENDERIO)) {
             // Dark steel upgrade
             GTCXTileMultiIndustrialBlastFurnace.addRecipe(new IRecipeInput[] {
                     input(GTMaterialGen.getModItem(GTHelperMods.ENDERIO, "block_dark_iron_bars", 1)), input("itemClay", 1),
@@ -116,7 +116,7 @@ public class GTCXRecipeMods {
                     input("itemClay", 1) }, 500, 20000, GTMaterialGen.getModMetaItem(GTHelperMods.ENDERIO, "item_material", 76, 2));
         }
 
-        if (GTConfig.compatIc2Extras && Loader.isModLoaded(GTHelperMods.IC2_EXTRAS)){
+        if (GTConfig.modcompat.compatIc2Extras && Loader.isModLoaded(GTHelperMods.IC2_EXTRAS)){
             addCrushedOreRecipes(GTCXMaterial.Tetrahedrite, GTCXMaterialGen.getTinyDust(GTCXMaterial.Antimony, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.Zinc, 1));
             addCrushedOreRecipes(GTCXMaterial.Galena, GTCXMaterialGen.getTinyDust(GTCXMaterial.Sulfur, 2), GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "silvertinydust"));
             addCrushedOreRecipes(GTCXMaterial.Cinnabar, GTCXMaterialGen.getTinyDust(GTCXMaterial.Redstone, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.Sulfur, 1));
