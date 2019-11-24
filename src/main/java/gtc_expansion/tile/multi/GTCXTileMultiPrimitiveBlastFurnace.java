@@ -9,6 +9,7 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine implements IGTMultiTileStatus {
+public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine implements IGTMultiTileStatus, IGTItemContainerTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;
@@ -343,5 +344,28 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
     @Override
     public boolean getStructureValid() {
         return structureValid;
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        List<ItemStack> list = new ArrayList<ItemStack>();
+        ItemStack machine = GTMaterialGen.get(GTCXBlocks.primitiveBlastFurnace);
+        list.add(machine);
+
+        list.addAll(getInventoryDrops());
+
+        return list;
+    }
+
+    @Override
+    public List<ItemStack> getInventoryDrops() {
+        List<ItemStack> list = new ArrayList<>();
+        for(int i = 0; i < this.inventory.size(); ++i) {
+            ItemStack stack = this.inventory.get(i);
+            if (!stack.isEmpty()) {
+                list.add(stack);
+            }
+        }
+        return list;
     }
 }

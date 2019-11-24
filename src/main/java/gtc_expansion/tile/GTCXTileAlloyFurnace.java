@@ -1,10 +1,13 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAlloyFurnace;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.interfaces.IGTItemContainerTile;
+import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.slot.GTFuelMachineFilter;
 import gtclassic.api.tile.GTTileFuelBaseMachine;
@@ -18,9 +21,13 @@ import ic2.core.inventory.management.SlotType;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class GTCXTileAlloyFurnace extends GTTileFuelBaseMachine {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GTCXTileAlloyFurnace extends GTTileFuelBaseMachine implements IGTItemContainerTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/alloyfurnace.png");
     protected static final int[] slotInputs = { 0, 1 };
     public static final int slotOutput = 2;
@@ -95,5 +102,28 @@ public class GTCXTileAlloyFurnace extends GTTileFuelBaseMachine {
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer entityPlayer) {
         return GTCXMachineGui.GTCXAlloySmelterGui.class;
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        List<ItemStack> list = new ArrayList<ItemStack>();
+        ItemStack machine = GTMaterialGen.get(GTCXBlocks.alloyFurnace);
+        list.add(machine);
+
+        list.addAll(getInventoryDrops());
+
+        return list;
+    }
+
+    @Override
+    public List<ItemStack> getInventoryDrops() {
+        List<ItemStack> list = new ArrayList<>();
+        for(int i = 0; i < this.inventory.size(); ++i) {
+            ItemStack stack = this.inventory.get(i);
+            if (!stack.isEmpty()) {
+                list.add(stack);
+            }
+        }
+        return list;
     }
 }

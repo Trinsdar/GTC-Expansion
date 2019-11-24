@@ -14,6 +14,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
+import gtclassic.api.interfaces.IGTItemContainerTile;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
@@ -21,13 +22,17 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GTCXBlockTile extends GTBlockBaseMachine {
@@ -152,6 +157,20 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
                 world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y, z, 0.0D, 0.0D, 0.0D);
                 world.spawnParticle(EnumParticleTypes.FLAME, x, y, z, 0.0D, 0.0D, 0.0D);
             }
+        }
+    }
+
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        List<ItemStack> list = new ArrayList<>();
+        TileEntity te = this.getLocalTile() == null ? world.getTileEntity(pos) : this.getLocalTile();
+        if (this == GTCXBlocks.primitiveBlastFurnace || this == GTCXBlocks.alloyFurnace){
+            if (te instanceof IGTItemContainerTile){
+                list.addAll(((IGTItemContainerTile) te).getDrops());
+            }
+            return list;
+        } else {
+            return super.getDrops(world, pos, state, fortune);
         }
     }
 }
