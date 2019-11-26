@@ -106,12 +106,14 @@ public class GTCXRecipeGT4 {
     }
 
     public static void initIc2(){
-        recipes.overrideRecipe("shaped_item.itempartcircuit_1058514721", Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', plateElectric);
-        recipes.overrideRecipe("shaped_item.itempartcircuit_1521116961", Ic2Items.electricCircuit, "CRC", "CEC", "CRC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', plateElectric);
+        int recipeId = IC2.config.getFlag("SteelRecipes") ? 1921363733 : 1058514721;
+        recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', plateElectric);
+        recipeId = IC2.config.getFlag("SteelRecipes") ? -1911001323 : 1521116961;
+        recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CRC", "CEC", "CRC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', plateElectric);
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
-        String machineId = IC2.config.getFlag("SteelRecipes") ? "480320652" : "527557260";
-        recipes.overrideRecipe("shaped_tile.blockmachine_" + machineId, Ic2Items.machine, "PPP", "PWP", "PPP", 'P', getRefinedIronPlate(), 'W', "craftingToolWrench");
+        recipeId = IC2.config.getFlag("SteelRecipes") ? 480320652 : 527557260;
+        recipes.overrideRecipe("shaped_tile.blockmachine_" + recipeId, Ic2Items.machine, "PPP", "PWP", "PPP", 'P', getRefinedIronPlate(), 'W', "craftingToolWrench");
         recipes.overrideRecipe("shaped_item.upgradekit.mfs_1186329581", Ic2Items.mfsuUpgradeKid, "BMB", "BBB", " B ", 'B', "ingotBronze", 'M', Ic2Items.mfsu);
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.upgradekit.mfs_-1749227982");
         ItemStack battery = Ic2Items.battery;
@@ -134,6 +136,8 @@ public class GTCXRecipeGT4 {
     public static void initOverrideGTClassic(){
         instance.removeGTRecipe("shaped_item.itempartcircuit_1303953836");
         instance.removeGTRecipe("shaped_item.itempartcircuit_-181743188");
+        instance.removeGTRecipe("shaped_item.itempartcircuit_359462536");
+        instance.removeGTRecipe("shaped_item.itempartcircuit_-1795045752");
         instance.removeGTRecipe("shaped_item.itempartcircuitadv_1366235615");
         instance.removeGTRecipe("shaped_item.itempartcircuitadv_55792611");
         IRecipeInput rod = new RecipeInputCombined(1, input("rodTitanium", 1), input("rodTungstensteel", 1));
