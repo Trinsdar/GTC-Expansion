@@ -4,7 +4,6 @@ import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXCrops;
 import gtc_expansion.GTCXFluids;
 import gtc_expansion.GTCXItems;
-import gtc_expansion.GTCXJei;
 import gtc_expansion.GTCXOreDict;
 import gtc_expansion.GTCXWorldGenTwilightForest;
 import gtc_expansion.item.tools.GTCXToolGen;
@@ -31,7 +30,6 @@ public class GTCXCommonProxy {
 
     public void init(FMLInitializationEvent e) {
         GTCXRecipe.init();
-        GTCXJei.initJei();
     }
 
     public void postInit(FMLPostInitializationEvent e) {

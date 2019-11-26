@@ -6,7 +6,6 @@ import gtclassic.api.jei.GTJeiHandler;
 
 public class GTCXJei {
     public static void initJei(){
-
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.ELECTROLYZER_RECIPE_LIST, GTCXBlocks.electrolyzer, GTCXMachineGui.GTCXIndustrialElectrolyzerGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST, GTCXBlocks.alloySmelter, GTCXMachineGui.GTCXAlloySmelterGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.ASSEMBLING_MACHINE_RECIPE_LIST, GTCXBlocks.assemblingMachine, GTCXMachineGui.GTCXAssemblingMachineGui.class, 78, 24, 20, 18));
