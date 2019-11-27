@@ -14,5 +14,6 @@ public class GTCXJei {
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST, GTCXBlocks.implosionCompressor, GTCXMachineGui.GTCXImplosionCompressorGui.class, 78, 27, 20, 11));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.VACUUM_FREEZER_RECIPE_LIST, GTCXBlocks.vacuumFreezer, GTCXMachineGui.GTCXVacuumFreezerGui.class, 78, 28, 20, 11));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.PRIMITIVE_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.primitiveBlastFurnace, GTCXMachineGui.GTCXPrimitiveBlastFurnaceGui.class, 78, 24, 20, 18));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GTCXBlocks.distillationTower, GTCXMachineGui.GTCXDistillationTowerGui.class, 80, 4, 16, 72));
     }
 }
