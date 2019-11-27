@@ -3,16 +3,19 @@ package gtc_expansion;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.api.fluid.GTFluid;
 import gtclassic.api.material.GTMaterialGen;
+import net.minecraftforge.fml.common.Loader;
 
 import java.awt.Color;
 
 public class GTCXFluids {
 
     public static void registerFluids() {
-        GTFluid fluid = (GTFluid) GTMaterialGen.getFluid(GTCXMaterial.Iron);
-        fluid.setColor(Color.RED.getRGB());
-        fluid = (GTFluid) GTMaterialGen.getFluid(GTCXMaterial.Steel);
-        fluid.setColor(Color.RED.getRGB());
+        if (!Loader.isModLoaded("tconstruct")){
+            GTFluid fluid = (GTFluid) GTMaterialGen.getFluid(GTCXMaterial.Iron);
+            fluid.setColor(Color.RED.getRGB());
+            fluid = (GTFluid) GTMaterialGen.getFluid(GTCXMaterial.Steel);
+            fluid.setColor(Color.RED.getRGB());
+        }
     }
 
     public static void registerFluidBlocks() {
