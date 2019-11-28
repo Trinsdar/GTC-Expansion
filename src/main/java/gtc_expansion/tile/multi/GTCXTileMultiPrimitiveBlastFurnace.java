@@ -15,7 +15,6 @@ import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.slot.GTFuelMachineFilter;
-import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.api.tile.GTTileFuelBaseMachine;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -49,6 +48,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import static gtclassic.api.tile.GTTileBaseMachine.input;
 
 public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine implements IGTMultiTileStatus, IGTItemContainerTile, IGTDisplayTickTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
@@ -136,16 +137,19 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
 
     public static void init() {
         /** Iron Processing **/
-        addRecipe(new IRecipeInput[] {GTTileBaseMachine.input("oreIron", 1),
-                GTTileBaseMachine.input("dustCalcite", 1) }, 800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 3));
-        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("dustPyrite", 3),
-                GTTileBaseMachine.input("dustCalcite", 1) }, 800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 2));
+        addRecipe(new IRecipeInput[] {input("oreIron", 1),
+                input("dustCalcite", 1) }, 800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 3));
+        addRecipe(new IRecipeInput[] { input("dustPyrite", 3),
+                input("dustCalcite", 1) }, 800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 2));
+        /** Galena **/
+        addRecipe(new IRecipeInput[] {
+                input("dustGalena", 2) }, 1200, GTMaterialGen.getIngot(GTCXMaterial.Lead, 1), GTMaterialGen.getIc2(Ic2Items.silverIngot, 1));
         /** Steel **/
-        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("dustSteel", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
-        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("ingotRefinedIron", 1),
-                GTTileBaseMachine.input("dustCoal", 2) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
-        addRecipe(new IRecipeInput[] { GTTileBaseMachine.input("ingotRefinedIron", 1),
-                GTTileBaseMachine.input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
+        addRecipe(new IRecipeInput[] { input("dustSteel", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
+        addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
+                input("dustCoal", 2) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 2));
+        addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
+                input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 2));
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalTime(int total) {
