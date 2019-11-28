@@ -256,6 +256,9 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 		/** Kanthal **/
 		addRecipe(new IRecipeInput[]{metal("Iron", 1), metal("Aluminium", 1), metal("Chrome", 1)}, 1500, COST_HIGH, GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 3));
 		addRecipe(new IRecipeInput[]{input("dustKanthal", 1)}, 1500, COST_HIGH, GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 1));
+
+		/** Nichrome **/
+		addRecipe(new IRecipeInput[]{metal("Nickel", 4), metal("Chrome", 1)}, 1500, COST_HIGH, GTMaterialGen.getIngot(GTCXMaterial.Nichrome, 5));
 	}
 
 	public static int getRequiredHeat(MachineOutput output) {

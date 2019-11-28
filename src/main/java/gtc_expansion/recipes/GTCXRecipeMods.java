@@ -8,6 +8,7 @@ import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.common.GTConfig;
 import gtclassic.common.recipe.GTRecipeProcessing;
 import ic2.api.classic.recipe.ClassicRecipes;
@@ -142,6 +143,7 @@ public class GTCXRecipeMods {
             GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 10), 0.5F);
             GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Platinum, 1), GTMaterialGen.getIngot(GTCXMaterial.Platinum, 1), 1.0F);
             GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Platinum, 1), GTMaterialGen.getIngot(GTCXMaterial.Platinum, 1), 1.0F);
+            GTRecipeCraftingHandler.removeRecipe("ic2c_extras", "shapeless_item.itemdustbronze_-1753288283");
         }
     }
 

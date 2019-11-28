@@ -261,10 +261,6 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(GTMaterialGen.getIc2(Ic2Items.fertilizer, 3), Ic2Items.fertilizer, "dustSulfur", GTMaterialGen.getTube(GTMaterial.Calcium, 1));
         recipes.addShapelessRecipe(GTMaterialGen.getIc2(Ic2Items.fertilizer, 2), Ic2Items.fertilizer, "dustAshes", "dustAshes", "dustAshes");
         recipes.addShapelessRecipe(GTMaterialGen.getIc2(Ic2Items.fertilizer, 2), Ic2Items.fertilizer, "dustDarkAshes");
-        recipes.addShapelessRecipe(GTMaterialGen.getDust(GTCXMaterial.Brass, 4), "dustCopper", "dustCopper", "dustCopper", "dustZinc");
-        recipes.addShapelessRecipe(GTMaterialGen.getDust(GTCXMaterial.Constantan, 3), "dustCopper", "dustCopper", "dustNickel");
-        recipes.addShapelessRecipe(GTMaterialGen.getDust(GTCXMaterial.Invar, 3), "dustIron", "dustIron", "dustNickel");
-        recipes.addShapelessRecipe(GTMaterialGen.getDust(GTCXMaterial.Magnalium, 1), "dustMagnesium", "dustAluminum", "dustAluminum");
         String lead = GTCXConfiguration.general.usePlates ? "plateLead" : "ingotLead";
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, lead);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
@@ -278,6 +274,7 @@ public class GTCXRecipe {
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockiridiumstone_-48520064");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwatergenerator_-2059790844");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwindgenerator_1669945012");
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shapeless_item.itemdustbronze_-364730307");
         ItemStack battery = Ic2Items.battery;
         String circuit = "circuitBasic";
         int recipeId = IC2.config.getFlag("SteelRecipes") ? -342403874 : -1588477206;
