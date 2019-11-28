@@ -275,6 +275,7 @@ public class GTCXRecipe {
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwatergenerator_-2059790844");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwindgenerator_1669945012");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shapeless_item.itemdustbronze_-364730307");
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockgenerator_183901857");
         ItemStack battery = Ic2Items.battery;
         String circuit = "circuitBasic";
         int recipeId = IC2.config.getFlag("SteelRecipes") ? -342403874 : -1588477206;
