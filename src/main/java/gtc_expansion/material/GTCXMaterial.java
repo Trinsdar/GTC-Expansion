@@ -12,12 +12,12 @@ public class GTCXMaterial {
 
     static GTMaterialFlag particle = new GTMaterialFlag("_particle", tex,15, false, modid);
     static GTMaterialFlag fluid = GTMaterialFlag.FLUID;
-    public static GTMaterialFlag molten = new GTMaterialFlag("molten", tex, 13, true, modid);
+    public static GTMaterialFlag molten = new GTMaterialFlag("molten", tex, 14, true, modid);
     static GTMaterialFlag gas = GTMaterialFlag.GAS;
     public static GTMaterialFlag smalldust = new GTMaterialFlag("_dustsmall", tex, 1, false, modid);
-    public static GTMaterialFlag tinydust = new GTMaterialFlag("_dusttiny", tex, 12, false, modid);
-    public static GTMaterialFlag crushedore = new GTMaterialFlag("_crushedore", tex, 9, true, modid);
-    public static GTMaterialFlag crushedorePurified = new GTMaterialFlag("_crushedorepurified", tex, 11, false, modid);
+    public static GTMaterialFlag tinydust = new GTMaterialFlag("_dusttiny", tex, 13, false, modid);
+    public static GTMaterialFlag crushedore = new GTMaterialFlag("_crushedore", tex, 10, true, modid);
+    public static GTMaterialFlag crushedorePurified = new GTMaterialFlag("_crushedorepurified", tex, 12, false, modid);
     static GTMaterialFlag dust = GTMaterialFlag.DUST;
     static GTMaterialFlag gemRubyShape = GTMaterialFlag.RUBY;
     static GTMaterialFlag gemSapphireShape = GTMaterialFlag.SAPPHIRE;
@@ -28,7 +28,7 @@ public class GTCXMaterial {
     public static GTMaterialFlag plate = new GTMaterialFlag("_plate", tex, 5, false, modid);
     public static GTMaterialFlag gear = new GTMaterialFlag("_gear", tex, 6, false, modid);
     public static GTMaterialFlag stick = new GTMaterialFlag("_stick", tex, 7, false, modid);
-    public static GTMaterialFlag hull = new GTMaterialFlag("_hull", tex, 8, false, modid);
+    public static GTMaterialFlag hull = new GTMaterialFlag("_hull", tex, 8, true, modid);
     static GTMaterialFlag blockMetal = GTMaterialFlag.BLOCKMETAL;
     public static GTMaterialFlag blockGem = GTMaterialFlag.BLOCKGEM;
     static GTMaterialFlag[] dustAll = { smalldust, dust };
