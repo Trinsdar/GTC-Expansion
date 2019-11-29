@@ -162,7 +162,7 @@ public class GTCXRecipeIterators {
         }
         if (mat.hasFlag(GTCXMaterial.hull) && mat.hasFlag(GTCXMaterial.plate) && !steel) {
             // Hull crafting recipe
-            if (GTCXConfiguration.general.gt2Mode){
+            if (!GTCXConfiguration.general.harderProgression){
                 recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "P P", "PPP", 'P', ingot);
             } else {
                 recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "PWP", "PPP", 'P', plate, 'W', "craftingToolWrench");

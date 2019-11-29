@@ -108,8 +108,8 @@ public class GTCXConfiguration {
         public boolean unfiredBricks = false;
         @Comment("Enables removing of vanilla smelting of end game metals from all loaded mods")
         public boolean ingotsRequireBlastFurnace = true;
-        @Comment("Enables GT2 mode, meaning recipes will be like gt2 and crafting tools will be hidden(maybe).")
-        public boolean gt2Mode = false;
+        @Comment("Enables harder progession, such as harder curcuit recipes, machine blocks and tool recipes rquiring tools, ect.")
+        public boolean harderProgression = true;
         @Comment("Removes all ic2 and gt crafting uu recipes and forces uu through the uu assembler.")
         public boolean removeCraftingUURecipes = false;
     }

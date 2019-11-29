@@ -120,7 +120,7 @@ public class GTCXRecipeGT4 {
         String circuit = "circuitBasic";
         recipes.overrideRecipe("shaped_item.itemtoolwrenchelectric_883008511", Ic2Items.electricWrench, "S S", "SCS", " B ",'S', materialSteels, 'C', circuit, 'B', battery);
         if (GTConfig.general.harderIC2Macerator) {
-            recipes.overrideRecipe("shaped_tile.blockMacerator_127744036", Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', ingotRefinedIron, 'M', Ic2Items.stoneMacerator.copy(), 'C',
+            recipes.overrideRecipe("shaped_tile.blockMacerator_127744036", Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', GTCXRecipe.materialRefinedIron, 'M', Ic2Items.stoneMacerator.copy(), 'C',
                     "circuitAdvanced");
             recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', "gemDiamond", 'F', materialSteels, 'M', getSteelMachineBlock(), 'C',
                     "circuitAdvanced");
@@ -134,19 +134,11 @@ public class GTCXRecipeGT4 {
     }
 
     public static void initOverrideGTClassic(){
-        instance.removeGTRecipe("shaped_item.itempartcircuit_1303953836");
-        instance.removeGTRecipe("shaped_item.itempartcircuit_-181743188");
-        instance.removeGTRecipe("shaped_item.itempartcircuit_359462536");
-        instance.removeGTRecipe("shaped_item.itempartcircuit_-1795045752");
-        instance.removeGTRecipe("shaped_item.itempartcircuitadv_1366235615");
-        instance.removeGTRecipe("shaped_item.itempartcircuitadv_55792611");
         IRecipeInput rod = new RecipeInputCombined(1, input("rodTitanium", 1), input("rodTungstensteel", 1));
         IRecipeInput plate = new RecipeInputCombined(1, input(titanium, 1), input(tungstenSteel, 1));
-        int recipeId = IC2.config.getFlag("SteelRecipes") ? -654096286 : 1664690250;
-        instance.overrideGTRecipe("shaped_item.gtclassic.rockcutter_"+ recipeId, GTMaterialGen.get(GTItems.rockCutter), "DR ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'R', rod, 'T', plate, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
-        instance.overrideGTRecipe("shaped_item.gtclassic.jackhammer_2107301811", GTMaterialGen.get(GTItems.jackHammer), "TBT", " C ", " D ", 'T', "rodTungstensteel", 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
-        recipeId = IC2.config.getFlag("SteelRecipes") ? -825500942 : -1110475998;
-        instance.overrideGTRecipe("shaped_tile.gtclassic.industrialcentrifuge_" + recipeId, GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialSteels, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.rockCutter), "DR ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'R', rod, 'T', plate, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.jackHammer), "TBT", " C ", " D ", 'T', "rodTungstensteel", 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialSteels, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
     }
 
     public static IRecipeInput input(String name, int size){
