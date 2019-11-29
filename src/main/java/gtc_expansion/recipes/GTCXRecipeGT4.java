@@ -24,6 +24,8 @@ import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 
+import static gtc_expansion.recipes.GTCXRecipe.materialMachineGT;
+
 public class GTCXRecipeGT4 {
     static GTCXRecipe instance = new GTCXRecipe();
     static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
@@ -138,7 +140,7 @@ public class GTCXRecipeGT4 {
         IRecipeInput plate = new RecipeInputCombined(1, input(titanium, 1), input(tungstenSteel, 1));
         recipes.addRecipe(GTMaterialGen.get(GTItems.rockCutter), "DR ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'R', rod, 'T', plate, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
         recipes.addRecipe(GTMaterialGen.get(GTItems.jackHammer), "TBT", " C ", " D ", 'T', "rodTungstensteel", 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialSteels, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialMachineGT, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
     }
 
     public static IRecipeInput input(String name, int size){
