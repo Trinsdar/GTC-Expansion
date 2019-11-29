@@ -93,7 +93,7 @@ public class GTCXMaterial {
     Naphtha = new GTMaterial("Naphtha", 255, 255, 100, fluid),
     Netherrack = new GTMaterial("Netherrack", 200, 0, 0, smalldust),
     Nickel = new GTMaterial(28,"Nickel", 250, 250, 200, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust),
-    Nichrome = new GTMaterial("Nichrome", 205, 206, 246, molten, smalldust, dust, nugget, ingot, plate, stick),
+    Nichrome = new GTMaterial("Nichrome", 205, 206, 246, false, molten, smalldust, dust, nugget, ingot, plate, stick),
     NitroCarbon = new GTMaterial("NitroCarbon", 31, 94, 94, fluid),
     NitroCoalFuel = new GTMaterial("NitroCoalFuel", 0, 43, 43, fluid),
     NitroDiesel = new GTMaterial("NitroDiesel", 191, 255, 100, fluid),
