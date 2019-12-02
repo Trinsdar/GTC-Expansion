@@ -42,7 +42,7 @@ public class GTCXContainerIndustrialBlastFurnace extends ContainerTileComponent<
 		this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
 		this.addComponent(new GTGuiCompMachinePower(tile));
 		this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 51)));
-		this.addComponent(new GTGuiCompBasicString("Heat Capacity: " + tile.currentHeat + " K", 4, 63));
+		this.addComponent(new GTGuiCompBasicString("Heat Capacity: " + tile.currentHeat + " K", 34, 63));
 	}
 
 	@Override
