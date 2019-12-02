@@ -149,7 +149,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
         addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
                 input("dustCoal", 2) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 2));
         addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
-                input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 2));
+                input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 1));
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalTime(int total) {
