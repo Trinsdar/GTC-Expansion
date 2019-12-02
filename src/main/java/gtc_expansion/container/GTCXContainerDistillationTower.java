@@ -5,6 +5,7 @@ import gtclassic.api.gui.GTGuiCompDirectionalProgress;
 import gtclassic.api.gui.GTGuiCompMultiTileStatus;
 import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
+import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.slots.SlotDischarge;
 import ic2.core.inventory.slots.SlotDisplay;
 import ic2.core.inventory.slots.SlotOutput;
@@ -13,6 +14,8 @@ import ic2.core.util.math.Vec2i;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTCXContainerDistillationTower extends ContainerTileComponent<GTCXTileMultiDistillationTower> {
 
@@ -35,6 +38,12 @@ public class GTCXContainerDistillationTower extends ContainerTileComponent<GTCXT
         this.addPlayerInventory(player);
         this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 63)));
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.UP));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onGuiLoaded(GuiIC2 gui) {
+        gui.dissableInvName();
     }
 
     @Override

@@ -3,6 +3,7 @@ package gtc_expansion.container;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
+import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;
 import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotDischarge;
@@ -12,6 +13,8 @@ import ic2.core.util.math.Vec2i;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTCXContainerAlloySmelter extends ContainerTileComponent<GTCXTileAlloySmelter> {
 
@@ -29,6 +32,12 @@ public class GTCXContainerAlloySmelter extends ContainerTileComponent<GTCXTileAl
         }
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onGuiLoaded(GuiIC2 gui) {
+        gui.dissableInvName();
     }
 
     @Override
