@@ -29,7 +29,7 @@ public class GTCXContainerImplosionCompressor extends ContainerTileComponent<GTC
         this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 125, 25)); // output
         this.addPlayerInventory(player);
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 26 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 25 + i * 18));
         }
         this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 48)));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));

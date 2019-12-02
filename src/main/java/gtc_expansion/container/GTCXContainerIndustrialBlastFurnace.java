@@ -36,7 +36,7 @@ public class GTCXContainerIndustrialBlastFurnace extends ContainerTileComponent<
 			}
 		}
 		for (int i = 0; i < 2; ++i) {
-			this.addSlotToContainer(new GTSlotUpgrade(tile, 8 + i, 152, 26 + i * 18));
+			this.addSlotToContainer(new GTSlotUpgrade(tile, 8 + i, 152, 17 + i * 18));
 		}
 		this.addPlayerInventory(player);
 		this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));

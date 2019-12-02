@@ -27,7 +27,7 @@ public class GTCXContainerVacuumFreezer extends ContainerTileComponent<GTCXTileM
         this.addSlotToContainer(new SlotOutput(player.player, tile, 1, 107, 25)); // output
         this.addPlayerInventory(player);
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 3 + i, 152, 26 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 3 + i, 152, 25 + i * 18));
         }
         this.addComponent(new GTGuiCompMultiTileStatus(tile, new Box2D(12, 6, 12, 48)));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
