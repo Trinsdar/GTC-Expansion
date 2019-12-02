@@ -572,10 +572,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
         }
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
-        if (!isStandardCasing(dir.back(1))){
-            return false;
-        }
-        if (!(isReinforcedCasing(dir.up(1)))) {
+        if (!isReinforcedCasing(dir.back(1))){
             return false;
         }
         if (!(isStandardCasing(dir.up(1)))) {
@@ -644,7 +641,10 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
         if (!(isStandardCasing(dir.down(1)))) {
             return false;
         }
-        if (!isStandardCasing(dir.forward(2).right(2))) {// missing front right column
+        if (!isStandardCasing(dir.forward(2).right(1))) {//block underneath block behind controller
+            return false;
+        }
+        if (!isStandardCasing(dir.right(1))) {
             return false;
         }
         if (!(isReinforcedCasing(dir.up(1)))) {
