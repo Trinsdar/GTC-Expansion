@@ -53,7 +53,7 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
     private static final int defaultEu = 16;
 
     public GTCXTileAlloySmelter() {
-        super(4, 2, defaultEu, 100, 32);
+        super(4, 4, defaultEu, 100, 32);
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
     }

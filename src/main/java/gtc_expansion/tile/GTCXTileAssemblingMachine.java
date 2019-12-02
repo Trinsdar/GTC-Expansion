@@ -58,7 +58,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
     private static final int defaultEu = 16;
 
     public GTCXTileAssemblingMachine() {
-        super(5, 2, defaultEu, 100, 32);
+        super(5, 4, defaultEu, 100, 32);
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
     }

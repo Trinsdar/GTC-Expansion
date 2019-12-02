@@ -25,10 +25,10 @@ public class GTCXContainerAlloySmelter extends ContainerTileComponent<GTCXTileAl
         super(tile);
         this.addSlotToContainer(new SlotCustom(tile, 0, 35, 25, tile.filter));// main slot
         this.addSlotToContainer(new SlotCustom(tile, 1, 53, 25, tile.filter)); // second slot
-        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 3, 80, 63)); // battery
+        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 3, 8, 62)); // battery
         this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 107, 25)); // output
-        for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 26 + i * 18));
+        for (int i = 0; i < 4; ++i) {
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 62 + (i * 18), 62));
         }
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
