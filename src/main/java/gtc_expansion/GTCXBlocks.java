@@ -56,7 +56,7 @@ public class GTCXBlocks {
     public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", 4, 150.0F));
     public static final GTCXBlockCasing casingAdvanced = registerBlock(new GTCXBlockCasing("advanced", 1, 200F));
 
-    public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
+    public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE, 1));
 
     public static final GTCXBlockOre orePyrite = registerBlock(new GTCXBlockOre("pyrite", 16, 2.0F, 1));
     public static final GTCXBlockOre oreCinnabar = registerBlock(new GTCXBlockOre("cinnabar", 17, 3.0F, 2));

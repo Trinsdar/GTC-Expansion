@@ -148,8 +148,8 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTMaterialGen.get(GTCXItems.processorCircuitBoard), Ic2Items.lapotronCrystal, 12800, GTMaterialGen.get(GTItems.circuitEnergy));
         addRecipe(GTMaterialGen.get(GTItems.circuitData), GTMaterialGen.get(GTItems.chipData, 8), 204800, GTMaterialGen.get(GTItems.orbData, 4));
         addRecipe(GTMaterialGen.get(GTBlocks.tileEchotron), GTMaterialGen.get(GTItems.chipData, 4), 51200, GTMaterialGen.get(GTItems.echotron));
-        addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 3200, GTMaterialGen.get(GTCXItems.advancedCircuitBoard));
-        addRecipe("plateAluminium", 4, "plateSilicon", 1, 3200, GTMaterialGen.get(GTCXItems.advancedCircuitBoard, 2));
+        addRecipe("plateElectrum", 2, Ic2Items.electricCircuit, 3200, GTMaterialGen.get(GTCXItems.advancedCircuitBoard));
+        addRecipe("plateElectrum", 4, "plateSilicon", 1, 3200, GTMaterialGen.get(GTCXItems.advancedCircuitBoard, 2));
         addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 3));
         addRecipe(GTCXRecipe.plateMachine, input("plateRedAlloy", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard));
         addRecipe(GTCXRecipe.plateMachine, input("plateElectrum", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard, 2));

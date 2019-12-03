@@ -2,26 +2,31 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
 import gtclassic.GTMod;
-import ic2.core.platform.lang.ILocaleBlock;
+import gtclassic.api.block.GTBlockBase;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Lang;
 import ic2.core.platform.textures.Ic2Icons;
-import ic2.core.platform.textures.obj.ITexturedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-public class GTCXBlockMisc extends Block implements ITexturedBlock, ILocaleBlock {
+public class GTCXBlockMisc extends GTBlockBase {
 
     String name;
     int id;
@@ -39,6 +44,11 @@ public class GTCXBlockMisc extends Block implements ITexturedBlock, ILocaleBlock
         setResistance(resistence);
         setHarvestLevel(toolRequired, level);
         setSoundType(type);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(I18n.format("Mobs cannot spawn on this block"));
     }
 
     @Override
@@ -76,6 +86,11 @@ public class GTCXBlockMisc extends Block implements ITexturedBlock, ILocaleBlock
     public Block setUnlocalizedName(LocaleComp name) {
         this.comp = name;
         return super.setUnlocalizedName(name.getUnlocalized());
+    }
+
+    @Override
+    public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, EntityLiving.SpawnPlacementType type) {
+        return false;
     }
 
     @Override

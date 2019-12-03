@@ -51,6 +51,8 @@ public class GTCXRecipe {
     public static IRecipeInput plateMachine = new RecipeInputCombined(1, new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateAluminum"));
     static IRecipeInput ingotSteels = new RecipeInputCombined(1, new RecipeInputOreDict("ingotSteel"), new RecipeInputOreDict("ingotStainlessSteel"), new RecipeInputOreDict("ingotAluminium"), new RecipeInputOreDict("ingotAluminum"));
     public static IRecipeInput plateSteels = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateStainlessSteel"), new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateAluminum"));
+    static IRecipeInput ingotSteelsAluminium = new RecipeInputCombined(1, new RecipeInputOreDict("ingotSteel"), new RecipeInputOreDict("ingotStainlessSteel"), new RecipeInputOreDict("ingotAluminium"), new RecipeInputOreDict("ingotAluminum"));
+    public static IRecipeInput plateSteelsAluminium = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateStainlessSteel"), new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateAluminum"));
     static IRecipeInput ingotBrassBronze = new RecipeInputCombined(1, new RecipeInputOreDict("ingotBronze"), new RecipeInputOreDict("ingotBrass"));
     static IRecipeInput plateBrassBronze = new RecipeInputCombined(1, new RecipeInputOreDict("plateBronze"), new RecipeInputOreDict("plateBrass"));
     static IRecipeInput materialBrassBronze = GTCXConfiguration.general.usePlates ? plateBrassBronze : ingotBrassBronze;
@@ -69,7 +71,8 @@ public class GTCXRecipe {
     static String materialRefinedIron = GTCXConfiguration.general.usePlates ? getRefinedIronPlate() : ingotRefinedIron;
     static IRecipeInput materialMachine = GTCXConfiguration.general.usePlates ? plateMachine : ingotMachine;
     static IRecipeInput materialSteels = GTCXConfiguration.general.usePlates ? plateSteels : ingotSteels;
-    static IRecipeInput materialMachineGT = !GTCXConfiguration.general.harderProgression ? materialMachine : materialSteels;
+    static IRecipeInput materialSteelsAluminium = GTCXConfiguration.general.usePlates ? plateSteelsAluminium : ingotSteelsAluminium;
+    static IRecipeInput materialMachineGT = !GTCXConfiguration.general.harderProgression ? materialMachine : materialSteelsAluminium;
 
     static IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateSilicon"),
             new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"),
@@ -250,8 +253,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.primitiveBlastFurnace), "BBB", "BPB", "BBB", 'B', GTCXBlocks.fireBrickBlock, 'P', "plateIron");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.alloyFurnace), "CCC", "FHF", "CCC", 'C', Blocks.BRICK_BLOCK, 'F', Blocks.FURNACE, 'H', Blocks.HOPPER);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingStandard, 4), "III", "CBC", "III", 'I', materialMachine, 'C', "circuitBasic", 'B', "machineBlockBasic");
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 5), "III", "CMC", "III", 'I', materialSteels, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced");
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', "ingotChrome", 'C', "circuitElite", 'B', "machineBlockElite");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 5), "III", "CMC", "III", 'I', materialSteelsAluminium, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', chrome, 'C', "circuitElite", 'B', "machineBlockElite");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
     }
 
@@ -277,6 +280,7 @@ public class GTCXRecipe {
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockiridiumstone_-48520064");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwatergenerator_-2059790844");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwindgenerator_1669945012");
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwindgenerator_-244136268");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shapeless_item.itemdustbronze_-364730307");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockgenerator_234578637");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockgenerator_183901657");
