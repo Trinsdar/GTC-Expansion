@@ -3,6 +3,7 @@ package gtc_expansion;
 import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;
 import gtc_expansion.item.GTCXItemMisc;
+import gtc_expansion.item.GTCXItemSteelJackHammer;
 import ic2.core.IC2;
 import net.minecraft.item.Item;
 
@@ -44,6 +45,8 @@ public class GTCXItems {
     public static final GTCXItemBatterySingleUse largeMercuryBattery = createItem(new GTCXItemBatterySingleUse("large_mercury", 96000, 2, 90));
     public static final GTCXItemBatteryReusable largeLithiumBattery = createItem(new GTCXItemBatteryReusable("large_lithium", 300000, 256, 2, 92));
     public static final GTCXItemBatteryReusable largeSodiumBattery = createItem(new GTCXItemBatteryReusable("large_sodium", 150000, 256, 2, 94));
+
+    public static final GTCXItemSteelJackHammer steelJackhammer = createItem(new GTCXItemSteelJackHammer());
 
     public static <T extends Item> T createItem(T item) {
         toRegister.add(item);

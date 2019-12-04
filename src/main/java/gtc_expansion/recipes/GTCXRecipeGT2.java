@@ -34,6 +34,7 @@ public class GTCXRecipeGT2 {
     static IRecipeInput grinder = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.diamondGrinder)), new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.wolframiumGrinder)));
 
     static String titanium = GTCXConfiguration.general.usePlates ? "plateTitanium" : "ingotTitanium";
+    static String tungstensteel = GTCXConfiguration.general.usePlates ? "plateTungstensteel" : "ingotTungstensteel";
 
     public static String getRefinedIronPlate() {
         return IC2.config.getFlag("SteelRecipes") ? "plateSteel" : "plateRefinedIron";
@@ -62,7 +63,8 @@ public class GTCXRecipeGT2 {
 
     public static void initOverrideGTClassic(){
         recipes.addRecipe(GTMaterialGen.get(GTItems.rockCutter), "DT ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'T', titanium, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
-        recipes.addRecipe(GTMaterialGen.get(GTItems.jackHammer), "TBT", " C ", " D ", 'T', titanium, 'B', Ic2Items.battery, 'C', "circuitBasic", 'D', "dustDiamond");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.jackHammer), "TJT", " D ", 'T', tungstensteel, 'J', GTCXItems.steelJackhammer, 'C', "circuitBasic", 'D', "dustDiamond");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.steelJackhammer), "SBS", " C ", " s ", 'S', materialSteels, 'B', Ic2Items.battery, 'C', "circuitAdvanced", 's', GTCXRecipe.ingotSteels);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialMachine, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
     }
 }

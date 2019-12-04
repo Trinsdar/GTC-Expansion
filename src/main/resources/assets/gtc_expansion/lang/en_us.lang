@@ -499,6 +499,8 @@ item.gtc_expansion.large_acid_battery.name=Large Acid Battery
 item.gtc_expansion.large_mercury_battery.name=Large Mercury Battery
 item.gtc_expansion.large_lithium_battery.name=Large Lithium Battery
 item.gtc_expansion.large_sodium_battery.name=Large Sodium Battery
+item.gtc_expansion.steel_jackhammer.name=Steel Jackhammer
+item.gtclassic.jackhammer.name=Diamond Jackhammer
 
 item.gtc_expansion.mold_blank.name=Blank Mold
 item.gtc_expansion.mold_block.name=Block Mold
