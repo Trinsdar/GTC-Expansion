@@ -180,7 +180,6 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
         for (IRecipeInput key : recipe.getInputs()) {
             int count = key.getAmount();
             if (key instanceof RecipeInputFluid && !fluidExtracted){
-                GTCExpansion.logger.info("key has fluid");
                 inputTank.drain(((RecipeInputFluid)key).fluid, true);
                 fluidExtracted = true;
                 continue;
