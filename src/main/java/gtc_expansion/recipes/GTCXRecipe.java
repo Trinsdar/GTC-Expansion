@@ -268,6 +268,8 @@ public class GTCXRecipe {
         String lead = GTCXConfiguration.general.usePlates ? "plateLead" : "ingotLead";
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, lead);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
+        IRecipeInput ashes = new RecipeInputCombined(1, new RecipeInputOreDict("dustAshes"), new RecipeInputOreDict("dustAsh"));
+        recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "ingotRefinedIron", ashes);
     }
 
     public static void initIc2(){
@@ -302,7 +304,6 @@ public class GTCXRecipe {
         String tin = GTCXConfiguration.general.usePlates ? "plateTin" : "ingotTin";
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.battery, 2), " C ", "TST", "TLT", 'C', Ic2Items.copperCable, 'T', tin, 'S', GTMaterialGen.getTube(GTMaterial.SulfuricAcid, 1), 'L', "dustLead");
         recipes.overrideRecipe("shaped_item.itembatre_2077392104", Ic2Items.battery, " C ", "TRT", "TRT", 'C', Ic2Items.copperCable, 'T', tin, 'R', "dustRedstone");
-        recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.glassFiberCable, 8), "GGG", "EDE", "GGG", 'G', "blockGlass", 'E', "ingotElectrum", 'D', "gemDiamond");
         recipeId = IC2.config.getFlag("SteelRecipes") ? 389795443 : -650149377;
         recipes.overrideRecipe("shaped_item.itemingotalloy_" + recipeId, GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 2), "TTT", "MMM", "BBB", 'T', materialRefinedIron, 'M', materialBrassBronze, 'B', materialTinZinc);
         if (GTCXConfiguration.general.usePlates){
