@@ -166,6 +166,10 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 		return nbt;
 	}
 
+	public int getCurrentHeat() {
+		return currentHeat;
+	}
+
 	@Override
 	public List<ItemStack> getDrops() {
 		List<ItemStack> list = new ArrayList<ItemStack>();

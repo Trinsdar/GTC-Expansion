@@ -62,11 +62,10 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
     public static final int[] slotOutputs = {4, 5, 6, 7};
     public static final int slotFuel = 8;
     public IFilter filter = new GTFuelMachineFilter(this);
-    private boolean structureValid = false;
 
     public GTCXTileMultiPrimitiveBlastFurnace() {
         super(9, 100, 1);
-        this.addGuiFields("structureValid");
+        this.addGuiFields("lastState");
     }
 
     @Override
@@ -135,6 +134,19 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
         return GTCXMachineGui.GTCXPrimitiveBlastFurnaceGui.class;
     }
 
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        this.lastState = nbt.getBoolean("lastState");
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setBoolean("lastState", lastState);
+        return nbt;
+    }
+
     public static void init() {
         /** Iron Processing **/
         addRecipe(new IRecipeInput[] {input("oreIron", 1),
@@ -183,6 +195,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
             boolean lastCheck = this.lastState;
             lastState = checkStructure();
             firstCheck = false;
+            this.getNetwork().updateTileGuiField(this, "lastState");
             if (lastCheck != this.lastState) {
                 MultiBlockHelper.INSTANCE.removeCore(this.getWorld(), this.getPos());
                 if (this.lastState) {
@@ -265,8 +278,6 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
         if (!world.isAreaLoaded(pos, 3)) {
             return false;
         }
-        this.structureValid = false;
-        this.getNetwork().updateTileGuiField(this, "structureValid");
         // we doing it "big math" style not block by block
         int3 dir = new int3(getPos(), getFacing());
         for (int i = 0; i < 3; i++) {// above tile
@@ -344,8 +355,6 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
                 return false;
             }
         }
-        this.structureValid = true;
-        this.getNetwork().updateTileGuiField(this, "structureValid");
         return true;
     }
 
@@ -355,7 +364,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine im
 
     @Override
     public boolean getStructureValid() {
-        return structureValid;
+        return lastState;
     }
 
     @Override
