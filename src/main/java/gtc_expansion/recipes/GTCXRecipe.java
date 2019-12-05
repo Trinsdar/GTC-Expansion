@@ -49,8 +49,8 @@ public class GTCXRecipe {
     static String ingotRefinedIron = IC2.getRefinedIron();
     static IRecipeInput ingotMachine = new RecipeInputCombined(1, new RecipeInputOreDict(ingotRefinedIron), new RecipeInputOreDict("ingotAluminium"), new RecipeInputOreDict("ingotAluminum"));
     public static IRecipeInput plateMachine = new RecipeInputCombined(1, new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateAluminum"));
-    static IRecipeInput ingotSteels = new RecipeInputCombined(1, new RecipeInputOreDict("ingotSteel"), new RecipeInputOreDict("ingotStainlessSteel"), new RecipeInputOreDict("ingotAluminium"), new RecipeInputOreDict("ingotAluminum"));
-    public static IRecipeInput plateSteels = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateStainlessSteel"), new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateAluminum"));
+    static IRecipeInput ingotSteels = new RecipeInputCombined(1, new RecipeInputOreDict("ingotSteel"), new RecipeInputOreDict("ingotStainlessSteel"));
+    public static IRecipeInput plateSteels = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateStainlessSteel"));
     static IRecipeInput ingotSteelsAluminium = new RecipeInputCombined(1, new RecipeInputOreDict("ingotSteel"), new RecipeInputOreDict("ingotStainlessSteel"), new RecipeInputOreDict("ingotAluminium"), new RecipeInputOreDict("ingotAluminum"));
     public static IRecipeInput plateSteelsAluminium = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateStainlessSteel"), new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateAluminum"));
     static IRecipeInput ingotBrassBronze = new RecipeInputCombined(1, new RecipeInputOreDict("ingotBronze"), new RecipeInputOreDict("ingotBrass"));
@@ -140,6 +140,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), " I ", "I I", " I ", 'I', "ingotConstantan");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), " I ", "I I", " I ", 'I', "ingotKanthal");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.nichromeHeatingCoil), " I ", "III", " I ", 'I', "ingotNichrome");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.diamondChainsaw), " D ", "DdD", "TCT", 'D', "dustDiamond", 'd', Ic2Items.chainSaw, 'T', titanium, 'C', "circuitAdvanced");
         if (GTCXConfiguration.general.unfiredBricks){
             recipes.addRecipe(GTMaterialGen.get(GTCXItems.unfiredBrick, 2), "C", "C", 'C', Items.CLAY_BALL);
             recipes.addRecipe(GTMaterialGen.get(GTCXItems.unfiredFireBrick, 2), "C", "C", 'C', GTCXItems.fireClayBall);

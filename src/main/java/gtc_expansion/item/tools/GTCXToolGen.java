@@ -1,6 +1,5 @@
 package gtc_expansion.item.tools;
 
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
@@ -29,7 +28,6 @@ public class GTCXToolGen {
         for (Item item : itemMap.values()){
             IC2.getInstance().createItem(item);
         }
-        GTCExpansion.logger.info(getAxe(GTCXMaterial.Steel).getItem().getHasSubtypes());
     }
 
     public static void createFullSet(GTMaterial mat, ToolMaterial tmat){

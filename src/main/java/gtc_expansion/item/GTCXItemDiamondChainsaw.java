@@ -54,7 +54,7 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
         this.maxCharge = 10000;
         this.transferLimit = 100;
         this.operationEnergyCost = 50;
-        this.efficiency = 24.0F;
+        this.efficiency = 18.0F;
         this.setHarvestLevel("axe", 3);
         this.setRegistryName("diamond_chainsaw");
         this.setUnlocalizedName(GTCExpansion.MODID + "." + "diamond_chainsaw");
@@ -63,17 +63,24 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
 
     @Override
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-        return diamondAxe.canHarvestBlock(state) || state.getBlock() == Blocks.WEB;
+        return diamondAxe.canHarvestBlock(state) || state.getBlock() == Blocks.WEB && ElectricItem.manager.canUse(stack, this.getEnergyCost(stack));
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, IBlockState state) {
         Material material = state.getMaterial();
+        NBTTagCompound tag = StackUtil.getOrCreateNbtData(stack);
         if (!ElectricItem.manager.canUse(stack, this.getEnergyCost(stack))) {
             return 1.0F;
         } else {
-            return material != Material.WOOD && material != Material.PLANTS && material != Material.VINE
-                    && material != Material.LEAVES ? super.getDestroySpeed(stack, state) : this.efficiency;
+            if (material != Material.WOOD && material != Material.PLANTS && material != Material.VINE
+                    && material != Material.LEAVES){
+                return  super.getDestroySpeed(stack, state);
+            }
+            if (tag.getInteger("logCount") > 0){
+                return Math.max(0.25F, 24.0F / tag.getInteger("logCount"));
+            }
+            return this.efficiency;
         }
     }
 
@@ -105,26 +112,13 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
     }
 
     @Override
-    public float getMiningSpeed(ItemStack stack) {
-        NBTTagCompound tag = StackUtil.getOrCreateNbtData(stack);
-        if (tag.getInteger("logCount") > 0){
-            return Math.max(0.25F, 24.0F / tag.getInteger("logCount"));
-        }
-        return 24.0F;
-    }
-
-    @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
         World worldIn = player.world;
         NBTTagCompound tag = StackUtil.getOrCreateNbtData(itemstack);
         if (!player.isSneaking()) {
             Set<BlockPos> positions = getTargetBlocks(worldIn, pos, player);
             if (!positions.isEmpty()){
-                int logCount = 0;
-                for (BlockPos pos2 : positions) {
-                    logCount++;
-                }
-                tag.setInteger("logCount", logCount);
+
                 for (BlockPos pos2 : positions) {
                     breakBlock(pos2, itemstack, worldIn, pos, player);
                 }
@@ -222,22 +216,22 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
                     if (nextState.getBlock().isLeaves(nextState, worldIn, nextPos)){
                         leaves++;
                     }
-                    nextPos = pos.add(1, 0, 0);
+                    nextPos = pos.add(1, i - 1, 0);
                     nextState = worldIn.getBlockState(nextPos);
                     if (nextState.getBlock().isLeaves(nextState, worldIn, nextPos)){
                         leaves++;
                     }
-                    nextPos = pos.add(0, 0, 1);
+                    nextPos = pos.add(0, i - 1, 1);
                     nextState = worldIn.getBlockState(nextPos);
                     if (nextState.getBlock().isLeaves(nextState, worldIn, nextPos)){
                         leaves++;
                     }
-                    nextPos = pos.add(-1, 0, 0);
+                    nextPos = pos.add(-1, i - 1, 0);
                     nextState = worldIn.getBlockState(nextPos);
                     if (nextState.getBlock().isLeaves(nextState, worldIn, nextPos)){
                         leaves++;
                     }
-                    nextPos = pos.add(0, 0, -1);
+                    nextPos = pos.add(0, i - 1, -1);
                     nextState = worldIn.getBlockState(nextPos);
                     if (nextState.getBlock().isLeaves(nextState, worldIn, nextPos)){
                         leaves++;
