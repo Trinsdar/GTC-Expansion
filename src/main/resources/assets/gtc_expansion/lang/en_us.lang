@@ -597,6 +597,8 @@ tooltip.gtc_expansion.primitiveblastfurnace3=Controller centered at the second l
 
 #item tooltips
 tooltip.gtc_expansion.crafting_tablet=Temporary crafting on the go
+tooltip.gtc_expansion.steel_jackhammer=Mines any stone block at 4x the speed of a diamond drill.
+tooltip.gtc_expansion.steel_jackhammer1=Can be upgraded to a diamond to do 3x3 but at 1/8th the speed.
 
 tooltip.gtc_expansion.industrialelectrolyzer0=*Slaps roof of Electrolyzer*
 tooltip.gtc_expansion.industrialelectrolyzer1=This bad boy can process so much stuff!

@@ -46,6 +46,7 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.format(this.getUnlocalizedName().replace("item", "tooltip")));
+        tooltip.add(I18n.format(this.getUnlocalizedName().replace("item", "tooltip") + 1));
     }
 
     @Override

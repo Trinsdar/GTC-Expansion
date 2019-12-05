@@ -2,6 +2,7 @@ package gtc_expansion;
 
 import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;
+import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.GTCXItemMisc;
 import gtc_expansion.item.GTCXItemSteelJackHammer;
 import ic2.core.IC2;
@@ -47,6 +48,7 @@ public class GTCXItems {
     public static final GTCXItemBatteryReusable largeSodiumBattery = createItem(new GTCXItemBatteryReusable("large_sodium", 150000, 256, 2, 94));
 
     public static final GTCXItemSteelJackHammer steelJackhammer = createItem(new GTCXItemSteelJackHammer());
+    public static final GTCXItemDiamondChainsaw diamondChainsaw = createItem(new GTCXItemDiamondChainsaw());
 
     public static <T extends Item> T createItem(T item) {
         toRegister.add(item);
