@@ -40,7 +40,7 @@ public class GTCXEvents {
             GTCXItemDiamondChainsaw item = (GTCXItemDiamondChainsaw) stack.getItem();
             Set<BlockPos> positions = item.getTargetBlocks(player.world, event.getPos(), player);
             if (!positions.isEmpty()){
-                int logCount = 0;
+                int logCount = 1;
                 for (BlockPos ignored : positions) {
                     logCount++;
                 }
