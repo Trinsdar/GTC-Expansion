@@ -57,7 +57,7 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
 
     @Override
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-        return Items.DIAMOND_PICKAXE.canHarvestBlock(state) && ElectricItem.manager.canUse(stack, this.getEnergyCost(stack));
+        return Items.DIAMOND_PICKAXE.canHarvestBlock(state);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
         if (canMine(stack) && isValidState(state)) {
             return getMiningSpeed(stack);
         } else {
-            return 0.5F;
+            return 0.05F;
         }
     }
 

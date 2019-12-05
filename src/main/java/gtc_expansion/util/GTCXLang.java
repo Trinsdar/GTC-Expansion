@@ -1,6 +1,7 @@
 package gtc_expansion.util;
 
 import ic2.core.platform.lang.components.base.LangComponentHolder;
+import ic2.core.platform.lang.components.base.LangComponentHolder.LocaleItemInfoComp;
 import ic2.core.platform.lang.components.base.LocaleComp;
 
 public class GTCXLang {
@@ -15,4 +16,8 @@ public class GTCXLang {
     public static final LocaleComp DISTILLATION_TOWER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.distillationtower");
     public static final LocaleComp ALLOY_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.alloyfurnace");
     public static final LocaleComp PRIMITIVE_BLAST_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.primitiveblastfurnace");
+
+    public static LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
+    public static LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
+    public static LocaleComp diamondChainsawShearToggle = new LocaleItemInfoComp("tooltip.diamondChainsawShearToggle.name");
 }

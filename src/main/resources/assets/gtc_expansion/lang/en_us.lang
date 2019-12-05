@@ -603,3 +603,7 @@ tooltip.gtc_expansion.steel_jackhammer1=Can be upgraded to a diamond to do 3x3 b
 
 tooltip.gtc_expansion.industrialelectrolyzer0=*Slaps roof of Electrolyzer*
 tooltip.gtc_expansion.industrialelectrolyzer1=This bad boy can process so much stuff!
+tooltip.diamondChainsawShearToggle.name=Enable/Disable Shearing
+
+message.diamondChainsawNormal.name=Enabled Shearing
+message.diamondChainsawNoShear.name=Disabled Shearing

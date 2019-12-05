@@ -1,37 +1,37 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.util.GTCXLang;
 import gtclassic.GTMod;
 import ic2.api.item.ElectricItem;
 import ic2.core.IC2;
 import ic2.core.item.base.ItemElectricTool;
 import ic2.core.platform.registry.Ic2Items;
+import ic2.core.platform.registry.Ic2Lang;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
 import ic2.core.util.misc.StackUtil;
-import net.minecraft.block.Block;
+import ic2.core.util.obj.ToolTipType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentDamage;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.StatList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -39,8 +39,8 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class GTCXItemDiamondChainsaw extends ItemElectricTool
@@ -67,6 +67,19 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
     }
 
     @Override
+    public void onSortedItemToolTip(ItemStack stack, EntityPlayer player, boolean debugTooltip, List<String> tooltip, Map<ToolTipType, List<String>> sortedTooltip) {
+        NBTTagCompound tag = StackUtil.getOrCreateNbtData(stack);
+        if (!tag.getBoolean("noShear")) {
+            tooltip.add(GTCXLang.messageDiamondChainsawNormal.getLocalized());
+        } else {
+            tooltip.add(GTCXLang.messageDiamondChainsawNoShear.getLocalized());
+        }
+        List<String> ctrlTip = sortedTooltip.get(ToolTipType.Ctrl);
+        ctrlTip.add(Ic2Lang.onItemRightClick.getLocalized());
+        ctrlTip.add(Ic2Lang.pressTo.getLocalizedFormatted(IC2.keyboard.getKeyName(2), GTCXLang.diamondChainsawShearToggle.getLocalized()));
+    }
+
+    @Override
     public float getDestroySpeed(ItemStack stack, IBlockState state) {
         Material material = state.getMaterial();
         NBTTagCompound tag = StackUtil.getOrCreateNbtData(stack);
@@ -85,30 +98,12 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase entity,
-                                            EnumHand hand) {
-        if (entity.world.isRemote) {
-            return false;
-        } else if (!(entity instanceof IShearable)) {
-            return false;
-        } else {
-            IShearable target = (IShearable) entity;
-            BlockPos pos = new BlockPos(entity.posX, entity.posY, entity.posZ);
-            if (target.isShearable(stack, entity.world, pos)
-                    && ElectricItem.manager.canUse(stack, this.getEnergyCost(stack) * 2)) {
-                List<ItemStack> drops = target.onSheared(stack, entity.world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
-                EntityItem ent;
-                for (Iterator<ItemStack> var8 = drops.iterator(); var8.hasNext(); ent.motionZ += (entity.world.rand.nextFloat()
-                        - entity.world.rand.nextFloat()) * 0.1F) {
-                    ItemStack item = (ItemStack) var8.next();
-                    ent = entity.entityDropItem(item, 1.0F);
-                    ent.motionY += entity.world.rand.nextFloat() * 0.05F;
-                    ent.motionX += (entity.world.rand.nextFloat() - entity.world.rand.nextFloat()) * 0.1F;
-                }
-                ElectricItem.manager.use(stack, this.getEnergyCost(stack) * 2, playerIn);
-            }
-            return true;
+    public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase entity, EnumHand hand) {
+        NBTTagCompound tag = StackUtil.getOrCreateNbtData(stack);
+        if (!tag.getBoolean("noShear")) {
+            return Ic2Items.chainSaw.getItem().itemInteractionForEntity(stack, playerIn, entity, hand);
         }
+        return false;
     }
 
     @Override
@@ -124,36 +119,11 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
                 }
                 tag.setInteger("logCount", 0);
             }
+            tag.setInteger("logCount", 0);
         }
-        if (!player.world.isRemote && !player.capabilities.isCreativeMode) {
-            Block block = player.world.getBlockState(pos).getBlock();
-            if (block instanceof IShearable) {
-                IShearable target = (IShearable) block;
-                if (target.isShearable(itemstack, player.world, pos)
-                        && ElectricItem.manager.canUse(itemstack, this.getEnergyCost(itemstack))) {
-                    List<ItemStack> drops = target.onSheared(itemstack, player.world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack));
-                    Iterator<ItemStack> var7 = drops.iterator();
-                    while (var7.hasNext()) {
-                        ItemStack stack = (ItemStack) var7.next();
-                        float f = 0.7F;
-                        double d = player.world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                        double d1 = player.world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                        double d2 = player.world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
-                        EntityItem entityitem = new EntityItem(player.world, pos.getX() + d, pos.getY() + d1, pos.getZ()
-                                + d2, stack);
-                        entityitem.setDefaultPickupDelay();
-                        player.world.spawnEntity(entityitem);
-                    }
-                    ElectricItem.manager.use(itemstack, this.getEnergyCost(itemstack), player);
-                    player.addStat(StatList.getBlockStats(block));
-                    if (block == Blocks.WEB) {
-                        player.world.setBlockToAir(pos);
-                        IC2.achievements.issueStat(player, "blocksSawed");
-                        return true;
-                    }
-                }
-            }
-            return false;
+        tag.setInteger("logCount", 0);
+        if (!tag.getBoolean("noShear")) {
+            return Ic2Items.chainSaw.getItem().onBlockStartBreak(itemstack, pos, player);
         } else {
             return false;
         }
@@ -277,6 +247,24 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
             return old.add( 0, 0, -1);
         }
         return old;
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand handIn) {
+        ItemStack stack = player.getHeldItem(handIn);
+        NBTTagCompound tag = StackUtil.getOrCreateNbtData(stack);
+        if (IC2.platform.isSimulating() && IC2.keyboard.isModeSwitchKeyDown(player)) {
+            if (tag.getBoolean("noShear")) {
+                tag.setBoolean("noShear", false);
+                IC2.platform.messagePlayer(player, TextFormatting.GREEN, GTCXLang.messageDiamondChainsawNormal);
+            } else {
+                tag.setBoolean("noShear", true);
+                IC2.platform.messagePlayer(player, TextFormatting.RED, GTCXLang.messageDiamondChainsawNoShear);
+            }
+            return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+        } else {
+            return super.onItemRightClick(worldIn, player, handIn);
+        }
     }
 
     @Override

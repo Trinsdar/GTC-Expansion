@@ -41,10 +41,12 @@ public class GTCXEvents {
             Set<BlockPos> positions = item.getTargetBlocks(player.world, event.getPos(), player);
             if (!positions.isEmpty()){
                 int logCount = 0;
-                for (BlockPos pos2 : positions) {
+                for (BlockPos ignored : positions) {
                     logCount++;
                 }
                 tag.setInteger("logCount", logCount);
+            } else {
+                tag.setInteger("logCount", 0);
             }
         }
     }
