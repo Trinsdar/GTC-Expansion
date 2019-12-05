@@ -1,5 +1,6 @@
 package gtc_expansion.recipes;
 
+import gtc_expansion.GTCXItems;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
@@ -10,11 +11,13 @@ import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.common.GTConfig;
+import gtclassic.common.GTItems;
 import gtclassic.common.recipe.GTRecipeProcessing;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.block.machine.low.TileEntityMacerator;
+import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -144,6 +147,10 @@ public class GTCXRecipeMods {
             GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Platinum, 1), GTMaterialGen.getIngot(GTCXMaterial.Platinum, 1), 1.0F);
             GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Platinum, 1), GTMaterialGen.getIngot(GTCXMaterial.Platinum, 1), 1.0F);
             GTRecipeCraftingHandler.removeRecipe("ic2c_extras", "shapeless_item.itemdustbronze_-1753288283");
+        }
+        if (Loader.isModLoaded("gravisuit")){
+            GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advancedchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXRecipe.tungstenSteel, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
+            GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddrill_1408250051", GTMaterialGen.getModItem("gravisuit", "advanceddrill"), " S ", "SDS", "SBS", 'S', GTCXRecipe.tungstenSteel, 'D', Ic2Items.diamondDrill, 'B', GTItems.lithiumBattery);
         }
     }
 
