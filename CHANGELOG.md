@@ -1,5 +1,38 @@
 # Changelog
 
+# 0.0.6
+ - made pbf display particles when active
+ - fixed eu display amount in pbf recipes in jei
+ - removed dust alloy recipes and moved nichrome alloy recipe to blast furnace
+ - tweaked material textures
+ - added galena recipe to pbf
+ - added dark ash as a second output of steel recipes in pbf
+ - changed a couple material colors
+ - removed generator recipe that uses an iron furnace
+ - changed end sheldonite texture
+ - changed alloy furnace to brick instead of stone based
+ - made it possible to get carbon out of regular ash
+ - fixed centrifuge not being able to accept aluminum in place of steel
+ - made my wrenches 100% lossless since I override ic2c bronze one anyways. haven't decided whether I want to override the electric one yet.
+ - made industrial grinder multiblock controller go on the side center like in gt4 instead of the bottom center
+ - tweaked tile guis and added 2 more upgrade slots to he assembling machine and alloy smelter
+ - made mobs unable to spawn on fire bricks
+ - removed a couple loggers I accidently left in
+ - added steel jack hammer and diamond chainsaw.
+ - added gravisuit classic compat such that the advanced chainsaw and drill recipes are changed
+
+# 0.0.5.1
+
+ - fixed tinker's crash
+ - fixed some recipe not overriding ic2 or gtclassic recipes when ic2 classic's steel config is enabled
+
+# 0.0.5
+
+ - fixed primitive blast furnace and allow furnace not dropping with pickaxe
+ - refactored material registeration. **MEANS ALL YOUR MATERIALS THAT ARE NOT INGOTS OR DUSTS OR BLOCKS OR GEMS WILL BE DELETED. SO TURN EVERYTHING BACK INTO ONE OF THOSE 4.**
+ - made recipes using aluminium plates use both aluminiums
+ - added assembling machine recipes for furnace and crafting table
+ - fixed circuit recipes not overriding ic2 ones when steel mode is enabled.
 # 0.0.4
 
  - Fixed overlapping slots in a couple machines.
