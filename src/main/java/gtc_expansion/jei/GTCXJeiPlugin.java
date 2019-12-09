@@ -15,6 +15,7 @@ import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.common.GTConfig;
+import ic2.core.IC2;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.jeiIntigration.SubModul;
 import mezz.jei.api.IJeiRuntime;
@@ -64,6 +65,11 @@ public class GTCXJeiPlugin implements IModPlugin {
             }
             if (GTCXConfiguration.general.harderProgression){
                 blacklist.addIngredientToBlacklist(Ic2Items.wrench);
+            }
+            if (IC2.config.getFlag("SteelRecipes")){
+                blacklist.addIngredientToBlacklist(GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1));
+            } else {
+                blacklist.addIngredientToBlacklist(GTCXMaterialGen.getHull(GTCXMaterial.RefinedIron, 1));
             }
             //blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTBlocks.tileFusionReactor));
 

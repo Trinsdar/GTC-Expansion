@@ -5,6 +5,8 @@ import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTConfig;
+import ic2.core.IC2;
+import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
@@ -50,9 +52,15 @@ public class GTCXMaterialDict {
         OreDictionary.registerOre("toolAxe", new ItemStack(GTCXToolGen.getAxe(GTCXMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Brass, 1));
+
+        if (IC2.config.getFlag("SteelRecipes")){
+            OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.RefinedIron, 1));
+            OreDictionary.registerOre("machineBlockBasic", Ic2Items.machine);
+        } else {
+            OreDictionary.registerOre("machineBlockCheap", Ic2Items.machine);
+            OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1));
+        }
         OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.Aluminium, 1));
-        OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
-        OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1));
         OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));
         OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.Titanium, 1));
         OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.TungstenSteel, 1));

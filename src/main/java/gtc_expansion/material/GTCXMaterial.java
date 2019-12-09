@@ -111,7 +111,7 @@ public class GTCXMaterial {
     RedAlloy = new GTMaterial("RedAlloy", 200, 0, 0, molten, smalldust, dust, ingot, plate, nugget, stick),
     RedRock = new GTMaterial("RedRock", 255, 80, 50, dustAll),
     Redstone = new GTMaterial("Redstone", 200, 0, 0, smalldust, tinydust),
-    RefinedIron = new GTMaterial("RefinedIron", 220, 235, 235, stick, plate, gear),
+    RefinedIron = new GTMaterial("RefinedIron", 220, 235, 235, stick, plate, gear, hull),
     Ruby = new GTMaterial("Ruby", 255, 100, 100, gemAll1),
     Saltpeter = new GTMaterial("Saltpeter", 230, 230, 230, dustAll),
     Sapphire = new GTMaterial("Sapphire", 100, 100, 200, gemAll2),

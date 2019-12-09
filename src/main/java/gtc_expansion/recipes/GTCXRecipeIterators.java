@@ -1,9 +1,11 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GTCXConfiguration;
+import gtc_expansion.GTCXItems;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
+import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterial;
@@ -157,10 +159,14 @@ public class GTCXRecipeIterators {
         String ingot = "ingot" + mat.getDisplayName();
         String plate = "plate" + mat.getDisplayName();
         boolean steel = false;
+        boolean refinedIron = true;
         if (mat.equals(GTCXMaterial.Steel)){
             steel = IC2.config.getFlag("SteelRecipes");
         }
-        if (mat.hasFlag(GTCXMaterial.hull) && mat.hasFlag(GTCXMaterial.plate) && !steel) {
+        if (mat.equals(GTCXMaterial.RefinedIron)){
+            refinedIron = IC2.config.getFlag("SteelRecipes");
+        }
+        if (mat.hasFlag(GTCXMaterial.hull) && mat.hasFlag(GTCXMaterial.plate) && !steel && refinedIron) {
             // Hull crafting recipe
             if (!GTCXConfiguration.general.harderProgression){
                 recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "P P", "PPP", 'P', ingot);
@@ -169,6 +175,8 @@ public class GTCXRecipeIterators {
             }
             //Ingots from hulls
             recipes.addShapelessRecipe(GTMaterialGen.getIngot(mat, 8), GTCXMaterialGen.getHull(mat, 1));
+            //Cheaper recipes in assembler
+            GTCXTileAssemblingMachine.addRecipe(plate, 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(mat, 1));
         }
     }
 

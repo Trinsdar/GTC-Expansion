@@ -1,11 +1,9 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerAssemblingMachine;
-import gtc_expansion.material.GTCXMaterial;
-import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipe;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
@@ -18,7 +16,6 @@ import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
-import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
@@ -156,14 +153,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTCXRecipe.getRefinedIronPlate(), 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 4));
         addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 12800, GTMaterialGen.get(GTCXItems.processorCircuitBoard));
         addRecipe(new RecipeInputCombined(1, input("gemEmerald", 8), input("gemOlivine", 8)), new RecipeInputItemStack(Ic2Items.advancedCircuit), 51200, GTMaterialGen.get(GTItems.chipData, 4));
-        addRecipe("plateAluminium", 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(GTCXMaterial.Aluminium, 1));
-        addRecipe("plateBronze", 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
-        addRecipe("plateBrass", 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(GTCXMaterial.Brass, 1));
-        if (!IC2.config.getFlag("SteelRecipes")) addRecipe("plateSteel", 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1));
-        addRecipe("plateTitanium", 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(GTCXMaterial.Titanium, 1));
         addRecipe(GTCXRecipe.getRefinedIronPlate(), 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, Ic2Items.machine);
-        addRecipe("plateTungstensteel", 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(GTCXMaterial.TungstenSteel, 1));
-        addRecipe("plateStainlessSteel", 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));
         addRecipe("dustFlint", 5, GTMaterialGen.get(Blocks.TNT), 1600, GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5));
         addRecipe("dustGunpowder", 4, GTMaterialGen.get(Blocks.SAND), 400, GTMaterialGen.get(Blocks.TNT));
         addRecipe(input("dustGlowstone", 1), GTCXRecipe.anyLapis, 1600, GTMaterialGen.get(GTCXItems.advancedCircuitParts, 2));

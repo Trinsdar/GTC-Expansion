@@ -375,6 +375,7 @@ item.gtclassic.stickNeodymium.name=Neodymium Rod
 
 #hulls
 item.gtclassic.hullBronze.name=Bronze Machine Hull
+item.gtclassic.hullRefinedIron.name=Refined Iron Machine Hull
 item.gtclassic.hullSteel.name=Steel Machine Hull
 item.gtclassic.hullAluminium.name=Aluminium Machine Hull
 item.gtclassic.hullBrass.name=Brass Machine Hull
