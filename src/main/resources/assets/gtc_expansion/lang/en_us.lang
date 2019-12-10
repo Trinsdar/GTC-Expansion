@@ -509,10 +509,10 @@ item.gtc_expansion.mold.name=Blank Mold
 item.gtc_expansion.mold_rod.name=Rod Mold
 item.gtc_expansion.mold_cell.name=Cell Mold
 item.gtc_expansion.mold_wire.name=Wire Mold
-item.gtc_expansion.mold_casing=Casing Mold
-item.gtc_expansion.mold_small_pipe=Small Pipe Mold
-item.gtc_expansion.mold_medium_pipe=Medium Pipe Mold
-item.gtc_expansion.mold_large_pipe=LargePipe Mold
+item.gtc_expansion.mold_casing.name=Casing Mold
+item.gtc_expansion.mold_small_pipe.name=Small Pipe Mold
+item.gtc_expansion.mold_medium_pipe.name=Medium Pipe Mold
+item.gtc_expansion.mold_large_pipe.name=LargePipe Mold
 item.gtc_expansion.mold_block.name=Block Mold
 item.gtc_expansion.mold_ingot.name=Ingot Mold
 item.gtc_expansion.mold_nugget.name=Nugget Mold
@@ -569,6 +569,7 @@ fluid.tungstensteel=Molten Tungstensteel
 fluid.nickel=Molten Nickel
 fluid.osmium=Molten Osmium
 fluid.nichrome=Molten Nichrome
+fluid.refinediron=Molten Refined Iron
 
 #block tooltips
 tooltip.gtc_expansion.orepyrite=Spawns between Y level 0 - 64 in the NETHER.
