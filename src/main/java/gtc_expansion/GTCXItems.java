@@ -4,6 +4,7 @@ import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.GTCXItemMisc;
+import gtc_expansion.item.GTCXItemMold;
 import gtc_expansion.item.GTCXItemSteelJackHammer;
 import ic2.core.IC2;
 import net.minecraft.item.Item;
@@ -36,6 +37,19 @@ public class GTCXItems {
     public static final GTCXItemMisc advancedCircuitBoard = createItem(new GTCXItemMisc("advanced_circuit_board", 6, 1));
     public static final GTCXItemMisc processorCircuitBoard = createItem(new GTCXItemMisc("processor_circuit_board", 7, 1));
     public static final GTCXItemMisc oilberry = createItem(new GTCXItemMisc("oilberry", 8, 1));
+    public static final GTCXItemMisc mold = createItem(new GTCXItemMisc("mold", 0, 2));
+    public static final GTCXItemMold moldPlate = createItem(new GTCXItemMold("plate", 1, 2));
+    public static final GTCXItemMold moldRod = createItem(new GTCXItemMold("rod", 2, 2));
+    public static final GTCXItemMold moldCell = createItem(new GTCXItemMold("cell", 3, 2));
+    public static final GTCXItemMold moldIngot = createItem(new GTCXItemMold("ingot", 4, 2));
+    public static final GTCXItemMold moldWire = createItem(new GTCXItemMold("wire", 5, 2));
+    public static final GTCXItemMold moldCasing = createItem(new GTCXItemMold("casing", 6, 2));
+    public static final GTCXItemMold moldSmallPipe = createItem(new GTCXItemMold("small_pipe", 7, 2));
+    public static final GTCXItemMold moldMediumPipe = createItem(new GTCXItemMold("medium_pipe", 8, 2));
+    public static final GTCXItemMold moldLargePipe = createItem(new GTCXItemMold("large_pipe", 9, 2));
+    public static final GTCXItemMold moldBlock = createItem(new GTCXItemMold("block", 10, 2));
+    public static final GTCXItemMold moldGear = createItem(new GTCXItemMold("gear", 11, 2));
+    public static final GTCXItemMold moldNugget = createItem(new GTCXItemMold("nugget", 12, 2));
 
     public static final GTCXItemMisc batteryHull = createItem(new GTCXItemMisc("battery_hull", 0, 5));
     public static final GTCXItemMisc largeBatteryHull = createItem(new GTCXItemMisc("large_battery_hull", 1, 5));

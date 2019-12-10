@@ -63,4 +63,10 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXFluidCasterGui extends MachineGui{
+        public GTCXFluidCasterGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

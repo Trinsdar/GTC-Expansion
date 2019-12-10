@@ -6,6 +6,7 @@ import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterial;
@@ -33,6 +34,7 @@ public class GTCXRecipeIterators {
             createGearRecipe(mat);
             createNuggetRecipe(mat);
             createHullRecipe(mat);
+            createFluidCastingRecipes(mat);
             if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
@@ -62,6 +64,29 @@ public class GTCXRecipeIterators {
         createFullToolRecipes(GTCXMaterial.TungstenSteel, false);
         createFullToolRecipes(GTCXMaterial.Ruby, true);
         createFullToolRecipes(GTCXMaterial.Sapphire, true);
+    }
+
+    public static void createFluidCastingRecipes(GTMaterial mat){
+        if (mat.hasFlag(GTCXMaterial.molten)){
+            if (mat.hasFlag(GTMaterialFlag.INGOT)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTMaterialGen.getIngot(mat, 1));
+            }
+            if (mat.hasFlag(GTCXMaterial.plate)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTCXMaterialGen.getPlate(mat, 1));
+            }
+            if (mat.hasFlag(GTCXMaterial.nugget)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(mat, 16), false, 3200, GTCXMaterialGen.getNugget(mat, 1));
+            }
+            if (mat.hasFlag(GTCXMaterial.stick)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldRod), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTCXMaterialGen.getRod(mat, 2));
+            }
+            if (mat.hasFlag(GTCXMaterial.nugget)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), GTMaterialGen.getFluidStack(mat, 576), false, 51200, GTCXMaterialGen.getGear(mat, 1));
+            }
+            if (mat.hasFlag(GTMaterialFlag.BLOCKMETAL)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(mat, 1296), false, 115200, GTMaterialGen.getMaterialBlock(mat, 1));
+            }
+        }
     }
 
     public static void createTinyDustRecipe(GTMaterial mat) {

@@ -16,8 +16,9 @@ public class GTCXLang {
     public static final LocaleComp DISTILLATION_TOWER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.distillationtower");
     public static final LocaleComp ALLOY_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.alloyfurnace");
     public static final LocaleComp PRIMITIVE_BLAST_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.primitiveblastfurnace");
+    public static final LocaleComp FLUID_CASTER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fluidcaster");
 
-    public static LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
-    public static LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
-    public static LocaleComp diamondChainsawShearToggle = new LocaleItemInfoComp("tooltip.diamondChainsawShearToggle.name");
+    public static final LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
+    public static final LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
+    public static final LocaleComp diamondChainsawShearToggle = new LocaleItemInfoComp("tooltip.diamondChainsawShearToggle.name");
 }
