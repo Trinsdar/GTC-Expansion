@@ -17,6 +17,20 @@ tile.gtclassic.blockYellowGarnet.name=Block of Yellow Garnet
 tile.gtclassic.blockGreenSapphire.name=Block of Green Sapphire
 tile.gtclassic.blockOlivine.name=Block of Olivine
 
+#pipes
+tile.gtclassic.brassitempipe.name=Brass Item Pipe
+tile.gtclassic.brassitempipelarge.name=Large Brass Item Pipe
+tile.gtclassic.steelfluidpipesmall.name=Small Steel Fluid Pipe
+tile.gtclassic.steelfluidpipe.name=Steel Fluid Pipe
+tile.gtclassic.steelfluidpipelarge.name=Large Steel Fluid Pipe
+tile.gtclassic.stainlesssteelfluidpipesmall.name=Small Stainless Steel Fluid Pipe
+tile.gtclassic.stainlesssteelfluidpipe.name=Stainless Steel Fluid Pipe
+tile.gtclassic.stainlesssteelfluidpipelarge.name=Large Stainless Steel Fluid Pipe
+tile.gtclassic.tungstensteelfluidpipesmall.name=Small Tungstensteel Fluid Pipe
+tile.gtclassic.tungstensteelfluidpipe.name=Tungstensteel Fluid Pipe
+tile.gtclassic.tungstensteelfluidpipelarge.name=Large Tungstensteel Fluid Pipe
+
+
 tile.gtc_expansion.orepyrite.name=Pyrite Ore
 tile.gtc_expansion.orecinnabar.name=Cinnabar Ore
 tile.gtc_expansion.oresphalerite.name=Sphalerite Ore

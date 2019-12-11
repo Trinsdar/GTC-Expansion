@@ -363,6 +363,7 @@ public class GTCXRecipe {
 //        }
         //instance.removeGTRecipe("shapeless_item.gtclassic.test_tube_-1487325092");
         //instance.removeGTRecipe("shapeless_item.sulphur_1317221415");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.monkeyWrench), "PP ", " PP", "PP ", 'P', refinedIron);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);

@@ -15,9 +15,12 @@ import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityMacerator;
+import ic2.core.item.recipe.entry.RecipeInputCombined;
+import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -35,6 +38,7 @@ public class GTCXRecipeIterators {
             createNuggetRecipe(mat);
             createHullRecipe(mat);
             createFluidCastingRecipes(mat);
+            createPipeRecipe(mat);
             if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
@@ -86,6 +90,23 @@ public class GTCXRecipeIterators {
             if (mat.hasFlag(GTMaterialFlag.BLOCKMETAL)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(mat, 1296), false, 115200, GTMaterialGen.getMaterialBlock(mat, 1));
             }
+        }
+    }
+
+    public static void createPipeRecipe(GTMaterial mat) {
+        String ingot = "ingot" + mat.getDisplayName();
+        String plate = "plate" + mat.getDisplayName();
+        String material = GTCXConfiguration.general.usePlates ? plate : ingot;
+        String hammer = "craftingToolForgeHammer";
+        IRecipeInput wrench = new RecipeInputCombined(1, new RecipeInputOreDict("craftingToolMonkeyWrench"), new RecipeInputOreDict("craftingToolWrench"));
+        if (mat.hasFlag(GTMaterialFlag.PIPEITEM)) {
+            recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
+            recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
+        }
+        if (mat.hasFlag(GTMaterialFlag.PIPEFLUID) && mat != GTMaterial.HighPressure) {
+            recipes.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 6), "IWI", "I I", "IHI", 'I', material, 'W', wrench, 'H', hammer);
+            recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
+            recipes.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
         }
     }
 
