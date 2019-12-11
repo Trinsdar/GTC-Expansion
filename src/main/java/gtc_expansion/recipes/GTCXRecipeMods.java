@@ -16,6 +16,7 @@ import gtclassic.common.recipe.GTRecipeProcessing;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.IC2;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
@@ -151,7 +152,8 @@ public class GTCXRecipeMods {
             GTRecipeCraftingHandler.removeRecipe(GTHelperMods.IC2_EXTRAS, "shapeless_item.itemdustbronze_-1753288283");
             String circuit = "circuitBasic";
             String machineBlock = "machineBlockBasic";
-            GTRecipeCraftingHandler.overrideGTRecipe(GTHelperMods.IC2_EXTRAS, "shaped_tile.orewashingplant_-997650306", GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "orewashingplant"), "PPP", "BMB", "cCc", 'P', GTCXRecipe.materialRefinedIron, 'B', Items.BUCKET, 'M', machineBlock, 'c', Ic2Items.carbonMesh, 'C', circuit);
+            int recipeId = IC2.config.getFlag("SteelRecipes") ? 42294514 : -997650306;
+            GTRecipeCraftingHandler.overrideGTRecipe(GTHelperMods.IC2_EXTRAS, "shaped_tile.orewashingplant_" + recipeId, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "orewashingplant"), "PPP", "BMB", "cCc", 'P', GTCXRecipe.materialRefinedIron, 'B', Items.BUCKET, 'M', machineBlock, 'c', Ic2Items.carbonMesh, 'C', circuit);
             GTRecipeCraftingHandler.overrideGTRecipe(GTHelperMods.IC2_EXTRAS, "shaped_tile.roller_-2064391190", GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "roller"), "CPC", "PMP", "cPc", 'C', circuit, 'P', Blocks.PISTON, 'M', machineBlock, 'c', GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "coil"));
             IRecipeInput casing = new RecipeInputCombined(1, new RecipeInputOreDict("casingSteel"), new RecipeInputOreDict("casingRefinedIron"), new RecipeInputOreDict("casingBronze"));
             GTRecipeCraftingHandler.overrideGTRecipe(GTHelperMods.IC2_EXTRAS, "shaped_tile.extruder_704871140", GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "extruder"), "SCS", "cMc", "SCS", 'C', circuit, 'S', casing, 'M', machineBlock, 'c', GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "coil"));
