@@ -25,11 +25,12 @@ public class GTCXContainerFluidCaster extends ContainerTileComponent<GTCXTileFlu
     public GTCXContainerFluidCaster(InventoryPlayer player, GTCXTileFluidCaster tile) {
         super(tile);
         this.addSlotToContainer(new SlotDisplay(tile, 0, 35, 25));// fluid display slot
-        this.addSlotToContainer(new SlotCustom(tile, 1, 53, 25, tile.filter)); // mold slot
-        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 3, 80, 63)); // battery
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 107, 25)); // output
+        this.addSlotToContainer(new SlotDisplay(tile, 1, 17, 25));// water display slot
+        this.addSlotToContainer(new SlotCustom(tile, 2, 53, 25, tile.filter)); // mold slot
+        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 4, 80, 63)); // battery
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 107, 25)); // output
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 25 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 5 + i, 152, 25 + i * 18));
         }
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));

@@ -90,6 +90,15 @@ public class GTCXRecipeIterators {
             if (mat.hasFlag(GTMaterialFlag.BLOCKMETAL)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(mat, 1296), false, 115200, GTMaterialGen.getMaterialBlock(mat, 1));
             }
+            if (mat.hasFlag(GTMaterialFlag.PIPEFLUID)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTMaterialGen.getFluidPipeSmall(mat, 1));
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTMaterialGen.getFluidPipe(mat, 1));
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getFluidPipeLarge(mat, 1));
+            }
+            if (mat.hasFlag(GTMaterialFlag.PIPEITEM)){
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTMaterialGen.getItemPipe(mat, 1));
+                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getItemPipeLarge(mat, 1));
+            }
         }
     }
 

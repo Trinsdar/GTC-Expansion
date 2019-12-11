@@ -41,6 +41,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -54,18 +55,31 @@ import java.util.function.Predicate;
 
 public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListener {
     protected static final int slotDisplayIn = 0;
-    protected static final int slotInput = 1;
-    protected static final int slotOutput = 2;
-    protected static final int slotFuel = 3;
+    protected static final int slotDisplayWater = 1;
+    protected static final int slotInput = 2;
+    protected static final int slotOutput = 3;
+    protected static final int slotFuel = 4;
     public IFilter filter = new MachineFilter(this);
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidcaster.png");
     private static final int defaultEu = 64;
-    private IC2Tank inputTank = new IC2Tank(16000);
+    private IC2Tank inputTank = new IC2Tank(16000){
+        @Override
+        public boolean canFillFluidType(FluidStack fluid) {
+            return super.canFillFluidType(fluid) && fluid.getFluid() != FluidRegistry.WATER;
+        }
+    };
+
+    private IC2Tank waterTank = new IC2Tank(16000){
+        @Override
+        public boolean canFillFluidType(FluidStack fluid) {
+            return super.canFillFluidType(fluid) && fluid.getFluid() == FluidRegistry.WATER;
+        }
+    };
 
     public static final String consumePress = "consumePress";
 
     public GTCXTileFluidCaster() {
-        super(4, 2, defaultEu, 100,128);
+        super(5, 2, defaultEu, 100,128);
         maxEnergy = 10000;
         this.inputTank.addListener(this);
         this.addGuiFields("inputTank");
