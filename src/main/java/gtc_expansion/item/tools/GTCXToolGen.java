@@ -15,13 +15,13 @@ public class GTCXToolGen {
     public static LinkedHashMap<String, Item> itemMap = new LinkedHashMap();
 
     public static void initTools(){
-        createVanillaSet(GTCXMaterial.Flint, GTCXToolMaterial.Flint);
+        createVanillaSet(GTMaterial.Flint, GTCXToolMaterial.Flint);
         createCraftingSet(GTCXMaterial.Iron, ToolMaterial.IRON);
-        createCraftingSet(GTCXMaterial.Bronze, ToolHelper.bronzeToolMaterial);
+        createCraftingSet(GTMaterial.Bronze, ToolHelper.bronzeToolMaterial);
         createFullSet(GTCXMaterial.Steel, GTCXToolMaterial.Steel);
         createFullSet(GTCXMaterial.TungstenSteel, GTCXToolMaterial.TungstenSteel);
-        createVanillaSet(GTCXMaterial.Ruby, GTCXToolMaterial.Ruby);
-        createVanillaSet(GTCXMaterial.Sapphire, GTCXToolMaterial.Sapphire);
+        createVanillaSet(GTMaterial.Ruby, GTCXToolMaterial.Ruby);
+        createVanillaSet(GTMaterial.Sapphire, GTCXToolMaterial.Sapphire);
     }
 
     public static void initToolGen(){

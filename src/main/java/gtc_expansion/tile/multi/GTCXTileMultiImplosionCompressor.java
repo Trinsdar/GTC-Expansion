@@ -1,14 +1,15 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerImplosionCompressor;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
@@ -133,8 +134,8 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     }
 
     public static void init(){
-        addRecipe("dustRuby", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.Ruby, 1));
-        addRecipe("dustSapphire", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.Sapphire, 1));
+        addRecipe("dustRuby", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial.Ruby, 1));
+        addRecipe("dustSapphire", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial.Sapphire, 1));
         addRecipe("dustEmerald", 1, 24, totalEu(2560), GTMaterialGen.get(Items.EMERALD, 1));
         addRecipe("dustDiamond", 1, 32, totalEu(2560), GTMaterialGen.getIc2(Ic2Items.industrialDiamond, 1));
         addRecipe("dustOlivine", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.Olivine, 1));

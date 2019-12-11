@@ -1,11 +1,12 @@
 package gtc_expansion.tile;
 
-import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAlloySmelter;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
@@ -137,9 +138,9 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
     public static void init() {
         addAlloyRecipe("Copper", 3, "Tin", 1, GTMaterialGen.getIc2(Ic2Items.bronzeIngot, 4));
         addAlloyRecipe("Copper", 3, "Zinc", 1, GTMaterialGen.getIngot(GTCXMaterial.Brass, 4));
-        addAlloyRecipe("Silver", 1, "Gold", 1, GTMaterialGen.getIngot(GTCXMaterial.Electrum, 2));
-        addAlloyRecipe("Iron", 2, "Nickel", 1, GTMaterialGen.getIngot(GTCXMaterial.Invar, 3));
-        addAlloyRecipe("Copper", 2, "Nickel", 1, GTMaterialGen.getIngot(GTCXMaterial.Constantan, 3));
+        addAlloyRecipe("Silver", 1, "Gold", 1, GTMaterialGen.getIngot(GTMaterial.Electrum, 2));
+        addAlloyRecipe("Iron", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial.Invar, 3));
+        addAlloyRecipe("Copper", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial.Constantan, 3));
         addRecipe(metal("Copper", 1), new RecipeInputOreDict("dustRedstone", 4), GTMaterialGen.getIngot(GTCXMaterial.RedAlloy, 1));
         addRecipe(metal("Iron", 1), new RecipeInputOreDict("dustRedstone", 4), GTMaterialGen.getIngot(GTCXMaterial.RedAlloy, 1));
         addAlloyRecipe("Magnesium", 1, "Aluminium", 2, GTMaterialGen.getIngot(GTCXMaterial.Magnalium, 1));

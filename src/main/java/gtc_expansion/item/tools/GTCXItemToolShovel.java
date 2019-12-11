@@ -39,7 +39,7 @@ public class GTCXItemToolShovel extends ItemSpade
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        return this.material != GTCXMaterial.Flint && super.hasEffect(stack);
+        return this.material != GTMaterial.Flint && super.hasEffect(stack);
     }
 
     @Override
@@ -83,7 +83,7 @@ public class GTCXItemToolShovel extends ItemSpade
             return;
         }
         ItemStack stack = new ItemStack(this);
-        if (this.material.equals(GTCXMaterial.Flint)){
+        if (this.material.equals(GTMaterial.Flint)){
             stack.addEnchantment(Enchantments.FIRE_ASPECT, 1);
         }
         items.add(stack);

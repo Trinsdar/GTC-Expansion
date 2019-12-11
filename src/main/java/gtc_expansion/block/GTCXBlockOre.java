@@ -1,9 +1,10 @@
 package gtc_expansion.block;
 
-import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXBlocks;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.GTMod;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.core.platform.lang.ILocaleBlock;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
@@ -106,7 +107,7 @@ public class GTCXBlockOre extends Block implements ITexturedBlock, ILocaleBlock 
         ArrayList<ItemStack> drops = new ArrayList<>();
         Random random = world instanceof World ? ((World) world).rand : new Random();
         if (this.equals(GTCXBlocks.orePyrite)){
-            drops.add(GTMaterialGen.getDust(GTCXMaterial.Pyrite, 2 + random.nextInt(1 + fortune)));
+            drops.add(GTMaterialGen.getDust(GTMaterial.Pyrite, 2 + random.nextInt(1 + fortune)));
         } else if (this.equals(GTCXBlocks.oreCinnabar)) {
             drops.add(GTMaterialGen.getDust(GTCXMaterial.Cinnabar, 2 + random.nextInt(1 + fortune)));
             if (random.nextInt(Math.max(1,  4/(fortune + 1))) == 0){
@@ -123,9 +124,9 @@ public class GTCXBlockOre extends Block implements ITexturedBlock, ILocaleBlock 
         } else if (this.equals(GTCXBlocks.oreOlivine)) {
             drops.add(GTMaterialGen.getGem(GTCXMaterial.Olivine, 1 + random.nextInt(1 + fortune)));
         } else if (this.equals(GTCXBlocks.oreSodalite)){
-            drops.add(GTMaterialGen.getDust(GTCXMaterial.Sodalite, 6 + 3 * random.nextInt(1 + fortune)));
+            drops.add(GTMaterialGen.getDust(GTMaterial.Sodalite, 6 + 3 * random.nextInt(1 + fortune)));
             if (random.nextInt(Math.max(1,  4/(fortune + 1))) == 0){
-                drops.add(GTMaterialGen.getDust(GTCXMaterial.Aluminium, 1));
+                drops.add(GTMaterialGen.getDust(GTMaterial.Aluminium, 1));
             }
         } else {
             drops.add(new ItemStack(this));

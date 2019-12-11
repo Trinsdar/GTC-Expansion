@@ -46,7 +46,7 @@ public class GTCXRecipeIterators {
         dustUtil(dustGunpowder, GTCXMaterial.Gunpowder);
         dustUtil(Ic2Items.tinDust, GTCXMaterial.Tin);
         dustUtil(Ic2Items.obsidianDust, GTCXMaterial.Obsidian);
-        dustUtil(Ic2Items.bronzeDust, GTCXMaterial.Bronze);
+        dustUtil(Ic2Items.bronzeDust, GTMaterial.Bronze);
         dustUtil(Ic2Items.coalDust, GTCXMaterial.Coal);
         dustUtil(Ic2Items.silverDust, GTCXMaterial.Silver);
         dustUtil(dustRedstone, GTCXMaterial.Redstone);
@@ -58,12 +58,12 @@ public class GTCXRecipeIterators {
         dustUtil(Ic2Items.charcoalDust, GTCXMaterial.Charcoal);
         ingotUtil(Ic2Items.copperIngot, GTCXMaterial.Copper);
         ingotUtil(Ic2Items.tinIngot, GTCXMaterial.Tin);
-        ingotUtil(Ic2Items.bronzeIngot, GTCXMaterial.Bronze);
+        ingotUtil(Ic2Items.bronzeIngot, GTMaterial.Bronze);
         ingotUtil(Ic2Items.silverIngot, GTCXMaterial.Silver);
         createFullToolRecipes(GTCXMaterial.Steel, false);
         createFullToolRecipes(GTCXMaterial.TungstenSteel, false);
-        createFullToolRecipes(GTCXMaterial.Ruby, true);
-        createFullToolRecipes(GTCXMaterial.Sapphire, true);
+        createFullToolRecipes(GTMaterial.Ruby, true);
+        createFullToolRecipes(GTMaterial.Sapphire, true);
     }
 
     public static void createFluidCastingRecipes(GTMaterial mat){
@@ -242,7 +242,7 @@ public class GTCXRecipeIterators {
     }
 
     public static ItemStack getDust(GTMaterial mat, int count){
-        if (mat.equals(GTCXMaterial.Bronze)){
+        if (mat.equals(GTMaterial.Bronze)){
             return GTMaterialGen.getIc2(Ic2Items.bronzeDust, count);
         }
         if (mat.equals(GTCXMaterial.Silver)){

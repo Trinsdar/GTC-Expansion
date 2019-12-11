@@ -453,7 +453,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     public static void init(){
         addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.OilCrude, 8000), 256000, GTMaterialGen.getFluidStack(GTCXMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GTMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Naphtha, 4000));
         addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Oil, 8000), 256000, GTMaterialGen.getFluidStack(GTCXMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GTMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Naphtha, 4000));
-        addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.Naphtha, 4000), 64000, new FluidStack[]{GTMaterialGen.getFluidStack(GTCXMaterial.Gasoline, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Propane, 4000), GTMaterialGen.getFluidStack(GTMaterial.Methane,3500)}, GTMaterialGen.getDust(GTCXMaterial.Carbon, 1));
+        addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.Naphtha, 4000), 64000, new FluidStack[]{GTMaterialGen.getFluidStack(GTCXMaterial.Gasoline, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Propane, 4000), GTMaterialGen.getFluidStack(GTMaterial.Methane,3500)}, GTMaterialGen.getDust(GTMaterial.Carbon, 1));
     }
 
     public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, ItemStack... outputItem){

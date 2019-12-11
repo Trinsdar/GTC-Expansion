@@ -1,13 +1,14 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerVacuumFreezer;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
@@ -130,9 +131,9 @@ public class GTCXTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
     }
 
     public static void init(){
-        addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.Tungsten, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.Tungsten, 1));
+        addRecipe(GTMaterialGen.getHotIngot(GTMaterial.Tungsten, 1), 57600, GTMaterialGen.getIngot(GTMaterial.Tungsten, 1));
         addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.TungstenSteel, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.TungstenSteel, 1));
-        addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.Iridium, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.Iridium, 1));
+        addRecipe(GTMaterialGen.getHotIngot(GTMaterial.Iridium, 1), 57600, GTMaterialGen.getIngot(GTMaterial.Iridium, 1));
         addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.Osmium, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.Osmium, 1));
         addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.Kanthal, 1));
     }

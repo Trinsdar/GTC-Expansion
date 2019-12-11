@@ -44,13 +44,13 @@ public class GTCXMaterialDict {
             }
         }
         registerToolDicts(GTCXMaterial.Iron);
-        registerToolDicts(GTCXMaterial.Bronze);
+        registerToolDicts(GTMaterial.Bronze);
         registerToolDictsWithAxe(GTCXMaterial.Steel);
         registerToolDictsWithAxe(GTCXMaterial.TungstenSteel);
-        registerAxeDict(GTCXMaterial.Ruby);
-        registerAxeDict(GTCXMaterial.Sapphire);
-        OreDictionary.registerOre("toolAxe", new ItemStack(GTCXToolGen.getAxe(GTCXMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
-        OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
+        registerAxeDict(GTMaterial.Ruby);
+        registerAxeDict(GTMaterial.Sapphire);
+        OreDictionary.registerOre("toolAxe", new ItemStack(GTCXToolGen.getAxe(GTMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTMaterial.Bronze, 1));
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Brass, 1));
 
         if (IC2.config.getFlag("SteelRecipes")){
@@ -60,12 +60,12 @@ public class GTCXMaterialDict {
             OreDictionary.registerOre("machineBlockCheap", Ic2Items.machine);
             OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1));
         }
-        OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.Aluminium, 1));
+        OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTMaterial.Aluminium, 1));
         OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));
-        OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.Titanium, 1));
+        OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTMaterial.Titanium, 1));
         OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.TungstenSteel, 1));
         OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));
-        OreDictionary.registerOre("machineBlockVeryAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.Titanium, 1));
+        OreDictionary.registerOre("machineBlockVeryAdvanced", GTCXMaterialGen.getHull(GTMaterial.Titanium, 1));
         OreDictionary.registerOre("machineBlockVeryAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.TungstenSteel, 1));
 
     }

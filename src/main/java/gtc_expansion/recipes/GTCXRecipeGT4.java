@@ -102,9 +102,9 @@ public class GTCXRecipeGT4 {
 
     public static void initRemainingToolRecipes(){
         String stick = "stickWood";
-        recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Bronze), "P", "P", "S", 'P', "plateBronze", 'S', stick);
-        recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Bronze), "PPP", "PPP", " S ", 'P', "ingotBronze", 'S', stick);
-        recipes.overrideRecipe("shaped_item.itemtoolwrench_-354759652", GTCXToolGen.getWrench(GTCXMaterial.Bronze), "I I", "III", " I ", 'I', "ingotBronze");
+        recipes.addRecipe(GTCXToolGen.getFile(GTMaterial.Bronze), "P", "P", "S", 'P', "plateBronze", 'S', stick);
+        recipes.addRecipe(GTCXToolGen.getHammer(GTMaterial.Bronze), "PPP", "PPP", " S ", 'P', "ingotBronze", 'S', stick);
+        recipes.overrideRecipe("shaped_item.itemtoolwrench_-354759652", GTCXToolGen.getWrench(GTMaterial.Bronze), "I I", "III", " I ", 'I', "ingotBronze");
         recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Iron), "P", "P", "S", 'P', "plateIron", 'S', stick);
         recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Iron), "PPP", "PPP", " S ", 'P', "ingotIron", 'S', stick);
         recipes.addRecipe(GTCXToolGen.getWrench(GTCXMaterial.Iron), "I I", "III", " I ", 'I', "ingotIron");

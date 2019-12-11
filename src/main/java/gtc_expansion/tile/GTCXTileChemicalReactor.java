@@ -132,7 +132,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine {
     }
 
     public static void init() {
-        addRecipe(input(GTMaterialGen.getTube(GTMaterial.Calcium, 1)), input("dustCarbon", 1), 7500, GTMaterialGen.getDust(GTCXMaterial.Calcite, 2), GTMaterialGen.get(GTItems.testTube));
+        addRecipe(input(GTMaterialGen.getTube(GTMaterial.Calcium, 1)), input("dustCarbon", 1), 7500, GTMaterialGen.getDust(GTMaterial.Calcite, 2), GTMaterialGen.get(GTItems.testTube));
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getTube(GTMaterial.Hydrogen, 4)), 1, 105000, GTMaterialGen.getTube(GTMaterial.Methane, 5));
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getTube(GTMaterial.Nitrogen, 1)), 1, 45000, GTMaterialGen.getTube(GTCXMaterial.NitroCarbon, 2));
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getTube(GTMaterial.Sodium, 1)), 1, 3000, GTMaterialGen.getTube(GTCXMaterial.SodiumSulfide, 2));
@@ -141,7 +141,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine {
         addRecipe(input(GTMaterialGen.getTube(GTMaterial.Nitrogen, 1)), input(GTMaterialGen.getTube(GTMaterial.Oxygen, 1)), 37500, GTMaterialGen.getTube(GTCXMaterial.NitrogenDioxide, 2));
         addRecipe(input(GTMaterialGen.getTube(GTCXMaterial.Glyceryl, 1)), input(GTMaterialGen.getTube(GTCXMaterial.Diesel, 4)), 30000, GTMaterialGen.getTube(GTCXMaterial.NitroDiesel, 5));
         addRecipe(input(GTMaterialGen.getTube(GTCXMaterial.Glyceryl, 1)), input(GTMaterialGen.getIc2(Ic2Items.coalFuelCell, 4)), 4, 30000, GTMaterialGen.getTube(GTCXMaterial.NitroCoalFuel, 5), GTMaterialGen.getIc2(Ic2Items.emptyCell, 4));
-        addRecipe(input(GTMaterialGen.getDust(GTCXMaterial.Sulfur, 1)), input(GTMaterialGen.getModdedTube("water", 2)), 1, 34500, GTMaterialGen.getTube(GTMaterial.SulfuricAcid, 3));
+        addRecipe(input(GTMaterialGen.getDust(GTMaterial.Sulfur, 1)), input(GTMaterialGen.getModdedTube("water", 2)), 1, 34500, GTMaterialGen.getTube(GTMaterial.SulfuricAcid, 3));
         addRecipe(input(GTMaterialGen.getTube(GTMaterial.Hydrogen, 4)), input(GTMaterialGen.getTube(GTMaterial.Oxygen, 2)), 300, GTMaterialGen.getModdedTube("water", 6));
         addRecipe(input(GTMaterialGen.getTube(GTCXMaterial.NitrogenDioxide, 5)), input(GTMaterialGen.getTube(GTMaterial.Sodium, 2)), 1000, GTMaterialGen.get(Items.GUNPOWDER, 5), GTMaterialGen.get(GTItems.testTube, 7));
     }
