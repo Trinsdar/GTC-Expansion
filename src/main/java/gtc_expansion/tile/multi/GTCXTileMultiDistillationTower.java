@@ -9,6 +9,7 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
@@ -50,10 +51,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -62,10 +61,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener, IClickable {
+public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener, IClickable, IGTDebuggableTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/distillationtower.png");
     public static final IBlockState standardCasingState = GTCXBlocks.casingStandard.getDefaultState();
     public static final IBlockState advancedCasingState = GTCXBlocks.casingAdvanced.getDefaultState();
@@ -752,45 +752,20 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
 
     @Override
     public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
-        ItemStack playerStack = player.getHeldItem(hand);
-        if (!playerStack.isEmpty()) {
-            FluidActionResult result = FluidUtil.tryEmptyContainer(playerStack, this.inputTank, this.inputTank.getCapacity() - this.inputTank.getFluidAmount(), player, true);
-            if (result.isSuccess()){
-                playerStack.shrink(1);
-                ItemStack resultStack = result.getResult();
-                if (!resultStack.isEmpty()) {
-                    if (!player.inventory.addItemStackToInventory(resultStack)) {
-                        player.dropItem(resultStack, false);
-                    }
-                }
-                return true;
-            }
-            if (outputTank1.getFluidAmount() >= 1000){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
-            }
-            if (outputTank2.getFluidAmount() >= 1000){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
-            }
-            if (outputTank3.getFluidAmount() >= 1000){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
-            }
-            if (outputTank4.getFluidAmount() >= 1000){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
-            }
-            if (outputTank1.getFluidAmount() > 0){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1);
-            }
-            if (outputTank2.getFluidAmount() > 0){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2);
-            }
-            if (outputTank3.getFluidAmount() > 0){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3);
-            }
-            if (outputTank4.getFluidAmount() > 0){
-                return GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
-            }
-        }
+        return GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, inputTank) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4);
+    }
 
-        return false;
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        FluidStack fluid = this.inputTank.getFluid();
+        map.put("Input Tank: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        fluid = this.outputTank1.getFluid();
+        map.put("Output Tank 1: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        fluid = this.outputTank2.getFluid();
+        map.put("Output Tank 2: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        fluid = this.outputTank3.getFluid();
+        map.put("Output Tank 3: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        fluid = this.outputTank4.getFluid();
+        map.put("Output Tank 4: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
     }
 }

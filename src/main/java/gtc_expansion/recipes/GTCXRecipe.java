@@ -10,6 +10,7 @@ import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
+import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
@@ -116,6 +117,7 @@ public class GTCXRecipe {
         GTCXTileAssemblingMachine.init();
         GTCXTileChemicalReactor.init();
         GTCXTileMultiPrimitiveBlastFurnace.init();
+        GTCXTileFluidCaster.init();
         GTCXRecipeMods.init();
         initUURecipes();
         initIc2();
@@ -258,7 +260,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.primitiveBlastFurnace), "BBB", "BPB", "BBB", 'B', GTCXBlocks.fireBrickBlock, 'P', "plateIron");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.alloyFurnace), "CCC", "FHF", "CCC", 'C', Blocks.BRICK_BLOCK, 'F', Blocks.FURNACE, 'H', Blocks.HOPPER);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingStandard, 4), "III", "CBC", "III", 'I', refinedIron, 'C', "circuitBasic", 'B', "machineBlockCheap");
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 5), "III", "CMC", "III", 'I', materialSteelsAluminium, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 4), "III", "CMC", "III", 'I', materialSteelsAluminium, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', chrome, 'C', "circuitElite", 'B', "machineBlockElite");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
     }

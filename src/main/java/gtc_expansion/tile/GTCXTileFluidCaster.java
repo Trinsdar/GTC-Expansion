@@ -1,19 +1,30 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerFluidCaster;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.interfaces.IGTDebuggableTile;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.energy.EnergyNet;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.IC2;
 import ic2.core.RotationList;
+import ic2.core.block.base.tile.TileEntityBasicElectricMachine;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasInventory;
@@ -32,34 +43,41 @@ import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListener {
+public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListener, IGTDebuggableTile, IClickable {
     protected static final int slotDisplayIn = 0;
     protected static final int slotDisplayWater = 1;
     protected static final int slotInput = 2;
     protected static final int slotOutput = 3;
     protected static final int slotFuel = 4;
     public IFilter filter = new MachineFilter(this);
+    float oldProgressPerTick;
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidcaster.png");
     private static final int defaultEu = 64;
     private IC2Tank inputTank = new IC2Tank(16000){
@@ -82,7 +100,9 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         super(5, 2, defaultEu, 100,128);
         maxEnergy = 10000;
         this.inputTank.addListener(this);
-        this.addGuiFields("inputTank");
+        this.waterTank.addListener(this);
+        oldProgressPerTick = 1.0F;
+        this.addGuiFields("inputTank", "waterTank");
     }
 
     @Override
@@ -150,7 +170,24 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     public void onTankChanged(IFluidTank iFluidTank) {
         this.getNetwork().updateTileGuiField(this, "inputTank");
         this.inventory.set(slotDisplayIn, ItemDisplayIcon.createWithFluidStack(this.inputTank.getFluid()));
+        this.getNetwork().updateTileGuiField(this, "waterTank");
+        this.inventory.set(slotDisplayWater, ItemDisplayIcon.createWithFluidStack(this.waterTank.getFluid()));
+        if (this.waterTank.getFluidAmount() > 1000){
+            progressPerTick *= 1.5F;
+        } else {
+            progressPerTick = oldProgressPerTick;
+        }
         shouldCheckRecipe = true;
+    }
+
+    @Override
+    public void setStackInSlot(int slot, ItemStack stack) {
+        super.setStackInSlot(slot, stack);
+        if (this.waterTank.getFluidAmount() > 1000){
+            progressPerTick *= 1.5F;
+        } else {
+            progressPerTick = oldProgressPerTick;
+        }
     }
 
     @Override
@@ -181,7 +218,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
                 fluidExtracted = true;
                 continue;
             }
-            ItemStack input = inventory.get(1);
+            ItemStack input = inventory.get(slotInput);
             if (key.matches(input) && canConsumePress(recipe.getOutputs())) {
                 if (input.getCount() >= count) {
                     if (input.getItem().hasContainerItem(input)) {
@@ -242,7 +279,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
             return null;
         }
         // Check if previous recipe is valid
-        ItemStack input = inventory.get(1);
+        ItemStack input = inventory.get(slotInput);
         FluidStack fluid = inputTank.getFluid();
         if (lastRecipe != null) {
             lastRecipe = checkRecipe(lastRecipe, fluid, input) ? lastRecipe : null;
@@ -319,15 +356,96 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     }
 
     @Override
+    public void setOverclockRates() {
+        if (!supportsUpgrades) {
+            return;
+        }
+        lastRecipe = null;
+        shouldCheckRecipe = true;
+        int extraProcessSpeed = 0;
+        double processingSpeedMultiplier = 1.0D;
+        int extraProcessTime = 0;
+        double processTimeMultiplier = 1.0D;
+        int extraEnergyDemand = 0;
+        double energyDemandMultiplier = 1.0D;
+        int extraEnergyStorage = 0;
+        double energyStorageMultiplier = 1.0D;
+        int extraTier = 0;
+        float soundModfier = 1.0F;
+        boolean redstonePowered = false;
+        redstoneSensitive = defaultSensitive;
+        for (int i = 0; i < 4; i++) {
+            ItemStack item = inventory.get(i + inventory.size() - 4);
+            if (item.getItem() instanceof IMachineUpgradeItem) {
+                IMachineUpgradeItem upgrade = (IMachineUpgradeItem) item.getItem();
+                upgrade.onInstalling(item, this);
+                extraProcessSpeed += upgrade.getExtraProcessSpeed(item, this) * item.getCount();
+                processingSpeedMultiplier *= Math.pow(upgrade.getProcessSpeedMultiplier(item, this), item.getCount());
+                extraProcessTime += upgrade.getExtraProcessTime(item, this) * item.getCount();
+                processTimeMultiplier *= Math.pow(upgrade.getProcessTimeMultiplier(item, this), item.getCount());
+                extraEnergyDemand += upgrade.getExtraEnergyDemand(item, this) * item.getCount();
+                energyDemandMultiplier *= Math.pow(upgrade.getEnergyDemandMultiplier(item, this), item.getCount());
+                extraEnergyStorage += upgrade.getExtraEnergyStorage(item, this) * item.getCount();
+                energyStorageMultiplier *= Math.pow(upgrade.getEnergyStorageMultiplier(item, this), item.getCount());
+                soundModfier *= Math.pow(upgrade.getSoundVolumeMultiplier(item, this), item.getCount());
+                extraTier += upgrade.getExtraTier(item, this) * item.getCount();
+                if (upgrade.useRedstoneInverter(item, this)) {
+                    redstonePowered = true;
+                }
+            }
+        }
+        redstoneInverted = redstonePowered;
+        oldProgressPerTick = TileEntityBasicElectricMachine.applyFloatModifier(1, extraProcessSpeed, processingSpeedMultiplier);
+        energyConsume = TileEntityBasicElectricMachine.applyModifier(defaultEnergyConsume, extraEnergyDemand, energyDemandMultiplier);
+        operationLength = TileEntityBasicElectricMachine.applyModifier(defaultOperationLength, extraProcessTime, processTimeMultiplier);
+        setMaxEnergy(TileEntityBasicElectricMachine.applyModifier(defaultEnergyStorage, extraEnergyStorage, energyStorageMultiplier));
+        tier = baseTier + extraTier;
+        if (tier > 13) {
+            tier = 13;
+        }
+        maxInput = (int) EnergyNet.instance.getPowerFromTier(tier);
+        if (energy > maxEnergy) {
+            energy = maxEnergy;
+        }
+        soundLevel = soundModfier;
+        if (this.waterTank.getFluidAmount() > 1000){
+            progressPerTick *= 1.5F;
+        } else {
+            progressPerTick = oldProgressPerTick;
+        }
+        if (progressPerTick < 0.01F) {
+            progressPerTick = 0.01F;
+        }
+        if (operationLength < 1) {
+            operationLength = 1;
+        }
+        if (energyConsume < 1) {
+            energyConsume = 1;
+        }
+        if (lastRecipe == null || lastRecipe == GTRecipeMultiInputList.INVALID_RECIPE) {
+            applyRecipeEffect(null);
+        } else {
+            applyRecipeEffect(lastRecipe.getOutputs());
+        }
+        getNetwork().updateTileEntityField(this, "redstoneInverted");
+        getNetwork().updateTileEntityField(this, "redstoneSensitive");
+        getNetwork().updateTileEntityField(this, "soundLevel");
+        getNetwork().updateTileGuiField(this, "maxInput");
+        getNetwork().updateTileGuiField(this, "energy");
+    }
+
+    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.inputTank.readFromNBT(nbt.getCompoundTag("inputTank"));
+        this.waterTank.readFromNBT(nbt.getCompoundTag("waterTank"));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         this.inputTank.writeToNBT(this.getTag(nbt, "inputTank"));
+        this.waterTank.writeToNBT(this.getTag(nbt,"waterTank"));
         return nbt;
     }
 
@@ -360,6 +478,38 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         return list;
     }
 
+    public EnumFacing right(){
+        if (this.getFacing() == EnumFacing.NORTH){
+            return EnumFacing.EAST;
+        }
+        if (this.getFacing() == EnumFacing.WEST){
+            return EnumFacing.NORTH;
+        }
+        if (this.getFacing() == EnumFacing.SOUTH){
+            return EnumFacing.WEST;
+        }
+        if (this.getFacing() == EnumFacing.EAST){
+            return EnumFacing.SOUTH;
+        }
+        return this.getFacing();
+    }
+
+    public EnumFacing left(){
+        if (this.getFacing() == EnumFacing.NORTH){
+            return EnumFacing.WEST;
+        }
+        if (this.getFacing() == EnumFacing.WEST){
+            return EnumFacing.SOUTH;
+        }
+        if (this.getFacing() == EnumFacing.SOUTH){
+            return EnumFacing.EAST;
+        }
+        if (this.getFacing() == EnumFacing.EAST){
+            return EnumFacing.NORTH;
+        }
+        return this.getFacing();
+    }
+
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
@@ -369,9 +519,49 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.inputTank);
-        }
+            if (facing == EnumFacing.UP || facing == left() || facing == this.getFacing().getOpposite()){
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.inputTank);
+            } else
+            if (facing == EnumFacing.DOWN || facing == right()){
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.waterTank);
+            } else
+            return super.getCapability(capability, facing);
+        } else
         return super.getCapability(capability, facing);
+    }
+
+    public static void init(){
+        addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), new FluidStack(FluidRegistry.LAVA,1000), true,64000, GTMaterialGen.get(Blocks.OBSIDIAN));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldCell), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.emptyCell, 4));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 144), true, 12800, Ic2Items.refinedIronIngot);
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 144), true, 12800, Ic2Items.copperIngot);
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 144), true, 12800, Ic2Items.tinIngot);
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 144), true, 12800, Ic2Items.silverIngot);
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 144), true, 12800, Ic2Items.bronzeIngot);
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 144), true, 12800, GTMaterialGen.get(Items.IRON_INGOT));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 144), true, 12800, GTMaterialGen.get(Items.GOLD_INGOT));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 16), true, 3200, GTMaterialGen.get(Items.IRON_NUGGET));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 16), true, 3200, GTMaterialGen.get(Items.GOLD_NUGGET));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.goldCable, 6));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.copperCable, 3));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.tinCable, 4));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
+        GTMaterial mat = IC2.config.getFlag("SteelRecipes") ? GTCXMaterial.Steel : GTCXMaterial.RefinedIron;
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(mat, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.ironCable, 6));
+
+        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296), false, 115200, GTMaterialGen.getModBlock(GTHelperMods.IC2_EXTRAS, "refinedironblock"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCell), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 144), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "emptyfuelrod"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "coppercasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "tincasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "silvercasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Lead, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "leadcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "ironcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "goldcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "refinedironcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "steelcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "bronzecasing"));
+        }
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int total) {
@@ -387,19 +577,28 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
 
     public static void addRecipe(String input, int amount, FluidStack fluid, boolean press, int totalEu,
                                  ItemStack... outputs) {
-
+        if (fluid.getFluid() == FluidRegistry.WATER){
+            GTCExpansion.logger.info("Fluid in fluid casting recipes can't be water.");
+            return;
+        }
         addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), new RecipeInputOreDict(input, amount) }, press, totalEu, outputs);
     }
 
     public static void addRecipe(ItemStack input, FluidStack fluid, boolean press, int totalEu,
                                  ItemStack... outputs) {
-
+        if (fluid.getFluid() == FluidRegistry.WATER){
+            GTCExpansion.logger.info("Fluid in fluid casting recipes can't be water.");
+            return;
+        }
         addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), new RecipeInputItemStack(input) }, press, totalEu, outputs);
     }
 
     public static void addRecipe(IRecipeInput input, FluidStack fluid, boolean press, int totalEu,
                                  ItemStack... outputs) {
-
+        if (fluid.getFluid() == FluidRegistry.WATER){
+            GTCExpansion.logger.info("Fluid in fluid casting recipes can't be water.");
+            return;
+        }
         addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), input }, press, totalEu, outputs);
     }
 
@@ -423,5 +622,33 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
         GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+    }
+
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        FluidStack fluid = this.inputTank.getFluid();
+        map.put("Input Tank: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        fluid = this.waterTank.getFluid();
+        map.put("Water Tank: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+    }
+
+    @Override
+    public boolean hasRightClick() {
+        return true;
+    }
+
+    @Override
+    public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
+        return GTHelperFluid.doClickableFluidContainerEmptyThings(entityPlayer, enumHand, this.getMachineWorld(), this.getMachinePos(), inputTank) || GTHelperFluid.doClickableFluidContainerEmptyThings(entityPlayer, enumHand, this.getMachineWorld(), this.getMachinePos(), waterTank);
+    }
+
+    @Override
+    public boolean hasLeftClick() {
+        return false;
+    }
+
+    @Override
+    public void onLeftClick(EntityPlayer entityPlayer, Side side) {
+
     }
 }

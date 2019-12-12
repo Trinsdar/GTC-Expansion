@@ -1,14 +1,15 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerIndustrialBlastFurnace;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -53,7 +54,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine implements IClickable, IGTItemContainerTile {
+public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine implements IClickable, IGTItemContainerTile, IGTDebuggableTile {
 
 	protected static final int[] slotInputs = { 0, 1, 2, 3 };
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
@@ -465,5 +466,10 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	@Override
 	public void onLeftClick(EntityPlayer entityPlayer, Side side) {
 
+	}
+
+	@Override
+	public void getData(Map<String, Boolean> map) {
+		map.put("Heat: " + currentHeat + "K", true);
 	}
 }

@@ -11,6 +11,7 @@ import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -65,10 +66,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine implements ITankListener, IClickable {
+public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine implements ITankListener, IClickable, IGTDebuggableTile {
     protected static final int slotDisplayIn = 0;
     protected static final int[] slotInputs = { 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
@@ -683,4 +685,9 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
         return GTHelperFluid.doClickableFluidContainerThings(player, hand, world, pos, this.inputTank);
     }
 
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        FluidStack fluid = this.inputTank.getFluid();
+        map.put("Input Tank: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+    }
 }
