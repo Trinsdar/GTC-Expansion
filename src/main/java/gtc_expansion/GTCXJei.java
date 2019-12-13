@@ -16,5 +16,6 @@ public class GTCXJei {
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.PRIMITIVE_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.primitiveBlastFurnace, GTCXMachineGui.GTCXPrimitiveBlastFurnaceGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.DISTILLATION_TOWER_RECIPE_LIST, GTCXBlocks.distillationTower, GTCXMachineGui.GTCXDistillationTowerGui.class, 80, 4, 16, 72));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster, GTCXMachineGui.GTCXFluidCasterGui.class, 78, 24, 20, 18));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.PLATE_BENDER_RECIPE_LIST, GTCXBlocks.plateBender, GTCXMachineGui.GTCXPlateBenderGui.class, 78, 24, 20, 18));
     }
 }

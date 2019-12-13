@@ -69,4 +69,16 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXFluidSmelterGui extends MachineGui{
+        public GTCXFluidSmelterGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GTCXPlateBenderGui extends MachineGui{
+        public GTCXPlateBenderGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

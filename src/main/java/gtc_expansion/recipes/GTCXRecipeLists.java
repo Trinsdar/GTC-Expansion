@@ -16,4 +16,5 @@ public class GTCXRecipeLists {
     public static final GTRecipeMultiInputList INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST = new GTRecipeMultiInputList("gt.industrialblastfurnace");
     public static final GTRecipeMultiInputList FLUID_CASTER_RECIPE_LIST = new GTRecipeMultiInputList("gt.fluidcaster");
     public static final GTRecipeMultiInputList FLUID_SMELTER_RECIPE_LIST = new GTRecipeMultiInputList("gt.fluidsmelter");
+    public static final GTRecipeMultiInputList PLATE_BENDER_RECIPE_LIST = new GTRecipeMultiInputList("gt.platebender");
 }

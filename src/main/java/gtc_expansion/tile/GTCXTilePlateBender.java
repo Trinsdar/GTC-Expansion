@@ -2,14 +2,14 @@ package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.container.GTCXContainerAlloySmelter;
-import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.container.GTCXContainerPlateBender;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
-import gtclassic.api.material.GTMaterial;
+import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -35,6 +35,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,19 +43,18 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GTCXTileAlloySmelter extends GTTileBaseMachine {
+public class GTCXTilePlateBender extends GTTileBaseMachine {
 
-    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/alloysmelter.png");
-    public static final int slotInput0 = 0;
-    public static final int slotInput1 = 1;
-    public static final int slotOutput = 2;
-    public static final int slotFuel = 3;
-    protected static final int[] slotInputs = { slotInput0, slotInput1 };
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/platebender.png");
+    public static final int slotInput = 0;
+    public static final int slotOutput = 1;
+    public static final int slotFuel = 2;
+    protected static final int[] slotInputs = { slotInput };
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 4;
 
-    public GTCXTileAlloySmelter() {
-        super(4, 4, defaultEu, 100, 32);
+    public GTCXTilePlateBender() {
+        super(3, 4, defaultEu, 100, 32);
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
     }
@@ -78,7 +78,7 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return GTCXLang.ALLOY_SMELTER;
+        return GTCXLang.PLATE_BENDER;
     }
 
     @Override
@@ -88,12 +88,12 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer player) {
-        return new GTCXContainerAlloySmelter(player.inventory, this);
+        return new GTCXContainerPlateBender(player.inventory, this);
     }
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GTCXMachineGui.GTCXAlloySmelterGui.class;
+        return GTCXMachineGui.GTCXPlateBenderGui.class;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST;
+        return GTCXRecipeLists.PLATE_BENDER_RECIPE_LIST;
     }
 
     public ResourceLocation getGuiTexture() {
@@ -136,64 +136,29 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
     }
 
     public static void init() {
-        addAlloyRecipe("Copper", 3, "Tin", 1, GTMaterialGen.getIc2(Ic2Items.bronzeIngot, 4));
-        addAlloyRecipe("Copper", 3, "Zinc", 1, GTMaterialGen.getIngot(GTCXMaterial.Brass, 4));
-        addAlloyRecipe("Silver", 1, "Gold", 1, GTMaterialGen.getIngot(GTMaterial.Electrum, 2));
-        addAlloyRecipe("Iron", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial.Invar, 3));
-        addAlloyRecipe("Copper", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial.Constantan, 3));
-        addRecipe(metal("Copper", 1), new RecipeInputOreDict("dustRedstone", 4), GTMaterialGen.getIngot(GTCXMaterial.RedAlloy, 1));
-        addRecipe(metal("Iron", 1), new RecipeInputOreDict("dustRedstone", 4), GTMaterialGen.getIngot(GTCXMaterial.RedAlloy, 1));
-        addAlloyRecipe("Magnesium", 1, "Aluminium", 2, GTMaterialGen.getIngot(GTCXMaterial.Magnalium, 1));
-        addAlloyRecipe("Lead", 4, "Antimony", 1, GTMaterialGen.getIngot(GTCXMaterial.BatteryAlloy, 5));
+        addRecipe(Ic2Items.mixedMetalIngot, Ic2Items.advancedAlloy);
+        addRecipe("plateTin", 2, GTMaterialGen.getIc2(Ic2Items.emptyCell, 8));
+        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            addRecipe("casingIron", 2, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "emptyfuelrod"));
+            addRecipe("casingTin", 1, Ic2Items.tinCan);
+        }
     }
 
-    /**
-     * Simple utility to generate recipe variants for the Alloy Smelter
-     */
-    public static void addAlloyRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
-        addRecipe(metal(input1, amount1), metal(input2, amount2), output);
-    }
-
-    /**
-     * Simple utility to generate mold recipe variants for the Alloy Smelter
-     */
-    public static void addMoldingRecipe(String input1, int amount1, ItemStack input2, ItemStack output) {
-        addRecipe("ingot" + input1, amount1, input2, output);
-        addRecipe("dust" + input1, amount1, input2, output);
-    }
-
-    public static void addRecipe(String input1, int amount1, ItemStack input2, ItemStack output) {
+    public static void addRecipe(ItemStack input, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputOreDict(input1, amount1));
-        inputs.add(new RecipeInputItemStack(input2));
+        inputs.add(new RecipeInputItemStack(input));
         addRecipe(inputs, new MachineOutput(null, output));
     }
 
-    public static void addRecipe(ItemStack input1, String input2, int amount2, ItemStack output) {
+    public static void addRecipe(String input, int amount, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputItemStack(input1));
-        inputs.add(new RecipeInputOreDict(input2, amount2));
+        inputs.add(new RecipeInputOreDict(input, amount));
         addRecipe(inputs, new MachineOutput(null, output));
     }
 
-    public static void addRecipe(String input1, int amount1, String input2, int amount2, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputOreDict(input1, amount1));
-        inputs.add(new RecipeInputOreDict(input2, amount2));
-        addRecipe(inputs, new MachineOutput(null, output));
-    }
-
-    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, ItemStack output) {
+    public static void addRecipe(IRecipeInput input1, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
         inputs.add(input1);
-        inputs.add(input2);
-        addRecipe(inputs, new MachineOutput(null, output));
-    }
-
-    public static void addRecipe(ItemStack input1, ItemStack input2, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputItemStack(input1));
-        inputs.add(new RecipeInputItemStack(input2));
         addRecipe(inputs, new MachineOutput(null, output));
     }
 
@@ -214,6 +179,6 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
+        GTCXRecipeLists.PLATE_BENDER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
     }
 }
