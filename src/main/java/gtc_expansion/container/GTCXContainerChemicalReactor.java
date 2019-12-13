@@ -3,6 +3,7 @@ package gtc_expansion.container;
 
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtclassic.api.gui.GTGuiCompDirectionalProgress;
+import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
@@ -33,6 +34,7 @@ public class GTCXContainerChemicalReactor extends ContainerTileComponent<GTCXTil
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 6 + i, 152, 26 + i * 18));
         }
+        this.addComponent(new GTGuiCompMachinePower(tile));
         this.addPlayerInventory(player);
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.DOWN));
     }

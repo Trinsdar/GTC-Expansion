@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.GTCXTileFluidCaster;
+import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
@@ -32,6 +33,7 @@ public class GTCXContainerFluidCaster extends ContainerTileComponent<GTCXTileFlu
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 5 + i, 152, 25 + i * 18));
         }
+        this.addComponent(new GTGuiCompMachinePower(tile));
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }

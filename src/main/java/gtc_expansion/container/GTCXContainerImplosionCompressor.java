@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
+import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.gui.GTGuiCompMultiTileStatus;
 import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
@@ -31,6 +32,7 @@ public class GTCXContainerImplosionCompressor extends ContainerTileComponent<GTC
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 152, 25 + i * 18));
         }
+        this.addComponent(new GTGuiCompMachinePower(tile));
         this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 48)));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }

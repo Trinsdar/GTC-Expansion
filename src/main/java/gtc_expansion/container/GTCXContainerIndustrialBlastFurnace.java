@@ -1,7 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
-import gtclassic.api.gui.GTGuiCompBasicString;
+import gtc_expansion.util.GTCXGuiICompBFString;
 import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.gui.GTGuiCompMultiTileStatus;
 import gtclassic.api.slot.GTSlotUpgrade;
@@ -42,7 +42,7 @@ public class GTCXContainerIndustrialBlastFurnace extends ContainerTileComponent<
 		this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
 		this.addComponent(new GTGuiCompMachinePower(tile));
 		this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 51)));
-		this.addComponent(new GTGuiCompBasicString("Heat Capacity: " + tile.getCurrentHeat() + " K", 34, 63));
+		this.addComponent(new GTCXGuiICompBFString(tile));
 	}
 
 	@Override

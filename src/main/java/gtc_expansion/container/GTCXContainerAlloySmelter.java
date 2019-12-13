@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.GTCXTileAlloySmelter;
+import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
@@ -30,6 +31,7 @@ public class GTCXContainerAlloySmelter extends ContainerTileComponent<GTCXTileAl
         for (int i = 0; i < 4; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 62 + (i * 18), 62));
         }
+        this.addComponent(new GTGuiCompMachinePower(tile));
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }

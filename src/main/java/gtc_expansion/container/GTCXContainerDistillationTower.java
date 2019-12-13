@@ -35,6 +35,7 @@ public class GTCXContainerDistillationTower extends ContainerTileComponent<GTCXT
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 8 + i, 152, 26 + i * 18));
         }
+        //this.addComponent(new GTGuiCompMachinePower(tile));
         this.addPlayerInventory(player);
         this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 63)));
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.UP));
