@@ -249,6 +249,9 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
                 input.setCount(0);
             }
         }
+        if (waterTank.getCapacity() >= 1000){
+            waterTank.drainInternal(1000, true);
+        }
         addToInventory();
         if (supportsUpgrades) {
             for (int i = 0; i < upgradeSlots; i++) {
