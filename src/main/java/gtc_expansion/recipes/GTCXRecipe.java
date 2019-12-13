@@ -383,6 +383,14 @@ public class GTCXRecipe {
         recipes.addRecipe(Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', aluminium, 'B', Blocks.IRON_BARS);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', "machineBlockCheap", 'M', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', "machineBlockCheap", 'c', "chestWood");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBufferFluid), "EWE", "CBC", "EbE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', "machineBlockCheap", 'b', Items.BUCKET);
+        IRecipeInput aluiron = new RecipeInputCombined(1, new RecipeInputOreDict(refinedIron), aluminium);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCabinet), "III", "CIC", "III", 'I', aluiron, 'C', "chestWood");
+        IRecipeInput wrench = new RecipeInputCombined(1, new RecipeInputOreDict("craftingToolMonkeyWrench"), new RecipeInputOreDict("craftingToolWrench"));
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDrum), "PWP", "PRP", "PRP", 'P', refinedIron, 'W', wrench, 'R', "rodRefinedIron");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileWorktable), "ICI", "III", "IcI", 'I', aluiron, 'C', "workbench", 'c', "chestWood");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileAutocrafter), "EBE", "CcC", "EME", 'E', electrum, 'B', Ic2Items.battery, 'C', "circuitAdvanced", 'c', "workbench", 'M', "machineBlockAdvanced");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTranslocatorFluid), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', "machineBlockCheap", 'M', Ic2Items.fluidImportUpgrade);
         ItemStack top = GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)
                 ? GTMaterialGen.getModItem(GTHelperMods.TFOREST, "uncrafting_table")
                 : GTMaterialGen.getIc2(Ic2Items.extractor);
