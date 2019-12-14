@@ -82,6 +82,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         maxEnergy = 10000;
         this.addGuiFields("outputTank", "maxHeat", "heat");
         maxHeat = 500;
+        heat = 0;
     }
 
     @Override
@@ -189,6 +190,31 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             }
         }
         this.getNetwork().updateTileGuiField(this, "maxHeat");
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if ((lastRecipe != null && !this.inventory.get(slotInput).isEmpty()) && this.energy > 0) {
+            if (this.heat < maxHeat) {
+                ++this.heat;
+                this.getNetwork().updateTileGuiField(this, "heat");
+            }
+            if (this.heat == maxHeat){
+                shouldCheckRecipe = true;
+            }
+            if (this.heat > maxHeat){
+                this.heat = maxHeat;
+                this.shouldCheckRecipe = true;
+                this.getNetwork().updateTileGuiField(this, "heat");
+            }
+
+            this.useEnergy(1);
+        } else if (this.heat > 0) {
+            this.heat -= Math.min(this.heat, 4);
+            this.getNetwork().updateTileGuiField(this, "heat");
+        }
+
     }
 
     @Override
@@ -384,6 +410,10 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     }
 
     public static void addRecipe(IRecipeInput input, int heat, int totalEu, FluidStack output) {
+        if (heat > 5000){
+            GTCExpansion.logger.info("Max recipe heat cannot be more then 5000!");
+            return;
+        }
         List<IRecipeInput> inlist = new ArrayList<>();
         List<FluidStack> outlist = new ArrayList<>();
         RecipeModifierHelpers.IRecipeModifier[] modifiers = totalEu(totalEu);

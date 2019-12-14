@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.GTCXItems;
+import gtc_expansion.gui.GTCXGuiICompFluidSmelterString;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.slot.GTSlotUpgrade;
@@ -40,6 +41,7 @@ public class GTCXContainerFluidSmelter extends ContainerTileComponent<GTCXTileFl
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 9 + i, 152, 25 + i * 18));
         }
+        this.addComponent(new GTCXGuiICompFluidSmelterString(tile));
         this.addComponent(new GTGuiCompMachinePower(tile, 97, 62));
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
