@@ -12,6 +12,7 @@ import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
+import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
@@ -111,6 +112,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileMultiPrimitiveBlastFurnace.class, "PrimitiveBlastFurnace");
         registerUtil(GTCXTileMultiIndustrialBlastFurnace.class, "IndustrialBlastFurnace");
         registerUtil(GTCXTileFluidCaster.class, "FluidCaster");
+        registerUtil(GTCXTilePlateBender.class, "PlateBender");
         //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }
 
