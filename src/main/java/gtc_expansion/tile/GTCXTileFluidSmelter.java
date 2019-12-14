@@ -1,6 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerFluidSmelter;
 import gtc_expansion.recipes.GTCXRecipeLists;
@@ -11,6 +12,7 @@ import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.GTTileBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
@@ -27,6 +29,8 @@ import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
+import ic2.core.item.recipe.entry.RecipeInputItemStack;
+import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
@@ -67,6 +71,8 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     private static final int defaultEu = 64;
     private IC2Tank outputTank = new IC2Tank(16000);
     public int maxHeat;
+    public int heat;
+    public static final String neededHeat = "minHeat";
 
     public GTCXTileFluidSmelter() {
         super(9, 2, defaultEu, 100, 32);
@@ -74,8 +80,8 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         this.outputTank.addListener(this);
         this.outputTank.setCanFill(false);
         maxEnergy = 10000;
-        this.addGuiFields("outputTank", "maxHeat");
-        maxHeat = 500;
+        this.addGuiFields("outputTank", "maxHeat", "heat");
+        maxHeat = 250;
     }
 
     @Override
@@ -164,6 +170,25 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     @Override
     public ResourceLocation getStartSoundFile() {
         return Ic2Sounds.extractorOp;
+    }
+
+    @Override
+    public void setStackInSlot(int slot, ItemStack stack) {
+        super.setStackInSlot(slot, stack);
+        maxHeat = 250;
+        for (int i : slotCoils){
+            if (inventory.get(i).isEmpty()){
+                continue;
+            }
+            if (inventory.get(i).getItem() == GTCXItems.constantanHeatingCoil){
+                maxHeat += 250;
+            } else if (inventory.get(i).getItem() == GTCXItems.kanthalHeatingCoil){
+                maxHeat += 500;
+            } else if (inventory.get(i).getItem() == GTCXItems.nichromeHeatingCoil){
+                maxHeat += 750;
+            }
+        }
+        this.getNetwork().updateTileGuiField(this, "maxHeat");
     }
 
     @Override
@@ -275,15 +300,24 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     }
 
     @Override
+    public boolean canContinue() {
+        return heat == getRequiredHeat(lastRecipe.getOutputs());
+    }
+
+    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
+        maxHeat = nbt.getInteger("maxHeat");
+        heat = nbt.getInteger("heat");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         this.outputTank.writeToNBT(this.getTag(nbt, "outputTank"));
+        nbt.setInteger("maxHeat", maxHeat);
+        nbt.setInteger("heat", heat);
         return nbt;
     }
 
@@ -328,6 +362,43 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank);
         }
         return super.getCapability(capability, facing);
+    }
+
+    public static int getRequiredHeat(MachineOutput output) {
+        if (output == null || output.getMetadata() == null) {
+            return 1;
+        }
+        return output.getMetadata().getInteger(neededHeat);
+    }
+
+    public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int total) {
+        return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((total / defaultEu) - 100) };
+    }
+
+    public static void addRecipe(ItemStack input, int heat, int totalEu, FluidStack output) {
+        addRecipe(new RecipeInputItemStack(input), heat, totalEu, output);
+    }
+
+    public static void addRecipe(String input, int amount, int heat, int totalEu, FluidStack output) {
+        addRecipe(new RecipeInputOreDict(input, amount), heat, totalEu, output);
+    }
+
+    public static void addRecipe(IRecipeInput input, int heat, int totalEu, FluidStack output) {
+        List<IRecipeInput> inlist = new ArrayList<>();
+        List<FluidStack> outlist = new ArrayList<>();
+        RecipeModifierHelpers.IRecipeModifier[] modifiers = totalEu(totalEu);
+        inlist.add(input);
+        NBTTagCompound mods = new NBTTagCompound();
+        for (RecipeModifierHelpers.IRecipeModifier modifier : modifiers) {
+            modifier.apply(mods);
+        }
+        mods.setInteger(neededHeat, heat);
+        outlist.add(output);
+        addRecipe(inlist, new GTFluidMachineOutput(mods, outlist));
+    }
+
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
     @Override

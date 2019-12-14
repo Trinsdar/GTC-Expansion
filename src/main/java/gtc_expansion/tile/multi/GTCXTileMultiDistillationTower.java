@@ -334,8 +334,6 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
                 }
             }
             shouldCheckRecipe = true;
-        } else {
-            GTCExpansion.logger.info("Recipe: " + recipe.getRecipeID() + " not using methods in tile! Only use the methods in GETileMultiDistillationTower!");
         }
     }
 

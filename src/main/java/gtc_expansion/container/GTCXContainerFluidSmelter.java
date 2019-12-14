@@ -30,11 +30,11 @@ public class GTCXContainerFluidSmelter extends ContainerTileComponent<GTCXTileFl
         super(tile);
         IFilter[] filter = new IFilter[]{new BasicItemFilter(GTCXItems.constantanHeatingCoil), new BasicItemFilter(GTCXItems.nichromeHeatingCoil), new BasicItemFilter(GTCXItems.kanthalHeatingCoil)};
         this.addSlotToContainer(new SlotCustom(tile, 0, 53, 25, tile.filter)); // input
-        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 2, 8, 62)); // battery
+        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 2, 80, 63)); // battery
         this.addSlotToContainer(new SlotDisplay(tile,  1, 107, 25)); // output tank
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 2; ++x) {
-                this.addSlotToContainer(new SlotCustom(tile, 3 + y + x * 3, 8 + x * 18, 7 + y * 18, new ArrayFilter(filter)));
+                this.addSlotToContainer(new SlotCustom(tile, 3 + y + x * 3, 8 + x * 18, 25 + y * 18, new ArrayFilter(filter)));
             }
         }
         for (int i = 0; i < 2; ++i) {
