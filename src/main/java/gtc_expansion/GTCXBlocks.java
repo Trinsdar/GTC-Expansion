@@ -12,6 +12,7 @@ import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
+import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
@@ -52,6 +53,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile alloyFurnace = registerBlock(new GTCXBlockTile("alloyfurnace", GTCXLang.ALLOY_FURNACE, Material.ROCK));
     public static final GTCXBlockTile primitiveBlastFurnace = registerBlock(new GTCXBlockTile("primitiveblastfurnace", GTCXLang.PRIMITIVE_BLAST_FURNACE, Material.ROCK, 3));
     public static final GTCXBlockTile fluidCaster = registerBlock(new GTCXBlockTile("fluidcaster", GTCXLang.FLUID_CASTER));
+    public static final GTCXBlockTile fluidSmelter = registerBlock(new GTCXBlockTile("fluidsmelter", GTCXLang.FLUID_SMELTER));
     public static final GTCXBlockTile plateBender = registerBlock(new GTCXBlockTile("platebender", GTCXLang.PLATE_BENDER));
     //public static final GEBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
 
@@ -75,7 +77,7 @@ public class GTCXBlocks {
     public static final GTCXBlockOre oreGalena = registerBlock(new GTCXBlockOre("galena", 26, 4.0F, 2));
 
 
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "platebender"};
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender"};
     public static void registerBlocks() {
         for(Block block : toRegister){
             createBlock(block);
@@ -112,6 +114,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileMultiPrimitiveBlastFurnace.class, "PrimitiveBlastFurnace");
         registerUtil(GTCXTileMultiIndustrialBlastFurnace.class, "IndustrialBlastFurnace");
         registerUtil(GTCXTileFluidCaster.class, "FluidCaster");
+        registerUtil(GTCXTileFluidSmelter.class, "FluidSmelter");
         registerUtil(GTCXTilePlateBender.class, "PlateBender");
         //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }

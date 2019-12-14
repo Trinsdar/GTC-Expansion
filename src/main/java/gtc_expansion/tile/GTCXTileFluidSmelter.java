@@ -1,0 +1,352 @@
+package gtc_expansion.tile;
+
+import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXMachineGui;
+import gtc_expansion.container.GTCXContainerFluidSmelter;
+import gtc_expansion.recipes.GTCXRecipeLists;
+import gtc_expansion.util.GTCXLang;
+import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.recipe.GTFluidMachineOutput;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
+import gtclassic.api.tile.GTTileBaseMachine;
+import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.recipe.IRecipeInput;
+import ic2.core.RotationList;
+import ic2.core.block.base.util.output.MultiSlotOutput;
+import ic2.core.fluid.IC2Tank;
+import ic2.core.inventory.base.IHasInventory;
+import ic2.core.inventory.container.ContainerIC2;
+import ic2.core.inventory.filters.ArrayFilter;
+import ic2.core.inventory.filters.BasicItemFilter;
+import ic2.core.inventory.filters.CommonFilters;
+import ic2.core.inventory.filters.IFilter;
+import ic2.core.inventory.filters.MachineFilter;
+import ic2.core.inventory.management.AccessRule;
+import ic2.core.inventory.management.InventoryHandler;
+import ic2.core.inventory.management.SlotType;
+import ic2.core.item.misc.ItemDisplayIcon;
+import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.registry.Ic2Items;
+import ic2.core.platform.registry.Ic2Sounds;
+import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
+import ic2.core.util.obj.ITankListener;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
+
+import static gtc_expansion.tile.GTCXTileFluidCaster.canConsumePress;
+
+public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankListener, IClickable {
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidsmelter.png");
+    public static final int slotInput = 0;
+    public static final int slotOutputDisplay = 1;
+    public static final int slotFuel = 2;
+    public static final int[] slotCoils = { 3, 4, 5, 6, 7, 8};
+    protected static final int[] slotInputs = { slotInput };
+    public IFilter filter = new MachineFilter(this);
+    private static final int defaultEu = 64;
+    private IC2Tank outputTank = new IC2Tank(16000);
+    public int maxHeat;
+
+    public GTCXTileFluidSmelter() {
+        super(9, 2, defaultEu, 100, 32);
+        setFuelSlot(slotFuel);
+        this.outputTank.addListener(this);
+        this.outputTank.setCanFill(false);
+        maxEnergy = 10000;
+        this.addGuiFields("outputTank", "maxHeat");
+        maxHeat = 500;
+    }
+
+    @Override
+    protected void addSlots(InventoryHandler handler) {
+        handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
+        handler.registerDefaultSlotAccess(AccessRule.Both, slotFuel);
+        handler.registerDefaultSlotAccess(AccessRule.Import, slotInputs);
+        handler.registerDefaultSlotsForSide(RotationList.UP, slotInputs);
+        handler.registerDefaultSlotsForSide(RotationList.HORIZONTAL, slotInputs);
+        handler.registerInputFilter(new ArrayFilter(CommonFilters.DischargeEU, new BasicItemFilter(Items.REDSTONE), new BasicItemFilter(Ic2Items.suBattery)), slotFuel);
+        handler.registerInputFilter(filter, slotInputs);
+        handler.registerOutputFilter(CommonFilters.NotDischargeEU, slotFuel);
+        handler.registerSlotType(SlotType.Fuel, slotFuel);
+        handler.registerSlotType(SlotType.Input, slotInputs);
+    }
+
+    @Override
+    public int getMaxStackSize(int slot) {
+        if (slot > 2 && slot < 9){
+            return 1;
+        }
+        return super.getMaxStackSize(slot);
+    }
+
+    @Override
+    public LocaleComp getBlockName() {
+        return GTCXLang.PLATE_BENDER;
+    }
+
+    @Override
+    public Set<IMachineUpgradeItem.UpgradeType> getSupportedTypes() {
+        return new LinkedHashSet<>(Arrays.asList(IMachineUpgradeItem.UpgradeType.values()));
+    }
+
+    @Override
+    public ContainerIC2 getGuiContainer(EntityPlayer player) {
+        return new GTCXContainerFluidSmelter(player.inventory, this);
+    }
+
+    @Override
+    public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
+        return GTCXMachineGui.GTCXFluidSmelterGui.class;
+    }
+
+    @Override
+    public int[] getInputSlots() {
+        return slotInputs;
+    }
+
+    @Override
+    public IFilter[] getInputFilters(int[] slots) {
+        return new IFilter[] { filter };
+    }
+
+    @Override
+    public boolean isRecipeSlot(int slot) {
+        return slot != slotFuel;
+    }
+
+    @Override
+    public void onTankChanged(IFluidTank iFluidTank) {
+        this.getNetwork().updateTileGuiField(this, "outputTank");
+        this.inventory.set(slotOutputDisplay, ItemDisplayIcon.createWithFluidStack(this.outputTank.getFluid()));
+        shouldCheckRecipe = true;
+    }
+
+    @Override
+    public int[] getOutputSlots() {
+        return new int[]{};
+    }
+
+    @Override
+    public GTRecipeMultiInputList getRecipeList() {
+        return GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST;
+    }
+
+    public ResourceLocation getGuiTexture() {
+        return GUI_LOCATION;
+    }
+
+    @Override
+    public boolean hasGui(EntityPlayer player) {
+        return true;
+    }
+
+    @Override
+    public ResourceLocation getStartSoundFile() {
+        return Ic2Sounds.extractorOp;
+    }
+
+    @Override
+    public void process(MultiRecipe recipe) {
+        MachineOutput output = recipe.getOutputs().copy();
+        if (output instanceof GTFluidMachineOutput){
+            GTFluidMachineOutput fluidOutput = (GTFluidMachineOutput)output;
+            for (FluidStack fluid : fluidOutput.getFluids()){
+                if (outputTank.getFluidAmount() == 0 || outputTank.getFluid().isFluidEqual(fluid)){
+                    outputTank.fill(fluid, true);
+                }
+            }
+        }
+        for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
+            outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
+            onRecipeComplete();
+        }
+        NBTTagCompound nbt = recipe.getOutputs().getMetadata();
+        boolean shiftContainers = nbt != null && nbt.getBoolean(MOVE_CONTAINER_TAG);
+        List<ItemStack> inputs = getInputs();
+        for (IRecipeInput key : recipe.getInputs()) {
+            int count = key.getAmount();
+            ItemStack input = inventory.get(slotInput);
+            if (key.matches(input) && canConsumePress(recipe.getOutputs())) {
+                if (input.getCount() >= count) {
+                    if (input.getItem().hasContainerItem(input)) {
+                        if (!shiftContainers) {
+                            continue;
+                        }
+                        ItemStack container = input.getItem().getContainerItem(input);
+                        if (!container.isEmpty()) {
+                            container.setCount(count);
+                            outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+                        }
+                    }
+                    input.shrink(count);
+                    count = 0;
+                    continue;
+                }
+                if (input.getItem().hasContainerItem(input)) {
+                    if (!shiftContainers) {
+                        continue;
+                    }
+                    ItemStack container = input.getItem().getContainerItem(input);
+                    if (!container.isEmpty()) {
+                        container.setCount(input.getCount());
+                        outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+                    }
+                }
+                count -= input.getCount();
+                input.setCount(0);
+            }
+        }
+        addToInventory();
+        if (supportsUpgrades) {
+            for (int i = 0; i < upgradeSlots; i++) {
+                ItemStack item = inventory.get(i + inventory.size() - upgradeSlots);
+                if (item.getItem() instanceof IMachineUpgradeItem) {
+                    ((IMachineUpgradeItem) item.getItem()).onProcessFinished(item, this);
+                }
+            }
+        }
+        shouldCheckRecipe = true;
+    }
+
+    @Override
+    public MultiRecipe getRecipe() {
+        if (lastRecipe == GTRecipeMultiInputList.INVALID_RECIPE) {
+            return null;
+        }
+        // Check if previous recipe is valid
+        List<ItemStack> inputs = getInputs();
+        if (lastRecipe != null) {
+            lastRecipe = checkRecipe(lastRecipe, StackUtil.copyList(inputs)) ? lastRecipe : null;
+            if (lastRecipe == null) {
+                progress = 0;
+            }
+        }
+        // If previous is not valid, find a new one
+        if (lastRecipe == null) {
+            lastRecipe = getRecipeList().getPriorityRecipe(new Predicate<MultiRecipe>() {
+
+                @Override
+                public boolean test(MultiRecipe t) {
+                    return checkRecipe(t, StackUtil.copyList(inputs));
+                }
+            });
+        }
+        // If no recipe is found, return
+        if (lastRecipe == null) {
+            return null;
+        }
+        applyRecipeEffect(lastRecipe.getOutputs());
+        if (outputTank.getFluidAmount() == 0) {
+            return lastRecipe;
+        }
+        if (lastRecipe.getOutputs() instanceof GTFluidMachineOutput){
+            GTFluidMachineOutput output = (GTFluidMachineOutput)lastRecipe.getOutputs();
+            int fluidListSize = output.getFluids().size();
+            if (fluidListSize == 1){
+                for (FluidStack fluid : output.getFluids()){
+                    if ((fluid.isFluidEqual(outputTank.getFluid()) && outputTank.getFluidAmount() + fluid.amount <= outputTank.getCapacity()) || outputTank.getFluidAmount() == 0){
+                        return lastRecipe;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        this.outputTank.writeToNBT(this.getTag(nbt, "outputTank"));
+        return nbt;
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        List<ItemStack> list = new ArrayList<>();
+
+        for(int i = 0; i < this.inventory.size(); ++i) {
+            ItemStack stack = this.inventory.get(i);
+            if (!stack.isEmpty()) {
+                if (stack.getItem() instanceof ItemDisplayIcon){
+                    continue;
+                }
+                list.add(stack);
+            }
+        }
+
+        InventoryHandler handler = this.getHandler();
+        if (handler != null) {
+            IHasInventory inv = handler.getUpgradeSlots();
+
+            for(int i = 0; i < inv.getSlotCount(); ++i) {
+                ItemStack result = inv.getStackInSlot(i);
+                if (result != null) {
+                    list.add(result);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+    {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank);
+        }
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public boolean hasRightClick() {
+        return true;
+    }
+
+    @Override
+    public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
+        return GTHelperFluid.doClickableFluidContainerFillThings(entityPlayer, enumHand, world, pos, outputTank);
+    }
+
+    @Override
+    public boolean hasLeftClick() {
+        return false;
+    }
+
+    @Override
+    public void onLeftClick(EntityPlayer entityPlayer, Side side) {
+
+    }
+}

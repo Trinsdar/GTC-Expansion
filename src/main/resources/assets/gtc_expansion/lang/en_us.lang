@@ -56,6 +56,7 @@ tile.gtc_expansion.distillationtower.name=Distillation Tower
 tile.gtc_expansion.alloyfurnace.name=Alloy Furnace
 tile.gtc_expansion.primitiveblastfurnace.name=Primitive Blast Furnace
 tile.gtc_expansion.fluidcaster.name=Fluid Caster
+tile.gtc_expansion.fluidsmelter.name=Fluid Smelter
 tile.gtc_expansion.platebender.name=Plate Bending Machine
 tile.gtclassic.standard.name=Standard Machine Casing
 tile.gtclassic.reinforced.name=Reinforced Machine Casing
