@@ -81,7 +81,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         this.outputTank.setCanFill(false);
         maxEnergy = 10000;
         this.addGuiFields("outputTank", "maxHeat", "heat");
-        maxHeat = 250;
+        maxHeat = 500;
     }
 
     @Override
@@ -175,7 +175,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     @Override
     public void setStackInSlot(int slot, ItemStack stack) {
         super.setStackInSlot(slot, stack);
-        maxHeat = 250;
+        maxHeat = 500;
         for (int i : slotCoils){
             if (inventory.get(i).isEmpty()){
                 continue;
