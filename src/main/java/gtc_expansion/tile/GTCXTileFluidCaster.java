@@ -543,8 +543,8 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 144), true, 12800, Ic2Items.bronzeIngot);
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 144), true, 12800, GTMaterialGen.get(Items.IRON_INGOT));
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 144), true, 12800, GTMaterialGen.get(Items.GOLD_INGOT));
-        addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 16), true, 3200, GTMaterialGen.get(Items.IRON_NUGGET));
-        addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 16), true, 3200, GTMaterialGen.get(Items.GOLD_NUGGET));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 16), true, 1600, GTMaterialGen.get(Items.IRON_NUGGET));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 16), true, 1600, GTMaterialGen.get(Items.GOLD_NUGGET));
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.goldCable, 6));
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.copperCable, 3));
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.tinCable, 4));
@@ -554,16 +554,16 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
 
         if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296), false, 115200, GTMaterialGen.getModBlock(GTHelperMods.IC2_EXTRAS, "refinedironblock"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCell), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 144), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "emptyfuelrod"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "coppercasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "tincasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "silvercasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Lead, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "leadcasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "ironcasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "goldcasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "refinedironcasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "steelcasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 72), true, 12800, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "bronzecasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCell), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 144), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "emptyfuelrod"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "coppercasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "tincasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "silvercasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Lead, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "leadcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "ironcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "goldcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "refinedironcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "steelcasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "bronzecasing"));
         }
     }
 

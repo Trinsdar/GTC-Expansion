@@ -4,13 +4,18 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerFluidSmelter;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -49,6 +54,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
@@ -388,6 +394,21 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank);
         }
         return super.getCapability(capability, facing);
+    }
+
+    public static void init(){
+        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            addRecipe("blockRefinedIron", 1, 750 * (GTCXMaterial.RefinedIron.getTier() + 1), 115200, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296));
+            addRecipe("casingCopper", 1, 750 * (GTCXMaterial.Copper.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72));
+            addRecipe("casingTin", 1, 750 * (GTCXMaterial.Tin.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 72));
+            addRecipe("casingSilver", 1, 750 * (GTCXMaterial.Silver.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 72));
+            addRecipe("casingLead", 1, 750 * (GTCXMaterial.Lead.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Lead, 72));
+            addRecipe("casingIron", 1, 750 * (GTCXMaterial.Iron.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 72));
+            addRecipe("casingGold", 1, 750 * (GTCXMaterial.Gold.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72));
+            addRecipe("casingRefinedIron", 1, 750 * (GTCXMaterial.RefinedIron.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72));
+            addRecipe("casingSteel", 1, 750 * (GTCXMaterial.Steel.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72));
+            addRecipe("casingBronze", 1, 750 * (GTMaterial.Bronze.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTMaterial.Bronze, 72));
+        }
     }
 
     public static int getRequiredHeat(MachineOutput output) {

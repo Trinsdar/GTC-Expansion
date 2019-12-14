@@ -3,6 +3,7 @@ package gtc_expansion;
 import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
+import gtc_expansion.item.GTCXItemInsulationCutter;
 import gtc_expansion.item.GTCXItemMisc;
 import gtc_expansion.item.GTCXItemMold;
 import gtc_expansion.item.GTCXItemSteelJackHammer;
@@ -50,6 +51,8 @@ public class GTCXItems {
     public static final GTCXItemMold moldBlock = createItem(new GTCXItemMold("block", 10, 2));
     public static final GTCXItemMold moldGear = createItem(new GTCXItemMold("gear", 11, 2));
     public static final GTCXItemMold moldNugget = createItem(new GTCXItemMold("nugget", 12, 2));
+
+    public static final GTCXItemInsulationCutter cutter = createItem(new GTCXItemInsulationCutter());
 
     public static final GTCXItemMisc batteryHull = createItem(new GTCXItemMisc("battery_hull", 0, 5));
     public static final GTCXItemMisc largeBatteryHull = createItem(new GTCXItemMisc("large_battery_hull", 1, 5));

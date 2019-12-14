@@ -25,6 +25,7 @@ public class GTCXOreDict {
         OreDictionary.registerOre("oreTetrahedrite", GTCXBlocks.oreTetrahedrite);
         OreDictionary.registerOre("craftingDiamondGrinder", GTCXItems.diamondGrinder);
         OreDictionary.registerOre("craftingTungstenGrinder", GTCXItems.wolframiumGrinder);
+        OreDictionary.registerOre("craftingToolWireCutter", new ItemStack(GTCXItems.cutter, 1, OreDictionary.WILDCARD_VALUE));
 
         // Registering Aluminium for idiots
         GTMaterial aluminium = GTMaterial.Aluminium;

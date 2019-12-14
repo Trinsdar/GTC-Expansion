@@ -71,6 +71,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             } else {
                 blacklist.addIngredientToBlacklist(GTCXMaterialGen.getHull(GTCXMaterial.RefinedIron, 1));
             }
+            blacklist.addIngredientToBlacklist(Ic2Items.cutter);
             //blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTBlocks.tileFusionReactor));
 
         }
