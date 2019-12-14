@@ -138,6 +138,7 @@ public class GTCXRecipe {
 
     public static void postInit(){
         GTCXRecipeProcessing.removals();
+        GTCXRecipeIterators.initAutoOredictMachineRecipes();
     }
 
     public static void initShapedItemRecipes(){

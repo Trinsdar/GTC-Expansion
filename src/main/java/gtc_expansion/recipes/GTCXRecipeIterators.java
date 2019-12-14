@@ -7,6 +7,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileFluidCaster;
+import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterial;
@@ -24,10 +25,23 @@ import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class GTCXRecipeIterators {
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
+    public static final List<String> plateBenderBlacklist = new ArrayList<>();
+    public static final List<String> fluidCasterBlacklist = new ArrayList<>();
 
     public static void init(){
         for (GTMaterial mat : GTMaterial.values()){
@@ -72,6 +86,7 @@ public class GTCXRecipeIterators {
 
     public static void createFluidCastingRecipes(GTMaterial mat){
         if (mat.hasFlag(GTCXMaterial.molten)){
+            fluidCasterBlacklist.add(mat.getDisplayName());
             if (mat.hasFlag(GTMaterialFlag.INGOT)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTMaterialGen.getIngot(mat, 1));
             }
@@ -174,6 +189,8 @@ public class GTCXRecipeIterators {
                     GTCXIc2cECompat.addRollerRecipe(ingot, 1, GTCXMaterialGen.getPlate(mat, 1));
                 }
             }
+            plateBenderBlacklist.add(ingot);
+            GTCXTilePlateBender.addRecipe(ingot, 1, GTCXMaterialGen.getPlate(mat, 1));
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 TileEntityMacerator.addRecipe(plate, 1, getDust(mat), 0.0F);
@@ -291,5 +308,70 @@ public class GTCXRecipeIterators {
             return GTMaterialGen.getIc2(Ic2Items.ironDust, count);
         }
         return GTMaterialGen.getDust(mat, count);
+    }
+
+    public static void initAutoOredictMachineRecipes(){
+        Set<String> gemBlacklist = new HashSet();
+        gemBlacklist.addAll(Arrays.asList("ingotDiamond", "ingotEmerald", "ingotQuartz", "ingotIridium", "ingotCoal", "ingotRedstone"));
+        String[] var2 = OreDictionary.getOreNames();
+        int var3 = var2.length;
+
+        for(int var4 = 0; var4 < var3; ++var4) {
+            String id = var2[var4];
+            String plate;
+            String gear;
+            String rod;
+            NonNullList listPlates;
+            NonNullList listIngots;
+            NonNullList listGears;
+            NonNullList listRods;
+            if (id.startsWith("ingot")){
+                String oreName = id.substring(5);
+                boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
+                plate = "plate" + id.substring(5);
+                if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id)){
+                    if (OreDictionary.doesOreNameExist(plate)) {
+                        listPlates = OreDictionary.getOres(plate, false);
+                        if (!listPlates.isEmpty()) {
+                            GTCXTilePlateBender.addRecipe(id, 1, (ItemStack)listPlates.get(0));
+                            if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS)){
+                                if (GTCXConfiguration.general.harderPlates){
+                                    recipes.addRecipe((ItemStack)listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
+                                }else {
+                                    recipes.addRecipe((ItemStack)listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id );
+                                }
+                            }
+                        }
+                    }
+                }
+                if (moltenExist){
+                    listIngots = OreDictionary.getOres(id, false);
+                    Fluid fluid = FluidRegistry.getFluid(id.substring(5).toLowerCase());
+                    if (!listIngots.isEmpty() && !gemBlacklist.contains(id)){
+                        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), new FluidStack(fluid, 144),true, 12800,  (ItemStack)listIngots.get(0));
+                    }
+                    if (OreDictionary.doesOreNameExist(plate)) {
+                        listPlates = OreDictionary.getOres(plate, false);
+                        if (!listPlates.isEmpty()) {
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), new FluidStack(fluid, 144),true, 12800,  (ItemStack)listPlates.get(0));
+                        }
+                    }
+                    gear = "gear" + id.substring(5);
+                    rod = "rod" + id.substring(5);
+                    if (OreDictionary.doesOreNameExist(gear)) {
+                        listGears = OreDictionary.getOres(gear, false);
+                        if (!listGears.isEmpty()) {
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 576),true, 51200,  (ItemStack)listGears.get(0));
+                        }
+                    }
+                    if (OreDictionary.doesOreNameExist(rod)) {
+                        listRods = OreDictionary.getOres(rod, false);
+                        if (!listRods.isEmpty()) {
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 144),true, 12800,  GTMaterialGen.getIc2((ItemStack)listRods.get(0), 2));
+                        }
+                    }
+                }
+            }
+        }
     }
 }

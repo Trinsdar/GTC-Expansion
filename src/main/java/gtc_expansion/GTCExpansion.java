@@ -2,6 +2,7 @@ package gtc_expansion;
 
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.proxy.GTCXCommonProxy;
+import ic2.core.IC2;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -52,6 +53,7 @@ public class GTCExpansion {
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
 		proxy.postInit(e);
+		IC2.getInstance().saveRecipeInfo(IC2.configFolder);
 	}
 
 	@SubscribeEvent
