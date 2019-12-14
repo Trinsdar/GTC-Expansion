@@ -99,7 +99,7 @@ public class GTCXRecipeIterators {
             if (mat.hasFlag(GTCXMaterial.stick)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldRod), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTCXMaterialGen.getRod(mat, 2));
             }
-            if (mat.hasFlag(GTCXMaterial.nugget)){
+            if (mat.hasFlag(GTCXMaterial.gear)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), GTMaterialGen.getFluidStack(mat, 576), false, 51200, GTCXMaterialGen.getGear(mat, 1));
             }
             if (mat.hasFlag(GTMaterialFlag.BLOCKMETAL)){
@@ -321,14 +321,18 @@ public class GTCXRecipeIterators {
             String plate;
             String gear;
             String rod;
+            String block;
+            String nugget;
             NonNullList listPlates;
             NonNullList listIngots;
             NonNullList listGears;
             NonNullList listRods;
+            NonNullList listBlocks;
+            NonNullList listNuggets;
             if (id.startsWith("ingot")){
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
-                plate = "plate" + id.substring(5);
+                plate = "plate" + oreName;
                 if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id)){
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
@@ -344,11 +348,27 @@ public class GTCXRecipeIterators {
                         }
                     }
                 }
-                if (moltenExist){
+                if (moltenExist && !fluidCasterBlacklist.contains(oreName)){
                     listIngots = OreDictionary.getOres(id, false);
-                    Fluid fluid = FluidRegistry.getFluid(id.substring(5).toLowerCase());
+                    Fluid fluid = FluidRegistry.getFluid(oreName.toLowerCase());
+                    gear = "gear" + oreName;
+                    rod = "rod" + oreName;
+                    block = "block" + oreName;
+                    nugget = "nugget" + oreName;
                     if (!listIngots.isEmpty() && !gemBlacklist.contains(id)){
                         GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), new FluidStack(fluid, 144),true, 12800,  (ItemStack)listIngots.get(0));
+                    }
+                    if (OreDictionary.doesOreNameExist(nugget)) {
+                        listNuggets = OreDictionary.getOres(nugget, false);
+                        if (!listNuggets.isEmpty()) {
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), new FluidStack(fluid, 16),true, 3200,  (ItemStack)listNuggets.get(0));
+                        }
+                    }
+                    if (OreDictionary.doesOreNameExist(block)) {
+                        listBlocks = OreDictionary.getOres(block, false);
+                        if (!listBlocks.isEmpty()) {
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), new FluidStack(fluid, 1296),true, 115200,  (ItemStack)listBlocks.get(0));
+                        }
                     }
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
@@ -356,8 +376,6 @@ public class GTCXRecipeIterators {
                             GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), new FluidStack(fluid, 144),true, 12800,  (ItemStack)listPlates.get(0));
                         }
                     }
-                    gear = "gear" + id.substring(5);
-                    rod = "rod" + id.substring(5);
                     if (OreDictionary.doesOreNameExist(gear)) {
                         listGears = OreDictionary.getOres(gear, false);
                         if (!listGears.isEmpty()) {
