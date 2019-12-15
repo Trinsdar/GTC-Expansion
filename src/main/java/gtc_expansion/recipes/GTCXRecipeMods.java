@@ -145,8 +145,8 @@ public class GTCXRecipeMods {
             TileEntityMacerator.addRecipe("oreBauxite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Bauxite, 4));
             ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));
             TileEntityMacerator.addRecipe("oreIridium", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Iridium, 2));
-            GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 10), 0.5F);
-            GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 10), 0.5F);
+            GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
+            GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
             GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 1), GTMaterialGen.getIngot(GTMaterial.Platinum, 1), 1.0F);
             GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTMaterial.Platinum, 1), GTMaterialGen.getIngot(GTMaterial.Platinum, 1), 1.0F);
             GTRecipeCraftingHandler.removeRecipe(GTHelperMods.IC2_EXTRAS, "shapeless_item.itemdustbronze_-1753288283");

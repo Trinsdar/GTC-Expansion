@@ -58,7 +58,7 @@ public class GTCXRecipeProcessing {
         GameRegistry.addSmelting(GTCXBlocks.oreSheldonite, GTMaterialGen.getIngot(GTMaterial.Platinum, 1), 1.0F);
         GameRegistry.addSmelting(GTCXBlocks.oreCassiterite, GTMaterialGen.getIc2(Ic2Items.tinIngot, 2), 0.5F);
         GameRegistry.addSmelting(GTCXBlocks.oreTetrahedrite, Ic2Items.copperIngot, 0.5F);
-        GameRegistry.addSmelting(GTMaterialGen.getDust(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 10), 0.5F);
+        GameRegistry.addSmelting(GTMaterialGen.getDust(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
     }
 
     public static void initIc2Recipes(){
@@ -128,7 +128,9 @@ public class GTCXRecipeProcessing {
                             || GTHelperStack.matchOreDict(stack, "ingotIridium")
                             || GTHelperStack.matchOreDict(stack, "ingotTungsten")
                             || GTHelperStack.matchOreDict(stack, "ingotChrome")
-                            || GTHelperStack.matchOreDict(stack, "ingotTitanium")) {
+                            || GTHelperStack.matchOreDict(stack, "ingotTitanium")
+                            || GTHelperStack.matchOreDict(stack, "ingotAluminium")
+                            || GTHelperStack.matchOreDict(stack, "ingotAluminum")) {
                         GTHelperStack.removeSmelting(stack);
                     }
                 }

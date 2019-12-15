@@ -108,7 +108,7 @@ public class GTCXMaterial {
     public static final GTMaterial Zinc = new GTMaterial(30,"Zinc", 1, 250, 240, 240, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
 
     public static void initMaterials(){
-        GTMaterial.Aluminium.addFlags(metalFullWHull);
+        GTMaterial.Aluminium.addFlags(metalFullWHull).setSmeltable(false);
         GTMaterial.Bauxite.addFlags(smalldust, crushedore, crushedorePurified);
         GTMaterial.Basalt.addFlags(smalldust);
         GTMaterial.Bronze.addFlags(molten, smalldust, nugget, plate, stick, gear, hull);
