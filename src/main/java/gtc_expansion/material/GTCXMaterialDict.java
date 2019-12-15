@@ -30,6 +30,7 @@ public class GTCXMaterialDict {
             }
             if (mat.hasFlag(GTCXMaterial.stick)){
                 OreDictionary.registerOre("rod" + mat.getDisplayName(), GTMaterialGen.getStack(mat, GTCXMaterial.stick, 1));
+                OreDictionary.registerOre("stick" + mat.getDisplayName(), GTMaterialGen.getStack(mat, GTCXMaterial.stick, 1));
             }
             if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 if (mat.hasFlag(GTCXMaterial.crushedore)){
