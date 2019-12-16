@@ -29,6 +29,8 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.item.recipe.entry.RecipeInputCombined;
+import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
@@ -267,7 +269,11 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 		addRecipe(new IRecipeInput[]{input("dustNichrome", 1)}, 1500, COST_HIGH, GTMaterialGen.getIngot(GTCXMaterial.Nichrome, 1));
 
 		/* Aluminium **/
-		addRecipe(new IRecipeInput[]{input("dustAluminium", 1)}, 1000, COST_MED, GTMaterialGen.getIngot(GTMaterial.Aluminium, 1));
+		IRecipeInput aluminium = new RecipeInputCombined(1, new RecipeInputOreDict("dustAluminum"), new RecipeInputOreDict("dustAluminium"));
+		addRecipe(new IRecipeInput[]{aluminium}, 1000, COST_MED, GTMaterialGen.getIngot(GTMaterial.Aluminium, 1));
+
+		/* Silicon **/
+		addRecipe(new IRecipeInput[]{input("dustSilicon", 1)}, 1000, COST_MED, GTMaterialGen.getIngot(GTMaterial.Silicon, 1));
 	}
 
 	public static int getRequiredHeat(MachineOutput output) {
