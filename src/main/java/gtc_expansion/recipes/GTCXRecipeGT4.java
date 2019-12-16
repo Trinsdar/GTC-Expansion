@@ -57,7 +57,7 @@ public class GTCXRecipeGT4 {
     static IRecipeInput materialMachine = GTCXConfiguration.general.usePlates ? plateMachine : ingotMachine;
     static IRecipeInput materialSteels = GTCXConfiguration.general.usePlates ? plateSteels : ingotSteels;
 
-    static IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict(getRefinedIronPlate()), new RecipeInputOreDict("plateSilicon"),
+    static IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateSilicon"),
             new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"),
             new RecipeInputOreDict("plateElectrum"), new RecipeInputOreDict("platePlatinum"));
     public static IRecipeInput anyLapis = new RecipeInputCombined(1, new RecipeInputOreDict("gemLapis"),

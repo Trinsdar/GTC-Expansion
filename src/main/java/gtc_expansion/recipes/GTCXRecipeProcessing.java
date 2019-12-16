@@ -130,7 +130,9 @@ public class GTCXRecipeProcessing {
                             || GTHelperStack.matchOreDict(stack, "ingotChrome")
                             || GTHelperStack.matchOreDict(stack, "ingotTitanium")
                             || GTHelperStack.matchOreDict(stack, "ingotAluminium")
-                            || GTHelperStack.matchOreDict(stack, "ingotAluminum")) {
+                            || GTHelperStack.matchOreDict(stack, "ingotAluminum")
+                            || GTHelperStack.matchOreDict(stack, "ingotSilicon")
+                            || GTHelperStack.matchOreDict(stack, "itemSilicon")) {
                         GTHelperStack.removeSmelting(stack);
                     }
                 }

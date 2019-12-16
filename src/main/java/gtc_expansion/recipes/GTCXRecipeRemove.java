@@ -20,6 +20,7 @@ public class GTCXRecipeRemove {
         if (GTCXConfiguration.general.unfiredBricks){
             GTHelperStack.removeSmelting(new ItemStack(Items.BRICK));
         }
+        removeFurnaceRecipes();
     }
 
     public static void initIc2Removals(){
@@ -59,6 +60,13 @@ public class GTCXRecipeRemove {
         removeCentrifugeRecipe("item.gtclassic.dustSilicon_2");
         removeCentrifugeRecipe("item.gtclassic.dustSodalite_1");
         GTTileCentrifuge.RECIPE_LIST.finishMassChange();
+    }
+
+    public static void removeFurnaceRecipes(){
+        if (GTCXConfiguration.general.removeVanillaCharcoalRecipe) {
+            GTHelperStack.removeSmelting(new ItemStack(Items.COAL, 1, 1));
+
+        }
     }
 
     public static void removeCentrifugeRecipe(String id){

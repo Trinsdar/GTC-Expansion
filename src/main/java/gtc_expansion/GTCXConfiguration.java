@@ -112,5 +112,7 @@ public class GTCXConfiguration {
         public boolean harderProgression = true;
         @Comment("Removes all ic2 and gt crafting uu recipes and forces uu through the uu assembler.")
         public boolean removeCraftingUURecipes = false;
+        @Comment("Removes vaniila log to charcoal furnace recipes. Will remove all furnace recipes that output charcoal.")
+        public boolean removeVanillaCharcoalRecipe = false;
     }
 }
