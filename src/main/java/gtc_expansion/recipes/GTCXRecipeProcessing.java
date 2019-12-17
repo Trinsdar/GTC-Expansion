@@ -5,6 +5,7 @@ import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
+import gtc_expansion.tile.GTCXTileMicrowave;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterial;
@@ -31,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class GTCXRecipeProcessing {
     public static void init(){
@@ -121,6 +123,14 @@ public class GTCXRecipeProcessing {
                 NonNullList<ItemStack> items = NonNullList.create();
                 item.getSubItems(CreativeTabs.SEARCH, items);
                 for (ItemStack stack : items) {
+                    if (!stack.isEmpty() && OreDictionary.getOreIDs(stack).length > 0) {
+                        for(int i = 0; i < OreDictionary.getOreIDs(stack).length; ++i) {
+                            if (OreDictionary.getOreName(OreDictionary.getOreIDs(stack)[i]).startsWith("dust") || OreDictionary.getOreName(OreDictionary.getOreIDs(stack)[i]).startsWith("crushed") || OreDictionary.getOreName(OreDictionary.getOreIDs(stack)[i]).startsWith("crushedPurified")) {
+                                GTCXTileMicrowave.explodeList.add(stack);
+                                break;
+                            }
+                        }
+                    }
                     if (GTHelperStack.matchOreDict(stack,"ingotOsmium")
                             || GTHelperStack.matchOreDict(stack,"ingotSteel")
                             || GTHelperStack.matchOreDict(stack,"ingotStainlessSteel")

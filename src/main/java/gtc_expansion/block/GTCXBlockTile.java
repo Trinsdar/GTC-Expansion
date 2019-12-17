@@ -28,12 +28,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -69,14 +66,6 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         setCreativeTab(GTMod.creativeTabGT);
         this.setSoundType(SoundType.STONE);
         this.setHardness(4.0F);
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if (this == GTCXBlocks.microwave){
-            tooltip.add(TextFormatting.RED + I18n.format("WIP"));
-        }
-        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

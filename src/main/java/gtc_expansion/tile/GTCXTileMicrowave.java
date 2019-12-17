@@ -3,7 +3,6 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerMicrowave;
-import gtc_expansion.recipes.GTCXRecipeIterators;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperStack;
@@ -33,6 +32,7 @@ import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemEgg;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -95,10 +95,30 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
 
     @Override
     public void update() {
-        if (this.hasEnergy(10) && (explodeList.contains(inventory.get(slotInput)) || inventory.get(slotInput).getItem() == Items.EGG)){
-            world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, true);
+        if (this.hasEnergy(10) ){
+            if (inventory.get(slotInput).getItem() instanceof ItemEgg){
+                world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, true);
+            }
+            for (ItemStack stack : explodeList){
+                if (GTHelperStack.isEqual(stack, inventory.get(slotInput))){
+                    world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, true);
+                }
+            }
         }
         super.update();
+    }
+
+    @Override
+    public boolean isValidInput(ItemStack stack) {
+        if (stack.getItem() instanceof ItemEgg){
+            return true;
+        }
+        for (ItemStack stack1 : explodeList){
+            if (GTHelperStack.isEqual(stack1, stack)){
+                return true;
+            }
+        }
+        return super.isValidInput(stack);
     }
 
     @Override
@@ -146,17 +166,20 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
     }
 
     public static void init() {
+        List<ItemStack> stacks = new ArrayList<>();
         for (RecipeEntry entry : ClassicRecipes.furnace.getRecipeMap()) {
             if (entry.getOutput().getAllOutputs().get(0).getItem() instanceof ItemFood) {
-                addRecipe(entry.getInput(), entry.getOutput().getAllOutputs().get(0));
-            } else {
-                for (String ore : GTCXRecipeIterators.metalList){
-                    if (GTHelperStack.matchOreDict(entry.getOutput().getAllOutputs().get(0), ore)){
-                        explodeList.addAll(entry.getInput().getInputs());
+                for (ItemStack input : entry.getInput().getInputs()){
+                    for (ItemStack stack : explodeList){
+                        if (GTHelperStack.isEqual(stack, input)){
+                            stacks.add(stack);
+                        }
                     }
                 }
+                addRecipe(entry.getInput(), entry.getOutput().getAllOutputs().get(0));
             }
         }
+        explodeList.removeAll(stacks);
     }
 
     public static void addRecipe(ItemStack input, ItemStack output) {

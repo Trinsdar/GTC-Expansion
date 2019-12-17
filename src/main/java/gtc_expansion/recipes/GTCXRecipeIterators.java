@@ -368,7 +368,6 @@ public class GTCXRecipeIterators {
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
                 plate = "plate" + oreName;
-                metalList.add(id);
                 if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id)){
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
