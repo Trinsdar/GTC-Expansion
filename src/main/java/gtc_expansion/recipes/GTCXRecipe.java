@@ -1,5 +1,6 @@
 package gtc_expansion.recipes;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.GTCXItems;
@@ -148,6 +149,9 @@ public class GTCXRecipe {
         GTCXRecipeProcessing.removals();
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
+        for (ItemStack stack : GTCXTileMicrowave.explodeList){
+            GTCExpansion.logger.info(stack.getDisplayName());
+        }
     }
 
     public static void initShapedItemRecipes(){

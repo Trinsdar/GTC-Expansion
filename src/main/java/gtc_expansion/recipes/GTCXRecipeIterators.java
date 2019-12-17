@@ -44,7 +44,7 @@ public class GTCXRecipeIterators {
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
     public static final List<String> plateBenderBlacklist = new ArrayList<>();
     public static final List<String> fluidCasterBlacklist = new ArrayList<>();
-    public static final List<ItemStack> metalList = new ArrayList<>();
+    public static final List<String> metalList = new ArrayList<>();
 
     public static void init(){
         for (GTMaterial mat : GTMaterial.values()){
@@ -368,7 +368,7 @@ public class GTCXRecipeIterators {
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
                 plate = "plate" + oreName;
-
+                metalList.add(id);
                 if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id)){
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
@@ -384,17 +384,13 @@ public class GTCXRecipeIterators {
                         }
                     }
                 }
-                listIngots = OreDictionary.getOres(id, false);
-                if (!listIngots.isEmpty()){
-                    metalList.addAll(listIngots);
-                }
-
                 if (moltenExist && !fluidCasterBlacklist.contains(oreName)){
                     Fluid fluid = FluidRegistry.getFluid(oreName.toLowerCase());
                     gear = "gear" + oreName;
                     rod = "rod" + oreName;
                     block = "block" + oreName;
                     nugget = "nugget" + oreName;
+                    listIngots = OreDictionary.getOres(id, false);
                     if (!listIngots.isEmpty() && !gemBlacklist.contains(id)){
                         GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), new FluidStack(fluid, 144),true, 12800, listIngots.get(0));
                     }

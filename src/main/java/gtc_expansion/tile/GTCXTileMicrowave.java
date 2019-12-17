@@ -6,6 +6,7 @@ import gtc_expansion.container.GTCXContainerMicrowave;
 import gtc_expansion.recipes.GTCXRecipeIterators;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
@@ -147,11 +148,12 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
     public static void init() {
         for (RecipeEntry entry : ClassicRecipes.furnace.getRecipeMap()) {
             if (entry.getOutput().getAllOutputs().get(0).getItem() instanceof ItemFood) {
-                // Below your machine method for add directly to IRecipeInputs
                 addRecipe(entry.getInput(), entry.getOutput().getAllOutputs().get(0));
             } else {
-                if (GTCXRecipeIterators.metalList.contains(entry.getOutput().getAllOutputs().get(0))){
-                    explodeList.addAll(entry.getInput().getInputs());
+                for (String ore : GTCXRecipeIterators.metalList){
+                    if (GTHelperStack.matchOreDict(entry.getOutput().getAllOutputs().get(0), ore)){
+                        explodeList.addAll(entry.getInput().getInputs());
+                    }
                 }
             }
         }
