@@ -19,4 +19,5 @@ public class GTCXRecipeLists {
     public static final GTRecipeMultiInputList PLATE_BENDER_RECIPE_LIST = new GTRecipeMultiInputList("gt.platebender");
     public static final GTRecipeMultiInputList WIREMILL_RECIPE_LIST = new GTRecipeMultiInputList("gt.wiremill");
     public static final GTRecipeMultiInputList LATHE_RECIPE_LIST = new GTRecipeMultiInputList("gt.lathe");
+    public static final GTRecipeMultiInputList MICROWAVE_RECIPE_LIST = new GTRecipeMultiInputList("gt.microwave");
 }

@@ -44,6 +44,7 @@ public class GTCXRecipeIterators {
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
     public static final List<String> plateBenderBlacklist = new ArrayList<>();
     public static final List<String> fluidCasterBlacklist = new ArrayList<>();
+    public static final List<ItemStack> metalList = new ArrayList<>();
 
     public static void init(){
         for (GTMaterial mat : GTMaterial.values()){
@@ -357,69 +358,74 @@ public class GTCXRecipeIterators {
             String rod;
             String block;
             String nugget;
-            NonNullList listPlates;
-            NonNullList listIngots;
-            NonNullList listGears;
-            NonNullList listRods;
-            NonNullList listBlocks;
-            NonNullList listNuggets;
+            NonNullList<ItemStack> listPlates;
+            NonNullList<ItemStack> listIngots;
+            NonNullList<ItemStack> listGears;
+            NonNullList<ItemStack> listRods;
+            NonNullList<ItemStack> listBlocks;
+            NonNullList<ItemStack> listNuggets;
             if (id.startsWith("ingot")){
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
                 plate = "plate" + oreName;
+
                 if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id)){
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
                         if (!listPlates.isEmpty()) {
-                            GTCXTilePlateBender.addRecipe(id, 1, (ItemStack)listPlates.get(0));
+                            GTCXTilePlateBender.addRecipe(id, 1, listPlates.get(0));
                             if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS)){
                                 if (GTCXConfiguration.general.harderPlates){
-                                    recipes.addRecipe((ItemStack)listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
+                                    recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
                                 }else {
-                                    recipes.addRecipe((ItemStack)listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id );
+                                    recipes.addRecipe(listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id );
                                 }
                             }
                         }
                     }
                 }
+                listIngots = OreDictionary.getOres(id, false);
+                if (!listIngots.isEmpty()){
+                    metalList.addAll(listIngots);
+                }
+
                 if (moltenExist && !fluidCasterBlacklist.contains(oreName)){
-                    listIngots = OreDictionary.getOres(id, false);
                     Fluid fluid = FluidRegistry.getFluid(oreName.toLowerCase());
                     gear = "gear" + oreName;
                     rod = "rod" + oreName;
                     block = "block" + oreName;
                     nugget = "nugget" + oreName;
                     if (!listIngots.isEmpty() && !gemBlacklist.contains(id)){
-                        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), new FluidStack(fluid, 144),true, 12800,  (ItemStack)listIngots.get(0));
+                        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), new FluidStack(fluid, 144),true, 12800, listIngots.get(0));
                     }
                     if (OreDictionary.doesOreNameExist(nugget)) {
                         listNuggets = OreDictionary.getOres(nugget, false);
                         if (!listNuggets.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), new FluidStack(fluid, 16),true, 3200,  (ItemStack)listNuggets.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), new FluidStack(fluid, 16),true, 3200, listNuggets.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(block)) {
                         listBlocks = OreDictionary.getOres(block, false);
                         if (!listBlocks.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), new FluidStack(fluid, 1296),true, 115200,  (ItemStack)listBlocks.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), new FluidStack(fluid, 1296),true, 115200, listBlocks.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
                         if (!listPlates.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), new FluidStack(fluid, 144),true, 12800,  (ItemStack)listPlates.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), new FluidStack(fluid, 144),true, 12800, listPlates.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(gear)) {
                         listGears = OreDictionary.getOres(gear, false);
                         if (!listGears.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 576),true, 51200,  (ItemStack)listGears.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 576),true, 51200, listGears.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(rod)) {
                         listRods = OreDictionary.getOres(rod, false);
                         if (!listRods.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 144),true, 12800,  GTMaterialGen.getIc2((ItemStack)listRods.get(0), 2));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 144),true, 12800,  GTMaterialGen.getIc2(listRods.get(0), 2));
                         }
                     }
                 }

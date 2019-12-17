@@ -93,4 +93,10 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXMicrowaveGui extends MachineGui{
+        public GTCXMicrowaveGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

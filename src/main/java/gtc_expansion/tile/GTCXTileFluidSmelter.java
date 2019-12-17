@@ -445,11 +445,11 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         }
         mods.setInteger(neededHeat, heat);
         outlist.add(output);
-        addRecipe(inlist, new GTFluidMachineOutput(mods, outlist));
+        addRecipe(inlist, new GTFluidMachineOutput(mods, outlist), output.getUnlocalizedName());
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST.addRecipe(input, output, recipeId, defaultEu);
     }
 
     @Override
