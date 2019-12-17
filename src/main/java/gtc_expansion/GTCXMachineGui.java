@@ -81,4 +81,16 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXWiremillGui extends MachineGui{
+        public GTCXWiremillGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GTCXLatheGui extends MachineGui{
+        public GTCXLatheGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

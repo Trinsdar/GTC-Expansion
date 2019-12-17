@@ -8,7 +8,9 @@ import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
+import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTilePlateBender;
+import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
@@ -108,6 +110,12 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         }
         if (this == GTCXBlocks.plateBender){
             return new GTCXTilePlateBender();
+        }
+        if (this == GTCXBlocks.lathe){
+            return new GTCXTileLathe();
+        }
+        if (this == GTCXBlocks.wiremill){
+            return new GTCXTileWiremill();
         }
 //        if (this == GEBlocks.fusionReactor){
 //            return new GETileMultiFusionReactor();

@@ -8,6 +8,7 @@ import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
+import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTHelperMods;
@@ -237,6 +238,7 @@ public class GTCXRecipeIterators {
             // Rod crafting recipe
             recipes.addRecipe(GTCXMaterialGen.getRod(mat, 2), "XF", 'F',
                     "craftingToolFile", 'X', ingot);
+            GTCXTileLathe.addRecipe(ingot, 1, GTCXMaterialGen.getRod(mat, 2));
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 TileEntityMacerator.addRecipe(rod, 2, getDust(mat), 0.0F);

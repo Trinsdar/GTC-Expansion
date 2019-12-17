@@ -18,5 +18,7 @@ public class GTCXJei {
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster, GTCXMachineGui.GTCXFluidCasterGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST, GTCXBlocks.fluidSmelter, GTCXMachineGui.GTCXFluidSmelterGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.PLATE_BENDER_RECIPE_LIST, GTCXBlocks.plateBender, GTCXMachineGui.GTCXPlateBenderGui.class, 78, 24, 20, 18));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.LATHE_RECIPE_LIST, GTCXBlocks.lathe, GTCXMachineGui.GTCXLatheGui.class, 78, 24, 20, 18));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.WIREMILL_RECIPE_LIST, GTCXBlocks.wiremill, GTCXMachineGui.GTCXWiremillGui.class, 78, 24, 20, 18));
     }
 }
