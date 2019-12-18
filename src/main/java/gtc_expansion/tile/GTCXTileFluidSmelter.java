@@ -64,8 +64,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static gtc_expansion.tile.GTCXTileFluidCaster.canConsumePress;
-
 public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankListener, IClickable {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidsmelter.png");
     public static final int slotInput = 0;
@@ -79,9 +77,10 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     public int maxHeat;
     public int heat;
     public static final String neededHeat = "minHeat";
+    private boolean reachedMaxHeat = false;
 
     public GTCXTileFluidSmelter() {
-        super(9, 2, defaultEu, 100, 32);
+        super(9, 2, defaultEu, 100, 128);
         setFuelSlot(slotFuel);
         this.outputTank.addListener(this);
         this.outputTank.setCanFill(false);
@@ -115,7 +114,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
 
     @Override
     public LocaleComp getBlockName() {
-        return GTCXLang.PLATE_BENDER;
+        return GTCXLang.FLUID_SMELTER;
     }
 
     @Override
@@ -206,8 +205,9 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
                 ++this.heat;
                 this.getNetwork().updateTileGuiField(this, "heat");
             }
-            if (this.heat == maxHeat){
+            if (this.heat == maxHeat && !reachedMaxHeat){
                 shouldCheckRecipe = true;
+                reachedMaxHeat = true;
             }
             if (this.heat > maxHeat){
                 this.heat = maxHeat;
@@ -218,6 +218,9 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             this.useEnergy(1);
         } else if (this.heat > 0) {
             this.heat -= Math.min(this.heat, 4);
+            if (this.reachedMaxHeat){
+                reachedMaxHeat = false;
+            }
             this.getNetwork().updateTileGuiField(this, "heat");
         }
 
@@ -230,21 +233,18 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             GTFluidMachineOutput fluidOutput = (GTFluidMachineOutput)output;
             for (FluidStack fluid : fluidOutput.getFluids()){
                 if (outputTank.getFluidAmount() == 0 || outputTank.getFluid().isFluidEqual(fluid)){
-                    outputTank.fill(fluid, true);
+                    outputTank.fillInternal(fluid, true);
                 }
             }
         }
-        for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
-            outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
-            onRecipeComplete();
-        }
+        onRecipeComplete();
         NBTTagCompound nbt = recipe.getOutputs().getMetadata();
         boolean shiftContainers = nbt != null && nbt.getBoolean(MOVE_CONTAINER_TAG);
         List<ItemStack> inputs = getInputs();
         for (IRecipeInput key : recipe.getInputs()) {
             int count = key.getAmount();
             ItemStack input = inventory.get(slotInput);
-            if (key.matches(input) && canConsumePress(recipe.getOutputs())) {
+            if (key.matches(input)) {
                 if (input.getCount() >= count) {
                     if (input.getItem().hasContainerItem(input)) {
                         if (!shiftContainers) {
@@ -333,7 +333,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
 
     @Override
     public boolean canContinue() {
-        return heat == getRequiredHeat(lastRecipe.getOutputs());
+        return heat >= getRequiredHeat(lastRecipe.getOutputs());
     }
 
     @Override

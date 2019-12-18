@@ -4,9 +4,11 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAssemblingMachine;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipe;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
@@ -165,6 +167,9 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("plateAluminium", 4, Ic2Items.generator, 51200, GTMaterialGen.getIc2(Ic2Items.waterMill, 2));
         addRecipe("plateAluminium", 2, Ic2Items.generator, 51200, Ic2Items.windMill);
         addRecipe(GTMaterialGen.getIc2(Ic2Items.carbonPlate, 4), Ic2Items.generator, 51200, Ic2Items.windMill);
+        addRecipe(GTMaterialGen.getFluidPipeSmall(GTCXMaterial.TungstenSteel, 1), Ic2Items.fluidExportUpgrade, 51200, GTMaterialGen.getFluidPipeSmall(GTMaterial.HighPressure, 1));
+        addRecipe(GTMaterialGen.getFluidPipe(GTCXMaterial.TungstenSteel, 1), Ic2Items.fluidExportUpgrade, 51200, GTMaterialGen.getFluidPipe(GTMaterial.HighPressure, 1));
+        addRecipe(GTMaterialGen.getFluidPipeLarge(GTCXMaterial.TungstenSteel, 1), Ic2Items.fluidExportUpgrade, 51200, GTMaterialGen.getFluidPipeLarge(GTMaterial.HighPressure, 1));
         addRecipe("plankWood", 4, 3200, new ItemStack(Blocks.CRAFTING_TABLE));
         addRecipe("cobblestone", 8, 3200, new ItemStack(Blocks.FURNACE));
     }
