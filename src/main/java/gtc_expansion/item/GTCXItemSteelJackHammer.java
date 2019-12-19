@@ -26,6 +26,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -47,6 +48,11 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.format(this.getUnlocalizedName().replace("item", "tooltip")));
         tooltip.add(I18n.format(this.getUnlocalizedName().replace("item", "tooltip") + 1));
+    }
+
+    @Override
+    public int getRGBDurabilityForDisplay(ItemStack stack) {
+        return Color.CYAN.hashCode();
     }
 
     @Override

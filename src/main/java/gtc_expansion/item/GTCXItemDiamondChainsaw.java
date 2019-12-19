@@ -36,6 +36,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -64,6 +65,11 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
     @Override
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
         return diamondAxe.canHarvestBlock(state) || state.getBlock() == Blocks.WEB && ElectricItem.manager.canUse(stack, this.getEnergyCost(stack));
+    }
+
+    @Override
+    public int getRGBDurabilityForDisplay(ItemStack stack) {
+        return Color.CYAN.hashCode();
     }
 
     @Override

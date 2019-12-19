@@ -6,10 +6,14 @@ import gtc_expansion.GTCXFluids;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXOreDict;
 import gtc_expansion.GTCXWorldGenTwilightForest;
+import gtc_expansion.container.GTCXContainerFluidSmelter;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.recipes.GTCXRecipe;
+import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.common.GTConfig;
+import ic2.core.inventory.filters.BasicItemFilter;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -36,6 +40,9 @@ public class GTCXCommonProxy {
         GTCXRecipe.postInit();
         if (GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)) {
             GTCXWorldGenTwilightForest.init();
+        }
+        for (ItemStack stack : GTCXTileFluidSmelter.coilsSlotWhitelist.keySet()){
+            GTCXContainerFluidSmelter.filters.add(new BasicItemFilter(stack));
         }
     }
 }

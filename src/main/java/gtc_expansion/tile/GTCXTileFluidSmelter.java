@@ -9,6 +9,7 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
@@ -59,8 +60,10 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -69,7 +72,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     public static final int slotInput = 0;
     public static final int slotOutputDisplay = 1;
     public static final int slotFuel = 2;
-    public static final int[] slotCoils = { 3, 4, 5, 6, 7, 8};
+    public static final int slotCoil = 3;
     protected static final int[] slotInputs = { slotInput };
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 64;
@@ -77,6 +80,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     public int maxHeat;
     public int heat;
     public static final String neededHeat = "minHeat";
+    public static final Map<ItemStack, Integer> coilsSlotWhitelist = new LinkedHashMap<>();
     private boolean reachedMaxHeat = false;
 
     public GTCXTileFluidSmelter() {
@@ -106,8 +110,8 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
 
     @Override
     public int getMaxStackSize(int slot) {
-        if (slot > 2 && slot < 9){
-            return 1;
+        if (slot == slotCoil){
+            return 6;
         }
         return super.getMaxStackSize(slot);
     }
@@ -144,7 +148,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
 
     @Override
     public boolean isRecipeSlot(int slot) {
-        return slot != slotFuel;
+        return slot != slotFuel && slot != slotCoil;
     }
 
     @Override
@@ -182,16 +186,14 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     public void setStackInSlot(int slot, ItemStack stack) {
         super.setStackInSlot(slot, stack);
         maxHeat = 500;
-        for (int i : slotCoils){
-            if (inventory.get(i).isEmpty()){
-                continue;
+        for (Map.Entry<ItemStack, Integer> entry : coilsSlotWhitelist.entrySet()){
+            if (inventory.get(slotCoil).isEmpty()){
+                break;
             }
-            if (inventory.get(i).getItem() == GTCXItems.constantanHeatingCoil){
-                maxHeat += 250;
-            } else if (inventory.get(i).getItem() == GTCXItems.kanthalHeatingCoil){
-                maxHeat += 500;
-            } else if (inventory.get(i).getItem() == GTCXItems.nichromeHeatingCoil){
-                maxHeat += 750;
+            if (GTHelperStack.isEqual(inventory.get(slotCoil), entry.getKey())){
+                int increase = entry.getValue() * entry.getKey().getCount();
+                maxHeat += increase;
+                break;
             }
         }
         this.getNetwork().updateTileGuiField(this, "maxHeat");
@@ -397,6 +399,9 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     }
 
     public static void init(){
+        coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), 250);
+        coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), 500);
+        coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.nichromeHeatingCoil), 750);
         if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             addRecipe("blockRefinedIron", 1, 750 * (GTCXMaterial.RefinedIron.getTier() + 1), 115200, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296));
             addRecipe("casingCopper", 1, 750 * (GTCXMaterial.Copper.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72));
