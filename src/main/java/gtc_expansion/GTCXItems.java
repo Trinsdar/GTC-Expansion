@@ -5,6 +5,7 @@ import gtc_expansion.item.GTCXItemBatterySingleUse;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.GTCXItemInsulationCutter;
 import gtc_expansion.item.GTCXItemMisc;
+import gtc_expansion.item.GTCXItemMiscSpriteless;
 import gtc_expansion.item.GTCXItemMold;
 import gtc_expansion.item.GTCXItemSteelJackHammer;
 import ic2.core.IC2;
@@ -38,7 +39,7 @@ public class GTCXItems {
     public static final GTCXItemMisc advancedCircuitBoard = createItem(new GTCXItemMisc("advanced_circuit_board", 6, 1));
     public static final GTCXItemMisc processorCircuitBoard = createItem(new GTCXItemMisc("processor_circuit_board", 7, 1));
     public static final GTCXItemMisc oilberry = createItem(new GTCXItemMisc("oilberry", 8, 1));
-    public static final GTCXItemMisc magicDye = createItem(new GTCXItemMisc("magic_dye", 11, 1));
+    public static final GTCXItemMiscSpriteless magicDye = createItem(new GTCXItemMiscSpriteless("magic_dye"));
     public static final GTCXItemMisc mold = createItem(new GTCXItemMisc("mold", 0, 2));
     public static final GTCXItemMold moldPlate = createItem(new GTCXItemMold("plate", 1, 2));
     public static final GTCXItemMold moldRod = createItem(new GTCXItemMold("rod", 2, 2));

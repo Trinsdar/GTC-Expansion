@@ -2,6 +2,7 @@ package gtc_expansion.proxy;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXIcons;
+import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXJei;
 import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.util.ResourceLocation;
@@ -18,6 +19,7 @@ public class GTCXClientProxy extends GTCXCommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
+        GTCXItems.magicDye.initModel();
         MinecraftForge.EVENT_BUS.register(this);
     }
 
