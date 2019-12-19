@@ -38,10 +38,10 @@ public class GTCXContainerFluidSmelter extends ContainerTileComponent<GTCXTileFl
         this.addSlotToContainer(new SlotDisplay(tile,  1, 107, 25)); // output tank
         this.addSlotToContainer(new SlotCustom(tile, 3, 44, 62, new ArrayFilter(filter)));
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 25 + i * 18, 62));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 4 + i, 80 + i * 18, 62));
         }
         this.addComponent(new GTCXGuiICompFluidSmelterString(tile));
-        this.addComponent(new GTGuiCompMachinePower(tile, 97, 62));
+        this.addComponent(new GTGuiCompMachinePower(tile, 116, 62));
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }

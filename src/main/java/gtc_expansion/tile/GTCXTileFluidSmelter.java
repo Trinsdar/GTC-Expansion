@@ -191,7 +191,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
                 break;
             }
             if (GTHelperStack.isEqual(inventory.get(slotCoil), entry.getKey())){
-                int increase = entry.getValue() * entry.getKey().getCount();
+                int increase = entry.getValue() * inventory.get(slotCoil).getCount();
                 maxHeat += increase;
                 break;
             }
