@@ -309,6 +309,7 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
         IRecipeInput ashes = new RecipeInputCombined(1, new RecipeInputOreDict("dustAshes"), new RecipeInputOreDict("dustAsh"));
         recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "ingotRefinedIron", ashes);
+        recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.magicDye), "dyeCyan", "dyeMagenta", "dyeYellow", "dyeBlack");
     }
 
     public static void initIc2(){

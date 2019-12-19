@@ -21,6 +21,7 @@ public class GTCXIcons {
         collectBasicTileSprites();
         if (GTConfig.general.animatedTextures){
             addCustomTexture("industrialblastfurnace", 0, 9, location("bf_front"));
+            addCustomTexture("items", 11, 1, location("magicdye"));
         }
         if (GTConfig.general.debugMode){
             GTCExpansion.logger.info("All GregTech Classic Expansion textures generated without error");

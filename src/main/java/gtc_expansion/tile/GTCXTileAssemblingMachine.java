@@ -172,6 +172,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTMaterialGen.getFluidPipeLarge(GTCXMaterial.TungstenSteel, 1), Ic2Items.fluidExportUpgrade, 51200, GTMaterialGen.getFluidPipeLarge(GTMaterial.HighPressure, 1));
         addRecipe("plankWood", 4, 3200, new ItemStack(Blocks.CRAFTING_TABLE));
         addRecipe("cobblestone", 8, 3200, new ItemStack(Blocks.FURNACE));
+        addRecipe(Ic2Items.emptyCell, "dustRedstone", 1, 1600, GTMaterialGen.get(GTItems.sprayCanEmpty));
     }
 
     public static void addRecipe(String input1, int amount1, int totalEu, ItemStack output) {

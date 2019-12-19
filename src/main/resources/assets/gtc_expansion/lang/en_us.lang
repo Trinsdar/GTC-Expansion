@@ -511,6 +511,7 @@ item.gtc_expansion.basic_circuit_board.name=Basic Circuit Board
 item.gtc_expansion.advanced_circuit_board.name=Advanced Circuit Board
 item.gtc_expansion.processor_circuit_board.name=Processor Circuit Board
 item.gtc_expansion.oilberry.name=Oilberry
+item.gtc_expansion.magic_dye.name=Magical Dye
 item.gtc_expansion.battery_hull.name=Battery Hull
 item.gtc_expansion.large_battery_hull.name=Large Battery Hull
 item.gtc_expansion.acid_battery.name=Acid Battery

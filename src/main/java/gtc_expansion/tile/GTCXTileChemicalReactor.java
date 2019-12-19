@@ -1,5 +1,6 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerChemicalReactor;
@@ -144,6 +145,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine {
         addRecipe(input(GTMaterialGen.getDust(GTMaterial.Sulfur, 1)), input(GTMaterialGen.getModdedTube("water", 2)), 1, 34500, GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 3));
         addRecipe(input(GTMaterialGen.getTube(GTMaterial.Hydrogen, 4)), input(GTMaterialGen.getTube(GTMaterial.Oxygen, 2)), 300, GTMaterialGen.getModdedTube("water", 6));
         addRecipe(input(GTMaterialGen.getTube(GTCXMaterial.NitrogenDioxide, 5)), input(GTMaterialGen.getTube(GTMaterial.Sodium, 2)), 1000, GTMaterialGen.get(Items.GUNPOWDER, 5), GTMaterialGen.get(GTItems.testTube, 7));
+        addRecipe(new IRecipeInput[]{input(GTMaterialGen.get(GTCXItems.magicDye)), input(GTMaterialGen.get(Items.BLAZE_POWDER)), input(GTMaterialGen.getTube(GTMaterial.Chlorine, 1))}, totalEu(5000), GTMaterialGen.getTube(GTMaterial.MagicDye, 1));
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack... output) {
