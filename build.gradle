@@ -42,10 +42,10 @@ minecraft {
 }
 
 repositories{
-    maven { // JEI
-        name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven/'
-    }
+//    maven { // JEI
+//        name 'DVS1 Maven FS'
+//        url 'http://dvs1.progwml6.com/files/maven/'
+//    }
     maven { // The One Probe
         name 'tterrag'
         url 'http://maven.tterrag.com/'
@@ -69,6 +69,9 @@ repositories{
     maven {
         name = "ic2"
         url = "http://maven.ic2.player.to/"
+    }
+    maven { //Backup
+        url "https://modmaven.k-4u.nl"
     }
 }
 
