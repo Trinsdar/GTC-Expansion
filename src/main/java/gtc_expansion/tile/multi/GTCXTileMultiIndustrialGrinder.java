@@ -413,7 +413,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addSodiumPersulfateRecipe("oreTetrahedrite", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Zinc, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Antimony, 1));
             addSodiumPersulfateRecipe("oreTin", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "tinpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1));
             addSodiumPersulfateRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "copperpurifiedcrushedore", 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
-            addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "goldpurifiedcrushedore", 2), GTMaterialGen.getDust(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
+            addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "goldpurifiedcrushedore", 2), Ic2Items.copperDust, GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
         } else {
             addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Uranium, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 1));
             addWaterRecipe("oreSilver", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.silverDust, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 2));
@@ -445,7 +445,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addSodiumPersulfateRecipe("oreTetrahedrite", 1, totalEu(12800), GTMaterialGen.getDust(GTCXMaterial.Tetrahedrite, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Zinc, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Antimony, 1));
             addSodiumPersulfateRecipe("oreTin", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.tinDust, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1));
             addSodiumPersulfateRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.copperDust, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
-            addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.goldDust, 2), GTMaterialGen.getDust(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
+            addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.goldDust, 2), Ic2Items.copperDust, GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
         }
         addWaterRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 16), totalEu(204800), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 16));
         addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial.Ruby, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Ruby, 6), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetRed, 2));
