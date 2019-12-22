@@ -135,6 +135,7 @@ public class GTCXMaterial {
         GTMaterial.Silicon.addFlags(fluid, smalldust, nugget, plate);
         GTMaterial.Sodalite.addFlags(smalldust);
         GTMaterial.Sulfur.addFlags(smalldust, tinydust);
+        GTMaterial.Technetium.addFlags(smalldust, plate, stick, gear, nugget, molten);
         GTMaterial.Thorium.addFlags(smalldust, nugget, molten).setSmeltable(false);
         GTMaterial.Titanium.addFlags(molten, smalldust, tinydust, nugget, plate, stick, gear, hull).setSmeltable(false);
         GTMaterial.Tungsten.addFlags(molten, smalldust, nugget, hotIngot, plate, stick, gear, crushedore, crushedorePurified).setSmeltable(false);

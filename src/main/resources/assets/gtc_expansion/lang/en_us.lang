@@ -171,6 +171,7 @@ item.gtclassic.dustsmallMagnalium.name=Small Magnalium Dust
 item.gtclassic.dustsmallNichrome.name=Small Nichrome Dust
 item.gtclassic.dustsmallNeodymium.name=Small Neodymium Dust
 item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
+item.gtclassic.dustsmallTechnetium.name=Small Technetium Dust
 
 #dust
 item.gtclassic.dustKanthal.name=Kanthal Dust
@@ -283,6 +284,7 @@ item.gtclassic.nuggetChrome.name=Chrome Nugget
 item.gtclassic.nuggetBrass.name=Brass Nugget
 item.gtclassic.nuggetPlutonium.name=Plutonium Nugget
 item.gtclassic.nuggetStainlessSteel.name=Stainless Steel Nugget
+item.gtclassic.nuggetTechnetium.name=Technetium Nugget
 item.gtclassic.nuggetTungstensteel.name=Tungstensteel Nugget
 item.gtclassic.nuggetTitanium.name=Titanium Nugget
 item.gtclassic.nuggetIridium.name=Iridium Nugget
@@ -324,6 +326,7 @@ item.gtclassic.plateRedAlloy.name=Red Alloy Plate
 item.gtclassic.plateConstantan.name=Constantan Plate
 item.gtclassic.plateNichrome.name=Nichrome Plate
 item.gtclassic.plateStainlessSteel.name=Stainless Steel Plate
+item.gtclassic.plateTechnetium.name=Technetium Plate
 
 #gear
 item.gtclassic.gearAntimony.name=Antimony Gear
@@ -356,6 +359,7 @@ item.gtclassic.gearNichrome.name=Nichrome Gear
 item.gtclassic.gearIridium.name=Iridium Gear
 item.gtclassic.gearStainlessSteel.name=Stainless Gear
 item.gtclassic.gearBismuth.name=Bismuth Gear
+item.gtclassic.gearTechnetium.name=Technetium Gear
 
 #sticks
 item.gtclassic.stickAntimony.name=Antimony Rod
@@ -392,6 +396,7 @@ item.gtclassic.stickCobalt.name=Cobalt Rod
 item.gtclassic.stickRedAlloy.name=Red Alloy Rod
 item.gtclassic.stickMagnalium.name=Magnalium Rod
 item.gtclassic.stickNeodymium.name=Neodymium Rod
+item.gtclassic.stickTechnetium.name=Technetium Rod
 
 #hulls
 item.gtclassic.hullBronze.name=Bronze Machine Hull
@@ -591,6 +596,7 @@ fluid.nickel=Molten Nickel
 fluid.osmium=Molten Osmium
 fluid.nichrome=Molten Nichrome
 fluid.refinediron=Molten Refined Iron
+fluid.technetium=Molten Technetium
 
 #block tooltips
 tooltip.gtc_expansion.orepyrite=Spawns between Y level 0 - 64 in the NETHER.

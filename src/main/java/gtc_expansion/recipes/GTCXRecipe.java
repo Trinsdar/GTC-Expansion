@@ -43,6 +43,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
@@ -106,6 +107,7 @@ public class GTCXRecipe {
     static String brass = GTCXConfiguration.general.usePlates ? "plateBrass" : "ingotBrass";
     static String refinedIron = GTCXConfiguration.general.usePlates ? "plateRefinedIron" : "ingotRefinedIron";
     static String lead = GTCXConfiguration.general.usePlates ? "plateLead" : "ingotLead";
+    static String silicon = GTCXConfiguration.general.usePlates ? "plateSilicon" : "ingotSilicon";
 
     public static String getRefinedIronPlate() {
         return IC2.config.getFlag("SteelRecipes") ? "plateSteel" : "plateRefinedIron";
@@ -326,6 +328,19 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.itemtoolcutter_" + recipeId, GTMaterialGen.get(GTCXItems.cutter), "R R", " R ", "I I", 'R', materialRefinedIron, 'I', "ingotIron");
         recipeId = IC2.config.getFlag("SteelRecipes") ? 1913907474 : 1986006418;
         recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", " W ", 'R', "rodRefinedIron", 'W', "craftingToolWrench");
+        recipes.overrideRecipe("shaped_item.itemplasmacore_-1985082214", Ic2Items.plasmaCore, "CSC", "SPS", "CSC", 'C', GTBlocks.tileSuperconductorCable, 'S', tungsten, 'P', Ic2Items.plasmaCell);
+        recipes.overrideRecipe("shaped_item.itempesd_-912043277", Ic2Items.pesd, "CSC", "SPS", "CSC", 'C', GTItems.orbEnergy, 'S', tungsten, 'P', Ic2Items.plasmaCore);
+        recipes.overrideRecipe("shaped_item.itemportableteleporter_-869928001", Ic2Items.portableTeleporter, "ADA", "ACA", "PpP", 'A', platinum, 'D', "circuitData", 'C', "circuitMaster", 'P', GTMaterialGen.getIc2(Ic2Items.plasmaCore, 8), 'p', Ic2Items.pesd);
+        String technetium = GTCXConfiguration.general.usePlates ? "plateTechnetium" : "ingotTechnetium";
+        recipes.overrideRecipe("shaped_item.quantumoverclockerupgrade_-1387578587", Ic2Items.quantumOverclockerUpgrade, "THT", "HOH", "TST", 'T', technetium, 'H', GTItems.heatStorageHelium6, 'O', Ic2Items.overClockerUpgrade, 'S', GTItems.superConductor);
+        recipes.overrideRecipe("shaped_tile.blockpesu_281205134", Ic2Items.pesu, "SCS", "PPP", "SCS", 'S', tungsten, 'C', "circuitMaster", 'P', Ic2Items.pesd);
+        recipes.addRecipe(Ic2Items.pesu, "SsS", "CTP", "SsS", 'S', tungsten, 's', GTItems.superConductor, 'C', "circuitMaster", 'T', Ic2Items.transformerEV, 'P', Ic2Items.pesd);
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setBoolean("Lossless", true);
+        ItemStack stack = Ic2Items.precisionWrench.copy();
+        stack.setTagCompound(nbt);
+        recipes.overrideRecipe("shaped_item.precisionwrench_-1322002202", stack, "CRC", "SIS", "CWC", 'C', "circuitAdvanced", 'R', GTItems.rockCutter, 'S', "rodTungsten", 'I', Ic2Items.iridiumPlate, 'W', Ic2Items.electricWrench);
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.precisionwrench_-1943783685");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockiridiumstone_-48520064");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwatergenerator_-2059790844");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockwindgenerator_1669945012");
@@ -380,6 +395,12 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.itemtreetapelectric_-1455688385", Ic2Items.electricTreeTap, " B ", "SCS", "T  ", 'T', Ic2Items.treeTap, 'S', materialSteels, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.electricsprayer_-335930196", Ic2Items.electricCfSprayer, "sS ", "SC ", "  B", 's', Ic2Items.cfSprayer, 'S', materialSteels, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.itemnanosaber_644260803", Ic2Items.nanoSaber, "PI ", "PI ", "CEC", 'P', platinum, 'I', Ic2Items.iridiumPlate, 'C', Ic2Items.carbonPlate, 'E', Ic2Items.energyCrystal);
+        IRecipeInput wrench = GTCXConfiguration.general.harderProgression ? null : new RecipeInputItemStack(Ic2Items.wrench);
+        nbt = new NBTTagCompound();
+        nbt.setBoolean("losslessMode", true);
+        stack = Ic2Items.electricWrench.copy();
+        stack.setTagCompound(nbt);
+        recipes.overrideRecipe("shaped_item.itemtoolwrenchelectric_883008511", stack, "SWS", "SCS", " B ",'S', materialSteels, 'W', wrench, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.itemtoolmininglaser_1732214669", Ic2Items.miningLaser,"RHE", "TTC", " AA", 'R', "gemRuby", 'H', GTItems.heatStorageHelium6, 'E', tier2Energy, 'T', titanium, 'C', "circuitAdvanced", 'A', Ic2Items.advancedAlloy);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.suBattery, 32), "C", "S", "L", 'C', Ic2Items.insulatedCopperCable, 'S', GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 1), 'L', "dustLead");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.suBattery, 32), "C", "L", "S", 'C', Ic2Items.insulatedCopperCable, 'S', GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 1), 'L', "dustLead");

@@ -18,7 +18,6 @@ import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 
 public class GTCXRecipeGT2 {
     static GTCXRecipe instance = new GTCXRecipe();
@@ -49,9 +48,6 @@ public class GTCXRecipeGT2 {
     public static void initIc2(){
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
-        ItemStack battery = Ic2Items.battery;
-        String circuit = "circuitBasic";
-        recipes.overrideRecipe("shaped_item.itemtoolwrenchelectric_883008511", Ic2Items.electricWrench, "SWS", "SCS", " B ",'S', materialSteels, 'W', Ic2Items.wrench, 'C', circuit, 'B', battery);
         if (GTConfig.general.harderIC2Macerator) {
             recipes.overrideRecipe("shaped_tile.blockStoneMacerator_-130868445", Ic2Items.stoneMacerator.copy(), "FDF", "DPD", "FBF", 'D', "gemDiamond", 'F', Items.FLINT, 'P', Blocks.PISTON, 'B',
                     Blocks.FURNACE);
