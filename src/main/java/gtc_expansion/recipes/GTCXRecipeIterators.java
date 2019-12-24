@@ -158,13 +158,24 @@ public class GTCXRecipeIterators {
         String hammer = "craftingToolForgeHammer";
         IRecipeInput wrench = new RecipeInputCombined(1, new RecipeInputOreDict("craftingToolMonkeyWrench"), new RecipeInputOreDict("craftingToolWrench"));
         if (mat.hasFlag(GTMaterialFlag.PIPEITEM)) {
-            recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
-            recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
+            if (GTCXConfiguration.general.enableCraftingTools){
+                recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
+                recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
+            } else {
+                recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", " W ", "III", 'I', material, 'W', "craftingToolMonkeyWrench");
+                recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "I I", "I I", "IWI", 'I', material, 'W', "craftingToolMonkeyWrench");
+            }
         }
         if (mat.hasFlag(GTMaterialFlag.PIPEFLUID) && mat != GTMaterial.HighPressure) {
-            recipes.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 6), "IWI", "I I", "IHI", 'I', material, 'W', wrench, 'H', hammer);
-            recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
-            recipes.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
+            if (GTCXConfiguration.general.enableCraftingTools){
+                recipes.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 6), "IWI", "I I", "IHI", 'I', material, 'W', wrench, 'H', hammer);
+                recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
+                recipes.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
+            } else {
+                recipes.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 6), "IWI", "I I", "I I", 'I', material, 'W', "craftingToolMonkeyWrench");
+                recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", " W ", "III", 'I', material, 'W', "craftingToolMonkeyWrench");
+                recipes.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), "I I", "I I", "IWI", 'I', material, 'W', "craftingToolMonkeyWrench");
+            }
         }
     }
 
@@ -307,7 +318,7 @@ public class GTCXRecipeIterators {
             recipes.addRecipe(G.getSword(mat), " P ", "FPH", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
         } else {
             recipes.addRecipe(G.getPickaxe(mat), "PII", " S ", " S ", 'P', plate, 'I', ingot, 'S', stick);
-            recipes.addRecipe(G.getAxe(mat), "PI", "PS ", " S ", 'P', plate, 'I', ingot, 'S', stick);
+            recipes.addRecipe(G.getAxe(mat), "PI", "PS", " S", 'P', plate, 'I', ingot, 'S', stick);
             recipes.addRecipe(G.getShovel(mat), "P", "S", "S", 'P', plate, 'S', stick);
             recipes.addRecipe(G.getSword(mat), "P", "P", "S", 'P', plate, 'S', stick);
         }
