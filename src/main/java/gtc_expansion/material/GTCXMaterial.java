@@ -10,6 +10,8 @@ public class GTCXMaterial {
     static String tex = modid + "_materials";
 
 
+    public static final boolean pipes = true;
+
     static GTMaterialFlag particle = new GTMaterialFlag("_particle", tex,15, false, modid);
     static GTMaterialFlag fluid = GTMaterialFlag.FLUID;
     public static GTMaterialFlag molten = new GTMaterialFlag("molten", tex, 14, true, modid);
@@ -22,6 +24,10 @@ public class GTCXMaterial {
     static GTMaterialFlag gemRubyShape = GTMaterialFlag.RUBY;
     static GTMaterialFlag gemSapphireShape = GTMaterialFlag.SAPPHIRE;
     public static GTMaterialFlag gemGarnetShape = new GTMaterialFlag("_gem", tex, 0, false, modid);
+    public static GTMaterialFlag pipeFluid = GTMaterialFlag.PIPEFLUID;
+    public static GTMaterialFlag pipeItem = GTMaterialFlag.PIPEITEM;
+    //public static GTMaterialFlag pipeFluid = new GTMaterialFlag("_pipefluid", 0, false);
+    //public static GTMaterialFlag pipeItem = new GTMaterialFlag("_pipeitem", 0, false);
     static GTMaterialFlag ingot = GTMaterialFlag.INGOT;
     public static GTMaterialFlag hotIngot = GTMaterialFlag.INGOTHOT;
     public static GTMaterialFlag nugget = new GTMaterialFlag("_nugget", tex, 4, false, modid);
@@ -45,7 +51,7 @@ public class GTCXMaterial {
     public static final GTMaterial Antimony = new GTMaterial(51,"Antimony", 1, 220, 220, 240, molten, smalldust, dust, tinydust, nugget, ingot, plate, stick, gear, blockMetal);
     public static final GTMaterial Ashes = new GTMaterial("Ashes", 192, 192, 192, dustAll);
     public static final GTMaterial BatteryAlloy = new GTMaterial("BatteryAlloy", 95, 77, 126, dust, ingot, smalldust, nugget, plate);
-    public static final GTMaterial Brass = new GTMaterial("Brass", 1, 255, 180, 0, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull , GTMaterialFlag.PIPEITEM);
+    public static final GTMaterial Brass = new GTMaterial("Brass", 1, 255, 180, 0, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull , pipeItem);
     public static final GTMaterial Charcoal = new GTMaterial("Charcoal", 100, 70, 70, smalldust);
     public static final GTMaterial Cinnabar = new GTMaterial("Cinnabar", 150, 0, 0, crushedAll);
     public static final GTMaterial Clay = new GTMaterial("Clay", 200, 200, 220, smalldust);
@@ -96,13 +102,13 @@ public class GTCXMaterial {
     public static final GTMaterial SodiumSulfide = new GTMaterial("SodiumSulfide", 161, 168, 73, fluid);
     public static final GTMaterial Spessartine = new GTMaterial("Spessartine", 255, 100, 100, dustAll);
     public static final GTMaterial Sphalerite = new GTMaterial("Sphalerite", 200, 140, 40, crushedAll);
-    public static final GTMaterial StainlessSteel = new GTMaterial(-1, "StainlessSteel", 3, 200, 200, 220, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull, GTMaterialFlag.PIPEFLUID);
-    public static final GTMaterial Steel = new GTMaterial(-1, "Steel", 2, 128, 128, 128, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull, GTMaterialFlag.PIPEFLUID);
+    public static final GTMaterial StainlessSteel = new GTMaterial(-1, "StainlessSteel", 3, 200, 200, 220, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull, pipeFluid);
+    public static final GTMaterial Steel = new GTMaterial(-1, "Steel", 2, 128, 128, 128, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull, pipeFluid);
     public static final GTMaterial Stone = new GTMaterial("Stone", 196, 196, 196, dustAll);
     public static final GTMaterial SulfuricAcid = new GTMaterial("SulfuricAcid", 255, 106, 0, fluid);
     public static final GTMaterial Tetrahedrite = new GTMaterial("Tetrahedrite", 200, 32, 0 , smalldust, dust, crushedore, crushedorePurified);
     public static final GTMaterial Tin = new GTMaterial("Tin", 220, 220, 220, molten, smalldust, nugget, plate, stick, gear);
-    public static final GTMaterial TungstenSteel = new GTMaterial(-1, "Tungstensteel", 4, 100, 100, 160, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, hull, GTMaterialFlag.PIPEFLUID);
+    public static final GTMaterial TungstenSteel = new GTMaterial(-1, "Tungstensteel", 4, 100, 100, 160, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, hull, pipeFluid);
     public static final GTMaterial Uvarovite = new GTMaterial("Uvarovite", 180, 255, 180, dustAll);
     public static final GTMaterial Wood = new GTMaterial("Wood", 137, 103, 39, dustAll);
     public static final GTMaterial Zinc = new GTMaterial(30,"Zinc", 1, 250, 240, 240, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);

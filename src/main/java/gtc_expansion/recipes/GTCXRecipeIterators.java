@@ -55,7 +55,9 @@ public class GTCXRecipeIterators {
             createNuggetRecipe(mat);
             createHullRecipe(mat);
             createFluidCastingRecipes(mat);
-            createPipeRecipe(mat);
+            if (GTCXMaterial.pipes){
+                createPipeRecipe(mat);
+            }
             if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
@@ -122,7 +124,7 @@ public class GTCXRecipeIterators {
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(mat, 1296), false, 115200, GTMaterialGen.getMaterialBlock(mat, 1));
                 GTCXTileFluidSmelter.addRecipe("block" + orename, 1, 750 * tier, 115200, GTMaterialGen.getFluidStack(mat, 1296));
             }
-            if (mat.hasFlag(GTMaterialFlag.PIPEFLUID)){
+            if (mat.hasFlag(GTCXMaterial.pipeFluid) && GTCXMaterial.pipes){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTMaterialGen.getFluidPipeSmall(mat, 1));
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTMaterialGen.getFluidPipe(mat, 1));
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getFluidPipeLarge(mat, 1));
@@ -130,7 +132,7 @@ public class GTCXRecipeIterators {
                 GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getFluidPipe(mat, 1), 750 * tier, 38400, GTMaterialGen.getFluidStack(mat, 432));
                 GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), 750 * tier, 76800, GTMaterialGen.getFluidStack(mat, 864));
             }
-            if (mat.hasFlag(GTMaterialFlag.PIPEITEM)){
+            if (mat.hasFlag(GTCXMaterial.pipeItem) && GTCXMaterial.pipes){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTMaterialGen.getItemPipe(mat, 1));
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getItemPipeLarge(mat, 1));
                 GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getItemPipe(mat, 1), 750 * tier, 38400, GTMaterialGen.getFluidStack(mat, 432));
@@ -156,8 +158,11 @@ public class GTCXRecipeIterators {
         String plate = "plate" + mat.getDisplayName();
         String material = GTCXConfiguration.general.usePlates ? plate : ingot;
         String hammer = "craftingToolForgeHammer";
+        if (!mat.hasFlag(GTMaterialFlag.INGOT) || !mat.hasFlag(GTCXMaterial.plate)){
+            return;
+        }
         IRecipeInput wrench = new RecipeInputCombined(1, new RecipeInputOreDict("craftingToolMonkeyWrench"), new RecipeInputOreDict("craftingToolWrench"));
-        if (mat.hasFlag(GTMaterialFlag.PIPEITEM)) {
+        if (mat.hasFlag(GTCXMaterial.pipeItem)) {
             if (GTCXConfiguration.general.enableCraftingTools){
                 recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
                 recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
@@ -166,7 +171,7 @@ public class GTCXRecipeIterators {
                 recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "I I", "I I", "IWI", 'I', material, 'W', "craftingToolMonkeyWrench");
             }
         }
-        if (mat.hasFlag(GTMaterialFlag.PIPEFLUID) && mat != GTMaterial.HighPressure) {
+        if (mat.hasFlag(GTCXMaterial.pipeFluid)) {
             if (GTCXConfiguration.general.enableCraftingTools){
                 recipes.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 6), "IWI", "I I", "IHI", 'I', material, 'W', wrench, 'H', hammer);
                 recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
