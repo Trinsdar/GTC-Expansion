@@ -1,6 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAssemblingMachine;
@@ -152,7 +153,9 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 3));
         IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateSilicon"),
                 new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"), new RecipeInputOreDict("platePlatinum"));
-        addRecipe(plateElectric, input("plateRedAlloy", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard));
+        if (GTCXConfiguration.general.harderCircuits){
+            addRecipe(plateElectric, input("plateRedAlloy", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard));
+        }
         addRecipe(plateElectric, input("plateElectrum", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard, 2));
         addRecipe(GTCXRecipe.getRefinedIronPlate(), 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 4));
         addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 12800, GTMaterialGen.get(GTCXItems.processorCircuitBoard));
@@ -162,7 +165,8 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("dustGunpowder", 4, GTMaterialGen.get(Blocks.SAND), 400, GTMaterialGen.get(Blocks.TNT));
         addRecipe(input("dustGlowstone", 1), GTCXRecipe.anyLapis, 1600, GTMaterialGen.get(GTCXItems.advancedCircuitParts, 2));
         addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), Ic2Items.cropAnalyzer, 204800, GTMaterialGen.get(GTItems.portableScanner));
-        addRecipe(GTMaterialGen.get(GTCXItems.basicCircuitBoard), GTMaterialGen.getIc2(Ic2Items.copperCable, 3), 800, Ic2Items.electricCircuit);
+        ItemStack cable = GTCXConfiguration.general.harderCircuits ? Ic2Items.copperCable : Ic2Items.insulatedCopperCable;
+        addRecipe(GTMaterialGen.get(GTCXItems.basicCircuitBoard), GTMaterialGen.getIc2(cable, 3), 800, Ic2Items.electricCircuit);
         addRecipe("plateIridiumAlloy", 1, Ic2Items.reinforcedStone, 1600, Ic2Items.iridiumStone);
         addRecipe("plateAluminium", 4, Ic2Items.generator, 51200, GTMaterialGen.getIc2(Ic2Items.waterMill, 2));
         addRecipe("plateAluminium", 2, Ic2Items.generator, 51200, Ic2Items.windMill);
