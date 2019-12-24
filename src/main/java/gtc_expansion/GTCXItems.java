@@ -3,6 +3,7 @@ package gtc_expansion;
 import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
+import gtc_expansion.item.GTCXItemFood;
 import gtc_expansion.item.GTCXItemInsulationCutter;
 import gtc_expansion.item.GTCXItemMisc;
 import gtc_expansion.item.GTCXItemMiscSpriteless;
@@ -38,7 +39,7 @@ public class GTCXItems {
     public static final GTCXItemMisc basicCircuitBoard = createItem(new GTCXItemMisc("basic_circuit_board", 5, 1));
     public static final GTCXItemMisc advancedCircuitBoard = createItem(new GTCXItemMisc("advanced_circuit_board", 6, 1));
     public static final GTCXItemMisc processorCircuitBoard = createItem(new GTCXItemMisc("processor_circuit_board", 7, 1));
-    public static final GTCXItemMisc oilberry = createItem(new GTCXItemMisc("oilberry", 8, 1));
+    public static final GTCXItemFood oilberry = createItem(new GTCXItemFood("oilberry", 4, 0.25F, 8, 1));
     public static final GTCXItemMiscSpriteless magicDye = createItem(new GTCXItemMiscSpriteless("magic_dye"));
     public static final GTCXItemMisc mold = createItem(new GTCXItemMisc("mold", 0, 2));
     public static final GTCXItemMold moldPlate = createItem(new GTCXItemMold("plate", 1, 2));
