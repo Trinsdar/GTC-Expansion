@@ -24,11 +24,11 @@ public class GTCXItemBlockRare extends GTItemBlockRare {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         PlayerHandler handler = PlayerHandler.getClientPlayerHandler();
         if (handler.hasEUReader()) {
-            if (this.compare(stack, GTCXBlocks.alloySmelter) || this.compare(stack, GTCXBlocks.implosionCompressor)) {
+            if (this.compare(stack, GTCXBlocks.alloySmelter) || this.compare(stack, GTCXBlocks.implosionCompressor) || this.compare(stack, GTCXBlocks.assemblingMachine) || this.compare(stack, GTCXBlocks.chemicalReactor) || this.compare(stack, GTCXBlocks.lathe) || this.compare(stack, GTCXBlocks.microwave) || this.compare(stack, GTCXBlocks.plateBender) || this.compare(stack, GTCXBlocks.wiremill)) {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(32));
             }
 
-            if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace)) {
+            if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace) || this.compare(stack, GTCXBlocks.fluidCaster) || this.compare(stack, GTCXBlocks.fluidSmelter) || this.compare(stack, GTCXBlocks.distillationTower)) {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
             }
         }
