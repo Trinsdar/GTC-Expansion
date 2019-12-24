@@ -28,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,11 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
     @Override
     public List<Integer> getValidVariants() {
         return new ArrayList();
+    }
+
+    @Override
+    public int getRGBDurabilityForDisplay(ItemStack stack) {
+        return Color.CYAN.hashCode();
     }
 
     @Override

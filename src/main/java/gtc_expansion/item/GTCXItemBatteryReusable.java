@@ -12,6 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.Color;
+
 public class GTCXItemBatteryReusable extends ItemBatteryBase {
     int id;
 
@@ -26,6 +28,11 @@ public class GTCXItemBatteryReusable extends ItemBatteryBase {
         this.provider = true;
         this.id = id;
         this.setCreativeTab(GTMod.creativeTabGT);
+    }
+
+    @Override
+    public int getRGBDurabilityForDisplay(ItemStack stack) {
+        return Color.CYAN.hashCode();
     }
 
     @Override
