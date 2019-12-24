@@ -63,7 +63,7 @@ public class GTCXJeiPlugin implements IModPlugin {
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.unfiredBrick));
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.unfiredFireBrick));
             }
-            if (GTCXConfiguration.general.harderProgression){
+            if (GTCXConfiguration.general.enableCraftingTools){
                 blacklist.addIngredientToBlacklist(Ic2Items.wrench);
             }
             if (IC2.config.getFlag("SteelRecipes")){

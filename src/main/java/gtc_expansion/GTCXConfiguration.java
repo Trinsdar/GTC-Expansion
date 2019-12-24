@@ -100,19 +100,19 @@ public class GTCXConfiguration {
     public static class General{
         @Comment("Enables quite a few of GT recipes using plates instead of ingots.")
         public boolean usePlates = true;
-        @Comment("Enables harder recipes for some ic2 and gtclassic electric tools.")
-        public boolean harderTools = true;
         @Comment("Enables plates taking 2 ingots instead of 1 ingot in the crafting table recipes.")
         public boolean harderPlates = false;
         @Comment("Enables regular and fire bricks taking unfired bricks in the furnace recipe.")
         public boolean unfiredBricks = false;
         @Comment("Enables removing of vanilla smelting of end game metals from all loaded mods")
         public boolean ingotsRequireBlastFurnace = true;
-        @Comment("Enables harder progession, such as harder curcuit recipes, machine blocks and tool recipes rquiring tools, ect.")
-        public boolean harderProgression = true;
         @Comment("Removes all ic2 and gt crafting uu recipes and forces uu through the uu assembler.")
         public boolean removeCraftingUURecipes = false;
         @Comment("Removes vaniila log to charcoal furnace recipes. Will remove all furnace recipes that output charcoal.")
         public boolean removeVanillaCharcoalRecipe = false;
+        @Comment("Makes regular and advanced circuits take plates in place of refined iron ingot and red alloy in place of redstone and also uninsulated copper cables.")
+        public boolean harderCircuits = true;
+        @Comment("Enables crafting tools, which are used in things like machine block recipes and tool recipes. Does not disable hammers completely, only uses of them in recipes that do not make plates.")
+        public boolean enableCraftingTools = true;
     }
 }
