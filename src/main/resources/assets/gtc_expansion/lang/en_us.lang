@@ -66,6 +66,7 @@ tile.gtclassic.reinforced.name=Reinforced Machine Casing
 tile.gtclassic.advanced.name=Advanced Machine Casing
 tile.gtc_expansion.fire_clay_block.name=Fire Clay
 tile.gtc_expansion.fire_brick_block.name=Fire Bricks
+tile.gtc_expansion.iridium_tungstensteel_block.name=Iridium Reinforced Tungstensteel Block
 
 #crops
 ic2.crop.Olivia.name=Olivia

@@ -1,6 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXBlocks;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBase;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
@@ -14,7 +15,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -97,5 +101,16 @@ public class GTCXBlockMisc extends GTBlockBase {
     public Block setUnlocalizedName(String name) {
         this.comp = new LangComponentHolder.LocaleBlockComp("tile." + name);
         return super.setUnlocalizedName(name);
+    }
+
+    @Override
+    public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
+        if (this == GTCXBlocks.iridiumTungstensteelBlock){
+            if (entity instanceof EntityWither || entity instanceof EntityWitherSkull){
+                return false;
+            }
+            return super.canEntityDestroy(state, world, pos, entity);
+        }
+        return super.canEntityDestroy(state, world, pos, entity);
     }
 }
