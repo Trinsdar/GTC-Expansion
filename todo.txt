@@ -4,3 +4,4 @@ custom jei for fluid smelter, fluid caster
 fix duplicate obsidian to silicon recipe in centrifuge and electrolyzer
 change small dust recipes to be shapeless
 add hot ingot oredicts
+check some ic2 dust to gtc small dust recipes
