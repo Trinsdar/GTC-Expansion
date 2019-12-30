@@ -8,3 +8,5 @@ check some ic2 dust to gtc small dust recipes
 make sure all dust inputs in machines are oredicts when possible
 make plutonium give radiation
 maybe better uranium amounts out of sodium persulfate and mercuury?
+fix industrial grinder red overlay
+add tungstate ore to oreTungsten
