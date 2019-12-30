@@ -204,8 +204,8 @@ public class GTCXRecipeIterators {
         if (mat.hasFlag(GTMaterialFlag.DUST)) {
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 // Block crafting recipe
-                recipes.addRecipe(getDust(mat, 1), "XX", "XX", 'X',
-                        smallDust);
+                recipes.addShapelessRecipe(getDust(mat, 1),
+                        smallDust, smallDust, smallDust, smallDust);
                 TileEntityCompressor.addRecipe(smallDust, 4, getDust(mat), 0.0F);
                 // Inverse
                 recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.smalldust, 4), " D", 'D', dust);
@@ -338,7 +338,9 @@ public class GTCXRecipeIterators {
 
     public static void dustUtil(ItemStack stack, GTMaterial material) {
         String smalldust = "dustSmall" + material.getDisplayName();
+        String dust = "dust" + material.getDisplayName();
         recipes.addShapelessRecipe(stack, smalldust, smalldust, smalldust, smalldust);
+        recipes.addRecipe(GTCXMaterialGen.getSmallDust(material, 4)," D", 'D', dust);
         TileEntityCompressor.addRecipe(smalldust, 4, GTMaterialGen.getIc2(stack, 1), 0.0F);
     }
 
@@ -375,7 +377,7 @@ public class GTCXRecipeIterators {
 
     public static void initAutoOredictMachineRecipes(){
         Set<String> gemBlacklist = new HashSet();
-        gemBlacklist.addAll(Arrays.asList("ingotDiamond", "ingotEmerald", "ingotQuartz", "ingotIridium", "ingotCoal", "ingotRedstone"));
+        gemBlacklist.addAll(Arrays.asList("ingotDiamond", "ingotEmerald", "ingotQuartz", "ingotIridium", "ingotCoal", "ingotRedstone", "ingotIridiumAlloy"));
         String[] var2 = OreDictionary.getOreNames();
         int var3 = var2.length;
 

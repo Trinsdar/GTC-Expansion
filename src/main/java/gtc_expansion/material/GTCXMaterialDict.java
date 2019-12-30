@@ -3,6 +3,7 @@ package gtc_expansion.material;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTConfig;
 import ic2.core.IC2;
@@ -18,6 +19,9 @@ public class GTCXMaterialDict {
         for (GTMaterial mat : GTMaterial.values()){
             if (mat.hasFlag(GTCXMaterial.smalldust)){
                 OreDictionary.registerOre("dustSmall" + mat.getDisplayName(), GTCXMaterialGen.getSmallDust(mat, 1));
+            }
+            if (mat.hasFlag(GTMaterialFlag.INGOTHOT)){
+                OreDictionary.registerOre("ingotHot" + mat.getDisplayName(), GTMaterialGen.getHotIngot(mat, 1));
             }
             if (mat.hasFlag(GTCXMaterial.nugget)){
                 OreDictionary.registerOre("nugget" + mat.getDisplayName(), GTCXMaterialGen.getNugget(mat, 1));

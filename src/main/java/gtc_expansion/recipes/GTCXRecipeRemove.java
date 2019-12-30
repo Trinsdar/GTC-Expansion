@@ -44,13 +44,14 @@ public class GTCXRecipeRemove {
         removeCentrifugeRecipe("item.itemCellEmpty");
         removeCentrifugeRecipe("item.itemCellEmpty_1");
         removeCentrifugeRecipe("item.gtclassic.dustCarbon");
+        removeCentrifugeRecipe("item.gtclassic.dustCarbon_2");
         removeCentrifugeRecipe("item.gtclassic.dustAluminium");
         removeCentrifugeRecipe("item.gtclassic.dustAluminium_1");
-        removeCentrifugeRecipe("item.gtclassic.dustSapphire");
         removeCentrifugeRecipe("item.gtclassic.test_tube_4");
         removeCentrifugeRecipe("item.gtclassic.test_tube_5");
         removeCentrifugeRecipe("item.gtclassic.test_tube_6");
         removeCentrifugeRecipe("item.itemDustIron");
+        removeCentrifugeRecipe("item.itemDustIron_1");
         removeCentrifugeRecipe("item.gtclassic.test_tube_7");
         removeCentrifugeRecipe("item.gtclassic.test_tube_8");
         removeCentrifugeRecipe("item.gtclassic.test_tube_9");
@@ -59,7 +60,6 @@ public class GTCXRecipeRemove {
         removeCentrifugeRecipe("item.gtclassic.dustSilicon_1");
         removeCentrifugeRecipe("item.gtclassic.dustLithium");
         removeCentrifugeRecipe("item.gtclassic.dustSilicon_2");
-        removeCentrifugeRecipe("item.gtclassic.dustSodalite_1");
         GTTileCentrifuge.RECIPE_LIST.finishMassChange();
     }
 

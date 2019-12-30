@@ -15,6 +15,7 @@ public class GTCXOreDict {
         OreDictionary.registerOre("oreCinnabar", GTCXBlocks.oreCinnabar);
         OreDictionary.registerOre("oreSphalerite", GTCXBlocks.oreSphalerite);
         OreDictionary.registerOre("oreTungstate", GTCXBlocks.oreTungstate);
+        OreDictionary.registerOre("oreTungsten", GTCXBlocks.oreTungstate);
         OreDictionary.registerOre("oreSheldonite", GTCXBlocks.oreSheldonite);
         OreDictionary.registerOre("orePlatinum", GTCXBlocks.oreSheldonite);
         OreDictionary.registerOre("oreOlivine", GTCXBlocks.oreOlivine);

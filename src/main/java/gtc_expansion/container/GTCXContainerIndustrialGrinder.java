@@ -37,7 +37,7 @@ public class GTCXContainerIndustrialGrinder extends ContainerTileComponent<GTCXT
             this.addSlotToContainer(new GTSlotUpgrade(tile, 9 + i, 80 + (i * 18), 62));
         }
         this.addComponent(new GTGuiCompMachinePower(tile));
-        this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 39)));
+        this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 15, 36)));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }
 

@@ -383,7 +383,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
     public static void init(){
         String modid = GTHelperMods.IC2_EXTRAS;
         if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-            addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "uraniumpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 1));
+            addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "uraniumpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
             addWaterRecipe("oreSilver", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "silverpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 2));
             addWaterRecipe("oreIron", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "ironpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Tin, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addWaterRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "goldpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
@@ -407,6 +407,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addMercuryRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "goldpurifiedcrushedore", 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addMercuryRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "copperpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1) , Ic2Items.goldDust);
             addMercuryRecipe("oreLead", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "leadpurifiedcrushedore", 2), Ic2Items.silverDust);
+            addMercuryRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "uraniumpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
             addRecipe("oreBauxite", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid), totalEu(12720),GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Bauxite, 4), GTMaterialGen.getDust(GTMaterial.Aluminium, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Titanium, 1));
             addSodiumPersulfateRecipe("oreIron", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "ironpurifiedcrushedore", 2), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Tin, 1));
             addSodiumPersulfateRecipe("oreSphalerite", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Sphalerite, 4), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetYellow, 1));
@@ -414,8 +415,9 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addSodiumPersulfateRecipe("oreTin", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "tinpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1));
             addSodiumPersulfateRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "copperpurifiedcrushedore", 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "goldpurifiedcrushedore", 2), Ic2Items.copperDust, GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
+            addSodiumPersulfateRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "uraniumpurifiedcrushedore", 3), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
         } else {
-            addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Uranium, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 1));
+            addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Uranium, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
             addWaterRecipe("oreSilver", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.silverDust, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 2));
             addWaterRecipe("oreIron", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.ironDust, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Tin, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addWaterRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.goldDust, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
@@ -439,6 +441,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addMercuryRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.goldDust, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addMercuryRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.copperDust, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1) , Ic2Items.goldDust);
             addMercuryRecipe("oreLead", 1, totalEu(12800), GTMaterialGen.getDust(GTCXMaterial.Lead, 2), Ic2Items.silverDust);
+            addMercuryRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Uranium, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
             addRecipe("oreBauxite", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid), totalEu(12720),GTMaterialGen.getDust(GTMaterial.Bauxite, 4), GTMaterialGen.getDust(GTMaterial.Aluminium, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Titanium, 1));
             addSodiumPersulfateRecipe("oreIron", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.ironDust, 2), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Tin, 1));
             addSodiumPersulfateRecipe("oreSphalerite", 1, totalEu(12800), GTMaterialGen.getDust(GTCXMaterial.Sphalerite, 4), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetYellow, 1));
@@ -446,6 +449,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addSodiumPersulfateRecipe("oreTin", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.tinDust, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1));
             addSodiumPersulfateRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.copperDust, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.goldDust, 2), Ic2Items.copperDust, GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
+            addSodiumPersulfateRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Uranium, 3), GTCXMaterialGen.getSmallDust(GTMaterial.Plutonium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
         }
         addWaterRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 16), totalEu(204800), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 16));
         addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial.Ruby, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Ruby, 6), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetRed, 2));
