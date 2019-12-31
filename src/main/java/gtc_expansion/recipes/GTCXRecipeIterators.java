@@ -69,7 +69,7 @@ public class GTCXRecipeIterators {
         dustUtil(dustGunpowder, GTCXMaterial.Gunpowder);
         dustUtil(Ic2Items.tinDust, GTCXMaterial.Tin);
         dustUtil(Ic2Items.obsidianDust, GTCXMaterial.Obsidian);
-        dustUtil(Ic2Items.bronzeDust, GTMaterial.Bronze);
+        dustUtil(Ic2Items.bronzeDust, GTCXMaterial.Bronze);
         dustUtil(Ic2Items.coalDust, GTCXMaterial.Coal);
         dustUtil(Ic2Items.silverDust, GTCXMaterial.Silver);
         dustUtil(dustRedstone, GTCXMaterial.Redstone);
@@ -81,7 +81,7 @@ public class GTCXRecipeIterators {
         dustUtil(Ic2Items.charcoalDust, GTCXMaterial.Charcoal);
         ingotUtil(Ic2Items.copperIngot, GTCXMaterial.Copper);
         ingotUtil(Ic2Items.tinIngot, GTCXMaterial.Tin);
-        ingotUtil(Ic2Items.bronzeIngot, GTMaterial.Bronze);
+        ingotUtil(Ic2Items.bronzeIngot, GTCXMaterial.Bronze);
         ingotUtil(Ic2Items.silverIngot, GTCXMaterial.Silver);
         createFullToolRecipes(GTCXMaterial.Steel, false);
         createFullToolRecipes(GTCXMaterial.TungstenSteel, false);
@@ -94,7 +94,7 @@ public class GTCXRecipeIterators {
             String orename = mat.getDisplayName();
             fluidCasterBlacklist.add(orename);
             int tier = mat.getTier() + 1;
-            if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Copper) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tin) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.RefinedIron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Silver) || GTMaterialGen.isMaterialEqual(mat, GTMaterial.Bronze)){
+            if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Copper) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tin) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.RefinedIron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Silver) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Bronze)){
                 GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
                 if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold)){
                     GTCXTileFluidSmelter.addRecipe("nugget" + orename, 1, 750 * tier, 1600, GTMaterialGen.getFluidStack(mat, 16));
@@ -124,7 +124,7 @@ public class GTCXRecipeIterators {
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(mat, 1296), false, 115200, GTMaterialGen.getMaterialBlock(mat, 1));
                 GTCXTileFluidSmelter.addRecipe("block" + orename, 1, 750 * tier, 115200, GTMaterialGen.getFluidStack(mat, 1296));
             }
-            if (mat.hasFlag(GTCXMaterial.pipeFluid) && GTCXMaterial.pipes){
+            /*if (mat.hasFlag(GTCXMaterial.pipeFluid) && GTCXMaterial.pipes){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTMaterialGen.getFluidPipeSmall(mat, 1));
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTMaterialGen.getFluidPipe(mat, 1));
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getFluidPipeLarge(mat, 1));
@@ -137,7 +137,7 @@ public class GTCXRecipeIterators {
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getItemPipeLarge(mat, 1));
                 GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getItemPipe(mat, 1), 750 * tier, 38400, GTMaterialGen.getFluidStack(mat, 432));
                 GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), 750 * tier, 76800, GTMaterialGen.getFluidStack(mat, 864));
-            }
+            }*/
             if (mat.getSmeltable()){
                 if (mat.hasFlag(GTMaterialFlag.DUST)){
                     GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
@@ -162,7 +162,7 @@ public class GTCXRecipeIterators {
             return;
         }
         IRecipeInput wrench = new RecipeInputCombined(1, new RecipeInputOreDict("craftingToolMonkeyWrench"), new RecipeInputOreDict("craftingToolWrench"));
-        if (mat.hasFlag(GTCXMaterial.pipeItem)) {
+        /*if (mat.hasFlag(GTCXMaterial.pipeItem)) {
             if (GTCXConfiguration.general.enableCraftingTools){
                 recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
                 recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
@@ -181,7 +181,7 @@ public class GTCXRecipeIterators {
                 recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", " W ", "III", 'I', material, 'W', "craftingToolMonkeyWrench");
                 recipes.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), "I I", "I I", "IWI", 'I', material, 'W', "craftingToolMonkeyWrench");
             }
-        }
+        }*/
     }
 
     public static void createTinyDustRecipe(GTMaterial mat) {
@@ -354,7 +354,7 @@ public class GTCXRecipeIterators {
     }
 
     public static ItemStack getDust(GTMaterial mat, int count){
-        if (mat.equals(GTMaterial.Bronze)){
+        if (mat.equals(GTCXMaterial.Bronze)){
             return GTMaterialGen.getIc2(Ic2Items.bronzeDust, count);
         }
         if (mat.equals(GTCXMaterial.Silver)){

@@ -49,13 +49,13 @@ public class GTCXMaterialDict {
             }
         }
         registerToolDicts(GTCXMaterial.Iron);
-        registerToolDicts(GTMaterial.Bronze);
+        registerToolDicts(GTCXMaterial.Bronze);
         registerToolDictsWithAxe(GTCXMaterial.Steel);
         registerToolDictsWithAxe(GTCXMaterial.TungstenSteel);
         registerAxeDict(GTMaterial.Ruby);
         registerAxeDict(GTMaterial.Sapphire);
         OreDictionary.registerOre("toolAxe", new ItemStack(GTCXToolGen.getAxe(GTMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
-        OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTMaterial.Bronze, 1));
+        OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Brass, 1));
 
         if (IC2.config.getFlag("SteelRecipes")){

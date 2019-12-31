@@ -140,7 +140,7 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
         addAlloyRecipe("Copper", 3, "Zinc", 1, GTMaterialGen.getIngot(GTCXMaterial.Brass, 4));
         addAlloyRecipe("Silver", 1, "Gold", 1, GTMaterialGen.getIngot(GTMaterial.Electrum, 2));
         addAlloyRecipe("Iron", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial.Invar, 3));
-        addAlloyRecipe("Copper", 2, "Nickel", 1, GTMaterialGen.getIngot(GTMaterial.Constantan, 3));
+        addAlloyRecipe("Copper", 2, "Nickel", 1, GTMaterialGen.getIngot(GTCXMaterial.Constantan, 3));
         addRecipe(metal("Copper", 1), new RecipeInputOreDict("dustRedstone", 4), GTMaterialGen.getIngot(GTCXMaterial.RedAlloy, 1));
         addRecipe(metal("Iron", 1), new RecipeInputOreDict("dustRedstone", 4), GTMaterialGen.getIngot(GTCXMaterial.RedAlloy, 1));
         addAlloyRecipe("Magnesium", 1, "Aluminium", 2, GTMaterialGen.getIngot(GTCXMaterial.Magnalium, 1));

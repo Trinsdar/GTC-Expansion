@@ -540,7 +540,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 144), true, 12800, Ic2Items.copperIngot);
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 144), true, 12800, Ic2Items.tinIngot);
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 144), true, 12800, Ic2Items.silverIngot);
-        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 144), true, 12800, Ic2Items.bronzeIngot);
+        addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 144), true, 12800, Ic2Items.bronzeIngot);
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 144), true, 12800, GTMaterialGen.get(Items.IRON_INGOT));
         addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 144), true, 12800, GTMaterialGen.get(Items.GOLD_INGOT));
         addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 16), true, 1600, GTMaterialGen.get(Items.IRON_NUGGET));
@@ -548,7 +548,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.goldCable, 6));
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.copperCable, 3));
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.tinCable, 4));
-        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
         GTMaterial mat = IC2.config.getFlag("SteelRecipes") ? GTCXMaterial.Steel : GTCXMaterial.RefinedIron;
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(mat, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.ironCable, 6));
 
@@ -563,7 +563,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
             addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "goldcasing"));
             addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "refinedironcasing"));
             addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "steelcasing"));
-            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTMaterial.Bronze, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "bronzecasing"));
+            addRecipe(GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 72), true, 6400, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "bronzecasing"));
         }
     }
 

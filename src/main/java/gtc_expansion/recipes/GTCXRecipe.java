@@ -282,12 +282,12 @@ public class GTCXRecipe {
         recipes.addRecipe(GTCXToolGen.getSword(GTMaterial.Flint), "F", "F", "S", new EnchantmentModifier(GTCXToolGen.getSword(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
                 Items.FLINT, 'S', stick);
         if (GTCXConfiguration.general.enableCraftingTools){
-            recipes.addRecipe(GTCXToolGen.getFile(GTMaterial.Bronze), "P", "P", "S", 'P', "plateBronze", 'S', stick);
-            recipes.overrideRecipe("shaped_item.itemtoolwrench_-354759652", GTCXToolGen.getWrench(GTMaterial.Bronze), "I I", "III", " I ", 'I', "ingotBronze");
+            recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Bronze), "P", "P", "S", 'P', "plateBronze", 'S', stick);
+            recipes.overrideRecipe("shaped_item.itemtoolwrench_-354759652", GTCXToolGen.getWrench(GTCXMaterial.Bronze), "I I", "III", " I ", 'I', "ingotBronze");
             recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Iron), "P", "P", "S", 'P', "plateIron", 'S', stick);
             recipes.addRecipe(GTCXToolGen.getWrench(GTCXMaterial.Iron), "I I", "III", " I ", 'I', "ingotIron");
         }
-        recipes.addRecipe(GTCXToolGen.getHammer(GTMaterial.Bronze), "PPP", "PPP", " S ", 'P', "ingotBronze", 'S', stick);
+        recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Bronze), "PPP", "PPP", " S ", 'P', "ingotBronze", 'S', stick);
         recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Iron), "PPP", "PPP", " S ", 'P', "ingotIron", 'S', stick);
     }
 
@@ -319,7 +319,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.lathe), "PCP", "GMG", "PmP", 'P', materialSteels, 'C', "circuitAdvanced", 'G', "gearSteel", 'M', GTCXItems.conveyorModule, 'm', "machineBlockBasic");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.microwave), "AAA", "L M", "AAA", 'A', aluminium, 'L', lead, 'M', Ic2Items.magnetizer);
         IRecipeInput materialStainlessTitatium = new RecipeInputCombined(1, input(stainlessSteel), input(titanium));
-        IRecipeInput pipe = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTMaterial.Titanium, 1)), new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTCXMaterial.StainlessSteel, 1)));
+        //IRecipeInput pipe = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTMaterial.Titanium, 1)), new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTCXMaterial.StainlessSteel, 1)));
+        ItemStack pipe = new ItemStack(Items.BUCKET, 1);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fluidCaster), "IcI", "PMP", "ICI", 'I', materialStainlessTitatium, 'c', GTCXItems.mold, 'P', pipe, 'M', "machineBlockVeryAdvanced", 'C', "circuitElite");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fluidSmelter), "IbI", "PMP", "BCB", 'I', materialStainlessTitatium, 'c', GTCXBlocks.industrialBlastFurnace, 'P', pipe, 'M', "machineBlockVeryAdvanced", 'C', "circuitElite", 'B', Blocks.BRICK_BLOCK);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.primitiveBlastFurnace), "BBB", "BPB", "BBB", 'B', GTCXBlocks.fireBrickBlock, 'P', "plateIron");
@@ -508,7 +509,6 @@ public class GTCXRecipe {
 //        }
         //instance.removeGTRecipe("shapeless_item.gtclassic.test_tube_-1487325092");
         //instance.removeGTRecipe("shapeless_item.sulphur_1317221415");
-        recipes.addRecipe(GTMaterialGen.get(GTItems.monkeyWrench), "PP ", " PP", "PP ", 'P', refinedIron);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);

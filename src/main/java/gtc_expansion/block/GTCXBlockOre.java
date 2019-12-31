@@ -4,17 +4,11 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.GTMod;
+import gtclassic.api.block.GTBlockBaseOre;
 import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
-import ic2.core.platform.lang.ILocaleBlock;
-import ic2.core.platform.lang.components.base.LangComponentHolder;
-import ic2.core.platform.lang.components.base.LocaleComp;
-import ic2.core.platform.registry.Ic2Lang;
-import ic2.core.platform.textures.Ic2Icons;
-import ic2.core.platform.textures.obj.ITexturedBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
@@ -30,21 +24,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GTCXBlockOre extends Block implements ITexturedBlock, ILocaleBlock {
+public class GTCXBlockOre extends GTBlockBaseOre {
 
     String name;
-    int id;
-    LocaleComp comp;
 
-    public GTCXBlockOre(String name, int id, float hardness, int level) {
-        super(Material.ROCK);
-        this.name = name;
-        this.id = id;
-        this.comp = Ic2Lang.nullKey;
+    /*
+     For ores using a color different then the material.
+     */
+    public GTCXBlockOre(GTMaterial mat,  Color color, float hardness, int level) {
+        super(color, getSetFromFlags(mat), getBackgroundSetFromFlags(mat));
+        this.name = mat.getName();
         setRegistryName(this.name + "_ore");
         setUnlocalizedName(GTCExpansion.MODID + ".ore" + this.name);
         setCreativeTab(GTMod.creativeTabGT);
@@ -52,6 +46,10 @@ public class GTCXBlockOre extends Block implements ITexturedBlock, ILocaleBlock 
         setResistance(10.0F);
         setHarvestLevel("pickaxe", level);
         setSoundType(SoundType.STONE);
+    }
+
+    public GTCXBlockOre(GTMaterial mat, float hardness, int level) {
+        this(mat, mat.getColor(), hardness, level);
     }
 
     @Override
@@ -62,12 +60,6 @@ public class GTCXBlockOre extends Block implements ITexturedBlock, ILocaleBlock 
     @Override
     public AxisAlignedBB getRenderBoundingBox(IBlockState iBlockState) {
         return FULL_BLOCK_AABB;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public TextureAtlasSprite getTextureFromState(IBlockState iBlockState, EnumFacing enumFacing) {
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.id];
     }
 
     @Override
@@ -85,21 +77,6 @@ public class GTCXBlockOre extends Block implements ITexturedBlock, ILocaleBlock 
     @Override
     public IBlockState getStateFromStack(ItemStack stack) {
         return this.getStateFromMeta(stack.getMetadata());
-    }
-
-    public LocaleComp getName() {
-        return this.comp;
-    }
-
-    public Block setUnlocalizedName(LocaleComp name) {
-        this.comp = name;
-        return super.setUnlocalizedName(name.getUnlocalized());
-    }
-
-    @Override
-    public Block setUnlocalizedName(String name) {
-        this.comp = new LangComponentHolder.LocaleBlockComp("tile." + name);
-        return super.setUnlocalizedName(name);
     }
 
     @Override
@@ -145,5 +122,28 @@ public class GTCXBlockOre extends Block implements ITexturedBlock, ILocaleBlock 
             xp = MathHelper.getInt(rand, 3, 7);
         }
         return xp;
+    }
+
+    private static TextureSet getSetFromFlags(GTMaterial mat) {
+        if (GTMaterial.isGem(mat) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.OlivineOverworld)) {
+            return TextureSet.GEM;
+        }
+        if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Cassiterite)){
+            return TextureSet.LAPIS;
+        }
+        if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tetrahedrite) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Galena)){
+            return TextureSet.METAL;
+        }
+        return !mat.hasFlag(GTMaterialFlag.INGOT) && !mat.hasFlag(GTMaterialFlag.NULL) ? TextureSet.LAPIS : TextureSet.METAL;
+    }
+
+    private static BackgroundSet getBackgroundSetFromFlags(GTMaterial mat){
+        if (GTMaterialGen.isMaterialEqual(mat, GTMaterial.Pyrite) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Cinnabar) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Sphalerite)){
+            return BackgroundSet.NETHERRACK;
+        }
+        if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Olivine) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tungstate) || GTMaterialGen.isMaterialEqual(mat, GTMaterial.Sheldonite) || GTMaterialGen.isMaterialEqual(mat, GTMaterial.Sodalite)){
+            return BackgroundSet.ENDSTONE;
+        }
+        return BackgroundSet.STONE;
     }
 }

@@ -10,7 +10,6 @@ import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.helpers.GTHelperStack;
-import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -412,7 +411,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             addRecipe("casingGold", 1, 750 * (GTCXMaterial.Gold.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72));
             addRecipe("casingRefinedIron", 1, 750 * (GTCXMaterial.RefinedIron.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72));
             addRecipe("casingSteel", 1, 750 * (GTCXMaterial.Steel.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72));
-            addRecipe("casingBronze", 1, 750 * (GTMaterial.Bronze.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTMaterial.Bronze, 72));
+            addRecipe("casingBronze", 1, 750 * (GTCXMaterial.Bronze.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 72));
         }
     }
 

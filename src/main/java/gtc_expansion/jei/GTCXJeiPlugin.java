@@ -74,11 +74,11 @@ public class GTCXJeiPlugin implements IModPlugin {
             }
             blacklist.addIngredientToBlacklist(Ic2Items.cutter);
             if (!GTCXConfiguration.general.enableCraftingTools){
-                blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTMaterial.Bronze));
+                blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.Bronze));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.Iron));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.Steel));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.TungstenSteel));
-                blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTMaterial.Bronze));
+                blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.Bronze));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.Iron));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.Steel));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.TungstenSteel));

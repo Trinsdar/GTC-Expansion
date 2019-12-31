@@ -17,7 +17,7 @@ public class GTCXToolGen {
     public static void initTools(){
         createVanillaSet(GTMaterial.Flint, GTCXToolMaterial.Flint);
         createCraftingSet(GTCXMaterial.Iron, ToolMaterial.IRON);
-        createCraftingSet(GTMaterial.Bronze, ToolHelper.bronzeToolMaterial);
+        createCraftingSet(GTCXMaterial.Bronze, ToolHelper.bronzeToolMaterial);
         createFullSet(GTCXMaterial.Steel, GTCXToolMaterial.Steel);
         createFullSet(GTCXMaterial.TungstenSteel, GTCXToolMaterial.TungstenSteel);
         createVanillaSet(GTMaterial.Ruby, GTCXToolMaterial.Ruby);

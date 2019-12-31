@@ -6,6 +6,7 @@ import gtc_expansion.block.GTCXBlockMisc;
 import gtc_expansion.block.GTCXBlockOre;
 import gtc_expansion.block.GTCXBlockTile;
 import gtc_expansion.item.GTCXItemBlockRare;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
@@ -24,9 +25,12 @@ import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.block.GTBlockBaseOre;
 import gtclassic.api.color.GTColorItemBlock;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.common.block.GTBlockOreBedrock;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
@@ -71,17 +75,19 @@ public class GTCXBlocks {
     public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
     public static final GTCXBlockMisc iridiumTungstensteelBlock = registerBlock(new GTCXBlockMisc("iridium_tungstensteel_block", "pickaxe", 5, 50.0F, 2000.0F, 3, Material.IRON, SoundType.METAL));
 
-    public static final GTCXBlockOre orePyrite = registerBlock(new GTCXBlockOre("pyrite", 16, 2.0F, 1));
-    public static final GTCXBlockOre oreCinnabar = registerBlock(new GTCXBlockOre("cinnabar", 17, 3.0F, 2));
-    public static final GTCXBlockOre oreSphalerite = registerBlock(new GTCXBlockOre("sphalerite", 18, 2.0F, 1));
-    public static final GTCXBlockOre oreTungstate = registerBlock(new GTCXBlockOre("tungstate", 19, 4.0F, 2));
-    public static final GTCXBlockOre oreSheldonite = registerBlock(new GTCXBlockOre("sheldonite", 20, 3.5F, 3));
-    public static final GTCXBlockOre oreOlivine = registerBlock(new GTCXBlockOre("olivine", 21, 3.0F, 3));
-    public static final GTCXBlockOre oreSodalite = registerBlock(new GTCXBlockOre("sodalite", 22, 3.0F, 2));
-    public static final GTCXBlockOre oreOlivineOverworld = registerBlock(new GTCXBlockOre("olivine_overworld", 23, 3.0F, 3));
-    public static final GTCXBlockOre oreCassiterite = registerBlock(new GTCXBlockOre("cassiterite", 24, 3.0F, 1));
-    public static final GTCXBlockOre oreTetrahedrite = registerBlock(new GTCXBlockOre("tetrahedrite", 25, 3.0F, 1));
-    public static final GTCXBlockOre oreGalena = registerBlock(new GTCXBlockOre("galena", 26, 4.0F, 2));
+    public static final GTCXBlockOre orePyrite = registerBlock(new GTCXBlockOre(GTMaterial.Pyrite, GTCXMaterial.Gold.getColor(), 2.0F, 1));
+    public static final GTCXBlockOre oreCinnabar = registerBlock(new GTCXBlockOre(GTCXMaterial.Cinnabar, 3.0F, 2));
+    public static final GTCXBlockOre oreSphalerite = registerBlock(new GTCXBlockOre(GTCXMaterial.Sphalerite, 2.0F, 1));
+    public static final GTCXBlockOre oreTungstate = registerBlock(new GTCXBlockOre(GTCXMaterial.Tungstate, 4.0F, 2));
+    public static final GTCXBlockOre oreSheldonite = registerBlock(new GTCXBlockOre(GTMaterial.Sheldonite, 3.5F, 3));
+    public static final GTCXBlockOre oreOlivine = registerBlock(new GTCXBlockOre(GTCXMaterial.Olivine, 3.0F, 3));
+    public static final GTCXBlockOre oreSodalite = registerBlock(new GTCXBlockOre(GTMaterial.Sodalite, 3.0F, 2));
+    public static final GTCXBlockOre oreOlivineOverworld = registerBlock(new GTCXBlockOre(GTCXMaterial.OlivineOverworld, 3.0F, 3));
+    public static final GTCXBlockOre oreCassiterite = registerBlock(new GTCXBlockOre(GTCXMaterial.Cassiterite, 3.0F, 1));
+    public static final GTCXBlockOre oreTetrahedrite = registerBlock(new GTCXBlockOre(GTCXMaterial.Tetrahedrite, 3.0F, 1));
+    public static final GTCXBlockOre oreGalena = registerBlock(new GTCXBlockOre(GTCXMaterial.Galena, 4.0F, 2));
+
+    public static final GTBlockOreBedrock oreBedrockGalena = registerBlock(new GTBlockOreBedrock(GTCXMaterial.Galena.getName(), GTCXMaterial.Galena.getColor(), GTBlockBaseOre.TextureSet.METAL));
 
 
     protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender", "lathe", "wiremill", "microwave"};
