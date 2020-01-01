@@ -55,6 +55,7 @@ public class GTCXRecipeRemove {
         removeCentrifugeRecipe("item.gtclassic.test_tube_7");
         removeCentrifugeRecipe("item.gtclassic.test_tube_8");
         removeCentrifugeRecipe("item.gtclassic.test_tube_9");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_14");
         removeCentrifugeRecipe("item.itemDustCoal");
         removeCentrifugeRecipe("item.gtclassic.dustSilicon");
         removeCentrifugeRecipe("item.gtclassic.dustSilicon_1");
