@@ -6,8 +6,8 @@ import gtc_expansion.material.GTCXMaterial;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseOre;
 import gtclassic.api.material.GTMaterial;
-import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
+import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -15,16 +15,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -32,13 +27,17 @@ import java.util.Random;
 public class GTCXBlockOre extends GTBlockBaseOre {
 
     String name;
+    String texture;
+    int id;
 
     /*
      For ores using a color different then the material.
      */
-    public GTCXBlockOre(GTMaterial mat,  Color color, float hardness, int level) {
-        super(color, getSetFromFlags(mat), getBackgroundSetFromFlags(mat));
-        this.name = mat.getName();
+    public GTCXBlockOre(String name, String tex,  int id, float hardness, int level) {
+        super(getBackgroundSetFromFlags(name));
+        this.name = name;
+        this.id = id;
+        this.texture = tex;
         setRegistryName(this.name + "_ore");
         setUnlocalizedName(GTCExpansion.MODID + ".ore" + this.name);
         setCreativeTab(GTMod.creativeTabGT);
@@ -48,8 +47,8 @@ public class GTCXBlockOre extends GTBlockBaseOre {
         setSoundType(SoundType.STONE);
     }
 
-    public GTCXBlockOre(GTMaterial mat, float hardness, int level) {
-        this(mat, mat.getColor(), hardness, level);
+    public GTCXBlockOre(String name,  int id, float hardness, int level) {
+        this(name, GTCExpansion.MODID + "_blocks", id, hardness, level);
     }
 
     @Override
@@ -58,14 +57,8 @@ public class GTCXBlockOre extends GTBlockBaseOre {
     }
 
     @Override
-    public AxisAlignedBB getRenderBoundingBox(IBlockState iBlockState) {
-        return FULL_BLOCK_AABB;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public TextureAtlasSprite getParticleTexture(IBlockState state) {
-        return this.getTextureFromState(state, EnumFacing.SOUTH);
+    public TextureAtlasSprite getTopLayer() {
+        return Ic2Icons.getTextures(this.texture)[this.id];
     }
 
     @Override
@@ -124,24 +117,11 @@ public class GTCXBlockOre extends GTBlockBaseOre {
         return xp;
     }
 
-    private static TextureSet getSetFromFlags(GTMaterial mat) {
-        if (GTMaterial.isGem(mat) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.OlivineOverworld)) {
-            return TextureSet.GEM;
-        }
-        if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Cassiterite)){
-            return TextureSet.LAPIS;
-        }
-        if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tetrahedrite) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Galena)){
-            return TextureSet.METAL;
-        }
-        return !mat.hasFlag(GTMaterialFlag.INGOT) && !mat.hasFlag(GTMaterialFlag.NULL) ? TextureSet.LAPIS : TextureSet.METAL;
-    }
-
-    private static BackgroundSet getBackgroundSetFromFlags(GTMaterial mat){
-        if (GTMaterialGen.isMaterialEqual(mat, GTMaterial.Pyrite) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Cinnabar) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Sphalerite)){
+    private static BackgroundSet getBackgroundSetFromFlags(String name){
+        if (name.equals("pyrite") || name.equals("cinnabar") || name.equals("sphalerite")){
             return BackgroundSet.NETHERRACK;
         }
-        if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Olivine) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tungstate) || GTMaterialGen.isMaterialEqual(mat, GTMaterial.Sheldonite) || GTMaterialGen.isMaterialEqual(mat, GTMaterial.Sodalite)){
+        if (name.equals("tungstate") || name.equals("sheldonite") || name.equals("olivine") || name.equals("sodalite")){
             return BackgroundSet.ENDSTONE;
         }
         return BackgroundSet.STONE;

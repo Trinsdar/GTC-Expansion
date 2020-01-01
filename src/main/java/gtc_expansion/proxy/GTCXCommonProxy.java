@@ -10,6 +10,7 @@ import gtc_expansion.container.GTCXContainerFluidSmelter;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.recipes.GTCXRecipe;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
+import gtc_expansion.util.GTCXBedrockOreHandler;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.common.GTConfig;
 import ic2.core.inventory.filters.BasicItemFilter;
@@ -34,6 +35,7 @@ public class GTCXCommonProxy {
 
     public void init(FMLInitializationEvent e) {
         GTCXRecipe.init();
+        GTCXBedrockOreHandler.bedrockOresInit();
     }
 
     public void postInit(FMLPostInitializationEvent e) {
