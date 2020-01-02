@@ -11,8 +11,8 @@ import net.minecraft.client.gui.FontRenderer;
 
 import java.awt.*;
 
-public class GTCXJeiIBFWrapper extends GTJeiMultiRecipeWrapper {
-    public GTCXJeiIBFWrapper(GTRecipeMultiInputList.MultiRecipe multiRecipe) {
+public class GTCXJeiHeatWrapper extends GTJeiMultiRecipeWrapper {
+    public GTCXJeiHeatWrapper(GTRecipeMultiInputList.MultiRecipe multiRecipe) {
         super(multiRecipe);
     }
 
@@ -24,7 +24,8 @@ public class GTCXJeiIBFWrapper extends GTJeiMultiRecipeWrapper {
         font.drawString("Tier: " + GTHelperString.getTierString(EnergyNet.instance.getTierFromPower((double)this.getMultiRecipe().getMachineEu())), 0, 60, Color.black.getRGB());
         font.drawString("Usage: " + this.getMultiRecipe().getMachineEu() + " EU/t", 0, 70, Color.black.getRGB());
         font.drawString("Cost: " + getEntryTicks(this.getMultiRecipe().getOutputs()) * this.getMultiRecipe().getMachineEu() + " EU", 0, 80, Color.black.getRGB());
-        font.drawString("Heat Capacity: " + GTCXTileMultiIndustrialBlastFurnace.getRequiredHeat(this.getMultiRecipe().getOutputs()) + " K", 0, 90, Color.black.getRGB());
+        String heatInfo = this.getMultiRecipe().getMachineEu() == 64 ? "Min Needed Heat: " : "Heat Capacity: ";
+        font.drawString(heatInfo + GTCXTileMultiIndustrialBlastFurnace.getRequiredHeat(this.getMultiRecipe().getOutputs()) + " K", 0, 90, Color.black.getRGB());
         if (GTConfig.general.debugMode) {
             font.drawString("Recipe Id: " + this.getMultiRecipe().getRecipeID(), 0,     100, Color.black.getRGB());
         }
