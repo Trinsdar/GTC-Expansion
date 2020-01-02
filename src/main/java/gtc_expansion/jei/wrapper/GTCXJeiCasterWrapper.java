@@ -25,7 +25,7 @@ public class GTCXJeiCasterWrapper extends GTJeiMultiRecipeWrapper {
         font.drawString("Usage: " + this.getMultiRecipe().getMachineEu() + " EU/t", 0, 70, Color.black.getRGB());
         font.drawString("Cost: " + getEntryTicks(this.getMultiRecipe().getOutputs()) * this.getMultiRecipe().getMachineEu() + " EU", 0, 80, Color.black.getRGB());
         String consumeItem = GTCXTileFluidCaster.canConsumePress(this.getMultiRecipe().getOutputs()) ? "Yes" : "No";
-        font.drawString("Consumes non container item inputs: " + consumeItem, 0, 90, Color.black.getRGB());
+        font.drawString("Consumes item input like normal: " + consumeItem, 0, 90, Color.black.getRGB());
         if (GTConfig.general.debugMode) {
             font.drawString("Recipe Id: " + this.getMultiRecipe().getRecipeID(), 0,     100, Color.black.getRGB());
         }
