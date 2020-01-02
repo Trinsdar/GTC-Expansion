@@ -1,4 +1,2 @@
 crafttweaker support for remaining machines
-custom jei for fluid smelter, fluid caster
-make sure all dust inputs in machines are oredicts when possible
 make plutonium give radiation

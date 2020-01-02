@@ -131,11 +131,11 @@ public class GTCXTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
     }
 
     public static void init(){
-        addRecipe(GTMaterialGen.getHotIngot(GTMaterial.Tungsten, 1), 57600, GTMaterialGen.getIngot(GTMaterial.Tungsten, 1));
-        addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.TungstenSteel, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.TungstenSteel, 1));
-        addRecipe(GTMaterialGen.getHotIngot(GTMaterial.Iridium, 1), 57600, GTMaterialGen.getIngot(GTMaterial.Iridium, 1));
-        addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.Osmium, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.Osmium, 1));
-        addRecipe(GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 1), 57600, GTMaterialGen.getIngot(GTCXMaterial.Kanthal, 1));
+        addRecipe("ingotHotTungsten", 1, 57600, GTMaterialGen.getIngot(GTMaterial.Tungsten, 1));
+        addRecipe("ingotHotTungstensteel", 1, 57600, GTMaterialGen.getIngot(GTCXMaterial.TungstenSteel, 1));
+        addRecipe("ingotHotIridium", 1, 57600, GTMaterialGen.getIngot(GTMaterial.Iridium, 1));
+        addRecipe("ingotHotOsmium", 1, 57600, GTMaterialGen.getIngot(GTCXMaterial.Osmium, 1));
+        addRecipe("ingotHotKanthal", 1, 57600, GTMaterialGen.getIngot(GTCXMaterial.Kanthal, 1));
     }
 
     public static void addRecipe(ItemStack input, int eu, ItemStack output){
