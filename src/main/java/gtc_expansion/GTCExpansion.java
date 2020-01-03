@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtc_expansion.events.GTCXOtherEvents;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.proxy.GTCXCommonProxy;
 import ic2.core.IC2;
@@ -46,7 +47,7 @@ public class GTCExpansion {
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent e) {
 		proxy.init(e);
-		MinecraftForge.EVENT_BUS.register(new GTCXEvents());
+		MinecraftForge.EVENT_BUS.register(new GTCXOtherEvents());
 		GameRegistry.registerWorldGenerator(new GTCXWorldGen(), 0);
 	}
 

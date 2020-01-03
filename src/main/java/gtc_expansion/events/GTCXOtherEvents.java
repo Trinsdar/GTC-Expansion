@@ -1,4 +1,4 @@
-package gtc_expansion;
+package gtc_expansion.events;
 
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.material.GTCXMaterial;
@@ -18,7 +18,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.Random;
 import java.util.Set;
 
-public class GTCXEvents {
+public class GTCXOtherEvents {
+
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onHarvestDropsEvent(BlockEvent.HarvestDropsEvent event) {
         IBlockState block = event.getState();
@@ -50,4 +52,5 @@ public class GTCXEvents {
             }
         }
     }
+
 }
