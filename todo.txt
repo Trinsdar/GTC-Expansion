@@ -1,2 +1,0 @@
-crafttweaker support for remaining machines
-make plutonium give radiation
