@@ -15,7 +15,7 @@ import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.slot.GTFuelMachineFilter;
-import gtclassic.api.tile.GTTileBaseFuelMachine;
+import gtclassic.api.tile.GTTileFuelBaseMachine;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
@@ -51,7 +51,7 @@ import java.util.Random;
 
 import static gtclassic.api.tile.GTTileBaseMachine.input;
 
-public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine implements IGTMultiTileStatus, IGTItemContainerTile, IGTDisplayTickTile {
+public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileFuelBaseMachine implements IGTMultiTileStatus, IGTItemContainerTile, IGTDisplayTickTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;
