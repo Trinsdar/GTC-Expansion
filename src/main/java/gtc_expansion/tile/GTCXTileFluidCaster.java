@@ -208,7 +208,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
             onRecipeComplete();
         }
         NBTTagCompound nbt = recipe.getOutputs().getMetadata();
-        boolean shiftContainers = nbt == null ? false : nbt.getBoolean(MOVE_CONTAINER_TAG);
+        boolean shiftContainers = nbt != null && nbt.getBoolean(MOVE_CONTAINER_TAG);
         boolean fluidExtracted = false;
         List<ItemStack> inputs = getInputs();
         for (IRecipeInput key : recipe.getInputs()) {
