@@ -1,5 +1,6 @@
 package gtc_expansion.tile.base;
 
+import gtc_expansion.GTCExpansion;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
@@ -14,6 +15,7 @@ import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
+import ic2.core.util.math.Box2D;
 import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,8 +31,9 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.function.Predicate;
 
-public abstract class GTCXTileBaseLiquidFuelGenerator extends TileEntityFuelGeneratorBase implements ITankListener, IClickable {
+public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelGeneratorBase implements ITankListener, IClickable {
 
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidgen.png");
     @NetworkField(
             index = 7
     )
@@ -47,7 +50,7 @@ public abstract class GTCXTileBaseLiquidFuelGenerator extends TileEntityFuelGene
     public static final String recipeTicks = "recipeTicks";
     public static final String recipeEu = "recipeEu";
 
-    public GTCXTileBaseLiquidFuelGenerator(int slots) {
+    public GTCXTileBaseBurnableFluidGenerator(int slots) {
         super(slots);
         this.tank = new IC2Tank(8000);
         this.tank.addListener(this);
@@ -68,23 +71,41 @@ public abstract class GTCXTileBaseLiquidFuelGenerator extends TileEntityFuelGene
 
     @Override
     public void update() {
-        boolean hasPower = this.storage > 0;
         if (this.shouldCheckRecipe) {
             this.lastRecipe = this.getRecipe();
             this.shouldCheckRecipe = false;
-        }
-        if ((hasPower) != this.getActive()) {
-            this.setActive(hasPower);
         }
         boolean operate = this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
         GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
         if (operate && this.needsFuel()){
             gainFuel();
         }
-        gainEnergy();
-        if (this.fuel <= 0 && !shouldCheckRecipe){
-            shouldCheckRecipe = true;
+        int oldEnergy = this.storage;
+        boolean active = this.gainEnergy();
+        if (this.isActive != active){
+            this.setActive(active);
         }
+
+        if (oldEnergy != this.storage) {
+            this.getNetwork().updateTileGuiField(this, "storage");
+        }
+        if (maxFuel < 0){
+            maxFuel = 0;
+            this.getNetwork().updateTileGuiField(this, "maxFuel");
+        }
+        if (this.fuel <= 0){
+            if (!shouldCheckRecipe){
+                shouldCheckRecipe = true;
+            }
+            if (maxFuel > 0){
+                maxFuel = 0;
+                this.getNetwork().updateTileGuiField(this, "maxFuel");
+            }
+            if (fuel < 0){
+                fuel = 0;
+                this.getNetwork().updateTileGuiField(this, "fuel");}
+        }
+        this.updateComparators();
     }
 
     @Override
@@ -182,6 +203,24 @@ public abstract class GTCXTileBaseLiquidFuelGenerator extends TileEntityFuelGene
     }
 
     public abstract GTRecipeMultiInputList getRecipeList();
+
+    public ResourceLocation getGuiTexture() {
+        return GUI_LOCATION;
+    }
+
+    public IC2Tank getTankInstance() {
+        return tank;
+    }
+
+    @Override
+    public Box2D getEnergyBox() {
+        return null;
+    }
+
+    @Override
+    public Box2D getFuelBox() {
+        return new Box2D(99, 37, 13, 13);
+    }
 
     public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input) {
         IRecipeInput recipeInput = entry.getInput(0);
