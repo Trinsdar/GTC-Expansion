@@ -11,7 +11,7 @@ import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.slot.GTFuelMachineFilter;
-import gtclassic.api.tile.GTTileBaseFuelMachine;
+import gtclassic.api.tile.GTTileFuelBaseMachine;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.inventory.container.ContainerIC2;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GTCXTileAlloyFurnace extends GTTileBaseFuelMachine implements IGTItemContainerTile, IGTDisplayTickTile {
+public class GTCXTileAlloyFurnace extends GTTileFuelBaseMachine implements IGTItemContainerTile, IGTDisplayTickTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/alloyfurnace.png");
     protected static final int[] slotInputs = { 0, 1 };
     public static final int slotOutput = 2;
