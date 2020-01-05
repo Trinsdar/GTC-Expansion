@@ -3,6 +3,7 @@ package gtc_expansion.tile.base;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerBurnableFluidGenerator;
 import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import ic2.api.classic.network.adv.NetworkField;
@@ -19,6 +20,7 @@ import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.util.math.Box2D;
+import ic2.core.util.math.Vec2i;
 import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,11 +34,14 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
+import java.util.Map;
 import java.util.function.Predicate;
 
-public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelGeneratorBase implements ITankListener, IClickable {
+public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelGeneratorBase implements ITankListener, IClickable, IGTDebuggableTile {
 
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidgen.png");
+    private static final Box2D fuelBox = new Box2D(99, 37,14, 14);
+    private static final Vec2i fuelPos = new Vec2i(176, 2);
     @NetworkField(
             index = 7
     )
@@ -144,6 +149,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         super.readFromNBT(nbt);
         this.tank.readFromNBT(nbt.getCompoundTag("Tank"));
         this.maxFuel = nbt.getFloat("MaxFuel");
+        this.production = nbt.getInteger("Production");
     }
 
     @Override
@@ -151,6 +157,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         super.writeToNBT(nbt);
         this.tank.writeToNBT(this.getTag(nbt, "Tank"));
         nbt.setFloat("MaxFuel", this.maxFuel);
+        nbt.setInteger("Production", production);
         return nbt;
     }
 
@@ -186,9 +193,6 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         FluidStack input = tank.getFluid();
         if (lastRecipe != null) {
             lastRecipe = checkRecipe(lastRecipe, input) ? lastRecipe : null;
-            if (lastRecipe == null) {
-                production = 0;
-            }
         }
         // If previous is not valid, find a new one
         if (lastRecipe == null) {
@@ -238,7 +242,12 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
 
     @Override
     public Box2D getFuelBox() {
-        return new Box2D(99, 37, 13, 13);
+        return fuelBox;
+    }
+
+    @Override
+    public Vec2i getFuelPos() {
+        return fuelPos;
     }
 
     public static int getRecipeTicks(MachineOutput output) {
@@ -293,4 +302,11 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     public float getMaxFuel() {
         return maxFuel;
     }
+
+    public void getData(Map<String, Boolean> data){
+        FluidStack fluid = this.tank.getFluid();
+        data.put("Input Tank: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        data.put("Producing: " + production + " EU/tick", true);
+    };
+
 }

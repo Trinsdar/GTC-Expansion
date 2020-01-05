@@ -30,7 +30,7 @@ public class GTCXIcons {
     }
 
     private static ResourceLocation location(String name) {
-        return new ResourceLocation("gtclassic", "animations/" + name);
+        return new ResourceLocation("gtc_expansion", "animations/" + name);
     }
 
     public static void makeSprite(String name, int maxX, int maxY){

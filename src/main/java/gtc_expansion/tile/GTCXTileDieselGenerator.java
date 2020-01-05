@@ -36,7 +36,7 @@ public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator 
     }
 
     public static void init(){
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Diesel), 80000, 64);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Diesel), 2000, 32);
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {
