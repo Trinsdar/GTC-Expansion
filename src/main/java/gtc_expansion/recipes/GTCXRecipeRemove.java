@@ -3,6 +3,8 @@ package gtc_expansion.recipes;
 import gtc_expansion.GTCXConfiguration;
 import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMachineHandler;
 import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
@@ -36,6 +38,9 @@ public class GTCXRecipeRemove {
         if (GTCXConfiguration.general.usePlates && (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras)){
             ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("ingotCopper", 8));
         }
+
+        ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluid(GTMaterial.Methane));
+        ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluid(GTMaterial.Hydrogen));
     }
 
     public static void initCentrifugeRemoval(){

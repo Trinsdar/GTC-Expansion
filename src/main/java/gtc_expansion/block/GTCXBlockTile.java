@@ -9,6 +9,7 @@ import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
+import gtc_expansion.tile.GTCXTileGasTurbine;
 import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
@@ -124,6 +125,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         }
         if (this == GTCXBlocks.dieselGenerator){
             return new GTCXTileDieselGenerator();
+        }
+        if (this == GTCXBlocks.gasTurbine){
+            return new GTCXTileGasTurbine();
         }
 //        if (this == GEBlocks.fusionReactor){
 //            return new GETileMultiFusionReactor();

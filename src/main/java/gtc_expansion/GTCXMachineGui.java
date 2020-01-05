@@ -99,4 +99,16 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXDieselGeneratorGui extends MachineGui{
+        public GTCXDieselGeneratorGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
+    public static class GTCXGasTurbineGui extends MachineGui{
+        public GTCXGasTurbineGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

@@ -5,6 +5,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseBurnableFluidGenerator;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -22,33 +23,31 @@ import net.minecraftforge.fluids.FluidStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator {
+public class GTCXTileGasTurbine extends GTCXTileBaseBurnableFluidGenerator {
 
-    public GTCXTileDieselGenerator() {
+    public GTCXTileGasTurbine() {
         super(3);
     }
 
     @Override
     public GTRecipeMultiInputList getRecipeList(){
-        return GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST;
+        return GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST;
     }
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GTCXMachineGui.GTCXDieselGeneratorGui.class;
+        return GTCXMachineGui.GTCXGasTurbineGui.class;
     }
 
     @Override
     public LocaleComp getBlockName() {
-        return GTCXLang.DIESEL_GENERATOR;
+        return GTCXLang.GAS_TURBINE;
     }
 
     public static void init(){
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Diesel), 2670, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Gasoline), 2670, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Naphtha), 2670, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroDiesel), 8340, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroCoalFuel), 4000, 12);
+        addRecipe(GTMaterialGen.getFluid(GTMaterial.Hydrogen), 940, 16);
+        addRecipe(GTMaterialGen.getFluid(GTMaterial.Methane), 2815, 16);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Propane), 2815, 16);
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {
@@ -68,8 +67,7 @@ public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator 
 
     private static void addRecipe(List<IRecipeInput> input, MachineOutput output, int euPerTick) {
         if (!input.isEmpty()) {
-            GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST.addRecipe(input, output, input.get(0).getInputs().get(0).getUnlocalizedName(), euPerTick                                                );
+            GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST.addRecipe(input, output, input.get(0).getInputs().get(0).getUnlocalizedName(), euPerTick                                                );
         }
     }
-
 }

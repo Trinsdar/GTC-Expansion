@@ -39,16 +39,6 @@ public class GTCXRecipeProcessing {
         initCentrifugeRecipes();
         initIc2Recipes();
         initFurnaceRecipes();
-        initLiquidFuelRecipes();
-    }
-
-    public static void initLiquidFuelRecipes(){
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GTCXMaterial.Diesel), 4000, 30);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GTCXMaterial.NitroDiesel), 8000, 30);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GTCXMaterial.Gasoline), 4000, 30);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GTCXMaterial.Naphtha), 4000, 30);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GTCXMaterial.Propane), 3000, 16);
-        ClassicRecipes.fluidGenerator.addEntry(GTMaterialGen.getFluid(GTCXMaterial.NitroCoalFuel), 4000, 12);
     }
 
     public static void initFurnaceRecipes(){

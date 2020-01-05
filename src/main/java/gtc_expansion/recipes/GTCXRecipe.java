@@ -13,6 +13,7 @@ import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
+import gtc_expansion.tile.GTCXTileGasTurbine;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTileWiremill;
@@ -136,6 +137,7 @@ public class GTCXRecipe {
         GTCXTilePlateBender.init();
         GTCXTileWiremill.init();
         GTCXTileDieselGenerator.init();
+        GTCXTileGasTurbine.init();
         GTCXRecipeMods.init();
         initUURecipes();
         initIc2();
@@ -334,6 +336,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 4), "III", "CMC", "III", 'I', materialSteelsAluminium, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', chrome, 'C', "circuitElite", 'B', "machineBlockElite");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dieselGenerator), "PPP", "P P", "CGC", 'P', materialMachine, 'C', "circuitBasic", 'G', Ic2Items.generator);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.gasTurbine), "PCP", "WGW", "PCP", 'P', materialInvarAluminium, 'C', "circuitAdvanced", 'W', Ic2Items.windMill, 'G', reinforcedGlass);
     }
 
     public static void initShapelessRecipes(){

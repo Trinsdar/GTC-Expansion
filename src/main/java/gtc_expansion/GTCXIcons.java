@@ -22,6 +22,7 @@ public class GTCXIcons {
         if (GTConfig.general.animatedTextures){
             addCustomTexture("industrialblastfurnace", 0, 9, location("bf_front"));
             addCustomTexture("dieselgenerator", 0, 7, location("diesel_generator_top"));
+            addCustomTexture("gasturbine", 0, 7, location("gas_turbine_top"));
         }
         if (GTConfig.general.debugMode){
             GTCExpansion.logger.info("All GregTech Classic Expansion textures generated without error");
