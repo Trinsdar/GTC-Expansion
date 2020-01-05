@@ -514,7 +514,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.pipelineItem, 4), "III", "PMP", "III", 'P', anyPiston, 'I', electrum, 'M', "machineBlockBasic");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.pipelineFluid, 4), "III", "BMB", "III", 'B', Items.BUCKET, 'I', aluminium, 'M', "machineBlockBasic");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tilePipelineItemEnd, 1), "PIP", "IMI", "PIP", 'P', anyPiston, 'I', platinum, 'M', "machineBlockBasic");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tilePipelineItemEnd, 1), "BIB", "IMI", "BIB", 'B', Items.BUCKET, 'I', tungsten, 'M', "machineBlockBasic");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tilePipelineFluidEnd, 1), "BIB", "IMI", "BIB", 'B', Items.BUCKET, 'I', tungsten, 'M', "machineBlockBasic");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);
