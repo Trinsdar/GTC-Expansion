@@ -5,6 +5,7 @@ import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
+import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
@@ -120,6 +121,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         }
         if (this == GTCXBlocks.microwave){
             return new GTCXTileMicrowave();
+        }
+        if (this == GTCXBlocks.dieselGenerator){
+            return new GTCXTileDieselGenerator();
         }
 //        if (this == GEBlocks.fusionReactor){
 //            return new GETileMultiFusionReactor();

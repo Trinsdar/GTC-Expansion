@@ -10,6 +10,7 @@ import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
+import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
@@ -62,6 +63,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile lathe = registerBlock(new GTCXBlockTile("lathe", GTCXLang.LATHE));
     public static final GTCXBlockTile wiremill = registerBlock(new GTCXBlockTile("wiremill", GTCXLang.WIREMILL));
     public static final GTCXBlockTile microwave = registerBlock(new GTCXBlockTile("microwave", GTCXLang.MICROWAVE));
+    public static final GTCXBlockTile dieselGenerator = registerBlock(new GTCXBlockTile("dieselgenerator", GTCXLang.DIESEL_GENERATOR));
     //public static final GEBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
 
 
@@ -95,7 +97,7 @@ public class GTCXBlocks {
     public static final GTCXBlockOreBedrock oreBedrockGalena = registerBlock(new GTCXBlockOreBedrock("galena", 24));
 
 
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender", "lathe", "wiremill", "microwave"};
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender", "lathe", "wiremill", "microwave", "dieselgenerator"};
     public static void registerBlocks() {
         for(Block block : toRegister){
             createBlock(block);
@@ -137,6 +139,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileLathe.class, "Lathe");
         registerUtil(GTCXTileWiremill.class, "Wiremill");
         registerUtil(GTCXTileMicrowave.class, "Microwave");
+        registerUtil(GTCXTileDieselGenerator.class, "DieselGenerator");
         //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }
 

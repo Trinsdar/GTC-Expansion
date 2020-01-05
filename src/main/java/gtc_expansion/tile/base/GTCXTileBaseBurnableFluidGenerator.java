@@ -1,16 +1,19 @@
 package gtc_expansion.tile.base;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.container.GTCXContainerBurnableFluidGenerator;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityFuelGeneratorBase;
 import ic2.core.fluid.IC2Tank;
+import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
@@ -56,6 +59,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         this.tank.addListener(this);
         shouldCheckRecipe = true;
         this.addGuiFields("tank", "maxFuel");
+        maxStorage = 100000;
     }
 
     @Override
@@ -77,6 +81,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         }
         boolean operate = this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
         GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
+        //GTCExpansion.logger.info("should check recipe : " + shouldCheckRecipe);
         if (operate && this.needsFuel()){
             gainFuel();
         }
@@ -168,7 +173,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
 
     @Override
     public void onTankChanged(IFluidTank tank) {
-        this.getNetwork().updateTileGuiField(this, "inputTank");
+        this.getNetwork().updateTileGuiField(this, "tank");
         this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.tank.getFluid()));
         shouldCheckRecipe = true;
     }
@@ -199,17 +204,31 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         if (lastRecipe == null) {
             return null;
         }
-        return null;
+        return lastRecipe;
+    }
+
+    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input) {
+        IRecipeInput recipeInput = entry.getInput(0);
+        if (recipeInput instanceof RecipeInputFluid){
+            return input != null && input.containsFluid(((RecipeInputFluid)recipeInput).fluid);
+        }
+        return false;
     }
 
     public abstract GTRecipeMultiInputList getRecipeList();
 
-    public ResourceLocation getGuiTexture() {
+    @Override
+    public ResourceLocation getTexture() {
         return GUI_LOCATION;
     }
 
     public IC2Tank getTankInstance() {
         return tank;
+    }
+
+    @Override
+    public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
+        return new GTCXContainerBurnableFluidGenerator(entityPlayer.inventory, this);
     }
 
     @Override
@@ -220,14 +239,6 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     @Override
     public Box2D getFuelBox() {
         return new Box2D(99, 37, 13, 13);
-    }
-
-    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input) {
-        IRecipeInput recipeInput = entry.getInput(0);
-        if (recipeInput instanceof RecipeInputFluid){
-            return input != null && input.containsFluid(((RecipeInputFluid)recipeInput).fluid);
-        }
-        return false;
     }
 
     public static int getRecipeTicks(MachineOutput output) {
@@ -242,6 +253,20 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
             return 0;
         }
         return output.getMetadata().getInteger(recipeEu);
+    }
+
+    @Override
+    public int getSourceTier() {
+        return 2;
+    }
+
+    public int getMaxSendingEnergy() {
+        return this.production + 1;
+    }
+
+    @Override
+    public boolean emitsEnergyTo(IEnergyAcceptor var1, EnumFacing facing) {
+        return true;
     }
 
     @Override

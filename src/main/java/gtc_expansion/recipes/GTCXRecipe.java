@@ -9,6 +9,7 @@ import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
+import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
@@ -134,6 +135,7 @@ public class GTCXRecipe {
         GTCXTileFluidSmelter.init();
         GTCXTilePlateBender.init();
         GTCXTileWiremill.init();
+        GTCXTileDieselGenerator.init();
         GTCXRecipeMods.init();
         initUURecipes();
         initIc2();
