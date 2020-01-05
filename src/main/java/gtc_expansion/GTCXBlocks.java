@@ -1,7 +1,6 @@
 package gtc_expansion;
 
 import gtc_expansion.block.GTCXBlockCasing;
-import gtc_expansion.block.GTCXBlockIndustrialBlastFurnace;
 import gtc_expansion.block.GTCXBlockMisc;
 import gtc_expansion.block.GTCXBlockOre;
 import gtc_expansion.block.GTCXBlockOreBedrock;
@@ -52,7 +51,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile chemicalReactor = registerBlock(new GTCXBlockTile("chemicalreactor", GTCXLang.CHEMICAL_REACTOR));
     public static final GTCXBlockTile industrialGrinder = registerBlock(new GTCXBlockTile("industrialgrinder", GTCXLang.INDUSTRIAL_GRINDER));
     public static final GTCXBlockTile implosionCompressor = registerBlock(new GTCXBlockTile("implosioncompressor", GTCXLang.IMPLOSION_COMPRESSOR));
-    public static final GTCXBlockIndustrialBlastFurnace industrialBlastFurnace = registerBlock(new GTCXBlockIndustrialBlastFurnace());
+    public static final GTCXBlockTile industrialBlastFurnace = registerBlock(new GTCXBlockTile("industrialblastfurnace", GTCXLang.INDUSTRIAL_BLAST_FURNACE, 3));
     public static final GTCXBlockTile vacuumFreezer = registerBlock(new GTCXBlockTile("vacuumfreezer", GTCXLang.VACUUM_FREEZER));
     public static final GTCXBlockTile distillationTower = registerBlock(new GTCXBlockTile("distillationtower", GTCXLang.DISTILLATION_TOWER));
     public static final GTCXBlockTile alloyFurnace = registerBlock(new GTCXBlockTile("alloyfurnace", GTCXLang.ALLOY_FURNACE, Material.ROCK));

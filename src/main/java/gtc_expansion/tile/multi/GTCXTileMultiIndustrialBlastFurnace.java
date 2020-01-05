@@ -10,7 +10,6 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
-import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -22,7 +21,6 @@ import ic2.api.classic.recipe.RecipeModifierHelpers.ModifierType;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
-import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.filters.MachineFilter;
@@ -34,8 +32,6 @@ import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
-import ic2.core.util.misc.StackUtil;
-import ic2.core.util.obj.IClickable;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
@@ -43,11 +39,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,10 +49,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine implements IClickable, IGTItemContainerTile, IGTDebuggableTile {
+public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine implements IGTDebuggableTile {
 
 	protected static final int[] slotInputs = { 0, 1, 2, 3 };
 	protected static final int[] slotOutputs = { 4, 5, 6, 7 };
+	public static final int slotCoil = 8;
 	public IFilter filter = new MachineFilter(this);
 	public static final IBlockState casingReinforcedState = GTCXBlocks.casingReinforced.getDefaultState();
 	public static final IBlockState casingStandardState = GTCXBlocks.casingStandard.getDefaultState();
@@ -70,13 +64,11 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	public static final int COST_HIGH = 256000;
 	@NetworkField(index = 13)
 	public int currentHeat = 0;
+	public int baseHeat = 0;
 	public static final String neededHeat = "minHeat";
 
-	private boolean kanthal = false;
-	private boolean nichrome = false;
-
 	public GTCXTileMultiIndustrialBlastFurnace() {
-		super(8, 2, defaultEu, 128);
+		super(9, 2, defaultEu, 128);
 		maxEnergy = 8192;
 		this.addGuiFields("currentHeat");
 	}
@@ -134,6 +126,19 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	}
 
 	@Override
+	public void setStackInSlot(int slot, ItemStack stack) {
+		super.setStackInSlot(slot, stack);
+		baseHeat = 0;
+		if (slot == slotCoil && !stack.isEmpty()){
+			if (stack.getItem() == GTCXItems.kanthalHeatingCoil){
+				baseHeat = 125 * stack.getCount();
+			} else {
+				baseHeat = 250 * stack.getCount();
+			}
+		}
+	}
+
+	@Override
 	public GTRecipeMultiInputList getRecipeList() {
 		return GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST;
 	}
@@ -153,69 +158,28 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	}
 
 	@Override
+	public int getMaxStackSize(int slot) {
+		if (slot == slotCoil){
+			return 4;
+		}
+		return super.getMaxStackSize(slot);
+	}
+
+	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		this.currentHeat = nbt.getInteger("currentHeat");
-		this.kanthal = nbt.getBoolean("Kanthal");
-		this.nichrome = nbt.getBoolean("Nichrome");
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setInteger("currentHeat", this.currentHeat);
-		nbt.setBoolean("Kanthal", kanthal);
-		nbt.setBoolean("Nichrome", nichrome);
 		return nbt;
 	}
 
 	public int getCurrentHeat() {
 		return currentHeat;
-	}
-
-	@Override
-	public List<ItemStack> getDrops() {
-		List<ItemStack> list = new ArrayList<ItemStack>();
-		ItemStack machine = GTMaterialGen.get(GTCXBlocks.industrialBlastFurnace);
-		StackUtil.getOrCreateNbtData(machine).setBoolean("Kanthal", kanthal);
-		StackUtil.getOrCreateNbtData(machine).setBoolean("Nichrome", nichrome);
-		list.add(machine);
-
-		list.addAll(getInventoryDrops());
-
-		return list;
-	}
-
-	@Override
-	public List<ItemStack> getInventoryDrops() {
-		List<ItemStack> list = new ArrayList<>();
-		for(int i = 0; i < this.inventory.size(); ++i) {
-			ItemStack stack = this.inventory.get(i);
-			if (!stack.isEmpty()) {
-				list.add(stack);
-			}
-		}
-
-		InventoryHandler handler = this.getHandler();
-		if (handler != null) {
-			IHasInventory inv = handler.getUpgradeSlots();
-
-			for(int i = 0; i < inv.getSlotCount(); ++i) {
-				ItemStack result = inv.getStackInSlot(i);
-				if (result != null) {
-					list.add(result);
-				}
-			}
-		}
-		return list;
-	}
-
-	public void setKanthal(boolean kanthal) {
-		this.kanthal = kanthal;
-	}
-
-	public void setNichrome(boolean nichrome) {
-		this.nichrome = nichrome;
 	}
 
 	public static void init() {
@@ -330,7 +294,8 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 			return false;
 		}
 		// resetting the heat value to avoid continous upcount
-		currentHeat = nichrome ? 1000 : (kanthal ? 500 : 0);
+		currentHeat = baseHeat;
+		this.getNetwork().updateTileGuiField(this, "currentHeat");
 		stateMap.clear();
 		// we doing it "big math" style not block by block
 		int3 dir = new int3(getPos(), getFacing());
@@ -442,39 +407,6 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public boolean hasRightClick() {
-		return true;
-	}
-
-	@Override
-	public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing facing, Side side) {
-		ItemStack stack = player.getHeldItem(hand);
-		if (stack.getCount() >= 4){
-			if (stack.getItem() == GTCXItems.kanthalHeatingCoil && !kanthal){
-				stack.shrink(4);
-				kanthal = true;
-				return true;
-			}
-			if (kanthal && stack.getItem() == GTCXItems.nichromeHeatingCoil && !nichrome){
-				stack.shrink(4);
-				nichrome = true;
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public boolean hasLeftClick() {
-		return false;
-	}
-
-	@Override
-	public void onLeftClick(EntityPlayer entityPlayer, Side side) {
-
 	}
 
 	@Override

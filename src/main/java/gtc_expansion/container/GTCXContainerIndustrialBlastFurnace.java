@@ -1,11 +1,14 @@
 package gtc_expansion.container;
 
-import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
+import gtc_expansion.GTCXItems;
 import gtc_expansion.gui.GTCXGuiICompIBFString;
+import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.gui.GTGuiCompMultiTileStatus;
 import gtclassic.api.slot.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
+import ic2.core.inventory.filters.ArrayFilter;
+import ic2.core.inventory.filters.BasicItemFilter;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;
 import ic2.core.inventory.slots.SlotCustom;
@@ -35,8 +38,9 @@ public class GTCXContainerIndustrialBlastFurnace extends ContainerTileComponent<
 				this.addSlotToContainer(new SlotOutput(player.player, tile, 4 + x + y * 2, 107 + x * 18, 17 + y * 18));
 			}
 		}
+		this.addSlotToContainer(new SlotCustom(tile, 8, 8, 63, new ArrayFilter(new BasicItemFilter(GTCXItems.kanthalHeatingCoil), new BasicItemFilter(GTCXItems.nichromeHeatingCoil))));
 		for (int i = 0; i < 2; ++i) {
-			this.addSlotToContainer(new GTSlotUpgrade(tile, 8 + i, 152, 17 + i * 18));
+			this.addSlotToContainer(new GTSlotUpgrade(tile, 9 + i, 152, 17 + i * 18));
 		}
 		this.addPlayerInventory(player);
 		this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
