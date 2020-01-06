@@ -30,10 +30,12 @@ public class GTCXContainerDistillationTower extends ContainerTileComponent<GTCXT
         this.addSlotToContainer(new SlotDisplay(tile, 3, 98, 23));
         this.addSlotToContainer(new SlotDisplay(tile, 4, 98, 41));
         this.addSlotToContainer(new SlotDisplay(tile, 5, 98, 59));
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 6, 116, 41)); // output
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 7, 116, 59)); // second output
+        this.addSlotToContainer(new SlotDisplay(tile, 6, 116, 5));
+        this.addSlotToContainer(new SlotDisplay(tile, 7, 116, 23));
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 8, 116, 41)); // output
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 9, 116, 59)); // second output
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 8 + i, 152, 26 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 10 + i, 152, 26 + i * 18));
         }
         //this.addComponent(new GTGuiCompMachinePower(tile));
         this.addPlayerInventory(player);
@@ -45,6 +47,7 @@ public class GTCXContainerDistillationTower extends ContainerTileComponent<GTCXT
     @SideOnly(Side.CLIENT)
     public void onGuiLoaded(GuiIC2 gui) {
         gui.dissableInvName();
+        gui.disableName();
     }
 
     @Override
