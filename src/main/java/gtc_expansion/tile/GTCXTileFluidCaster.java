@@ -285,7 +285,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         ItemStack input = inventory.get(slotInput);
         FluidStack fluid = inputTank.getFluid();
         if (lastRecipe != null) {
-            lastRecipe = checkRecipe(lastRecipe, fluid, input) ? lastRecipe : null;
+            lastRecipe = checkRecipe(lastRecipe, fluid, input.copy()) ? lastRecipe : null;
             if (lastRecipe == null) {
                 progress = 0;
             }
@@ -296,7 +296,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
 
                 @Override
                 public boolean test(MultiRecipe t) {
-                    return checkRecipe(t, fluid, input);
+                    return checkRecipe(t, fluid, input.copy());
                 }
             });
         }

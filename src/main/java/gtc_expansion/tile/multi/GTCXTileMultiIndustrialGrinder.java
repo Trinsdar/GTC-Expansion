@@ -250,7 +250,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
         ItemStack input = inventory.get(1);
         FluidStack fluid = inputTank.getFluid();
         if (lastRecipe != null) {
-            lastRecipe = checkRecipe(lastRecipe, fluid, input) ? lastRecipe : null;
+            lastRecipe = checkRecipe(lastRecipe, fluid, input.copy()) ? lastRecipe : null;
             if (lastRecipe == null) {
                 progress = 0;
             }
@@ -261,7 +261,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
 
                 @Override
                 public boolean test(MultiRecipe t) {
-                    return checkRecipe(t, fluid, input);
+                    return checkRecipe(t, fluid, input.copy());
                 }
             });
         }
