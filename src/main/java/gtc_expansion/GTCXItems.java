@@ -25,6 +25,7 @@ public class GTCXItems {
     public static final GTCXItemMisc iridiumAlloyIngot = createItem(new GTCXItemMisc("iridium_alloy_ingot", 0, 0));
     public static final GTCXItemMisc computerMonitor = createItem(new GTCXItemMisc("computer_monitor", 1, 0));
     public static final GTCXItemMisc conveyorModule = createItem(new GTCXItemMisc("conveyor_module",2, 0));
+    public static final GTCXItemMisc pumpModule = createItem(new GTCXItemMisc("pump_module",3, 0));
     public static final GTCXItemMisc diamondGrinder = createItem(new GTCXItemMisc("diamond_grinder", 4, 0));
     public static final GTCXItemMisc wolframiumGrinder = createItem(new GTCXItemMisc("wolframium_grinder", 5, 0));
     public static final GTCXItemMisc constantanHeatingCoil = createItem(new GTCXItemMisc("constantan_heating_coil",8, 0));

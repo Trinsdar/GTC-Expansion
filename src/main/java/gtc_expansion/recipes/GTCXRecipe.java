@@ -82,7 +82,7 @@ public class GTCXRecipe {
     static IRecipeInput plateMixedMetal2 = new RecipeInputCombined(1, input("plateTungsten"), input("plateTitanium"));
     static IRecipeInput materialMixedMetal2 = GTCXConfiguration.general.usePlates ? plateMixedMetal2 : ingotMixedMetal2;
     static String materialRefinedIron = GTCXConfiguration.general.usePlates ? getRefinedIronPlate() : ingotRefinedIron;
-    static IRecipeInput materialMachine = GTCXConfiguration.general.usePlates ? plateMachine : ingotMachine;
+    public static IRecipeInput materialMachine = GTCXConfiguration.general.usePlates ? plateMachine : ingotMachine;
     static IRecipeInput materialSteels = GTCXConfiguration.general.usePlates ? plateSteels : ingotSteels;
     static IRecipeInput materialSteelsAluminium = GTCXConfiguration.general.usePlates ? plateSteelsAluminium : ingotSteelsAluminium;
     static IRecipeInput anyPiston = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(Blocks.STICKY_PISTON)), new RecipeInputItemStack(GTMaterialGen.get(Blocks.PISTON)));
@@ -519,10 +519,11 @@ public class GTCXRecipe {
         //instance.removeGTRecipe("shapeless_item.gtclassic.test_tube_-1487325092");
         //instance.removeGTRecipe("shapeless_item.sulphur_1317221415");
 
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.pipelineItem, 4), "III", "PMP", "III", 'P', anyPiston, 'I', electrum, 'M', "machineBlockBasic");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.pipelineFluid, 4), "III", "BMB", "III", 'B', Items.BUCKET, 'I', aluminium, 'M', "machineBlockBasic");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tilePipelineItemEnd, 1), "PIP", "IMI", "PIP", 'P', anyPiston, 'I', platinum, 'M', "machineBlockBasic");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tilePipelineFluidEnd, 1), "BIB", "IMI", "BIB", 'B', Items.BUCKET, 'I', tungsten, 'M', "machineBlockBasic");
+        String invar = GTCXConfiguration.general.usePlates ? "plateInvar" : "ingotInvar";
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.pipelineItem, 4), "III", "PMP", "III", 'P', GTCXItems.conveyorModule, 'I', materialRefinedIron, 'M', "machineBlockBasic");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.pipelineFluid, 4), "III", "BMB", "III", 'B', GTCXItems.pumpModule, 'I', invar, 'M', "machineBlockBasic");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tilePipelineItemEnd, 1), "PIP", "IMI", "PIP", 'P', GTCXItems.conveyorModule, 'I', platinum, 'M', "machineBlockBasic");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tilePipelineFluidEnd, 1), "BIB", "IMI", "BIB", 'B', GTCXItems.pumpModule, 'I', tungsten, 'M', "machineBlockBasic");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);

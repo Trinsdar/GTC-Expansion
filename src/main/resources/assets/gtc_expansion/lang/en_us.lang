@@ -501,6 +501,7 @@ item.gtc_expansion.sapphire_pickaxe.name=Sapphire Pickaxe
 #components
 item.gtc_expansion.iridium_alloy_ingot.name=Iridium Alloy Ingot
 item.gtc_expansion.conveyor_module.name=Conveyor Module
+item.gtc_expansion.pump_module.name=Pump Module
 item.gtc_expansion.computer_monitor.name=Computer Monitor
 item.gtc_expansion.diamond_grinder.name=Diamond Grinder
 item.gtc_expansion.wolframium_grinder.name=Wolframium Grinder
