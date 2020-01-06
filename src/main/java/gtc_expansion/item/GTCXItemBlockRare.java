@@ -31,6 +31,9 @@ public class GTCXItemBlockRare extends GTItemBlockRare {
             if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace) || this.compare(stack, GTCXBlocks.fluidCaster) || this.compare(stack, GTCXBlocks.fluidSmelter) || this.compare(stack, GTCXBlocks.distillationTower)) {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
             }
+            if (this.compare(stack, GTCXBlocks.gasTurbine) || this.compare(stack, GTCXBlocks.dieselGenerator)){
+                tooltip.add(Ic2InfoLang.electricProduction.getLocalizedFormatted(Ic2InfoLang.electricTransferRateVariable.getLocalized()));
+            }
         }
     }
 

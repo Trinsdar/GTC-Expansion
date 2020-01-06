@@ -290,6 +290,11 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     }
 
     @Override
+    public double getWrenchDropRate() {
+        return 1.0D;
+    }
+
+    @Override
     public int getSourceTier() {
         return 2;
     }
