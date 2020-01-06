@@ -517,10 +517,10 @@ public class GTCXRecipe {
 //                    "batteryUltimate", 'C', GTBlocks.tileComputer);
 //        }
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.dataCable, 6), "RRR", "CIC", "RRR", 'I', "plateSilicon", 'C', "circuitData", 'R', "itemRubber");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitizerItem, 4), "CPC", "PMP", "CPC", 'P', anyPiston, 'C', "circuitData", 'M', "machineBlockAdvanced");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitizerFluid, 4), "CPC", "PMP", "CPC", 'P', Items.BUCKET, 'C', "circuitData", 'M', "machineBlockAdvanced");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileConstructorItem, 1),"PIP", "CMC", "PIP", 'P', anyPiston, 'C', "circuitData", 'M', "machineBlockAdvanced",'I' ,platinum);
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileConstructorFluid, 1),"PIP", "CMC", "PIP", 'P', Items.BUCKET, 'C', "circuitData", 'M', "machineBlockAdvanced",'I' ,tungsten);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitizerItem, 4), "CPC", "PMP", "CPC", 'P', GTCXItems.pumpModule, 'C', "circuitData", 'M', "machineBlockAdvanced");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitizerFluid, 4), "CPC", "PMP", "CPC", 'P', GTCXItems.conveyorModule, 'C', "circuitData", 'M', "machineBlockAdvanced");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileConstructorItem, 1),"PIP", "CMC", "PIP", 'P', GTCXItems.pumpModule, 'C', "circuitData", 'M', "machineBlockAdvanced",'I' ,platinum);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileConstructorFluid, 1),"PIP", "CMC", "PIP", 'P', GTCXItems.conveyorModule, 'C', "circuitData", 'M', "machineBlockAdvanced",'I' ,tungsten);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);
