@@ -270,13 +270,14 @@ public class GTCXRecipeIterators {
 
     public static void createGearRecipe(GTMaterial mat) {
         String ingot = "ingot" + mat.getDisplayName();
+        String plate = "plate" + mat.getDisplayName();
         String gear = "gear" + mat.getDisplayName();
         String rod = "rod" + mat.getDisplayName();
         if (mat.hasFlag(GTCXMaterial.gear)) {
             // Rod crafting recipe
             IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("craftingToolWrench") : null;
             recipes.addRecipe(GTCXMaterialGen.getGear(mat, 1), "RIR", "IWI", "RIR", 'R', rod,
-                    'W', wrench, 'I', ingot);
+                    'W', wrench, 'I', plate);
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 TileEntityMacerator.addRecipe(gear, 1, getDust(mat, 4), 0.0F);

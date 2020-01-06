@@ -5,12 +5,15 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseBurnableFluidGenerator;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -43,12 +46,75 @@ public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator 
         return GTCXLang.DIESEL_GENERATOR;
     }
 
+    @Override
+    public void doFluidContainerThings(){
+        if (!GTHelperStack.isSlotEmpty(this, slotInput)) {
+            ItemStack emptyStack = Ic2Items.emptyCell.copy();
+            if (this.getStackInSlot(slotInput).isItemEqual(Ic2Items.coalFuelCell) || this.getStackInSlot(slotInput).isItemEqual(Ic2Items.bioFuelCell) || this.getStackInSlot(slotInput).isItemEqual(emptyStack)){
+                if (!GTHelperFluid.isTankFull(tank) && !GTHelperStack.isSlotFull(this, slotOutput) && GTHelperStack.canOutputStack(this, emptyStack, slotOutput) && tank.getFluidAmount() + 1000 <= tank.getCapacity()) {
+                    if (this.getStackInSlot(slotInput).isItemEqual(Ic2Items.coalFuelCell)){
+                        if (tank.getFluid() == null || tank.getFluid().isFluidEqual(GTMaterialGen.getFluidStack(GTCXMaterial.CoalFuel))){
+                            tank.fillInternal(GTMaterialGen.getFluidStack(GTCXMaterial.CoalFuel), true);
+                            if (GTHelperStack.isSlotEmpty(this, slotOutput)) {
+                                this.setStackInSlot(slotOutput, emptyStack);
+                            } else {
+                                this.getStackInSlot(slotOutput).grow(1);
+                            }
+
+                            this.getStackInSlot(slotInput).shrink(1);
+                            return;
+                        }
+                    } else if (this.getStackInSlot(slotInput).isItemEqual(Ic2Items.bioFuelCell)){
+                        if (tank.getFluid() == null || tank.getFluid().isFluidEqual(GTMaterialGen.getFluidStack(GTCXMaterial.BioFuel))){
+                            tank.fillInternal(GTMaterialGen.getFluidStack(GTCXMaterial.BioFuel), true);
+                            if (GTHelperStack.isSlotEmpty(this, slotOutput)) {
+                                this.setStackInSlot(slotOutput, emptyStack);
+                            } else {
+                                this.getStackInSlot(slotOutput).grow(1);
+                            }
+
+                            this.getStackInSlot(slotInput).shrink(1);
+                            return;
+                        }
+                    }
+                }
+                if (this.getStackInSlot(slotInput).isItemEqual(emptyStack) && tank.getFluid() != null && tank.getFluidAmount() >= 1000){
+                    if (tank.getFluid().isFluidEqual(GTMaterialGen.getFluidStack(GTCXMaterial.CoalFuel)) && GTHelperStack.canOutputStack(this, Ic2Items.coalFuelCell.copy(), slotOutput)){
+                        tank.drainInternal(1000, true);
+                        if (GTHelperStack.isSlotEmpty(this, slotOutput)) {
+                            this.setStackInSlot(slotOutput, Ic2Items.coalFuelCell.copy());
+                        } else {
+                            this.getStackInSlot(slotOutput).grow(1);
+                        }
+
+                        this.getStackInSlot(slotInput).shrink(1);
+                        return;
+                    }
+                    if (tank.getFluid().isFluidEqual(GTMaterialGen.getFluidStack(GTCXMaterial.BioFuel)) && GTHelperStack.canOutputStack(this, Ic2Items.bioFuelCell.copy(), slotOutput)){
+                        tank.drainInternal(1000, true);
+                        if (GTHelperStack.isSlotEmpty(this, slotOutput)) {
+                            this.setStackInSlot(slotOutput, Ic2Items.bioFuelCell.copy());
+                        } else {
+                            this.getStackInSlot(slotOutput).grow(1);
+                        }
+
+                        this.getStackInSlot(slotInput).shrink(1);
+                        return;
+                    }
+                }
+            }
+        }
+        GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
+    }
+
     public static void init(){
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Diesel), 2670, 12);
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Gasoline), 2670, 12);
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Naphtha), 2670, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroDiesel), 8340, 12);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroDiesel), 4170, 24);
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroCoalFuel), 4000, 12);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.BioFuel), 500, 12);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.CoalFuel), 1340, 12);
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {

@@ -51,12 +51,14 @@ public class GTCXMaterial {
     public static final GTMaterial Antimony = new GTMaterial(51,"Antimony", 1, 220, 220, 240, molten, smalldust, dust, tinydust, nugget, ingot, plate, stick, gear, blockMetal);
     public static final GTMaterial Ashes = new GTMaterial("Ashes", 192, 192, 192, dustAll);
     public static final GTMaterial BatteryAlloy = new GTMaterial("BatteryAlloy", 95, 77, 126, dust, ingot, smalldust, nugget, plate);
+    public static final GTMaterial BioFuel = new GTMaterial("BioFuel", 153, 204, 0, fluid);
     public static final GTMaterial Brass = new GTMaterial("Brass", 1, 255, 180, 0, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull , pipeItem);
     public static final GTMaterial Bronze = new GTMaterial("Bronze", 1, 255, 128, 0, pipeFluid, molten, smalldust, nugget, plate, stick, gear, hull);
     public static final GTMaterial Charcoal = new GTMaterial("Charcoal", 100, 70, 70, smalldust);
     public static final GTMaterial Cinnabar = new GTMaterial("Cinnabar", 150, 0, 0, crushedAll);
     public static final GTMaterial Clay = new GTMaterial("Clay", 200, 200, 220, smalldust);
     public static final GTMaterial Coal = new GTMaterial("Coal", 70, 70, 70, smalldust);
+    public static final GTMaterial CoalFuel = new GTMaterial("CoalFuel", 0, 0, 0, fluid);
     public static final GTMaterial Constantan = new GTMaterial("Constantan", 2, 227, 150, 128, pipeItem, dust, ingot, blockMetal, molten, smalldust, nugget, plate, stick);
     public static final GTMaterial Copper = new GTMaterial(29,"Copper", 180, 113, 61, molten, smalldust, nugget, plate, stick, gear);
     public static final GTMaterial DarkAshes = new GTMaterial("DarkAshes", 50, 50, 50, dustAll);

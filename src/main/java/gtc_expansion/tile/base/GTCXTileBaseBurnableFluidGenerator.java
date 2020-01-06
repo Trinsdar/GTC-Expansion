@@ -85,8 +85,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
             this.shouldCheckRecipe = false;
         }
         boolean operate = this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
-        GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
-        //GTCExpansion.logger.info("should check recipe : " + shouldCheckRecipe);
+        doFluidContainerThings();
         if (operate && this.needsFuel()){
             gainFuel();
         }
@@ -115,7 +114,33 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
                 fuel = 0;
                 this.getNetwork().updateTileGuiField(this, "fuel");}
         }
+        checkProduction();
         this.updateComparators();
+    }
+
+    public void checkProduction(){
+        if (!this.isActive && this.fuel <= 0 && this.tank.getFluid() == null){
+            if (production > 0){
+                if (storage > 0){
+                    if (production != 128){
+                        production = 128;
+                    } else {
+                        return;
+                    }
+                } else {
+                    production = 0;
+                }
+            } else {
+                if (storage > 0){
+                    production = 128;
+                }
+            }
+
+        }
+    }
+
+    public void doFluidContainerThings(){
+        GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
     }
 
     @Override
@@ -214,7 +239,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input) {
         IRecipeInput recipeInput = entry.getInput(0);
         if (recipeInput instanceof RecipeInputFluid){
-            return input != null && input.containsFluid(((RecipeInputFluid)recipeInput).fluid);
+            return input != null && input.isFluidEqual(((RecipeInputFluid)recipeInput).fluid);
         }
         return false;
     }
