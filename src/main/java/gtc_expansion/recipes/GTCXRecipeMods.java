@@ -3,6 +3,7 @@ package gtc_expansion.recipes;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
+import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.util.GTCXIc2cECompat;
@@ -157,6 +158,25 @@ public class GTCXRecipeMods {
             GTRecipeCraftingHandler.overrideGTRecipe(GTHelperMods.IC2_EXTRAS, "shaped_tile.roller_-2064391190", GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "roller"), "CPC", "PMP", "cPc", 'C', circuit, 'P', Blocks.PISTON, 'M', machineBlock, 'c', GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "coil"));
             IRecipeInput casing = new RecipeInputCombined(1, new RecipeInputOreDict("casingSteel"), new RecipeInputOreDict("casingRefinedIron"), new RecipeInputOreDict("casingBronze"));
             GTRecipeCraftingHandler.overrideGTRecipe(GTHelperMods.IC2_EXTRAS, "shaped_tile.extruder_704871140", GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "extruder"), "SCS", "cMc", "SCS", 'C', circuit, 'S', casing, 'M', machineBlock, 'c', GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "coil"));
+        }
+        if (Loader.isModLoaded(GTHelperMods.THERMAL) && GTConfig.modcompat.compatThermal){
+            GTCXTileAlloySmelter.addRecipe("dustCopper", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 0, 2));
+            GTCXTileAlloySmelter.addRecipe("dustTin", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 1, 2));
+            GTCXTileAlloySmelter.addRecipe("dustSilver", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 2, 2));
+            GTCXTileAlloySmelter.addRecipe("dustLead", 1, "dustObsidian", 4, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 3, 2));
+            GTCXTileAlloySmelter.addRecipe("dustAluminium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 4, 2));
+            GTCXTileAlloySmelter.addRecipe("dustNickel", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 5, 2));
+            GTCXTileAlloySmelter.addRecipe("dustPlatinum", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 6, 2));
+            GTCXTileAlloySmelter.addRecipe("dustIridium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 7, 2));
+            GTCXTileAlloySmelter.addRecipe("dustMithril", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass", 8, 2));
+            GTCXTileAlloySmelter.addRecipe("dustSteel", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 0, 2));
+            GTCXTileAlloySmelter.addRecipe("dustElectrum", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 1, 2));
+            GTCXTileAlloySmelter.addRecipe("dustInvar", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 2, 2));
+            GTCXTileAlloySmelter.addRecipe("dustBronze", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 3, 2));
+            GTCXTileAlloySmelter.addRecipe("dustConstantan", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 4, 2));
+            GTCXTileAlloySmelter.addRecipe("dustSignalum", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 5, 2));
+            GTCXTileAlloySmelter.addRecipe("dustLumium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 6, 2));
+            GTCXTileAlloySmelter.addRecipe("dustEnderium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTHelperMods.THERMAL, "glass_alloy", 7, 2));
         }
         if (Loader.isModLoaded("gravisuit")){
             GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddiamondchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXRecipe.tungstenSteel, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
