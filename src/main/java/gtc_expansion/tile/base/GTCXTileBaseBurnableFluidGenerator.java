@@ -122,8 +122,8 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         if (!this.isActive && this.fuel <= 0 && this.tank.getFluid() == null){
             if (production > 0){
                 if (storage > 0){
-                    if (production != 128){
-                        production = 128;
+                    if (production != 32){
+                        production = 32;
                     } else {
                         return;
                     }
@@ -132,10 +132,9 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
                 }
             } else {
                 if (storage > 0){
-                    production = 128;
+                    production = 32;
                 }
             }
-
         }
     }
 
