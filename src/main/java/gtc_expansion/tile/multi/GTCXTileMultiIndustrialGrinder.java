@@ -1,8 +1,8 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerIndustrialGrinder;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
@@ -61,6 +61,7 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -398,7 +399,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addWaterRecipe("orePyrite", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Pyrite, 5), GTMaterialGen.getDust(GTMaterial.Sulfur, 2));
             addWaterRecipe("oreCinnabar", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Cinnabar, 5), GTCXMaterialGen.getSmallDust(GTCXMaterial.Redstone, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Glowstone, 1));
             addWaterRecipe("oreSphalerite", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Sphalerite, 4), GTMaterialGen.getDust(GTCXMaterial.Zinc, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetYellow, 1));
-            addWaterRecipe("oreTungstate", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Tungsten, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Manganese, 3));
+            addWaterRecipe("oreTungsten", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Tungsten, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Manganese, 3));
             addWaterRecipe("oreSheldonite", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 2), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTCXMaterialGen.getNugget(GTMaterial.Iridium, 2));
             addMercuryRecipe("oreIridium", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Iridium, 2), GTMaterialGen.getDust(GTMaterial.Platinum, 1));
             addMercuryRecipe("oreSheldonite", 1, totalEu(12800), GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 3), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTCXMaterialGen.getNugget(GTMaterial.Iridium, 2));
@@ -416,6 +417,11 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addSodiumPersulfateRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "copperpurifiedcrushedore", 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "goldpurifiedcrushedore", 2), Ic2Items.copperDust, GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addSodiumPersulfateRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "uraniumpurifiedcrushedore", 3), GTCXMaterialGen.getSmallDust(GTMaterial.Thorium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
+            if (OreDictionary.doesOreNameExist("oreNickel")) {
+                addWaterRecipe("oreNickel", 1, totalEu(12000), GTMaterialGen.getModItem(modid, "nickelpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Platinum, 1));
+                addMercuryRecipe("oreNickel", 1, totalEu(12000), GTMaterialGen.getModItem(modid, "nickelpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTMaterialGen.getDust(GTMaterial.Platinum, 1));
+                addSodiumPersulfateRecipe("oreNickel", 1, totalEu(12000), GTMaterialGen.getModItem(modid, "nickelpurifiedcrushedore", 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Platinum, 1));
+            }
         } else {
             addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Uranium, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Thorium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
             addWaterRecipe("oreSilver", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.silverDust, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 2));
@@ -432,7 +438,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addWaterRecipe("orePyrite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Pyrite, 5), GTMaterialGen.getDust(GTMaterial.Sulfur, 2));
             addWaterRecipe("oreCinnabar", 1, totalEu(12800), GTMaterialGen.getDust(GTCXMaterial.Cinnabar, 5), GTCXMaterialGen.getSmallDust(GTCXMaterial.Redstone, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Glowstone, 1));
             addWaterRecipe("oreSphalerite", 1, totalEu(12800), GTMaterialGen.getDust(GTCXMaterial.Sphalerite, 4), GTCXMaterialGen.getSmallDust(GTCXMaterial.Zinc, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetYellow, 1));
-            addWaterRecipe("oreTungstate", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Tungsten, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Manganese, 3));
+            addWaterRecipe("oreTungsten", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Tungsten, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Manganese, 3));
             addWaterRecipe("oreSheldonite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Platinum, 2), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTCXMaterialGen.getNugget(GTMaterial.Iridium, 2));
             addMercuryRecipe("oreIridium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Iridium, 2), GTMaterialGen.getDust(GTMaterial.Platinum, 1));
             addMercuryRecipe("oreSheldonite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Platinum, 3), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTCXMaterialGen.getNugget(GTMaterial.Iridium, 2));
@@ -450,11 +456,15 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             addSodiumPersulfateRecipe("oreCopper", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.copperDust, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addSodiumPersulfateRecipe("oreGold", 1, totalEu(12800), GTMaterialGen.getIc2(Ic2Items.goldDust, 2), Ic2Items.copperDust, GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));
             addSodiumPersulfateRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Uranium, 3), GTCXMaterialGen.getSmallDust(GTMaterial.Thorium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
+            if (OreDictionary.doesOreNameExist("oreNickel")) {
+                addWaterRecipe("oreNickel", 1, totalEu(12000), GTMaterialGen.getDust(GTMaterial.Nickel, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Platinum, 1));
+                addMercuryRecipe("oreNickel", 1, totalEu(12000), GTMaterialGen.getDust(GTMaterial.Nickel, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTMaterialGen.getDust(GTMaterial.Platinum, 1));
+                addSodiumPersulfateRecipe("oreNickel", 1, totalEu(12000), GTMaterialGen.getDust(GTMaterial.Nickel, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Iron, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Platinum, 1));
+            }
         }
         addWaterRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 16), totalEu(204800), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 16));
         addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial.Ruby, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Ruby, 6), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetRed, 2));
         addWaterRecipe("oreSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial.Sapphire, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Sapphire, 6), GTCXMaterialGen.getSmallDust(GTMaterial.Aluminium, 2));
-        //addWaterRecipe("oreTungsten", 1, totalEu(12800), GTMaterialGen.getDust(GEMaterial.Tungsten, 2), GEMaterialGen.getSmallDust(GEMaterial.Iron, 3), GEMaterialGen.getSmallDust(GEMaterial.Manganese, 3));
         addWaterRecipe("oreCoal", 1, totalEu(12800), GTMaterialGen.get(Items.COAL), Ic2Items.coalDust, GTCXMaterialGen.getSmallDust(GTMaterial.Thorium, 1));
         addWaterRecipe("oreLapis", 1, totalEu(12800), new ItemStack(Items.DYE, 12, 4), GTMaterialGen.getDust(GTMaterial.Lazurite, 3));
         addWaterRecipe("oreRedstone", 1, totalEu(12800), GTMaterialGen.get(Items.REDSTONE, 10), GTCXMaterialGen.getSmallDust(GTCXMaterial.Glowstone, 2));
