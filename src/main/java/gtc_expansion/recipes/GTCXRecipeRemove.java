@@ -45,7 +45,7 @@ public class GTCXRecipeRemove {
 
     public static void initCentrifugeRemoval(){
         GTTileCentrifuge.RECIPE_LIST.startMassChange();
-        removeCentrifugeRecipe("item.gtclassic.test_tube");
+        removeCentrifugeRecipe("item.gtclassic.test_tube_1");
         removeCentrifugeRecipe("item.itemCellEmpty");
         removeCentrifugeRecipe("item.itemCellEmpty_1");
         removeCentrifugeRecipe("item.gtclassic.dustCarbon");
