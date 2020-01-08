@@ -63,12 +63,12 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
 
     @Override
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-        return Items.DIAMOND_PICKAXE.canHarvestBlock(state);
+        return Items.IRON_PICKAXE.canHarvestBlock(state);
     }
 
     @Override
     public int getHarvestLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
-        return 3;
+        return 2;
     }
 
     @Override
@@ -78,13 +78,17 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
 
     @Override
     public float getMiningSpeed(ItemStack stack) {
-        return 64.0F;
+        return 56.0F;
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, IBlockState state) {
-        if (canMine(stack) && isValidState(state)) {
-            return getMiningSpeed(stack);
+        if (canMine(stack)) {
+            if (isValidState(state)){
+                return getMiningSpeed(stack);
+            } else {
+                return 1.0F;
+            }
         } else {
             return 0.05F;
         }
