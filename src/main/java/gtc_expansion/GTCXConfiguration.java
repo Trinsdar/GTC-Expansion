@@ -42,7 +42,7 @@ public class GTCXConfiguration {
         public int galenaSize = 10;
         @Comment("Chance of Galena veins to spawn")
         @RangeInt(min = 1, max = 16)
-        public int galenaWeight = 10;
+        public int galenaWeight = 6;
         @Comment("Generate Cassiterite ore in the overworld")
         public boolean cassiteriteGenerate = true;
         @Comment("Max size of Cassiterite veins")
