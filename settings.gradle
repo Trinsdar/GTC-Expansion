@@ -1,0 +1,2 @@
+include ":gtclassic"
+project(":gtclassic").projectDir = file("../GT-Classic")
