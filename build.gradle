@@ -93,7 +93,6 @@ dependencies {
         exclude group: 'org.ow2.asm'
         exclude group: 'com.google.code.gson'
     }
-    compile project(":gtclassic")
 }
 
 processResources {
