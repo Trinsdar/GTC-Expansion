@@ -26,6 +26,9 @@ public class GTCXOtherEvents {
         IBlockState block = event.getState();
         Random random = event.getWorld().rand;
         if (block == GTBlocks.oreRuby.getDefaultState()){
+            if (event.isSilkTouching()){
+                return;
+            }
             if (random.nextInt(Math.max(1, 32/(event.getFortuneLevel() + 1))) == 0){
                 event.getDrops().add(GTMaterialGen.getGem(GTCXMaterial.GarnetRed, 1));
             }
