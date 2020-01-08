@@ -99,7 +99,7 @@ public class GTCXBlastFurnaceSupport {
 
 		@Override
 		public String describe() {
-			return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s] to %s", Arrays.deepToString(this.input), totalTicks, Arrays.deepToString(this.output), GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST);
+			return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s] to %s", Arrays.deepToString(this.input), totalTicks, Arrays.deepToString(this.output), GTCXRecipeLists.PRIMITIVE_BLAST_FURNACE_RECIPE_LIST);
 		}
 	}
 }

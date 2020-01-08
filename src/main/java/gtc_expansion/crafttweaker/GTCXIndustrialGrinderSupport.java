@@ -54,7 +54,7 @@ public class GTCXIndustrialGrinderSupport {
 
         @Override
         public String describe() {
-            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s -> %s] to %s", input1, inputFluid, totalEu, Arrays.deepToString(output), GTCXRecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST);
+            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s -> %s] to %s", input1, inputFluid, totalEu, Arrays.deepToString(output), GTCXRecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST);
         }
     }
 }

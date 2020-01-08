@@ -579,30 +579,30 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     }
 
     public static void addRecipe(String input, int amount, FluidStack fluid, boolean press, int totalEu,
-                                 ItemStack... outputs) {
+                                 ItemStack output) {
         if (fluid.getFluid() == FluidRegistry.WATER){
             GTCExpansion.logger.info("Fluid in fluid casting recipes can't be water.");
             return;
         }
-        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), new RecipeInputOreDict(input, amount) }, press, totalEu, outputs);
+        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), new RecipeInputOreDict(input, amount) }, press, totalEu, output);
     }
 
     public static void addRecipe(ItemStack input, FluidStack fluid, boolean press, int totalEu,
-                                 ItemStack... outputs) {
+                                 ItemStack output) {
         if (fluid.getFluid() == FluidRegistry.WATER){
             GTCExpansion.logger.info("Fluid in fluid casting recipes can't be water.");
             return;
         }
-        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), new RecipeInputItemStack(input) }, press, totalEu, outputs);
+        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), new RecipeInputItemStack(input) }, press, totalEu, output);
     }
 
     public static void addRecipe(IRecipeInput input, FluidStack fluid, boolean press, int totalEu,
-                                 ItemStack... outputs) {
+                                 ItemStack output) {
         if (fluid.getFluid() == FluidRegistry.WATER){
             GTCExpansion.logger.info("Fluid in fluid casting recipes can't be water.");
             return;
         }
-        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), input }, press, totalEu, outputs);
+        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), input }, press, totalEu, output);
     }
 
     private static void addRecipe(IRecipeInput[] inputs, boolean press, int totalEu, ItemStack... outputs) {

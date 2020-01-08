@@ -24,8 +24,6 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
-import ic2.core.item.recipe.entry.RecipeInputItemStack;
-import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
@@ -144,22 +142,24 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
         }
     }
 
+    public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int total) {
+        return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((total / defaultEu) - 100) };
+    }
+
     public static void addRecipe(ItemStack input, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputItemStack(input));
-        addRecipe(inputs, new MachineOutput(null, output));
+        addRecipe(new IRecipeInput[]{input(input)}, totalEu(400), output);
     }
 
     public static void addRecipe(String input, int amount, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputOreDict(input, amount));
-        addRecipe(inputs, new MachineOutput(null, output));
+        addRecipe(new IRecipeInput[]{input(input, amount)}, totalEu(400), output);
     }
 
-    public static void addRecipe(IRecipeInput input1, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(input1);
-        addRecipe(inputs, new MachineOutput(null, output));
+    public static void addRecipe(IRecipeInput input, ItemStack output) {
+        addRecipe(new IRecipeInput[]{input}, totalEu(400), output);
+    }
+
+    public static void addRecipe(IRecipeInput input, int totalEu, ItemStack output) {
+        addRecipe(new IRecipeInput[]{input}, totalEu(totalEu), output);
     }
 
     public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
