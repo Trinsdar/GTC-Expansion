@@ -80,7 +80,7 @@ public class GTCXBlockStorage extends GTCXBlockTile implements IGTColorBlock {
 	}
 
 	@Override
-	public boolean recolorBlock(World world, BlockPos pos, EnumFacing side, net.minecraft.item.EnumDyeColor color) {
+	public boolean recolorBlock(World world, BlockPos pos, EnumFacing side, EnumDyeColor color) {
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof IGTRecolorableStorageTile) {
 			IGTRecolorableStorageTile colorTile = (IGTRecolorableStorageTile) tile;
