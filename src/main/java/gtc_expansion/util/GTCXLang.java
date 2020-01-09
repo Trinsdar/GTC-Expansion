@@ -25,6 +25,10 @@ public class GTCXLang {
     public static final LocaleComp DIESEL_GENERATOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.dieselgenerator");
     public static final LocaleComp GAS_TURBINE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.gasturbine");
 
+    public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
+    public static final LocaleComp ELECTRIC_LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electriclocker");
+    public static final LocaleComp ADVANCED_WORKTABLE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.advancedworktable");
+
     public static final LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
     public static final LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
     public static final LocaleComp diamondChainsawShearToggle = new LocaleItemInfoComp("tooltip.diamondChainsawShearToggle.name");

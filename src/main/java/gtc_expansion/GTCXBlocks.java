@@ -4,18 +4,22 @@ import gtc_expansion.block.GTCXBlockCasing;
 import gtc_expansion.block.GTCXBlockMisc;
 import gtc_expansion.block.GTCXBlockOre;
 import gtc_expansion.block.GTCXBlockOreBedrock;
+import gtc_expansion.block.GTCXBlockStorage;
 import gtc_expansion.block.GTCXBlockTile;
 import gtc_expansion.item.GTCXItemBlockRare;
+import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
+import gtc_expansion.tile.GTCXTileElectricLocker;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileGasTurbine;
 import gtc_expansion.tile.GTCXTileLathe;
+import gtc_expansion.tile.GTCXTileLocker;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTileWiremill;
@@ -68,6 +72,10 @@ public class GTCXBlocks {
     public static final GTCXBlockTile gasTurbine = registerBlock(new GTCXBlockTile("gasturbine", GTCXLang.GAS_TURBINE));
     //public static final GEBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
 
+    public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER));
+    public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER));
+    public static final GTCXBlockStorage advancedWorktable = registerBlock(new GTCXBlockStorage("advancedworktable", GTCXLang.ADVANCED_WORKTABLE));
+
 
     public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", 2,75F));
     public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", 4, 150.0F));
@@ -99,7 +107,7 @@ public class GTCXBlocks {
     public static final GTCXBlockOreBedrock oreBedrockGalena = registerBlock(new GTCXBlockOreBedrock("galena", 24));
 
 
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender", "lathe", "wiremill", "microwave", "dieselgenerator", "gasturbine"};
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender", "lathe", "wiremill", "microwave", "dieselgenerator", "gasturbine", "locker", "electriclocker", "advancedworktable"};
     public static void registerBlocks() {
         for(Block block : toRegister){
             createBlock(block);
@@ -143,6 +151,9 @@ public class GTCXBlocks {
         registerUtil(GTCXTileMicrowave.class, "Microwave");
         registerUtil(GTCXTileDieselGenerator.class, "DieselGenerator");
         registerUtil(GTCXTileGasTurbine.class, "GasTurbine");
+        registerUtil(GTCXTileLocker.class, "Locker");
+        registerUtil(GTCXTileElectricLocker.class, "ElectricLocker");
+        registerUtil(GTCXTileAdvancedWorktable.class, "AdvancedWorktable");
         //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }
 
