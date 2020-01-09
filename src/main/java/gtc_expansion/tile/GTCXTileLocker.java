@@ -11,11 +11,13 @@ import ic2.core.util.obj.IClickable;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 
 
@@ -66,7 +68,7 @@ public class GTCXTileLocker extends GTTileBaseRecolorableTile implements IHasGui
 
     @Override
     public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
-        if (!entityPlayer.isSneaking() && enumFacing == this.getFacing() && entityPlayer.getHeldItem(enumHand).isEmpty()){
+        if (enumFacing == this.getFacing() && entityPlayer.getHeldItem(enumHand).isEmpty()){
             for (int i = 0; i < 4; i++){
                 ItemStack armorStack = entityPlayer.getItemStackFromSlot(getSlot(i));
                 ItemStack inventoryStack = this.getStackInSlot(i);
@@ -85,9 +87,10 @@ public class GTCXTileLocker extends GTTileBaseRecolorableTile implements IHasGui
                     inventoryStack.shrink(inventoryStack.getCount());
                 }
             }
+            world.playSound(entityPlayer, entityPlayer.getPosition(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.PLAYERS, 1.0F, 1.0F);
             return true;
         }
-        return false;
+        return !entityPlayer.isCreative();
     }
 
     private EntityEquipmentSlot getSlot(int slot){
