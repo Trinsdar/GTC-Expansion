@@ -22,9 +22,9 @@ public class GTCXTileElectricLocker extends GTCXTileLocker implements IEnergySin
     public static ResourceLocation TEXTURE_ELECTRIC = new ResourceLocation(GTCExpansion.MODID, "textures/gui/electriclocker.png");
     @NetworkField(index = 3)
     public int energy;
-    public int tier = 2;
-    public int maxEnergy = 100000;
-    public int maxInput = 128;
+    public int tier = 3;
+    public int maxEnergy = 1000000;
+    public int maxInput = 512;
     public boolean addedToEnergyNet;
 
     public GTCXTileElectricLocker() {

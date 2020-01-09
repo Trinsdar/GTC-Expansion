@@ -42,6 +42,7 @@ import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.item.recipe.upgrades.EnchantmentModifier;
 import ic2.core.platform.registry.Ic2Items;
+import ic2.core.util.misc.StackUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -114,6 +115,52 @@ public class GTCXRecipe {
     static String brass = GTCXConfiguration.general.usePlates ? "plateBrass" : "ingotBrass";
     static String refinedIron = GTCXConfiguration.general.usePlates ? "plateRefinedIron" : "ingotRefinedIron";
     static String lead = GTCXConfiguration.general.usePlates ? "plateLead" : "ingotLead";
+
+    static ICraftingRecipeList.IRecipeModifier colorTransfer(ItemStack input){
+        return new ICraftingRecipeList.IRecipeModifier() {
+
+            String id = "color";
+            boolean tag = false;
+            int color;
+
+            @Override
+            public void clear() {
+                tag = false;
+            }
+
+            @Override
+            public boolean isStackValid(ItemStack provided) {
+                if (StackUtil.isStackEqual(input, provided)){
+                    NBTTagCompound nbt = StackUtil.getNbtData(provided);
+                    if (nbt.hasKey(id)){
+                        color = nbt.getInteger(id);
+                        tag = true;
+                    }
+                }
+
+                return true;
+            }
+
+            @Override
+            public ItemStack getOutput(ItemStack output, boolean forDisplay) {
+                if (forDisplay) {
+                    StackUtil.addToolTip(output, "Color gets transfered");
+                } else {
+                    if (tag){
+                        NBTTagCompound nbt = StackUtil.getOrCreateNbtData(output);
+                        nbt.setInteger(id, color);
+                    }
+                }
+
+                return output;
+            }
+
+            @Override
+            public boolean isOutput(ItemStack possibleOutput) {
+                return false;
+            }
+        };
+    }
 
     public static String getRefinedIronPlate() {
         return IC2.config.getFlag("SteelRecipes") ? "plateSteel" : "plateRefinedIron";
@@ -338,6 +385,11 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dieselGenerator), "PPP", "P P", "CGC", 'P', materialMachine, 'C', "circuitBasic", 'G', Ic2Items.generator);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.gasTurbine), "PCP", "WGW", "PCP", 'P', materialInvarAluminium, 'C', "circuitAdvanced", 'W', Ic2Items.windMill, 'G', reinforcedGlass);
+        IRecipeInput aluiron = new RecipeInputCombined(1, input(refinedIron), aluminium);
+        IRecipeInput rodAluiron = new RecipeInputCombined(1, input("rodAluminium"), input("rodAluminum"),  input("rodRefinedIron"));
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.locker), "RLR", "LCL", "PMP", colorTransfer(GTMaterialGen.get(GTBlocks.tileCabinet)), 'R', rodAluiron, 'L', Items.LEATHER, 'C', GTBlocks.tileCabinet, 'P', aluiron, 'M', "machineBlockCheap");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.electricLocker), "SLS", "SlS", "SCS", colorTransfer(GTMaterialGen.get(GTCXBlocks.locker)), 'S', materialSteels, 'L', Ic2Items.lapotronCrystal, 'l', GTCXBlocks.locker, 'C', "circuitAdvanced");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.advancedWorktable), "EOE", "EWE", "ECE", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'E', electrum, 'O', tier2Energy, 'W', GTBlocks.tileWorktable, 'C', "circuitAdvanced");
     }
 
     public static void initShapelessRecipes(){
