@@ -1,5 +1,6 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -18,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class GTCXTileAdvancedWorktable extends GTTileWorktable implements IEnerg
     public int maxInput = 128;
     public boolean addedToEnergyNet;
     protected static final int[] slotTools = new int[] { 17, 18, 19, 20, 21 };
+    public static ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/advancedworktable.png");
 
     public GTCXTileAdvancedWorktable() {
         super();
@@ -54,6 +57,11 @@ public class GTCXTileAdvancedWorktable extends GTTileWorktable implements IEnerg
         drops.addAll(this.getInventoryDrops());
         drops.add(block);
         return drops;
+    }
+
+    @Override
+    public ResourceLocation getGuiTexture(){
+        return TEXTURE;
     }
 
     @Override
@@ -135,7 +143,7 @@ public class GTCXTileAdvancedWorktable extends GTTileWorktable implements IEnerg
 
     @Override
     public void update() {
-        //tryCharge();
+        tryCharge();
     }
 
     public boolean hasEnergy() {
