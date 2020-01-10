@@ -28,7 +28,6 @@ public class GTCXBedrockOreHandler {
             addBedrockOre(GTBlocks.oreBedrockUranium, GTMaterialGen.getModItem(modid, "uraniumcrushedore", 1));
             addBedrockOre(GTBlocks.oreBedrockSilver, GTMaterialGen.getModItem(modid, "silvercrushedore", 1));
             // gtc
-            addBedrockOre(GTBlocks.oreBedrockIridium, GTCXMaterialGen.getCrushedOre(GTMaterial.Iridium, 1));
             addBedrockOre(GTBlocks.oreBedrockSheldonite, GTCXMaterialGen.getCrushedOre(GTMaterial.Platinum, 1));
             addBedrockOre(GTBlocks.oreBedrockBauxite, GTCXMaterialGen.getCrushedOre(GTMaterial.Bauxite, 1));
             // gtcx
