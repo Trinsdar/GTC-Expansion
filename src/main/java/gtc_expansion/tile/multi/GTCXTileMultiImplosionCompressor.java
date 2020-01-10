@@ -36,9 +36,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,6 +80,76 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         handler.registerSlotType(SlotType.Fuel, slotFuel);
         handler.registerSlotType(SlotType.Input, slotInputs);
         handler.registerSlotType(SlotType.Output, slotOutputs);
+    }
+
+    int ticker = 0;
+
+    @Override
+    public void update() {
+        this.handleRedstone();
+        this.updateNeighbors();
+        boolean noRoom = this.addToInventory();
+        if (this.shouldCheckRecipe) {
+            this.lastRecipe = this.getRecipe();
+            this.shouldCheckRecipe = false;
+        }
+
+        boolean canWork = this.canWork() && !noRoom;
+        boolean operate = canWork && this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
+        if (operate) {
+            this.handleChargeSlot(this.maxEnergy);
+        }
+
+        if (operate && this.canContinue() && this.energy >= this.energyConsume) {
+            if (!this.getActive()) {
+                this.getNetwork().initiateTileEntityEvent(this, 0, false);
+            }
+
+            this.setActive(true);
+            this.progress += this.progressPerTick;
+            ticker++;
+            if (ticker == 40){
+                world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 1, 1.0F);
+                world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX(), pos.getY(), pos.getZ(), 1.0F, 1.0F, 1.0F);
+                ticker = 0;
+            }
+
+            this.useEnergy(this.recipeEnergy);
+            if (this.progress >= (float)this.recipeOperation) {
+                this.process(this.lastRecipe);
+                this.progress = 0.0F;
+                this.notifyNeighbors();
+            }
+
+            this.getNetwork().updateTileGuiField(this, "progress");
+        } else {
+            ticker = 0;
+            if (this.getActive()) {
+                if (this.progress != 0.0F) {
+                    this.getNetwork().initiateTileEntityEvent(this, 1, false);
+                } else {
+                    this.getNetwork().initiateTileEntityEvent(this, 2, false);
+                }
+            }
+
+            if (this.progress != 0.0F) {
+                this.progress = 0.0F;
+                this.getNetwork().updateTileGuiField(this, "progress");
+            }
+
+            this.setActive(false);
+        }
+
+        if (this.supportsUpgrades) {
+            for(int i = 0; i < this.upgradeSlots; ++i) {
+                ItemStack item = (ItemStack)this.inventory.get(i + this.inventory.size() - this.upgradeSlots);
+                if (item.getItem() instanceof IMachineUpgradeItem) {
+                    ((IMachineUpgradeItem)item.getItem()).onTick(item, this);
+                }
+            }
+        }
+
+        this.updateComparators();
     }
 
     @Override
