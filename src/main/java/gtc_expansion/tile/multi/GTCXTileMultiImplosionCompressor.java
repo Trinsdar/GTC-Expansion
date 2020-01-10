@@ -14,6 +14,7 @@ import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
@@ -39,7 +40,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 
@@ -59,6 +59,8 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/implosioncompressor.png");
     private static final int defaultEu = 32;
+    @NetworkField(index = 13)
+    int ticker = 0;
 
     public GTCXTileMultiImplosionCompressor() {
         super(5, 2, defaultEu, 32);
@@ -81,8 +83,6 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         handler.registerSlotType(SlotType.Input, slotInputs);
         handler.registerSlotType(SlotType.Output, slotOutputs);
     }
-
-    int ticker = 0;
 
     @Override
     public void update() {
@@ -110,7 +110,6 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
             ticker++;
             if (ticker == 40){
                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 1, 1.0F);
-                world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX(), pos.getY(), pos.getZ(), 1.0F, 1.0F, 1.0F);
                 ticker = 0;
             }
 
@@ -150,6 +149,19 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         }
 
         this.updateComparators();
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        ticker = nbt.getInteger("ticker");
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setInteger("ticker", ticker);
+        return nbt;
     }
 
     @Override

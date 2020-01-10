@@ -17,6 +17,7 @@ import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
@@ -75,6 +76,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     protected static final int[] slotInputs = { slotInput };
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 64;
+    @NetworkField(index = 13)
     private IC2Tank outputTank = new IC2Tank(16000);
     public int maxHeat;
     public int heat;

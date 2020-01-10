@@ -17,6 +17,7 @@ import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -80,6 +81,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     float oldProgressPerTick;
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidcaster.png");
     private static final int defaultEu = 64;
+    @NetworkField(index = 13)
     private IC2Tank inputTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
@@ -87,6 +89,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         }
     };
 
+    @NetworkField(index = 14)
     private IC2Tank waterTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {

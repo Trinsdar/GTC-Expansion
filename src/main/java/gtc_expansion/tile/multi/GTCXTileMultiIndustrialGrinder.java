@@ -19,6 +19,7 @@ import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -82,6 +83,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
     public static final IBlockState waterState = Blocks.WATER.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialgrinder.png");
     private static final int defaultEu = 120;
+    @NetworkField(index = 13)
     private IC2Tank inputTank = new IC2Tank(16000);
 
     public GTCXTileMultiIndustrialGrinder() {
