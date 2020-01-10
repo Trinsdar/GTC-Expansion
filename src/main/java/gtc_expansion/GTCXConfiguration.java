@@ -117,5 +117,10 @@ public class GTCXConfiguration {
                 "Does not disable hammers completely, only uses of them in recipes that do not make plates.",
                 "Also does not disable wire cutters usage for making the different molds."})
         public boolean enableCraftingTools = true;
+        @Comment({
+                "Enables plutonium, uranium, and custom added items giving radiation.",
+                "Note: if ic2c extras is loaded, this will have no effect, as all items in this system will be added to ic2c extra's instead."
+        })
+        public boolean enableRadiation = true;
     }
 }

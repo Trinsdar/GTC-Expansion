@@ -1,13 +1,16 @@
 package gtc_expansion;
 
 import gtc_expansion.events.GTCXOtherEvents;
+import gtc_expansion.events.GTCXRadiationEvent;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.proxy.GTCXCommonProxy;
+import gtclassic.api.helpers.GTHelperMods;
 import ic2.core.IC2;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -23,7 +26,7 @@ public class GTCExpansion {
 	public static final String MODID = "gtc_expansion";
 	public static final String MODNAME = "GregTech Classic Expansion";
 	public static final String MODVERSION = "@VERSION@";
-	public static final String DEPENDS = "required-after:ic2;required-after:ic2-classic-spmod;required-after:gtclassic@[1.0.9,);after:twilightforest@[3.9.984,);after:ic2c_extras;after:gravisuit@[1.0.8.1,)";
+	public static final String DEPENDS = "required-after:ic2;required-after:ic2-classic-spmod;required-after:gtclassic@[1.0.9,);after:twilightforest@[3.9.984,);after:ic2c_extras@[1.4.4.12,);after:gravisuit@[1.0.8.1,)";
 	@SidedProxy(clientSide = MODID + ".proxy.GTCXClientProxy", serverSide = MODID + ".proxy.GTCXCommonProxy")
 	public static GTCXCommonProxy proxy;
 	@Mod.Instance
@@ -48,6 +51,10 @@ public class GTCExpansion {
 	public void init(FMLInitializationEvent e) {
 		proxy.init(e);
 		MinecraftForge.EVENT_BUS.register(new GTCXOtherEvents());
+		GTCXRadiationEvent.init();
+		if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTCXConfiguration.general.enableRadiation){
+			MinecraftForge.EVENT_BUS.register(new GTCXRadiationEvent());
+		}
 		GameRegistry.registerWorldGenerator(new GTCXWorldGen(), 0);
 	}
 

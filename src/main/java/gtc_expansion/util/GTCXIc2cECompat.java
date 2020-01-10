@@ -2,6 +2,7 @@ package gtc_expansion.util;
 
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import net.minecraft.item.ItemStack;
+import trinsdar.ic2c_extras.events.RadiationEvent;
 import trinsdar.ic2c_extras.recipes.MachineRecipes;
 import trinsdar.ic2c_extras.tileentity.TileEntityOreWashingPlant;
 import trinsdar.ic2c_extras.tileentity.TileEntityRoller;
@@ -23,5 +24,9 @@ public class GTCXIc2cECompat {
 
     public static void addThermalCentrifugeRecipe(String input, int count, int heat, ItemStack... output){
         TileEntityThermalCentrifuge.addRecipe(new RecipeInputOreDict(input, count), heat, output);
+    }
+
+    public static void addToRadiationWhitelist(ItemStack stack){
+        RadiationEvent.radiation.add(stack);
     }
 }
