@@ -33,7 +33,7 @@ public class GTCXJeiBurnableFluidCategory implements IRecipeCategory<GTCXJeiBurn
 	}
 
 	private int getHeight() {
-		return GTConfig.general.debugMode ? 80 : 70;
+		return GTConfig.general.debugMode ? 90 : 80;
 	}
 
 	@Override
