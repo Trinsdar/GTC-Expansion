@@ -134,13 +134,13 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     }
 
     public static void init(){
-        addRecipe("dustRuby", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial.Ruby, 1));
-        addRecipe("dustSapphire", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTMaterial.Sapphire, 1));
-        addRecipe("dustEmerald", 1, 24, totalEu(2560), GTMaterialGen.get(Items.EMERALD, 1));
-        addRecipe("dustDiamond", 1, 32, totalEu(2560), GTMaterialGen.getIc2(Ic2Items.industrialDiamond, 1));
-        addRecipe("dustOlivine", 1, 24, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.Olivine, 1));
-        addRecipe("dustRedGarnet", 1, 16, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.GarnetRed, 1));
-        addRecipe("dustYellowGarnet", 1, 16, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.GarnetYellow, 1));
+        addRecipe("dustRuby", 1, 6, totalEu(2560), GTMaterialGen.getGem(GTMaterial.Ruby, 1));
+        addRecipe("dustSapphire", 1, 6, totalEu(2560), GTMaterialGen.getGem(GTMaterial.Sapphire, 1));
+        addRecipe("dustEmerald", 1, 6, totalEu(2560), GTMaterialGen.get(Items.EMERALD, 1));
+        addRecipe("dustDiamond", 1, 8, totalEu(2560), GTMaterialGen.getIc2(Ic2Items.industrialDiamond, 1));
+        addRecipe("dustOlivine", 1, 6, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.Olivine, 1));
+        addRecipe("dustRedGarnet", 1, 4, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.GarnetRed, 1));
+        addRecipe("dustYellowGarnet", 1, 4, totalEu(2560), GTMaterialGen.getGem(GTCXMaterial.GarnetYellow, 1));
         addRecipe(GTMaterialGen.get(GTCXItems.iridiumAlloyIngot), 8, totalEu(2560), Ic2Items.iridiumPlate, GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 4));
     }
 
