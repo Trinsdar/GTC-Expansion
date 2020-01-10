@@ -10,6 +10,7 @@ import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
 import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
+import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
@@ -33,6 +34,7 @@ public class GTCXRecipeRemove {
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustRedGarnet", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustYellowGarnet", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustCarbon", 8));
+        ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input(Ic2Items.coalChunk));
 
         ClassicRecipes.macerator.removeRecipe(GTTileBaseMachine.input("oreRedstone", 1));
         if (GTCXConfiguration.general.usePlates && (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras)){

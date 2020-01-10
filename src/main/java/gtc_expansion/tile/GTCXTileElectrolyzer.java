@@ -54,7 +54,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine {
     public static final int slotFuel = 8;
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
-    private static final int defaultEu = 32;
+    private static final int defaultEu = 64;
 
     public GTCXTileElectrolyzer() {
         super(9, 2, defaultEu, 100, 128);
