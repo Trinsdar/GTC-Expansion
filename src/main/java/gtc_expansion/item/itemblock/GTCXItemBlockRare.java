@@ -1,4 +1,4 @@
-package gtc_expansion.item;
+package gtc_expansion.item.itemblock;
 
 import gtc_expansion.GTCXBlocks;
 import gtclassic.api.itemblock.GTItemBlockRare;
@@ -19,6 +19,7 @@ public class GTCXItemBlockRare extends GTItemBlockRare {
         super(block);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -28,8 +29,11 @@ public class GTCXItemBlockRare extends GTItemBlockRare {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(32));
             }
 
-            if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace) || this.compare(stack, GTCXBlocks.fluidCaster) || this.compare(stack, GTCXBlocks.fluidSmelter) || this.compare(stack, GTCXBlocks.distillationTower)) {
+            if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace) || this.compare(stack, GTCXBlocks.fluidCaster) || this.compare(stack, GTCXBlocks.fluidSmelter) || this.compare(stack, GTCXBlocks.distillationTower) || this.compare(stack, GTCXBlocks.advancedWorktable)) {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
+            }
+            if (this.compare(stack, GTCXBlocks.electricLocker)) {
+                tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(512));
             }
             if (this.compare(stack, GTCXBlocks.gasTurbine) || this.compare(stack, GTCXBlocks.dieselGenerator)){
                 tooltip.add(Ic2InfoLang.electricProduction.getLocalizedFormatted(Ic2InfoLang.electricTransferRateVariable.getLocalized()));

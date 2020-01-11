@@ -632,6 +632,9 @@ tooltip.gtc_expansion.implosioncompressor0=Over 9000 Gibbl!
 tooltip.gtc_expansion.industrialgrinder0=Ultimaceratron 42a
 tooltip.gtc_expansion.vacuumfreezer0=Cools down anything
 tooltip.gtc_expansion.alloyfurnace0=Smelts together alloys using fuel.
+tooltip.gtc_expansion.advancedworktable0=For all kinds of projects. Can charge tools
+tooltip.gtc_expansion.locker0=For storing a set of armor
+tooltip.gtc_expansion.electriclocker0=For storing a set of armor and charging it
 
 tooltip.gtc_expansion.primitiveblastfurnace0=You'll have a blast!
 tooltip.gtc_expansion.primitiveblastfurnace1=Structure:

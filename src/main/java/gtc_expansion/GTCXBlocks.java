@@ -6,7 +6,8 @@ import gtc_expansion.block.GTCXBlockOre;
 import gtc_expansion.block.GTCXBlockOreBedrock;
 import gtc_expansion.block.GTCXBlockStorage;
 import gtc_expansion.block.GTCXBlockTile;
-import gtc_expansion.item.GTCXItemBlockRare;
+import gtc_expansion.item.itemblock.GTCXColorItemBlock;
+import gtc_expansion.item.itemblock.GTCXItemBlockRare;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
@@ -31,7 +32,6 @@ import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.GTMod;
-import gtclassic.api.color.GTColorItemBlock;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
 import ic2.core.IC2;
@@ -72,9 +72,9 @@ public class GTCXBlocks {
     public static final GTCXBlockTile gasTurbine = registerBlock(new GTCXBlockTile("gasturbine", GTCXLang.GAS_TURBINE));
     //public static final GEBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
 
-    public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER));
-    public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER));
-    public static final GTCXBlockStorage advancedWorktable = registerBlock(new GTCXBlockStorage("advancedworktable", GTCXLang.ADVANCED_WORKTABLE));
+    public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
+    public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
+    public static final GTCXBlockStorage advancedWorktable = registerBlock(new GTCXBlockStorage("advancedworktable", GTCXLang.ADVANCED_WORKTABLE, 1));
 
 
     public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", 2,75F));
@@ -127,7 +127,7 @@ public class GTCXBlocks {
         if (block instanceof IGTItemBlock) {
             return ((IGTItemBlock)block).getCustomItemBlock();
         } else {
-            return block instanceof IGTColorBlock ? GTColorItemBlock.class : GTCXItemBlockRare.class;
+            return block instanceof IGTColorBlock ? GTCXColorItemBlock.class : GTCXItemBlockRare.class;
         }
     }
 
