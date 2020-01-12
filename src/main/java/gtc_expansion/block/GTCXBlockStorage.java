@@ -2,6 +2,7 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
+import gtc_expansion.tile.GTCXTileDustbin;
 import gtc_expansion.tile.GTCXTileElectricLocker;
 import gtc_expansion.tile.GTCXTileLocker;
 import gtclassic.api.helpers.GTHelperString;
@@ -143,6 +144,9 @@ public class GTCXBlockStorage extends GTCXBlockTile implements IGTColorBlock {
 		}
 		if (this == GTCXBlocks.advancedWorktable){
 			return new GTCXTileAdvancedWorktable();
+		}
+		if (this == GTCXBlocks.dustBin){
+			return new GTCXTileDustbin();
 		}
 		return new TileEntityBlock();
 	}

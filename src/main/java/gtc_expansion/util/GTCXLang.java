@@ -28,6 +28,7 @@ public class GTCXLang {
     public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
     public static final LocaleComp ELECTRIC_LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electriclocker");
     public static final LocaleComp ADVANCED_WORKTABLE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.advancedworktable");
+    public static final LocaleComp DUSTBIN = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.dustbin");
 
     public static final LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
     public static final LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");

@@ -14,6 +14,7 @@ import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
+import gtc_expansion.tile.GTCXTileDustbin;
 import gtc_expansion.tile.GTCXTileElectricLocker;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidCaster;
@@ -75,6 +76,7 @@ public class GTCXBlocks {
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
     public static final GTCXBlockStorage advancedWorktable = registerBlock(new GTCXBlockStorage("advancedworktable", GTCXLang.ADVANCED_WORKTABLE, 1));
+    public static final GTCXBlockStorage dustBin = registerBlock(new GTCXBlockStorage("dustbin", GTCXLang.DUSTBIN, 1));
 
 
     public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", 2,75F));
@@ -107,7 +109,7 @@ public class GTCXBlocks {
     public static final GTCXBlockOreBedrock oreBedrockGalena = registerBlock(new GTCXBlockOreBedrock("galena", 24));
 
 
-    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender", "lathe", "wiremill", "microwave", "dieselgenerator", "gasturbine", "locker", "electriclocker", "advancedworktable"};
+    protected static final String[] textureTileBasic = new String[]{"industrialelectrolyzer", "alloysmelter", "assemblingmachine", "chemicalreactor", "distillationtower", "industrialgrinder", "vacuumfreezer", "industrialblastfurnace", "implosioncompressor", "alloyfurnace", "primitiveblastfurnace", "fluidcaster", "fluidsmelter", "platebender", "lathe", "wiremill", "microwave", "dieselgenerator", "gasturbine", "locker", "electriclocker", "advancedworktable", "dustbin"};
     public static void registerBlocks() {
         for(Block block : toRegister){
             createBlock(block);
@@ -154,6 +156,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileLocker.class, "Locker");
         registerUtil(GTCXTileElectricLocker.class, "ElectricLocker");
         registerUtil(GTCXTileAdvancedWorktable.class, "AdvancedWorktable");
+        registerUtil(GTCXTileDustbin.class, "Dustbin");
         //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }
 

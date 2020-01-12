@@ -6,6 +6,7 @@ import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileDustbin;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
@@ -45,6 +46,8 @@ public class GTCXRecipeIterators {
     public static final List<String> plateBenderBlacklist = new ArrayList<>();
     public static final List<String> fluidCasterBlacklist = new ArrayList<>();
     public static final List<String> metalList = new ArrayList<>();
+    public static final List<String> dustBlacklist = new ArrayList<>();
+    public static final List<String> tinyDustBlacklist = new ArrayList<>();
 
     public static void init(){
         for (GTMaterial mat : GTMaterial.values()){
@@ -210,6 +213,8 @@ public class GTCXRecipeIterators {
                 TileEntityCompressor.addRecipe(smallDust, 4, getDust(mat), 0.0F);
                 // Inverse
                 recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.smalldust, 4), " D", 'D', dust);
+                GTCXTileDustbin.addSmallDustRecipe(mat.getDisplayName(), mat);
+                dustBlacklist.add(mat.getDisplayName());
             }
         }
     }
@@ -344,6 +349,7 @@ public class GTCXRecipeIterators {
         recipes.addShapelessRecipe(stack, smalldust, smalldust, smalldust, smalldust);
         recipes.addRecipe(GTCXMaterialGen.getSmallDust(material, 4)," D", 'D', dust);
         TileEntityCompressor.addRecipe(smalldust, 4, GTMaterialGen.getIc2(stack, 1), 0.0F);
+        GTCXTileDustbin.addSmallDustRecipe(material.getDisplayName(), stack);
     }
 
     public static void ingotUtil(ItemStack stack, GTMaterial material) {
@@ -390,12 +396,14 @@ public class GTCXRecipeIterators {
             String rod;
             String block;
             String nugget;
+            String smallDust;
             NonNullList<ItemStack> listPlates;
             NonNullList<ItemStack> listIngots;
             NonNullList<ItemStack> listGears;
             NonNullList<ItemStack> listRods;
             NonNullList<ItemStack> listBlocks;
             NonNullList<ItemStack> listNuggets;
+            NonNullList<ItemStack> listDusts;
             if (id.startsWith("ingot")){
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
@@ -454,6 +462,16 @@ public class GTCXRecipeIterators {
                         if (!listRods.isEmpty()) {
                             GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 144),true, 12800,  GTMaterialGen.getIc2(listRods.get(0), 2));
                         }
+                    }
+                }
+            }
+            if (id.startsWith("dust")){
+                String oreName = id.substring(4);
+                smallDust = "dustSmall" + oreName;
+                if (!dustBlacklist.contains(oreName) && OreDictionary.doesOreNameExist(smallDust)){
+                    listDusts = OreDictionary.getOres(id, false);
+                    if (!listDusts.isEmpty()) {
+                        GTCXTileDustbin.addSmallDustRecipe(oreName, listDusts.get(0));
                     }
                 }
             }
