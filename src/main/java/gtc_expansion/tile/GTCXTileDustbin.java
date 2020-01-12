@@ -23,6 +23,7 @@ import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
+import ic2.core.util.math.MathUtil;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
@@ -41,27 +42,24 @@ import java.util.function.Predicate;
 import static gtclassic.api.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
 
 public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGui, ITickable {
-    public static ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/locker.png");
+    public static ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/dustbin.png");
     public static final GTRecipeMultiInputList DUSTBIN_RECIPE_LIST = new GTRecipeMultiInputList("gt.dustbin", 0);
     public IFilter filter = new GTCXDustbinFilter(this);
-    private int[] slotInputs = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-    private int[] slotOutputs = { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+    private static final int[] slotInputs = MathUtil.fromTo(0, 16);
+    private static final int[] slotOutputs = MathUtil.fromTo(16, 32);
     public MultiRecipe lastRecipe;
-    public boolean shouldProcess;
     protected LinkedList<IStackOutput> outputs = new LinkedList<>();
 
     public GTCXTileDustbin() {
         super(32);
-        shouldProcess = true;
     }
 
     @Override
     protected void addSlots(InventoryHandler handler) {
-        handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
+        handler.registerDefaultSideAccess(AccessRule.Both, RotationList.UP.invert());
         handler.registerDefaultSlotAccess(AccessRule.Import, slotInputs);
         handler.registerDefaultSlotAccess(AccessRule.Export, slotOutputs);
-        handler.registerDefaultSlotsForSide(RotationList.UP, slotInputs);
-        handler.registerDefaultSlotsForSide(RotationList.HORIZONTAL, slotInputs);
+        handler.registerDefaultSlotsForSide(RotationList.DOWN.invert(), slotInputs);
         handler.registerDefaultSlotsForSide(RotationList.UP.invert(), slotOutputs);
         handler.registerInputFilter(filter, slotInputs);
         handler.registerSlotType(SlotType.Input, slotInputs);
@@ -103,32 +101,19 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbt) {
-        super.readFromNBT(nbt);
-        shouldProcess = nbt.getBoolean("shouldProcess");
-    }
-
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        super.writeToNBT(nbt);
-        nbt.setBoolean("shouldProcess", shouldProcess);
-        return nbt;
-    }
-
-    @Override
     public void update() {
         handleRedstone();
         boolean noRoom;
-        if (shouldProcess) {
-            for (int i = 0; i < 16; i++){
-                noRoom = addToInventory();
-                lastRecipe = getRecipe(i);
-                boolean operate = (!noRoom && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
-                if (operate){
-                    process(lastRecipe, i);
-                }
+        for (int i = 0; i < 16; i++){
+            if (inventory.get(i).isEmpty() || inventory.get(i).getCount() < 4){
+                continue;
             }
-            shouldProcess = false;
+            noRoom = addToInventory();
+            lastRecipe = getRecipe(i);
+            boolean operate = (!noRoom && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
+            if (operate){
+                process(lastRecipe, i);
+            }
         }
         updateComparators();
     }
@@ -174,7 +159,6 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
             }
         }
         addToInventory();
-        shouldProcess = true;
     }
 
     public boolean addToInventory() {
@@ -242,22 +226,16 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
 
     public boolean checkRecipe(MultiRecipe entry, ItemStack inputItem) {
         IRecipeInput recipeInput = entry.getInput(0);
-        return !inputItem.isEmpty() && recipeInput.matches(inputItem);
+        int toFind = recipeInput.getAmount();
+        return !inputItem.isEmpty() && recipeInput.matches(inputItem) && inputItem.getCount() >= toFind;
     }
 
     @Override
     public void setStackInSlot(int slot, ItemStack stack) {
         super.setStackInSlot(slot, stack);
-        shouldProcess = true;
         if (isSimulating() && isRecipeSlot(slot) && lastRecipe == GTRecipeMultiInputList.INVALID_RECIPE) {
             lastRecipe = null;
         }
-    }
-
-    @Override
-    public void onLoaded() {
-        super.onLoaded();
-        shouldProcess = true;
     }
 
     public int[] getInputSlots(){

@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.tile.GTCXTileDustbin;
+import gtclassic.GTMod;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.slots.SlotCustom;
@@ -19,11 +20,13 @@ public class GTCXContainerDustbin extends ContainerTileComponent<GTCXTileDustbin
         int j;
         for (i = 0; i < 4; ++i) {
             for (j = 0; j < 4; ++j) {
+                GTMod.logger.info((i + j * 4));
                 this.addSlotToContainer(new SlotCustom(tile, (i + j * 4), 8 + j * 18, 8 + i * 18, tile.filter));
             }
         }
         for (i = 0; i < 4; ++i) {
             for (j = 0; j < 4; ++j) {
+                GTMod.logger.info((i + j * 4) + 16);
                 this.addSlotToContainer(new SlotOutput(player.player, tile, (i + j * 4) + 16, 98 + j * 18, 8 + i * 18));
             }
         }

@@ -66,6 +66,7 @@ tile.gtc_expansion.gasturbine.name=Gas Turbine
 tile.gtc_expansion.locker.name=Locker
 tile.gtc_expansion.electriclocker.name=Electric Locker
 tile.gtc_expansion.advancedworktable.name=Advanced Worktable
+tile.gtc_expansion.dustbin.name=Dust Bin
 tile.gtclassic.standard.name=Standard Machine Casing
 tile.gtclassic.reinforced.name=Reinforced Machine Casing
 tile.gtclassic.advanced.name=Advanced Machine Casing
@@ -635,6 +636,7 @@ tooltip.gtc_expansion.alloyfurnace0=Smelts together alloys using fuel.
 tooltip.gtc_expansion.advancedworktable0=For all kinds of projects. Can charge tools
 tooltip.gtc_expansion.locker0=For storing a set of armor
 tooltip.gtc_expansion.electriclocker0=For storing a set of armor and charging it
+tooltip.gtc_expansion.dustbin0=For compacting all your small and tiny dusts.
 
 tooltip.gtc_expansion.primitiveblastfurnace0=You'll have a blast!
 tooltip.gtc_expansion.primitiveblastfurnace1=Structure:
