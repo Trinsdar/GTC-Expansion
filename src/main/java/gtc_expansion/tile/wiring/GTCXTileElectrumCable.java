@@ -105,6 +105,15 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
 
     @Override
     public double getConductionLoss() {
+        if (insulation == 1){
+            return 0.04D;
+        }
+        if (insulation == 2){
+            return 0.035D;
+        }
+        if (insulation == 3){
+            return 0.03D;
+        }
         return 0.045D;
     }
 
