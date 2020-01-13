@@ -281,7 +281,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     }
 
     public boolean canInteractWithAPICable(IEnergyConductorColored cable) {
-        return this.color == 16383998 || cable.getConductorColor() == WireColor.Blank || this.color == cable.getConductorColor().toColor().getColorValue();
+        return this.color == GTMaterial.Electrum.getColor().getRGB() || cable.getConductorColor() == WireColor.Blank || this.color == cable.getConductorColor().toColor().getColorValue();
     }
 
     @Override
@@ -426,4 +426,27 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     public List<ItemStack> getInventoryDrops() {
         return null;
     }
+
+//    @Override
+//    public boolean hasSpecialAction(EntityPlayer player, EnumFacing facing, Vec3d hit) {
+//        EnumFacing side = (new ClickHelper(hit, (float)(registry.getInfoFromType(this.cableType).getConductorThickness(this.insulation) / 16.0D))).getFacing(facing);
+//        return side != null && this.anchors.contains(side);
+//    }
+//
+//    @Override
+//    public EnumActionResult doSpecialAction(EntityPlayer player, EnumFacing facing, Vec3d hit) {
+//        EnumFacing side = (new ClickHelper(hit, (float)(registry.getInfoFromType(this.cableType).getConductorThickness(this.insulation) / 16.0D))).getFacing(facing);
+//        if (this.isRendering()) {
+//            return EnumActionResult.PASS;
+//        } else if (side != null && this.removeAnchor(side)) {
+//            ItemStack pipe = Ic2Items.miningPipe.copy();
+//            if (!player.inventory.addItemStackToInventory(pipe)) {
+//                player.dropItem(pipe, true);
+//            }
+//
+//            return EnumActionResult.SUCCESS;
+//        } else {
+//            return super.doSpecialAction(player, facing, hit);
+//        }
+//    }
 }
