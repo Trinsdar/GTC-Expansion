@@ -8,6 +8,7 @@ import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.tile.wiring.GTTileSuperconductorCable;
 import ic2.api.classic.energy.tile.IAnchorConductor;
 import ic2.api.classic.energy.tile.IEnergyConductorColored;
+import ic2.api.classic.energy.tile.IEnergyConductorColored.WireColor;
 import ic2.api.classic.energy.tile.IInsulationModifieableConductor;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.network.adv.NetworkField.BitLevel;
@@ -25,6 +26,7 @@ import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.base.util.texture.TextureCopyStorage;
 import ic2.core.block.wiring.tile.TileEntityCable;
+import ic2.core.block.wiring.tile.TileEntityMultipartLuminator;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
@@ -137,7 +139,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         } else {
             if (this.isSimulating()) {
                 if ((this.foamed = newFoam) == 1) {
-                    this.storage.setAll(IEnergyConductorColored.WireColor.Silver);
+                    this.storage.setAll(WireColor.Silver);
                     if (!duringLoad) {
                         this.getNetwork().updateTileEntityField(this, "storage");
                     }
@@ -254,12 +256,18 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     }
 
     public boolean canConnect(IEnergyTile tile, EnumFacing side) {
-        if (tile instanceof TileEntityCable) {
+        if (this.anchors.contains(side)) {
+            return false;
+        } else if (tile instanceof TileEntityCable) {
             return true;
         } else if (tile instanceof GTTileSuperconductorCable) {
             return true;
-        } else if (tile instanceof IAnchorConductor && ((IAnchorConductor) tile).hasAnchor(side.getOpposite())) {
+        } else if (tile instanceof TileEntityMultipartLuminator) {
+            return !((TileEntityMultipartLuminator)tile).hasSide(side.getOpposite().getIndex()) && this.canInteractWithAPICable((IEnergyConductorColored)tile);
+        } else if (tile instanceof IAnchorConductor && ((IAnchorConductor)tile).hasAnchor(side.getOpposite())) {
             return false;
+        } else if (tile instanceof IEnergyConductorColored) {
+            return this.canInteractWithAPICable((IEnergyConductorColored)tile);
         } else if (tile instanceof IEnergyAcceptor && !(tile instanceof IEnergyEmitter)) {
             return ((IEnergyAcceptor) tile).acceptsEnergyFrom(this, side.getOpposite());
         } else if (tile instanceof IEnergyEmitter && !(tile instanceof IEnergyAcceptor)) {
@@ -272,6 +280,10 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         }
     }
 
+    public boolean canInteractWithAPICable(IEnergyConductorColored cable) {
+        return this.color == 16383998 || cable.getConductorColor() == WireColor.Blank || this.color == cable.getConductorColor().toColor().getColorValue();
+    }
+
     @Override
     public void onNetworkUpdate(String field) {
         if (field.equals("connection")) {
@@ -282,7 +294,15 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
 
     @Override
     public void setTileColor(int color) {
+        if (this.addedToEnergyNet) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+        }
+
+        this.addedToEnergyNet = false;
         this.color = color;
+        MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+        this.addedToEnergyNet = true;
+        this.getNetwork().updateTileEntityField(this, NBT_COLOR);
     }
 
     @Override
@@ -343,7 +363,15 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         if (this.insulation > 3 || this.insulation < 0){
             return false;
         }
+        if (this.addedToEnergyNet) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+        }
+
+        this.addedToEnergyNet = false;
         insulation += 1;
+        MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+        this.addedToEnergyNet = true;
+        this.getNetwork().updateTileEntityField(this, "insulation");
         return true;
     }
 
@@ -352,7 +380,18 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         if (this.insulation <= 0){
             return false;
         }
-        insulation -= 1;
+
+        if (this.addedToEnergyNet) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+        }
+
+        this.addedToEnergyNet = false;
+
+        this.insulation -= 1;
+
+        MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+        this.addedToEnergyNet = true;
+        this.getNetwork().updateTileEntityField(this, "insulation");
         return true;
     }
 
