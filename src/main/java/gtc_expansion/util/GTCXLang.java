@@ -30,6 +30,11 @@ public class GTCXLang {
     public static final LocaleComp ADVANCED_WORKTABLE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.advancedworktable");
     public static final LocaleComp DUSTBIN = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.dustbin");
 
+    public static final LocaleComp ELECTRUM_CABLE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcable");
+    public static final LocaleComp ELECTRUM_CABLE_INSULATED_1 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcableinsulated1");
+    public static final LocaleComp ELECTRUM_CABLE_INSULATED_2 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcableinsulated2");
+    public static final LocaleComp ELECTRUM_CABLE_INSULATED_4 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcableinsulated3");
+
     public static final LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
     public static final LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
     public static final LocaleComp diamondChainsawShearToggle = new LocaleItemInfoComp("tooltip.diamondChainsawShearToggle.name");

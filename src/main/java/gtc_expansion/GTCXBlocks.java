@@ -6,6 +6,7 @@ import gtc_expansion.block.GTCXBlockOre;
 import gtc_expansion.block.GTCXBlockOreBedrock;
 import gtc_expansion.block.GTCXBlockStorage;
 import gtc_expansion.block.GTCXBlockTile;
+import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.item.itemblock.GTCXColorItemBlock;
 import gtc_expansion.item.itemblock.GTCXItemBlockRare;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
@@ -31,6 +32,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
+import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorBlock;
@@ -78,6 +80,7 @@ public class GTCXBlocks {
     public static final GTCXBlockStorage advancedWorktable = registerBlock(new GTCXBlockStorage("advancedworktable", GTCXLang.ADVANCED_WORKTABLE, 1));
     public static final GTCXBlockStorage dustBin = registerBlock(new GTCXBlockStorage("dustbin", GTCXLang.DUSTBIN, 1));
 
+    public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE));
 
     public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", 2,75F));
     public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", 4, 150.0F));
@@ -157,6 +160,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileElectricLocker.class, "ElectricLocker");
         registerUtil(GTCXTileAdvancedWorktable.class, "AdvancedWorktable");
         registerUtil(GTCXTileDustbin.class, "Dustbin");
+        registerUtil(GTCXTileElectrumCable.class, "ElectrumCable");
         //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }
 

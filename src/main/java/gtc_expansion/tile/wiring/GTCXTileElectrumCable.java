@@ -259,7 +259,9 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         if (this.anchors.contains(side)) {
             return false;
         } else if (tile instanceof TileEntityCable) {
-            return true;
+            return canInteractWithIc2Cable((TileEntityCable)tile, side);
+        } else if (tile instanceof GTCXTileElectrumCable){
+            return canInteractWithCable((GTCXTileElectrumCable)tile, side);
         } else if (tile instanceof GTTileSuperconductorCable) {
             return true;
         } else if (tile instanceof TileEntityMultipartLuminator) {
@@ -277,6 +279,22 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
                     || ((IEnergyAcceptor) tile).acceptsEnergyFrom(this, side.getOpposite());
         } else {
             return tile instanceof IMetaDelegate || tile instanceof INetworkTileEntityEventListener;
+        }
+    }
+
+    public boolean canInteractWithIc2Cable(TileEntityCable cable, EnumFacing side) {
+        if (cable.hasAnchor(side)) {
+            return false;
+        } else {
+            return this.color == GTMaterial.Electrum.getColor().getRGB() || cable.getConductorColor() == WireColor.Blank || this.color == cable.getConductorColor().toColor().getColorValue();
+        }
+    }
+
+    public boolean canInteractWithCable(GTCXTileElectrumCable cable, EnumFacing side) {
+        if (cable.hasAnchor(side)) {
+            return false;
+        } else {
+            return this.color == GTMaterial.Electrum.getColor().getRGB() || cable.color == GTMaterial.Electrum.getColor().getRGB() || this.color == cable.color;
         }
     }
 
@@ -360,7 +378,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
 
     @Override
     public boolean tryAddInsulation() {
-        if (this.insulation > 3 || this.insulation < 0){
+        if (this.insulation >= 3 || this.insulation < 0){
             return false;
         }
         if (this.addedToEnergyNet) {
@@ -388,6 +406,31 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         this.addedToEnergyNet = false;
 
         this.insulation -= 1;
+
+        MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+        this.addedToEnergyNet = true;
+        this.getNetwork().updateTileEntityField(this, "insulation");
+        if (this.insulation == 0){
+            setTileColor(GTMaterial.Electrum.getColor().getRGB());
+        }
+        return true;
+    }
+
+    public boolean hasInsulation(){
+        return insulation > 0;
+    }
+
+    public boolean setInsulation(int newInsulation){
+        if (newInsulation < 0 || newInsulation > 3){
+            return false;
+        }
+        if (this.addedToEnergyNet) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+        }
+
+        this.addedToEnergyNet = false;
+
+        this.insulation = newInsulation;
 
         MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
         this.addedToEnergyNet = true;
