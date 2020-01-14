@@ -27,15 +27,19 @@ import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.base.util.texture.TextureCopyStorage;
 import ic2.core.block.wiring.tile.TileEntityCable;
 import ic2.core.block.wiring.tile.TileEntityMultipartLuminator;
+import ic2.core.energy.EnergyNetLocal;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -44,7 +48,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulationModifieableConductor, IGTRecolorableStorageTile, IAnchorConductor, IGTItemContainerTile {
+public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulationModifieableConductor, IGTRecolorableStorageTile, INetworkTileEntityEventListener, IAnchorConductor, IGTItemContainerTile {
 
     @NetworkField(index = 8)
     public RotationList connection;
@@ -170,6 +174,21 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         }
     }
 
+    public void onNetworkEvent(int event) {
+        switch(event) {
+            case 0:
+                this.world.playSound(null, this.getPos(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.8F);
+
+                for(int l = 0; l < 8; ++l) {
+                    this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)this.getPos().getX() + Math.random(), (double)this.getPos().getY() + 1.2D, (double)this.getPos().getZ() + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
+                }
+
+                return;
+            default:
+                IC2.platform.displayError("An unknown event type was received over multiplayer.\nThis could happen due to corrupted data or a bug.\n\n(Technical information: event ID " + event + ", tile entity below)\nT: " + this + " (" + this.getPos() + ")");
+        }
+    }
+
     @Override
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side) {
         return this.connection.contains(side);
@@ -216,7 +235,12 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
 
     @Override
     public void removeConductor() {
-
+        boolean burn = EnergyNetLocal.burn && this.world.rand.nextFloat() < EnergyNetLocal.chance;
+        this.world.setBlockToAir(this.getPos());
+        this.getNetwork().initiateTileEntityEvent(this, 0, true);
+        if (burn) {
+            this.world.setBlockState(this.getPos(), Blocks.FIRE.getDefaultState());
+        }
     }
 
     public void updateConnections() {
@@ -259,9 +283,9 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         if (this.anchors.contains(side)) {
             return false;
         } else if (tile instanceof TileEntityCable) {
-            return canInteractWithIc2Cable((TileEntityCable)tile, side);
+            return canInteractWithIc2Cable((TileEntityCable)tile, side.getOpposite());
         } else if (tile instanceof GTCXTileElectrumCable){
-            return canInteractWithCable((GTCXTileElectrumCable)tile, side);
+            return canInteractWithCable((GTCXTileElectrumCable)tile, side.getOpposite());
         } else if (tile instanceof GTTileSuperconductorCable) {
             return true;
         } else if (tile instanceof TileEntityMultipartLuminator) {
@@ -439,7 +463,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     }
 
     public Block getBlockDrop() {
-        return GTCXBlocks.advancedWorktable;
+        return GTCXBlocks.electrumCable;
     }
 
     @Override
@@ -455,7 +479,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
             NBTTagCompound nbt = StackUtil.getOrCreateNbtData(block);
             nbt.setInteger("insulation", this.insulation);
         }
-
+        list.add(block);
         for(int i = 0; i < 6; ++i) {
             if (this.anchors.contains(EnumFacing.getFront(i))) {
                 list.add(Ic2Items.miningPipe.copy());

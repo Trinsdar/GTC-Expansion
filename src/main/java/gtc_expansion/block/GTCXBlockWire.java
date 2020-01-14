@@ -19,7 +19,6 @@ import ic2.core.platform.registry.Ic2States;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.util.helpers.BlockStateContainerIC2;
-import ic2.core.util.helpers.BlockStateContainerIC2.IC2BlockState;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -171,23 +170,23 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock {
         return states;
     }
 
-    @Override
-    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
-        try {
-            TileEntity tile = world.getTileEntity(pos);
-            if (tile instanceof GTCXTileElectrumCable) {
-                GTCXTileElectrumCable cable = (GTCXTileElectrumCable)tile;
-                if (cable.foamed > 1) {
-                    return new IC2BlockState(state, cable.storage.getQuads());
-                }
-
-                return new IC2BlockState(state, cable.connection);
-            }
-        } catch (Exception var6) {
-        }
-
-        return super.getExtendedState(state, world, pos);
-    }
+//    @Override
+//    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+//        try {
+//            TileEntity tile = world.getTileEntity(pos);
+//            if (tile instanceof GTCXTileElectrumCable) {
+//                GTCXTileElectrumCable cable = (GTCXTileElectrumCable)tile;
+//                if (cable.foamed > 1) {
+//                    return new IC2BlockState(state, cable.storage.getQuads());
+//                }
+//
+//                return new IC2BlockState(state, cable.connection);
+//            }
+//        } catch (Exception var6) {
+//        }
+//
+//        return super.getExtendedState(state, world, pos);
+//    }
 
     @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
