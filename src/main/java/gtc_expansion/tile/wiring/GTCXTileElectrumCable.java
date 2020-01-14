@@ -174,6 +174,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         }
     }
 
+    @Override
     public void onNetworkEvent(int event) {
         switch(event) {
             case 0:
@@ -494,7 +495,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         return null;
     }
 
-//    @Override
+    //    @Override
 //    public boolean hasSpecialAction(EntityPlayer player, EnumFacing facing, Vec3d hit) {
 //        EnumFacing side = (new ClickHelper(hit, (float)(registry.getInfoFromType(this.cableType).getConductorThickness(this.insulation) / 16.0D))).getFacing(facing);
 //        return side != null && this.anchors.contains(side);
