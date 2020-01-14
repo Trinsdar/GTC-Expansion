@@ -201,12 +201,12 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
 
     @Override
     public double getInsulationBreakdownEnergy() {
-        return 0;
+        return 9001D;
     }
 
     @Override
     public double getConductorBreakdownEnergy() {
-        return 0;
+        return 129;
     }
 
     @Override
