@@ -12,7 +12,6 @@ import ic2.api.classic.energy.tile.IEnergyConductorColored.WireColor;
 import ic2.api.classic.energy.tile.IInsulationModifieableConductor;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.network.adv.NetworkField.BitLevel;
-import ic2.api.classic.util.IWorldTickCallback;
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -37,14 +36,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.awt.Color;
@@ -62,16 +59,16 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     protected boolean addedToEnergyNet;
     @NetworkField(index = 10)
     public int color;
+//    @NetworkField(
+//            index = 11
+//    )
+//    public byte foamed;
     @NetworkField(
             index = 11
     )
-    public byte foamed;
-    @NetworkField(
-            index = 12
-    )
     public TextureCopyStorage storage;
     @NetworkField(
-            index = 13,
+            index = 12,
             compression = BitLevel.Bit8
     )
     public int insulation;
@@ -80,10 +77,10 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     public GTCXTileElectrumCable() {
         this.color = 16383998;
         this.insulation = 0;
-        this.foamed = 0;
+        //this.foamed = 0;
         this.connection = RotationList.EMPTY;
         this.anchors = RotationList.EMPTY;
-        this.addNetworkFields("connection", NBT_COLOR, "foamed", "storage", "insulation");
+        this.addNetworkFields("connection", NBT_COLOR, "storage", "insulation", "anchors");
     }
 
     @Override
@@ -113,13 +110,13 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         } else {
             this.color = 16383998;
         }
-        byte newFoamed = nbt.getByte("Foaming");
+        //byte newFoamed = nbt.getByte("Foaming");
         this.insulation = nbt.getInteger("Insulation");
-        if (newFoamed == 1) {
-            this.changeFoam(newFoamed, true);
-        } else {
-            this.foamed = newFoamed;
-        }
+//        if (newFoamed == 1) {
+//            this.changeFoam(newFoamed, true);
+//        } else {
+//            this.foamed = newFoamed;
+//        }
         this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
 
     }
@@ -128,13 +125,13 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger(NBT_COLOR, this.color);
-        nbt.setByte("Foaming", this.foamed);
+        //nbt.setByte("Foaming", this.foamed);
         nbt.setInteger("Insulation", this.insulation);
         this.storage.writeToNBT(this.getTag(nbt, "Storage"));
         return nbt;
     }
 
-    public boolean changeFoam(byte foamed) {
+    /*public boolean changeFoam(byte foamed) {
         return this.changeFoam(foamed, false);
     }
 
@@ -173,7 +170,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
 
             return true;
         }
-    }
+    }*/
 
     @Override
     public void onNetworkEvent(int event) {
