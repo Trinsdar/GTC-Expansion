@@ -301,33 +301,34 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock {
             GTCXTileElectrumCable pipe = (GTCXTileElectrumCable) tile;
             if (pipe.foamed > 0) {
                 return new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+            } else {
+                double thickness = (2 + (pipe.insulation * 2)) / 32.0D;
+                double minX = 0.5D - thickness;
+                double minY = 0.5D - thickness;
+                double minZ = 0.5D - thickness;
+                double maxX = 0.5D + thickness;
+                double maxY = 0.5D + thickness;
+                double maxZ = 0.5D + thickness;
+                if (pipe.connection.contains(EnumFacing.WEST)) {
+                    minX = 0.0D;
+                }
+                if (pipe.connection.contains(EnumFacing.DOWN)) {
+                    minY = 0.0D;
+                }
+                if (pipe.connection.contains(EnumFacing.NORTH)) {
+                    minZ = 0.0D;
+                }
+                if (pipe.connection.contains(EnumFacing.EAST)) {
+                    maxX = 1.0D;
+                }
+                if (pipe.connection.contains(EnumFacing.UP)) {
+                    maxY = 1.0D;
+                }
+                if (pipe.connection.contains(EnumFacing.SOUTH)) {
+                    maxZ = 1.0D;
+                }
+                return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
             }
-            double thickness = (2 + (pipe.insulation * 2)) / 32.0D;
-            double minX = 0.5D - thickness;
-            double minY = 0.5D - thickness;
-            double minZ = 0.5D - thickness;
-            double maxX = 0.5D + thickness;
-            double maxY = 0.5D + thickness;
-            double maxZ = 0.5D + thickness;
-            if (pipe.connection.contains(EnumFacing.WEST)) {
-                minX = 0.0D;
-            }
-            if (pipe.connection.contains(EnumFacing.DOWN)) {
-                minY = 0.0D;
-            }
-            if (pipe.connection.contains(EnumFacing.NORTH)) {
-                minZ = 0.0D;
-            }
-            if (pipe.connection.contains(EnumFacing.EAST)) {
-                maxX = 1.0D;
-            }
-            if (pipe.connection.contains(EnumFacing.UP)) {
-                maxY = 1.0D;
-            }
-            if (pipe.connection.contains(EnumFacing.SOUTH)) {
-                maxZ = 1.0D;
-            }
-            return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
         }
     }
 
