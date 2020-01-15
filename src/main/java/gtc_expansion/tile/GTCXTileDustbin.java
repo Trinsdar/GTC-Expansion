@@ -4,6 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerDustbin;
 import gtc_expansion.util.GTCXDustbinFilter;
+import gtclassic.api.helpers.int3;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -16,11 +17,14 @@ import ic2.core.RotationList;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
+import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.gui.GuiComponentContainer;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.inventory.transport.IItemTransporter;
+import ic2.core.inventory.transport.TransporterManager;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.util.math.MathUtil;
@@ -32,6 +36,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -102,6 +107,7 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
 
     @Override
     public void update() {
+        tryImportItems();
         handleRedstone();
         boolean noRoom;
         for (int i = 0; i < 16; i++){
@@ -115,7 +121,60 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
                 process(lastRecipe, i);
             }
         }
+        tryExportItems();
         updateComparators();
+    }
+
+    public BlockPos getImportTilePos() {
+        int3 dir = new int3(getPos(), getFacing());
+        return dir.up(1).asBlockPos();
+    }
+
+    public BlockPos getExportTilePos() {
+        int3 dir = new int3(getPos(), getFacing());
+        return dir.down(1).asBlockPos();
+    }
+
+    public void tryImportItems() {
+        if (world.isBlockLoaded(getImportTilePos())) {
+            IItemTransporter slave = TransporterManager.manager.getTransporter(world.getTileEntity(getImportTilePos()), true);
+            if (slave != null) {
+                IItemTransporter controller = TransporterManager.manager.getTransporter(this, true);
+                int limit = controller.getSizeInventory(getFacing());
+                for (int i = 0; i < limit; ++i) {
+                    ItemStack stack = slave.removeItem(CommonFilters.Anything, getFacing(), 1, false);
+                    if (stack.isEmpty()) {
+                        break;
+                    }
+                    ItemStack added = controller.addItem(stack, getFacing().getOpposite(), true);
+                    if (added.getCount() <= 0) {
+                        break;
+                    }
+                    slave.removeItem(CommonFilters.Anything, getFacing(), 1, true);
+                }
+            }
+        }
+    }
+
+    public void tryExportItems() {
+        if (world.isBlockLoaded(getExportTilePos())) {
+            IItemTransporter slave = TransporterManager.manager.getTransporter(world.getTileEntity(getExportTilePos()), false);
+            if (slave != null) {
+                IItemTransporter controller = TransporterManager.manager.getTransporter(this, true);
+                int limit = controller.getSizeInventory(getFacing());
+                for (int i = 0; i < limit; ++i) {
+                    ItemStack stack = controller.removeItem(CommonFilters.Anything, getFacing(), 1, false);
+                    if (stack.isEmpty()) {
+                        break;
+                    }
+                    ItemStack added = slave.addItem(stack, getFacing().getOpposite(), true);
+                    if (added.getCount() <= 0) {
+                        break;
+                    }
+                    controller.removeItem(CommonFilters.Anything, getFacing(), 1, true);
+                }
+            }
+        }
     }
 
     public void process(MultiRecipe recipe, int slot) {
