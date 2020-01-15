@@ -136,6 +136,7 @@ public class GTCXTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
         addRecipe("ingotHotIridium", 1, 57600, GTMaterialGen.getIngot(GTMaterial.Iridium, 1));
         addRecipe("ingotHotOsmium", 1, 57600, GTMaterialGen.getIngot(GTCXMaterial.Osmium, 1));
         addRecipe("ingotHotKanthal", 1, 57600, GTMaterialGen.getIngot(GTCXMaterial.Kanthal, 1));
+        addRecipe("ingotHotNichrome", 1, 57600, GTMaterialGen.getIngot(GTCXMaterial.Nichrome, 1));
     }
 
     public static void addRecipe(ItemStack input, int eu, ItemStack output){

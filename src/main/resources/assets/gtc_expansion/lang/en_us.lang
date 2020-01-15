@@ -260,6 +260,7 @@ item.gtclassic.ingotRedAlloy.name=Red Alloy Ingot
 
 #hot ingots
 item.gtclassic.ingothotKanthal.name=Hot Kanthal Ingot
+item.gtclassic.ingothotNichrome.name=Hot Nichrome Ingot
 item.gtclassic.ingothotTungsten.name=Hot Tungsten Ingot
 item.gtclassic.ingothotTungstensteel.name=Hot Tungstensteel Ingot
 item.gtclassic.ingothotIridium.name=Hot Iridium Ingot

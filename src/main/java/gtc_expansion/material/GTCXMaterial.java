@@ -84,7 +84,7 @@ public class GTCXMaterial {
     public static final GTMaterial Marble = new GTMaterial("Marble", 200, 200, 200, dustAll);
     public static final GTMaterial Naphtha = new GTMaterial("Naphtha", 255, 255, 100, fluid);
     public static final GTMaterial Netherrack = new GTMaterial("Netherrack", 200, 0, 0, smalldust);
-    public static final GTMaterial Nichrome = new GTMaterial(-1,"Nichrome", 3, 205, 206, 246, false, molten, smalldust, dust, nugget, ingot, plate, stick);
+    public static final GTMaterial Nichrome = new GTMaterial(-1,"Nichrome", 3, 205, 206, 246, false, molten, smalldust, dust, nugget, ingot, plate, stick, hotIngot);
     public static final GTMaterial NitroCarbon = new GTMaterial("NitroCarbon", 31, 94, 94, fluid);
     public static final GTMaterial NitroCoalFuel = new GTMaterial("NitroCoalFuel", 0, 43, 43, fluid);
     public static final GTMaterial NitroDiesel = new GTMaterial("NitroDiesel", 191, 255, 100, fluid);
