@@ -8,7 +8,6 @@ import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.tile.wiring.GTTileSuperconductorCable;
 import ic2.api.classic.energy.tile.IAnchorConductor;
 import ic2.api.classic.energy.tile.IEnergyConductorColored;
-import ic2.api.classic.energy.tile.IEnergyConductorColored.WireColor;
 import ic2.api.classic.energy.tile.IInsulationModifieableConductor;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.network.adv.NetworkField.BitLevel;
@@ -33,6 +32,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
@@ -48,7 +48,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulationModifieableConductor, IGTRecolorableStorageTile, INetworkTileEntityEventListener, IAnchorConductor, IGTItemContainerTile {
+public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyConductorColored, IInsulationModifieableConductor, IGTRecolorableStorageTile, INetworkTileEntityEventListener, IAnchorConductor, IGTItemContainerTile {
 
     @NetworkField(index = 8)
     public RotationList connection;
@@ -524,5 +524,31 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
 
     private int getThickness(){
         return 2 + (insulation * 2);
+    }
+
+    @Override
+    public WireColor getConductorColor() {
+        return color == 16383998 || color == GTMaterial.Electrum.getColor().getRGB() ? WireColor.Blank : WireColor.fromColor(getColorFromColorValue());
+    }
+
+    public EnumDyeColor getColorFromColorValue(){
+        switch (color){
+            case 1908001 : return EnumDyeColor.BLACK;
+            case 11546150 : return EnumDyeColor.RED;
+            case 6192150 : return EnumDyeColor.GREEN;
+            case 8606770 : return EnumDyeColor.BROWN;
+            case 3949738 : return EnumDyeColor.BLUE;
+            case 8991416 : return EnumDyeColor.PURPLE;
+            case 1481884 : return EnumDyeColor.CYAN;
+            case 10329495 : return EnumDyeColor.SILVER;
+            case 4673362 : return EnumDyeColor.GRAY;
+            case 15961002 : return EnumDyeColor.PINK;
+            case 8439583 : return EnumDyeColor.LIME;
+            case 16701501 : return EnumDyeColor.YELLOW;
+            case 3847130 : return EnumDyeColor.LIGHT_BLUE;
+            case 13061821 : return EnumDyeColor.MAGENTA;
+            case 16351261 : return EnumDyeColor.ORANGE;
+            default: return EnumDyeColor.WHITE;
+        }
     }
 }
