@@ -220,7 +220,12 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
 
     @Override
     public double getInsulationEnergyAbsorption() {
-        return 0;
+        switch(insulation) {
+            case 1: return 32.0D;
+            case 2: return 128.0D;
+            case 3: return  9001.0D;
+            default: return 0.0D;
+        }
     }
 
     @Override
@@ -235,7 +240,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
 
     @Override
     public void removeInsulation() {
-        tryRemoveInsulation();
+        // empty method since ic2c cables never break down insulation from too much energy.
     }
 
     @Override
@@ -333,7 +338,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
 
     @Override
     public void onNetworkUpdate(String field) {
-        if (field.equals("connection")) {
+        if (field.equals("connection") || field.equals("anchors")) {
             this.world.markBlockRangeForRenderUpdate(this.getPos(), this.getPos());
         }
         super.onNetworkUpdate(field);
