@@ -23,7 +23,6 @@ import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
-import ic2.core.block.base.util.texture.TextureCopyStorage;
 import ic2.core.block.wiring.BlockCable;
 import ic2.core.block.wiring.tile.TileEntityCable;
 import ic2.core.block.wiring.tile.TileEntityMultipartLuminator;
@@ -60,16 +59,16 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     protected boolean addedToEnergyNet;
     @NetworkField(index = 10)
     public int color;
-//    @NetworkField(
-//            index = 11
-//    )
-//    public byte foamed;
+    /*@NetworkField(
+            index = 11
+    )
+    public byte foamed;
     @NetworkField(
             index = 11
     )
-    public TextureCopyStorage storage;
+    public TextureCopyStorage storage;*/
     @NetworkField(
-            index = 12,
+            index = 11,
             compression = BitLevel.Bit8
     )
     public int insulation;
@@ -113,12 +112,13 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         }
         //byte newFoamed = nbt.getByte("Foaming");
         this.insulation = nbt.getInteger("Insulation");
+        this.anchors = RotationList.ofNumber(nbt.getByte("Anchors"));
 //        if (newFoamed == 1) {
 //            this.changeFoam(newFoamed, true);
 //        } else {
 //            this.foamed = newFoamed;
 //        }
-        this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
+        //this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
 
     }
 
@@ -128,7 +128,8 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
         nbt.setInteger(NBT_COLOR, this.color);
         //nbt.setByte("Foaming", this.foamed);
         nbt.setInteger("Insulation", this.insulation);
-        this.storage.writeToNBT(this.getTag(nbt, "Storage"));
+        nbt.setByte("Anchors", (byte)this.anchors.getCode());
+        //this.storage.writeToNBT(this.getTag(nbt, "Storage"));
         return nbt;
     }
 
