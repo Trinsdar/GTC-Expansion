@@ -42,6 +42,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.awt.Color;
@@ -186,6 +187,10 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
             default:
                 IC2.platform.displayError("An unknown event type was received over multiplayer.\nThis could happen due to corrupted data or a bug.\n\n(Technical information: event ID " + event + ", tile entity below)\nT: " + this + " (" + this.getPos() + ")");
         }
+    }
+
+    public Vec3i getConnections() {
+        return new Vec3i(this.connection.getCode(), 0, 0);
     }
 
     @Override

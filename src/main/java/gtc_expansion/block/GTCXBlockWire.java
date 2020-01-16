@@ -165,23 +165,19 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock {
         return states;
     }
 
-    /*@Override
+    @Override
     public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
         try {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof GTCXTileElectrumCable) {
                 GTCXTileElectrumCable cable = (GTCXTileElectrumCable)tile;
-                if (cable.foamed > 1) {
-                    return new IC2BlockState(state, cable.storage.getQuads());
-                }
-
-                return new IC2BlockState(state, cable.connection);
+                return new BlockStateContainerIC2.IC2BlockState(state, cable.getConnections());
             }
         } catch (Exception var6) {
         }
 
         return super.getExtendedState(state, world, pos);
-    }*/
+    }
 
     @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
@@ -305,22 +301,22 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock {
             double maxX = 0.5D + thickness;
             double maxY = 0.5D + thickness;
             double maxZ = 0.5D + thickness;
-            if (pipe.connection.contains(EnumFacing.WEST)) {
+            if (pipe.connection.contains(EnumFacing.WEST) || pipe.anchors.contains(EnumFacing.WEST)) {
                 minX = 0.0D;
             }
-            if (pipe.connection.contains(EnumFacing.DOWN)) {
+            if (pipe.connection.contains(EnumFacing.DOWN) || pipe.anchors.contains(EnumFacing.DOWN)) {
                 minY = 0.0D;
             }
-            if (pipe.connection.contains(EnumFacing.NORTH)) {
+            if (pipe.connection.contains(EnumFacing.NORTH) || pipe.anchors.contains(EnumFacing.NORTH)) {
                 minZ = 0.0D;
             }
-            if (pipe.connection.contains(EnumFacing.EAST)) {
+            if (pipe.connection.contains(EnumFacing.EAST) || pipe.anchors.contains(EnumFacing.EAST)) {
                 maxX = 1.0D;
             }
-            if (pipe.connection.contains(EnumFacing.UP)) {
+            if (pipe.connection.contains(EnumFacing.UP) || pipe.anchors.contains(EnumFacing.UP)) {
                 maxY = 1.0D;
             }
-            if (pipe.connection.contains(EnumFacing.SOUTH)) {
+            if (pipe.connection.contains(EnumFacing.SOUTH) || pipe.anchors.contains(EnumFacing.SOUTH)) {
                 maxZ = 1.0D;
             }
             return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
