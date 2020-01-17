@@ -427,6 +427,8 @@ public class GTCXRecipe {
                     "circuitAdvanced");
             recipes.addRecipe(Ic2Items.macerator.copy(), "FGF", "CMC", "FCF", 'G', grinder, 'F', materialSteels, 'M', "machineBlockBasic", 'C',
                     "circuitBasic");
+            recipes.overrideRecipe("shaped_tile.blockrotary_-1598189826", Ic2Items.rotaryMacerator, "GGG", "GMG", "GAG", 'G', grinder, 'M', Ic2Items.macerator, 'A', "machineBlockAdvanced");
+            GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockrotary_-1360333248");
         }
         int recipeId = IC2.config.getFlag("SteelRecipes") ? -1329500063 : 241486317;
         recipes.overrideRecipe("shaped_item.itemtoolcutter_" + recipeId, GTMaterialGen.get(GTCXItems.cutter), "R R", " R ", "I I", 'R', materialRefinedIron, 'I', "ingotIron");
