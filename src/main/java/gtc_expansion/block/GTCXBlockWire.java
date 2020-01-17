@@ -16,6 +16,7 @@ import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
+import ic2.core.platform.textures.obj.ILayeredBlockModel;
 import ic2.core.util.helpers.BlockStateContainerIC2;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock {
+public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, ILayeredBlockModel {
     public static PropertyInteger insulation = PropertyInteger.create("insulation", 0, 3);
     //public static PropertyInteger foamed = PropertyInteger.create("foamed", 0, 2);
     public GTCXBlockWire(String name, LocaleComp comp){
@@ -243,33 +244,33 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock {
         return new GTModelLayeredAnchoredWire(state, Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6], Ic2Icons.getTextures("bcable")[277], getSize(state));
     }
 
-    //    @Override
-//    public boolean isLayered(IBlockState iBlockState) {
-//        return true;
-//    }
-//
-//    @Override
-//    public int getLayers(IBlockState state) {
-//        return state.getValue(insulation) == 0 ? 2 : 3;
-//    }
-//
-//    @Override
-//    public AxisAlignedBB getRenderBox(IBlockState state, int i) {
-//        double thickness = 2 + state.getValue(insulation) / 32.0D;
-//        double minX = 0.5D - thickness;
-//        double minY = 0.5D - thickness;
-//        double minZ = 0.5D - thickness;
-//        double maxX = 0.5D + thickness;
-//        double maxY = 0.5D + thickness;
-//        double maxZ = 0.5D + thickness;
-//        return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
-//    }
-//
-//    @Override
-//    public TextureAtlasSprite getLayerTexture(IBlockState state, EnumFacing enumFacing, int i) {
-//        int increase = i < 3 ? i : i + (state.getValue(insulation) - 1);
-//        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6 + increase];
-//    }
+    @Override
+    public boolean isLayered(IBlockState iBlockState) {
+        return true;
+    }
+
+    @Override
+    public int getLayers(IBlockState state) {
+        return state.getValue(insulation) == 0 ? 2 : 3;
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBox(IBlockState state, int i) {
+        double thickness = 2 + state.getValue(insulation) / 32.0D;
+        double minX = 0.5D - thickness;
+        double minY = 0.5D - thickness;
+        double minZ = 0.5D - thickness;
+        double maxX = 0.5D + thickness;
+        double maxY = 0.5D + thickness;
+        double maxZ = 0.5D + thickness;
+        return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
+    }
+
+    @Override
+    public TextureAtlasSprite getLayerTexture(IBlockState state, EnumFacing enumFacing, int i) {
+        int increase = i < 3 ? i : i + (state.getValue(insulation) - 1);
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6 + increase];
+    }
 
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {

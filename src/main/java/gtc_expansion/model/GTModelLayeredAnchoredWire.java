@@ -4,6 +4,7 @@ import gtclassic.api.block.GTBlockBaseConnect;
 import ic2.core.RotationList;
 import ic2.core.platform.textures.Ic2Models;
 import ic2.core.platform.textures.models.BaseModel;
+import ic2.core.platform.textures.obj.ILayeredBlockModel;
 import ic2.core.util.helpers.BlockStateContainerIC2.IC2BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -18,6 +19,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.util.vector.Vector3f;
+import sun.awt.AWTIcon32_java_icon16_png;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
@@ -30,7 +32,7 @@ import java.util.Map;
 
 public class GTModelLayeredAnchoredWire extends BaseModel {
 
-    List<BakedQuad>[] quads = this.createList(64); // All possible connection configurations
+    List<BakedQuad>[][] quads; // All possible connection configurations
     List<BakedQuad>[] anchorQuads = this.createList(64); // All possible anchor configurations
     @SuppressWarnings({ "unchecked", "rawtypes" })
     Map<Integer, List<BakedQuad>> comboQuads = new HashMap();// A sum of the above quad lists
@@ -52,33 +54,42 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
     @Override
     public void init() {
         GTBlockBaseConnect wire = (GTBlockBaseConnect) this.state.getBlock();
+        int layers = this.state.getBlock() instanceof ILayeredBlockModel ? ((ILayeredBlockModel)state.getBlock()).getLayers(state) : 1;
+        quads = this.createLayers(layers, 64);
         this.setParticalTexture(wire.getParticleTexture(this.state));
         int min = this.sizes[0];// low size
         int max = this.sizes[1];// high size
-        Map<EnumFacing, BakedQuad> coreQuads = this.generateCoreQuads(wire, min, max);
-        Map<EnumFacing, List<BakedQuad>> sideQuads = new EnumMap(EnumFacing.class);
-        Map<EnumFacing, List<BakedQuad>> anchorQuadList = new EnumMap(EnumFacing.class);
-        EnumFacing[] facings = EnumFacing.VALUES;
-        int facingsLength = facings.length;
-        for (int i = 0; i < facingsLength; ++i) {
-            EnumFacing side = facings[i];
-            sideQuads.put(side, this.generateQuadsForSide(wire, side, min, max));
-            anchorQuadList.put(side, this.generateQuadsForAnchor(this.anchorTexture, side, min, max));
-        }
-        for (int j = 0; j < 64; ++j) {
-            RotationList rotation = RotationList.ofNumber(j);
-            List<BakedQuad> quadList = this.quads[j];
-            Iterator rotations = rotation.iterator();
-            EnumFacing side;
-            while (rotations.hasNext()) {
-                side = (EnumFacing) rotations.next();
-                quadList.addAll(sideQuads.get(side));
-                this.anchorQuads[j].addAll(anchorQuadList.get(side));
+        for (int h = 0; h < layers; h++){
+            Map<EnumFacing, BakedQuad> coreQuads = this.generateCoreQuads(wire, min, max, h);
+            Map<EnumFacing, List<BakedQuad>> sideQuads = new EnumMap(EnumFacing.class);
+            Map<EnumFacing, List<BakedQuad>> anchorQuadList = new EnumMap(EnumFacing.class);
+            EnumFacing[] facings = EnumFacing.VALUES;
+            int facingsLength = facings.length;
+            for (int i = 0; i < facingsLength; ++i) {
+                EnumFacing side = facings[i];
+                sideQuads.put(side, this.generateQuadsForSide(wire, side, min, max, h));
+                if (h == 0){
+                    anchorQuadList.put(side, this.generateQuadsForAnchor(this.anchorTexture, side, min, max));
+                }
             }
-            rotations = rotation.invert().iterator();
-            while (rotations.hasNext()) {
-                side = (EnumFacing) rotations.next();
-                quadList.add(coreQuads.get(side));
+
+            for (int j = 0; j < 64; ++j) {
+                RotationList rotation = RotationList.ofNumber(j);
+                List<BakedQuad> quadList = this.quads[h][j];
+                Iterator rotations = rotation.iterator();
+                EnumFacing side;
+                while (rotations.hasNext()) {
+                    side = (EnumFacing) rotations.next();
+                    quadList.addAll(sideQuads.get(side));
+                    if (h == 0){
+                        this.anchorQuads[j].addAll(anchorQuadList.get(side));
+                    }
+                }
+                rotations = rotation.invert().iterator();
+                while (rotations.hasNext()) {
+                    side = (EnumFacing) rotations.next();
+                    quadList.add(coreQuads.get(side));
+                }
             }
         }
     }
@@ -91,7 +102,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
             if (!(state instanceof IC2BlockState)) {
                 // if its in jei/creative tab it will default to the int passed below, 12 =
                 // (4+8) (north+south)
-                return this.quads[12];
+                return this.quads[0][12];
             } else {
                 Vec3i vec = ((IC2BlockState) state).getData();
                 if (vec.getY() > 0) {
@@ -118,7 +129,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
 
     @Override
     public boolean isGui3d() {
-        return false;
+        return true;
     }
 
     @Override
@@ -132,7 +143,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
 
     // This is where the basic/core model quads are generated
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private Map<EnumFacing, BakedQuad> generateCoreQuads(GTBlockBaseConnect wire, int min, int max) {
+    private Map<EnumFacing, BakedQuad> generateCoreQuads(GTBlockBaseConnect wire, int min, int max, int layer) {
         Vector3f minF = new Vector3f((float) min, (float) min, (float) min);
         Vector3f maxF = new Vector3f((float) max, (float) max, (float) max);
         BlockPartFace face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { (float) min,
@@ -142,7 +153,8 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
         int var9 = var8.length;
         for (int var10 = 0; var10 < var9; ++var10) {
             EnumFacing side = var8[var10];
-            quads.put(side, this.getBakery().makeBakedQuad(minF, maxF, face, this.getParticleTexture(), side, ModelRotation.X0_Y0, null, true, true));
+            TextureAtlasSprite sprite = wire instanceof ILayeredBlockModel ? ((ILayeredBlockModel)wire).getLayerTexture(this.state, side, layer) : this.getParticleTexture();
+            quads.put(side, this.getBakery().makeBakedQuad(minF, maxF, face, sprite, side, ModelRotation.X0_Y0, null, true, true));
         }
         return quads;
     }
@@ -180,13 +192,13 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
 
     // This is where the sides connected to things are generated
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private List<BakedQuad> generateQuadsForSide(GTBlockBaseConnect wire, EnumFacing facing, int min, int max) {
+    private List<BakedQuad> generateQuadsForSide(GTBlockBaseConnect wire, EnumFacing facing, int min, int max, int layer) {
         List<BakedQuad> quads = new ArrayList();
         Pair<Vector3f, Vector3f> position = this.getPosForSide(facing, min, max);
-        EnumFacing[] var7 = EnumFacing.VALUES;
-        int var8 = var7.length;
-        for (int var9 = 0; var9 < var8; ++var9) {
-            EnumFacing side = var7[var9];
+        EnumFacing[] facings = EnumFacing.VALUES;
+        int facingLength = facings.length;
+        for (int i = 0; i < facingLength; ++i) {
+            EnumFacing side = facings[i];
             if (side.getOpposite() != facing) {
                 BlockPartFace face = null;
                 if (side == facing) {
@@ -200,7 +212,8 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
                 }
                 // If you would like a different texture for connected sides, change the sprite
                 // var to what you want
-                quads.add(this.getBakery().makeBakedQuad(position.getKey(), position.getValue(), face, wire.getTextureFromState(this.state, side), side, ModelRotation.X0_Y0, null, true, true));
+                TextureAtlasSprite sprite = wire instanceof ILayeredBlockModel ? ((ILayeredBlockModel)wire).getLayerTexture(this.state, side, layer) : wire.getTextureFromState(this.state, side);
+                quads.add(this.getBakery().makeBakedQuad(position.getKey(), position.getValue(), face, sprite, side, ModelRotation.X0_Y0, null, true, true));
             }
         }
         return quads;
@@ -256,5 +269,15 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
                 return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { max, min, 16.0F, max }, 0));
         }
         return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0));
+    }
+
+    private List<BakedQuad>[][] createLayers(int first, int second) {
+        List<BakedQuad>[][] quads = new List[first][second];
+
+        for(int i = 0; i < first; ++i) {
+            quads[i] = this.createList(second);
+        }
+
+        return quads;
     }
 }
