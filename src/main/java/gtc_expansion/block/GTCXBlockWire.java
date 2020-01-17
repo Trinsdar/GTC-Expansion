@@ -1,6 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.model.GTModelLayeredAnchoredWire;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseConnect;
@@ -8,7 +9,6 @@ import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
-import gtclassic.api.model.GTModelWire;
 import ic2.api.classic.item.ICutterItem;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.wiring.BlockCable;
@@ -240,7 +240,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock {
 //        } else {
 //            return state.getValue(foamed) == 2 ? BlockCopyModel.getFoamModel(Ic2Icons.getTextures("bcable")[195]) : new GTModelWire(state, Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6], getSize(state));
 //        }
-        return new GTModelWire(state, Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6], getSize(state));
+        return new GTModelLayeredAnchoredWire(state, Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6], Ic2Icons.getTextures("bcable")[277], getSize(state));
     }
 
     //    @Override
