@@ -191,7 +191,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
     }
 
     public Vec3i getConnections() {
-        return new Vec3i(this.connection.getCode(), 0, 0);
+        return new Vec3i(this.connection.getCode(), this.anchors.getCode(), this.connection.getCode() << 6 | this.anchors.getCode());
     }
 
     @Override

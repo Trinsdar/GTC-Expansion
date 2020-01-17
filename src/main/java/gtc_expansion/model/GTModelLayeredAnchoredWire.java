@@ -168,7 +168,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
                     face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max,
                             (float) min, 16.0F, (float) max }, 0));
                 } else {
-                    face = this.getFace(facing, min, max);
+                    face = this.getUntintedFace(facing, min, max);
                 }
                 // If you would like a different texture for anchors, change the sprite var to
                 // what you want, by default its passing the sprite in the model constructor
@@ -240,5 +240,21 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
                 return new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { max, min, 16.0F, max }, 0));
         }
         return new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0));
+    }
+
+    private BlockPartFace getUntintedFace(EnumFacing facing, int min, int max) {
+        switch (facing) {
+            case DOWN:
+            case SOUTH:
+                return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { min, max, max, 16.0F }, 0));
+            case UP:
+            case NORTH:
+                return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { min, 0.0F, max, min }, 0));
+            case WEST:
+                return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { 0.0F, min, min, max }, 0));
+            case EAST:
+                return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { max, min, 16.0F, max }, 0));
+        }
+        return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0));
     }
 }
