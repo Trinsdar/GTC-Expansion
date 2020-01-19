@@ -42,6 +42,7 @@ tile.gtc_expansion.oreolivine_overworld.name=Olivine Ore
 tile.gtc_expansion.orecassiterite.name=Cassiterite Ore
 tile.gtc_expansion.oretetrahedrite.name=Tetrahedrite Ore
 tile.gtc_expansion.oregalena.name=Galena Ore
+tile.gtc_expansion.orechromite.name=Chromite Ore
 
 
 tile.gtc_expansion.industrialblastfurnace.name=Industrial Blast Furnace
@@ -179,6 +180,7 @@ item.gtclassic.dustsmallNichrome.name=Small Nichrome Dust
 item.gtclassic.dustsmallNeodymium.name=Small Neodymium Dust
 item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 item.gtclassic.dustsmallTechnetium.name=Small Technetium Dust
+item.gtclassic.dustsmallChromite.name=Small Chromite Dust
 
 #dust
 item.gtclassic.dustKanthal.name=Kanthal Dust
@@ -232,6 +234,7 @@ item.gtclassic.dustRedAlloy.name=Red Alloy Dust
 item.gtclassic.dustMagnalium.name=Magnalium Dust
 item.gtclassic.dustNichrome.name=Nichrome Dust
 item.gtclassic.dustUvarovite.name=Uvarovite Dust
+item.gtclassic.dustChromite.name=Chromite Dust
 
 #gems
 item.gtclassic.gemGreenSapphire.name=Green Sapphire
@@ -426,6 +429,7 @@ item.gtclassic.crushedoreSphalerite.name=Crushed Sphalerite Ore
 item.gtclassic.crushedoreCinnabar.name=Crushed Cinnabar Ore
 item.gtclassic.crushedoreIridium.name=Crushed Iridium Ore
 item.gtclassic.crushedoreTetrahedrite.name=Crushed Tetrahedrite Ore
+item.gtclassic.crushedoreChromite.name=Crushed Chromite Ore
 
 item.gtclassic.crushedorepurifiedTungsten.name=Purified Crushed Tungsten Ore
 item.gtclassic.crushedorepurifiedBauxite.name=Purified Crushed Bauxite Ore
@@ -436,6 +440,7 @@ item.gtclassic.crushedorepurifiedSphalerite.name=Purified Crushed Sphalerite Ore
 item.gtclassic.crushedorepurifiedCinnabar.name=Purified Crushed Cinnabar Ore
 item.gtclassic.crushedorepurifiedIridium.name=Purified Crushed Iridium Ore
 item.gtclassic.crushedorepurifiedTetrahedrite.name=Purified Crushed Tetrahedrite Ore
+item.gtclassic.crushedorepurifiedChromite.name=Purified Crushed Chromite Ore
 
 item.gtclassic.dusttinyAntimony.name=Tiny Antimony Dust
 item.gtclassic.dusttinySulfur.name=Tiny Sulfur Dust
@@ -450,6 +455,7 @@ item.gtclassic.dusttinyTitanium.name=Tiny Titanium Dust
 item.gtclassic.dusttinyIridium.name=Tiny Iridium Dust
 item.gtclassic.dusttinyNickel.name=Tiny Nickel Dust
 item.gtclassic.dusttinyOsmium.name=Tiny Osmium Dust
+item.gtclassic.dusttinyChromite.name=Tiny Chromite Dust
 
 #material tools
 #files

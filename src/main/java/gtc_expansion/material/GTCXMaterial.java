@@ -55,6 +55,7 @@ public class GTCXMaterial {
     public static final GTMaterial Brass = new GTMaterial("Brass", 1, 255, 180, 0, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull , pipeItem);
     public static final GTMaterial Bronze = new GTMaterial("Bronze", 1, 255, 128, 0, pipeFluid, molten, smalldust, nugget, plate, stick, gear, hull);
     public static final GTMaterial Charcoal = new GTMaterial("Charcoal", 100, 70, 70, smalldust);
+    public static final GTMaterial Chromite = new GTMaterial("Chromite", 35, 20, 15, crushedAll);
     public static final GTMaterial Cinnabar = new GTMaterial("Cinnabar", 150, 0, 0, crushedAll);
     public static final GTMaterial Clay = new GTMaterial("Clay", 200, 200, 220, smalldust);
     public static final GTMaterial Coal = new GTMaterial("Coal", 70, 70, 70, smalldust);

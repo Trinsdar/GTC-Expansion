@@ -91,6 +91,14 @@ public class GTCXConfiguration {
         @Comment("Chance of Sodalite veins to spawn")
         @RangeInt(min = 1, max = 32)
         public int sodaliteWeight = 6;
+        @Comment("Generate Chromite ore in the end")
+        public boolean chromiteGenerate = true;
+        @Comment("Max size of Chromite veins")
+        @RangeInt(min = 1, max = 32)
+        public int chromiteSize = 5;
+        @Comment("Chance of Chromite veins to spawn")
+        @RangeInt(min = 1, max = 32)
+        public int chromiteWeight = 2;
     }
 
     @Comment("General configuration")

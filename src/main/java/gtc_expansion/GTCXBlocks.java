@@ -97,6 +97,7 @@ public class GTCXBlocks {
     public static final GTCXBlockOre oreCassiterite = registerBlock(new GTCXBlockOre("cassiterite", 22, 3.0F, 1));
     public static final GTCXBlockOre oreTetrahedrite = registerBlock(new GTCXBlockOre("tetrahedrite", 23, 3.0F, 1));
     public static final GTCXBlockOre oreGalena = registerBlock(new GTCXBlockOre("galena", 24, 4.0F, 2));
+    public static final GTCXBlockOre oreChromite = registerBlock(new GTCXBlockOre("chromite", 25, 3.5F, 3));
 
     public static final GTCXBlockOreBedrock oreBedrockPyrite = registerBlock(new GTCXBlockOreBedrock("pyrite", 16));
     public static final GTCXBlockOreBedrock oreBedrockCinnabar = registerBlock(new GTCXBlockOreBedrock("cinnabar", 17));
