@@ -134,6 +134,7 @@ public class GTCXRecipeMods {
             addCrushedOreRecipes(GTMaterial.Platinum, GTCXMaterialGen.getTinyDust(GTMaterial.Sulfur, 2), GTCXMaterialGen.getTinyDust(GTMaterial.Nickel, 1));
             addCrushedOreRecipes(GTMaterial.Tungsten, GTCXMaterialGen.getTinyDust(GTCXMaterial.Manganese, 1), GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "silvertinydust"));
             addCrushedOreRecipes(GTMaterial.Iridium, GTCXMaterialGen.getTinyDust(GTMaterial.Platinum, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.Osmium, 1));
+            addCrushedOreRecipes(GTCXMaterial.Chromite, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "irontinydust"), GTCXMaterialGen.getTinyDust(GTMaterial.Chrome, 1));
             GTRecipeProcessing.maceratorUtil("oreGalena", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Galena, 2));
             GTRecipeProcessing.maceratorUtil("oreTetrahedrite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 2));
             GTRecipeProcessing.maceratorUtil("oreCassiterite", 1, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "tincrushedore", 4));
@@ -142,6 +143,7 @@ public class GTCXRecipeMods {
             GTRecipeProcessing.maceratorUtil("oreSphalerite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Sphalerite, 4));
             GTRecipeProcessing.maceratorUtil("orePlatinum", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Platinum, 2));
             GTRecipeProcessing.maceratorUtil("oreTungstate", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Tungsten, 2));
+            GTRecipeProcessing.maceratorUtil("oreChromite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Chromite, 2));
             ClassicRecipes.macerator.removeRecipe(input("oreBauxite", 1));
             TileEntityMacerator.addRecipe("oreBauxite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Bauxite, 4));
             ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));

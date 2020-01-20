@@ -125,7 +125,7 @@ public class GTCXMaterial {
         //GTMaterial.Bronze.addFlags(molten, smalldust, nugget, plate, stick, gear, hull);
         GTMaterial.Calcite.addFlags(smalldust);
         GTMaterial.Carbon.addFlags(smalldust);
-        GTMaterial.Chrome.addFlags(metalFull).setSmeltable(false);
+        GTMaterial.Chrome.addFlags(metalFull).addFlags(tinydust).setSmeltable(false);
         //GTMaterial.Constantan.addFlags(molten, smalldust, nugget, plate, stick);
         GTMaterial.Electrum.addFlags(metalFull);
         GTMaterial.Emerald.addFlags(smalldust);

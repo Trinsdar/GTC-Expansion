@@ -24,6 +24,7 @@ public class GTCXOreDict {
         OreDictionary.registerOre("oreGalena", GTCXBlocks.oreGalena);
         OreDictionary.registerOre("oreCassiterite", GTCXBlocks.oreCassiterite);
         OreDictionary.registerOre("oreTetrahedrite", GTCXBlocks.oreTetrahedrite);
+        OreDictionary.registerOre("oreChromite", GTCXBlocks.oreChromite);
         OreDictionary.registerOre("craftingDiamondGrinder", GTCXItems.diamondGrinder);
         OreDictionary.registerOre("craftingTungstenGrinder", GTCXItems.wolframiumGrinder);
         OreDictionary.registerOre("craftingToolWireCutter", new ItemStack(GTCXItems.cutter, 1, OreDictionary.WILDCARD_VALUE));
