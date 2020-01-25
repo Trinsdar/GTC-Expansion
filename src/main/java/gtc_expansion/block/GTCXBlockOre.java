@@ -121,7 +121,7 @@ public class GTCXBlockOre extends GTBlockBaseOre {
         if (name.equals("pyrite") || name.equals("cinnabar") || name.equals("sphalerite")){
             return BackgroundSet.NETHERRACK;
         }
-        if (name.equals("tungstate") || name.equals("sheldonite") || name.equals("olivine") || name.equals("sodalite")){
+        if (name.equals("tungstate") || name.equals("sheldonite") || name.equals("olivine") || name.equals("sodalite") || name.equals("chromite")){
             return BackgroundSet.ENDSTONE;
         }
         return BackgroundSet.STONE;
