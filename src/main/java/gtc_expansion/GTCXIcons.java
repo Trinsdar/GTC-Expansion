@@ -3,6 +3,7 @@ package gtc_expansion;
 import gtclassic.common.GTConfig;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.Sprites;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -14,15 +15,15 @@ import static ic2.core.platform.textures.Ic2Icons.addTextureEntry;
 public class GTCXIcons {
     @SideOnly(Side.CLIENT)
     public static void loadSprites() {
-        makeSprite("blocks", 16, 16);
-        makeSprite("materials", 16, 16);
-        makeSprite("items", 16, 16);
+        makeSprite("blocks", 16, 2);
+        makeSprite("materials", 16, 4);
+        makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
         collectBasicTileSprites();
         if (GTConfig.general.animatedTextures){
-            addCustomTexture("industrialblastfurnace", 0, 9, location("bf_front"));
-            addCustomTexture("dieselgenerator", 0, 7, location("diesel_generator_top"));
-            addCustomTexture("gasturbine", 0, 7, location("gas_turbine_top"));
+            addCustomTexture("industrial_front_active", 0, 0, location("bf_front"));
+            addCustomTexture("diesel_generator_top_active", 0, 0, location("diesel_generator_top"));
+            addCustomTexture("gas_turbine_top_active", 0, 0, location("gas_turbine_top"));
         }
         if (GTConfig.general.debugMode){
             GTCExpansion.logger.info("All GregTech Classic Expansion textures generated without error");
@@ -41,17 +42,52 @@ public class GTCXIcons {
     }
 
     public static void collectBasicTileSprites() {
-        String[] var0 = GTCXBlocks.textureTileBasic;
-        int var1 = var0.length;
+        String[] strings = GTCXBlocks.textureTileBasic;
+        int length = strings.length;
 
-        for(int var2 = 0; var2 < var1; ++var2) {
-            String string = var0[var2];
+        for(int i = 0; i < length; ++i) {
+            String string = strings[i];
             if (GTConfig.general.debugMode){
                 GTCExpansion.logger.info("Attempting to get sprite data for: " + string);
             }
-            Ic2Icons.addSprite(new Sprites.SpriteData(string, "gtc_expansion:textures/sprites/" + string + ".png", new Sprites.SpriteInfo(1, 12)));
-            Ic2Icons.addTextureEntry(new Sprites.TextureEntry(string, 0, 0, 1, 12));
+            Ic2Icons.addSprite(new Sprites.SpriteData(string, "gtc_expansion:textures/sprites/tiles/" + string + ".png", new Sprites.SpriteInfo(1, 1)));
+            Ic2Icons.addTextureEntry(new Sprites.TextureEntry(string, 0, 0, 1, 1));
         }
 
+    }
+
+    public static GTCXIconInfo s(String spriteName){
+        return new GTCXIconInfo(spriteName);
+    }
+
+    public static GTCXIconInfo s(int spriteId){
+        return new GTCXIconInfo(spriteId);
+    }
+
+    public static GTCXIconInfo s(String spriteName, int spriteId){
+        return new GTCXIconInfo(spriteName, spriteId);
+    }
+
+    public static class GTCXIconInfo{
+        int spriteId;
+        String spriteName;
+        public GTCXIconInfo(String spriteName, int spriteId){
+            this.spriteName = spriteName;
+            this.spriteId = spriteId;
+        }
+
+        public GTCXIconInfo(String spriteName){
+            this.spriteName = spriteName;
+            this.spriteId = 0;
+        }
+
+        public GTCXIconInfo(int spriteId){
+            this.spriteName = "gtclassic_terrain";
+            this.spriteId = spriteId;
+        }
+
+        public TextureAtlasSprite getSprite(){
+            return Ic2Icons.getTextures(spriteName)[spriteId];
+        }
     }
 }
