@@ -128,8 +128,8 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	@Override
 	public void setStackInSlot(int slot, ItemStack stack) {
 		super.setStackInSlot(slot, stack);
-		baseHeat = 0;
 		if (slot == slotCoil && !stack.isEmpty()){
+			baseHeat = 0;
 			if (stack.getItem() == GTCXItems.kanthalHeatingCoil){
 				baseHeat = 125 * stack.getCount();
 			} else {

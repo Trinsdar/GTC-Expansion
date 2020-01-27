@@ -77,7 +77,7 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
 
     @Override
     public Block getBlockDrop() {
-        return GTCXBlocks.locker;
+        return GTCXBlocks.dustBin;
     }
 
     @Override

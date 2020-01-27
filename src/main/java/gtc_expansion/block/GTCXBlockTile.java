@@ -1,6 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCXBlocks;
+import gtc_expansion.GTCXIcons;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
@@ -25,7 +26,6 @@ import gtclassic.api.block.GTBlockBaseMachine;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
-import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -138,7 +138,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
     @Override
     @SideOnly(Side.CLIENT)
     public TextureAtlasSprite[] getIconSheet(int meta) {
-        return Ic2Icons.getTextures(this.name);
+        return GTCXIcons.getTextureData(this);
     }
 
     @Override
