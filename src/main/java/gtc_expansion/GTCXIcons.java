@@ -40,7 +40,9 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.alloyFurnace, t1, t1, t1, s("alloy_furnace_front"), t1, t1, t1, t1, t1, s("alloy_furnace_front_active"), t1, t1);
         t1 = s("machine_back");
         setTexture(GTCXBlocks.alloySmelter, s(0), s(1), t1, s("alloy_smelter_front"), s(2), s(2), s(0), s(1), t1, s("alloy_smelter_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.assemblingMachine, s(0), s("assembling_machine_side"), t1, s(22), s(2), s(2), s(0), s("assembling_machine_side"), t1, s(23), s(2), s(2));
+        setTexture(GTCXBlocks.fluidSmelter, s(0), s(1), t1, s("alloy_smelter_front"), s(2), s(2), s(0), s(1), t1, s("alloy_smelter_front_active"), s(2), s(2));
+        setTexture(GTCXBlocks.fluidCaster, s(0), s(1), t1, s("alloy_smelter_front"), s(2), s(2), s(0), s(1), t1, s("alloy_smelter_front_active"), s(2), s(2));
+        setTexture(GTCXBlocks.assemblingMachine, s(0), s("assembling_machine_top"), t1, s(22), s(2), s(2), s(0), s("assembling_machine_top"), t1, s(23), s(2), s(2));
         setTexture(GTCXBlocks.chemicalReactor, s(0), s(1), s("chemical_reactor_side"), s("chemical_reactor_side"), s("chemical_reactor_side"), s("chemical_reactor_side"), s(0), s(1), s("chemical_reactor_side_active"), s("chemical_reactor_side_active"), s("chemical_reactor_side_active"), s("chemical_reactor_side_active"));
         setTexture(GTCXBlocks.dieselGenerator, s(0), s("diesel_generator_top"), t1, t1, t1, t1, s(0), s("diesel_generator_top_active"), t1, t1, t1, t1);
         t1 = s("distillation_tower_side");
@@ -49,9 +51,9 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.dustBin, s("dustbin_bottom"), s("dustbin_top"), s(2), s("dustbin_front"), s(2), s(2));
         setTexture(GTCXBlocks.electricLocker, s(0), s(1), s(2), s("electric_locker_front"), s(2), s(2));
         setTexture(GTCXBlocks.gasTurbine, s(0), s("gas_turbine_top"), s(2), s(2), s(2), s(2), s(0), s("gas_turbine_top_active"), s(2), s(2), s(2), s(2));
-        t1 = s("implosion_compressor_side_1"); GTCXIconInfo t2 = s("implosion_compressor_side_1");
+        t1 = s("implosion_compressor_side_1"); GTCXIconInfo t2 = s("implosion_compressor_side_2");
         setTexture(GTCXBlocks.implosionCompressor, iS, iF, t1, t1, t2, t2, iS, iFA, t1, t1, t2, t2);
-        t1 = s("industrial_blast_furnace");
+        t1 = s("industrial_blast_furnace_side");
         setTexture(GTCXBlocks.industrialBlastFurnace, t1, t1, iS, iF, t1, t1, t1, t1, iS, iFA, t1, t1);
         setTexture(GTCXBlocks.electrolyzer, s(0), s(1), s("electrolyzer_side"), s("electrolyzer_side"), s("electrolyzer_side"), s("electrolyzer_side"), s(0), s(1), s("electrolyzer_side_active"), s("electrolyzer_side_active"), s("electrolyzer_side_active"), s("electrolyzer_side_active"));
         t1 = s("industrial_grinder_side");
@@ -100,6 +102,7 @@ public class GTCXIcons {
      * @return - will return the sprite sheet if present or missing gtc texture (set
      *         null)
      */
+    @SideOnly(Side.CLIENT)
     public static TextureAtlasSprite[] getTextureData(Block block) {
         return TEXTURE_MAP.containsKey(block) ? textureHelper(TEXTURE_MAP.get(block)) : textureHelper(SET_NULL);
     }
@@ -109,6 +112,7 @@ public class GTCXIcons {
      * @param block  to make textures for
      * @param values the spirte locations for the block texture
      */
+    @SideOnly(Side.CLIENT)
     private static void setTexture(Block block, GTCXIconInfo... values) {
         TEXTURE_MAP.put(block, values);
     }
@@ -119,6 +123,7 @@ public class GTCXIcons {
      *            side but single state, 12 = all sides full state
      * @return the constructed sprite
      */
+    @SideOnly(Side.CLIENT)
     private static TextureAtlasSprite[] textureHelper(GTCXIconInfo[] arr) {
         if (arr.length == 2) {
             return buildTexture(arr[0], arr[0], arr[0], arr[0], arr[0], arr[0], arr[1], arr[1], arr[1], arr[1], arr[1], arr[1]);
@@ -133,6 +138,7 @@ public class GTCXIcons {
     }
 
     /** How to make a custom texture **/
+    @SideOnly(Side.CLIENT)
     public static TextureAtlasSprite[] buildTexture(GTCXIconInfo... arr) {
         TextureAtlasSprite[] texture = new TextureAtlasSprite[arr.length];
         for (int i = 0; i < arr.length; ++i) {
@@ -171,6 +177,7 @@ public class GTCXIcons {
             this.spriteId = spriteId;
         }
 
+        @SideOnly(Side.CLIENT)
         public TextureAtlasSprite getSprite(){
             return Ic2Icons.getTextures(spriteName)[spriteId];
         }
