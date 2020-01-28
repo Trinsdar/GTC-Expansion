@@ -1,5 +1,15 @@
 # Changelog
 
+# 0.0.8
+- Added tooltips for lockers and advanced worktable
+- Added dustbin
+- Increased required temperature of nichrome and kanthal
+- Added hardened clay processing to i. grinder
+- Changed ruby processing
+- Changed rotary macerator recipe
+- Added chromite ore, spawns at same rate as sheldonite.
+- Fixed blast furnace heat getting reset when any slot gets changed
+
 # 0.0.7
 - Added fluid caster and molds
 - Added fluid smelter
