@@ -26,6 +26,7 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
@@ -147,6 +148,9 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine {
         addRecipe(input(GTMaterialGen.getTube(GTMaterial.Hydrogen, 4)), input(GTMaterialGen.getTube(GTMaterial.Oxygen, 2)), 300, GTMaterialGen.getModdedTube("water", 6));
         addRecipe(input(GTMaterialGen.getTube(GTCXMaterial.NitrogenDioxide, 5)), input(GTMaterialGen.getTube(GTMaterial.Sodium, 2)), 1000, GTMaterialGen.get(Items.GUNPOWDER, 5), GTMaterialGen.get(GTItems.testTube, 7));
         addRecipe(new IRecipeInput[]{input(GTMaterialGen.get(GTCXItems.magicDye)), input(GTMaterialGen.get(Items.BLAZE_POWDER)), input(GTMaterialGen.getTube(GTMaterial.Chlorine, 1))}, totalEu(5000), GTMaterialGen.getTube(GTMaterial.MagicDye, 1));
+        addRecipe(new IRecipeInput[]{input("pulpWood", 4), input("dustSulfur", 1), new RecipeInputCombined(1, input("dustLithium", 1), input(GTMaterialGen.getTube(GTMaterial.Sodium, 1)))}, totalEu(6400), GTMaterialGen.get(GTItems.fuelBinder, 6));
+        addRecipe(new IRecipeInput[]{input(GTMaterialGen.get(GTItems.fuelBinder)), input(GTMaterialGen.getTube(GTMaterial.Mercury, 1)), new RecipeInputCombined(1, input("dustEnderEye", 1), input(GTMaterialGen.get(Items.BLAZE_POWDER)))}, totalEu(6400), GTMaterialGen.get(GTItems.fuelBinderMagic, 3));
+
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack... output) {

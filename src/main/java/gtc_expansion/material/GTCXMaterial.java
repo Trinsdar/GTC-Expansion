@@ -115,7 +115,6 @@ public class GTCXMaterial {
     public static final GTMaterial Tin = new GTMaterial("Tin", 220, 220, 220, molten, smalldust, nugget, plate, stick, gear);
     public static final GTMaterial TungstenSteel = new GTMaterial(-1, "Tungstensteel", 4, 100, 100, 160, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, hull, pipeFluid);
     public static final GTMaterial Uvarovite = new GTMaterial("Uvarovite", 180, 255, 180, dustAll);
-    public static final GTMaterial Wood = new GTMaterial("Wood", 137, 103, 39, dustAll);
     public static final GTMaterial Zinc = new GTMaterial(30,"Zinc", 1, 250, 240, 240, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
 
     public static void initMaterials(){
@@ -151,6 +150,7 @@ public class GTCXMaterial {
         GTMaterial.Titanium.addFlags(molten, smalldust, tinydust, nugget, plate, stick, gear, hull).setSmeltable(false);
         GTMaterial.Tungsten.addFlags(molten, smalldust, nugget, hotIngot, plate, stick, gear, crushedore, crushedorePurified).setSmeltable(false);
         GTMaterial.Uranium.addFlags(smalldust, molten);
+        GTMaterial.Wood.addFlags(smalldust);
 
         GTMaterialGen.addItemFlag(smalldust);
         GTMaterialGen.addItemFlag(tinydust);
