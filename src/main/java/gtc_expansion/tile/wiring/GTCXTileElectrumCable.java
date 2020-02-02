@@ -5,7 +5,7 @@ import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
-import gtclassic.common.tile.wiring.GTTileSuperconductorCable;
+import gtclassic.common.tile.GTTileSuperconductorCables;
 import ic2.api.classic.energy.tile.IAnchorConductor;
 import ic2.api.classic.energy.tile.IEnergyConductorColored;
 import ic2.api.classic.energy.tile.IInsulationModifieableConductor;
@@ -256,7 +256,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IInsulatio
     public boolean canConnect(IEnergyTile tile, EnumFacing side) {
         if (tile instanceof TileEntityCable) {
             return true;
-        } else if (tile instanceof GTTileSuperconductorCable) {
+        } else if (tile instanceof GTTileSuperconductorCables) {
             return true;
         } else if (tile instanceof IAnchorConductor && ((IAnchorConductor) tile).hasAnchor(side.getOpposite())) {
             return false;

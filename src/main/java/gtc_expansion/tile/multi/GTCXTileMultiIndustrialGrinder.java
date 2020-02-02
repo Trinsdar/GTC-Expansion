@@ -9,7 +9,7 @@ import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.material.GTMaterial;
@@ -385,8 +385,8 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
 
 
     public static void init(){
-        String modid = GTHelperMods.IC2_EXTRAS;
-        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+        String modid = GTValues.MOD_ID_IC2_EXTRAS;
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             addWaterRecipe("oreUranium", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "uraniumpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTMaterial.Thorium, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 1));
             addWaterRecipe("oreSilver", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "silverpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 2));
             addWaterRecipe("oreIron", 1, totalEu(12800), GTMaterialGen.getModItem(modid, "ironpurifiedcrushedore", 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.Tin, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 1));

@@ -4,7 +4,7 @@ import gtc_expansion.events.GTCXOtherEvents;
 import gtc_expansion.events.GTCXRadiationEvent;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.proxy.GTCXCommonProxy;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import ic2.core.IC2;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
@@ -52,7 +52,7 @@ public class GTCExpansion {
 		proxy.init(e);
 		MinecraftForge.EVENT_BUS.register(new GTCXOtherEvents());
 		GTCXRadiationEvent.init();
-		if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTCXConfiguration.general.enableRadiation){
+		if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTCXConfiguration.general.enableRadiation){
 			MinecraftForge.EVENT_BUS.register(new GTCXRadiationEvent());
 		}
 		GameRegistry.registerWorldGenerator(new GTCXWorldGen(), 0);

@@ -8,8 +8,8 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
-import gtclassic.api.helpers.GTHelperMods;
 import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -403,7 +403,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), 250);
         coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), 500);
         coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.nichromeHeatingCoil), 750);
-        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             addRecipe("blockRefinedIron", 1, 750 * (GTCXMaterial.RefinedIron.getTier() + 1), 115200, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296));
             addRecipe("casingCopper", 1, 750 * (GTCXMaterial.Copper.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72));
             addRecipe("casingTin", 1, 750 * (GTCXMaterial.Tin.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 72));

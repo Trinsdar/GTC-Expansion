@@ -1,7 +1,7 @@
 package gtc_expansion.item.itemblock;
 
 import gtc_expansion.GTCXBlocks;
-import gtclassic.api.itemblock.GTItemBlockRare;
+import gtclassic.api.item.GTItemBlock;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
 import ic2.core.platform.player.PlayerHandler;
 import ic2.core.util.misc.StackUtil;
@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
-public class GTCXItemBlockRare extends GTItemBlockRare {
-    public GTCXItemBlockRare(Block block) {
+public class GTCXItemBlock extends GTItemBlock {
+    public GTCXItemBlock(Block block) {
         super(block);
     }
 

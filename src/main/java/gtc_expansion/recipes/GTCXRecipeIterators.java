@@ -12,7 +12,7 @@ import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.util.GTCXIc2cECompat;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
@@ -61,7 +61,7 @@ public class GTCXRecipeIterators {
             if (GTCXMaterial.pipes){
                 createPipeRecipe(mat);
             }
-            if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
             createDustbinTinyDustRecipe(mat);
@@ -150,7 +150,7 @@ public class GTCXRecipeIterators {
                 if (mat.hasFlag(GTCXMaterial.smalldust)){
                     GTCXTileFluidSmelter.addRecipe("dustsmall" + orename, 1, 750 * tier, 6400, GTMaterialGen.getFluidStack(mat, 36));
                 }
-                if (mat.hasFlag(GTCXMaterial.tinydust) && Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+                if (mat.hasFlag(GTCXMaterial.tinydust) && Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                     GTCXTileFluidSmelter.addRecipe("dusttiny" + orename, 1, 750 * tier, 1600, GTMaterialGen.getFluidStack(mat, 16));
                 }
             }
@@ -417,7 +417,7 @@ public class GTCXRecipeIterators {
                         listPlates = OreDictionary.getOres(plate, false);
                         if (!listPlates.isEmpty()) {
                             GTCXTilePlateBender.addRecipe(id, 1, listPlates.get(0));
-                            if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS)){
+                            if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
                                 if (GTCXConfiguration.general.harderPlates){
                                     recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
                                 }else {

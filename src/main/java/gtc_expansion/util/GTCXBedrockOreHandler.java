@@ -3,7 +3,7 @@ package gtc_expansion.util;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.world.GTBedrockOreHandler;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.Loader;
 public class GTCXBedrockOreHandler {
 
     public static void bedrockOresInit() {
-        String modid = GTHelperMods.IC2_EXTRAS;
+        String modid = GTValues.MOD_ID_IC2_EXTRAS;
         if (Loader.isModLoaded(modid) && GTConfig.modcompat.compatIc2Extras){
             // vanilla
             addBedrockOre(GTBlocks.oreBedrockGold, GTMaterialGen.getModItem(modid, "goldcrushedore", 1));

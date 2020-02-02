@@ -7,7 +7,7 @@ import gtc_expansion.block.GTCXBlockOreBedrock;
 import gtc_expansion.block.GTCXBlockStorage;
 import gtc_expansion.block.GTCXBlockTile;
 import gtc_expansion.item.itemblock.GTCXColorItemBlock;
-import gtc_expansion.item.itemblock.GTCXItemBlockRare;
+import gtc_expansion.item.itemblock.GTCXItemBlock;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
@@ -130,7 +130,7 @@ public class GTCXBlocks {
         if (block instanceof IGTItemBlock) {
             return ((IGTItemBlock)block).getCustomItemBlock();
         } else {
-            return block instanceof IGTColorBlock ? GTCXColorItemBlock.class : GTCXItemBlockRare.class;
+            return block instanceof IGTColorBlock ? GTCXColorItemBlock.class : GTCXItemBlock.class;
         }
     }
 

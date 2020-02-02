@@ -10,8 +10,8 @@ import gtclassic.api.interfaces.IGTDisplayTickTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
-import gtclassic.api.slot.GTFuelMachineFilter;
 import gtclassic.api.tile.GTTileBaseFuelMachine;
+import gtclassic.common.util.GTIFilters;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.inventory.container.ContainerIC2;
@@ -42,7 +42,7 @@ public class GTCXTileAlloyFurnace extends GTTileBaseFuelMachine implements IGTIt
     protected static final int[] slotInputs = { 0, 1 };
     public static final int slotOutput = 2;
     public static final int slotFuel = 3;
-    public IFilter filter = new GTFuelMachineFilter(this);
+    public IFilter filter = new GTIFilters.FuelMachineFilter(this);
 
     public GTCXTileAlloyFurnace() {
         super(4, 200, 1);

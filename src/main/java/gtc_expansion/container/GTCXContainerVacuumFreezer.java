@@ -3,7 +3,7 @@ package gtc_expansion.container;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.gui.GTGuiCompMultiTileStatus;
-import gtclassic.api.slot.GTSlotUpgrade;
+import gtclassic.api.gui.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;

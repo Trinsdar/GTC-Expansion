@@ -14,8 +14,8 @@ import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
-import gtclassic.api.slot.GTFuelMachineFilter;
 import gtclassic.api.tile.GTTileBaseFuelMachine;
+import gtclassic.common.util.GTIFilters;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
@@ -61,7 +61,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
     protected static final int[] slotInputs = { 0, 1, 2, 3 };
     public static final int[] slotOutputs = {4, 5, 6, 7};
     public static final int slotFuel = 8;
-    public IFilter filter = new GTFuelMachineFilter(this);
+    public IFilter filter = new GTIFilters.FuelMachineFilter(this);
 
     public GTCXTileMultiPrimitiveBlastFurnace() {
         super(9, 100, 1);

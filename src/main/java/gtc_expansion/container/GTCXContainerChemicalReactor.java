@@ -4,7 +4,7 @@ package gtc_expansion.container;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtclassic.api.gui.GTGuiCompDirectionalProgress;
 import gtclassic.api.gui.GTGuiCompMachinePower;
-import gtclassic.api.slot.GTSlotUpgrade;
+import gtclassic.api.gui.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.slots.SlotCustom;
