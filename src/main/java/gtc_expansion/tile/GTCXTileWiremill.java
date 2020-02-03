@@ -140,7 +140,7 @@ public class GTCXTileWiremill extends GTTileBaseMachine {
         addRecipe("ingotBronze", 1, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
         addRecipe("ingotKanthal", 4, GTMaterialGen.get(GTCXItems.kanthalHeatingCoil));
         addRecipe("ingotConstantan", 4, GTMaterialGen.get(GTCXItems.constantanHeatingCoil));
-        addRecipe("ingotNichrome", 5, GTMaterialGen.get(GTCXItems.nichromeHeatingCoil));
+        addRecipe("ingotNichrome", 4, GTMaterialGen.get(GTCXItems.nichromeHeatingCoil));
         addRecipe("dustCoal", 4, Ic2Items.carbonFiber);
         addRecipe("dustCharcoal", 8, Ic2Items.carbonFiber);
         addRecipe("dustCarbon", 8, Ic2Items.carbonFiber);
