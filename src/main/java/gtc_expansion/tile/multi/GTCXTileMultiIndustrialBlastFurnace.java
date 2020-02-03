@@ -171,12 +171,14 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		this.currentHeat = nbt.getInteger("currentHeat");
+		this.baseHeat = nbt.getInteger("baseHeat");
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setInteger("currentHeat", this.currentHeat);
+		nbt.setInteger("baseHeat", this.baseHeat);
 		return nbt;
 	}
 
