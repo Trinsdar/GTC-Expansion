@@ -571,11 +571,14 @@ public class GTCXRecipe {
 //            instance.overrideGTRecipe("shaped_tile.gtclassic.fusionreactor_1659066354",GTMaterialGen.get(GEBlocks.fusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
 //                    "batteryUltimate", 'C', GTBlocks.tileComputer);
 //        }
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.dataCable, 6), "RRR", "CIC", "RRR", 'I', "plateSilicon", 'C', "circuitData", 'R', "itemRubber");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitizerItem, 4), "CPC", "PMP", "CPC", 'P', GTCXItems.pumpModule, 'C', "circuitData", 'M', "machineBlockAdvanced");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitizerFluid, 4), "CPC", "PMP", "CPC", 'P', GTCXItems.conveyorModule, 'C', "circuitData", 'M', "machineBlockAdvanced");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileReconstructorItem, 4),"PIP", "CMC", "PIP", 'P', GTCXItems.pumpModule, 'C', "circuitData", 'M', "machineBlockAdvanced",'I' , plateDigital);
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileReconstructorFluid, 4),"PIP", "CMC", "PIP", 'P', GTCXItems.conveyorModule, 'C', "circuitData", 'M', "machineBlockAdvanced",'I' , plateDigital);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.dataCable, 6), "RRR", "CIC", "RRR", 'I', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'R', "itemRubber");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.nodeBlank, 2), "II", "II", 'I', aluminium);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.nodeNetworkManager, 1), "BS", "CX", 'B', GTItems.nodeBlank, 'C', GTValues.CIRCUIT_ELITE, 'S', "plateSilicon", 'X', "paneGlass");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.nodeNetworkEnergizer, 1), "BS", "CX", 'B', GTItems.nodeBlank, 'C', GTValues.CIRCUIT_DATA, 'S', "plateSilicon", 'X', Ic2Items.glassFiberCable.copy());
+        recipes.addRecipe(GTMaterialGen.get(GTItems.nodeItemDigitizer, 4), "BS", "CX", 'B', GTItems.nodeBlank, 'S', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'X', GTCXItems.conveyorModule);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.nodeFluidDigitizer, 4), "BS", "CX", 'B', GTItems.nodeBlank, 'S', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'X', GTCXItems.pumpModule);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.nodeItemReconstructor, 4),"BS", "XC", 'B', GTItems.nodeBlank, 'S', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'X', GTCXItems.conveyorModule);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.nodeFluidReconstructor, 4),"BS", "XC", 'B', GTItems.nodeBlank, 'S', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'X', GTCXItems.pumpModule);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', Items.SHULKER_SHELL, 'D', GTItems.orbData, 'C', GTBlocks.tileComputer);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "IBI", "CQC", "IBI", 'I', materialDigital, 'B', Items.BUCKET, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);
