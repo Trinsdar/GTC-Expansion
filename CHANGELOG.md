@@ -1,5 +1,18 @@
 # Changelog
 
+# 0.0.9
+- Changed fluid caster gui recipe use info
+- New fluid smelter and caster textures thanks to Globalista Maoísta, also changed chainsaw texture thanks to same person
+- added recipes for super fuel binders
+- added support for railcraft, not finished yet.
+- made distillation tower only accept valid fluids
+- fixed base heat getting reset on chunk, world, or server reload
+- added recipe for saltpeter
+- fixed unsmeltable ic2 dusts in fluid smelter
+- made fluid smelter heat go up with redstone signal
+- removed recipes for data stuff as e removed the data items
+- new forcefield projector and tesseract recipes
+
 # 0.0.8
 - Added tooltips for lockers and advanced worktable
 - Added dustbin
