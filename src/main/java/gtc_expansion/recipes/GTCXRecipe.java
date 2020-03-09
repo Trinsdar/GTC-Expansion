@@ -616,6 +616,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTranslocatorFluid), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', "machineBlockCheap", 'M', Ic2Items.basicFluidImportUpgrade);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDisassembler, 1), "RAR", "ECE", "RWR", 'A', GTMaterialGen.getIc2(Ic2Items.extractor),
                 'W', GTCXBlocks.assemblingMachine, 'R', materialRefinedIron, 'E', Ic2Items.insulatedCopperCable.copy(), 'C', "circuitAdvanced" );
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCharcoalPit), "RFR", "RFR", "RFR", 'R', refinedIron, 'F', Items.FLINT);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTypeFilter), "PPP", "TCB", "PPP", 'P', aluiron, 'T', GTBlocks.tileTranslocator, 'C', "circuitAdvanced", 'B', GTBlocks.tileBufferLarge);
         /** Fusion Computer **/ //since I'll be adding my own fusion in the future
         if (GTConfig.general.removeIC2Plasmafier) {
             recipes.overrideRecipe("shaped_tile.blockPlasmafier_679353211", GTMaterialGen.get(GTBlocks.tileFusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
