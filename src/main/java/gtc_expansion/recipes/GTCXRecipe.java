@@ -24,6 +24,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.GTMod;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeCraftingHandler;
@@ -57,8 +58,8 @@ public class GTCXRecipe {
     static GTCXRecipe instance = new GTCXRecipe();
     static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
 
-    static String ingotRefinedIron = IC2.getRefinedIron();
-    static IRecipeInput ingotMachine = new RecipeInputCombined(1, input(ingotRefinedIron), input("ingotAluminium"), input("ingotAluminum"));
+
+    static IRecipeInput ingotMachine = new RecipeInputCombined(1, input(GTValues.INGOT_REFINEDIRON), input("ingotAluminium"), input("ingotAluminum"));
     public static IRecipeInput plateMachine = new RecipeInputCombined(1, input(getRefinedIronPlate()), input("plateAluminium"), input("plateAluminum"));
     static IRecipeInput ingotSteels = new RecipeInputCombined(1, input("ingotSteel"), input("ingotStainlessSteel"));
     public static IRecipeInput plateSteels = new RecipeInputCombined(1, input("plateSteel"), input("plateStainlessSteel"));
@@ -80,15 +81,13 @@ public class GTCXRecipe {
     static IRecipeInput ingotMixedMetal2 = new RecipeInputCombined(1, input("ingotTungsten"), input("ingotTitanium"));
     static IRecipeInput plateMixedMetal2 = new RecipeInputCombined(1, input("plateTungsten"), input("plateTitanium"));
     static IRecipeInput materialMixedMetal2 = GTCXConfiguration.general.usePlates ? plateMixedMetal2 : ingotMixedMetal2;
-    static String materialRefinedIron = GTCXConfiguration.general.usePlates ? getRefinedIronPlate() : ingotRefinedIron;
+    static String materialRefinedIron = GTCXConfiguration.general.usePlates ? getRefinedIronPlate() : GTValues.INGOT_REFINEDIRON;
     public static IRecipeInput materialMachine = GTCXConfiguration.general.usePlates ? plateMachine : ingotMachine;
     static IRecipeInput materialSteels = GTCXConfiguration.general.usePlates ? plateSteels : ingotSteels;
     static IRecipeInput materialSteelsAluminium = GTCXConfiguration.general.usePlates ? plateSteelsAluminium : ingotSteelsAluminium;
     static IRecipeInput anyPiston = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(Blocks.STICKY_PISTON)), new RecipeInputItemStack(GTMaterialGen.get(Blocks.PISTON)));
 
-    static IRecipeInput plateElectric = new RecipeInputCombined(1, input(getRefinedIronPlate()), input("plateSilicon"),
-            input("plateAluminium"), input("plateSilver"),
-            input("plateElectrum"), input("platePlatinum"));
+    static IRecipeInput plateElectric = new RecipeInputCombined(1, input(getRefinedIronPlate()), input("plateSilicon"), input("plateSilver"));
     public static IRecipeInput anyLapis = new RecipeInputCombined(1, input("gemLapis"),
             input("dustLazurite"), input("dustSodalite"));
     static IRecipeInput reinforcedGlass = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.reinforcedGlass), new RecipeInputItemStack(Ic2Items.reinforcedGlassClear));
@@ -113,6 +112,10 @@ public class GTCXRecipe {
     static String brass = GTCXConfiguration.general.usePlates ? "plateBrass" : "ingotBrass";
     static String refinedIron = GTCXConfiguration.general.usePlates ? "plateRefinedIron" : "ingotRefinedIron";
     static String lead = GTCXConfiguration.general.usePlates ? "plateLead" : "ingotLead";
+
+    public static String getRefinedIronRod(){
+        return IC2.config.getFlag("SteelRecipes") ? "rodSteel" : "rodRefinedIron";
+    }
 
     static ICraftingRecipeList.IRecipeModifier colorTransfer(ItemStack input){
         return new ICraftingRecipeList.IRecipeModifier() {
@@ -402,7 +405,7 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, lead);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
         IRecipeInput ashes = new RecipeInputCombined(1, input("dustAshes"), input("dustAsh"));
-        recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "ingotRefinedIron", ashes);
+        recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "GTValues.INGOT_REFINEDIRON", ashes);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.magicDye), "dyeCyan", "dyeMagenta", "dyeYellow", "dyeBlack");
     }
 
@@ -536,7 +539,7 @@ public class GTCXRecipe {
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', "plateRedAlloy", 'G', "dustGlowstone", 'C', "circuitBasic", 'L', anyLapis);
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', "plateRedAlloy", 'G', "dustGlowstone", 'C', "circuitBasic", 'L', anyLapis);
         } else {
-            IRecipeInput ingotElectric = new RecipeInputCombined(1, input(ingotRefinedIron), input("itemSilicon"),
+            IRecipeInput ingotElectric = new RecipeInputCombined(1, input(GTValues.INGOT_REFINEDIRON), input("itemSilicon"),
                     input("ingotAluminium"), input("ingotSilver"),
                     input("ingotElectrum"), input("ingotPlatinum"));
             IRecipeInput ingotSilver = new RecipeInputCombined(1, input("ingotSilver"), input("ingotElectrum"));
@@ -595,7 +598,12 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.casingHighlyAdvanced), "CTC", "TMT", "CTC", 'C', chrome, 'T', titanium, 'M', "machineBlockAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.casingHighlyAdvanced), "TCT", "CMC", "TCT", 'C', chrome, 'T', titanium, 'M', "machineBlockAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTItems.forceField), "TCT", "CLC", "TCT", 'T', tungsten, 'C', "circuitElite", 'L', GTItems.orbEnergy);
-        recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 3), "TTT", "MMM", "BBB", 'T', materialRefinedIron, 'M', materialBrassBronze, 'B', materialMixedMetal1);
+        IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
+        recipes.addRecipe(GTMaterialGen.get(GTItems.springBoots), "RWR", "RBR", 'R', getRefinedIronRod(), 'B', Ic2Items.compositeBoots, 'W', hammer);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.destructoPack, 1), "CIC", "ILI", "CIC", 'L', GTValues.FS_LAVA, 'C', GTValues.CIRCUIT_BASIC, 'I', materialRefinedIron);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.electroMagnet, 1), "M M", "WMW", "IBI", 'M', Ic2Items.magnet, 'B', Ic2Items.battery, 'I', getRefinedIronRod(), 'W', Ic2Items.copperCable);recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 3), "TTT", "MMM", "BBB", 'T', materialRefinedIron, 'M', materialBrassBronze, 'B', materialMixedMetal1);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.cloakingDevice, 1), "IPI", "POP", "IPI", 'I', chrome, 'P', GTValues.PLATE_IRIDIUM_ALLOY, 'O', GTValues.BATTERY_ULTIMATE);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.teslaStaff, 1), " SL", " PS", "P  ", 'L', GTValues.BATTERY_ULTIMATE, 'S', GTValues.CRAFTING_SUPERCONDUCTOR, 'P', "rodIridium");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', materialMixedMetal2, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 8), "TTT", "MMM", "BBB", 'T', tungstenSteel, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         recipes.addRecipe(GTMaterialGen.get(GTItems.circuitEnergy, 4), "CTC", "LIL", "CTC", 'C', "circuitAdvanced", 'T', tungsten, 'L', Ic2Items.lapotronCrystal, 'I', Ic2Items.iridiumPlate);

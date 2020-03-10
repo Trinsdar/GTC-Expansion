@@ -1,16 +1,19 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerChemicalReactor;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTBlocks;
 import gtclassic.common.GTItems;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
@@ -152,6 +155,9 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine {
         addRecipe(new IRecipeInput[]{input(GTMaterialGen.get(GTItems.fuelBinder)), input(GTMaterialGen.getTube(GTMaterial.Mercury, 1)), new RecipeInputCombined(1, input("dustEnderEye", 1), input(GTMaterialGen.get(Items.BLAZE_POWDER)))}, totalEu(6400), GTMaterialGen.get(GTItems.fuelBinderMagic, 3));
         addRecipe(input(GTMaterialGen.getTube(GTCXMaterial.NitricAcid, 1)), input(GTMaterialGen.getTube(GTMaterial.Potassium, 1)), 600, GTMaterialGen.getDust(GTCXMaterial.Saltpeter, 1), GTMaterialGen.get(GTItems.testTube, 2));
         addRecipe(input(GTMaterialGen.getTube(GTCXMaterial.NitrogenDioxide, 3)), input(GTMaterialGen.getWater(1)), 600, GTMaterialGen.getTube(GTCXMaterial.NitricAcid, 2), GTMaterialGen.get(GTItems.testTube, 2));
+        addRecipe(new IRecipeInput[]{input(GTValues.BLOCK_COAL, 1), input(GTMaterialGen.get(GTItems.fuelBinder, 2)), input(GTMaterialGen.getTube(GTMaterial.Fuel, 1))}, totalEu(6400), GTMaterialGen.get(GTBlocks.superFuel), GTMaterialGen.get(GTItems.testTube));
+        IRecipeInput dusts = GTRecipeCraftingHandler.combineRecipeObjects("dustEmerald", "dustSapphire", "dustThorium");
+        addRecipe(new IRecipeInput[]{input(GTMaterialGen.get(GTBlocks.superFuel)), input(GTMaterialGen.get(GTItems.fuelBinderMagic, 3)), }, totalEu(6400), GTMaterialGen.get(GTBlocks.superFuelMagic));
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack... output) {
