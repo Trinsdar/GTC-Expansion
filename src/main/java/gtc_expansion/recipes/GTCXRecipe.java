@@ -607,7 +607,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', materialMixedMetal2, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 8), "TTT", "MMM", "BBB", 'T', tungstenSteel, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         recipes.addRecipe(GTMaterialGen.get(GTItems.circuitEnergy, 4), "CTC", "LIL", "CTC", 'C', "circuitAdvanced", 'T', tungsten, 'L', Ic2Items.lapotronCrystal, 'I', Ic2Items.iridiumPlate);
-        recipes.addRecipe(GTMaterialGen.get(GTItems.superConductor, 4), "CCC", "ITI", "ccc", 'C', GTRecipeCraftingHandler.combineRecipeObjects(GTItems.heatStorageHelium6, Ic2Items.reactorCoolantCellSix), 'I', Ic2Items.iridiumPlate, 'T', tungsten, 'c', "circuitMaster");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.superConductor, 4), "CCC", "TIT", "ccc", 'C', GTRecipeCraftingHandler.combineRecipeObjects(GTItems.heatStorageHelium6, Ic2Items.reactorCoolantCellSix), 'I', Ic2Items.iridiumPlate, 'T', tungsten, 'c', "circuitMaster");
         IRecipeInput rodIrons = GTRecipeCraftingHandler.combineRecipeObjects("rodIron", "rodRefinedIron");
         recipes.addRecipe(GTMaterialGen.get(GTItems.magnifyingGlass), "RG", 'R', rodIrons, 'G', "paneGlass");
         recipes.addRecipe(Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', aluminium, 'B', Blocks.IRON_BARS);
