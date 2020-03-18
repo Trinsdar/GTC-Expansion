@@ -93,9 +93,6 @@ public class GTCXRecipe {
     static IRecipeInput reinforcedGlass = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.reinforcedGlass), new RecipeInputItemStack(Ic2Items.reinforcedGlassClear));
     static IRecipeInput grinder = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.diamondGrinder)), new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.wolframiumGrinder)));
     static IRecipeInput tier2Energy = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.energyCrystal), new RecipeInputItemStack(GTMaterialGen.get(GTItems.lithiumBattery)));
-    static IRecipeInput ingotDigital = new RecipeInputCombined(1, input("ingotChrome"), input("ingotTitanium"), input("ingotPlatinum"));
-    static IRecipeInput plateDigital = new RecipeInputCombined(1, input("plateChrome"), input("plateTitanium"), input("platePlatinum"));
-    static IRecipeInput materialDigital = GTCXConfiguration.general.usePlates ? plateDigital : ingotDigital;
 
     static String steel = GTCXConfiguration.general.usePlates ? "plateSteel" : "ingotSteel";
     static String stainlessSteel = GTCXConfiguration.general.usePlates ? "plateStainlessSteel" : "ingotStainlessSteel";
@@ -581,7 +578,7 @@ public class GTCXRecipe {
         //recipes.addRecipe(GTMaterialGen.get(GTItems.nodeItemReconstructor, 4),"BS", "XC", 'B', GTItems.nodeBlank, 'S', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'X', GTCXItems.conveyorModule);
         //recipes.addRecipe(GTMaterialGen.get(GTItems.nodeFluidReconstructor, 4),"BS", "XC", 'B', GTItems.nodeBlank, 'S', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'X', GTCXItems.pumpModule);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', "machineBlockElite", 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', materialDigital, 'S', "circuitElite", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', platinum, 'S', "circuitElite", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "CIC", "IQI", "CIC", 'I', platinum, 'C', "circuitMaster", 'Q', GTBlocks.tileQuantumChest);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', "circuitMaster", 'M', GTCXItems.computerMonitor, 'O', "circuitUltimate", 'A', "machineBlockAdvanced");
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.casingFusion), "CSC", "NMN", "CRC", 'C', "circuitMaster", 'S', "craftingSuperconductor", 'N', GTCXItems.nichromeHeatingCoil, 'M',
