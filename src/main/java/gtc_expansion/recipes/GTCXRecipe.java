@@ -586,6 +586,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTesseractMaster),"TCT", "CEC", "TcT", 'T', titanium, 'C', "circuitMaster", 'E', Blocks.ENDER_CHEST, 'c', GTBlocks.tileComputer);
 		instance.overrideGTRecipe("shaped_tile.gtclassic.playerdetector_2113320743", GTMaterialGen.get(GTBlocks.tilePlayerDetector, 1), " D ", "CcC", " D ", 'D', GTValues.CIRCUIT_DATA, 'C', GTValues.CIRCUIT_ADVANCED, 'c', GTBlocks.tileComputer);
 		instance.overrideGTRecipe("shaped_tile.gtclassic.dragoneggenergysiphon_640702183", GTMaterialGen.get(GTBlocks.tileDragonEggEnergySiphon, 1), "CTC", "PSP", "CBC", 'C', GTValues.CIRCUIT_MASTER, 'S', GTBlocks.tileSupercondensator, 'B', GTValues.BATTERY_ULTIMATE, 'P', GTValues.PLATE_IRIDIUM_ALLOY, 'T', Ic2Items.teleporter.copy());
+		instance.overrideGTRecipe("shaped_tile.gtclassic.magicenergyconverter_605182006", GTMaterialGen.get(GTBlocks.tileMagicEnergyConverter, 1), "CTC", "IBI", "CLC", 'C', GTValues.CIRCUIT_ADVANCED, 'B', Blocks.BEACON, 'L', Ic2Items.lapotronCrystal.copy(), 'I', GTValues.INGOT_PLATINUM, 'T', Ic2Items.teleporter.copy());
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTesseractSlave),"TCT", "CEC", "TcT", 'T', titanium, 'C', "circuitElite", 'E', Blocks.ENDER_CHEST, 'c', Ic2Items.advMachine);
         IRecipeInput rod = new RecipeInputCombined(1, input("rodTitanium", 1), input("rodTungstensteel", 1));
         IRecipeInput plate = new RecipeInputCombined(1, input(titanium, 1), input(tungstenSteel, 1));
