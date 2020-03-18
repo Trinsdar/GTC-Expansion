@@ -137,6 +137,7 @@ public class GTCXRecipeMods {
             addCrushedOreRecipes(GTMaterial.Tungsten, GTCXMaterialGen.getTinyDust(GTCXMaterial.Manganese, 1), GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "silvertinydust"));
             addCrushedOreRecipes(GTMaterial.Iridium, GTCXMaterialGen.getTinyDust(GTMaterial.Platinum, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.Osmium, 1));
             addCrushedOreRecipes(GTCXMaterial.Chromite, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "irontinydust"), GTCXMaterialGen.getTinyDust(GTMaterial.Chrome, 1));
+            addCrushedOreRecipes(GTCXMaterial.Cassiterite, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "tintinydust"), GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "tintinydust"));
             GTRecipe.maceratorUtil("oreGalena", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Galena, 2));
             GTRecipe.maceratorUtil("oreTetrahedrite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 2));
             GTRecipe.maceratorUtil("oreCassiterite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cassiterite, 4));
