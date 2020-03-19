@@ -618,7 +618,7 @@ public class GTCXRecipe {
         IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputCombined(1, input("craftingToolMonkeyWrench"), input("craftingToolWrench")) : new RecipeInputOreDict("rodRefinedIron");
         rod = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("rodRefinedIron") : null;
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDrum), "PWP", "PMP", "PRP", 'P', refinedIron, 'W', wrench, 'M', rod, 'R', "rodRefinedIron");
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileWorktable), "ICI", "IMI", "IcI", 'I', aluiron, 'C', "workbench", 'c', "circuitAdvanced", 'M', "machineBlockCheap");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileWorktable), "ICI", "IMI", "IcI", 'I', aluiron, 'C', "workbench", 'c', "chestWood", 'M', "machineBlockCheap");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileAutocrafter), "EBE", "CcC", "EME", 'E', electrum, 'B', Ic2Items.battery, 'C', "circuitAdvanced", 'c', "workbench", 'M', "machineBlockAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTranslocatorFluid), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', "machineBlockCheap", 'M', Ic2Items.basicFluidImportUpgrade);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDisassembler, 1), "RAR", "ECE", "RWR", 'A', GTMaterialGen.getIc2(Ic2Items.extractor),
