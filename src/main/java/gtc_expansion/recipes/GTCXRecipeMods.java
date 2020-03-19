@@ -141,14 +141,14 @@ public class GTCXRecipeMods {
             GTRecipe.maceratorUtil("oreGalena", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Galena, 2));
             GTRecipe.maceratorUtil("oreTetrahedrite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 2));
             GTRecipe.maceratorUtil("oreCassiterite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cassiterite, 4));
-            GTRecipe.maceratorUtil("orePyrite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Pyrite, 5));
-            GTRecipe.maceratorUtil("oreCinnabar", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cinnabar, 3));
-            GTRecipe.maceratorUtil("oreSphalerite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Sphalerite, 4));
+            GTRecipe.maceratorUtil("orePyrite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Pyrite, 2));
+            GTRecipe.maceratorUtil("oreCinnabar", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cinnabar, 2));
+            GTRecipe.maceratorUtil("oreSphalerite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Sphalerite, 2));
             GTRecipe.maceratorUtil("orePlatinum", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Platinum, 2));
             GTRecipe.maceratorUtil("oreTungstate", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Tungsten, 2));
             GTRecipe.maceratorUtil("oreChromite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Chromite, 2));
             ClassicRecipes.macerator.removeRecipe(input("oreBauxite", 1));
-            TileEntityMacerator.addRecipe("oreBauxite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Bauxite, 4));
+            TileEntityMacerator.addRecipe("oreBauxite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Bauxite, 2));
             ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));
             TileEntityMacerator.addRecipe("oreIridium", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Iridium, 2));
             GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
