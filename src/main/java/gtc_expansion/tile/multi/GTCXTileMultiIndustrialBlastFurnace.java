@@ -239,7 +239,7 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 
 		/* Aluminium **/
 		IRecipeInput aluminium = new RecipeInputCombined(1, new RecipeInputOreDict("dustAluminum"), new RecipeInputOreDict("dustAluminium"));
-		addRecipe(new IRecipeInput[]{aluminium}, 1700, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Aluminium, 1));
+		addRecipe(new IRecipeInput[]{aluminium}, 1000, COST_MED, GTMaterialGen.getIngot(GTMaterial.Aluminium, 1));
 
 		/* Silicon **/
 		addRecipe(new IRecipeInput[]{input("dustSilicon", 1)}, 1000, COST_MED, GTMaterialGen.getIngot(GTMaterial.Silicon, 1));

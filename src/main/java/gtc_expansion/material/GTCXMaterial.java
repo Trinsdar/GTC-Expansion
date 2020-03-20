@@ -54,7 +54,7 @@ public class GTCXMaterial {
     public static final GTMaterial BioFuel = new GTMaterial("BioFuel", 153, 204, 0, fluid);
     public static final GTMaterial Brass = new GTMaterial("Brass", 1, 255, 180, 0, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull , pipeItem);
     public static final GTMaterial Bronze = new GTMaterial("Bronze", 1, 255, 128, 0, pipeFluid, molten, smalldust, nugget, plate, stick, gear, hull);
-    public static final GTMaterial Cassiterite = new GTMaterial("Cassiterite", 220, 220, 220, crushedAll);
+    public static final GTMaterial Cassiterite = new GTMaterial("Cassiterite", 220, 220, 220, false, crushedAll);
     public static final GTMaterial Charcoal = new GTMaterial("Charcoal", 100, 70, 70, smalldust);
     public static final GTMaterial Chromite = new GTMaterial("Chromite", 35, 20, 15, crushedAll);
     public static final GTMaterial Cinnabar = new GTMaterial("Cinnabar", 150, 0, 0, crushedAll);
@@ -117,7 +117,7 @@ public class GTCXMaterial {
     public static final GTMaterial Tin = new GTMaterial("Tin", 220, 220, 220, molten, smalldust, nugget, plate, stick, gear);
     public static final GTMaterial TungstenSteel = new GTMaterial(-1, "Tungstensteel", 4, 100, 100, 160, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, hull, pipeFluid);
     public static final GTMaterial Uvarovite = new GTMaterial("Uvarovite", 180, 255, 180, dustAll);
-    public static final GTMaterial Zinc = new GTMaterial(30,"Zinc", 1, 250, 240, 240, false, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
+    public static final GTMaterial Zinc = new GTMaterial(30,"Zinc", 1, 250, 240, 240, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust);
 
     public static void initMaterials(){
         GTMaterial.Aluminium.addFlags(metalFullWHull).setSmeltable(false);
