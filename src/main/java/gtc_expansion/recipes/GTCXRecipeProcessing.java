@@ -51,6 +51,9 @@ public class GTCXRecipeProcessing {
         GameRegistry.addSmelting(GTCXBlocks.oreCassiterite, GTMaterialGen.getIc2(Ic2Items.tinIngot, 2), 0.5F);
         GameRegistry.addSmelting(GTCXBlocks.oreTetrahedrite, Ic2Items.copperIngot, 0.5F);
         GameRegistry.addSmelting(GTMaterialGen.getDust(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
+        GameRegistry.addSmelting(GTMaterialGen.getDust(GTCXMaterial.Cassiterite, 1), GTMaterialGen.getIc2(Ic2Items.tinIngot, 1), 0.5F);
+        GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cassiterite, 1), GTMaterialGen.getIc2(Ic2Items.tinIngot, 1), 0.5F);
+        GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Cassiterite, 1), GTMaterialGen.getIc2(Ic2Items.tinIngot, 1), 0.5F);
     }
 
     public static void initIc2Recipes(){
