@@ -3,6 +3,7 @@ package gtc_expansion.item;
 import com.google.common.collect.ImmutableSet;
 import gtc_expansion.GTCExpansion;
 import gtclassic.GTMod;
+import gtclassic.common.item.GTItemJackHammer;
 import ic2.api.classic.item.IMiningDrill;
 import ic2.api.item.ElectricItem;
 import ic2.core.item.base.ItemElectricTool;
@@ -34,7 +35,7 @@ import java.util.Set;
 public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMiningDrill, IStaticTexturedItem {
 
     public GTCXItemSteelJackHammer() {
-        super(0.0F, -3.0F, ToolMaterial.DIAMOND);
+        super(0.0F, -3.0F, ToolMaterial.IRON);
         this.tier = 1;
         this.attackDamage = 1.0F;
         this.maxCharge = 10000;
@@ -145,8 +146,8 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_items")[25];
     }
 
-    private boolean isValidState(IBlockState blockstate) {
-        return ItemElectricToolDrill.rocks.contains(blockstate) || blockstate.equals(Blocks.END_STONE.getDefaultState())
-                || blockstate.equals(Blocks.NETHERRACK.getDefaultState());
+    public boolean isValidState(IBlockState blockstate) {
+        return ItemElectricToolDrill.rocks.contains(blockstate)
+                || GTItemJackHammer.rocks.contains(blockstate.getBlock());
     }
 }
