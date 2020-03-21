@@ -94,21 +94,24 @@ public class GTCXRecipe {
     static IRecipeInput grinder = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.diamondGrinder)), new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.wolframiumGrinder)));
     static IRecipeInput tier2Energy = new RecipeInputCombined(1, new RecipeInputItemStack(Ic2Items.energyCrystal), new RecipeInputItemStack(GTMaterialGen.get(GTItems.lithiumBattery)));
 
-    static String steel = GTCXConfiguration.general.usePlates ? "plateSteel" : "ingotSteel";
-    static String stainlessSteel = GTCXConfiguration.general.usePlates ? "plateStainlessSteel" : "ingotStainlessSteel";
-    static String tungsten = GTCXConfiguration.general.usePlates ? "plateTungsten" : "ingotTungsten";
-    static String tungstenSteel = GTCXConfiguration.general.usePlates ? "plateTungstensteel" : "ingotTungstensteel";
-    static IRecipeInput aluminium = GTCXConfiguration.general.usePlates ? new RecipeInputCombined(1, input("plateAluminium"), input("plateAluminum")) : new RecipeInputCombined(1, input("ingotAluminium"), input("ingotAluminum")) ;
-    static String titanium = GTCXConfiguration.general.usePlates ? "plateTitanium" : "ingotTitanium";
-    static String platinum = GTCXConfiguration.general.usePlates ? "platePlatinum" : "ingotPlatinum";
-    static String electrum = GTCXConfiguration.general.usePlates ? "plateElectrum" : "ingotElectrum";
-    static String chrome = GTCXConfiguration.general.usePlates ? "plateChrome" : "ingotChrome";
-    static String tin = GTCXConfiguration.general.usePlates ? "plateTin" : "ingotTin";
-    static String copper = GTCXConfiguration.general.usePlates ? "plateCopper" : "ingotCopper";
-    static String bronze = GTCXConfiguration.general.usePlates ? "plateBronze" : "ingotBronze";
-    static String brass = GTCXConfiguration.general.usePlates ? "plateBrass" : "ingotBrass";
-    static String refinedIron = GTCXConfiguration.general.usePlates ? "plateRefinedIron" : "ingotRefinedIron";
-    static String lead = GTCXConfiguration.general.usePlates ? "plateLead" : "ingotLead";
+
+    static String pre = GTCXConfiguration.general.usePlates ? "plate" : "ingot";
+    static String steel = pre + "Steel";
+    static String stainlessSteel = pre + "StainlessSteel";
+    static String tungsten = pre + "Tungsten";
+    static String tungstenSteel = pre + "Tungstensteel";
+    static IRecipeInput aluminium = GTRecipeCraftingHandler.combineRecipeObjects(pre + "Aluminium", pre + "Aluminum");
+    static String titanium = pre + "Titanium";
+    static String platinum = pre + "Platinum";
+    static String electrum = pre + "Electrum";
+    static String chrome = pre + "Chrome";
+    static String tin = pre + "Tin";
+    static String copper = pre + "Copper";
+    static String bronze = pre + "Bronze";
+    static String brass = pre + "Brass";
+    static String refinedIron = pre + "RefinedIron";
+    static String lead = pre + "Lead";
+    static String invar = pre + "Invar";
 
     public static String getRefinedIronRod(){
         return IC2.config.getFlag("SteelRecipes") ? "rodSteel" : "rodRefinedIron";
@@ -356,7 +359,6 @@ public class GTCXRecipe {
     }
 
     public static void initShapedBlockRecipes(){
-        String invar = GTCXConfiguration.general.usePlates ? "plateInvar" : "ingotInvar";
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.assemblingMachine), "CPC", "SMS", "CSC", 'C', "circuitBasic", 'P', Blocks.PISTON, 'S', materialSteelsAluminium, 'M', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.chemicalReactor), "PMP", "CcC", "PEP", 'P', materialInvarAluminium, 'M', Ic2Items.magnetizer, 'C', "circuitAdvanced", 'c', Ic2Items.compressor, 'E', Ic2Items.extractor);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.distillationTower), "CEC", "PAP", "eEe", 'C', GTBlocks.tileCentrifuge, 'E', "circuitMaster", 'P', Ic2Items.pump.copy(), 'A', "machineBlockHighlyAdvanced", 'e', GTCXBlocks.electrolyzer);
@@ -370,14 +372,14 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.wiremill), "PDP", "CMC", "PcP", 'P', brass, 'D', "gemDiamond", 'C', "circuitBasic", 'M', "machineBlockBasic", 'c', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.lathe), "PCP", "GMG", "PmP", 'P', materialSteels, 'C', "circuitAdvanced", 'G', "gearSteel", 'M', GTCXItems.conveyorModule, 'm', "machineBlockBasic");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.microwave), "AAA", "L M", "AAA", 'A', aluminium, 'L', lead, 'M', Ic2Items.magnetizer);
-        IRecipeInput materialStainlessTitatium = new RecipeInputCombined(1, input(stainlessSteel), input(titanium));
+        IRecipeInput materialStainlessTitatium = GTRecipeCraftingHandler.combineRecipeObjects(stainlessSteel, titanium);
         //IRecipeInput pipe = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTMaterial.Titanium, 1)), new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTCXMaterial.StainlessSteel, 1)));
         ItemStack pipe = new ItemStack(Items.BUCKET, 1);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fluidCaster), "IcI", "PMP", "ICI", 'I', materialStainlessTitatium, 'c', GTCXItems.mold, 'P', pipe, 'M', "machineBlockVeryAdvanced", 'C', "circuitElite");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fluidSmelter), "IbI", "PMP", "BCB", 'I', materialStainlessTitatium, 'c', GTCXBlocks.industrialBlastFurnace, 'P', pipe, 'M', "machineBlockVeryAdvanced", 'C', "circuitElite", 'B', Blocks.BRICK_BLOCK);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.primitiveBlastFurnace), "BBB", "BPB", "BBB", 'B', GTCXBlocks.fireBrickBlock, 'P', "plateIron");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.alloyFurnace), "CCC", "FHF", "CCC", 'C', Blocks.BRICK_BLOCK, 'F', Blocks.FURNACE, 'H', Blocks.HOPPER);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingStandard, 4), "III", "CBC", "III", 'I', materialMachine, 'C', "circuitBasic", 'B', "machineBlockCheap");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingStandard, 4), "III", "CBC", "III", 'I', GTRecipeCraftingHandler.combineRecipeObjects(refinedIron, aluminium), 'C', "circuitBasic", 'B', "machineBlockCheap");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 4), "III", "CMC", "III", 'I', materialSteels, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', chrome, 'C', "circuitData", 'B', "machineBlockElite");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
@@ -634,6 +636,7 @@ public class GTCXRecipe {
                     "circuitMaster", 'S', "craftingSuperconductor", 'L', "batteryUltimate", 'C',
                     GTBlocks.tileComputer);
         }
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileRockBreaker), "IDI", "CTC", "IMI", 'I', invar, 'C', GTValues.CIRCUIT_BASIC, 'M', GTValues.MACHINE_ADV, 'D', GTValues.INPUT_DIAMOND_OR_TUNGSTEN, 'T', Ic2Items.electricDrill.copy());
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialSteelsAluminium, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBatteryLV), " C ", "TRT", "TMT", 'C', Ic2Items.copperCable, 'T', tin, 'R', "blockRedstone", 'M', "machineBlockBasic");
     }
