@@ -112,11 +112,11 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     public void update() {
         tryImportItems();
         counter++;
-        if (counter == 5){
+        if (counter == 20){
             GTHelperStack.tryCondenseInventory(this, 0, 16);
             counter = 0;
         }
-        if (counter > 5){
+        if (counter > 20){
             counter = 0;
         }
         handleRedstone();
