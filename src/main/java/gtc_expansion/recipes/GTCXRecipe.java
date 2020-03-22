@@ -608,9 +608,9 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', materialMixedMetal2, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 8), "TTT", "MMM", "BBB", 'T', tungstenSteel, 'M', materialBrassBronze, 'B', materialMixedMetal1);
         recipes.addRecipe(GTMaterialGen.get(GTItems.circuitEnergy, 4), "CTC", "LIL", "CTC", 'C', "circuitAdvanced", 'T', tungsten, 'L', Ic2Items.lapotronCrystal, 'I', Ic2Items.iridiumPlate);
-        recipes.addRecipe(GTMaterialGen.get(GTItems.superConductor, 4), "CCC", "TIT", "ccc", 'C', GTRecipeCraftingHandler.combineRecipeObjects(GTItems.heatStorageHelium6, Ic2Items.reactorCoolantCellSix), 'I', Ic2Items.iridiumPlate, 'T', tungsten, 'c', "circuitMaster");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.superConductor, 4), "CCC", "TIT", "ccc", 'C', GTValues.INPUT_COOLANT_SUPERCONDUCTOTR, 'I', Ic2Items.iridiumPlate, 'T', tungsten, 'c', "circuitMaster");
         IRecipeInput rodIrons = GTRecipeCraftingHandler.combineRecipeObjects("rodIron", "rodRefinedIron");
-        recipes.addRecipe(GTMaterialGen.get(GTItems.magnifyingGlass), "RG", 'R', rodIrons, 'G', "paneGlass");
+        recipes.addRecipe(GTMaterialGen.get(GTItems.magnifyingGlass), "R ", " G", 'R', rodIrons, 'G', "paneGlass");
         recipes.addRecipe(Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', aluminium, 'B', Blocks.IRON_BARS);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitBasic", 'B', "machineBlockCheap", 'M', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', electrum, 'W', Ic2Items.insulatedCopperCable, 'C', "circuitAdvanced", 'B', "machineBlockCheap", 'c', "chestWood");
@@ -627,6 +627,7 @@ public class GTCXRecipe {
                 'W', GTCXBlocks.assemblingMachine, 'R', materialRefinedIron, 'E', Ic2Items.insulatedCopperCable.copy(), 'C', "circuitAdvanced" );
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCharcoalPit), "RFR", "RFR", "RFR", 'R', refinedIron, 'F', Items.FLINT);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTypeFilter), "PPP", "TCB", "PPP", 'P', aluiron, 'T', GTBlocks.tileTranslocator, 'C', "circuitAdvanced", 'B', GTBlocks.tileBufferLarge);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileItemFilter), "PPP", "TCB", "PPP", 'P', pre + "Iron", 'T', GTBlocks.tileTranslocator, 'C', "circuitBasic", 'B', GTBlocks.tileBufferLarge);
         /** Fusion Computer **/ //since I'll be adding my own fusion in the future
         if (GTConfig.general.removeIC2Plasmafier) {
             recipes.overrideRecipe("shaped_tile.blockPlasmafier_679353211", GTMaterialGen.get(GTBlocks.tileFusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
