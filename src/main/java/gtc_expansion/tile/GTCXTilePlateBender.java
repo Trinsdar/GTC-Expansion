@@ -5,7 +5,7 @@ import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerPlateBender;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
@@ -136,8 +136,8 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
     public static void init() {
         addRecipe(Ic2Items.mixedMetalIngot, Ic2Items.advancedAlloy);
         addRecipe("plateTin", 2, GTMaterialGen.getIc2(Ic2Items.emptyCell, 8));
-        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-            addRecipe("casingIron", 2, GTMaterialGen.getModItem(GTHelperMods.IC2_EXTRAS, "emptyfuelrod"));
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            addRecipe("casingIron", 2, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "emptyfuelrod"));
             addRecipe("casingTin", 1, Ic2Items.tinCan);
         }
     }

@@ -5,7 +5,6 @@ import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileDustbin;
 import gtc_expansion.tile.GTCXTileElectricLocker;
 import gtc_expansion.tile.GTCXTileLocker;
-import gtclassic.api.helpers.GTHelperString;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
@@ -17,6 +16,7 @@ import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -51,7 +51,13 @@ public class GTCXBlockStorage extends GTCXBlockTile implements IGTColorBlock {
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		GTHelperString.tooltipPaintable(stack, tooltip);
+		NBTTagCompound nbt = StackUtil.getNbtData(stack);
+		if (nbt.hasKey("color")) {
+			tooltip.add(I18n.format("tooltip.gtclassic.paintedtrue"));
+		} else {
+			tooltip.add(I18n.format("tooltip.gtclassic.paintedfalse"));
+		}
+		//GTBlockStorage.tooltipPaintable(stack, tooltip);
 	}
 
 	@Override

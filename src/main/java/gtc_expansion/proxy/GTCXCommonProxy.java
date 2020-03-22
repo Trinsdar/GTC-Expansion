@@ -11,7 +11,7 @@ import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.recipes.GTCXRecipe;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.util.GTCXBedrockOreHandler;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.common.GTConfig;
 import ic2.core.inventory.filters.BasicItemFilter;
 import net.minecraft.item.ItemStack;
@@ -40,7 +40,7 @@ public class GTCXCommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
         GTCXRecipe.postInit();
-        if (GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTHelperMods.TFOREST)) {
+        if (GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTValues.MOD_ID_TFOREST)) {
             GTCXWorldGenTwilightForest.init();
         }
         for (ItemStack stack : GTCXTileFluidSmelter.coilsSlotWhitelist.keySet()){

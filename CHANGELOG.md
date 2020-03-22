@@ -1,5 +1,35 @@
 # Changelog
 
+# 0.1.0
+- Fixed a few recipes - see commit history for more details of what was changed
+- Added better mod support for other stones to steel jackhammer.
+- Added cassiterite material
+- Made Dustbin autocompress stacks
+- Added some missing recipes
+
+# 0.0.9
+- Changed fluid caster gui recipe use info
+- New fluid smelter and caster textures thanks to Globalista Maoísta, also changed chainsaw texture thanks to same person
+- added recipes for super fuel binders
+- added support for railcraft, not finished yet.
+- made distillation tower only accept valid fluids
+- fixed base heat getting reset on chunk, world, or server reload
+- added recipe for saltpeter
+- fixed unsmeltable ic2 dusts in fluid smelter
+- made fluid smelter heat go up with redstone signal
+- removed recipes for data stuff as e removed the data items
+- new forcefield projector and tesseract recipes
+
+# 0.0.8
+- Added tooltips for lockers and advanced worktable
+- Added dustbin
+- Increased required temperature of nichrome and kanthal
+- Added hardened clay processing to i. grinder
+- Changed ruby processing
+- Changed rotary macerator recipe
+- Added chromite ore, spawns at same rate as sheldonite.
+- Fixed blast furnace heat getting reset when any slot gets changed
+
 # 0.0.7
 - Added fluid caster and molds
 - Added fluid smelter

@@ -42,6 +42,7 @@ tile.gtc_expansion.oreolivine_overworld.name=Olivine Ore
 tile.gtc_expansion.orecassiterite.name=Cassiterite Ore
 tile.gtc_expansion.oretetrahedrite.name=Tetrahedrite Ore
 tile.gtc_expansion.oregalena.name=Galena Ore
+tile.gtc_expansion.orechromite.name=Chromite Ore
 
 
 tile.gtc_expansion.industrialblastfurnace.name=Industrial Blast Furnace
@@ -134,7 +135,7 @@ item.gtclassic.dustsmallCharcoal.name=Small Charcoal Dust
 item.gtclassic.dustsmallCalcite.name=Small Calcite Dust
 item.gtclassic.dustsmallPyrite.name=Small Pyrite Dust
 item.gtclassic.dustsmallLithium.name=Small Lithium Dust
-item.gtclassic.dustsmallWood.name=Small Sawdust
+item.gtclassic.dustsmallWood.name=Small Wood Pulp
 item.gtclassic.dustsmallChrome.name=Small Chrome Dust
 item.gtclassic.dustsmallTin.name=Small Tin Dust
 item.gtclassic.dustsmallBrass.name=Small Brass Dust
@@ -184,6 +185,8 @@ item.gtclassic.dustsmallNichrome.name=Small Nichrome Dust
 item.gtclassic.dustsmallNeodymium.name=Small Neodymium Dust
 item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 item.gtclassic.dustsmallTechnetium.name=Small Technetium Dust
+item.gtclassic.dustsmallChromite.name=Small Chromite Dust
+item.gtclassic.dustsmallCassiterite.name=Small Cassiterite Dust
 
 #dust
 item.gtclassic.dustKanthal.name=Kanthal Dust
@@ -209,7 +212,6 @@ item.gtclassic.dustPyrope.name=Pyrope Dust
 item.gtclassic.dustGreenSapphire.name=Green Sapphire Dust
 item.gtclassic.dustGalena.name=Galena Dust
 item.gtclassic.dustEndstone.name=Endstone Dust
-item.gtclassic.dustWood.name=Sawdust
 item.gtclassic.dustChrome.name=Chrome Dust
 item.gtclassic.dustBrass.name=Brass Dust
 item.gtclassic.dustMarble.name=Marble Dust
@@ -237,6 +239,8 @@ item.gtclassic.dustRedAlloy.name=Red Alloy Dust
 item.gtclassic.dustMagnalium.name=Magnalium Dust
 item.gtclassic.dustNichrome.name=Nichrome Dust
 item.gtclassic.dustUvarovite.name=Uvarovite Dust
+item.gtclassic.dustChromite.name=Chromite Dust
+item.gtclassic.dustCassiterite.name=Cassiterite Dust
 
 #gems
 item.gtclassic.gemGreenSapphire.name=Green Sapphire
@@ -265,6 +269,7 @@ item.gtclassic.ingotRedAlloy.name=Red Alloy Ingot
 
 #hot ingots
 item.gtclassic.ingothotKanthal.name=Hot Kanthal Ingot
+item.gtclassic.ingothotNichrome.name=Hot Nichrome Ingot
 item.gtclassic.ingothotTungsten.name=Hot Tungsten Ingot
 item.gtclassic.ingothotTungstensteel.name=Hot Tungstensteel Ingot
 item.gtclassic.ingothotIridium.name=Hot Iridium Ingot
@@ -430,6 +435,8 @@ item.gtclassic.crushedoreSphalerite.name=Crushed Sphalerite Ore
 item.gtclassic.crushedoreCinnabar.name=Crushed Cinnabar Ore
 item.gtclassic.crushedoreIridium.name=Crushed Iridium Ore
 item.gtclassic.crushedoreTetrahedrite.name=Crushed Tetrahedrite Ore
+item.gtclassic.crushedoreChromite.name=Crushed Chromite Ore
+item.gtclassic.crushedoreCassiterite.name=Crushed Cassiterite Ore
 
 item.gtclassic.crushedorepurifiedTungsten.name=Purified Crushed Tungsten Ore
 item.gtclassic.crushedorepurifiedBauxite.name=Purified Crushed Bauxite Ore
@@ -440,6 +447,8 @@ item.gtclassic.crushedorepurifiedSphalerite.name=Purified Crushed Sphalerite Ore
 item.gtclassic.crushedorepurifiedCinnabar.name=Purified Crushed Cinnabar Ore
 item.gtclassic.crushedorepurifiedIridium.name=Purified Crushed Iridium Ore
 item.gtclassic.crushedorepurifiedTetrahedrite.name=Purified Crushed Tetrahedrite Ore
+item.gtclassic.crushedorepurifiedChromite.name=Purified Crushed Chromite Ore
+item.gtclassic.crushedorepurifiedCassiterite.name=Purified Crushed Cassiterite Ore
 
 item.gtclassic.dusttinyAntimony.name=Tiny Antimony Dust
 item.gtclassic.dusttinySulfur.name=Tiny Sulfur Dust
@@ -454,6 +463,8 @@ item.gtclassic.dusttinyTitanium.name=Tiny Titanium Dust
 item.gtclassic.dusttinyIridium.name=Tiny Iridium Dust
 item.gtclassic.dusttinyNickel.name=Tiny Nickel Dust
 item.gtclassic.dusttinyOsmium.name=Tiny Osmium Dust
+item.gtclassic.dusttinyChromite.name=Tiny Chromite Dust
+item.gtclassic.dusttinyChrome.name=Tiny Chrome Dust
 
 #material tools
 #files
@@ -576,6 +587,7 @@ fluid.sodiumsulfide=Sodium Sulfide
 fluid.sodiumpersulfate=Sodium Persulfate
 fluid.gasoline=Gasoline
 fluid.nitrocarbon=Nitro-Carbon
+fluid.nitricacid=Nitric Acid
 fluid.biofuel=Biofuel
 fluid.coalfuel=Coalfuel
 #molten fluids
@@ -625,6 +637,7 @@ tooltip.gtc_expansion.oreolivine_overworld=Spawns in stalactites in hollows hill
 tooltip.gtc_expansion.orecassiterite=Spawns very rarely but as huge veins between Y level 30 - 80 in COLD, CONIFEROUS, MOUNTAIN, and MUSHROOM biomes.
 tooltip.gtc_expansion.oretetrahedrite=Spawns between Y level 20 - 70 in JUNGLE, MOUNTAIN, MUSHROOM, and SWAMPY biomes.
 tooltip.gtc_expansion.oregalena=Spawns between Y levels 0 - 64 in ALL biomes.
+tooltip.gtc_expansion.orechromite=Spawns very rarely between Y level 0 - 80 in the END.
 
 tooltip.gtc_expansion.industrialblastfurnace0=You'll have a blast!
 tooltip.gtc_expansion.industrialblastfurnace1=Structure:

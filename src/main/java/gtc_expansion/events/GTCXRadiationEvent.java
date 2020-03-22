@@ -2,8 +2,8 @@ package gtc_expansion.events;
 
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.util.GTCXIc2cECompat;
-import gtclassic.api.helpers.GTHelperMods;
-import gtclassic.api.helpers.GTHelperPlayer;
+import gtclassic.api.helpers.GTUtility;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.core.IC2;
@@ -40,7 +40,7 @@ public class GTCXRadiationEvent {
 
         if (IC2.platform.isSimulating() && event.phase == TickEvent.Phase.END){
             if (!player.isCreative()) {
-                if (!isFullHazmatSuit(player) && !GTHelperPlayer.hasFullQuantumSuit(player)) {
+                if (!isFullHazmatSuit(player) && !GTUtility.hasFullQuantumSuit(player)) {
                     if (hasRadiationItem(player)) {
                         player.addPotionEffect(new PotionEffect(IC2Potion.radiation, 1800, 0, false, false));
                     }
@@ -58,7 +58,7 @@ public class GTCXRadiationEvent {
     }
 
     public static void addRadiation(ItemStack stack){
-        if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS)){
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
             GTCXIc2cECompat.addToRadiationWhitelist(stack);
         } else {
             radiationList.add(stack);

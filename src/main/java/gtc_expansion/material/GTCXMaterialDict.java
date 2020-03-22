@@ -1,7 +1,7 @@
 package gtc_expansion.material;
 
 import gtc_expansion.item.tools.GTCXToolGen;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
@@ -36,15 +36,15 @@ public class GTCXMaterialDict {
                 OreDictionary.registerOre("rod" + mat.getDisplayName(), GTMaterialGen.getStack(mat, GTCXMaterial.stick, 1));
                 OreDictionary.registerOre("stick" + mat.getDisplayName(), GTMaterialGen.getStack(mat, GTCXMaterial.stick, 1));
             }
-            if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            if (mat.hasFlag(GTCXMaterial.tinydust)){
+                OreDictionary.registerOre("dustTiny" + mat.getDisplayName(), GTCXMaterialGen.getTinyDust(mat, 1));
+            }
+            if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 if (mat.hasFlag(GTCXMaterial.crushedore)){
                     OreDictionary.registerOre("crushed" + mat.getDisplayName(), GTCXMaterialGen.getCrushedOre(mat, 1));
                 }
                 if (mat.hasFlag(GTCXMaterial.crushedorePurified)){
                     OreDictionary.registerOre("crushedPurified" + mat.getDisplayName(), GTCXMaterialGen.getPurifiedCrushedOre(mat, 1));
-                }
-                if (mat.hasFlag(GTCXMaterial.tinydust)){
-                    OreDictionary.registerOre("dustTiny" + mat.getDisplayName(), GTCXMaterialGen.getTinyDust(mat, 1));
                 }
             }
         }

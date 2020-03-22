@@ -191,6 +191,8 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine {
 
         /** New Recipes I added **/
         addRecipe(GTMaterialGen.get(Items.QUARTZ, 1), 2, totalEu(8000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
+        addRecipe("dustChromite",7, 4, totalEu(512000), Ic2Items.ironDust, GTMaterialGen.getDust(GTMaterial.Chrome, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 4));
+        addRecipe("dustCassiterite",1, 2, totalEu(512000), Ic2Items.tinDust, GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
     }
 
     public static void addCustomRecipe(ItemStack stack0, ItemStack stack1, RecipeModifierHelpers.IRecipeModifier[] modifiers,

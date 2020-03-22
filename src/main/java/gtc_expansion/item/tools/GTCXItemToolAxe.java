@@ -56,7 +56,7 @@ public class GTCXItemToolAxe extends ItemAxe
     @Override
     public Color getColor(ItemStack stack, int index) {
         if (index == 0) {
-            return GTCXMaterial.Wood.getColor();
+            return GTMaterial.Wood.getColor();
         } else {
             return this.material.getColor();
         }

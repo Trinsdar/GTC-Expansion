@@ -3,7 +3,7 @@ package gtc_expansion.container;
 import gtc_expansion.gui.GTCXGuiICompFluidSmelterString;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtclassic.api.gui.GTGuiCompMachinePower;
-import gtclassic.api.slot.GTSlotUpgrade;
+import gtclassic.api.gui.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.filters.ArrayFilter;
 import ic2.core.inventory.filters.IFilter;

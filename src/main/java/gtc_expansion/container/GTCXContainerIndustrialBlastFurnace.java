@@ -5,7 +5,7 @@ import gtc_expansion.gui.GTCXGuiICompIBFString;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.gui.GTGuiCompMultiTileStatus;
-import gtclassic.api.slot.GTSlotUpgrade;
+import gtclassic.api.gui.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.filters.ArrayFilter;
 import ic2.core.inventory.filters.BasicItemFilter;

@@ -3,13 +3,12 @@ package gtc_expansion.util;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.world.GTBedrockOreHandler;
 import gtclassic.common.GTBlocks;
 import gtclassic.common.GTConfig;
-import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
@@ -17,7 +16,7 @@ import net.minecraftforge.fml.common.Loader;
 public class GTCXBedrockOreHandler {
 
     public static void bedrockOresInit() {
-        String modid = GTHelperMods.IC2_EXTRAS;
+        String modid = GTValues.MOD_ID_IC2_EXTRAS;
         if (Loader.isModLoaded(modid) && GTConfig.modcompat.compatIc2Extras){
             // vanilla
             addBedrockOre(GTBlocks.oreBedrockGold, GTMaterialGen.getModItem(modid, "goldcrushedore", 1));
@@ -35,7 +34,7 @@ public class GTCXBedrockOreHandler {
             addBedrockOre(GTCXBlocks.oreBedrockCinnabar, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cinnabar, 1));
             addBedrockOre(GTCXBlocks.oreBedrockSphalerite, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Sphalerite, 1));
             addBedrockOre(GTCXBlocks.oreBedrockTungstate, GTCXMaterialGen.getCrushedOre(GTMaterial.Tungsten, 1));
-            addBedrockOre(GTCXBlocks.oreBedrockCassiterite, GTMaterialGen.getModItem(modid, "tincrushedore", 2));
+            addBedrockOre(GTCXBlocks.oreBedrockCassiterite, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cassiterite, 2));
             addBedrockOre(GTCXBlocks.oreBedrockTetrahedrite, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 1));
             addBedrockOre(GTCXBlocks.oreBedrockGalena, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Galena, 1));
         } else {
@@ -44,7 +43,7 @@ public class GTCXBedrockOreHandler {
             addBedrockOre(GTCXBlocks.oreBedrockCinnabar, GTMaterialGen.getDust(GTCXMaterial.Cinnabar, 1));
             addBedrockOre(GTCXBlocks.oreBedrockSphalerite, GTMaterialGen.getDust(GTCXMaterial.Sphalerite, 1));
             addBedrockOre(GTCXBlocks.oreBedrockTungstate, GTMaterialGen.getDust(GTMaterial.Tungsten, 1));
-            addBedrockOre(GTCXBlocks.oreBedrockCassiterite, GTMaterialGen.getIc2(Ic2Items.tinDust, 2));
+            addBedrockOre(GTCXBlocks.oreBedrockCassiterite, GTMaterialGen.getDust(GTCXMaterial.Cassiterite, 2));
             addBedrockOre(GTCXBlocks.oreBedrockTetrahedrite, GTMaterialGen.getDust(GTCXMaterial.Tetrahedrite, 1));
             addBedrockOre(GTCXBlocks.oreBedrockGalena, GTMaterialGen.getDust(GTCXMaterial.Galena, 1));
         }

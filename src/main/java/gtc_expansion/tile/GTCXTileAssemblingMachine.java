@@ -147,18 +147,18 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTMaterialGen.get(GTCXItems.processorCircuitBoard), Ic2Items.lapotronCrystal, 12800, GTMaterialGen.get(GTItems.circuitEnergy));
         addRecipe(GTMaterialGen.get(GTItems.circuitData), GTMaterialGen.get(GTItems.chipData, 8), 204800, GTMaterialGen.get(GTItems.orbData, 4));
         addRecipe(GTMaterialGen.get(GTBlocks.tileEchotron), GTMaterialGen.get(GTItems.chipData, 4), 51200, GTMaterialGen.get(GTItems.echotron));
-        addRecipe("plateElectrum", 2, Ic2Items.electricCircuit, 3200, GTMaterialGen.get(GTCXItems.advancedCircuitBoard));
-        addRecipe("plateElectrum", 4, "plateSilicon", 1, 3200, GTMaterialGen.get(GTCXItems.advancedCircuitBoard, 2));
+        addRecipe("plateElectrum", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.advancedCircuitBoard));
+        addRecipe("plateElectrum", 4, "plateSilicon", 1, 12800, GTMaterialGen.get(GTCXItems.advancedCircuitBoard, 2));
         addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 3));
         addRecipe(GTCXRecipe.materialMachine, input(Ic2Items.pump), 12800, GTMaterialGen.get(GTCXItems.pumpModule));
-        IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"), new RecipeInputOreDict("plateSilicon"),
-                new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"), new RecipeInputOreDict("platePlatinum"));
+        IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"),
+                new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"));
         if (GTCXConfiguration.general.harderCircuits){
             addRecipe(plateElectric, input("plateRedAlloy", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard));
         }
         addRecipe(plateElectric, input("plateElectrum", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard, 2));
         addRecipe(GTCXRecipe.getRefinedIronPlate(), 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 4));
-        addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 12800, GTMaterialGen.get(GTCXItems.processorCircuitBoard));
+        addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 51200, GTMaterialGen.get(GTCXItems.processorCircuitBoard));
         addRecipe(new RecipeInputCombined(8, input("gemEmerald", 8), input("gemOlivine", 8)), new RecipeInputItemStack(Ic2Items.advancedCircuit), 51200, GTMaterialGen.get(GTItems.chipData, 4));
         addRecipe(GTCXRecipe.getRefinedIronPlate(), 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, Ic2Items.machine);
         addRecipe("dustFlint", 5, GTMaterialGen.get(Blocks.TNT), 1600, GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5));
@@ -179,6 +179,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(Ic2Items.emptyCell, "dustRedstone", 1, 1600, GTMaterialGen.get(GTItems.sprayCanEmpty));
         addRecipe("plateTungstensteel", 1, Ic2Items.iridiumStone, 1600, GTMaterialGen.get(GTCXBlocks.iridiumTungstensteelBlock));
         addRecipe("blockTungstensteel", 1, Ic2Items.iridiumPlate, 1600, GTMaterialGen.get(GTCXBlocks.iridiumTungstensteelBlock));
+        addRecipe(Ic2Items.memoryStick, Ic2Items.frequencyTransmitter, 3000, GTMaterialGen.get(GTItems.sensorStick));
     }
 
     public static void addRecipe(String input1, int amount1, int totalEu, ItemStack output) {

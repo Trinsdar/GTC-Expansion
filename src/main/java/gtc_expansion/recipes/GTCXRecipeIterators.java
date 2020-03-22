@@ -12,7 +12,7 @@ import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.util.GTCXIc2cECompat;
-import gtclassic.api.helpers.GTHelperMods;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
@@ -61,9 +61,10 @@ public class GTCXRecipeIterators {
             if (GTCXMaterial.pipes){
                 createPipeRecipe(mat);
             }
-            if (Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
+            createDustbinTinyDustRecipe(mat);
         }
         fluidCasterBlacklist.add("silicon");
         final ItemStack dustGlowstone = new ItemStack(Items.GLOWSTONE_DUST);
@@ -100,6 +101,7 @@ public class GTCXRecipeIterators {
             int tier = mat.getTier() + 1;
             if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Copper) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tin) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.RefinedIron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Silver) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Bronze)){
                 GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
                 if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold)){
                     GTCXTileFluidSmelter.addRecipe("nugget" + orename, 1, 750 * tier, 1600, GTMaterialGen.getFluidStack(mat, 16));
                 }
@@ -149,7 +151,7 @@ public class GTCXRecipeIterators {
                 if (mat.hasFlag(GTCXMaterial.smalldust)){
                     GTCXTileFluidSmelter.addRecipe("dustsmall" + orename, 1, 750 * tier, 6400, GTMaterialGen.getFluidStack(mat, 36));
                 }
-                if (mat.hasFlag(GTCXMaterial.tinydust) && Loader.isModLoaded(GTHelperMods.IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+                if (mat.hasFlag(GTCXMaterial.tinydust) && Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                     GTCXTileFluidSmelter.addRecipe("dusttiny" + orename, 1, 750 * tier, 1600, GTMaterialGen.getFluidStack(mat, 16));
                 }
             }
@@ -198,6 +200,15 @@ public class GTCXRecipeIterators {
                         tinyDust);
                 TileEntityCompressor.addRecipe(tinyDust, 9, getDust(mat), 0.0F);
                 recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.tinydust, 9), "D ", 'D', dust);
+            }
+        }
+    }
+
+    public static void createDustbinTinyDustRecipe(GTMaterial mat) {
+        if (mat.hasFlag(GTMaterialFlag.DUST)) {
+            if (mat.hasFlag(GTCXMaterial.tinydust)) {
+                GTCXTileDustbin.addTinyDustRecipe(mat.getDisplayName(), getDust(mat));
+                tinyDustBlacklist.add(mat.getDisplayName());
             }
         }
     }
@@ -391,12 +402,6 @@ public class GTCXRecipeIterators {
 
         for(int var4 = 0; var4 < var3; ++var4) {
             String id = var2[var4];
-            String plate;
-            String gear;
-            String rod;
-            String block;
-            String nugget;
-            String smallDust;
             NonNullList<ItemStack> listPlates;
             NonNullList<ItemStack> listIngots;
             NonNullList<ItemStack> listGears;
@@ -407,13 +412,13 @@ public class GTCXRecipeIterators {
             if (id.startsWith("ingot")){
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
-                plate = "plate" + oreName;
+                String plate = "plate" + oreName;
                 if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id)){
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
                         if (!listPlates.isEmpty()) {
                             GTCXTilePlateBender.addRecipe(id, 1, listPlates.get(0));
-                            if (!Loader.isModLoaded(GTHelperMods.IC2_EXTRAS)){
+                            if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
                                 if (GTCXConfiguration.general.harderPlates){
                                     recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
                                 }else {
@@ -425,53 +430,61 @@ public class GTCXRecipeIterators {
                 }
                 if (moltenExist && !fluidCasterBlacklist.contains(oreName)){
                     Fluid fluid = FluidRegistry.getFluid(oreName.toLowerCase());
-                    gear = "gear" + oreName;
-                    rod = "rod" + oreName;
-                    block = "block" + oreName;
-                    nugget = "nugget" + oreName;
+                    String gear = "gear" + oreName;
+                    String rod = "rod" + oreName;
+                    String block = "block" + oreName;
+                    String nugget = "nugget" + oreName;
                     listIngots = OreDictionary.getOres(id, false);
                     if (!listIngots.isEmpty() && !gemBlacklist.contains(id)){
-                        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), new FluidStack(fluid, 144),true, 12800, listIngots.get(0));
+                        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), new FluidStack(fluid, 144),false, 12800, listIngots.get(0));
                     }
                     if (OreDictionary.doesOreNameExist(nugget)) {
                         listNuggets = OreDictionary.getOres(nugget, false);
                         if (!listNuggets.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), new FluidStack(fluid, 16),true, 3200, listNuggets.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), new FluidStack(fluid, 16),false, 3200, listNuggets.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(block)) {
                         listBlocks = OreDictionary.getOres(block, false);
                         if (!listBlocks.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), new FluidStack(fluid, 1296),true, 115200, listBlocks.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), new FluidStack(fluid, 1296),false, 115200, listBlocks.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(plate)) {
                         listPlates = OreDictionary.getOres(plate, false);
                         if (!listPlates.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), new FluidStack(fluid, 144),true, 12800, listPlates.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), new FluidStack(fluid, 144),false, 12800, listPlates.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(gear)) {
                         listGears = OreDictionary.getOres(gear, false);
                         if (!listGears.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 576),true, 51200, listGears.get(0));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 576),false, 51200, listGears.get(0));
                         }
                     }
                     if (OreDictionary.doesOreNameExist(rod)) {
                         listRods = OreDictionary.getOres(rod, false);
                         if (!listRods.isEmpty()) {
-                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 144),true, 12800,  GTMaterialGen.getIc2(listRods.get(0), 2));
+                            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), new FluidStack(fluid, 144),false, 12800,  GTMaterialGen.getIc2(listRods.get(0), 2));
                         }
                     }
                 }
             }
             if (id.startsWith("dust")){
                 String oreName = id.substring(4);
-                smallDust = "dustSmall" + oreName;
+                String smallDust = "dustSmall" + oreName;
+                String tinyDust = "dustTiny" + oreName;
                 if (!dustBlacklist.contains(oreName) && OreDictionary.doesOreNameExist(smallDust)){
                     listDusts = OreDictionary.getOres(id, false);
                     if (!listDusts.isEmpty()) {
                         GTCXTileDustbin.addSmallDustRecipe(oreName, listDusts.get(0));
+                    }
+                }
+
+                if (!tinyDustBlacklist.contains(oreName) && OreDictionary.doesOreNameExist(tinyDust)){
+                    listDusts = OreDictionary.getOres(id, false);
+                    if (!listDusts.isEmpty()) {
+                        GTCXTileDustbin.addTinyDustRecipe(oreName, listDusts.get(0));
                     }
                 }
             }

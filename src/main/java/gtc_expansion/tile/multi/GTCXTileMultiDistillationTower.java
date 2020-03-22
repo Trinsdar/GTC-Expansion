@@ -52,6 +52,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -68,6 +69,7 @@ import java.util.function.Predicate;
 
 public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener, IClickable, IGTDebuggableTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/distillationtower.png");
+    public static final List<Fluid> validFluids = new ArrayList<>();
     public static final IBlockState standardCasingState = GTCXBlocks.casingStandard.getDefaultState();
     public static final IBlockState advancedCasingState = GTCXBlocks.casingAdvanced.getDefaultState();
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
@@ -82,7 +84,12 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     public static final int[] slotOutputs = { 8, 9 };
     private static final int defaultEu = 64;
     @NetworkField(index = 13)
-    private IC2Tank inputTank = new IC2Tank(16000);
+    private IC2Tank inputTank = new IC2Tank(16000){
+        @Override
+        public boolean canFillFluidType(FluidStack fluid) {
+            return super.canFillFluidType(fluid) && validFluids.contains(fluid.getFluid());
+        }
+    };
     @NetworkField(index = 14)
     private IC2Tank outputTank1 = new IC2Tank(16000);
     @NetworkField(index = 15)
@@ -510,6 +517,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
             GTCExpansion.logger.info("There can only be up to 6 fluid outputs");
             return;
         }
+        validFluids.add(input.getFluid());
         List<ItemStack> outListItem = new ArrayList<>();
         outListItem.add(ItemDisplayIcon.createWithFluidStack(new FluidStack(FluidRegistry.WATER, 1000)));
         List<FluidStack> outListFluid = new ArrayList<>();
