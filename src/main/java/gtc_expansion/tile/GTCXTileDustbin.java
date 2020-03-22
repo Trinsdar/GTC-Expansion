@@ -4,6 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerDustbin;
 import gtc_expansion.util.GTCXDustbinFilter;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -105,9 +106,19 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
         return true;
     }
 
+    int counter = 0;
+
     @Override
     public void update() {
         tryImportItems();
+        counter++;
+        if (counter == 5){
+            GTHelperStack.tryCondenseInventory(this, 0, 16);
+            counter = 0;
+        }
+        if (counter > 5){
+            counter = 0;
+        }
         handleRedstone();
         boolean noRoom;
         for (int i = 0; i < 16; i++){
