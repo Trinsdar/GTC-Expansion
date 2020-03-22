@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.1.0
+- Fixed a few recipes - see commit history for more details of what was changed
+- Added better mod support for other stones to steel jackhammer.
+- Added cassiterite material
+- Made Dustbin autocompress stacks
+- Added some missing recipes
+
 # 0.0.9
 - Changed fluid caster gui recipe use info
 - New fluid smelter and caster textures thanks to Globalista Maoísta, also changed chainsaw texture thanks to same person
