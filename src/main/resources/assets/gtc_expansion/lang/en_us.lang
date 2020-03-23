@@ -565,7 +565,7 @@ item.gtc_expansion.mold_plate.name=Plate Mold
 item.gtc_expansion.mold_gear.name=Gear Mold
 #tools
 item.gtc_expansion.crafting_tablet.name=Crafting Tablet
-item.gtc_expansion.machine_switch.name=Machine Switch
+item.gtc_expansion.integrated_circuit.name=Integrated Circuit
 
 #fluids
 fluid.sulfuricacid=Sulfuric Acid
