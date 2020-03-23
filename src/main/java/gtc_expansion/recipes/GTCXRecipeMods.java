@@ -22,6 +22,7 @@ import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.item.recipe.entry.RecipeInputCombined;
+import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Blocks;
@@ -191,20 +192,25 @@ public class GTCXRecipeMods {
         }
         if (Loader.isModLoaded("railcraft")){
             GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(6, input("rodIron", 6), input("rodBronze", 6)), new RecipeInputCombined(6, input("rodIron", 6), input("rodBronze", 6))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 8));
-            GTCXTileAssemblingMachine.addRecipe("rodInvar", 6, "rodInvar", 6, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 12));
-            GTCXTileAssemblingMachine.addRecipe("rodSteel", 6, "rodSteel", 6, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 16));
-            GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(6, input("rodTitanium", 6), input("rodTungsten", 6)), new RecipeInputCombined(6, input("rodTitanium", 6), input("rodTungsten", 6))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 32));
+            GTCXTileAssemblingMachine.addRecipe("rodInvar", 12, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 12));
+            GTCXTileAssemblingMachine.addRecipe("rodSteel", 12, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 16));
+            GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(12, input("rodTitanium", 12), input("rodTungsten", 12)), new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 32));
             GTCXTileAssemblingMachine.addRecipe("rodTungstensteel", 6, "rodTungstensteel", 6, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 48));
             GTCXTileAssemblingMachine.addRecipe("rodSteel", 12, "dustObsidian", 3, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 4, 8));
             GTCXTileAssemblingMachine.addRecipe("rodInvar", 12, "dustObsidian", 3, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 4, 4));
             GTCXTileAssemblingMachine.addRecipe("rodTungstensteel", 12, "dustObsidian", 3, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 4, 16));
             GTCXTileAssemblingMachine.addRecipe("rodGold", 12, "dustRedstone", 3, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 1, 8));
-            GTCXTileAssemblingMachine.addRecipe("rodCopper", 6, "rodCopper", 6, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 5, 6));
+            GTCXTileAssemblingMachine.addRecipe("rodCopper", 12, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 5, 6));
             GTCXTileAssemblingMachine.addRecipe("rodSteel", 12, "rodCopper", 6, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 5, 12));
             GTCXTileWiremill.addRecipe(new RecipeInputCombined(6, input("rodIron", 6), input("rodBronze", 6)), 400, GTMaterialGen.getModItem("railcraft", "rebar", 4));
             GTCXTileWiremill.addRecipe(new RecipeInputCombined(6, input("rodRefinedIron", 6), input("rodInvar", 6)), 400, GTMaterialGen.getModItem("railcraft", "rebar", 6));
             GTCXTileWiremill.addRecipe(new RecipeInputCombined(6, input("rodTungsten", 6), input("rodTitanium", 6)), 400, GTMaterialGen.getModItem("railcraft", "rebar", 16));
             GTCXTileWiremill.addRecipe("rodSteel", 6, GTMaterialGen.getModItem("railcraft", "rebar", 8));
+            GTCXTileWiremill.addRecipe("nuggetBronze", 3, GTMaterialGen.getModItem("railcraft", "track_parts"));
+            GTCXTileWiremill.addRecipe("nuggetIron", 2, GTMaterialGen.getModItem("railcraft", "track_parts"));
+            GTCXTileWiremill.addRecipe("nuggetSteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts"));
+            GTCXTileWiremill.addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("nuggetTungsten", "nuggetTitanium"), GTMaterialGen.getModItem("railcraft", "track_parts", 2));
+            GTCXTileWiremill.addRecipe("nuggetTungstensteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts", 3));
         }
     }
 

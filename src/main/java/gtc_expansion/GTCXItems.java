@@ -5,6 +5,7 @@ import gtc_expansion.item.GTCXItemBatterySingleUse;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.GTCXItemFood;
 import gtc_expansion.item.GTCXItemInsulationCutter;
+import gtc_expansion.item.GTCXItemIntegratedCircuit;
 import gtc_expansion.item.GTCXItemMisc;
 import gtc_expansion.item.GTCXItemMiscSpriteless;
 import gtc_expansion.item.GTCXItemMold;
@@ -70,6 +71,7 @@ public class GTCXItems {
 
     public static final GTCXItemSteelJackHammer steelJackhammer = createItem(new GTCXItemSteelJackHammer());
     public static final GTCXItemDiamondChainsaw diamondChainsaw = createItem(new GTCXItemDiamondChainsaw());
+    public static final GTCXItemIntegratedCircuit integratedCircuit = createItem(new GTCXItemIntegratedCircuit());
 
     public static <T extends Item> T createItem(T item) {
         toRegister.add(item);

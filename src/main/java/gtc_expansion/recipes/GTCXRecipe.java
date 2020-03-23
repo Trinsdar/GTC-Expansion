@@ -242,6 +242,9 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), "M  ", "   ", "  W", 'W', "craftingToolWireCutter", 'M', GTCXItems.mold);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), "M W", 'W', "craftingToolWireCutter", 'M', GTCXItems.mold);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), "W", " ", "M", 'W', "craftingToolWireCutter", 'M', GTCXItems.mold);
+        IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.integratedCircuit), "PHP", "RRR", "PWP", 'P', GTRecipeCraftingHandler.combineRecipeObjects(refinedIron, pre + "Iron", steel), 'H', hammer, 'R', GTRecipeCraftingHandler.combineRecipeObjects("rodRefinedIron", "rodIron", "rodSteel"), 'W', wrench);
     }
 
     public static void initUURecipes(){
