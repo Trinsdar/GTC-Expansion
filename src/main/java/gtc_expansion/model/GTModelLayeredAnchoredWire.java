@@ -19,7 +19,6 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.util.vector.Vector3f;
-import sun.awt.AWTIcon32_java_icon16_png;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
@@ -108,13 +107,19 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
                 if (vec.getY() > 0) {
                     List<BakedQuad> list = this.comboQuads.get(vec.getZ());
                     if (list == null) {
-                        list = new ArrayList(this.quads[vec.getX()]);
+                        list = new ArrayList(this.quads[0][vec.getX()]);
+                        int layers = state.getBlock() instanceof ILayeredBlockModel ? ((ILayeredBlockModel)state.getBlock()).getLayers(state) : 1;
+                        if (layers > 1){
+                            for (int i = 1; i < layers; i++){
+                                list.addAll(this.quads[i][vec.getX()]);
+                            }
+                        }
                         list.addAll(this.anchorQuads[vec.getY()]);
                         this.comboQuads.put(vec.getZ(), list);
                     }
                     return list;
                 } else {
-                    return this.quads[vec.getX()];
+                    return this.quads[0][vec.getX()];
                 }
             }
         } else {
