@@ -1,5 +1,6 @@
 package gtc_expansion.recipes;
 
+import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
@@ -186,11 +187,11 @@ public class GTCXRecipeMods {
             GTCXTileAlloySmelter.addRecipe("dustLumium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass_alloy", 6, 2));
             GTCXTileAlloySmelter.addRecipe("dustEnderium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass_alloy", 7, 2));
         }
-        if (Loader.isModLoaded("gravisuit")){
+        if (Loader.isModLoaded("gravisuit") && GTCXConfiguration.modcompat.compatGravisuit){
             GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddiamondchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXRecipe.tungstenSteel, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
             GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddrill_1408250051", GTMaterialGen.getModItem("gravisuit", "advanceddrill"), " S ", "SDS", "SBS", 'S', GTCXRecipe.tungstenSteel, 'D', Ic2Items.diamondDrill, 'B', GTItems.lithiumBattery);
         }
-        if (Loader.isModLoaded("railcraft")){
+        if (Loader.isModLoaded("railcraft") && GTCXConfiguration.modcompat.compatRailcraft){
             GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(6, input("rodIron", 6), input("rodBronze", 6)), new RecipeInputCombined(6, input("rodIron", 6), input("rodBronze", 6))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 8));
             GTCXTileAssemblingMachine.addRecipe("rodInvar", 12, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 12));
             GTCXTileAssemblingMachine.addRecipe("rodSteel", 12, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 16));

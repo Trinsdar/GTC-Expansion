@@ -131,4 +131,14 @@ public class GTCXConfiguration {
         })
         public boolean enableRadiation = true;
     }
+
+    @Comment("Mod Compatability")
+    @Config.RequiresMcRestart
+    public static ModCompat modcompat = new ModCompat();
+
+    public static class ModCompat{
+
+        public boolean compatGravisuit = true;
+        public boolean compatRailcraft = true;
+    }
 }
