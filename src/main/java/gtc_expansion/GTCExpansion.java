@@ -6,6 +6,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.proxy.GTCXCommonProxy;
 import gtclassic.api.helpers.GTValues;
 import ic2.core.IC2;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -36,6 +37,8 @@ public class GTCExpansion {
 	static {
 		GTCXMaterial.initMaterials();
 	}
+
+	public static ResourceLocation cowMoo = new ResourceLocation(MODID, "sounds/Cow_Moo-sound.ogg");
 
 	public GTCExpansion(){
 		MinecraftForge.EVENT_BUS.register(this);

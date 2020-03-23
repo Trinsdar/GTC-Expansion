@@ -28,7 +28,6 @@ import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
-import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -132,7 +131,7 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.extractorOp;
+        return GTCExpansion.cowMoo;
     }
 
     public static void init() {
