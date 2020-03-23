@@ -5,7 +5,7 @@ import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
-import gtclassic.common.tile.GTTileSuperconductorCables;
+import gtclassic.api.tile.GTTileBaseSuperconductorCable;
 import ic2.api.classic.energy.tile.IAnchorConductor;
 import ic2.api.classic.energy.tile.IEnergyConductorColored;
 import ic2.api.classic.energy.tile.IInsulationModifieableConductor;
@@ -296,7 +296,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
             return canInteractWithIc2Cable((TileEntityCable)tile, side.getOpposite());
         } else if (tile instanceof GTCXTileElectrumCable){
             return canInteractWithCable((GTCXTileElectrumCable)tile, side.getOpposite());
-        } else if (tile instanceof GTTileSuperconductorCable) {
+        } else if (tile instanceof GTTileBaseSuperconductorCable) {
             return true;
         } else if (tile instanceof TileEntityMultipartLuminator) {
             return !((TileEntityMultipartLuminator)tile).hasSide(side.getOpposite().getIndex()) && this.canInteractWithAPICable((IEnergyConductorColored)tile);

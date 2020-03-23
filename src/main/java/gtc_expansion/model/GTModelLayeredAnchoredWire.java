@@ -151,7 +151,8 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
     private Map<EnumFacing, BakedQuad> generateCoreQuads(GTBlockBaseConnect wire, int min, int max, int layer) {
         Vector3f minF = new Vector3f((float) min, (float) min, (float) min);
         Vector3f maxF = new Vector3f((float) max, (float) max, (float) max);
-        BlockPartFace face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { (float) min,
+        int tintIndex = layer == 2 ? -1 : 0;
+        BlockPartFace face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) min,
                 (float) min, (float) max, (float) max }, 0));
         Map<EnumFacing, BakedQuad> quads = new EnumMap(EnumFacing.class);
         EnumFacing[] var8 = EnumFacing.VALUES;
@@ -206,14 +207,15 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
             EnumFacing side = facings[i];
             if (side.getOpposite() != facing) {
                 BlockPartFace face = null;
+                int tintIndex = layer == 2 ? -1 : 0;
                 if (side == facing) {
-                    face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { (float) min,
+                    face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) min,
                             (float) min, (float) max, (float) max }, 0));
                 } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
-                    face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { (float) max,
+                    face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) max,
                             (float) min, 16.0F, (float) max }, 0));
                 } else {
-                    face = this.getFace(facing, min, max);
+                    face = tintIndex == -1 ? this.getUntintedFace(facing, min, max) : this.getFace(facing, min, max);
                 }
                 // If you would like a different texture for connected sides, change the sprite
                 // var to what you want
