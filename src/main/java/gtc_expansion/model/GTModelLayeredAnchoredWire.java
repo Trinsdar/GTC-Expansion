@@ -58,10 +58,10 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
         this.setParticalTexture(wire.getParticleTexture(this.state));
         int min = this.sizes[0];// low size
         int max = this.sizes[1];// high size
+        Map<EnumFacing, List<BakedQuad>> anchorQuadList = new EnumMap(EnumFacing.class);
         for (int h = 0; h < layers; h++){
             Map<EnumFacing, BakedQuad> coreQuads = this.generateCoreQuads(wire, min, max, h);
             Map<EnumFacing, List<BakedQuad>> sideQuads = new EnumMap(EnumFacing.class);
-            Map<EnumFacing, List<BakedQuad>> anchorQuadList = new EnumMap(EnumFacing.class);
             EnumFacing[] facings = EnumFacing.VALUES;
             int facingsLength = facings.length;
             for (int i = 0; i < facingsLength; ++i) {

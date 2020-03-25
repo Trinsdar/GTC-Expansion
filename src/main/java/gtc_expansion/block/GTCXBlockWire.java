@@ -106,6 +106,8 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     @Override
     public Color getColor(IBlockState state, IBlockAccess worldIn, BlockPos pos, Block block, int index) {
         if (index == 0){
+            return GTMaterial.Electrum.getColor();
+        } else if (index == 1){
             if (worldIn != null) {
                 TileEntity tile = worldIn.getTileEntity(pos);
                 if (tile instanceof IGTRecolorableStorageTile) {
@@ -113,8 +115,6 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
                     return colorTile.getTileColor();
                 }
             }
-            return GTMaterial.Electrum.getColor();
-        } else if (index == 1){
             return GTMaterial.Electrum.getColor();
         } else {
             return Color.WHITE;
