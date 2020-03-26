@@ -435,19 +435,31 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
         }
         int fluidListSize = output.getFluids().size();
         int availableTanks = 0;
+        boolean checkedTank1 = false;
+        boolean checkedTank2 = false;
+        boolean checkedTank3 = false;
+        boolean checkedTank4 = false;
+        boolean checkedTank5 = false;
+        boolean checkedTank6 = false;
         for (FluidStack fluid : output.getFluids()){
-            if ((fluid.isFluidEqual(outputTank1.getFluid()) && outputTank1.getFluidAmount() + fluid.amount <= outputTank1.getCapacity()) || outputTank1.getFluidAmount() == 0){
+            if (((fluid.isFluidEqual(outputTank1.getFluid()) && outputTank1.getFluidAmount() + fluid.amount <= outputTank1.getCapacity()) || outputTank1.getFluidAmount() == 0) && !checkedTank1){
                 availableTanks++;
-            } else if ((fluid.isFluidEqual(outputTank2.getFluid()) && outputTank2.getFluidAmount() + fluid.amount <= outputTank2.getCapacity()) || outputTank2.getFluidAmount() == 0){
+                checkedTank1 = true;
+            } else if (((fluid.isFluidEqual(outputTank2.getFluid()) && outputTank2.getFluidAmount() + fluid.amount <= outputTank2.getCapacity()) || outputTank2.getFluidAmount() == 0) && !checkedTank2){
                 availableTanks++;
-            } else if ((fluid.isFluidEqual(outputTank3.getFluid()) && outputTank3.getFluidAmount() + fluid.amount <= outputTank3.getCapacity()) || outputTank3.getFluidAmount() == 0){
+                checkedTank2 = true;
+            } else if (((fluid.isFluidEqual(outputTank3.getFluid()) && outputTank3.getFluidAmount() + fluid.amount <= outputTank3.getCapacity()) || outputTank3.getFluidAmount() == 0) && !checkedTank3){
                 availableTanks++;
-            } else if ((fluid.isFluidEqual(outputTank4.getFluid()) && outputTank4.getFluidAmount() + fluid.amount <= outputTank4.getCapacity()) || outputTank4.getFluidAmount() == 0){
+                checkedTank3 = true;
+            } else if (((fluid.isFluidEqual(outputTank4.getFluid()) && outputTank4.getFluidAmount() + fluid.amount <= outputTank4.getCapacity()) || outputTank4.getFluidAmount() == 0) && !checkedTank4){
                 availableTanks++;
-            } else if ((fluid.isFluidEqual(outputTank5.getFluid()) && outputTank5.getFluidAmount() + fluid.amount <= outputTank5.getCapacity()) || outputTank5.getFluidAmount() == 0){
+                checkedTank4 = true;
+            } else if (((fluid.isFluidEqual(outputTank5.getFluid()) && outputTank5.getFluidAmount() + fluid.amount <= outputTank5.getCapacity()) || outputTank5.getFluidAmount() == 0) && !checkedTank5){
                 availableTanks++;
-            } else if ((fluid.isFluidEqual(outputTank6.getFluid()) && outputTank6.getFluidAmount() + fluid.amount <= outputTank6.getCapacity()) || outputTank6.getFluidAmount() == 0){
+                checkedTank5 = true;
+            } else if (((fluid.isFluidEqual(outputTank6.getFluid()) && outputTank6.getFluidAmount() + fluid.amount <= outputTank6.getCapacity()) || outputTank6.getFluidAmount() == 0) && !checkedTank6){
                 availableTanks++;
+                checkedTank6 = true;
             } else {
                 availableTanks = 0;
             }
