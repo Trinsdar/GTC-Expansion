@@ -14,6 +14,7 @@ import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
@@ -135,10 +136,20 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
 
     public static void init() {
         addRecipe(Ic2Items.mixedMetalIngot, Ic2Items.advancedAlloy);
-        addRecipe("plateTin", 2, GTMaterialGen.getIc2(Ic2Items.emptyCell, 8));
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             addRecipe("casingIron", 2, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "emptyfuelrod"));
             addRecipe("casingTin", 1, Ic2Items.tinCan);
+            String steel = IC2.config.getFlag("SteelRecipes") ? "Steel" : "RefinedIron";
+            addRecipe("casing" + steel, 2, GTMaterialGen.getIc2(Ic2Items.ironFence, 3));
+            addRecipe("plateCopper", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coppercasing", 2));
+            addRecipe("plateTin", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "tincasing", 2));
+            addRecipe("plateSilver", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "silvercasing", 2));
+            addRecipe("plateLead", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "leadcasing", 2));
+            addRecipe("plateIron", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "ironcasing", 2));
+            addRecipe("plateGold", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "goldcasing", 2));
+            addRecipe("plateRefinedIron", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironcasing", 2));
+            addRecipe("plateSteel", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "steelcasing", 2));
+            addRecipe("plateBronze", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "bronzecasing", 2));
         }
     }
 

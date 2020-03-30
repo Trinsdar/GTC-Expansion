@@ -6,9 +6,11 @@ import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerWiremill;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -33,6 +35,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -144,6 +147,11 @@ public class GTCXTileWiremill extends GTTileBaseMachine {
         addRecipe("dustCoal", 4, Ic2Items.carbonFiber);
         addRecipe("dustCharcoal", 8, Ic2Items.carbonFiber);
         addRecipe("dustCarbon", 8, Ic2Items.carbonFiber);
+        addRecipe("plateTin", 2, GTMaterialGen.getIc2(Ic2Items.emptyCell, 8));
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            String steel = IC2.config.getFlag("SteelRecipes") ? "Steel" : "RefinedIron";
+            addRecipe("casing" + steel, 2, GTMaterialGen.getIc2(Ic2Items.ironFence, 3));
+        }
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int total) {
