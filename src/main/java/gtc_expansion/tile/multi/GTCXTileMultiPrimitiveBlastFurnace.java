@@ -91,6 +91,11 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
     }
 
     @Override
+    public ResourceLocation getStartSoundFile() {
+        return GTCExpansion.getAprilFirstSound(super.getStartSoundFile());
+    }
+
+    @Override
     public int getFuelSlot() {
         return slotFuel;
     }

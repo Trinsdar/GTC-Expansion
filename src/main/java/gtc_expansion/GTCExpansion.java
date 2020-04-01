@@ -21,6 +21,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Calendar;
+
 @Mod(modid = GTCExpansion.MODID, name = GTCExpansion.MODNAME, version = GTCExpansion.MODVERSION, dependencies = GTCExpansion.DEPENDS, useMetadata = true)
 public class GTCExpansion {
 
@@ -38,7 +40,8 @@ public class GTCExpansion {
 		GTCXMaterial.initMaterials();
 	}
 
-	public static ResourceLocation cowMoo = new ResourceLocation(MODID, "sounds/Cow_Moo-sound.ogg");
+	public static ResourceLocation cowMoo = new ResourceLocation(MODID, "sounds/cow_moo-sound.ogg");
+	private static boolean aprilFirst;
 
 	public GTCExpansion(){
 		MinecraftForge.EVENT_BUS.register(this);
@@ -48,6 +51,12 @@ public class GTCExpansion {
 	public synchronized void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 		proxy.preInit(event);
+		Calendar calendar = Calendar.getInstance();
+		aprilFirst = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
+	}
+
+	public static ResourceLocation getAprilFirstSound(ResourceLocation original){
+		return aprilFirst ? cowMoo : original;
 	}
 
 	@Mod.EventHandler

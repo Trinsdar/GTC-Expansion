@@ -152,7 +152,7 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 
 	@Override
 	public ResourceLocation getStartSoundFile() {
-		return Ic2Sounds.generatorLoop;
+		return GTCExpansion.getAprilFirstSound(Ic2Sounds.generatorLoop);
 	}
 
 	@Override

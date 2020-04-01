@@ -180,7 +180,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.extractorOp;
+        return GTCExpansion.getAprilFirstSound(Ic2Sounds.extractorOp);
     }
 
     @Override

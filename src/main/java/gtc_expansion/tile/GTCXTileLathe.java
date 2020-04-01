@@ -126,7 +126,7 @@ public class GTCXTileLathe extends GTTileBaseMachine {
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.extractorOp;
+        return GTCExpansion.getAprilFirstSound(Ic2Sounds.extractorOp);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int total) {

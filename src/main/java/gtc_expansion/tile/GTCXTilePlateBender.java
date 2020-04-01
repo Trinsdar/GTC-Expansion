@@ -131,7 +131,7 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.extractorOp;
+        return GTCExpansion.getAprilFirstSound(Ic2Sounds.extractorOp);
     }
 
     public static void init() {

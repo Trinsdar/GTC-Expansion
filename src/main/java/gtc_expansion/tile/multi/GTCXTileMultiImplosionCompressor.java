@@ -85,6 +85,11 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     }
 
     @Override
+    public ResourceLocation getStartSoundFile() {
+        return GTCExpansion.getAprilFirstSound(super.getStartSoundFile());
+    }
+
+    @Override
     public void update() {
         this.handleRedstone();
         this.updateNeighbors();

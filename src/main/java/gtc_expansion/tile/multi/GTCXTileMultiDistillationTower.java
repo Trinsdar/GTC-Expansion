@@ -204,7 +204,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.electrolyzerOp;
+        return GTCExpansion.getAprilFirstSound(Ic2Sounds.electrolyzerOp);
     }
 
     @Override

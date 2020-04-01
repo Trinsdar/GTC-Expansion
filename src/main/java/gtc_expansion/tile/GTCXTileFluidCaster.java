@@ -170,6 +170,11 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     }
 
     @Override
+    public ResourceLocation getStartSoundFile() {
+        return GTCExpansion.getAprilFirstSound(super.getStartSoundFile());
+    }
+
+    @Override
     public void onTankChanged(IFluidTank iFluidTank) {
         this.getNetwork().updateTileGuiField(this, "inputTank");
         this.inventory.set(slotDisplayIn, ItemDisplayIcon.createWithFluidStack(this.inputTank.getFluid()));

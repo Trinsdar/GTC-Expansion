@@ -112,6 +112,11 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
     }
 
     @Override
+    public ResourceLocation getStartSoundFile() {
+        return GTCExpansion.getAprilFirstSound(super.getStartSoundFile());
+    }
+
+    @Override
     public LocaleComp getBlockName() {
         return GTCXLang.INDUSTRIAL_GRINDER;
     }

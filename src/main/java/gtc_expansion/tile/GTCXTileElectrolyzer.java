@@ -348,7 +348,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.magnetizerOp;
+        return GTCExpansion.getAprilFirstSound(Ic2Sounds.magnetizerOp);
     }
 
     public static void init() {

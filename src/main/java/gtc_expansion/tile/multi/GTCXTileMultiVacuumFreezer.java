@@ -121,6 +121,11 @@ public class GTCXTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
     }
 
     @Override
+    public ResourceLocation getStartSoundFile() {
+        return GTCExpansion.getAprilFirstSound(super.getStartSoundFile());
+    }
+
+    @Override
     public Set<IMachineUpgradeItem.UpgradeType> getSupportedTypes() {
         return new LinkedHashSet<>(Arrays.asList(IMachineUpgradeItem.UpgradeType.values()));
     }
