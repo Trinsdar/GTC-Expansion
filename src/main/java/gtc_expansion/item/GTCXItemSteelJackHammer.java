@@ -17,7 +17,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -64,12 +63,12 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
 
     @Override
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-        return Items.IRON_PICKAXE.canHarvestBlock(state);
+        return Items.DIAMOND_PICKAXE.canHarvestBlock(state);
     }
 
     @Override
     public int getHarvestLevel(ItemStack stack, String toolClass, EntityPlayer player, IBlockState blockState) {
-        return 2;
+        return 3;
     }
 
     @Override
