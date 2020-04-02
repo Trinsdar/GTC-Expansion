@@ -160,6 +160,7 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
         blockState.getBlock().harvestBlock(world, player, pos, blockState, world.getTileEntity(pos), saw);
         world.setBlockToAir(pos);
         world.removeTileEntity(pos);
+        world.neighborChanged(pos, world.getBlockState(pos).getBlock(), pos);
     }
 
     @Override
