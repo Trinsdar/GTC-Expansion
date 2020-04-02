@@ -189,11 +189,11 @@ public class GTCXRecipeMods {
             GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddrill_1408250051", GTMaterialGen.getModItem("gravisuit", "advanceddrill"), " S ", "SDS", "SBS", 'S', GTCXRecipe.tungstenSteel, 'D', Ic2Items.diamondDrill, 'B', GTItems.lithiumBattery);
         }
         if (Loader.isModLoaded("railcraft") && GTCXConfiguration.modcompat.compatRailcraft){
-            GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(6, input("rodIron", 6), input("rodBronze", 6)), new RecipeInputCombined(6, input("rodIron", 6), input("rodBronze", 6))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 8));
+            GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(12, input("rodIron", 12), input("rodBronze", 12)), input(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 8));
             GTCXTileAssemblingMachine.addRecipe("rodInvar", 12, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 12));
             GTCXTileAssemblingMachine.addRecipe("rodSteel", 12, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 16));
             GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(12, input("rodTitanium", 12), input("rodTungsten", 12)), new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 32));
-            GTCXTileAssemblingMachine.addRecipe("rodTungstensteel", 6, "rodTungstensteel", 6, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 48));
+            GTCXTileAssemblingMachine.addRecipe("rodTungstensteel", 12,  GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 48));
             GTCXTileAssemblingMachine.addRecipe("rodSteel", 12, "dustObsidian", 3, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 4, 8));
             GTCXTileAssemblingMachine.addRecipe("rodInvar", 12, "dustObsidian", 3, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 4, 4));
             GTCXTileAssemblingMachine.addRecipe("rodTungstensteel", 12, "dustObsidian", 3, 400, GTMaterialGen.getModMetaItem("railcraft", "rail", 4, 16));
