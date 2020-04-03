@@ -19,12 +19,14 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentDamage;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -286,7 +288,25 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        return Ic2Items.chainSaw.getItem().hitEntity(stack, target, attacker);
+        if (!(attacker instanceof EntityPlayer)) {
+            return true;
+        } else {
+            if (ElectricItem.manager.use(stack, this.operationEnergyCost, (EntityPlayer)attacker)) {
+                target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer)attacker), 15.0F);
+            } else {
+                target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer)attacker), 1.0F);
+            }
+
+            if (target.getHealth() <= 0.0F) {
+                if (target instanceof EntityCreeper) {
+                    IC2.achievements.issueStat((EntityPlayer)attacker, "killCreeperChainsaw");
+                }
+
+                IC2.achievements.issueStat((EntityPlayer)attacker, "chainsawKills");
+            }
+
+            return false;
+        }
     }
 
     static {
