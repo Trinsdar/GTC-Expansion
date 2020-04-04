@@ -1,5 +1,16 @@
 # Changelog
 
+# 0.1.1
+- Added intergrated circuit
+- Added more rc recipes
+- Added railcraft and gravisuit compat config options
+- Fixed distillation tower consuming fluids and processing even when it shouldn't
+- Added fluid support to electolyzer
+- Added recipes to plate ender and wiremill from ic2c extras roller and extruder
+- Made steel jackhammer able to mine obsidian again
+- Possibly fixed diamond chainsaw not activating fast leaf decay's fast leaf decaying
+- Increased attack of diamond chainsaw from 10 to 15
+
 # 0.1.0
 - Fixed a few recipes - see commit history for more details of what was changed
 - Added better mod support for other stones to steel jackhammer.
