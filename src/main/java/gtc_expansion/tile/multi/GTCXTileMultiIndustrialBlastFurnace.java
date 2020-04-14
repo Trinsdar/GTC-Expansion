@@ -224,18 +224,18 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 				input("dustThorium", 1) }, 1500, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Thorium, 1));
 		/* Chrome **/
 		addRecipe(new IRecipeInput[] {
-				input("dustChrome", 1) }, 1700, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Chrome, 1));
+				input("dustChrome", 1), input(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1)) }, 1700, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Chrome, 1));
 
 		/* Stainless Steel **/
 		addRecipe(new IRecipeInput[]{metal("Iron", 6), metal("Nickel", 1), metal("Chrome", 1), metal("Manganese", 1)}, 1700, COST_HIGH * 6, GTMaterialGen.getIngot(GTCXMaterial.StainlessSteel, 9));
 		addRecipe(new IRecipeInput[]{input("dustStainlessSteel", 1)}, 1700, COST_HIGH, GTMaterialGen.getIngot(GTCXMaterial.StainlessSteel, 1));
 		/* Kanthal **/
-		addRecipe(new IRecipeInput[]{new RecipeInputCombined(1, input("ingotIron", 1), input("ingotRefinedIron", 1)), input("ingotAluminium", 1), input("ingotChrome", 1)}, 1700, COST_HIGH*3, GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 3));
-		addRecipe(new IRecipeInput[]{input("dustKanthal", 1)}, 1700, COST_HIGH, GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 1));
+		addRecipe(new IRecipeInput[]{new RecipeInputCombined(1, input("ingotIron", 1), input("ingotRefinedIron", 1)), input("ingotAluminium", 1), input("ingotChrome", 1)}, 2200, COST_HIGH*3, GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 3));
+		addRecipe(new IRecipeInput[]{input("dustKanthal", 1)}, 2200, COST_HIGH, GTMaterialGen.getHotIngot(GTCXMaterial.Kanthal, 1));
 
 		/* Nichrome **/
-		addRecipe(new IRecipeInput[]{metal("Nickel", 4), metal("Chrome", 1)}, 2000, COST_HIGH*6, GTMaterialGen.getHotIngot(GTCXMaterial.Nichrome, 5));
-		addRecipe(new IRecipeInput[]{input("dustNichrome", 1)}, 2000, COST_HIGH*2, GTMaterialGen.getHotIngot(GTCXMaterial.Nichrome, 1));
+		addRecipe(new IRecipeInput[]{metal("Nickel", 4), metal("Chrome", 1)}, 2500, COST_HIGH*6, GTMaterialGen.getHotIngot(GTCXMaterial.Nichrome, 5));
+		addRecipe(new IRecipeInput[]{input("dustNichrome", 1)}, 2500, COST_HIGH*2, GTMaterialGen.getHotIngot(GTCXMaterial.Nichrome, 1));
 
 		/* Aluminium **/
 		IRecipeInput aluminium = new RecipeInputCombined(1, new RecipeInputOreDict("dustAluminum"), new RecipeInputOreDict("dustAluminium"));
