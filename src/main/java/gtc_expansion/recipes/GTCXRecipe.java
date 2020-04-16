@@ -59,7 +59,7 @@ public class GTCXRecipe {
     static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
 
 
-    static IRecipeInput ingotMachine = new RecipeInputCombined(1, input(GTValues.INGOT_REFINEDIRON), input("ingotAluminium"), input("ingotAluminum"));
+    static IRecipeInput ingotMachine = GTValues.INPUT_INGOT_MACHINE;
     public static IRecipeInput plateMachine = new RecipeInputCombined(1, input(getRefinedIronPlate()), input("plateAluminium"), input("plateAluminum"));
     static IRecipeInput ingotSteels = new RecipeInputCombined(1, input("ingotSteel"), input("ingotStainlessSteel"));
     public static IRecipeInput plateSteels = new RecipeInputCombined(1, input("plateSteel"), input("plateStainlessSteel"));
@@ -644,6 +644,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileRockBreaker), "IDI", "CTC", "IMI", 'I', invar, 'C', GTValues.CIRCUIT_BASIC, 'M', GTValues.MACHINE_ADV, 'D', GTValues.INPUT_DIAMOND_OR_TUNGSTEN, 'T', Ic2Items.electricDrill.copy());
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialSteelsAluminium, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBatteryLV), " C ", "TRT", "TMT", 'C', Ic2Items.copperCable, 'T', tin, 'R', "blockRedstone", 'M', "machineBlockBasic");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileLamp, 2), "IPI", "PRP", "IPI", 'P', "paneGlass", 'I', materialMachine, 'R', Blocks.REDSTONE_LAMP);
     }
 
     public void overrideGTRecipe(String recipeId, ItemStack output, Object... input) {
