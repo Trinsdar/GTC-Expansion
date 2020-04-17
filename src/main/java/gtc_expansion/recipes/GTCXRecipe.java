@@ -16,6 +16,7 @@ import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileGasTurbine;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
+import gtc_expansion.tile.GTCXTileStoneCompressor;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
@@ -204,6 +205,7 @@ public class GTCXRecipe {
         GTCXRecipeProcessing.removals();
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
+        GTCXTileStoneCompressor.init();
     }
 
     public static void initShapedItemRecipes(){
@@ -394,6 +396,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.electricLocker), "SLS", "SlS", "SCS", colorTransfer(GTMaterialGen.get(GTCXBlocks.locker)), 'S', materialSteels, 'L', Ic2Items.lapotronCrystal, 'l', GTCXBlocks.locker, 'C', "circuitAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.advancedWorktable), "EOE", "EWE", "ECE", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'E', electrum, 'O', tier2Energy, 'W', GTBlocks.tileWorktable, 'C', "circuitAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dustBin), "IHI", "IWI", "IHI", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'I', materialRefinedIron, 'H', Blocks.HOPPER, 'W', GTBlocks.tileWorktable);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', anyPiston);
     }
 
     public static void initShapelessRecipes(){
@@ -412,6 +415,8 @@ public class GTCXRecipe {
     }
 
     public static void initIc2(){
+        recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', GTCXRecipe.materialRefinedIron, 'M', GTCXBlocks.stoneCompressor, 'C',
+                "circuitBasic");
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GTCXItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
@@ -424,7 +429,8 @@ public class GTCXRecipe {
         if (GTConfig.general.harderIC2Macerator) {
             recipes.overrideRecipe("shaped_tile.blockStoneMacerator_-130868445", Ic2Items.stoneMacerator.copy(), "FDF", "DPD", "FBF", 'D', "gemDiamond", 'F', Items.FLINT, 'P', Blocks.PISTON, 'B',
                     Blocks.FURNACE);
-            recipes.overrideRecipe("shaped_tile.blockMacerator_127744036", Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', GTCXRecipe.materialRefinedIron, 'M', Ic2Items.stoneMacerator.copy(), 'C',
+            int recipeId = IC2.config.getFlag("SteelRecipes") ? 2144549784 : 127744036;
+            recipes.overrideRecipe("shaped_tile.blockMacerator_" + recipeId, Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', GTCXRecipe.materialRefinedIron, 'M', Ic2Items.stoneMacerator.copy(), 'C',
                     "circuitAdvanced");
             recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', "gemDiamond", 'F', materialSteels, 'M', "machineBlockBasic", 'C',
                     "circuitAdvanced");
