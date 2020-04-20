@@ -124,8 +124,6 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
                 if (storage > 0){
                     if (production != 32){
                         production = 32;
-                    } else {
-                        return;
                     }
                 } else {
                     production = 0;
@@ -289,6 +287,16 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     }
 
     @Override
+    public boolean delayActiveUpdate() {
+        return true;
+    }
+
+    @Override
+    public int getDelay() {
+        return 60;
+    }
+
+    @Override
     public double getWrenchDropRate() {
         return 1.0D;
     }
@@ -332,6 +340,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         return maxFuel;
     }
 
+    @Override
     public void getData(Map<String, Boolean> data){
         FluidStack fluid = this.tank.getFluid();
         data.put("Input Tank: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);

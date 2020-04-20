@@ -397,6 +397,10 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.advancedWorktable), "EOE", "EWE", "ECE", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'E', electrum, 'O', tier2Energy, 'W', GTBlocks.tileWorktable, 'C', "circuitAdvanced");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dustBin), "IHI", "IWI", "IHI", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'I', materialRefinedIron, 'H', Blocks.HOPPER, 'W', GTBlocks.tileWorktable);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', anyPiston);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialInjector), "PcP", "CAC", "PCP", 'P', Ic2Items.pump.copy(), 'c', "chestWood", 'C', GTValues.CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialExtractor), "PCP", "CAC", "PcP", 'P', Ic2Items.pump.copy(), 'c', "chestWood", 'C', GTValues.CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.inputHatch), "SCS", "GHG", "SSS", 'S', stainlessSteel, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', GTValues.MACHINE_BASIC);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.outputHatch), "SSS", "GHG", "SCS", 'S', stainlessSteel, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', GTValues.MACHINE_BASIC);
     }
 
     public static void initShapelessRecipes(){

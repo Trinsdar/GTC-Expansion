@@ -89,7 +89,10 @@ public class GTCXBlocks {
     public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", 4, 150.0F));
     public static final GTCXBlockCasing casingAdvanced = registerBlock(new GTCXBlockCasing("advanced", 1, 200F));
 
-    public static final GTCXBlockTile importHatch = registerBlock(new GTCXBlockTile("importhatch", GTCXLang.IMPORT_HATCH));
+    public static final GTCXBlockTile inputHatch = registerBlock(new GTCXBlockTile("inputhatch", GTCXLang.INPUT_HATCH));
+    public static final GTCXBlockTile outputHatch = registerBlock(new GTCXBlockTile("outputhatch", GTCXLang.OUTPUT_HATCH));
+    public static final GTCXBlockTile fusionMaterialInjector = registerBlock(new GTCXBlockTile("fusionmaterialinjector", GTCXLang.FUSION_MATERIAL_INJECTOR));
+    public static final GTCXBlockTile fusionMaterialExtractor = registerBlock(new GTCXBlockTile("fusionmaterialextractor", GTCXLang.FUSION_MATERIAL_EXTRACTOR));
 
     public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
     public static final GTCXBlockMisc iridiumTungstensteelBlock = registerBlock(new GTCXBlockMisc("iridium_tungstensteel_block", "pickaxe", 5, 50.0F, 2000.0F, 3, Material.IRON, SoundType.METAL));
@@ -168,7 +171,10 @@ public class GTCXBlocks {
         registerUtil(GTCXTileDustbin.class, "Dustbin");
         registerUtil(GTCXTileStoneCompressor.class, "StoneCompressor");
         registerUtil(GTCXTileElectrumCable.class, "ElectrumCable");
-        registerUtil(GTCXTileItemFluidHatches.GTCXTileImportHatch.class, "ImportHatch");
+        registerUtil(GTCXTileItemFluidHatches.GTCXTileInputHatch.class, "InputHatch");
+        registerUtil(GTCXTileItemFluidHatches.GTCXTileOutputHatch.class, "OutputHatch");
+        registerUtil(GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector.class, "FusionMaterialInjector");
+        registerUtil(GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor.class, "FusionMaterialExtractor");
         //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
     }
 

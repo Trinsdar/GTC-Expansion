@@ -36,7 +36,7 @@ import java.util.List;
 
 public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickable, IClickable, IGTItemContainerTile, IHasGui {
     boolean input;
-    private IC2Tank tank;
+    protected IC2Tank tank;
     private static final int slotInput = 0;
     private static final int slotOutput = 1;
     private static final int slotDisplay = 2;
@@ -99,7 +99,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public List<ItemStack> getDrops() {
         List<ItemStack> list = new ArrayList<>();
-        //list.add(getBlockDrop());
         list.addAll(getInventoryDrops());
         return list;
     }
@@ -112,18 +111,35 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         return list;
     }
 
-    protected abstract ItemStack getBlockDrop();
+    @Override
+    public boolean canRemoveBlock(EntityPlayer player) {
+        return true;
+    }
+
+    int tickSkipper = 0;
 
     @Override
     public void update() {
-        if (input) {
-            GTUtility.importFromSideIntoMachine(this, this.getFacing());
-            importFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+        if (tickSkipper <= 0){
+            if (input) {
+                GTUtility.importFromSideIntoMachine(this, this.getFacing());
+                importFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+            } else {
+                GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
+                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+            }
+            GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
+            if (tickSkipper < 0){
+                tickSkipper = 0;
+            }
         } else {
-            GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
-            GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+            tickSkipper--;
         }
-        GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
+
+    }
+
+    public void skip5Ticks(){
+        tickSkipper = 5;
     }
 
     /**
@@ -205,15 +221,73 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         return this.getStackInSlot(slotInput);
     }
 
-    public static class GTCXTileImportHatch extends GTCXTileItemFluidHatches{
+    public static class GTCXTileInputHatch extends GTCXTileItemFluidHatches{
 
-        public GTCXTileImportHatch() {
+        public GTCXTileInputHatch() {
+            super(true);
+        }
+    }
+
+    public static class GTCXTileOutputHatch extends GTCXTileItemFluidHatches{
+
+        public GTCXTileOutputHatch() {
+            super(false);
+        }
+    }
+
+    public static class GTCXTileFusionMaterialInjector extends GTCXTileItemFluidHatches{
+
+        public GTCXTileFusionMaterialInjector() {
             super(true);
         }
 
         @Override
-        protected ItemStack getBlockDrop() {
-            return null;
+        public boolean canSetFacing(EntityPlayer player, EnumFacing facing) {
+            return this.getFacing() != facing && facing.getAxis().isHorizontal();
+        }
+
+        @Override
+        public void update() {
+            if (tickSkipper <= 0){
+                GTUtility.importFromSideIntoMachine(this, this.getFacing());
+                importFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+                GTUtility.importFromSideIntoMachine(this, this.getFacing().getOpposite());
+                importFluidFromMachineToSide(this, tank, this.getFacing().getOpposite(), 1000);
+                GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
+                if (tickSkipper < 0){
+                    tickSkipper = 0;
+                }
+            } else {
+                tickSkipper--;
+            }
+        }
+    }
+
+    public static class GTCXTileFusionMaterialExtractor extends GTCXTileItemFluidHatches{
+
+        public GTCXTileFusionMaterialExtractor() {
+            super(false);
+        }
+
+        @Override
+        public boolean canSetFacing(EntityPlayer player, EnumFacing facing) {
+            return this.getFacing() != facing && facing.getAxis().isHorizontal();
+        }
+
+        @Override
+        public void update() {
+            if (tickSkipper <= 0){
+                GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
+                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+                GTUtility.exportFromMachineToSide(this, this.getFacing().getOpposite(), slotOutput);
+                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing().getOpposite(), 1000);
+                GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
+                if (tickSkipper < 0){
+                    tickSkipper = 0;
+                }
+            } else {
+                tickSkipper--;
+            }
         }
     }
 }

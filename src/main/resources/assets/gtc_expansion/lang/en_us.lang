@@ -79,7 +79,10 @@ tile.gtc_expansion.electrumcable.name=Electrum Cable
 tile.gtc_expansion.electrumcableinsulated1.name=Insulated Electrum Cable
 tile.gtc_expansion.electrumcableinsulated2.name=2xInsulated Electrum Cable
 tile.gtc_expansion.electrumcableinsulated3.name=4xInsulated Electrum Cable
-
+tile.gtc_expansion.inputhatch.name=Input Hatch
+tile.gtc_expansion.outputhatch.name=Output Hatch
+tile.gtc_expansion.fusion_material_injector.name=Fusion Material Injector
+tile.gtc_expansion.fusion_material_extractor.name=Fusion Material Extractor
 
 #crops
 ic2.crop.Olivia.name=Olivia

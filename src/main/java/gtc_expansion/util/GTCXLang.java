@@ -36,8 +36,8 @@ public class GTCXLang {
     public static final LocaleComp ELECTRUM_CABLE_INSULATED_2 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcableinsulated2");
     public static final LocaleComp ELECTRUM_CABLE_INSULATED_4 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcableinsulated3");
 
-    public static final LocaleComp IMPORT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.importhatch");
-    public static final LocaleComp EXPORT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.exporthatch");
+    public static final LocaleComp INPUT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.inputhatch");
+    public static final LocaleComp OUTPUT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.outputhatch");
     public static final LocaleComp FUSION_MATERIAL_INJECTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_injector");
     public static final LocaleComp FUSION_MATERIAL_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_extractor");
 

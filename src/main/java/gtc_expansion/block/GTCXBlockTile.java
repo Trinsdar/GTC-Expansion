@@ -26,14 +26,17 @@ import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
 import gtclassic.api.interfaces.IGTItemContainerTile;
+import ic2.core.IC2;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -134,9 +137,17 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         if (this == GTCXBlocks.stoneCompressor){
             return new GTCXTileStoneCompressor();
         }
-
-        if (this == GTCXBlocks.importHatch){
-            return new GTCXTileItemFluidHatches.GTCXTileImportHatch();
+        if (this == GTCXBlocks.inputHatch){
+            return new GTCXTileItemFluidHatches.GTCXTileInputHatch();
+        }
+        if (this == GTCXBlocks.outputHatch){
+            return new GTCXTileItemFluidHatches.GTCXTileOutputHatch();
+        }
+        if (this == GTCXBlocks.fusionMaterialInjector){
+            return new GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector();
+        }
+        if (this == GTCXBlocks.fusionMaterialExtractor){
+            return new GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor();
         }
 //        if (this == GEBlocks.fusionReactor){
 //            return new GETileMultiFusionReactor();
@@ -161,6 +172,34 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
             return list;
         } else {
             return super.getDrops(world, pos, state, fortune);
+        }
+    }
+
+    public boolean hasVertical() {
+        return this == GTCXBlocks.inputHatch || this == GTCXBlocks.outputHatch;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+                                ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (this.hasVertical() && !IC2.platform.isRendering()) {
+            if (tile instanceof TileEntityBlock) {
+                TileEntityBlock block = (TileEntityBlock) tile;
+                if (placer == null) {
+                    block.setFacing(EnumFacing.NORTH);
+                } else {
+                    int pitch = Math.round(placer.rotationPitch);
+                    if (pitch >= 65) {
+                        block.setFacing(EnumFacing.UP);
+                    } else if (pitch <= -65) {
+                        block.setFacing(EnumFacing.DOWN);
+                    } else {
+                        block.setFacing(EnumFacing.fromAngle((double) placer.rotationYaw).getOpposite());
+                    }
+                }
+            }
         }
     }
 }
