@@ -3,7 +3,6 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerStoneCompressor;
-import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.interfaces.IGTDisplayTickTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
@@ -72,7 +71,7 @@ public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IG
 
     @Override
     public LocaleComp getBlockName() {
-        return GTCXLang.ALLOY_FURNACE;
+        return GTCXLang.STONE_COMPRESSOR;
     }
 
     @Override
@@ -102,7 +101,7 @@ public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IG
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST;
+        return RECIPE_LIST;
     }
 
     @Override
@@ -122,7 +121,7 @@ public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IG
     @Override
     public List<ItemStack> getDrops() {
         List<ItemStack> list = new ArrayList<ItemStack>();
-        ItemStack machine = GTMaterialGen.get(GTCXBlocks.alloyFurnace);
+        ItemStack machine = GTMaterialGen.get(GTCXBlocks.stoneCompressor);
         list.add(machine);
 
         list.addAll(getInventoryDrops());
@@ -199,6 +198,6 @@ public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IG
     static void addRecipe(IRecipeInput input, MachineOutput output) {
         List<IRecipeInput> inputs = new ArrayList<>();
         inputs.add(input);
-        GTCXRecipeLists.WIREMILL_RECIPE_LIST.addRecipe(inputs, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
+        RECIPE_LIST.addRecipe(inputs, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
     }
 }
