@@ -69,6 +69,8 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.stoneCompressor, s("bmach_lv", 15), s("stone_compressor_top"), s("bmach_lv", 47), s("stone_compressor_front"), s("bmach_lv", 47), s("bmach_lv", 47), s("bmach_lv", 15), s("stone_compressor_top"), s("bmach_lv", 47), s("stone_compressor_front_active"), s("bmach_lv", 47), s("bmach_lv", 47));
         setTexture(GTCXBlocks.vacuumFreezer, iS, iF, t2, t2, t2, t2, iS, iFA, t2, t2, t2, t2);
         setTexture(GTCXBlocks.wiremill, s(0), s("wiremill_top"), t1, s(22), s(2), s(2), s(0), s("wiremill_top_active"), t1, s(23), s(2), s(2));
+        t1 = s("machine_back");
+        setTexture(GTCXBlocks.importHatch, s(0), s(1), s(2), t1, s(2), s(2));
     }
 
     private static ResourceLocation location(String name) {
