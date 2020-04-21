@@ -577,13 +577,6 @@ public class GTCXRecipe {
     }
 
     public static void initOverrideGTClassic(){
-//        if (GTConfig.removeIC2Plasmafier){
-//            recipes.overrideRecipe("shaped_tile.blockPlasmafier_679353211", GTMaterialGen.get(GEBlocks.fusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
-//                    "batteryUltimate", 'C', GTBlocks.tileComputer);
-//        } else {
-//            instance.overrideGTRecipe("shaped_tile.gtclassic.fusionreactor_1659066354",GTMaterialGen.get(GEBlocks.fusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
-//                    "batteryUltimate", 'C', GTBlocks.tileComputer);
-//        }
         //recipes.addRecipe(GTMaterialGen.get(GTBlocks.dataCable, 6), "RRR", "CIC", "RRR", 'I', "plateSilicon", 'C', GTValues.CIRCUIT_DATA, 'R', "itemRubber");
         //recipes.addRecipe(GTMaterialGen.get(GTItems.nodeBlank, 2), "II", "II", 'I', aluminium);
         //recipes.addRecipe(GTMaterialGen.get(GTItems.nodeNetworkManager, 1), "BS", "CX", 'B', GTItems.nodeBlank, 'C', GTValues.CIRCUIT_ELITE, 'S', "plateSilicon", 'X', "paneGlass");
@@ -644,12 +637,11 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDisplayScreen), "cGc", "CMC", "IRI", 'c', GTCXItems.computerMonitor, 'G', "paneGlass", 'C', GTValues.CIRCUIT_BASIC, 'M', GTValues.MACHINE_BASIC, 'I', GTRecipeCraftingHandler.combineRecipeObjects(pre + "Iron", refinedIron), 'R', Items.REDSTONE);
         /** Fusion Computer **/ //since I'll be adding my own fusion in the future
         if (GTConfig.general.removeIC2Plasmafier) {
-            recipes.overrideRecipe("shaped_tile.blockPlasmafier_679353211", GTMaterialGen.get(GTBlocks.tileFusionReactor, 1), "ESE", "LCL", "ESE", 'E', "circuitMaster", 'S', GTBlocks.tileSupercondensator, 'L',
-                    "batteryUltimate", 'C', GTBlocks.tileComputer);
+            recipes.overrideRecipe("shaped_tile.blockPlasmafier_679353211", GTMaterialGen.get(GTBlocks.tileFusionReactor, 1), "CCC", "cMc", "CCC", 'C', "circuitMaster", 'c', GTBlocks.tileComputer, 'M',
+                    GTBlocks.casingFusion);
         } else {
-            recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileFusionReactor, 1), "ESE", "LCL", "ESE", 'E',
-                    "circuitMaster", 'S', "craftingSuperconductor", 'L', "batteryUltimate", 'C',
-                    GTBlocks.tileComputer);
+            recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileFusionReactor, 1), "CCC", "cMc", "CCC", 'C', "circuitMaster", 'c', GTBlocks.tileComputer, 'M',
+                    GTBlocks.casingFusion);
         }
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileRockBreaker), "IDI", "CTC", "IMI", 'I', invar, 'C', GTValues.CIRCUIT_BASIC, 'M', GTValues.MACHINE_ADV, 'D', GTValues.INPUT_DIAMOND_OR_TUNGSTEN, 'T', Ic2Items.electricDrill.copy());
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', materialSteelsAluminium, 'C', "circuitAdvanced", 'M', "machineBlockAdvanced", 'E', Ic2Items.extractor);

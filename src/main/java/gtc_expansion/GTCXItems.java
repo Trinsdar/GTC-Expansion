@@ -2,6 +2,7 @@ package gtc_expansion;
 
 import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;
+import gtc_expansion.item.GTCXItemDamageable;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.GTCXItemFood;
 import gtc_expansion.item.GTCXItemInsulationCutter;
@@ -72,6 +73,7 @@ public class GTCXItems {
     public static final GTCXItemSteelJackHammer steelJackhammer = createItem(new GTCXItemSteelJackHammer());
     public static final GTCXItemDiamondChainsaw diamondChainsaw = createItem(new GTCXItemDiamondChainsaw());
     public static final GTCXItemIntegratedCircuit integratedCircuit = createItem(new GTCXItemIntegratedCircuit());
+    public static final GTCXItemDamageable lavaFilter = createItem(new GTCXItemDamageable("lava_filter",13, 1, 99));
 
     public static <T extends Item> T createItem(T item) {
         toRegister.add(item);

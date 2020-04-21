@@ -22,6 +22,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
+import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
@@ -148,6 +149,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         }
         if (this == GTCXBlocks.fusionMaterialExtractor){
             return new GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor();
+        }
+        if (this == GTCXBlocks.thermalBoiler){
+            return new GTCXTileMultiThermalBoiler();
         }
 //        if (this == GEBlocks.fusionReactor){
 //            return new GETileMultiFusionReactor();
