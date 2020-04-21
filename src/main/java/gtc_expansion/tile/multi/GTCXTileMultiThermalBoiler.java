@@ -1,5 +1,6 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.container.GTCXContainerThermalBoiler;
@@ -9,6 +10,7 @@ import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.core.block.base.tile.TileEntityMachine;
+import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
@@ -89,29 +91,36 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         }
         boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileInputHatch && world.getTileEntity(input2) instanceof GTCXTileInputHatch && world.getTileEntity(output1) instanceof GTCXTileOutputHatch;
         if (canWork && this.getStackInSlot(0).getItem() == GTCXItems.lavaFilter){
+            GTCExpansion.logger.info("found input and output hatches");
             GTCXTileInputHatch inputHatch1 = (GTCXTileInputHatch) world.getTileEntity(input1);
             GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
-            GTCXTileInputHatch outputHatch1 = (GTCXTileInputHatch) world.getTileEntity(output1);
+            GTCXTileOutputHatch outputHatch1 = (GTCXTileOutputHatch) world.getTileEntity(output1);
             if (inputHatch1.getTank().getFluid() != null && inputHatch2.getTank().getFluid() != null && inputHatch1.getTank().getFluidAmount() > 0 && inputHatch2.getTank().getFluidAmount() > 0){
                 boolean lava = false;
                 boolean water = false;
+                IC2Tank lavaTank = inputHatch1.getTank();
+                IC2Tank waterTank = inputHatch2.getTank();
                 if (inputHatch1.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1))){
                     water = true;
+                    waterTank = inputHatch1.getTank();
                 } else if (inputHatch1.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1))){
                     lava = true;
+                    lavaTank = inputHatch1.getTank();
                 }
                 if (inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1)) && !water){
                     water = true;
+                    waterTank = inputHatch2.getTank();
                 } else if (inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1)) && !lava){
                     lava = true;
+                    lavaTank = inputHatch2.getTank();
                 }
-                if (water && lava){
+                if (water && lava && lavaTank.getFluidAmount() >= 1000){
                     if (outputHatch1.getTank().getFluidAmount() == 0 || (outputHatch1.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 160)) && outputHatch1.getTank().getFluidAmount() + 160 <= outputHatch1.getTank().getCapacity())){
                         if (!this.getActive()){
                             this.setActive(true);
                         }
-                        inputHatch1.getTank().drainInternal(1, true);
-                        inputHatch2.getTank().drainInternal(1, true);
+                        waterTank.drainInternal(1, true);
+                        lavaTank.drainInternal(1000, true);
                         outputHatch1.getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 40){
                             this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
@@ -121,8 +130,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         if (!this.getActive()){
                             this.setActive(true);
                         }
-                        inputHatch1.getTank().drainInternal(1, true);
-                        inputHatch2.getTank().drainInternal(1, true);
+                        waterTank.drainInternal(1, true);
+                        lavaTank.drainInternal(1000, true);
                         ((GTCXTileOutputHatch)world.getTileEntity(output2)).getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 40){
                             this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
@@ -132,8 +141,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         if (!this.getActive()){
                             this.setActive(true);
                         }
-                        inputHatch1.getTank().drainInternal(1, true);
-                        inputHatch2.getTank().drainInternal(1, true);
+                        waterTank.drainInternal(1, true);
+                        lavaTank.drainInternal(1000, true);
                         ((GTCXTileOutputHatch)world.getTileEntity(output3)).getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 40){
                             this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
@@ -242,7 +251,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (!isReinforcedCasing(dir.down(1))){
             return false;
         }
-        if (!isReinforcedCasing(dir.left(1))){
+        if (!isReinforcedCasing(dir.right(1))){
             return false;
         }
         if (!isHatch(dir.up(1))){
@@ -251,7 +260,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (!isReinforcedCasing(dir.up(1))){
             return false;
         }
-        if (!isReinforcedCasing(dir.left(1))){
+        if (!isReinforcedCasing(dir.right(1))){
             return false;
         }
         if (!isReinforcedCasing(dir.down(1))){
