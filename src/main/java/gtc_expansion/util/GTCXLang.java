@@ -42,6 +42,10 @@ public class GTCXLang {
     public static final LocaleComp FUSION_MATERIAL_INJECTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_injector");
     public static final LocaleComp FUSION_MATERIAL_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_extractor");
 
+    public static final LocaleComp CASING_STANDARD = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.standard_casing");
+    public static final LocaleComp CASING_REINFORCED = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.reinforced_casing");
+    public static final LocaleComp CASING_ADVANCED = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.advanced_casing");
+
     public static final LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
     public static final LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
     public static final LocaleComp diamondChainsawShearToggle = new LocaleItemInfoComp("tooltip.diamondChainsawShearToggle.name");

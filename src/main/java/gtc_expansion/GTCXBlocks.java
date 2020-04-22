@@ -87,9 +87,9 @@ public class GTCXBlocks {
 
     public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE));
 
-    public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", 2,75F));
-    public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", 4, 150.0F));
-    public static final GTCXBlockCasing casingAdvanced = registerBlock(new GTCXBlockCasing("advanced", 1, 200F));
+    public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", GTCXLang.CASING_STANDARD, 2,75F));
+    public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", GTCXLang.CASING_REINFORCED, 4, 150.0F));
+    public static final GTCXBlockCasing casingAdvanced = registerBlock(new GTCXBlockCasing("advanced", GTCXLang.CASING_ADVANCED, 1, 200F));
 
     public static final GTCXBlockTile inputHatch = registerBlock(new GTCXBlockTile("inputhatch", GTCXLang.INPUT_HATCH));
     public static final GTCXBlockTile outputHatch = registerBlock(new GTCXBlockTile("outputhatch", GTCXLang.OUTPUT_HATCH));

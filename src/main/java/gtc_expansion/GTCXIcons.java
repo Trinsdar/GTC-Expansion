@@ -27,6 +27,7 @@ public class GTCXIcons {
         makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
         collectBasicTileSprites();
+        collectSteamTurbineSprites();
         if (GTConfig.general.animatedTextures){
             addCustomTexture("industrial_front_active", 0, 0, location("bf_front"));
             addCustomTexture("diesel_generator_top_active", 0, 0, location("diesel_generator_top"));
@@ -100,6 +101,24 @@ public class GTCXIcons {
             Ic2Icons.addTextureEntry(new Sprites.TextureEntry(string, 0, 0, 1, 1));
         }
 
+    }
+
+    public static void collectSteamTurbineSprites(){
+        String[] positions = {"bottom", "bottom_left", "bottom_right", "left", "center", "right", "top", "top_left", "top_right"};
+        for (String string : positions){
+            String active = "steam_turbine_front_active_" + string;
+            String nonActive = "steam_turbine_front_" + string;
+            if (GTConfig.general.debugMode){
+                GTCExpansion.logger.info("Attempting to get sprite data for: " + active);
+                GTCExpansion.logger.info("Attempting to get sprite data for: " + nonActive);
+
+            }
+            Ic2Icons.addSprite(new Sprites.SpriteData(nonActive, "gtc_expansion:textures/sprites/tiles/steam_turbine/" + nonActive + ".png", new Sprites.SpriteInfo(1, 1)));
+            Ic2Icons.addTextureEntry(new Sprites.TextureEntry(nonActive, 0, 0, 1, 1));
+            Ic2Icons.addSprite(new Sprites.SpriteData(active, "gtc_expansion:textures/sprites/tiles/steam_turbine/" + active + ".png", new Sprites.SpriteInfo(1, 1)));
+            Ic2Icons.addTextureEntry(new Sprites.TextureEntry(active, 0, 0, 1, 1));
+            addCustomTexture(active, 0, 0, location(active));
+        }
     }
 
     /**
