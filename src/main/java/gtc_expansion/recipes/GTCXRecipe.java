@@ -390,6 +390,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dieselGenerator), "PPP", "P P", "CGC", 'P', materialMachine, 'C', "circuitBasic", 'G', Ic2Items.generator);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.gasTurbine), "PCP", "WGW", "PCP", 'P', materialInvarAluminium, 'C', "circuitAdvanced", 'W', Ic2Items.windMill, 'G', reinforcedGlass);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.thermalBoiler), "TcT", "GCG", "TcT", 'T', Ic2Items.thermalGenerator, 'c', GTBlocks.tileCentrifuge, 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearTitanium", "gearTungstensteel"), 'C', GTValues.CIRCUIT_MASTER);
         IRecipeInput aluiron = new RecipeInputCombined(1, input(refinedIron), aluminium);
         IRecipeInput rodAluiron = new RecipeInputCombined(1, input("rodAluminium"), input("rodAluminum"),  input("rodRefinedIron"));
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.locker), "RLR", "LCL", "PMP", colorTransfer(GTMaterialGen.get(GTBlocks.tileCabinet)), 'R', rodAluiron, 'L', Items.LEATHER, 'C', GTBlocks.tileCabinet, 'P', aluiron, 'M', "machineBlockCheap");
@@ -504,6 +505,8 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.sideaccessupgrade_-607927002", Ic2Items.sideAccessUpgrade, " T ", "TMT", " T ", 'T', "trapdoorWood", 'M', machineBlock);
         recipes.overrideRecipe("shaped_item.rotationdisablerupgrade_412194477", Ic2Items.rotationDissablerUpgrade, "C", "R", "M", 'C', Items.COMPASS, 'R', Blocks.REDSTONE_TORCH, 'M', machineBlock);
         recipes.overrideRecipe("shaped_item.itemarmorquantumlegs_-1246661396", Ic2Items.quantumLeggings, "MLM", "INI", "G G", 'M', machineBlock, 'L', Ic2Items.lapotronCrystal, 'I', Ic2Items.iridiumPlate, 'N', Ic2Items.nanoLeggings, 'G', "dustGlowstone");
+        recipeId = IC2.config.getFlag("SteelRecipes") ? 1337979563 : 1053004507;
+        recipes.overrideRecipe("shaped_tile.blockthermalgenerator_" + recipeId, Ic2Items.thermalGenerator, "PPP", "PAP", "CGC", 'P', materialInvarAluminium, 'A', GTValues.MACHINE_ADV, 'C', GTValues.CIRCUIT_BASIC, 'G', Ic2Items.geothermalGenerator);
 
         recipeId = IC2.config.getFlag("SteelRecipes") ? -342403874 : -1588477206;
         recipes.overrideRecipe("shaped_item.itemtoolddrill_1955483893", Ic2Items.diamondDrill, " D ", "DdD", "TCT", 'D', "dustDiamond", 'd', Ic2Items.electricDrill, 'T', titanium, 'C', "circuitAdvanced");

@@ -180,6 +180,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("plateTungstensteel", 1, Ic2Items.iridiumStone, 1600, GTMaterialGen.get(GTCXBlocks.iridiumTungstensteelBlock));
         addRecipe("blockTungstensteel", 1, Ic2Items.iridiumPlate, 1600, GTMaterialGen.get(GTCXBlocks.iridiumTungstensteelBlock));
         addRecipe(Ic2Items.memoryStick, Ic2Items.frequencyTransmitter, 3000, GTMaterialGen.get(GTItems.sensorStick));
+        addRecipe(GTMaterialGen.getIc2(Ic2Items.carbonMesh, 16), GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 3000, GTMaterialGen.get(GTCXItems.lavaFilter));
     }
 
     public static void addRecipe(String input1, int amount1, int totalEu, ItemStack output) {
