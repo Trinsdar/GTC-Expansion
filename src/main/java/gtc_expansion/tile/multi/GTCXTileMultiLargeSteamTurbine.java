@@ -1,5 +1,6 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.block.GTCXBlockCasing;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
@@ -7,6 +8,7 @@ import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
+import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
@@ -158,6 +160,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 //        if (inputs < 1){
 //            return false;
 //        }
+        GTCExpansion.logger.info("structure valid");
         return true;
     }
 
@@ -168,8 +171,11 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public boolean isStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            state = state.withProperty(GTCXBlockCasing.rotor, position).withProperty(GTCXBlockCasing.allFacings, this.getFacing());
+            state = state.withProperty(GTCXBlockCasing.rotor, position);
             world.setBlockState(pos.asBlockPos(), state);
+            if (world.getTileEntity(pos.asBlockPos()) instanceof TileEntityBlock){
+                ((TileEntityBlock) world.getTileEntity(pos.asBlockPos())).setFacing(this.getFacing());
+            }
             return true;
         }
         return false;

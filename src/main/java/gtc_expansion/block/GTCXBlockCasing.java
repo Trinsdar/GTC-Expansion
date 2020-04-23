@@ -18,6 +18,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -45,7 +47,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         if (this == GTCXBlocks.casingStandard){
             EnumFacing facing = state.getValue(allFacings);
             if (state.getValue(rotor) > 0){
-               return  getTextureFromRotor(state.getValue(active), state.getValue(rotor), facing, enumFacing);
+                return  getTextureFromRotor(state.getValue(active), state.getValue(rotor), facing, enumFacing);
             }
         }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
@@ -71,18 +73,22 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         if (facingBlock != facingTexture){
             return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
         }
-        String location = "";
-        switch (rotor){
-            case 1: location = "top_left";
-            case 2: location = "top";
-            case 3: location = "top_right";
-            case 4: location = "left";
-            case 5: location = "right";
-            case 6: location = "bottom_left";
-            case 7: location = "bottom";
-            case 8: location = "bottom_right";
-        }
+        String location = getLocation(rotor);
         return Ic2Icons.getTextures("steam_turbine_front_" + activeTexture + location)[0];
+    }
+
+    public String getLocation(int rotor){
+        switch (rotor){
+            case 1: return  "top_left";
+            case 2: return  "top";
+            case 3: return  "top_right";
+            case 4: return  "left";
+            case 5: return  "right";
+            case 6: return  "bottom_left";
+            case 7: return  "bottom";
+            case 8: return  "bottom_right";
+            default: return "";
+        }
     }
 
     @Override
@@ -100,7 +106,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @Override
     public List<IBlockState> getValidStateList() {
         IBlockState def = this.getDefaultState();
-        List<IBlockState> states = new ArrayList();
+        List<IBlockState> states = new ArrayList<>();
         EnumFacing[] facings = EnumFacing.VALUES;
         int facingsLength = facings.length;
 
@@ -123,5 +129,12 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.format("tooltip.gtclassic.nomobs"));
+    }
+
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        List<ItemStack> list = new ArrayList();
+        list.add(new ItemStack(this));
+        return list;
     }
 }

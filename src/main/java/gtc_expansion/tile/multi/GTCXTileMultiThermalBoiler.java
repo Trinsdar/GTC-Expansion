@@ -1,6 +1,5 @@
 package gtc_expansion.tile.multi;
 
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.container.GTCXContainerThermalBoiler;
@@ -101,7 +100,6 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         }
         boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileInputHatch && world.getTileEntity(input2) instanceof GTCXTileInputHatch && world.getTileEntity(output1) instanceof GTCXTileOutputHatch;
         if (canWork && this.getStackInSlot(0).getItem() == GTCXItems.lavaFilter){
-            GTCExpansion.logger.info("found input and output hatches");
             GTCXTileInputHatch inputHatch1 = (GTCXTileInputHatch) world.getTileEntity(input1);
             GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
             GTCXTileOutputHatch outputHatch1 = (GTCXTileOutputHatch) world.getTileEntity(output1);
