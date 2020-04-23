@@ -13,6 +13,7 @@ import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileDustbin;
@@ -179,6 +180,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileDustbin.class, "Dustbin");
         registerUtil(GTCXTileStoneCompressor.class, "StoneCompressor");
         registerUtil(GTCXTileElectrumCable.class, "ElectrumCable");
+        registerUtil(GTCXTileCasing.class, "Casing");
         registerUtil(GTCXTileItemFluidHatches.GTCXTileInputHatch.class, "InputHatch");
         registerUtil(GTCXTileItemFluidHatches.GTCXTileOutputHatch.class, "OutputHatch");
         registerUtil(GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch.class, "DynamoHatch");

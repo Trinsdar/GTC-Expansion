@@ -2,6 +2,7 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
+import gtc_expansion.tile.GTCXTileCasing;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
 import ic2.core.block.base.tile.TileEntityBlock;
@@ -60,7 +61,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 
     @Override
     public TileEntityBlock createNewTileEntity(World world, int i) {
-        return new TileEntityBlock();
+        return new GTCXTileCasing();
     }
 
     @Override
@@ -98,9 +99,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 
     @Override
     public IBlockState getDefaultBlockState() {
-        IBlockState state = this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, EnumFacing.NORTH);
-
-        return state;
+        return this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, EnumFacing.NORTH);
     }
 
     @Override
@@ -119,6 +118,24 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         }
 
         return states;
+    }
+
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        GTCXTileCasing block = (GTCXTileCasing)worldIn.getTileEntity(pos);
+        if (block != null) {
+            if (this.hasFacing()) {
+                state = state.withProperty(allFacings, block.getFacing());
+            }
+
+            return state.withProperty(active, block.getActive()).withProperty(rotor, block.getRotor());
+        } else {
+            if (this.hasFacing()) {
+                state = state.withProperty(allFacings, EnumFacing.NORTH);
+            }
+
+            return state.withProperty(active, false).withProperty(rotor, 0);
+        }
     }
 
     @Override

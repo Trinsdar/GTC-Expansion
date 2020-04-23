@@ -2,13 +2,12 @@ package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
-import gtc_expansion.block.GTCXBlockCasing;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
+import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
-import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
@@ -56,6 +55,18 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "dynamo", dynamo);
         return nbt;
+    }
+
+    @Override
+    public void onLoaded() {
+        super.onLoaded();
+        checkRing(new int3(getPos(), getFacing()));
+    }
+
+    @Override
+    public void onUnloaded() {
+        super.onUnloaded();
+        removeRing(new int3(getPos(), getFacing()));
     }
 
     public void writeBlockPosToNBT(NBTTagCompound nbt, String id, BlockPos pos){
@@ -132,6 +143,18 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         inputs = 0;
         outputs = 0;
         int3 dir = new int3(getPos(), getFacing());
+        if (!checkRing(dir)){
+            return false;
+        }
+
+//        if (inputs < 1){
+//            return false;
+//        }
+        GTCExpansion.logger.info("structure valid");
+        return true;
+    }
+
+    public boolean checkRing(int3 dir){
         if (!isStandardCasingWithSpecial(dir.up(1), 2)){
             return false;
         }
@@ -156,12 +179,18 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (!isStandardCasingWithSpecial(dir.up(1), 1)){
             return false;
         }
-
-//        if (inputs < 1){
-//            return false;
-//        }
-        GTCExpansion.logger.info("structure valid");
         return true;
+    }
+
+    public void removeRing(int3 dir){
+        removeStandardCasingWithSpecial(dir.up(1));
+        removeStandardCasingWithSpecial(dir.right(1));
+        removeStandardCasingWithSpecial(dir.down(1));
+        removeStandardCasingWithSpecial(dir.down(1));
+        removeStandardCasingWithSpecial(dir.left(1));
+        removeStandardCasingWithSpecial(dir.left(1));
+        removeStandardCasingWithSpecial(dir.up(1));
+        removeStandardCasingWithSpecial(dir.up(1));
     }
 
     public boolean isStandardCasing(int3 pos) {
@@ -171,14 +200,22 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public boolean isStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            state = state.withProperty(GTCXBlockCasing.rotor, position);
-            world.setBlockState(pos.asBlockPos(), state);
-            if (world.getTileEntity(pos.asBlockPos()) instanceof TileEntityBlock){
-                ((TileEntityBlock) world.getTileEntity(pos.asBlockPos())).setFacing(this.getFacing());
+            if (world.getTileEntity(pos.asBlockPos()) instanceof GTCXTileCasing){
+                ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setFacing(this.getFacing());
+                ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setRotor(position);
             }
             return true;
         }
         return false;
+    }
+
+    public void removeStandardCasingWithSpecial(int3 pos) {
+        IBlockState state = world.getBlockState(pos.asBlockPos());
+        if (state == standardCasingState){
+            if (world.getTileEntity(pos.asBlockPos()) instanceof GTCXTileCasing){
+                ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setRotor(0);
+            }
+        }
     }
 
     public boolean isInputHatch(int3 pos) {
