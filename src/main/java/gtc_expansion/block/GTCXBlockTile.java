@@ -16,11 +16,13 @@ import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
 import gtc_expansion.tile.GTCXTileWiremill;
+import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
@@ -144,6 +146,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         if (this == GTCXBlocks.outputHatch){
             return new GTCXTileItemFluidHatches.GTCXTileOutputHatch();
         }
+        if (this == GTCXBlocks.dynamoHatch){
+            return new GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch();
+        }
         if (this == GTCXBlocks.fusionMaterialInjector){
             return new GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector();
         }
@@ -152,6 +157,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         }
         if (this == GTCXBlocks.thermalBoiler){
             return new GTCXTileMultiThermalBoiler();
+        }
+        if (this == GTCXBlocks.largeSteamTurbine){
+            return new GTCXTileMultiLargeSteamTurbine();
         }
 //        if (this == GEBlocks.fusionReactor){
 //            return new GETileMultiFusionReactor();
@@ -180,7 +188,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
     }
 
     public boolean hasVertical() {
-        return this == GTCXBlocks.inputHatch || this == GTCXBlocks.outputHatch;
+        return this == GTCXBlocks.inputHatch || this == GTCXBlocks.outputHatch || this == GTCXBlocks.dynamoHatch;
     }
 
     @Override

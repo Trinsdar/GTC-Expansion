@@ -245,22 +245,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         public boolean canSetFacing(EntityPlayer player, EnumFacing facing) {
             return this.getFacing() != facing && facing.getAxis().isHorizontal();
         }
-
-        @Override
-        public void update() {
-            if (tickSkipper <= 0){
-                GTUtility.importFromSideIntoMachine(this, this.getFacing());
-                importFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
-                GTUtility.importFromSideIntoMachine(this, this.getFacing().getOpposite());
-                importFluidFromMachineToSide(this, tank, this.getFacing().getOpposite(), 1000);
-                GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
-                if (tickSkipper < 0){
-                    tickSkipper = 0;
-                }
-            } else {
-                tickSkipper--;
-            }
-        }
     }
 
     public static class GTCXTileFusionMaterialExtractor extends GTCXTileItemFluidHatches{
@@ -272,22 +256,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         @Override
         public boolean canSetFacing(EntityPlayer player, EnumFacing facing) {
             return this.getFacing() != facing && facing.getAxis().isHorizontal();
-        }
-
-        @Override
-        public void update() {
-            if (tickSkipper <= 0){
-                GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
-                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
-                GTUtility.exportFromMachineToSide(this, this.getFacing().getOpposite(), slotOutput);
-                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing().getOpposite(), 1000);
-                GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
-                if (tickSkipper < 0){
-                    tickSkipper = 0;
-                }
-            } else {
-                tickSkipper--;
-            }
         }
     }
 }

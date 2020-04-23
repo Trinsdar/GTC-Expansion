@@ -25,6 +25,8 @@ public class GTCXLang {
     public static final LocaleComp DIESEL_GENERATOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.dieselgenerator");
     public static final LocaleComp GAS_TURBINE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.gasturbine");
     public static final LocaleComp THERMAL_BOILER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.thermalboiler");
+    public static final LocaleComp LARGE_STEAM_TURBINE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.largesteamturbine");
+    public static final LocaleComp LARGE_GAS_TURBINE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.largegasturbine");
     public static final LocaleComp STONE_COMPRESSOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.stonecompressor");
 
     public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
@@ -39,6 +41,7 @@ public class GTCXLang {
 
     public static final LocaleComp INPUT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.inputhatch");
     public static final LocaleComp OUTPUT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.outputhatch");
+    public static final LocaleComp DYNAMO_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.dynamohatch");
     public static final LocaleComp FUSION_MATERIAL_INJECTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_injector");
     public static final LocaleComp FUSION_MATERIAL_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_extractor");
 

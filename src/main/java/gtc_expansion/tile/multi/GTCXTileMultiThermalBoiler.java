@@ -48,11 +48,21 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
+        this.input1 = readBlockPosFromNBT(nbt, "input1");
+        this.input2 = readBlockPosFromNBT(nbt, "input2");
+        this.output1 = readBlockPosFromNBT(nbt, "output1");
+        this.output2 = readBlockPosFromNBT(nbt, "output2");
+        this.output3 = readBlockPosFromNBT(nbt, "output3");
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("lastState", this.lastState);
+        writeBlockPosToNBT(nbt, "input1", input1);
+        writeBlockPosToNBT(nbt, "input2", input2);
+        writeBlockPosToNBT(nbt, "output1", output1);
+        writeBlockPosToNBT(nbt, "output2", output2);
+        writeBlockPosToNBT(nbt, "output3", output3);
         return nbt;
     }
 
