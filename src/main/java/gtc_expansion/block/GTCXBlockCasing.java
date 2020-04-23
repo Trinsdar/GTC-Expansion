@@ -52,6 +52,11 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     }
 
     @Override
+    public TextureAtlasSprite getParticleTexture(IBlockState state) {
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
+    }
+
+    @Override
     public TileEntityBlock createNewTileEntity(World world, int i) {
         return new TileEntityBlock();
     }
