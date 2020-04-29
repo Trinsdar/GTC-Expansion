@@ -15,6 +15,7 @@ import ic2.core.inventory.gui.GuiComponentContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -57,15 +58,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return nbt;
     }
 
-    @Override
-    public void onLoaded() {
-        super.onLoaded();
-        checkRing(new int3(getPos(), getFacing()));
-    }
-
-    @Override
-    public void onUnloaded() {
-        super.onUnloaded();
+    public void onBlockRemoved() {
         removeRing(new int3(getPos(), getFacing()));
     }
 
@@ -88,7 +81,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public boolean canWork() {
         if (this.world.getTotalWorldTime() % 256L == 0L || this.firstCheck) {
             this.lastState = this.checkStructure();
-            this.firstCheck = false;
+            if (this.firstCheck){
+                this.firstCheck = false;
+            }
             this.getNetwork().updateTileGuiField(this, "lastState");
         }
         return this.lastState;
@@ -143,18 +138,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         inputs = 0;
         outputs = 0;
         int3 dir = new int3(getPos(), getFacing());
-        if (!checkRing(dir)){
-            return false;
-        }
-
-//        if (inputs < 1){
-//            return false;
-//        }
-        GTCExpansion.logger.info("structure valid");
-        return true;
-    }
-
-    public boolean checkRing(int3 dir){
         if (!isStandardCasingWithSpecial(dir.up(1), 2)){
             return false;
         }
@@ -179,6 +162,83 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (!isStandardCasingWithSpecial(dir.up(1), 1)){
             return false;
         }
+
+        int i;
+        for (i = 0; i < 3; i++){
+            if (!isStandardCasing(dir.back(1))){
+                return false;
+            }
+        }
+        if (!isStandardCasing(dir.right(1))){
+            return false;
+        }
+        for (i = 0; i < 2; i++){
+            if (!isStandardCasing(dir.forward(1))){
+                return false;
+            }
+        }
+        if (!isStandardCasing(dir.right(1))){
+            return false;
+        }
+        for (i = 0; i < 2; i++){
+            if (!isStandardCasing(dir.back(1))){
+                return false;
+            }
+        }
+        if (!isStandardCasing(dir.down(1))){
+            return false;
+        }
+        for (i = 0; i < 2; i++){
+            if (!isInputHatch(dir.forward(1))){
+                return false;
+            }
+        }
+        if (world.getBlockState(dir.left(1).asBlockPos()) != Blocks.AIR.getDefaultState()){
+            return false;
+        }
+        if (world.getBlockState(dir.back(1).asBlockPos()) != Blocks.AIR.getDefaultState()){
+            return false;
+        }
+        if (!isDynamoHatch(dir.back(1))){
+            return false;
+        }
+        if (!isStandardCasing(dir.left(1))){
+            return false;
+        }
+        for (i = 0; i < 2; i++){
+            if (!isInputHatch(dir.forward(1))){
+                return false;
+            }
+        }
+        if (!isStandardCasing(dir.down(1))){
+            return false;
+        }
+        for (i = 0; i < 2; i++){
+            if (!isStandardCasing(dir.back(1))){
+                return false;
+            }
+        }
+        if (!isStandardCasing(dir.right(1))){
+            return false;
+        }
+        for (i = 0; i < 2; i++){
+            if (!isInputHatch(dir.forward(1))){
+                return false;
+            }
+        }
+        if (!isStandardCasing(dir.right(1))){
+            return false;
+        }
+        for (i = 0; i < 2; i++){
+            if (!isStandardCasing(dir.back(1))){
+                return false;
+            }
+        }
+
+        if (inputs < 1){
+            return false;
+        }
+        GTCExpansion.logger.info("structure valid");
         return true;
     }
 
@@ -201,8 +261,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
             if (world.getTileEntity(pos.asBlockPos()) instanceof GTCXTileCasing){
-                ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setFacing(this.getFacing());
-                ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setRotor(position);
+                GTCXTileCasing  casing = (GTCXTileCasing) world.getTileEntity(pos.asBlockPos());
+                casing.setFacing(this.getFacing());
+                casing.setRotor(position);
+                GTCExpansion.logger.info("rotor: " + casing.getRotor());
             }
             return true;
         }
@@ -214,6 +276,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (state == standardCasingState){
             if (world.getTileEntity(pos.asBlockPos()) instanceof GTCXTileCasing){
                 ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setRotor(0);
+                GTCExpansion.logger.info("rotor: " + ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).getRotor());
             }
         }
     }

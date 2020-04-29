@@ -37,6 +37,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -189,6 +190,14 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
 
     public boolean hasVertical() {
         return this == GTCXBlocks.inputHatch || this == GTCXBlocks.outputHatch || this == GTCXBlocks.dynamoHatch;
+    }
+
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+        if (this == GTCXBlocks.largeSteamTurbine && world.getTileEntity(pos) instanceof GTCXTileMultiLargeSteamTurbine){
+            GTCXTileMultiLargeSteamTurbine turbine = (GTCXTileMultiLargeSteamTurbine) world.getTileEntity(pos);
+            turbine.onBlockRemoved();
+        }
     }
 
     @Override
