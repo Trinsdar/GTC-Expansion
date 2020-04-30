@@ -2,6 +2,7 @@ package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
+import gtc_expansion.GTCXItems;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
@@ -16,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -89,6 +91,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return this.lastState;
     }
 
+    public boolean isTurbineRotor(ItemStack stack){
+        return stack.getItem() == GTCXItems.bronzeTurbineRotor || stack.getItem() == GTCXItems.steelTurbineRotor || stack.getItem() == GTCXItems.magnaliumTurbineRotor || stack.getItem() == GTCXItems.tungstensteelTurbineRotor || stack.getItem() == GTCXItems.carbonTurbineRotor;
+    }
+
     int ticker = 0;
     @Override
     public void update() {
@@ -96,7 +102,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             ticker++;
         }
         boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileItemFluidHatches.GTCXTileInputHatch && world.getTileEntity(dynamo) instanceof GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
+        if (canWork && isTurbineRotor(this.getStackInSlot(0))){
 
+        }
     }
 
     @Override

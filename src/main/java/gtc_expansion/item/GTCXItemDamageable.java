@@ -29,7 +29,7 @@ public class GTCXItemDamageable extends Item implements IStaticTexturedItem {
         this.x = x;
         this.y = y;
         setRegistryName(this.name.toLowerCase());
-        this.setMaxDamage(maxDamage);
+        this.setMaxDamage(maxDamage - 1);
         setUnlocalizedName(GTCExpansion.MODID + "." + this.name.toLowerCase());
         setCreativeTab(GTMod.creativeTabGT);
         this.setMaxStackSize(1);
