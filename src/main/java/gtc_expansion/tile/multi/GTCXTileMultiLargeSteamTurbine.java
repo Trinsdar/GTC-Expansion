@@ -134,6 +134,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                         ticker = 0;
                     }
                 }
+            } else {
+                if (this.getActive()){
+                    this.setActive(false);
+                }
             }
         } else {
             if (this.getActive()){
