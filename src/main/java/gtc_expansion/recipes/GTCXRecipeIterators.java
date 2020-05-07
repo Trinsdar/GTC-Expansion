@@ -58,6 +58,7 @@ public class GTCXRecipeIterators {
             createNuggetRecipe(mat);
             createHullRecipe(mat);
             createFluidCastingRecipes(mat);
+            createTurbineBlade(mat);
             if (GTCXMaterial.pipes){
                 createPipeRecipe(mat);
             }
@@ -201,6 +202,13 @@ public class GTCXRecipeIterators {
                 TileEntityCompressor.addRecipe(tinyDust, 9, getDust(mat), 0.0F);
                 recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.tinydust, 9), "D ", 'D', dust);
             }
+        }
+    }
+
+    public static void createTurbineBlade(GTMaterial mat) {
+        String plate = "plate" + mat.getDisplayName();
+        if (mat.hasFlag(GTCXMaterial.plate) && mat.hasFlag(GTCXMaterial.turbineBlade)) {
+            recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.turbineBlade, 1), " H ", "PPP", " F ", 'H', "craftingToolForgeHammer", 'P', plate, 'F', "craftingToolFile");
         }
     }
 

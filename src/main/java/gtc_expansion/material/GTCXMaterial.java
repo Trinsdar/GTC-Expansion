@@ -165,6 +165,7 @@ public class GTCXMaterial {
         GTMaterialGen.addItemFlag(gear);
         GTMaterialGen.addItemFlag(stick);
         GTMaterialGen.addItemFlag(hull);
+        GTMaterialGen.addItemFlag(turbineBlade);
         GTMaterialGen.addFluidFlag(molten);
     }
 
