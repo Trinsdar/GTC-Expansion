@@ -247,6 +247,11 @@ public class GTCXRecipe {
         IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
         IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.integratedCircuit), "PHP", "RRR", "PWP", 'P', GTRecipeCraftingHandler.combineRecipeObjects(refinedIron, pre + "Iron", steel), 'H', hammer, 'R', GTRecipeCraftingHandler.combineRecipeObjects("rodRefinedIron", "rodIron", "rodSteel"), 'W', wrench);
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.bronzeTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Bronze, GTCXMaterial.turbineBlade, 1), 'b', "blockBronze");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.steelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Steel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.magnaliumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Magnalium, GTCXMaterial.turbineBlade, 1), 'b', "blockIron");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.tungstensteelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.TungstenSteel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.carbonTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTMaterial.Carbon, GTCXMaterial.turbineBlade, 1), 'b', Ic2Items.carbonPlate);
     }
 
     public static void initUURecipes(){
@@ -403,6 +408,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialExtractor), "PCP", "CAC", "PcP", 'P', Ic2Items.pump.copy(), 'c', "chestWood", 'C', GTValues.CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.inputHatch), "SCS", "GHG", "SSS", 'S', stainlessSteel, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', GTValues.MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.outputHatch), "SSS", "GHG", "SCS", 'S', stainlessSteel, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', GTValues.MACHINE_BASIC);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dynamoHatch), "SSS", "GHG", "SCS", 'S', stainlessSteel, 'C', Ic2Items.transformerHV, 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', GTValues.MACHINE_BASIC);
     }
 
     public static void initShapelessRecipes(){

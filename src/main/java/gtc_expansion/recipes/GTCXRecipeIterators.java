@@ -208,7 +208,8 @@ public class GTCXRecipeIterators {
     public static void createTurbineBlade(GTMaterial mat) {
         String plate = "plate" + mat.getDisplayName();
         if (mat.hasFlag(GTCXMaterial.plate) && mat.hasFlag(GTCXMaterial.turbineBlade)) {
-            recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.turbineBlade, 1), " H ", "PPP", " F ", 'H', "craftingToolForgeHammer", 'P', plate, 'F', "craftingToolFile");
+            IRecipeInput plateInput = mat.equals(GTMaterial.Carbon) ? GTCXRecipe.input(Ic2Items.carbonPlate) : GTCXRecipe.input(plate);
+            recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.turbineBlade, 1), " H ", "PPP", " F ", 'H', "craftingToolForgeHammer", 'P', plateInput, 'F', "craftingToolFile");
         }
     }
 

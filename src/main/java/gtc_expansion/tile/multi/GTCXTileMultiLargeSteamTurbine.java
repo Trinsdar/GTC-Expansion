@@ -30,6 +30,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     private BlockPos input2;
     private BlockPos dynamo;
     int production;
+    int ticker = 0;
     public static final IBlockState standardCasingState = GTCXBlocks.casingStandard.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState dynamoHatchState = GTCXBlocks.dynamoHatch.getDefaultState();
@@ -48,6 +49,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
+        this.ticker = nbt.getInteger("ticker");
         this.input1 = readBlockPosFromNBT(nbt, "input1");
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.dynamo = readBlockPosFromNBT(nbt, "dynamo");
@@ -58,6 +60,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("lastState", this.lastState);
+        nbt.setInteger("ticker", ticker);
         writeBlockPosToNBT(nbt, "input1", input1);
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "dynamo", dynamo);
@@ -100,7 +103,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return stack.getItem() == GTCXItems.bronzeTurbineRotor || stack.getItem() == GTCXItems.steelTurbineRotor || stack.getItem() == GTCXItems.magnaliumTurbineRotor || stack.getItem() == GTCXItems.tungstensteelTurbineRotor || stack.getItem() == GTCXItems.carbonTurbineRotor;
     }
 
-    int ticker = 0;
+
     @Override
     public void update() {
         if (ticker < 80){

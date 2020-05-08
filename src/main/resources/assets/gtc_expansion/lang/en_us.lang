@@ -65,6 +65,7 @@ tile.gtc_expansion.microwave.name=Microwave Oven
 tile.gtc_expansion.stonecompressor.name=Stone Compressor
 tile.gtc_expansion.dieselgenerator.name=Diesel Generator
 tile.gtc_expansion.thermalboiler.name=Thermal Boiler
+tile.gtc_expansion.largesteamturbine.name=Large Steam Turbine
 tile.gtc_expansion.gasturbine.name=Gas Turbine
 tile.gtc_expansion.locker.name=Locker
 tile.gtc_expansion.electriclocker.name=Electric Locker
@@ -82,6 +83,7 @@ tile.gtc_expansion.electrumcableinsulated2.name=2xInsulated Electrum Cable
 tile.gtc_expansion.electrumcableinsulated3.name=4xInsulated Electrum Cable
 tile.gtc_expansion.inputhatch.name=Input Hatch
 tile.gtc_expansion.outputhatch.name=Output Hatch
+tile.gtc_expansion.dynamohatch.name=Dynamo Hatch
 tile.gtc_expansion.fusion_material_injector.name=Fusion Material Injector
 tile.gtc_expansion.fusion_material_extractor.name=Fusion Material Extractor
 
@@ -430,6 +432,14 @@ item.gtclassic.hullTitanium.name=Titanium Machine Hull
 item.gtclassic.hullTungstensteel.name=Tungstensteel Machine Hull
 item.gtclassic.hullStainlessSteel.name=Stainless Machine Hull
 
+#turbine blades
+item.gtclassic.turbinebladeBronze.name=Bronze Turbine Blade
+item.gtclassic.turbinebladeSteel.name=Steel Turbine Blade
+item.gtclassic.turbinebladeMagnalium.name=Magnalium Turbine Blade
+item.gtclassic.turbinebladeTungstensteel.name=Tungstensteel Turbine Blade
+item.gtclassic.turbinebladeCarbon.name=Carbon Turbine Blade
+
+
 #ic2c extras compat materials
 item.gtclassic.crushedoreTungsten.name=Crushed Tungsten Ore
 item.gtclassic.crushedoreBauxite.name=Crushed Bauxite Ore
@@ -560,6 +570,12 @@ item.gtc_expansion.steel_jackhammer.name=Steel Jackhammer
 item.gtclassic.jackhammer.name=Diamond Jackhammer
 item.gtc_expansion.diamond_chainsaw.name=Diamond Chainsaw
 item.gtc_expansion.cutter.name=Insulation Cutter
+
+item.gtc_expansion.bronze_turbine_rotor.name=Bronze Turbine Rotor
+item.gtc_expansion.steel_turbine_rotor.name=Steel Turbine Rotor
+item.gtc_expansion.magnalium_turbine_rotor.name=Magnalium Turbine Rotor
+item.gtc_expansion.tungstensteel_turbine_rotor.name=Tungstensteel Turbine Rotor
+item.gtc_expansion.carbon_turbine_rotor.name=Carbon Turbine Rotor
 
 item.gtc_expansion.mold.name=Blank Mold
 item.gtc_expansion.mold_rod.name=Rod Mold

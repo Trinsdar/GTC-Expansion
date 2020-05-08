@@ -29,6 +29,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     private BlockPos output1;
     private BlockPos output2;
     private BlockPos output3;
+    int ticker = 0;
     public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState outputHatchState = GTCXBlocks.outputHatch.getDefaultState();
@@ -47,6 +48,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
+        this.ticker = nbt.getInteger("ticker");
         this.input1 = readBlockPosFromNBT(nbt, "input1");
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.output1 = readBlockPosFromNBT(nbt, "output1");
@@ -57,6 +59,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("lastState", this.lastState);
+        nbt.setInteger("ticker", ticker);
         writeBlockPosToNBT(nbt, "input1", input1);
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "output1", output1);
@@ -90,9 +93,6 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         return this.lastState;
     }
 
-
-
-    int ticker = 0;
     @Override
     public void update() {
         if (ticker < 80){
