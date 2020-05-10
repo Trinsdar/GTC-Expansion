@@ -1,6 +1,5 @@
 package gtc_expansion.tile.multi;
 
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
@@ -307,7 +306,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (inputs < 1){
             return false;
         }
-        GTCExpansion.logger.info("structure valid");
         return true;
     }
 
@@ -333,7 +331,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 GTCXTileCasing  casing = (GTCXTileCasing) world.getTileEntity(pos.asBlockPos());
                 casing.setFacing(this.getFacing());
                 casing.setRotor(position);
-                GTCExpansion.logger.info("rotor: " + casing.getRotor());
             }
             return true;
         }
@@ -345,7 +342,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (state == standardCasingState){
             if (world.getTileEntity(pos.asBlockPos()) instanceof GTCXTileCasing){
                 ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setRotor(0);
-                GTCExpansion.logger.info("rotor: " + ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).getRotor());
             }
         }
     }

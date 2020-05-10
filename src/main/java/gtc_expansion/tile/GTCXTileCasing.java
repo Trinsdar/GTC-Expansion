@@ -38,9 +38,9 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
 
     @Override
     public void getData(Map<String, Boolean> map) {
-        map.put("Rotor: " + rotor, false);
+        map.put("Rotor: " + rotor, true);
         if (world.getBlockState(pos).getBlock() == GTCXBlocks.casingStandard){
-            map.put("Blockstate Rotor: " + world.getBlockState(pos).getValue(GTCXBlockCasing.rotor), false);
+            map.put("Blockstate Rotor: " + world.getBlockState(pos).getValue(GTCXBlockCasing.rotor), true);
         }
     }
 }
