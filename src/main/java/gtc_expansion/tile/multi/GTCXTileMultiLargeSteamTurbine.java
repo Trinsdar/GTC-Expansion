@@ -116,6 +116,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             if (inputHatch.getTank().getFluidAmount() >= 8000 && inputHatch.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000))){
                 if (!this.getActive()){
                     this.setActive(true);
+                    this.setRingActive(true);
                 }
                 inputHatch.getTank().drainInternal(8000, true);
                 dynamoHatch.addEnergy(production);
@@ -128,6 +129,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 if (inputHatch2.getTank().getFluidAmount() >= 8000 && inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000))){
                     if (!this.getActive()){
                         this.setActive(true);
+                        this.setRingActive(true);
                     }
                     inputHatch2.getTank().drainInternal(8000, true);
                     dynamoHatch.addEnergy(production);
@@ -135,15 +137,43 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                         this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
                         ticker = 0;
                     }
+                } else {
+                    if (this.getActive()){
+                        this.setActive(false);
+                        this.setRingActive(false);
+                    }
                 }
             } else {
                 if (this.getActive()){
                     this.setActive(false);
+                    this.setRingActive(false);
                 }
             }
         } else {
             if (this.getActive()){
                 this.setActive(false);
+                this.setRingActive(false);
+            }
+        }
+    }
+
+    public void setRingActive(boolean active){
+        int3 dir = new int3(getPos(), getFacing());
+        setCasingActive(dir.up(1), active);
+        setCasingActive(dir.right(1), active);
+        setCasingActive(dir.down(1), active);
+        setCasingActive(dir.down(1), active);
+        setCasingActive(dir.left(1), active);
+        setCasingActive(dir.left(1), active);
+        setCasingActive(dir.up(1), active);
+        setCasingActive(dir.up(1), active);
+    }
+
+    public void setCasingActive(int3 dir, boolean active){
+        if (world.getTileEntity(dir.asBlockPos()) instanceof GTCXTileCasing){
+            GTCXTileCasing casing = (GTCXTileCasing)world.getTileEntity(dir.asBlockPos());
+            if (casing.getActive() != active){
+                casing.setActive(active);
             }
         }
     }

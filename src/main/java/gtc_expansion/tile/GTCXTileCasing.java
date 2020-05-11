@@ -3,15 +3,20 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.block.GTCXBlockCasing;
 import gtclassic.api.interfaces.IGTDebuggableTile;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.block.base.tile.TileEntityBlock;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Map;
 
 public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile {
+    @NetworkField(
+            index = 3
+    )
     public int rotor;
     public GTCXTileCasing(){
         super();
+        this.addNetworkFields("rotor");
         rotor = 0;
     }
 
