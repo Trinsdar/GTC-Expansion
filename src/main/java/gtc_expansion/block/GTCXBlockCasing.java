@@ -17,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -49,6 +50,8 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             EnumFacing facing = state.getValue(allFacings);
             if (state.getValue(rotor) > 0){
                 return  getTextureFromRotor(state.getValue(active), state.getValue(rotor), facing, enumFacing);
+            } else {
+
             }
         }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
@@ -153,5 +156,21 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         List<ItemStack> list = new ArrayList();
         list.add(new ItemStack(this));
         return list;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        if (worldIn.getTileEntity(pos) instanceof GTCXTileCasing){
+            ((GTCXTileCasing)worldIn.getTileEntity(pos)).setNeighborMap(this);
+        }
+    }
+
+    @Override
+    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+        super.onNeighborChange(world, pos, neighbor);
+        if (world.getTileEntity(pos) instanceof GTCXTileCasing){
+            ((GTCXTileCasing)world.getTileEntity(pos)).setNeighborMap(this);
+        }
     }
 }

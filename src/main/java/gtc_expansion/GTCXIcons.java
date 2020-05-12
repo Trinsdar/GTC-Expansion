@@ -23,6 +23,7 @@ public class GTCXIcons {
     @SideOnly(Side.CLIENT)
     public static void loadSprites() {
         makeSprite("blocks", 16, 2);
+        makeSprite("connected_blocks", 12, 5);
         makeSprite("materials", 16, 4);
         makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
