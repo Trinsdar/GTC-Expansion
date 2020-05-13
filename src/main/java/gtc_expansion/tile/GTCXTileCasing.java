@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile {
@@ -19,7 +18,27 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     @NetworkField(
             index = 4
     )
-    public Map<EnumFacing, Boolean> neighborMap = new LinkedHashMap<>();
+    public boolean up = false;
+    @NetworkField(
+            index = 5
+    )
+    public boolean down = false;
+    @NetworkField(
+            index = 6
+    )
+    public boolean north = false;
+    @NetworkField(
+            index = 7
+    )
+    public boolean south = false;
+    @NetworkField(
+            index = 8
+    )
+    public boolean east = false;
+    @NetworkField(
+            index = 9
+    )
+    public boolean west = false;
     public GTCXTileCasing(){
         super();
         this.addNetworkFields("rotor", "neighborMap");
@@ -37,23 +56,27 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     public void setNeighborMap(Block block){
         for (EnumFacing facing : EnumFacing.values()){
             boolean hasBlock = world.getBlockState(pos.offset(facing)).getBlock() == block;
-            neighborMap.put(facing, hasBlock);
+            switch (facing){
+                case UP: up = hasBlock;
+                case DOWN: down = hasBlock;
+                case NORTH: north = hasBlock;
+                case SOUTH: south = hasBlock;
+                case EAST: east = hasBlock;
+                case WEST: west = hasBlock;
+            }
         }
-    }
-
-    public Map<EnumFacing, Boolean> getNeighborMap() {
-        return neighborMap;
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("rotor", rotor);
-        NBTTagCompound map = new NBTTagCompound();
-        for (EnumFacing facing : neighborMap.keySet()){
-            map.setBoolean(facing.getName(), neighborMap.get(facing));
-        }
-        nbt.setTag("neighborMap", map);
+        nbt.setBoolean("up", up);
+        nbt.setBoolean("down", down);
+        nbt.setBoolean("north", north);
+        nbt.setBoolean("south", south);
+        nbt.setBoolean("east", east);
+        nbt.setBoolean("west", west);
         return nbt;
     }
 
@@ -61,10 +84,12 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         rotor = nbt.getInteger("rotor");
-        NBTTagCompound map = nbt.getCompoundTag("neighborMap");
-        for (String name : map.getKeySet()){
-            neighborMap.put(EnumFacing.byName(name), map.getBoolean(name));
-        }
+        up = nbt.getBoolean("up");
+        down = nbt.getBoolean("down");
+        north = nbt.getBoolean("north");
+        south = nbt.getBoolean("south");
+        east = nbt.getBoolean("east");
+        west = nbt.getBoolean("west");
     }
 
     @Override
