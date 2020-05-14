@@ -1,5 +1,6 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCExpansion;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.block.base.tile.TileEntityBlock;
@@ -18,30 +19,11 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     @NetworkField(
             index = 4
     )
-    public boolean up = false;
-    @NetworkField(
-            index = 5
-    )
-    public boolean down = false;
-    @NetworkField(
-            index = 6
-    )
-    public boolean north = false;
-    @NetworkField(
-            index = 7
-    )
-    public boolean south = false;
-    @NetworkField(
-            index = 8
-    )
-    public boolean east = false;
-    @NetworkField(
-            index = 9
-    )
-    public boolean west = false;
+    public int config = 0;
+
     public GTCXTileCasing(){
         super();
-        this.addNetworkFields("rotor", "neighborMap");
+        this.addNetworkFields("rotor", "config");
         rotor = 0;
     }
 
@@ -54,29 +36,21 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     }
 
     public void setNeighborMap(Block block){
+        config = 0;
         for (EnumFacing facing : EnumFacing.values()){
             boolean hasBlock = world.getBlockState(pos.offset(facing)).getBlock() == block;
-            switch (facing){
-                case UP: up = hasBlock;
-                case DOWN: down = hasBlock;
-                case NORTH: north = hasBlock;
-                case SOUTH: south = hasBlock;
-                case EAST: east = hasBlock;
-                case WEST: west = hasBlock;
+            if (hasBlock){
+                config += 1 << facing.getIndex();
             }
         }
+        GTCExpansion.logger.info("config: " + config);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger("rotor", rotor);
-        nbt.setBoolean("up", up);
-        nbt.setBoolean("down", down);
-        nbt.setBoolean("north", north);
-        nbt.setBoolean("south", south);
-        nbt.setBoolean("east", east);
-        nbt.setBoolean("west", west);
+        nbt.setInteger("config", config);
         return nbt;
     }
 
@@ -84,16 +58,15 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         rotor = nbt.getInteger("rotor");
-        up = nbt.getBoolean("up");
-        down = nbt.getBoolean("down");
-        north = nbt.getBoolean("north");
-        south = nbt.getBoolean("south");
-        east = nbt.getBoolean("east");
-        west = nbt.getBoolean("west");
+        config = nbt.getInteger("config");
     }
 
     @Override
     public void getData(Map<String, Boolean> map) {
         map.put("Rotor: " + rotor, true);
+    }
+
+    public int getConfig() {
+        return config;
     }
 }

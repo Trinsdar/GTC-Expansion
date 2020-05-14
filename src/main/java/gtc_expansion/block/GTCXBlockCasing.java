@@ -9,17 +9,18 @@ import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.util.helpers.BlockStateContainerIC2;
-import net.minecraft.block.BlockFence;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -33,12 +34,7 @@ import java.util.List;
 
 public class GTCXBlockCasing extends GTBlockBaseMachine {
     public static PropertyInteger rotor = PropertyInteger.create("rotor", 0, 8);
-    public static PropertyBool up = PropertyBool.create("up");
-    public static PropertyBool down = PropertyBool.create("down");
-    public static PropertyBool north = BlockFence.NORTH;
-    public static PropertyBool south = BlockFence.SOUTH;
-    public static PropertyBool west = BlockFence.WEST;
-    public static PropertyBool east = BlockFence.EAST;
+    public static PropertyInteger config = PropertyInteger.create("config", 0, 63);
     int index;
     public GTCXBlockCasing(String name, LocaleComp comp, int index, float resistance) {
         super(Material.IRON, comp, 0);
@@ -51,6 +47,11 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         this.index = index;
     }
 
+    @Override
+    public GTCXBlockCasing setHardness(float hardness) {
+        return (GTCXBlockCasing) super.setHardness(hardness);
+    }
+
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing enumFacing) {
@@ -59,88 +60,153 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             if (state.getValue(rotor) > 0 && facing == enumFacing){
                 return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
             } else {
-                if (state.getValue(propertyFromFacing(enumFacing))){
-                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
+                int con = state.getValue(config);
+                if (con == 0 || con == 63){
+                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 12) + 7];
                 }
-                switch (enumFacing){
-                    case UP: {
-                        int surroundingBlocks = 0;
-                        if (state.getValue(north)){
-                            surroundingBlocks++;
+                if (enumFacing == EnumFacing.UP || enumFacing == EnumFacing.DOWN){
+                    int id = 0;
+                    if (between(4, 15, con)){
+                        id = facing.getAxis() == EnumFacing.Axis.Z ? 1 : 0;
+                    }
+                    if (between(16, 19, con) || between(32, 35, con) || between(48, 51, con)){
+                        id = facing.getAxis() == EnumFacing.Axis.Z ? 0 : 1;
+                    }
+                    if (between(20, 23, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 9;
                         }
-                        if (state.getValue(west)){
-                            surroundingBlocks++;
+                        if (facing == EnumFacing.EAST){
+                            id = 11;
                         }
-                        if (state.getValue(east)){
-                            surroundingBlocks++;
+                        if (facing == EnumFacing.NORTH){
+                            id = 8;
                         }
-                        if (state.getValue(south)){
-                            surroundingBlocks++;
-                        }
-                        if (surroundingBlocks == 0){
-                            return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
-                        }
-                        if (surroundingBlocks == 1){
-                            if (state.getValue(north)){
-                                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[1];
-                            }
-                            if (state.getValue(west)){
-                                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[0];
-                            }
-                            if (state.getValue(east)){
-                                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[0];
-                            }
-                            if (state.getValue(south)){
-                                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[1];
-                            }
-                        }
-                        if (surroundingBlocks == 2){
-                            if (state.getValue(north)){
-                                if (state.getValue(west)){
-                                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[10];
-                                } else if (state.getValue(east)){
-                                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[11];
-                                } else if (state.getValue(south)){
-                                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[1];
-                                }
-                            } else if (state.getValue(south)) {
-                                if (state.getValue(west)){
-                                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[9];
-                                } else if (state.getValue(east)){
-                                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[8];
-                                }
-                            } else if (state.getValue(west) && state.getValue(east)) {
-                                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[0];
-                            }
-                        }
-                        if (surroundingBlocks == 3){
-                            if (state.getValue(north)){
-                                if (state.getValue(west)){
-                                    if (state.getValue(east)){
-                                        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[5];
-                                    } else if (state.getValue(south)){
-                                        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[4];
-                                    }
-                                } else if (state.getValue(east) && state.getValue(south)){
-                                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[2];
-                                }
-                            } else if (state.getValue(south) && state.getValue(west) && state.getValue(east)) {
-                                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[3];
-                            }
-                        }
-                        if (surroundingBlocks == 4){
-                            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[6];
+                        if (facing == EnumFacing.SOUTH){
+                            id = 10;
                         }
                     }
+                    if (between(36, 39, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 10;
+                        }
+                        if (facing == EnumFacing.EAST){
+                            id = 8;
+                        }
+                        if (facing == EnumFacing.NORTH){
+                            id = 9;
+                        }
+                        if (facing == EnumFacing.SOUTH){
+                            id = 11;
+                        }
+                    }
+                    if (between(40, 43, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 11;
+                        }
+                        if (facing == EnumFacing.EAST){
+                            id = 9;
+                        }
+                        if (facing == EnumFacing.NORTH){
+                            id = 10;
+                        }
+                        if (facing == EnumFacing.SOUTH){
+                            id = 8;
+                        }
+                    }
+                    if (between(24, 27, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 8;
+                        }
+                        if (facing == EnumFacing.EAST){
+                            id = 10;
+                        }
+                        if (facing == EnumFacing.NORTH){
+                            id = 11;
+                        }
+                        if (facing == EnumFacing.SOUTH){
+                            id = 9;
+                        }
+                    }
+                    if (between(28, 31, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 3;
+                        }
+                        if (facing == EnumFacing.EAST){
+                            id = 5;
+                        }
+                        if (facing == EnumFacing.NORTH){
+                            id = 2;
+                        }
+                        if (facing == EnumFacing.SOUTH){
+                            id = 4;
+                        }
+                    }
+
+                    if (between(44, 47, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 5;
+                        }
+                        if (facing == EnumFacing.EAST){
+                            id = 3;
+                        }
+                        if (facing == EnumFacing.NORTH){
+                            id = 4;
+                        }
+                        if (facing == EnumFacing.SOUTH){
+                            id = 2;
+                        }
+                    }
+                    if (between(52, 55, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 4;
+                        }
+                        if (facing == EnumFacing.EAST){
+                            id = 2;
+                        }
+                        if (facing == EnumFacing.NORTH){
+                            id = 3;
+                        }
+                        if (facing == EnumFacing.SOUTH){
+                            id = 5;
+                        }
+                    }
+                    if (between(56, 59, con)){
+                        if (facing == EnumFacing.WEST){
+                            id = 2;
+                        }
+                        if (facing == EnumFacing.EAST){
+                            id = 4;
+                        }
+                        if (facing == EnumFacing.NORTH){
+                            id = 5;
+                        }
+                        if (facing == EnumFacing.SOUTH){
+                            id = 3;
+                        }
+                    }
+                    if (between(60, 62, con)){
+                        id = 6;
+                    }
+                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[id];
+                } else {
+                    if (between(1, 3, con)){
+                        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[1];
+                    }
                 }
+
             }
         }
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 12) + 7];
+    }
+
+    public boolean between(int min, int max, int compare){
+        return compare >= min && compare <= max;
     }
 
     @Override
     public TextureAtlasSprite getParticleTexture(IBlockState state) {
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[this.index];
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 12) + 7];
     }
 
     @Override
@@ -173,26 +239,14 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         }
     }
 
-    public static PropertyBool propertyFromFacing(EnumFacing facing){
-        switch (facing){
-            case UP: return up;
-            case DOWN: return down;
-            case NORTH: return north;
-            case SOUTH: return south;
-            case WEST: return west;
-            case EAST: return east;
-            default: return active;
-        }
-    }
-
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainerIC2(this, rotor, allFacings, active, up, down, north, south, west, east);
+        return new BlockStateContainerIC2(this, rotor, allFacings, active, config);
     }
 
     @Override
     public IBlockState getDefaultBlockState() {
-        return this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, EnumFacing.NORTH).withProperty(up, false).withProperty(down, false).withProperty(north, false).withProperty(south, false).withProperty(east, false).withProperty(west, false);
+        return this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, EnumFacing.NORTH).withProperty(config, 0);
     }
 
     @Override
@@ -205,10 +259,11 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         for(int i = 0; i < facingsLength; ++i) {
             for (int j = 0; j < 9; j++){
                 EnumFacing side = facings[i];
-                states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(rotor, j).withProperty(up, false).withProperty(down, false).withProperty(north, false).withProperty(south, false).withProperty(east, false).withProperty(west, false));
-                states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(rotor, j).withProperty(up, true).withProperty(down, true).withProperty(north, true).withProperty(south, true).withProperty(east, true).withProperty(west, true));
-                states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(rotor, j).withProperty(up, false).withProperty(down, false).withProperty(north, false).withProperty(south, false).withProperty(east, false).withProperty(west, false));
-                states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(rotor, j).withProperty(up, true).withProperty(down, true).withProperty(north, true).withProperty(south, true).withProperty(east, true).withProperty(west, true));
+                for (int k = 0; k < 64; k++){
+                    states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(rotor, j).withProperty(config, k));
+                    states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(rotor, j).withProperty(config, k));
+                }
+
             }
         }
 
@@ -223,13 +278,13 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                 state = state.withProperty(allFacings, block.getFacing());
             }
 
-            return state.withProperty(active, block.getActive()).withProperty(rotor, block.getRotor()).withProperty(up, block.up).withProperty(down, block.down).withProperty(north, block.north).withProperty(south, block.south).withProperty(east, block.east).withProperty(west, block.west);
+            return state.withProperty(active, block.getActive()).withProperty(rotor, block.getRotor()).withProperty(config, block.getConfig());
         } else {
             if (this.hasFacing()) {
                 state = state.withProperty(allFacings, EnumFacing.NORTH);
             }
 
-            return state.withProperty(active, false).withProperty(rotor, 0).withProperty(up, false).withProperty(down, false).withProperty(north, false).withProperty(south, false).withProperty(east, false).withProperty(west, false);
+            return state.withProperty(active, false).withProperty(rotor, 0).withProperty(config, 0);
         }
     }
 
@@ -253,16 +308,27 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        if (worldIn.getTileEntity(pos) instanceof GTCXTileCasing){
-            ((GTCXTileCasing)worldIn.getTileEntity(pos)).setNeighborMap(this);
+        if (worldIn.getTileEntity(pos) instanceof GTCXTileCasing && this == GTCXBlocks.casingStandard){
+            ((GTCXTileCasing)worldIn.getTileEntity(pos)).setNeighborMap(GTCXBlocks.casingReinforced);
         }
     }
 
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
-        if (world.getTileEntity(pos) instanceof GTCXTileCasing){
-            ((GTCXTileCasing)world.getTileEntity(pos)).setNeighborMap(this);
+        if (world.getTileEntity(pos) instanceof GTCXTileCasing && this == GTCXBlocks.casingStandard){
+            ((GTCXTileCasing)world.getTileEntity(pos)).setNeighborMap(GTCXBlocks.casingReinforced);
         }
+    }
+
+    @Override
+    public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
+        if (this == GTCXBlocks.iridiumTungstensteelBlock){
+            if (entity instanceof EntityWither || entity instanceof EntityWitherSkull){
+                return false;
+            }
+            return super.canEntityDestroy(state, world, pos, entity);
+        }
+        return super.canEntityDestroy(state, world, pos, entity);
     }
 }

@@ -91,9 +91,9 @@ public class GTCXBlocks {
 
     public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE));
 
-    public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", GTCXLang.CASING_STANDARD, 2,75F));
-    public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", GTCXLang.CASING_REINFORCED, 4, 150.0F));
-    public static final GTCXBlockCasing casingAdvanced = registerBlock(new GTCXBlockCasing("advanced", GTCXLang.CASING_ADVANCED, 1, 200F));
+    public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", GTCXLang.CASING_STANDARD, 0,75F));
+    public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", GTCXLang.CASING_REINFORCED, 1, 150.0F));
+    public static final GTCXBlockCasing casingAdvanced = registerBlock(new GTCXBlockCasing("advanced", GTCXLang.CASING_ADVANCED, 2, 200F));
 
     public static final GTCXBlockTile inputHatch = registerBlock(new GTCXBlockTile("inputhatch", GTCXLang.INPUT_HATCH));
     public static final GTCXBlockTile outputHatch = registerBlock(new GTCXBlockTile("outputhatch", GTCXLang.OUTPUT_HATCH));
@@ -102,7 +102,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile fusionMaterialExtractor = registerBlock(new GTCXBlockTile("fusionmaterialextractor", GTCXLang.FUSION_MATERIAL_EXTRACTOR));
 
     public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
-    public static final GTCXBlockMisc iridiumTungstensteelBlock = registerBlock(new GTCXBlockMisc("iridium_tungstensteel_block", "pickaxe", 5, 50.0F, 2000.0F, 3, Material.IRON, SoundType.METAL));
+    public static final GTCXBlockCasing iridiumTungstensteelBlock = registerBlock(new GTCXBlockCasing("iridium_tungstensteel_block", GTCXLang.IRIDIUM_TUNGSTENSTEEL_BLOCK, 4, 2000.0F).setHardness(50.0F));
 
     public static final GTCXBlockOre orePyrite = registerBlock(new GTCXBlockOre("pyrite", 16, 2.0F, 1));
     public static final GTCXBlockOre oreCinnabar = registerBlock(new GTCXBlockOre("cinnabar", 17, 3.0F, 2));
