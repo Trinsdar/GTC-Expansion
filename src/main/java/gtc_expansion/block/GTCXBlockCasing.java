@@ -60,144 +60,208 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             if (state.getValue(rotor) > 0 && facing == enumFacing){
                 return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
             } else {
-                int con = state.getValue(config);
-                if (con == 0 || con == 63){
-                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 12) + 7];
-                }
-                if (enumFacing == EnumFacing.UP || enumFacing == EnumFacing.DOWN){
-                    int id = 0;
-                    if (between(4, 15, con)){
-                        id = facing.getAxis() == EnumFacing.Axis.Z ? 1 : 0;
-                    }
-                    if (between(16, 19, con) || between(32, 35, con) || between(48, 51, con)){
-                        id = facing.getAxis() == EnumFacing.Axis.Z ? 0 : 1;
-                    }
-                    if (between(20, 23, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 9;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 11;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 8;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 10;
-                        }
-                    }
-                    if (between(36, 39, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 10;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 8;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 9;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 11;
-                        }
-                    }
-                    if (between(40, 43, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 11;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 9;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 10;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 8;
-                        }
-                    }
-                    if (between(24, 27, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 8;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 10;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 11;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 9;
-                        }
-                    }
-                    if (between(28, 31, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 3;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 5;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 2;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 4;
-                        }
-                    }
-
-                    if (between(44, 47, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 5;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 3;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 4;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 2;
-                        }
-                    }
-                    if (between(52, 55, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 4;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 2;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 3;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 5;
-                        }
-                    }
-                    if (between(56, 59, con)){
-                        if (facing == EnumFacing.WEST){
-                            id = 2;
-                        }
-                        if (facing == EnumFacing.EAST){
-                            id = 4;
-                        }
-                        if (facing == EnumFacing.NORTH){
-                            id = 5;
-                        }
-                        if (facing == EnumFacing.SOUTH){
-                            id = 3;
-                        }
-                    }
-                    if (between(60, 62, con)){
-                        id = 6;
-                    }
-                    return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[id];
-                } else {
-                    if (between(1, 3, con)){
-                        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[1];
-                    }
-                }
+                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[getIndex(enumFacing, state)];
 
             }
         }
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 12) + 7];
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 12) + getIndex(enumFacing, state)];
+    }
+
+    public int getIndex(EnumFacing textureFacing, IBlockState state){
+        int id = 7;
+        int con = state.getValue(config);
+        EnumFacing facing = state.getValue(allFacings);
+        if (textureFacing == EnumFacing.UP || textureFacing == EnumFacing.DOWN){
+
+            if (between(4, 15, con)){
+                id = facing.getAxis() == EnumFacing.Axis.Z ? 1 : 0;
+            }
+            if (between(16, 19, con) || between(32, 35, con) || between(48, 51, con)){
+                id = facing.getAxis() == EnumFacing.Axis.Z ? 0 : 1;
+            }
+            if (between(20, 23, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 9;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 11;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 8;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 10;
+                }
+            }
+            if (between(36, 39, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 10;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 8;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 9;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 11;
+                }
+            }
+            if (between(40, 43, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 11;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 9;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 10;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 8;
+                }
+            }
+            if (between(24, 27, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 8;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 10;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 11;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 9;
+                }
+            }
+            if (between(28, 31, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 3;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 5;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 2;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 4;
+                }
+            }
+
+            if (between(44, 47, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 5;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 3;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 4;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 2;
+                }
+            }
+            if (between(52, 55, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 4;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 2;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 3;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 5;
+                }
+            }
+            if (between(56, 59, con)){
+                if (facing == EnumFacing.WEST){
+                    id = 2;
+                }
+                if (facing == EnumFacing.EAST){
+                    id = 4;
+                }
+                if (facing == EnumFacing.NORTH){
+                    id = 5;
+                }
+                if (facing == EnumFacing.SOUTH){
+                    id = 3;
+                }
+            }
+            if (between(60, 62, con)){
+                id = 6;
+            }
+            if (between(1, 3, con)){
+                id = 7;
+            }
+        } else {
+            if (between(1, 3, con)){
+                id = 1;
+            }
+            if (con == 14 || con == 50 || con == 30 || con == 46 || con == 58 || con == 54){
+                id = 5;
+            }
+            if (con == 13 || con == 49 || con == 29 || con == 45 || con == 57 || con == 53){
+                id = 3;
+            }
+            if (con == 51 || con == 59 || con == 55 || con == 15 || con == 47 || con == 31){
+                id = 6;
+            }
+            if (con == 12 || con == 48){
+                id = 0;
+            }
+            if (textureFacing == EnumFacing.NORTH){
+                if (con == 17 || con == 25){
+                    id = 8;
+                }
+                if (con == 18 || con == 26){
+                    id = 11;
+                }
+                if (con == 34 || con == 42){
+                    id = 10;
+                }
+                if (con == 33 || con == 41){
+                    id = 9;
+                }
+                if (con == 35 || con == 43){
+                    id = 4;
+                }
+                if (con == 19 || con == 27){
+                    id = 2;
+                }
+                if (between(9, 11, con)){
+                    id = 1;
+                }
+            }
+            if (textureFacing == EnumFacing.SOUTH){
+                if (con == 17 || con == 21){
+                    id = 9;
+                }
+                if (con == 18 || con == 22){
+                    id = 10;
+                }
+                if (con == 34 || con == 38){
+                    id = 11;
+                }
+                if (con == 33 || con == 37){
+                    id = 8;
+                }
+                if (con == 35 || con == 43){
+                    id = 2;
+                }
+                if (con == 19 || con == 23){
+                    id = 4;
+                }
+                if (between(5, 7, con)){
+                    id = 1;
+                }
+            }
+        }
+        return id;
     }
 
     public boolean between(int min, int max, int compare){
