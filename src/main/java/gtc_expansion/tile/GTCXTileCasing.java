@@ -1,6 +1,5 @@
 package gtc_expansion.tile;
 
-import gtc_expansion.GTCExpansion;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.block.base.tile.TileEntityBlock;
@@ -43,7 +42,6 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
                 config += 1 << facing.getIndex();
             }
         }
-        GTCExpansion.logger.info("config: " + config);
     }
 
     @Override
@@ -64,6 +62,7 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     @Override
     public void getData(Map<String, Boolean> map) {
         map.put("Rotor: " + rotor, true);
+        map.put("Config: "+ config, true);
     }
 
     public int getConfig() {

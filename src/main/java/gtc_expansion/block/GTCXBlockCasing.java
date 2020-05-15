@@ -21,6 +21,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.projectile.EntityWitherSkull;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -70,77 +71,24 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     public int getIndex(EnumFacing textureFacing, IBlockState state){
         int id = 7;
         int con = state.getValue(config);
-        EnumFacing facing = state.getValue(allFacings);
+        EnumFacing facing = this.hasFacing() ? state.getValue(allFacings) : EnumFacing.NORTH;
         if (textureFacing == EnumFacing.UP || textureFacing == EnumFacing.DOWN){
 
+            boolean u = textureFacing == EnumFacing.UP;
             if (between(4, 15, con)){
                 id = facing.getAxis() == EnumFacing.Axis.Z ? 1 : 0;
             }
             if (between(16, 19, con) || between(32, 35, con) || between(48, 51, con)){
                 id = facing.getAxis() == EnumFacing.Axis.Z ? 0 : 1;
             }
-            if (between(20, 23, con)){
-                if (facing == EnumFacing.WEST){
-                    id = 9;
-                }
-                if (facing == EnumFacing.EAST){
-                    id = 11;
-                }
-                if (facing == EnumFacing.NORTH){
-                    id = 8;
-                }
-                if (facing == EnumFacing.SOUTH){
-                    id = 10;
-                }
-            }
-            if (between(36, 39, con)){
-                if (facing == EnumFacing.WEST){
-                    id = 10;
-                }
-                if (facing == EnumFacing.EAST){
-                    id = 8;
-                }
-                if (facing == EnumFacing.NORTH){
-                    id = 9;
-                }
-                if (facing == EnumFacing.SOUTH){
-                    id = 11;
-                }
-            }
-            if (between(40, 43, con)){
-                if (facing == EnumFacing.WEST){
-                    id = 11;
-                }
-                if (facing == EnumFacing.EAST){
-                    id = 9;
-                }
-                if (facing == EnumFacing.NORTH){
-                    id = 10;
-                }
-                if (facing == EnumFacing.SOUTH){
-                    id = 8;
-                }
-            }
-            if (between(24, 27, con)){
-                if (facing == EnumFacing.WEST){
-                    id = 8;
-                }
-                if (facing == EnumFacing.EAST){
-                    id = 10;
-                }
-                if (facing == EnumFacing.NORTH){
-                    id = 11;
-                }
-                if (facing == EnumFacing.SOUTH){
-                    id = 9;
-                }
-            }
+            int up = u ? 3 : 5;
+            int down = u ? 5 : 3;
             if (between(28, 31, con)){
                 if (facing == EnumFacing.WEST){
-                    id = 3;
+                    id = up;
                 }
                 if (facing == EnumFacing.EAST){
-                    id = 5;
+                    id = down;
                 }
                 if (facing == EnumFacing.NORTH){
                     id = 2;
@@ -152,10 +100,10 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 
             if (between(44, 47, con)){
                 if (facing == EnumFacing.WEST){
-                    id = 5;
+                    id = down;
                 }
                 if (facing == EnumFacing.EAST){
-                    id = 3;
+                    id = up;
                 }
                 if (facing == EnumFacing.NORTH){
                     id = 4;
@@ -172,10 +120,10 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                     id = 2;
                 }
                 if (facing == EnumFacing.NORTH){
-                    id = 3;
+                    id = up;
                 }
                 if (facing == EnumFacing.SOUTH){
-                    id = 5;
+                    id = down;
                 }
             }
             if (between(56, 59, con)){
@@ -186,10 +134,10 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                     id = 4;
                 }
                 if (facing == EnumFacing.NORTH){
-                    id = 5;
+                    id = down;
                 }
                 if (facing == EnumFacing.SOUTH){
-                    id = 3;
+                    id = up;
                 }
             }
             if (between(60, 62, con)){
@@ -197,6 +145,121 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             }
             if (between(1, 3, con)){
                 id = 7;
+            }
+            if (u){
+                if (between(20, 23, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 9;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 11;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 8;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 10;
+                    }
+                }
+                if (between(36, 39, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 10;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 8;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 9;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 11;
+                    }
+                }
+                if (between(40, 43, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 11;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 9;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 10;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 8;
+                    }
+                }
+                if (between(24, 27, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 8;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 10;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 11;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 9;
+                    }
+                }
+            } else {
+                if (between(20, 23, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 10;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 8;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 11;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 9;
+                    }
+                }
+                if (between(36, 39, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 9;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 11;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 10;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 8;
+                    }
+                }
+                if (between(40, 43, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 8;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 10;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 9;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 11;
+                    }
+                }
+                if (between(24, 27, con)){
+                    if (facing == EnumFacing.WEST){
+                        id = 11;
+                    }
+                    if (facing == EnumFacing.EAST){
+                        id = 9;
+                    }
+                    if (facing == EnumFacing.NORTH){
+                        id = 8;
+                    }
+                    if (facing == EnumFacing.SOUTH){
+                        id = 10;
+                    }
+                }
             }
         } else {
             if (between(1, 3, con)){
@@ -211,7 +274,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             if (con == 51 || con == 59 || con == 55 || con == 15 || con == 47 || con == 31){
                 id = 6;
             }
-            if (con == 12 || con == 48){
+            if (con == 12 || con == 48 || con == 20 || con == 24 || con == 36 || con == 40){
                 id = 0;
             }
             if (textureFacing == EnumFacing.NORTH){
@@ -236,6 +299,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                 if (between(9, 11, con)){
                     id = 1;
                 }
+                if (con == 16 || con == 32 || con == 56){
+                    id = 0;
+                }
             }
             if (textureFacing == EnumFacing.SOUTH){
                 if (con == 17 || con == 21){
@@ -258,6 +324,61 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                 }
                 if (between(5, 7, con)){
                     id = 1;
+                }
+                if (con == 16 || con == 32 || con == 52){
+                    id = 0;
+                }
+            }
+            if (textureFacing == EnumFacing.EAST){
+                if (con == 10 || con == 26){
+                    id = 10;
+                }
+                if (con == 6 || con == 22){
+                    id = 11;
+                }
+                if (con == 9 || con == 25){
+                    id = 9;
+                }
+                if (con == 5 || con == 21){
+                    id = 8;
+                }
+                if (con == 7 || con == 23){
+                    id = 2;
+                }
+                if (con == 11 || con == 27){
+                    id = 4;
+                }
+                if (between(17, 19, con)){
+                    id = 1;
+                }
+                if (con == 4 || con == 8 || con == 28){
+                    id = 0;
+                }
+            }
+            if (textureFacing == EnumFacing.WEST){
+                if (con == 10 || con == 42){
+                    id = 11;
+                }
+                if (con == 6 || con == 38){
+                    id = 10;
+                }
+                if (con == 9 || con == 41){
+                    id = 8;
+                }
+                if (con == 5 || con == 37){
+                    id = 9;
+                }
+                if (con == 7 || con == 39){
+                    id = 4;
+                }
+                if (con == 11 || con == 43){
+                    id = 2;
+                }
+                if (between(33, 35, con)){
+                    id = 1;
+                }
+                if (con == 4 || con == 8 || con == 44){
+                    id = 0;
                 }
             }
         }
@@ -372,16 +493,24 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        if (worldIn.getTileEntity(pos) instanceof GTCXTileCasing && this == GTCXBlocks.casingStandard){
-            ((GTCXTileCasing)worldIn.getTileEntity(pos)).setNeighborMap(GTCXBlocks.casingReinforced);
+        if (worldIn.getTileEntity(pos) instanceof GTCXTileCasing){
+            ((GTCXTileCasing)worldIn.getTileEntity(pos)).setNeighborMap(this);
+        }
+        for (EnumFacing facing : EnumFacing.VALUES){
+            BlockPos sidePos = pos.offset(facing);
+            IBlockState sidedState = worldIn.getBlockState(sidePos);
+            if (sidedState.getBlock() == this){
+                GTCExpansion.logger.info("Side: " + facing.getName() + " has this block");
+                worldIn.neighborChanged(sidePos, Blocks.AIR, pos);
+            }
         }
     }
 
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
-        if (world.getTileEntity(pos) instanceof GTCXTileCasing && this == GTCXBlocks.casingStandard){
-            ((GTCXTileCasing)world.getTileEntity(pos)).setNeighborMap(GTCXBlocks.casingReinforced);
+        if (world.getTileEntity(pos) instanceof GTCXTileCasing){
+            ((GTCXTileCasing)world.getTileEntity(pos)).setNeighborMap(this);
         }
     }
 
