@@ -21,7 +21,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.projectile.EntityWitherSkull;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -71,7 +70,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     public int getIndex(EnumFacing textureFacing, IBlockState state){
         int id = 7;
         int con = state.getValue(config);
-        EnumFacing facing = this.hasFacing() ? state.getValue(allFacings) : EnumFacing.NORTH;
+        EnumFacing facing = state.getValue(allFacings);
         if (textureFacing == EnumFacing.UP || textureFacing == EnumFacing.DOWN){
 
             boolean u = textureFacing == EnumFacing.UP;
@@ -461,6 +460,8 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         if (block != null) {
             if (this.hasFacing()) {
                 state = state.withProperty(allFacings, block.getFacing());
+            } else {
+                state = state.withProperty(allFacings, EnumFacing.NORTH);
             }
 
             return state.withProperty(active, block.getActive()).withProperty(rotor, block.getRotor()).withProperty(config, block.getConfig());
@@ -475,7 +476,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 
     @Override
     public boolean hasFacing() {
-        return this == GTCXBlocks.casingStandard;
+        return true;
     }
 
     @Override
@@ -500,8 +501,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             BlockPos sidePos = pos.offset(facing);
             IBlockState sidedState = worldIn.getBlockState(sidePos);
             if (sidedState.getBlock() == this){
-                GTCExpansion.logger.info("Side: " + facing.getName() + " has this block");
-                worldIn.neighborChanged(sidePos, Blocks.AIR, pos);
+                worldIn.neighborChanged(sidePos, sidedState.getBlock(), pos);
             }
         }
     }
