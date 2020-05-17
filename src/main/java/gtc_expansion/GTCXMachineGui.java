@@ -82,6 +82,12 @@ public class GTCXMachineGui {
         }
     }
 
+    public static class GTCXPlateCutterGui extends MachineGui{
+        public GTCXPlateCutterGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
     public static class GTCXWiremillGui extends MachineGui{
         public GTCXWiremillGui(ContainerComponent container) {
             super(container);

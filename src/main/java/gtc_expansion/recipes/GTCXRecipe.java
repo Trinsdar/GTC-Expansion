@@ -16,6 +16,7 @@ import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileGasTurbine;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
+import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
@@ -184,6 +185,7 @@ public class GTCXRecipe {
         GTCXTileFluidCaster.init();
         GTCXTileFluidSmelter.init();
         GTCXTilePlateBender.init();
+        GTCXTilePlateCutter.init();
         GTCXTileWiremill.init();
         GTCXTileDieselGenerator.init();
         GTCXTileGasTurbine.init();

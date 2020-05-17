@@ -14,6 +14,7 @@ import gtc_expansion.tile.GTCXTileGasTurbine;
 import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
+import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
@@ -161,6 +162,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         }
         if (this == GTCXBlocks.largeSteamTurbine){
             return new GTCXTileMultiLargeSteamTurbine();
+        }
+        if (this == GTCXBlocks.plateCutter){
+            return new GTCXTilePlateCutter();
         }
 //        if (this == GEBlocks.fusionReactor){
 //            return new GETileMultiFusionReactor();

@@ -2,7 +2,7 @@ package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
-import gtc_expansion.container.GTCXContainerPlateBender;
+import gtc_expansion.container.GTCXContainerPlateCutter;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTValues;
@@ -29,6 +29,7 @@ import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -41,9 +42,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-public class GTCXTilePlateBender extends GTTileBaseMachine {
+public class GTCXTilePlateCutter extends GTTileBaseMachine {
 
-    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/platebender.png");
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/platecutter.png");
     public static final int slotInput = 0;
     public static final int slotOutput = 1;
     public static final int slotFuel = 2;
@@ -51,7 +52,7 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 4;
 
-    public GTCXTilePlateBender() {
+    public GTCXTilePlateCutter() {
         super(3, 4, defaultEu, 100, 32);
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
@@ -76,7 +77,7 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return GTCXLang.PLATE_BENDER;
+        return GTCXLang.PLATE_CUTTER;
     }
 
     @Override
@@ -86,12 +87,12 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer player) {
-        return new GTCXContainerPlateBender(player.inventory, this);
+        return new GTCXContainerPlateCutter(player.inventory, this);
     }
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
-        return GTCXMachineGui.GTCXPlateBenderGui.class;
+        return GTCXMachineGui.GTCXPlateCutterGui.class;
     }
 
     @Override
@@ -116,7 +117,7 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GTCXRecipeLists.PLATE_BENDER_RECIPE_LIST;
+        return GTCXRecipeLists.PLATE_CUTTER_RECIPE_LIST;
     }
 
     public ResourceLocation getGuiTexture() {
@@ -134,12 +135,20 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
     }
 
     public static void init() {
-        addRecipe(Ic2Items.mixedMetalIngot, Ic2Items.advancedAlloy);
-        addRecipe("plateTin", 2, GTMaterialGen.getIc2(Ic2Items.emptyCell, 8));
-        addRecipe("plateIron", 3, GTMaterialGen.get(Items.BUCKET));
+        addRecipe(GTMaterialGen.get(Blocks.GLASS, 3), GTMaterialGen.get(Blocks.GLASS_PANE, 8));
+        for (int i = 0; i < 16; i++){
+            addRecipe(GTMaterialGen.get(Blocks.STAINED_GLASS, 3, i), GTMaterialGen.get(Blocks.STAINED_GLASS_PANE, 8, i));
+        }
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-            addRecipe("casingIron", 2, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "emptyfuelrod"));
-            addRecipe("casingTin", 1, Ic2Items.tinCan);
+            addRecipe("plateCopper", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coppercasing", 2));
+            addRecipe("plateTin", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "tincasing", 2));
+            addRecipe("plateSilver", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "silvercasing", 2));
+            addRecipe("plateLead", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "leadcasing", 2));
+            addRecipe("plateIron", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "ironcasing", 2));
+            addRecipe("plateGold", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "goldcasing", 2));
+            addRecipe("plateRefinedIron", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironcasing", 2));
+            addRecipe("plateSteel", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "steelcasing", 2));
+            addRecipe("plateBronze", 1, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "bronzecasing", 2));
         }
     }
 
@@ -180,6 +189,6 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.PLATE_BENDER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
+        GTCXRecipeLists.PLATE_CUTTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
     }
 }

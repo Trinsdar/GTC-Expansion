@@ -147,7 +147,6 @@ public class GTCXTileWiremill extends GTTileBaseMachine {
         addRecipe("dustCoal", 4, Ic2Items.carbonFiber);
         addRecipe("dustCharcoal", 8, Ic2Items.carbonFiber);
         addRecipe("dustCarbon", 8, Ic2Items.carbonFiber);
-        addRecipe("plateTin", 2, GTMaterialGen.getIc2(Ic2Items.emptyCell, 8));
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             String steel = IC2.config.getFlag("SteelRecipes") ? "Steel" : "RefinedIron";
             addRecipe("casing" + steel, 2, GTMaterialGen.getIc2(Ic2Items.ironFence, 3));

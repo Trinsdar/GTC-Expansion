@@ -11,6 +11,7 @@ import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTilePlateBender;
+import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
@@ -254,6 +255,7 @@ public class GTCXRecipeIterators {
     public static void createPlateRecipe(GTMaterial mat) {
         String ingot = "ingot" + mat.getDisplayName();
         String plate = "plate" + mat.getDisplayName();
+        String block = "block" + mat.getDisplayName();
         if (mat.hasFlag(GTCXMaterial.plate)) {
             // Plate crafting recipe
             if (GTCXConfiguration.general.harderPlates) {
@@ -275,6 +277,9 @@ public class GTCXRecipeIterators {
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 TileEntityMacerator.addRecipe(plate, 1, getDust(mat), 0.0F);
+            }
+            if (OreDictionary.doesOreNameExist(block)){
+                GTCXTilePlateCutter.addRecipe(block, 1, GTCXMaterialGen.getPlate(mat, 9));
             }
         }
     }
