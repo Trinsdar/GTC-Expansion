@@ -512,6 +512,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
             GTCExpansion.logger.info("There can only be up to 6 fluid outputs");
             return;
         }
+        validFluids.add(input.getFluid());
         List<ItemStack> outListItem = new ArrayList<>();
         for (ItemStack item : outputItem){
             outListItem.add(item);
