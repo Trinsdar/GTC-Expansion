@@ -178,7 +178,8 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("cobblestone", 8, 3200, new ItemStack(Blocks.FURNACE));
         addRecipe(Ic2Items.emptyCell, "dustRedstone", 1, 1600, GTMaterialGen.get(GTItems.sprayCanEmpty));
         addRecipe("plateTungstensteel", 1, Ic2Items.iridiumStone, 1600, GTMaterialGen.get(GTCXBlocks.iridiumTungstensteelBlock));
-        addRecipe("blockTungstensteel", 1, Ic2Items.iridiumPlate, 1600, GTMaterialGen.get(GTCXBlocks.iridiumTungstensteelBlock));
+        addRecipe(GTMaterialGen.get(GTCXBlocks.tungstensteelReinforcedStone), Ic2Items.iridiumPlate, 1600, GTMaterialGen.get(GTCXBlocks.iridiumTungstensteelBlock));
+        addRecipe("plateTungstensteel", 1, Ic2Items.reinforcedStone, 1600, GTMaterialGen.get(GTCXBlocks.tungstensteelReinforcedStone));
         addRecipe(Ic2Items.memoryStick, Ic2Items.frequencyTransmitter, 3000, GTMaterialGen.get(GTItems.sensorStick));
         addRecipe(GTMaterialGen.getIc2(Ic2Items.carbonMesh, 16), GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 3000, GTMaterialGen.get(GTCXItems.lavaFilter));
     }

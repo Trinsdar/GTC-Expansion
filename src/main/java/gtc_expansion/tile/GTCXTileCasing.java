@@ -1,5 +1,8 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCXBlocks;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
+import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.block.base.tile.TileEntityBlock;
@@ -40,6 +43,31 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
             boolean hasBlock = world.getBlockState(pos.offset(facing)).getBlock() == block;
             if (hasBlock){
                 config += 1 << facing.getIndex();
+            }
+        }
+    }
+    public void setRotor(Block block){
+        if (block == GTCXBlocks.casingStandard){
+            int3 original = new int3(getPos(), getFacing());
+            int3 dir = new int3(getPos(), getFacing());
+            if (world.getTileEntity(dir.up(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 8;
+            } else if (world.getTileEntity(dir.set(original).up(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 7;
+            } else if (world.getTileEntity(dir.set(original).up(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 6;
+            } else if (world.getTileEntity(dir.set(original).left(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 5;
+            } else if (world.getTileEntity(dir.set(original).right(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 4;
+            } else if (world.getTileEntity(dir.set(original).down(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 3;
+            } else if (world.getTileEntity(dir.set(original).down(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 2;
+            } else if (world.getTileEntity(dir.set(original).down(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 1;
+            } else {
+                rotor = 0;
             }
         }
     }

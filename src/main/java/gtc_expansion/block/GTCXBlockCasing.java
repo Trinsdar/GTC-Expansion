@@ -496,13 +496,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         if (worldIn.getTileEntity(pos) instanceof GTCXTileCasing){
             ((GTCXTileCasing)worldIn.getTileEntity(pos)).setNeighborMap(this);
-        }
-        for (EnumFacing facing : EnumFacing.VALUES){
-            BlockPos sidePos = pos.offset(facing);
-            IBlockState sidedState = worldIn.getBlockState(sidePos);
-            if (sidedState.getBlock() == this){
-                worldIn.neighborChanged(sidePos, sidedState.getBlock(), pos);
-            }
+//            if (this == GTCXBlocks.casingStandard){
+//                ((GTCXTileCasing)worldIn.getTileEntity(pos)).setRotor(this);
+//            }
         }
     }
 

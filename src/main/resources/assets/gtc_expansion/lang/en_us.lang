@@ -77,6 +77,7 @@ tile.gtc_expansion.advanced_casing.name=Advanced Machine Casing
 tile.gtc_expansion.fire_clay_block.name=Fire Clay
 tile.gtc_expansion.fire_brick_block.name=Fire Bricks
 tile.gtc_expansion.iridium_tungstensteel_block.name=Iridium Reinforced Tungstensteel Block
+tile.gtc_expansion.tungstensteel_reinforced_stone.name=Tungstensteel Reinforced Stone
 tile.gtc_expansion.electrumcable.name=Electrum Cable
 tile.gtc_expansion.electrumcableinsulated1.name=Insulated Electrum Cable
 tile.gtc_expansion.electrumcableinsulated2.name=2xInsulated Electrum Cable
