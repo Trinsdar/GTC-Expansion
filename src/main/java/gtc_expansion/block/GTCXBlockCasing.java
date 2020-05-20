@@ -5,10 +5,12 @@ import gtc_expansion.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
+import ic2.core.IC2;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.util.helpers.BlockStateContainerIC2;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -71,19 +73,20 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         int id = 7;
         int con = state.getValue(config);
         EnumFacing facing = state.getValue(allFacings);
-        if (between(60, 62, con) || or(con, 51, 59, 55, 15, 47,31)){
+        if (between(60, 62, con) || or(con, 51, 59, 55, 15, 47,31)){ // has at least 4 blocks around
             id = 6;
         }
         int facingIndex = facing.getHorizontalIndex() != -1 ? facing.getHorizontalIndex() : 0;
-        if (textureFacing.getAxis() == EnumFacing.Axis.Y){
+        if (textureFacing.getAxis() == EnumFacing.Axis.Y){ // if textureFacing is on top or bottom
             boolean u = textureFacing == EnumFacing.UP;
             if (between(4, 15, con)){
-                id = facing.getAxis() == EnumFacing.Axis.Z ? 1 : 0;
+                id = facing.getAxis() == EnumFacing.Axis.Z ? 1 : 0; // for blocks on one or both of the north and south faces
             }
             if (between(16, 19, con) || between(32, 35, con) || between(48, 51, con)){
-                id = facing.getAxis() == EnumFacing.Axis.Z ? 0 : 1;
+                id = facing.getAxis() == EnumFacing.Axis.Z ? 0 : 1; // for blocks on one or both of the east and west faces
             }
             int[] array = { 2, 3, 4, 5};
+            // these 4 are for variations of 3 blocks on horizontal sizes
             if (between(28, 31, con)){
                 id = u ? array[rotateSubtract(2, facingIndex)] : array[rotateAdd(2, facingIndex)];
             }
@@ -97,6 +100,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                 id = u ? array[rotateSubtract(1, facingIndex)] : array[rotateAdd(3, facingIndex)];
             }
             int[] array2 = {8, 9, 10, 11};
+            // these 4 are for variations of 2 blocks on horizontal sizes in 90 degree styles
             if (between(20, 23, con)){
                 id = u ? array2[rotateSubtract(2, facingIndex)] : array2[rotateAdd( 1, facingIndex)];
             }
@@ -109,69 +113,69 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             if (between(24, 27, con)){
                 id = u ? array2[rotateSubtract(1, facingIndex)] : array2[rotateAdd( 2, facingIndex)];
             }
-        } else {
-            if (between(1, 3, con)){
+        } else { // not vertical facings
+            if (between(1, 3, con)){ // block on top, bottom, or both
                 id = 1;
             }
-            if (or(con, 14, 50, 30, 46, 58, 54)){
+            if (or(con, 14, 50, 30, 46, 58, 54)){ // block on opposite sides and bottom
                 id = 5;
             }
-            if (or(con, 13, 49, 29, 45, 57, 53)){
+            if (or(con, 13, 49, 29, 45, 57, 53)){ // block on opposite sides and top
                 id = 3;
             }
-            if (or(con, 12, 48, 20, 24, 36, 40)){
+            if (or(con, 12, 48, 20, 24, 36, 40)){ // block on opposite sides
                 id = 0;
             }
-            if (textureFacing.getAxis() == EnumFacing.Axis.Z){
+            if (textureFacing.getAxis() == EnumFacing.Axis.Z){ // north or south facing
                 int increase = textureFacing == EnumFacing.NORTH ? 0 : 1;
-                if (or(con, 17, 21, 25)){
+                if (or(con, 17, 21, 25)){ // block on bottom and west facing
                     id = 8 + increase;
                 }
-                if (or(con, 18, 22, 26)){
+                if (or(con, 18, 22, 26)){ // block on top and west facing
                     id = 11 - increase;
                 }
-                if (or(con, 34, 38, 42)){
+                if (or(con, 34, 38, 42)){ // block on top and east facing
                     id = 10 + increase;
                 }
-                if (or(con,33, 37, 41)){
+                if (or(con,33, 37, 41)){ // block on bottom and east facing
                     id = 9 - increase;
                 }
-                if (or(con, 35, 39, 43)){
+                if (or(con, 35, 39, 43)){ // block on bottom, top, and east facing
                     id = textureFacing == EnumFacing.NORTH ? 4 : 2;
                 }
-                if (or(con, 19, 23, 27)){
+                if (or(con, 19, 23, 27)){ // block on bottom, top, and west facing
                     id = textureFacing == EnumFacing.NORTH ? 2 : 4;
                 }
-                if (between(9, 11, con) || between(5, 7, con)){
+                if (between(9, 11, con) || between(5, 7, con)){ // block on bottom, top, and north or south facing
                     id = 1;
                 }
-                if (or(con,16, 32, 52, 56)){
+                if (or(con,16, 32, 52, 56)){ // block on north or south facing, though not both
                     id = 0;
                 }
             } else {
                 int increase = textureFacing == EnumFacing.EAST ? 0 : 1;
-                if (or(con, 10, 26, 42)){
+                if (or(con, 10, 26, 42)){ // block on top and south facing
                     id = 10 + increase;
                 }
-                if (or(con, 6, 22, 38)){
+                if (or(con, 6, 22, 38)){ // block on top and north facing
                     id = 11 - increase;
                 }
-                if (or(con, 9, 25, 41)){
+                if (or(con, 9, 25, 41)){ // block on bottom and south facing
                     id = 9 - increase;
                 }
-                if (or(con, 5, 21, 37)){
+                if (or(con, 5, 21, 37)){ // block on bottom and north facing
                     id = 8 + increase;
                 }
-                if (or(con, 7, 23, 39)){
+                if (or(con, 7, 23, 39)){ // block on bottom, top, and north facing
                     id = textureFacing == EnumFacing.WEST ? 4 : 2;
                 }
-                if (or(con, 11, 27, 43)){
+                if (or(con, 11, 27, 43)){ // block on bottom, top, and south facing
                     id = textureFacing == EnumFacing.WEST ? 2 : 4;
                 }
-                if (between(17, 19, con) || between(33, 35, con)){
+                if (between(17, 19, con) || between(33, 35, con)){ // block on bottom, top, and west or east facing
                     id = 1;
                 }
-                if (or(con, 4, 8,28, 44)){
+                if (or(con, 4, 8,28, 44)){ // block on west or east facing, though not both
                     id = 0;
                 }
             }
@@ -180,49 +184,12 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     }
 
     public int rotateAdd(int indexStart, int addition){
-        switch (indexStart){
-            case 0 : return indexStart + addition;
-            case 1: {
-                return addition == 3 ? 0 : indexStart + addition;
-            }
-            case 2: {
-                if (addition == 2){
-                    return 0;
-                }
-                if (addition == 3){
-                    return 1;
-                }
-                return indexStart + addition;
-            }
-            case 3:{
-                return addition == 0 ? 3 : addition - 1;
-            }
-            default: return 0;
-        }
+        return (indexStart + addition) % 4;
     }
 
     public int rotateSubtract(int indexStart, int subtraction){
-        switch (indexStart){
-            case 0 : {
-                return subtraction == 0 ? 0 : 4 - subtraction;
-            }
-            case 1: {
-                if (subtraction == 2){
-                    return 3;
-                }
-                if (subtraction == 3){
-                    return 2;
-                }
-                return indexStart - subtraction;
-            }
-            case 2: {
-                return subtraction == 3 ? 3 : indexStart - subtraction;
-            }
-            case 3:{
-                return indexStart - subtraction;
-            }
-            default: return 0;
-        }
+        int index = (indexStart - subtraction);
+        return index < 0 ? 4 + index : index;
     }
 
     public boolean or(int compare, int... values){
@@ -350,13 +317,6 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 //                ((GTCXTileCasing)worldIn.getTileEntity(pos)).setRotor(this);
 //            }
         }
-        for (EnumFacing facing : EnumFacing.values()){
-            BlockPos offset = pos.offset(facing);
-            if (worldIn.getBlockState(offset).getBlock() == this){
-                worldIn.markBlockRangeForRenderUpdate(offset, offset);
-            }
-        }
-
     }
 
     @Override
@@ -365,6 +325,13 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         if (world.getTileEntity(pos) instanceof GTCXTileCasing){
             ((GTCXTileCasing)world.getTileEntity(pos)).setNeighborMap(this);
         }
+    }
+
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+        GTCExpansion.logger.info("Is client? " + IC2.platform.isSimulating());
+        worldIn.markBlockRangeForRenderUpdate(pos, pos);
     }
 
     @Override
