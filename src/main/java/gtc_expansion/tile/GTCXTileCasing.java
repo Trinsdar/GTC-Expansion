@@ -17,11 +17,13 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
             index = 3
     )
     public int rotor;
+    private int prevRotor = 0;
 
     @NetworkField(
             index = 4
     )
     public int config = 0;
+    private int prevConfig = 0;
 
     public GTCXTileCasing(){
         super();
@@ -29,8 +31,22 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
         rotor = 0;
     }
 
+    public void onNetworkUpdate(String field) {
+        super.onNetworkUpdate(field);
+        if (field.equals("rotor") || field.equals("config")) {
+            this.prevRotor = this.rotor;
+            this.prevConfig = this.config;
+            this.world.markBlockRangeForRenderUpdate(this.getPos(), this.getPos());
+        }
+    }
+
     public void setRotor(int rotor) {
         this.rotor = rotor;
+        if (rotor != this.prevRotor) {
+            this.getNetwork().updateTileEntityField(this, "rotor");
+        }
+
+        this.prevRotor = rotor;
     }
 
     public int getRotor() {
@@ -45,6 +61,11 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
                 config += 1 << facing.getIndex();
             }
         }
+        if (config != this.prevConfig) {
+            this.getNetwork().updateTileEntityField(this, "config");
+        }
+
+        this.prevConfig = config;
     }
     public void setRotor(Block block){
         if (block == GTCXBlocks.casingStandard){

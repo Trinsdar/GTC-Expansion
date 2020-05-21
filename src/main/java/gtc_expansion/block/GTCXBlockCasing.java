@@ -5,7 +5,6 @@ import gtc_expansion.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
-import ic2.core.IC2;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
@@ -330,8 +329,6 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-        GTCExpansion.logger.info("Is client? " + IC2.platform.isSimulating());
-        worldIn.markBlockRangeForRenderUpdate(pos, pos);
     }
 
     @Override
