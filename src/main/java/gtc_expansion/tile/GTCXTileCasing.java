@@ -31,6 +31,7 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
         rotor = 0;
     }
 
+    @Override
     public void onNetworkUpdate(String field) {
         super.onNetworkUpdate(field);
         if (field.equals("rotor") || field.equals("config")) {
