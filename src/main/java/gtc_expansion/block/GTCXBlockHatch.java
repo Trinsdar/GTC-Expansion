@@ -3,8 +3,11 @@ package gtc_expansion.block;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.util.IGTCasingBackgroundBlock;
+import gtclassic.api.model.GTModelOre;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
+import ic2.core.platform.textures.models.BaseModel;
+import ic2.core.platform.textures.obj.ICustomModeledBlock;
 import ic2.core.platform.textures.obj.ILayeredBlockModel;
 import ic2.core.util.helpers.BlockStateContainerIC2;
 import net.minecraft.block.material.Material;
@@ -14,16 +17,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel {
+public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel, ICustomModeledBlock {
     public static PropertyInteger casing = PropertyInteger.create("casing", 0, 3);
     public static PropertyInteger config = PropertyInteger.create("config", 0, 63);
     public GTCXBlockHatch(String name, LocaleComp comp) {
@@ -60,34 +66,52 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
     @Override
     public TextureAtlasSprite getLayerTexture(IBlockState state, EnumFacing facing, int i) {
         int cas = state.getValue(casing);
-        int con = state.getValue(config);
-        if (cas == 0){
-            return this.getTextureFromState(state, facing);
-        }
         if (i == 0){
-            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 12) + 7];
+            if (cas == 0){
+                return this.getTextureFromState(state, facing);
+            }
+            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 12) + getIndex(facing, state)];
         }
         if (i == 1 && facing == state.getValue(allFacings)){
             return this == GTCXBlocks.dynamoHatch ? Ic2Icons.getTextures("dynamo_hatch_front_overlay")[0] : Ic2Icons.getTextures("machine_back_overlay")[0];
         }
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 12) + 7];
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BaseModel getModelFromState(IBlockState state) {
+        return new GTModelOre(this, state);
+    }
+
+    @Override
+    public List<IBlockState> getValidModelStates() {
+        return this.getBlockState().getValidStates();
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     public int getIndex(EnumFacing textureFacing, IBlockState state){
         int id = 7;
         int con = state.getValue(config);
         EnumFacing facing = state.getValue(allFacings);
+        GTCExpansion.logger.info("Facing: " + facing.getName());
         if (between(60, 62, con) || or(con, 51, 59, 55, 15, 47,31)){ // has at least 4 blocks around
             id = 6;
         }
         int facingIndex = facing.getHorizontalIndex() != -1 ? facing.getHorizontalIndex() : 0;
+        GTCExpansion.logger.info("Facing Index: " + facingIndex);
         if (textureFacing.getAxis() == EnumFacing.Axis.Y){ // if textureFacing is on top or bottom
             boolean u = textureFacing == EnumFacing.UP;
             if (between(4, 15, con)){
-                id = facing.getAxis() == EnumFacing.Axis.Z ? 1 : 0; // for blocks on one or both of the north and south faces
+                id = facing.getAxis() == EnumFacing.Axis.X ? 0 : 1; // for blocks on one or both of the north and south faces
             }
             if (between(16, 19, con) || between(32, 35, con) || between(48, 51, con)){
-                id = facing.getAxis() == EnumFacing.Axis.Z ? 0 : 1; // for blocks on one or both of the east and west faces
+                id = facing.getAxis() == EnumFacing.Axis.X ? 1 : 0; // for blocks on one or both of the east and west faces
             }
             int[] array = { 2, 3, 4, 5};
             // these 4 are for variations of 3 blocks on horizontal sizes
@@ -214,6 +238,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         if (worldIn.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
             ((IGTCasingBackgroundBlock)worldIn.getTileEntity(pos)).setCasing();
+            ((IGTCasingBackgroundBlock)worldIn.getTileEntity(pos)).setConfig();
         }
     }
 
@@ -222,6 +247,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         super.onNeighborChange(world, pos, neighbor);
         if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
             ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).setCasing();
+            ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).setConfig();
         }
     }
 

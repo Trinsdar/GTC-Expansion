@@ -116,7 +116,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
         map.put("Config: "+ config, true);
     }
 
-    public Block fromCasing(int casing){
+    public static Block fromCasing(int casing){
         switch (casing){
             case 1: return GTCXBlocks.casingStandard;
             case 2: return GTCXBlocks.casingReinforced;
@@ -228,11 +228,26 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
 
     @Override
     public void setConfig(){
+        Block block = fromCasing(casing);
+        config = 0;
+        for (EnumFacing facing : EnumFacing.values()){
+            boolean hasBlock = (world.getBlockState(pos.offset(facing)).getBlock() == block || isHatchWithCasing(pos.offset(facing))) && block != Blocks.AIR;
+            if (hasBlock){
+                config += 1 << facing.getIndex();
+            }
+        }
         if (config != this.prevConfig) {
             this.getNetwork().updateTileEntityField(this, "config");
         }
 
         this.prevConfig = config;
+    }
+
+    public boolean isHatchWithCasing(BlockPos pos){
+        if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
+            return ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).getCasing() == casing;
+        }
+        return false;
     }
 
     @Override

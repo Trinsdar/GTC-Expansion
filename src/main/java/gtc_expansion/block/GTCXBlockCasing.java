@@ -5,6 +5,7 @@ import gtc_expansion.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
+import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
@@ -61,7 +62,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             if (state.getValue(rotor) > 0 && facing == enumFacing){
                 return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
             } else {
-                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[getIndex(enumFacing, state)];
+                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[getIndexes(enumFacing, state)];
 
             }
         }
@@ -202,6 +203,58 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 
     public boolean between(int min, int max, int compare){
         return compare >= min && compare <= max;
+    }
+
+    public int getIndexes(EnumFacing textureFacing, IBlockState state)
+    {
+        int con = state.getValue(config);
+        RotationList list = RotationList.ofNumber(con).remove(textureFacing).remove(textureFacing.getOpposite());
+        if(list.size() == 0 || list.size() == 4)
+        {
+            return list.size() == 4 ? 6 : 7;
+        }
+        int index = 0;
+        int result = 0;
+        for(EnumFacing facing : list)
+        {
+            result += (1 << (index++ * 2)) + convert(textureFacing, facing) & 3;
+        }
+        return result;
+    }
+
+    protected int convert(EnumFacing side, EnumFacing index)
+    {
+        switch(side.getAxis())
+        {
+            case X:
+                switch(index)
+                {
+                    case DOWN: return 0;
+                    case UP: return 1;
+                    case NORTH: return 2;
+                    case SOUTH: return 3;
+                    default: return -1;
+                }
+            case Y:
+                switch(index)
+                {
+                    case WEST: return 0;
+                    case EAST: return 1;
+                    case NORTH: return 2;
+                    case SOUTH: return 3;
+                    default: return -1;
+                }
+            case Z:
+                switch(index)
+                {
+                    case DOWN: return 0;
+                    case UP: return 1;
+                    case WEST: return 2;
+                    case EAST: return 3;
+                    default: return -1;
+                }
+        }
+        return 0;
     }
 
     @Override

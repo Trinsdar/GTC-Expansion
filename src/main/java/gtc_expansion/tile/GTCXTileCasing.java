@@ -1,7 +1,9 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCXBlocks;
+import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
+import gtc_expansion.util.IGTCasingBackgroundBlock;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;
@@ -9,6 +11,7 @@ import ic2.core.block.base.tile.TileEntityBlock;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.Map;
 
@@ -57,7 +60,7 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     public void setNeighborMap(Block block){
         config = 0;
         for (EnumFacing facing : EnumFacing.values()){
-            boolean hasBlock = world.getBlockState(pos.offset(facing)).getBlock() == block;
+            boolean hasBlock = world.getBlockState(pos.offset(facing)).getBlock() == block || isHatchWithCasing(pos.offset(facing), block);
             if (hasBlock){
                 config += 1 << facing.getIndex();
             }
@@ -68,6 +71,14 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
 
         this.prevConfig = config;
     }
+
+    public boolean isHatchWithCasing(BlockPos pos, Block block){
+        if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
+            return GTCXTileEnergyOutputHatch.fromCasing(((IGTCasingBackgroundBlock)world.getTileEntity(pos)).getCasing()) == block;
+        }
+        return false;
+    }
+
     public void setRotor(Block block){
         if (block == GTCXBlocks.casingStandard){
             int3 original = new int3(getPos(), getFacing());

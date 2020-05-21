@@ -364,11 +364,26 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     @Override
     public void setConfig(){
+        Block block = fromCasing(casing);
+        config = 0;
+        for (EnumFacing facing : EnumFacing.values()){
+            boolean hasBlock = (world.getBlockState(pos.offset(facing)).getBlock() == block || isHatchWithCasing(pos.offset(facing))) && block != Blocks.AIR;
+            if (hasBlock){
+                config += 1 << facing.getIndex();
+            }
+        }
         if (config != this.prevConfig) {
             this.getNetwork().updateTileEntityField(this, "config");
         }
 
         this.prevConfig = config;
+    }
+
+    public boolean isHatchWithCasing(BlockPos pos){
+        if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
+            return ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).getCasing() == casing;
+        }
+        return false;
     }
 
     @Override
