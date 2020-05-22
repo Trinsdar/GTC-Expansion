@@ -70,7 +70,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
             if (cas == 0){
                 return this.getTextureFromState(state, facing);
             }
-            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 12) + getIndex(facing, state)];
+            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + getIndex(facing, state)];
         }
         if (i == 1 && facing == state.getValue(allFacings)){
             return this == GTCXBlocks.dynamoHatch ? Ic2Icons.getTextures("dynamo_hatch_front_overlay")[0] : Ic2Icons.getTextures("machine_back_overlay")[0];
@@ -99,12 +99,10 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         int id = 7;
         int con = state.getValue(config);
         EnumFacing facing = state.getValue(allFacings);
-        GTCExpansion.logger.info("Facing: " + facing.getName());
         if (between(60, 62, con) || or(con, 51, 59, 55, 15, 47,31)){ // has at least 4 blocks around
             id = 6;
         }
         int facingIndex = facing.getHorizontalIndex() != -1 ? facing.getHorizontalIndex() : 0;
-        GTCExpansion.logger.info("Facing Index: " + facingIndex);
         if (textureFacing.getAxis() == EnumFacing.Axis.Y){ // if textureFacing is on top or bottom
             boolean u = textureFacing == EnumFacing.UP;
             if (between(4, 15, con)){
@@ -127,7 +125,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
             if (between(56, 59, con)){
                 id = u ? array[rotateSubtract(1, facingIndex)] : array[rotateAdd(3, facingIndex)];
             }
-            int[] array2 = {8, 9, 10, 11};
+            int[] array2 = {8, 9, 11, 10};
             // these 4 are for variations of 2 blocks on horizontal sizes in 90 degree styles
             if (between(20, 23, con)){
                 id = u ? array2[rotateSubtract(2, facingIndex)] : array2[rotateAdd( 1, facingIndex)];
@@ -160,10 +158,10 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
                     id = 8 + increase;
                 }
                 if (or(con, 18, 22, 26)){ // block on top and west facing
-                    id = 11 - increase;
+                    id = 10 + increase;
                 }
                 if (or(con, 34, 38, 42)){ // block on top and east facing
-                    id = 10 + increase;
+                    id = 11 - increase;
                 }
                 if (or(con,33, 37, 41)){ // block on bottom and east facing
                     id = 9 - increase;
@@ -183,10 +181,10 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
             } else {
                 int increase = textureFacing == EnumFacing.EAST ? 0 : 1;
                 if (or(con, 10, 26, 42)){ // block on top and south facing
-                    id = 10 + increase;
+                    id = 11 - increase;
                 }
                 if (or(con, 6, 22, 38)){ // block on top and north facing
-                    id = 11 - increase;
+                    id = 10 + increase;
                 }
                 if (or(con, 9, 25, 41)){ // block on bottom and south facing
                     id = 9 - increase;
