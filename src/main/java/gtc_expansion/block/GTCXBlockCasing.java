@@ -215,7 +215,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         }
         if (textureFacing.getAxis() != Axis.Y){
             if (list.size() == 1){
-                return containsAxis(list, Axis.Y) ? 1 : 0;
+                return containsAxis(list, Axis.Y) ? (list.contains(EnumFacing.UP) ? 15 : 13) : 0;
             }
             if (list.size() == 2){
                 if (!containsAxis(list, Axis.Y)){
