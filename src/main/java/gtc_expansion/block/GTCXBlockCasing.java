@@ -35,6 +35,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.minecraft.util.EnumFacing.*;
+
 public class GTCXBlockCasing extends GTBlockBaseMachine {
     public static PropertyInteger rotor = PropertyInteger.create("rotor", 0, 8);
     public static PropertyInteger config = PropertyInteger.create("config", 0, 63);
@@ -79,7 +81,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         }
         int facingIndex = facing.getHorizontalIndex() != -1 ? facing.getHorizontalIndex() : 0;
         if (textureFacing.getAxis() == Axis.Y){ // if textureFacing is on top or bottom
-            boolean u = textureFacing == EnumFacing.UP;
+            boolean u = textureFacing == UP;
             if (between(4, 15, con)){
                 id = facing.getAxis() == Axis.Z ? 1 : 0; // for blocks on one or both of the north and south faces
             }
@@ -128,7 +130,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                 id = 0;
             }
             if (textureFacing.getAxis() == Axis.Z){ // north or south facing
-                int increase = textureFacing == EnumFacing.NORTH ? 0 : 1;
+                int increase = textureFacing == NORTH ? 0 : 1;
                 if (or(con, 17, 21, 25)){ // block on bottom and west facing
                     id = 8 + increase;
                 }
@@ -142,10 +144,10 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                     id = 9 - increase;
                 }
                 if (or(con, 35, 39, 43)){ // block on bottom, top, and east facing
-                    id = textureFacing == EnumFacing.NORTH ? 4 : 2;
+                    id = textureFacing == NORTH ? 4 : 2;
                 }
                 if (or(con, 19, 23, 27)){ // block on bottom, top, and west facing
-                    id = textureFacing == EnumFacing.NORTH ? 2 : 4;
+                    id = textureFacing == NORTH ? 2 : 4;
                 }
                 if (between(9, 11, con) || between(5, 7, con)){ // block on bottom, top, and north or south facing
                     id = 1;
@@ -154,7 +156,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                     id = 0;
                 }
             } else {
-                int increase = textureFacing == EnumFacing.EAST ? 0 : 1;
+                int increase = textureFacing == EAST ? 0 : 1;
                 if (or(con, 10, 26, 42)){ // block on top and south facing
                     id = 11 - increase;
                 }
@@ -168,10 +170,10 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                     id = 8 + increase;
                 }
                 if (or(con, 7, 23, 39)){ // block on bottom, top, and north facing
-                    id = textureFacing == EnumFacing.WEST ? 4 : 2;
+                    id = textureFacing == WEST ? 4 : 2;
                 }
                 if (or(con, 11, 27, 43)){ // block on bottom, top, and south facing
-                    id = textureFacing == EnumFacing.WEST ? 2 : 4;
+                    id = textureFacing == WEST ? 2 : 4;
                 }
                 if (between(17, 19, con) || between(33, 35, con)){ // block on bottom, top, and west or east facing
                     id = 1;
@@ -213,9 +215,11 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         if (list.size() == 0 || list.size() == 4) {
             return list.size() == 4 ? 6 : 7;
         }
+        boolean positive = textureFacing.getAxisDirection() == AxisDirection.POSITIVE;
+        int offset = positive ? 0 : 1;
         if (textureFacing.getAxis() != Axis.Y){
             if (list.size() == 1){
-                return containsAxis(list, Axis.Y) ? (list.contains(EnumFacing.UP) ? 15 : 13) : 0;
+                return containsAxis(list, Axis.Y) ? (list.contains(UP) ? 15 : 13) : (list.contains(WEST) || list.contains(SOUTH) ? 14 - (offset * 2) : 12 + (offset * 2));
             }
             if (list.size() == 2){
                 if (!containsAxis(list, Axis.Y)){
@@ -226,23 +230,34 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
                 }
             }
         }
-        boolean positive = textureFacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE;
         int index = 0;
         int result = 0;
         if (textureFacing.getAxis() == Axis.Y){
-            if ((!containsAxis(list, Axis.X) && containsAxis(list, Axis.Z)) || (!containsAxis(list, Axis.Z) && containsAxis(list, Axis.X))){
-                return containsAxis(list, Axis.X) ? (blockFacing.getAxis() == EnumFacing.Axis.X ? 1 : 0) : (blockFacing.getAxis() == EnumFacing.Axis.X ? 0 : 1);
+            int facingIndex = blockFacing.getHorizontalIndex() == -1 ? 0 : blockFacing.getHorizontalIndex();
+            if (list.size() == 1){
+                switch (facingIndex){
+                    case 0 : return list.contains(EAST) ? 12 : list.contains(SOUTH) ? 13 + (offset * 2) : list.contains(WEST) ? 14 : 15 - (offset * 2);
+                    case 1 : return list.contains(NORTH) ? 14 : list.contains(EAST) ? 15 - (offset * 2) : list.contains(SOUTH) ? 12 : 13 + (offset * 2);
+                    case 2 : return list.contains(WEST) ? 12 : list.contains(NORTH) ? 13 + (offset * 2) : list.contains(EAST) ? 14 : 15 - (offset * 2);
+                    case 3 : return list.contains(SOUTH) ? 14 : list.contains(WEST) ? 15 - (offset * 2) : list.contains(NORTH) ? 12 : 13 + (offset * 2);
+                }
             }
+            if (list.size() == 2){
+                if ((!containsAxis(list, Axis.X) && containsAxis(list, Axis.Z)) || (!containsAxis(list, Axis.Z) && containsAxis(list, Axis.X))){
+                    return containsAxis(list, Axis.X) ? (blockFacing.getAxis() == Axis.X ? 1 : 0) : (blockFacing.getAxis() == Axis.X ? 0 : 1);
+                }
+            }
+
         }
         for(EnumFacing facing : list) {
             if (list.size() == 2){
-                result += convert(textureFacing, facing) == 0 ? 5 : convert(textureFacing, facing) == 1 ? 7 : convert(textureFacing, facing) == 2 ? (positive ? 3 : 4) : (positive ? 4 : 3);
+                result += getAdditive(textureFacing, facing, blockFacing);
             } else {
                 result += (1 << (index++ * 2)) + convert(textureFacing, facing) & 3;
             }
         }
         //     n2
-        //  w2    e3
+        //  w3    e2
         //     s3
 
         return result;
@@ -250,10 +265,27 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 
     protected boolean containsAxis(RotationList list, Axis axis){
         switch (axis){
-            case X: return list.contains(EnumFacing.EAST) || list.contains(EnumFacing.WEST);
-            case Z: return list.contains(EnumFacing.NORTH) || list.contains(EnumFacing.SOUTH);
-            case Y: return list.contains(EnumFacing.UP) || list.contains(EnumFacing.DOWN);
+            case X: return list.contains(EAST) || list.contains(WEST);
+            case Z: return list.contains(NORTH) || list.contains(SOUTH);
+            case Y: return list.contains(UP) || list.contains(DOWN);
             default: return false;
+        }
+    }
+
+    protected int getAdditive(EnumFacing textureFacing, EnumFacing facing, EnumFacing blockFacing){
+        int offset = textureFacing.getAxisDirection() == AxisDirection.POSITIVE ? 0 : 1;
+        if (textureFacing.getAxis() != Axis.Y){
+            return convert(textureFacing, facing) == 0 ? 5 : convert(textureFacing, facing) == 1 ? 7 : convert(textureFacing, facing) == 2 ? 3 + offset : 4 - offset;
+        }
+        switch (blockFacing){
+            case DOWN:
+            case UP:
+            case SOUTH:
+                return convert(textureFacing, facing) == 3 ? 5 + (offset * 2) : convert(textureFacing, facing) == 2 ? 7 - (offset * 2) : convert(textureFacing, facing) == 1 ? 3 : 4;
+            case WEST: return convert(textureFacing, facing) == 0 ? 5 + (offset * 2) : convert(textureFacing, facing) == 1 ? 7 - (offset * 2) : convert(textureFacing, facing) == 2 ? 4 : 3;
+            case NORTH: return convert(textureFacing, facing) == 2 ? 5 + (offset * 2) : convert(textureFacing, facing) == 3 ? 7 - (offset * 2) : convert(textureFacing, facing) == 0 ? 3 : 4;
+            case EAST: return convert(textureFacing, facing) == 1 ? 5 + (offset * 2) : convert(textureFacing, facing) == 0 ? 7 - (offset * 2) : convert(textureFacing, facing) == 3 ? 4 : 3;
+            default: return 0;
         }
     }
 
@@ -334,14 +366,14 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
 
     @Override
     public IBlockState getDefaultBlockState() {
-        return this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, EnumFacing.NORTH).withProperty(config, 0);
+        return this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, NORTH).withProperty(config, 0);
     }
 
     @Override
     public List<IBlockState> getValidStateList() {
         IBlockState def = this.getDefaultState();
         List<IBlockState> states = new ArrayList<>();
-        EnumFacing[] facings = EnumFacing.VALUES;
+        EnumFacing[] facings = VALUES;
         int facingsLength = facings.length;
 
         for(int i = 0; i < facingsLength; ++i) {
@@ -365,13 +397,13 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             if (this.hasFacing()) {
                 state = state.withProperty(allFacings, block.getFacing());
             } else {
-                state = state.withProperty(allFacings, EnumFacing.NORTH);
+                state = state.withProperty(allFacings, NORTH);
             }
 
             return state.withProperty(active, block.getActive()).withProperty(rotor, block.getRotor()).withProperty(config, block.getConfig());
         } else {
             if (this.hasFacing()) {
-                state = state.withProperty(allFacings, EnumFacing.NORTH);
+                state = state.withProperty(allFacings, NORTH);
             }
 
             return state.withProperty(active, false).withProperty(rotor, 0).withProperty(config, 0);
