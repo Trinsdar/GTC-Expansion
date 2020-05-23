@@ -51,6 +51,7 @@ public class GTCXLang {
     public static final LocaleComp CASING_ADVANCED = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.advanced_casing");
     public static final LocaleComp IRIDIUM_TUNGSTENSTEEL_BLOCK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.iridium_tungstensteel_block");
     public static final LocaleComp TUNGSTENSTEEL_REINFORCED_STONE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.tungstensteel_reinforced_stone");
+    public static final LocaleComp FIRE_BRICK_BLOCK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fire_brick_block");
 
     public static final LocaleComp messageDiamondChainsawNormal = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
     public static final LocaleComp messageDiamondChainsawNoShear = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
