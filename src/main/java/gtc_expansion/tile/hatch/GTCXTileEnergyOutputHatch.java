@@ -112,7 +112,8 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
 
     @Override
     public void getData(Map<String, Boolean> map) {
-        map.put("Casing: " + fromCasing(casing).getLocalizedName(), true);
+        Block block = fromCasing(casing);
+        map.put("Casing: " + (block == Blocks.AIR ? "None" : block.getLocalizedName()), true);
         map.put("Config: "+ config, true);
     }
 
@@ -137,14 +138,16 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
         int advanced = 0;
         for (EnumFacing facing : EnumFacing.VALUES){
             BlockPos offset = this.getPos().offset(facing);
-            if (world.getBlockState(offset).getBlock() == GTCXBlocks.casingStandard){
+            Block block = world.getBlockState(offset).getBlock();
+            if (block == GTCXBlocks.casingStandard){
                 standard++;
-            } else if (world.getBlockState(offset).getBlock() == GTCXBlocks.casingReinforced){
+            } else if (block == GTCXBlocks.casingReinforced){
                 reinforced++;
-            } else if (world.getBlockState(offset).getBlock() == GTCXBlocks.casingAdvanced){
+            } else if (block == GTCXBlocks.casingAdvanced){
                 advanced++;
             }
         }
+        int max = max(standard, reinforced, advanced);
         if (standard == 0 && reinforced == 0 && advanced == 0){
             casing = 0;
         }
@@ -157,59 +160,62 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
         else if (advanced > 3){
             casing = 3;
         }
-        else if (standard == 3 && reinforced == 3){
-            casing = world.rand.nextInt(1) + 1;
-        }
-        else if (standard == 3 && advanced == 3){
-            casing = world.rand.nextInt(1) == 0 ? 1 : 3;
-        }
-        else if (reinforced == 3 && advanced == 3){
-            casing = world.rand.nextInt(1) + 2;
-        }
-        else if ((standard == 2 && reinforced == 2 && advanced == 2) || (standard == 1 && reinforced == 1 && advanced == 1)){
+        else if (twoOutOfThree(standard, reinforced, advanced)){
             casing = world.rand.nextInt(2) + 1;
         }
-        else if (standard == 3){
+        else if (twoOutOfThree(standard, advanced, reinforced)){
+            casing = world.rand.nextInt(2) == 0 ? 1 : 3;
+        }
+        else if (twoOutOfThree(reinforced, advanced, standard)){
+            casing = world.rand.nextInt(2) + 2;
+        }
+        else if ((standard == 2 && reinforced == 2 && advanced == 2) || (standard == 1 && reinforced == 1 && advanced == 1)){
+            casing = world.rand.nextInt(3) + 1;
+        }
+        else if (only(standard, reinforced, advanced)){
             casing = 1;
         }
-        else if (reinforced == 3){
+        else if (only(reinforced, advanced, standard)){
             casing = 2;
         }
-        else if (advanced == 3){
+        else if (only(advanced, standard, reinforced)){
             casing = 3;
         }
-        else if ((standard + reinforced == 4) || (standard + reinforced == 2)){
-            casing = world.rand.nextInt(1) + 1;
-        }
-        else if ((standard + advanced == 4) || (standard + advanced == 2)){
-            casing = world.rand.nextInt(1) == 0 ? 1 : 3;
-        }
-        else if ((reinforced + advanced == 4) || (reinforced + advanced == 2)){
-            casing = world.rand.nextInt(1) + 2;
-        }
-        else if (standard == 2){
+        else if (max == standard){
             casing = 1;
-        }
-        else if (reinforced == 2){
+        } else if (max == reinforced){
             casing = 2;
         }
-        else if (advanced == 2){
-            casing = 3;
-        }
-        else if (standard == 1){
-            casing = 1;
-        }
-        else if (reinforced == 1){
-            casing = 2;
-        }
-        else if (advanced == 1){
+        else if (max == advanced){
             casing = 3;
         }
         if (casing != this.prevCasing) {
+            world.notifyNeighborsOfStateChange(pos, GTCXBlocks.casingStandard, true);
             this.getNetwork().updateTileEntityField(this, "casing");
         }
 
         this.prevCasing = casing;
+    }
+
+    public boolean only(int value, int compare1, int compare2){
+        return value <= 3 && compare1 == 0 && compare2 == 0;
+    }
+
+    public boolean twoOutOfThree(int value, int value2, int compare){
+        return compare == 0 && ((value == 3 && value2 == 3) || (value == 2 && value2 == 2) ||(value == 1 && value2 == 1));
+    }
+
+    public int max(int value1, int value2, int value3){
+        if (value1 > value2 && value1 > value3){
+            return value1;
+        }
+        if (value2 > value1 && value2 > value3){
+            return value2;
+        }
+        if (value3 > value1 && value3 > value2){
+            return value3;
+        }
+        return 0;
     }
 
     public boolean or(int compare, int... values){

@@ -161,7 +161,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 51200, GTMaterialGen.get(GTCXItems.processorCircuitBoard));
         addRecipe(new RecipeInputCombined(8, input("gemEmerald", 8), input("gemOlivine", 8)), new RecipeInputItemStack(Ic2Items.advancedCircuit), 51200, GTMaterialGen.get(GTItems.chipData, 4));
         addRecipe(GTCXRecipe.getRefinedIronPlate(), 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, Ic2Items.machine);
-        addRecipe("dustFlint", 5, GTMaterialGen.get(Blocks.TNT), 1600, GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5));
+        addRecipe("dustFlint", 5, GTMaterialGen.get(Blocks.TNT, 3), 1600, GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5));
         addRecipe("dustGunpowder", 4, GTMaterialGen.get(Blocks.SAND), 400, GTMaterialGen.get(Blocks.TNT));
         addRecipe(input("dustGlowstone", 1), GTCXRecipe.anyLapis, 1600, GTMaterialGen.get(GTCXItems.advancedCircuitParts, 2));
         addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), Ic2Items.cropAnalyzer, 204800, GTMaterialGen.get(GTItems.portableScanner));

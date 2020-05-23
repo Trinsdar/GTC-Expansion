@@ -24,6 +24,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -293,8 +294,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        if (worldIn.getTileEntity(pos) instanceof GTCXTileCasing){
-            ((GTCXTileCasing)worldIn.getTileEntity(pos)).setNeighborMap(this);
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof GTCXTileCasing){
+            ((GTCXTileCasing)tile).setNeighborMap(this);
 //            if (this == GTCXBlocks.casingStandard){
 //                ((GTCXTileCasing)worldIn.getTileEntity(pos)).setRotor(this);
 //            }
@@ -304,14 +306,19 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
-        if (world.getTileEntity(pos) instanceof GTCXTileCasing){
-            ((GTCXTileCasing)world.getTileEntity(pos)).setNeighborMap(this);
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof GTCXTileCasing){
+            ((GTCXTileCasing)tile).setNeighborMap(this);
         }
     }
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof GTCXTileCasing){
+            ((GTCXTileCasing)tile).setNeighborMap(this);
+        }
     }
 
     @Override
