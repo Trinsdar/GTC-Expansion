@@ -10,6 +10,7 @@ import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.block.base.tile.TileEntityBlock;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
@@ -73,8 +74,9 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     }
 
     public boolean isHatchWithCasing(BlockPos pos, Block block){
-        if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
-            return GTCXTileEnergyOutputHatch.fromCasing(((IGTCasingBackgroundBlock)world.getTileEntity(pos)).getCasing()) == block;
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IGTCasingBackgroundBlock){
+            return GTCXTileEnergyOutputHatch.fromCasing(((IGTCasingBackgroundBlock)tile).getCasing()) == block;
         }
         return false;
     }
