@@ -17,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +31,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     private BlockPos output2;
     private BlockPos output3;
     int ticker = 0;
+    int obsidianTicker = 0;
     public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState outputHatchState = GTCXBlocks.outputHatch.getDefaultState();
@@ -49,6 +51,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
         this.ticker = nbt.getInteger("ticker");
+        this.obsidianTicker = nbt.getInteger("obsidianTicker");
         this.input1 = readBlockPosFromNBT(nbt, "input1");
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.output1 = readBlockPosFromNBT(nbt, "output1");
@@ -60,6 +63,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         super.writeToNBT(nbt);
         nbt.setBoolean("lastState", this.lastState);
         nbt.setInteger("ticker", ticker);
+        nbt.setInteger("obsidianTicker", obsidianTicker);
         writeBlockPosToNBT(nbt, "input1", input1);
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "output1", output1);
@@ -92,6 +96,9 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         }
         return this.lastState;
     }
+
+    boolean output1Full = false;
+    boolean output2Full = false;
 
     @Override
     public void update() {
@@ -129,6 +136,26 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         }
                         waterTank.drainInternal(1, true);
                         lavaTank.drainInternal(100, true);
+                        if (obsidianTicker < 10){
+                            obsidianTicker++;
+                        }
+                        if (obsidianTicker == 10){
+                            ItemStack output = outputHatch1.getOutput();
+                            if (output.getItem() == new ItemStack(Blocks.OBSIDIAN).getItem() && output.getCount() < 64){
+                                output1Full = false;
+                                outputHatch1.skip5Ticks();
+                                output.grow(1);
+                            } else if (output.isEmpty()){
+                                output1Full = false;
+                                outputHatch1.skip5Ticks();
+                                outputHatch1.setStackInSlot(1, GTMaterialGen.get(Blocks.OBSIDIAN, 1));
+                            } else {
+                                output1Full = true;
+                            }
+                            if (!output1Full){
+                                obsidianTicker = 0;
+                            }
+                        }
                         outputHatch1.getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 80){
                             this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
@@ -140,6 +167,26 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         }
                         waterTank.drainInternal(1, true);
                         lavaTank.drainInternal(100, true);
+                        if (obsidianTicker < 10){
+                            obsidianTicker++;
+                        }
+                        if (obsidianTicker == 10 && output1Full){
+                            ItemStack output = outputHatch1.getOutput();
+                            if (output.getItem() == new ItemStack(Blocks.OBSIDIAN).getItem() && output.getCount() < 64){
+                                output2Full = false;
+                                outputHatch1.skip5Ticks();
+                                output.grow(1);
+                            } else if (output.isEmpty()){
+                                output2Full = false;
+                                outputHatch1.skip5Ticks();
+                                outputHatch1.setStackInSlot(1, GTMaterialGen.get(Blocks.OBSIDIAN, 1));
+                            } else {
+                                output2Full = true;
+                            }
+                            if (!output2Full){
+                                obsidianTicker = 0;
+                            }
+                        }
                         ((GTCXTileOutputHatch)world.getTileEntity(output2)).getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 80){
                             this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
@@ -151,6 +198,20 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         }
                         waterTank.drainInternal(1, true);
                         lavaTank.drainInternal(100, true);
+                        if (obsidianTicker < 10){
+                            obsidianTicker++;
+                        }
+                        if (obsidianTicker == 10 && output2Full){
+                            ItemStack output = outputHatch1.getOutput();
+                            if (output.getItem() == new ItemStack(Blocks.OBSIDIAN).getItem() && output.getCount() < 64){
+                                outputHatch1.skip5Ticks();
+                                output.grow(1);
+                            } else if (output.isEmpty()){
+                                outputHatch1.skip5Ticks();
+                                outputHatch1.setStackInSlot(1, GTMaterialGen.get(Blocks.OBSIDIAN, 1));
+                            }
+                            obsidianTicker = 0;
+                        }
                         ((GTCXTileOutputHatch)world.getTileEntity(output3)).getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 80){
                             this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
