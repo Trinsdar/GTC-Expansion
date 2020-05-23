@@ -18,6 +18,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.AxisDirection;
@@ -76,15 +77,21 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
     public TextureAtlasSprite getLayerTexture(IBlockState state, EnumFacing facing, int i) {
         int cas = state.getValue(casing);
         if (i == 0){
-            if (cas == 0){
-                return this.getTextureFromState(state, facing);
-            }
-            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + getIndexes(facing, state)];
+            return this.getTextureFromState(state, facing);
         }
         if (i == 1 && facing == state.getValue(allFacings)){
-            return this == GTCXBlocks.dynamoHatch ? Ic2Icons.getTextures("dynamo_hatch_front_overlay")[0] : Ic2Icons.getTextures("machine_back_overlay")[0];
+            return this == GTCXBlocks.dynamoHatch ? Ic2Icons.getTextures("dynamo_hatch_front_overlay")[0] : this == GTCXBlocks.inputHatch ? Ic2Icons.getTextures("input_hatch_front_overlay")[0] : Ic2Icons.getTextures("output_hatch_front_overlay")[0];
         }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
+    }
+
+    @Override
+    public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
+        int cas = state.getValue(casing);
+        if (cas > 0){
+            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + getIndexes(side, state)];
+        }
+        return super.getTextureFromState(state, side);
     }
 
     @SideOnly(Side.CLIENT)
@@ -127,17 +134,11 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         }
         int result = 0;
         if (textureFacing.getAxis() == EnumFacing.Axis.Y){
-            int facingIndex = blockFacing.getHorizontalIndex() == -1 ? 0 : blockFacing.getHorizontalIndex();
             if (list.size() == 1){
-                switch (facingIndex){
-                    case 0 : return list.contains(EAST) ? 12 : list.contains(SOUTH) ? 13 + (offset * 2) : list.contains(WEST) ? 14 : 15 - (offset * 2);
-                    case 1 : return list.contains(NORTH) ? 14 : list.contains(EAST) ? 15 - (offset * 2) : list.contains(SOUTH) ? 12 : 13 + (offset * 2);
-                    case 2 : return list.contains(WEST) ? 12 : list.contains(NORTH) ? 13 + (offset * 2) : list.contains(EAST) ? 14 : 15 - (offset * 2);
-                    case 3 : return list.contains(SOUTH) ? 14 : list.contains(WEST) ? 15 - (offset * 2) : list.contains(NORTH) ? 12 : 13 + (offset * 2);
-                }
+                return list.contains(EAST) ? 12 : list.contains(SOUTH) ? 13 + (offset * 2) : list.contains(WEST) ? 14 : 15 - (offset * 2);
             }
             if (list.size() == 2 && ((!containsAxis(list, EnumFacing.Axis.X) && containsAxis(list, EnumFacing.Axis.Z)) || (!containsAxis(list, EnumFacing.Axis.Z) && containsAxis(list, EnumFacing.Axis.X)))){
-                return containsAxis(list, EnumFacing.Axis.X) ? (blockFacing.getAxis() == EnumFacing.Axis.X ? 1 : 0) : (blockFacing.getAxis() == EnumFacing.Axis.X ? 0 : 1);
+                return containsAxis(list, EnumFacing.Axis.X) ? 0 : 1;
             }
         }
         int additive = 0;
@@ -168,16 +169,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         if (textureFacing.getAxis() != EnumFacing.Axis.Y){
             return convert(textureFacing, facing) == 0 ? 1 : convert(textureFacing, facing) == 1 ? 2 : convert(textureFacing, facing) == 2 ? 3 + offset : 4 - offset;
         }
-        switch (blockFacing){
-            case DOWN:
-            case UP:
-            case SOUTH:
-                return convert(textureFacing, facing) == 3 ? 1 + offset : convert(textureFacing, facing) == 2 ? 2 - offset : convert(textureFacing, facing) == 1 ? 3 : 4;
-            case WEST: return convert(textureFacing, facing) == 0 ? 1 + offset : convert(textureFacing, facing) == 1 ? 2 - offset : convert(textureFacing, facing) == 2 ? 4 : 3;
-            case NORTH: return convert(textureFacing, facing) == 2 ? 1 + offset : convert(textureFacing, facing) == 3 ? 2 - offset : convert(textureFacing, facing) == 0 ? 3 : 4;
-            case EAST: return convert(textureFacing, facing) == 1 ? 1 + offset : convert(textureFacing, facing) == 0 ? 2 - offset : convert(textureFacing, facing) == 3 ? 4 : 3;
-            default: return 0;
-        }
+        return convert(textureFacing, facing) == 3 ? 1 + offset : convert(textureFacing, facing) == 2 ? 2 - offset : convert(textureFacing, facing) == 1 ? 3 : 4;
     }
 
     protected int getAdditive(EnumFacing textureFacing, EnumFacing facing, EnumFacing blockFacing){
@@ -185,16 +177,12 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         if (textureFacing.getAxis() != EnumFacing.Axis.Y){
             return convert(textureFacing, facing) == 0 ? 5 : convert(textureFacing, facing) == 1 ? 7 : convert(textureFacing, facing) == 2 ? 3 + offset : 4 - offset;
         }
-        switch (blockFacing){
-            case DOWN:
-            case UP:
-            case SOUTH:
-                return convert(textureFacing, facing) == 3 ? 5 + (offset * 2) : convert(textureFacing, facing) == 2 ? 7 - (offset * 2) : convert(textureFacing, facing) == 1 ? 3 : 4;
-            case WEST: return convert(textureFacing, facing) == 0 ? 5 + (offset * 2) : convert(textureFacing, facing) == 1 ? 7 - (offset * 2) : convert(textureFacing, facing) == 2 ? 4 : 3;
-            case NORTH: return convert(textureFacing, facing) == 2 ? 5 + (offset * 2) : convert(textureFacing, facing) == 3 ? 7 - (offset * 2) : convert(textureFacing, facing) == 0 ? 3 : 4;
-            case EAST: return convert(textureFacing, facing) == 1 ? 5 + (offset * 2) : convert(textureFacing, facing) == 0 ? 7 - (offset * 2) : convert(textureFacing, facing) == 3 ? 4 : 3;
-            default: return 0;
-        }
+        return convert(textureFacing, facing) == 3 ? 5 + (offset * 2) : convert(textureFacing, facing) == 2 ? 7 - (offset * 2) : convert(textureFacing, facing) == 1 ? 3 : 4;
+    }
+
+    @Override
+    public boolean hasRotation(IBlockState state) {
+        return false;
     }
 
     protected int convert(EnumFacing side, EnumFacing index)
@@ -235,18 +223,20 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        if (worldIn.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
-            ((IGTCasingBackgroundBlock)worldIn.getTileEntity(pos)).setCasing();
-            ((IGTCasingBackgroundBlock)worldIn.getTileEntity(pos)).setConfig();
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof IGTCasingBackgroundBlock){
+            ((IGTCasingBackgroundBlock)tile).setCasing();
+            ((IGTCasingBackgroundBlock)tile).setConfig();
         }
     }
 
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
-        if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
-            ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).setCasing();
-            ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).setConfig();
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IGTCasingBackgroundBlock){
+            ((IGTCasingBackgroundBlock)tile).setCasing();
+            ((IGTCasingBackgroundBlock)tile).setConfig();
         }
     }
 

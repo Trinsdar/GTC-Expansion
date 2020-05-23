@@ -25,7 +25,6 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -35,7 +34,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraft.util.EnumFacing.*;
+import static net.minecraft.util.EnumFacing.AxisDirection;
+import static net.minecraft.util.EnumFacing.DOWN;
+import static net.minecraft.util.EnumFacing.EAST;
+import static net.minecraft.util.EnumFacing.NORTH;
+import static net.minecraft.util.EnumFacing.SOUTH;
+import static net.minecraft.util.EnumFacing.UP;
+import static net.minecraft.util.EnumFacing.VALUES;
+import static net.minecraft.util.EnumFacing.WEST;
 
 public class GTCXBlockCasing extends GTBlockBaseMachine {
     public static PropertyInteger rotor = PropertyInteger.create("rotor", 0, 8);
@@ -80,32 +86,26 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
             return list.size() == 4 ? 6 : 7;
         }
         int offset = textureFacing.getAxisDirection() == AxisDirection.POSITIVE ? 0 : 1;
-        if (textureFacing.getAxis() != Axis.Y){
+        if (textureFacing.getAxis() != EnumFacing.Axis.Y){
             if (list.size() == 1){
-                return containsAxis(list, Axis.Y) ? (list.contains(UP) ? 15 : 13) : (list.contains(WEST) || list.contains(SOUTH) ? 14 - (offset * 2) : 12 + (offset * 2));
+                return containsAxis(list, EnumFacing.Axis.Y) ? (list.contains(UP) ? 15 : 13) : (list.contains(WEST) || list.contains(SOUTH) ? 14 - (offset * 2) : 12 + (offset * 2));
             }
             if (list.size() == 2){
-                if (!containsAxis(list, Axis.Y)){
+                if (!containsAxis(list, EnumFacing.Axis.Y)){
                     return 0;
                 }
-                if (!containsAxis(list, Axis.Z) && !containsAxis(list, Axis.X)){
+                if (!containsAxis(list, EnumFacing.Axis.Z) && !containsAxis(list, EnumFacing.Axis.X)){
                     return  1;
                 }
             }
         }
         int result = 0;
-        if (textureFacing.getAxis() == Axis.Y){
-            int facingIndex = blockFacing.getHorizontalIndex() == -1 ? 0 : blockFacing.getHorizontalIndex();
+        if (textureFacing.getAxis() == EnumFacing.Axis.Y){
             if (list.size() == 1){
-                switch (facingIndex){
-                    case 0 : return list.contains(EAST) ? 12 : list.contains(SOUTH) ? 13 + (offset * 2) : list.contains(WEST) ? 14 : 15 - (offset * 2);
-                    case 1 : return list.contains(NORTH) ? 14 : list.contains(EAST) ? 15 - (offset * 2) : list.contains(SOUTH) ? 12 : 13 + (offset * 2);
-                    case 2 : return list.contains(WEST) ? 12 : list.contains(NORTH) ? 13 + (offset * 2) : list.contains(EAST) ? 14 : 15 - (offset * 2);
-                    case 3 : return list.contains(SOUTH) ? 14 : list.contains(WEST) ? 15 - (offset * 2) : list.contains(NORTH) ? 12 : 13 + (offset * 2);
-                }
+                return list.contains(EAST) ? 12 : list.contains(SOUTH) ? 13 + (offset * 2) : list.contains(WEST) ? 14 : 15 - (offset * 2);
             }
-            if (list.size() == 2 && ((!containsAxis(list, Axis.X) && containsAxis(list, Axis.Z)) || (!containsAxis(list, Axis.Z) && containsAxis(list, Axis.X)))){
-                return containsAxis(list, Axis.X) ? (blockFacing.getAxis() == Axis.X ? 1 : 0) : (blockFacing.getAxis() == Axis.X ? 0 : 1);
+            if (list.size() == 2 && ((!containsAxis(list, EnumFacing.Axis.X) && containsAxis(list, EnumFacing.Axis.Z)) || (!containsAxis(list, EnumFacing.Axis.Z) && containsAxis(list, EnumFacing.Axis.X)))){
+                return containsAxis(list, EnumFacing.Axis.X) ? 0 : 1;
             }
         }
         int additive = 0;
@@ -122,7 +122,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         return result;
     }
 
-    protected boolean containsAxis(RotationList list, Axis axis){
+    protected boolean containsAxis(RotationList list, EnumFacing.Axis axis){
         switch (axis){
             case X: return list.contains(EAST) || list.contains(WEST);
             case Z: return list.contains(NORTH) || list.contains(SOUTH);
@@ -132,37 +132,24 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     }
 
     protected int getAdditiveWith3(EnumFacing textureFacing, EnumFacing facing, EnumFacing blockFacing){
-        int offset = textureFacing.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? 0 : 1;
+        int offset = textureFacing.getAxisDirection() == AxisDirection.POSITIVE ? 0 : 1;
         if (textureFacing.getAxis() != EnumFacing.Axis.Y){
             return convert(textureFacing, facing) == 0 ? 1 : convert(textureFacing, facing) == 1 ? 2 : convert(textureFacing, facing) == 2 ? 3 + offset : 4 - offset;
         }
-        switch (blockFacing){
-            case DOWN:
-            case UP:
-            case SOUTH:
-                return convert(textureFacing, facing) == 3 ? 1 + offset : convert(textureFacing, facing) == 2 ? 2 - offset : convert(textureFacing, facing) == 1 ? 3 : 4;
-            case WEST: return convert(textureFacing, facing) == 0 ? 1 + offset : convert(textureFacing, facing) == 1 ? 2 - offset : convert(textureFacing, facing) == 2 ? 4 : 3;
-            case NORTH: return convert(textureFacing, facing) == 2 ? 1 + offset : convert(textureFacing, facing) == 3 ? 2 - offset : convert(textureFacing, facing) == 0 ? 3 : 4;
-            case EAST: return convert(textureFacing, facing) == 1 ? 1 + offset : convert(textureFacing, facing) == 0 ? 2 - offset : convert(textureFacing, facing) == 3 ? 4 : 3;
-            default: return 0;
-        }
+        return convert(textureFacing, facing) == 3 ? 1 + offset : convert(textureFacing, facing) == 2 ? 2 - offset : convert(textureFacing, facing) == 1 ? 3 : 4;
     }
 
     protected int getAdditive(EnumFacing textureFacing, EnumFacing facing, EnumFacing blockFacing){
         int offset = textureFacing.getAxisDirection() == AxisDirection.POSITIVE ? 0 : 1;
-        if (textureFacing.getAxis() != Axis.Y){
+        if (textureFacing.getAxis() != EnumFacing.Axis.Y){
             return convert(textureFacing, facing) == 0 ? 5 : convert(textureFacing, facing) == 1 ? 7 : convert(textureFacing, facing) == 2 ? 3 + offset : 4 - offset;
         }
-        switch (blockFacing){
-            case DOWN:
-            case UP:
-            case SOUTH:
-                return convert(textureFacing, facing) == 3 ? 5 + (offset * 2) : convert(textureFacing, facing) == 2 ? 7 - (offset * 2) : convert(textureFacing, facing) == 1 ? 3 : 4;
-            case WEST: return convert(textureFacing, facing) == 0 ? 5 + (offset * 2) : convert(textureFacing, facing) == 1 ? 7 - (offset * 2) : convert(textureFacing, facing) == 2 ? 4 : 3;
-            case NORTH: return convert(textureFacing, facing) == 2 ? 5 + (offset * 2) : convert(textureFacing, facing) == 3 ? 7 - (offset * 2) : convert(textureFacing, facing) == 0 ? 3 : 4;
-            case EAST: return convert(textureFacing, facing) == 1 ? 5 + (offset * 2) : convert(textureFacing, facing) == 0 ? 7 - (offset * 2) : convert(textureFacing, facing) == 3 ? 4 : 3;
-            default: return 0;
-        }
+        return convert(textureFacing, facing) == 3 ? 5 + (offset * 2) : convert(textureFacing, facing) == 2 ? 7 - (offset * 2) : convert(textureFacing, facing) == 1 ? 3 : 4;
+    }
+
+    @Override
+    public boolean hasRotation(IBlockState state) {
+        return false;
     }
 
     protected int convert(EnumFacing side, EnumFacing index)
