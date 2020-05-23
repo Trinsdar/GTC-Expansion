@@ -59,6 +59,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
     protected boolean addedToEnergyNet;
     @NetworkField(index = 10)
     public int color;
+    private int prevColor = 0;
     /*@NetworkField(
             index = 11
     )
@@ -72,6 +73,7 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
             compression = BitLevel.Bit8
     )
     public int insulation;
+    private int prevInsulation = 0;
     private static final String NBT_COLOR = "color";
 
     public GTCXTileElectrumCable() {
@@ -131,6 +133,25 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
         nbt.setByte("Anchors", (byte)this.anchors.getCode());
         //this.storage.writeToNBT(this.getTag(nbt, "Storage"));
         return nbt;
+    }
+
+    @Override
+    public void onNetworkUpdate(String field) {
+        super.onNetworkUpdate(field);
+        if (orString(field,"insulation", "anchors", "color", "connection")) {
+            this.prevInsulation = this.insulation;
+            this.prevColor = this.color;
+            this.world.markBlockRangeForRenderUpdate(this.getPos(), this.getPos());
+        }
+    }
+
+    public boolean orString(String compare, String... strings){
+        for (String string : strings){
+            if (compare.equals(string)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /*public boolean changeFoam(byte foamed) {
@@ -337,14 +358,6 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
     }
 
     @Override
-    public void onNetworkUpdate(String field) {
-        if (field.equals("connection") || field.equals("anchors")) {
-            this.world.markBlockRangeForRenderUpdate(this.getPos(), this.getPos());
-        }
-        super.onNetworkUpdate(field);
-    }
-
-    @Override
     public void setTileColor(int color) {
         if (this.addedToEnergyNet) {
             MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
@@ -354,7 +367,11 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
         this.color = color;
         MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
         this.addedToEnergyNet = true;
-        this.getNetwork().updateTileEntityField(this, NBT_COLOR);
+        if (color != this.prevColor) {
+            this.getNetwork().updateTileEntityField(this, NBT_COLOR);
+        }
+        this.prevColor = color;
+
     }
 
     @Override
@@ -423,7 +440,10 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
         insulation += 1;
         MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
         this.addedToEnergyNet = true;
-        this.getNetwork().updateTileEntityField(this, "insulation");
+        if (insulation != this.prevInsulation) {
+            this.getNetwork().updateTileEntityField(this, "insulation");
+        }
+        this.prevInsulation = insulation;
         return true;
     }
 
@@ -443,7 +463,11 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
 
         MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
         this.addedToEnergyNet = true;
-        this.getNetwork().updateTileEntityField(this, "insulation");
+        if (insulation != this.prevInsulation) {
+            this.getNetwork().updateTileEntityField(this, "insulation");
+        }
+        this.prevInsulation = insulation;
+
         if (this.insulation == 0){
             setTileColor(GTMaterial.Electrum.getColor().getRGB());
         }
@@ -468,7 +492,10 @@ public class GTCXTileElectrumCable extends TileEntityBlock implements IEnergyCon
 
         MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
         this.addedToEnergyNet = true;
-        this.getNetwork().updateTileEntityField(this, "insulation");
+        if (insulation != this.prevInsulation) {
+            this.getNetwork().updateTileEntityField(this, "insulation");
+        }
+        this.prevInsulation = insulation;
         return true;
     }
 

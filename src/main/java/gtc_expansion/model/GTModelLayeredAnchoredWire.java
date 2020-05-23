@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class GTModelLayeredAnchoredWire extends BaseModel {
 
-    List<BakedQuad>[][] quads; // All possible connection configurations
+    List<BakedQuad>[] quads; // All possible connection configurations
     List<BakedQuad>[] anchorQuads = this.createList(64); // All possible anchor configurations
     @SuppressWarnings({ "unchecked", "rawtypes" })
     Map<Integer, List<BakedQuad>> comboQuads = new HashMap();// A sum of the above quad lists
@@ -54,7 +54,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
     public void init() {
         GTBlockBaseConnect wire = (GTBlockBaseConnect) this.state.getBlock();
         int layers = this.state.getBlock() instanceof ILayeredBlockModel ? ((ILayeredBlockModel)state.getBlock()).getLayers(state) : 1;
-        quads = this.createLayers(layers, 64);
+        quads = this.createList(64);
         this.setParticalTexture(wire.getParticleTexture(this.state));
         int min = this.sizes[0];// low size
         int max = this.sizes[1];// high size
@@ -74,7 +74,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
 
             for (int j = 0; j < 64; ++j) {
                 RotationList rotation = RotationList.ofNumber(j);
-                List<BakedQuad> quadList = this.quads[h][j];
+                List<BakedQuad> quadList = this.quads[j];
                 Iterator rotations = rotation.iterator();
                 EnumFacing side;
                 while (rotations.hasNext()) {
@@ -101,25 +101,19 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
             if (!(state instanceof IC2BlockState)) {
                 // if its in jei/creative tab it will default to the int passed below, 12 =
                 // (4+8) (north+south)
-                return this.quads[0][12];
+                return this.quads[12];
             } else {
                 Vec3i vec = ((IC2BlockState) state).getData();
                 if (vec.getY() > 0) {
                     List<BakedQuad> list = this.comboQuads.get(vec.getZ());
                     if (list == null) {
-                        list = new ArrayList(this.quads[0][vec.getX()]);
-                        int layers = state.getBlock() instanceof ILayeredBlockModel ? ((ILayeredBlockModel)state.getBlock()).getLayers(state) : 1;
-                        if (layers > 1){
-                            for (int i = 1; i < layers; i++){
-                                list.addAll(this.quads[i][vec.getX()]);
-                            }
-                        }
+                        list = new ArrayList(this.quads[vec.getX()]);
                         list.addAll(this.anchorQuads[vec.getY()]);
                         this.comboQuads.put(vec.getZ(), list);
                     }
                     return list;
                 } else {
-                    return this.quads[0][vec.getX()];
+                    return this.quads[vec.getX()];
                 }
             }
         } else {
