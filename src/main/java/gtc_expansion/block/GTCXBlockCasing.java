@@ -5,10 +5,14 @@ import gtc_expansion.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
+import gtclassic.api.model.GTModelOre;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
+import ic2.core.platform.textures.models.BaseModel;
+import ic2.core.platform.textures.obj.ICustomModeledBlock;
+import ic2.core.platform.textures.obj.ILayeredBlockModel;
 import ic2.core.util.helpers.BlockStateContainerIC2;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -25,7 +29,9 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -44,7 +50,7 @@ import static net.minecraft.util.EnumFacing.UP;
 import static net.minecraft.util.EnumFacing.VALUES;
 import static net.minecraft.util.EnumFacing.WEST;
 
-public class GTCXBlockCasing extends GTBlockBaseMachine {
+public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlockModel, ICustomModeledBlock {
     public static PropertyInteger rotor = PropertyInteger.create("rotor", 0, 8);
     public static PropertyInteger config = PropertyInteger.create("config", 0, 63);
     int index;
@@ -67,15 +73,6 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing enumFacing) {
-        if (this == GTCXBlocks.casingStandard){
-            EnumFacing facing = state.getValue(allFacings);
-            if (state.getValue(rotor) > 0 && facing == enumFacing){
-                return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
-            } else {
-                return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[getIndexes(enumFacing, state)];
-
-            }
-        }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 16) + getIndexes(enumFacing, state)];
     }
 
@@ -194,6 +191,49 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
     }
 
     @Override
+    public boolean isLayered(IBlockState iBlockState) {
+        return true;
+    }
+
+    @Override
+    public int getLayers(IBlockState iBlockState) {
+        return 2;
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBox(IBlockState iBlockState, int i) {
+        return FULL_BLOCK_AABB;
+    }
+
+    @Override
+    public TextureAtlasSprite getLayerTexture(IBlockState state, EnumFacing facing, int i) {
+        if (i == 0){
+            return this.getTextureFromState(state, facing);
+        }
+        if (i == 1 && facing == state.getValue(allFacings) && state.getValue(rotor) > 0 && this == GTCXBlocks.casingStandard){
+            return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
+        }
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BaseModel getModelFromState(IBlockState state) {
+        return new GTModelOre(this, state);
+    }
+
+    @Override
+    public List<IBlockState> getValidModelStates() {
+        return this.getBlockState().getValidStates();
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.CUTOUT_MIPPED;
+    }
+
+    @Override
     public TileEntityBlock createNewTileEntity(World world, int i) {
         return new GTCXTileCasing();
     }
@@ -297,9 +337,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine {
         TileEntity tile = worldIn.getTileEntity(pos);
         if (tile instanceof GTCXTileCasing){
             ((GTCXTileCasing)tile).setNeighborMap(this);
-//            if (this == GTCXBlocks.casingStandard){
-//                ((GTCXTileCasing)worldIn.getTileEntity(pos)).setRotor(this);
-//            }
+            if (this == GTCXBlocks.casingStandard){
+                ((GTCXTileCasing)tile).setRotor(this);
+            }
         }
     }
 
