@@ -9,6 +9,7 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
@@ -226,7 +227,24 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             }
             this.getNetwork().updateTileGuiField(this, "heat");
         }
+        GTUtility.exportFluidFromMachineToSide(this, outputTank, right(), 1000);
 
+    }
+
+    public EnumFacing left(){
+        try { // for load cases
+            return this.getFacing().rotateY();
+        } catch (IllegalStateException e){
+            return this.getFacing();
+        }
+    }
+
+    public EnumFacing right(){
+        try { // for load cases
+            return this.getFacing().rotateYCCW();
+        } catch (IllegalStateException e){
+            return this.getFacing();
+        }
     }
 
     @Override

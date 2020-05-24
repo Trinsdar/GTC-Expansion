@@ -233,35 +233,19 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     }
 
     public EnumFacing left(){
-        if (this.getFacing() == EnumFacing.NORTH){
-            return EnumFacing.EAST;
+        try { // for load cases
+            return this.getFacing().rotateY();
+        } catch (IllegalStateException e){
+            return this.getFacing();
         }
-        if (this.getFacing() == EnumFacing.WEST){
-            return EnumFacing.NORTH;
-        }
-        if (this.getFacing() == EnumFacing.SOUTH){
-            return EnumFacing.WEST;
-        }
-        if (this.getFacing() == EnumFacing.EAST){
-            return EnumFacing.SOUTH;
-        }
-        return this.getFacing();
     }
 
     public EnumFacing right(){
-        if (this.getFacing() == EnumFacing.NORTH){
-            return EnumFacing.WEST;
+        try { // for load cases
+            return this.getFacing().rotateYCCW();
+        } catch (IllegalStateException e){
+            return this.getFacing();
         }
-        if (this.getFacing() == EnumFacing.WEST){
-            return EnumFacing.SOUTH;
-        }
-        if (this.getFacing() == EnumFacing.SOUTH){
-            return EnumFacing.EAST;
-        }
-        if (this.getFacing() == EnumFacing.EAST){
-            return EnumFacing.NORTH;
-        }
-        return this.getFacing();
     }
 
     @Override

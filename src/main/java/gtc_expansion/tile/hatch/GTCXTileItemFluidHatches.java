@@ -31,10 +31,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
@@ -157,7 +155,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         if (tickSkipper <= 0){
             if (input) {
                 GTUtility.importFromSideIntoMachine(this, this.getFacing());
-                importFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+                GTUtility.importFluidFromSideToMachine(this, tank, this.getFacing(), 1000);
             } else {
                 GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
                 GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
@@ -174,28 +172,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     public void skip5Ticks(){
         tickSkipper = 5;
-    }
-
-    /**
-     * Export a FluidStack from a TileEntityMachine tank to another tile.
-     *
-     * @param machine - The TileEntityMachine which has the tank, provides World and
-     *                BlockPos data.
-     * @param tank    - the IC2Tank to try to import to.
-     * @param side    - the EnumFacing to try to export fluids out of.
-     * @param amount  - the amount of fluid to transfer
-     */
-    public static void importFluidFromMachineToSide(TileEntityMachine machine, IC2Tank tank, EnumFacing side,
-                                                    int amount) {
-        BlockPos importPos = machine.getPos().offset(side);
-        if (!machine.getWorld().isBlockLoaded(importPos)) {
-            return;
-        }
-        IFluidHandler fluidTile = FluidUtil.getFluidHandler(machine.getWorld(), importPos, side.getOpposite());
-        boolean canImport = (tank.getFluidAmount() == 0 || tank.getFluid() != null) && fluidTile != null;
-        if (canImport) {
-            FluidUtil.tryFluidTransfer(tank, fluidTile, amount, true);
-        }
     }
 
     @Override

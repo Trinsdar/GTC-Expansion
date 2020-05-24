@@ -8,6 +8,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.util.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.material.GTMaterial;
@@ -206,6 +207,12 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
         return new GTCXContainerFluidCaster(entityPlayer.inventory, this);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        GTUtility.importFluidFromSideToMachine(this, inputTank, left(), 1000);
     }
 
     @Override
@@ -489,36 +496,20 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         return list;
     }
 
-    public EnumFacing right(){
-        if (this.getFacing() == EnumFacing.NORTH){
-            return EnumFacing.EAST;
+    public EnumFacing left(){
+        try { // for load cases
+            return this.getFacing().rotateY();
+        } catch (IllegalStateException e){
+            return this.getFacing();
         }
-        if (this.getFacing() == EnumFacing.WEST){
-            return EnumFacing.NORTH;
-        }
-        if (this.getFacing() == EnumFacing.SOUTH){
-            return EnumFacing.WEST;
-        }
-        if (this.getFacing() == EnumFacing.EAST){
-            return EnumFacing.SOUTH;
-        }
-        return this.getFacing();
     }
 
-    public EnumFacing left(){
-        if (this.getFacing() == EnumFacing.NORTH){
-            return EnumFacing.WEST;
+    public EnumFacing right(){
+        try { // for load cases
+            return this.getFacing().rotateYCCW();
+        } catch (IllegalStateException e){
+            return this.getFacing();
         }
-        if (this.getFacing() == EnumFacing.WEST){
-            return EnumFacing.SOUTH;
-        }
-        if (this.getFacing() == EnumFacing.SOUTH){
-            return EnumFacing.EAST;
-        }
-        if (this.getFacing() == EnumFacing.EAST){
-            return EnumFacing.NORTH;
-        }
-        return this.getFacing();
     }
 
     @Override
