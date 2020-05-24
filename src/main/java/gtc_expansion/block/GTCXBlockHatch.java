@@ -91,7 +91,8 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         if (cas > 0){
             return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + getIndexes(side, state)];
         }
-        return super.getTextureFromState(state, side);
+        int index = side == DOWN ? 0 : side == UP ? 1 : 2;
+        return Ic2Icons.getTextures("gtclassic_terrain")[index];
     }
 
     @SideOnly(Side.CLIENT)
