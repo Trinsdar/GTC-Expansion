@@ -1,5 +1,6 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
@@ -7,8 +8,12 @@ import gtc_expansion.util.IGTCasingBackgroundBlock;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;
+import ic2.api.network.INetworkClientTileEntityEventListener;
+import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.core.block.base.tile.TileEntityBlock;
 import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -16,7 +21,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Map;
 
-public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile {
+public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile, INetworkTileEntityEventListener, INetworkClientTileEntityEventListener {
     @NetworkField(
             index = 3
     )
@@ -81,7 +86,16 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
         return false;
     }
 
+    Block block = Blocks.AIR;
+
     public void setRotor(Block block){
+        this.block = block;
+        getNetwork().initiateClientTileEntityEvent(this, 1);
+    }
+
+
+    public void setRotors(Block block){
+        GTCExpansion.logger.info("Setting Rotors");
         if (block == GTCXBlocks.casingStandard){
             int3 original = new int3(getPos(), getFacing());
             int3 dir = new int3(getPos(), getFacing());
@@ -104,6 +118,11 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
             } else {
                 rotor = 0;
             }
+            if (rotor != this.prevRotor) {
+                this.getNetwork().updateTileEntityField(this, "rotor");
+            }
+
+            this.prevRotor = rotor;
         }
     }
 
@@ -130,5 +149,22 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
 
     public int getConfig() {
         return config;
+    }
+
+    @Override
+    public void onNetworkEvent(int i) {
+        if (i < 6){
+            getNetwork().initiateClientTileEntityEvent(this, i);
+        }
+    }
+
+    @Override
+    public void onNetworkEvent(EntityPlayer entityPlayer, int i) {
+        if (i < 5){
+            getNetwork().initiateTileEntityEvent(this, i + 1, false);
+        }
+        if (i == 5){
+            setRotors(this.block);
+        }
     }
 }

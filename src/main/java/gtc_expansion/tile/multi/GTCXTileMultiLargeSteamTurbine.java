@@ -9,6 +9,8 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
+import ic2.api.network.INetworkClientTileEntityEventListener;
+import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
@@ -19,10 +21,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus {
+public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -69,6 +72,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public void onBlockRemoved() {
         removeRing(new int3(getPos(), getFacing()));
+    }
+
+    public void onBlockPlaced(){
+        getNetwork().initiateClientTileEntityEvent(this, 1);
     }
 
     public void writeBlockPosToNBT(NBTTagCompound nbt, String id, BlockPos pos){
@@ -170,8 +177,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     }
 
     public void setCasingActive(int3 dir, boolean active){
-        if (world.getTileEntity(dir.asBlockPos()) instanceof GTCXTileCasing){
-            GTCXTileCasing casing = (GTCXTileCasing)world.getTileEntity(dir.asBlockPos());
+        TileEntity tile = world.getTileEntity(dir.asBlockPos());
+        if (tile instanceof GTCXTileCasing){
+            GTCXTileCasing casing = (GTCXTileCasing) tile;
             if (casing.getActive() != active){
                 casing.setActive(active);
             }
@@ -350,6 +358,18 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         removeStandardCasingWithSpecial(dir.up(1));
     }
 
+    public void addRing(){
+        int3 dir = new int3(this.pos, this.getFacing());
+        setStandardCasingWithSpecial(dir.up(1), 2);
+        setStandardCasingWithSpecial(dir.right(1), 3);
+        setStandardCasingWithSpecial(dir.down(1), 5);
+        setStandardCasingWithSpecial(dir.down(1), 8);
+        setStandardCasingWithSpecial(dir.left(1), 7);
+        setStandardCasingWithSpecial(dir.left(1), 6);
+        setStandardCasingWithSpecial(dir.up(1), 4);
+        setStandardCasingWithSpecial(dir.up(1), 1);
+    }
+
     public boolean isStandardCasing(int3 pos) {
         return world.getBlockState(pos.asBlockPos()) == standardCasingState;
     }
@@ -357,8 +377,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public boolean isStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            if (world.getTileEntity(pos.asBlockPos()) instanceof GTCXTileCasing){
-                GTCXTileCasing  casing = (GTCXTileCasing) world.getTileEntity(pos.asBlockPos());
+            TileEntity tile = world.getTileEntity(pos.asBlockPos());
+            if (tile instanceof GTCXTileCasing){
+                GTCXTileCasing  casing = (GTCXTileCasing) tile;
                 casing.setFacing(this.getFacing());
                 casing.setRotor(position);
             }
@@ -367,11 +388,24 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return false;
     }
 
+    public void setStandardCasingWithSpecial(int3 pos, int position) {
+        IBlockState state = world.getBlockState(pos.asBlockPos());
+        if (state == standardCasingState){
+            TileEntity tile = world.getTileEntity(pos.asBlockPos());
+            if (tile instanceof GTCXTileCasing){
+                GTCXTileCasing  casing = (GTCXTileCasing) tile;
+                casing.setFacing(this.getFacing());
+                casing.setRotor(position);
+            }
+        }
+    }
+
     public void removeStandardCasingWithSpecial(int3 pos) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            if (world.getTileEntity(pos.asBlockPos()) instanceof GTCXTileCasing){
-                ((GTCXTileCasing) world.getTileEntity(pos.asBlockPos())).setRotor(0);
+            TileEntity tile = world.getTileEntity(pos.asBlockPos());
+            if (tile instanceof GTCXTileCasing){
+                ((GTCXTileCasing) tile).setRotor(0);
             }
         }
     }
@@ -394,5 +428,22 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onNetworkEvent(int i) {
+        if (i < 6){
+            getNetwork().initiateClientTileEntityEvent(this, i);
+        }
+    }
+
+    @Override
+    public void onNetworkEvent(EntityPlayer entityPlayer, int i) {
+        if (i < 5){
+            getNetwork().initiateTileEntityEvent(this, i + 1, false);
+        }
+        if (i == 5){
+            addRing();
+        }
     }
 }

@@ -198,8 +198,10 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
 
     @Override
     public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-        if (this == GTCXBlocks.largeSteamTurbine && world.getTileEntity(pos) instanceof GTCXTileMultiLargeSteamTurbine){
-            GTCXTileMultiLargeSteamTurbine turbine = (GTCXTileMultiLargeSteamTurbine) world.getTileEntity(pos);
+        super.onBlockHarvested(world, pos, state, player);
+        TileEntity tile = world.getTileEntity(pos);
+        if (this == GTCXBlocks.largeSteamTurbine && tile instanceof GTCXTileMultiLargeSteamTurbine){
+            GTCXTileMultiLargeSteamTurbine turbine = (GTCXTileMultiLargeSteamTurbine) tile;
             turbine.onBlockRemoved();
         }
     }
@@ -209,20 +211,21 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
                                 ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         TileEntity tile = worldIn.getTileEntity(pos);
+        if (this == GTCXBlocks.largeSteamTurbine){
+            if (tile instanceof GTCXTileMultiLargeSteamTurbine){
+                ((GTCXTileMultiLargeSteamTurbine)tile).onBlockPlaced();
+            }
+        }
         if (this.hasVertical() && !IC2.platform.isRendering()) {
             if (tile instanceof TileEntityBlock) {
                 TileEntityBlock block = (TileEntityBlock) tile;
-                if (placer == null) {
-                    block.setFacing(EnumFacing.NORTH);
+                int pitch = Math.round(placer.rotationPitch);
+                if (pitch >= 65) {
+                    block.setFacing(EnumFacing.UP);
+                } else if (pitch <= -65) {
+                    block.setFacing(EnumFacing.DOWN);
                 } else {
-                    int pitch = Math.round(placer.rotationPitch);
-                    if (pitch >= 65) {
-                        block.setFacing(EnumFacing.UP);
-                    } else if (pitch <= -65) {
-                        block.setFacing(EnumFacing.DOWN);
-                    } else {
-                        block.setFacing(EnumFacing.fromAngle((double) placer.rotationYaw).getOpposite());
-                    }
+                    block.setFacing(EnumFacing.fromAngle((double) placer.rotationYaw).getOpposite());
                 }
             }
         }
