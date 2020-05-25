@@ -375,7 +375,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         /** Recipes from GT2 **/
         addRecipe("dustClay", 7, 2, totalEu(20000), GTMaterialGen.getDust(GTMaterial.Lithium, 1), GTMaterialGen.getDust(GTMaterial.Silicon, 2), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getTube(GTMaterial.Sodium, 2));
         addRecipe("dustSaltpeter", 10, 7, totalEu(5500), GTMaterialGen.getTube(GTMaterial.Potassium, 2), GTMaterialGen.getTube(GTMaterial.Nitrogen, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 3));
-        addRecipe("dustCinnabar", 4, 2, totalEu(12800), GTMaterialGen.getTube(GTMaterial.Mercury, 2), GTMaterialGen.getDust(GTMaterial.Sulfur, 2));
+        addRecipe("dustCinnabar", 4, 2, totalEu(117760), GTMaterialGen.getTube(GTMaterial.Mercury, 2), GTMaterialGen.getDust(GTMaterial.Sulfur, 2));
         addRecipe("dustSphalerite", 4, 0, totalEu(15000), GTMaterialGen.getDust(GTCXMaterial.Zinc, 2), GTMaterialGen.getDust(GTMaterial.Sulfur, 2));
         addRecipe("dustOlivine", 9, 2, totalEu(36000), GTMaterialGen.getDust(GTCXMaterial.Magnesium, 2), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getIc2(Ic2Items.ironDust, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
         addRecipe("dustGalena", 2, 0, totalEu(120000), GTCXMaterialGen.getSmallDust(GTCXMaterial.Silver, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Lead, 3), GTCXMaterialGen.getSmallDust(GTMaterial.Sulfur, 2));
