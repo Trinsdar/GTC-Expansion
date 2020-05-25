@@ -158,6 +158,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine {
         addRecipe(new IRecipeInput[]{input(GTValues.BLOCK_COAL, 1), input(GTMaterialGen.get(GTItems.fuelBinder, 2)), input(GTMaterialGen.getTube(GTMaterial.Fuel, 1))}, totalEu(6400), GTMaterialGen.get(GTBlocks.superFuel), GTMaterialGen.get(GTItems.testTube));
         IRecipeInput dusts = GTRecipeCraftingHandler.combineRecipeObjects("dustEmerald", "dustSapphire", "dustThorium");
         addRecipe(new IRecipeInput[]{input(GTMaterialGen.get(GTBlocks.superFuel)), input(GTMaterialGen.get(GTItems.fuelBinderMagic, 3)), }, totalEu(6400), GTMaterialGen.get(GTBlocks.superFuelMagic));
+        addRecipe(input("dustCalcite", 1), input("dustPhosphorus", 1), 3200, GTMaterialGen.getIc2(Ic2Items.fertilizer, 3));
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack... output) {
