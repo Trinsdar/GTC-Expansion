@@ -106,6 +106,10 @@ public class GTCXRecipeProcessing {
         GTTileCentrifuge.addRecipe("dustConstantan", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 2));
         GTTileCentrifuge.addRecipe("dustTetrahedrite", 8, 0, totalCentrifugeEu(58240), GTMaterialGen.getIc2(Ic2Items.copperDust, 3), GTMaterialGen.getDust(GTCXMaterial.Antimony, 1), GTMaterialGen.getDust(GTMaterial.Sulfur, 3));
         GTTileCentrifuge.addRecipe("dustBatteryAlloy", 5, 0, totalCentrifugeEu(37800), GTMaterialGen.getDust(GTCXMaterial.Antimony, 1), GTMaterialGen.getDust(GTCXMaterial.Lead, 4));
+        GTTileCentrifuge.addRecipe("dustMagnalium", 3, 0, totalCentrifugeEu(9600), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getDust(GTCXMaterial.Magnesium, 1));
+        GTTileCentrifuge.addRecipe("dustKanthal", 3, 0, totalCentrifugeEu(16640), GTMaterialGen.getDust(GTMaterial.Aluminium, 1), GTMaterialGen.getDust(GTMaterial.Chrome, 1), Ic2Items.ironDust.copy());
+        GTTileCentrifuge.addRecipe("dustTungstensteel", 2, 0, totalCentrifugeEu(30400), GTMaterialGen.getDust(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTMaterial.Tungsten, 1));
+        GTTileCentrifuge.addRecipe("dustNichrome", 5, 0, totalCentrifugeEu(35840), GTMaterialGen.getDust(GTMaterial.Nickel, 4), GTMaterialGen.getDust(GTMaterial.Chrome, 1));
     }
 
     public static void removals() {

@@ -395,6 +395,8 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         addRecipe(GTMaterialGen.getTube(GTMaterial.Methane, 5), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getDust(GTMaterial.Carbon, 1), GTMaterialGen.get(GTItems.testTube));
         addRecipe(GTMaterialGen.getTube(GTCXMaterial.SodiumSulfide, 2), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Sodium, 1), GTMaterialGen.getDust(GTMaterial.Sulfur, 1), GTMaterialGen.get(GTItems.testTube));
         addRecipe(GTMaterialGen.getIc2(Ic2Items.airCell, 16), 16, totalEu(1000000), GTMaterialGen.getIc2(Ic2Items.emptyCell, 16), GTMaterialGen.getTube(GTMaterial.Nitrogen, 9), GTMaterialGen.getTube(GTMaterial.Oxygen, 4), GTMaterialGen.getTube(GTMaterial.Helium, 1), GTMaterialGen.getTube(GTMaterial.Neon, 1), GTMaterialGen.getTube(GTMaterial.Argon, 1));
+        addRecipe("dustSteel", 50, 0, totalEu(83200), GTMaterialGen.getIc2(Ic2Items.ironDust, 50), GTMaterialGen.getDust(GTMaterial.Carbon, 1));
+        addRecipe("dustStainlessSteel", 9, 0, totalEu(14080), GTMaterialGen.getIc2(Ic2Items.ironDust, 6), GTMaterialGen.getDust(GTMaterial.Chrome, 1), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTMaterialGen.getDust(GTCXMaterial.Manganese, 1));
 
         /** New Recipes I added **/
         addRecipe(GTMaterialGen.get(Items.QUARTZ, 1), 2, totalEu(8000), GTMaterialGen.getDust(GTMaterial.Silicon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
