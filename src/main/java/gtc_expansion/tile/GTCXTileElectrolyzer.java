@@ -282,12 +282,12 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+        return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing!= null) || super.hasCapability(capability, facing);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null
                 ? CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.tank)
                 : super.getCapability(capability, facing);
     }

@@ -405,13 +405,13 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+        return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing!= null) || super.hasCapability(capability, facing);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing!= null){
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank);
         }
         return super.getCapability(capability, facing);
