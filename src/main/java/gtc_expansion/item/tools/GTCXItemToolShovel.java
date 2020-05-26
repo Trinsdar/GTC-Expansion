@@ -1,6 +1,7 @@
 package gtc_expansion.item.tools;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
@@ -19,7 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class GTCXItemToolShovel extends ItemSpade
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        return this.material != GTMaterial.Flint && super.hasEffect(stack);
+        return GTCXConfiguration.client.enableGTCXToolGlow && (this.material != GTMaterial.Flint && super.hasEffect(stack));
     }
 
     @Override

@@ -70,6 +70,12 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack stack) {
+        return false;
+    }
+
+    @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
         return Color.CYAN.hashCode();
     }
