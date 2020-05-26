@@ -141,4 +141,12 @@ public class GTCXConfiguration {
         public boolean compatGravisuit = true;
         public boolean compatRailcraft = true;
     }
+
+    @Comment("Client side config options")
+    public static Client client = new Client();
+
+    public static class Client{
+
+        public boolean enableGTCXToolGlow = true;
+    }
 }
