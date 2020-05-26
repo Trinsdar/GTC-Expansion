@@ -1,14 +1,14 @@
 [
 {
   "modid": "gtc_expansion",
-  "name": "GregTech Classic Expansion",
-  "description": "an experiment with Forge 1.12.2.",
+  "name": "GTC Expansion",
+  "description": "An addon to GT Classic implementing gt4 features",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["e99999, trinsdar"],
-  "credits": "e99999, trinsdar, muramasa, speiger for making ic2 classic, Gregorious T for making the GT",
+  "authorList": ["trinsdar"],
+  "credits": "e99999, muramasa, speiger for making ic2 classic, Gregorious T for making GT",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
