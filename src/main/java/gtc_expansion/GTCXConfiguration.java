@@ -147,6 +147,7 @@ public class GTCXConfiguration {
 
     public static class Client{
 
+        @Comment("Enables glow from enchants on gtcx regular tools (so sword, axe, ect.)")
         public boolean enableGTCXToolGlow = true;
     }
 }
