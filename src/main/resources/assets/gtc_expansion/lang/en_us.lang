@@ -73,6 +73,7 @@ tile.gtc_expansion.locker.name=Locker
 tile.gtc_expansion.electriclocker.name=Electric Locker
 tile.gtc_expansion.advancedworktable.name=Advanced Worktable
 tile.gtc_expansion.dustbin.name=Dust Bin
+tile.gtc_expansion.destructo_block.name=Destructo Block
 tile.gtc_expansion.standard_casing.name=Standard Machine Casing
 tile.gtc_expansion.reinforced_casing.name=Reinforced Machine Casing
 tile.gtc_expansion.advanced_casing.name=Advanced Machine Casing
