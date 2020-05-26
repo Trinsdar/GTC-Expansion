@@ -49,11 +49,7 @@ public class GTCXItemIntegratedCircuit extends Item implements IStaticTexturedIt
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         NBTTagCompound nbt;
         nbt = StackUtil.getNbtData(stack);
-        if (nbt.hasKey("mode")) {
-            tooltip.add(I18n.format("Mode: " + nbt.getInteger("mode")));
-        } else {
-            tooltip.add(I18n.format("Mode: 0"));
-        }
+        tooltip.add(I18n.format("Mode: " + stack.getMetadata()));
         tooltip.add(I18n.format("Helps machines distingquish recipes sub sets"));
         tooltip.add(I18n.format("Right click to cycle"));
     }
