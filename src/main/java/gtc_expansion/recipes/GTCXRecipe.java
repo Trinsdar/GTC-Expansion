@@ -398,7 +398,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dieselGenerator), "PPP", "P P", "CGC", 'P', materialMachine, 'C', "circuitBasic", 'G', Ic2Items.generator);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.gasTurbine), "PCP", "WGW", "PCP", 'P', materialInvarAluminium, 'C', "circuitAdvanced", 'W', Ic2Items.windMill, 'G', reinforcedGlass);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.thermalBoiler), "TcT", "GCG", "TcT", 'T', Ic2Items.thermalGenerator, 'c', GTBlocks.tileCentrifuge, 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearTitanium", "gearTungstensteel"), 'C', GTValues.CIRCUIT_MASTER);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.largeSteamTurbine), "GGG", "gMg", "GCG", 'G', GTCXBlocks.gasTurbine, 'g', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'M', GTValues.MACHINE_BASIC, 'C', GTValues.CIRCUIT_ADVANCED);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.largeSteamTurbine), "GGG", "gMg", "GCG", 'G', Ic2Items.basicTurbine.copy(), 'g', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'M', GTValues.MACHINE_BASIC, 'C', GTValues.CIRCUIT_ADVANCED);
         IRecipeInput aluiron = new RecipeInputCombined(1, input(refinedIron), aluminium);
         IRecipeInput rodAluiron = new RecipeInputCombined(1, input("rodAluminium"), input("rodAluminum"),  input("rodRefinedIron"));
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.locker), "RLR", "LCL", "PMP", colorTransfer(GTMaterialGen.get(GTBlocks.tileCabinet)), 'R', rodAluiron, 'L', Items.LEATHER, 'C', GTBlocks.tileCabinet, 'P', aluiron, 'M', "machineBlockCheap");
