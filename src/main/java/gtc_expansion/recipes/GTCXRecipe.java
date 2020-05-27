@@ -361,7 +361,7 @@ public class GTCXRecipe {
         ((ForgeRegistry)ForgeRegistries.RECIPES).remove(new ResourceLocation("minecraft", "hopper"));
         ((ForgeRegistry)ForgeRegistries.RECIPES).remove(new ResourceLocation("quark", "hopper"));
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.hopper_-82413824");
-        recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
+        recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
         String nickel = pre + "Nickel";
         String silver = pre + "Silver";
         String iron = pre + "Iron";
