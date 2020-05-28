@@ -424,7 +424,7 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, lead);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
         IRecipeInput ashes = new RecipeInputCombined(1, input("dustAshes"), input("dustAsh"));
-        recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "GTValues.INGOT_REFINEDIRON", ashes);
+        recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "ingotRefinedIron", ashes);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.magicDye), "dyeCyan", "dyeMagenta", "dyeYellow", "dyeBlack");
     }
 
