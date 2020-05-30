@@ -437,9 +437,7 @@ public class GTCXRecipe {
         if (IC2.config.getFlag("CraftingNuke")){
             recipes.overrideRecipe("shaped_tile.blocknuke_-814805840", Ic2Items.nuke, "UCU", "BAB", "UCU", 'U', Ic2Items.reactorReEnrichedUraniumRod, 'C', "circuitAdvanced", 'B', "blockUranium", 'A', "machineBlockAdvanced");
         }
-        if (IC2.config.getFlag("SteelRecipes")){
-            recipes.overrideRecipe("shaped_item.itemingotadviron_845672146", GTMaterialGen.getIngot(GTCXMaterial.Steel, 8), "M", 'M', Ic2Items.machine);
-        }
+        GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.itemingotadviron_845672146");
         if (GTConfig.general.harderIC2Macerator) {
             recipes.overrideRecipe("shaped_tile.blockStoneMacerator_-130868445", Ic2Items.stoneMacerator.copy(), "FDF", "DPD", "FBF", 'D', "gemDiamond", 'F', Items.FLINT, 'P', Blocks.PISTON, 'B',
                     Blocks.FURNACE);

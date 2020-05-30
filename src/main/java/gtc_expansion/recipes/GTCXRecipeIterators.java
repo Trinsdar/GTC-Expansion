@@ -21,7 +21,6 @@ import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
-import ic2.core.IC2;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.item.recipe.entry.RecipeInputCombined;
@@ -34,6 +33,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -323,21 +323,18 @@ public class GTCXRecipeIterators {
     public static void createHullRecipe(GTMaterial mat) {
         String ingot = "ingot" + mat.getDisplayName();
         String plate = "plate" + mat.getDisplayName();
-        boolean steel = false;
         boolean refinedIron = true;
-        if (mat.equals(GTCXMaterial.Steel)){
-            steel = IC2.config.getFlag("SteelRecipes");
-        }
         if (mat.equals(GTCXMaterial.RefinedIron)){
-            refinedIron = IC2.config.getFlag("SteelRecipes");
+            refinedIron = false;
         }
-        if (mat.hasFlag(GTCXMaterial.hull) && mat.hasFlag(GTCXMaterial.plate) && !steel && refinedIron) {
+        if (mat.hasFlag(GTCXMaterial.hull) && mat.hasFlag(GTCXMaterial.plate) && refinedIron) {
             // Hull crafting recipe
             IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("craftingToolWrench") : null;
             String material = GTCXConfiguration.general.usePlates ? plate : ingot;
             recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "PWP", "PPP", 'P', material, 'W', wrench);
             //Ingots from hulls
-            recipes.addShapelessRecipe(GTMaterialGen.getIngot(mat, 8), GTCXMaterialGen.getHull(mat, 1));
+            ItemStack ingotStack = mat.equals(GTCXMaterial.Bronze) ? GTMaterialGen.getIc2(Ic2Items.bronzeIngot, 6) : GTMaterialGen.getIngot(mat, 6);
+            GameRegistry.addSmelting(GTCXMaterialGen.getHull(mat, 1), ingotStack,0F);
             //Cheaper recipes in assembler
             GTCXTileAssemblingMachine.addRecipe(plate, 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, GTCXMaterialGen.getHull(mat, 1));
         }

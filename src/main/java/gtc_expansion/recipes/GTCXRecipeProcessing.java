@@ -44,6 +44,7 @@ public class GTCXRecipeProcessing {
     public static void initFurnaceRecipes(){
         Item clay = GTCXConfiguration.general.unfiredBricks ? GTCXItems.unfiredFireBrick : GTCXItems.fireClayBall;
         GameRegistry.addSmelting(GTMaterialGen.get(clay), GTMaterialGen.get(GTCXItems.fireBrick), 0.1F);
+        GameRegistry.addSmelting(Ic2Items.machine.copy(), GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 6), 0.0F);
         if (GTCXConfiguration.general.unfiredBricks){
             GameRegistry.addSmelting(GTMaterialGen.get(GTCXItems.unfiredBrick), GTMaterialGen.get(Items.BRICK), 0.1F);
         }
