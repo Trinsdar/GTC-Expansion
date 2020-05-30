@@ -3,7 +3,7 @@
 GTC Expansion is an addon to GT Classic adding various machines and such. currently it aims to make gtclassic more like gt4, but I will add other things.
 
 # Current State
-I am currently creating the mod. I would say it's 40% - 50% finished. You can find betas on curseforge.
+I am currently creating the mod. I would say it's 50% - 60% finished. You can find betas on curseforge.
 
 # Issues
 Please report any issues you find to the issue tracker on this repository. Include as much information as possible including as version and steps to reproduce. Also pleaseuse the included formats.
