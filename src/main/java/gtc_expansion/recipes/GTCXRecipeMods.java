@@ -10,6 +10,7 @@ import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.util.GTCXIc2cECompat;
+import gtc_expansion.util.GTCXValues;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -163,7 +164,7 @@ public class GTCXRecipeMods {
             String circuit = "circuitBasic";
             String machineBlock = "machineBlockBasic";
             int recipeId = IC2.config.getFlag("SteelRecipes") ? 42294514 : -997650306;
-            GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.orewashingplant_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "orewashingplant"), "PPP", "BMB", "cCc", 'P', GTCXRecipe.materialRefinedIron, 'B', Items.BUCKET, 'M', machineBlock, 'c', Ic2Items.carbonMesh, 'C', circuit);
+            GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.orewashingplant_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "orewashingplant"), "PPP", "BMB", "cCc", 'P', GTCXValues.MATERIAL_REFINED_IRON, 'B', Items.BUCKET, 'M', machineBlock, 'c', Ic2Items.carbonMesh, 'C', circuit);
             GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.roller_-2064391190", GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "roller"), "CPC", "PMP", "cPc", 'C', circuit, 'P', Blocks.PISTON, 'M', machineBlock, 'c', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coil"));
         }
         if (Loader.isModLoaded(GTValues.MOD_ID_THERMAL) && GTConfig.modcompat.compatThermal){
@@ -187,8 +188,8 @@ public class GTCXRecipeMods {
             GTTileCentrifuge.addRecipe("clathrateRedstone", 1, 0, GTTileCentrifuge.totalEu(4000), GTMaterialGen.get(Items.REDSTONE, 2));
         }
         if (Loader.isModLoaded("gravisuit") && GTCXConfiguration.modcompat.compatGravisuit){
-            GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddiamondchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXRecipe.tungstenSteel, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
-            GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddrill_1408250051", GTMaterialGen.getModItem("gravisuit", "advanceddrill"), " S ", "SDS", "SBS", 'S', GTCXRecipe.tungstenSteel, 'D', Ic2Items.diamondDrill, 'B', GTItems.lithiumBattery);
+            GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddiamondchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXValues.TUNGSTEN_STEEL, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
+            GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddrill_1408250051", GTMaterialGen.getModItem("gravisuit", "advanceddrill"), " S ", "SDS", "SBS", 'S', GTCXValues.TUNGSTEN_STEEL, 'D', Ic2Items.diamondDrill, 'B', GTItems.lithiumBattery);
         }
         if (Loader.isModLoaded("railcraft") && GTCXConfiguration.modcompat.compatRailcraft){
             GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{new RecipeInputCombined(12, input("rodIron", 12), input("rodBronze", 12)), input(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1))}, GTCXTileAssemblingMachine.totalEu(400), GTMaterialGen.getModMetaItem("railcraft", "rail", 0, 8));
