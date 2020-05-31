@@ -29,6 +29,7 @@ import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
+import gtc_expansion.tile.GTCXTileTrashBin;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
@@ -91,7 +92,7 @@ public class GTCXBlocks {
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
     public static final GTCXBlockStorage advancedWorktable = registerBlock(new GTCXBlockStorage("advancedworktable", GTCXLang.ADVANCED_WORKTABLE, 1));
     public static final GTCXBlockStorage dustBin = registerBlock(new GTCXBlockStorage("dustbin", GTCXLang.DUSTBIN, 1));
-    public static final GTCXBlockStorage destructoBlock = registerBlock(new GTCXBlockStorage("destructo_block", GTCXLang.DESTRUCTO_BLOCK));
+    public static final GTCXBlockStorage trashBin = registerBlock(new GTCXBlockStorage("trash_bin", GTCXLang.TRASH_BIN));
 
     public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE));
 
@@ -133,7 +134,7 @@ public class GTCXBlocks {
     public static final GTCXBlockOreBedrock oreBedrockGalena = registerBlock(new GTCXBlockOreBedrock("galena", 24));
 
 
-    protected static final String[] textureTileBasic = new String[]{"advanced_worktable_bottom", "advanced_worktable_side", "advanced_worktable_top", "advanced_worktable_top_active", "alloy_furnace_front", "alloy_furnace_front_active", "alloy_furnace_side", "alloy_smelter_front", "alloy_smelter_front_active", "assembling_machine_top", "chemical_reactor_side", "chemical_reactor_side_active", "diesel_generator_top", "diesel_generator_top_active", "distillation_tower_side", "dustbin_bottom", "dustbin_front", "dustbin_top", "dynamo_hatch_front_overlay", "electric_locker_front", "electrolyzer_side", "electrolyzer_side_active", "fluid_caster_front", "fluid_caster_front_active", "fluid_smelter_front", "fluid_smelter_front_active", "gas_turbine_top", "gas_turbine_top_active", "implosion_compressor_side_1", "implosion_compressor_side_2", "industrial_blast_furnace_side", "industrial_front", "industrial_front_active", "industrial_grinder_side", "industrial_side", "input_hatch_front_overlay", "lathe_front", "lathe_front_active", "locker_front", "machine_back", "microwave_front", "microwave_front_active", "output_hatch_front_overlay", "plate_bender_front", "plate_bender_front_active", "plate_cutter_front", "plate_cutter_front_active", "primitive_blast_furnace_front", "primitive_blast_furnace_front_active", "stone_compressor_front", "stone_compressor_front_active", "stone_compressor_top", "thermal_boiler_front", "thermal_boiler_front_active", "vacuum_freezer_side", "wiremill_top", "wiremill_top_active"};
+    protected static final String[] textureTileBasic = new String[]{"advanced_worktable_bottom", "advanced_worktable_side", "advanced_worktable_top", "advanced_worktable_top_active", "alloy_furnace_front", "alloy_furnace_front_active", "alloy_furnace_side", "alloy_smelter_front", "alloy_smelter_front_active", "assembling_machine_top", "chemical_reactor_side", "chemical_reactor_side_active", "diesel_generator_top", "diesel_generator_top_active", "distillation_tower_side", "dustbin_bottom", "dustbin_front", "dustbin_top", "dynamo_hatch_front_overlay", "electric_locker_front", "electrolyzer_side", "electrolyzer_side_active", "fluid_caster_front", "fluid_caster_front_active", "fluid_smelter_front", "fluid_smelter_front_active", "gas_turbine_top", "gas_turbine_top_active", "implosion_compressor_side_1", "implosion_compressor_side_2", "industrial_blast_furnace_side", "industrial_front", "industrial_front_active", "industrial_grinder_side", "industrial_side", "input_hatch_front_overlay", "lathe_front", "lathe_front_active", "locker_front", "machine_back", "microwave_front", "microwave_front_active", "output_hatch_front_overlay", "plate_bender_front", "plate_bender_front_active", "plate_cutter_front", "plate_cutter_front_active", "primitive_blast_furnace_front", "primitive_blast_furnace_front_active", "stone_compressor_front", "stone_compressor_front_active", "stone_compressor_top", "thermal_boiler_front", "thermal_boiler_front_active", "trash_bin_side", "vacuum_freezer_side", "wiremill_top", "wiremill_top_active"};
     public static void registerBlocks() {
         for(Block block : toRegister){
             createBlock(block);
@@ -184,6 +185,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileElectricLocker.class, "ElectricLocker");
         registerUtil(GTCXTileAdvancedWorktable.class, "AdvancedWorktable");
         registerUtil(GTCXTileDustbin.class, "Dustbin");
+        registerUtil(GTCXTileTrashBin.class, "TrashBin");
         registerUtil(GTCXTileStoneCompressor.class, "StoneCompressor");
         registerUtil(GTCXTileElectrumCable.class, "ElectrumCable");
         registerUtil(GTCXTileCasing.class, "Casing");

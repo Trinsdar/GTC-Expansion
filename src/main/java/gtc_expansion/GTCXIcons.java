@@ -76,6 +76,7 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.fusionMaterialExtractor, s(42), s(42), s(39), s(39), s(39), s(39));
         setTexture(GTCXBlocks.thermalBoiler, s(0), s(1), s(2), s("thermal_boiler_front"), s(2), s(2), s(0), s(1), s(2), s("thermal_boiler_front_active"), s(2), s(2));
         setTexture(GTCXBlocks.largeSteamTurbine, s(0), s(1), s(2), s("steam_turbine_front_center"), s(2), s(2), s(0), s(1), s(2), s("steam_turbine_front_active_center"), s(2), s(2));
+        setTexture(GTCXBlocks.trashBin, s(0), s(97), s("trash_bin_side"), s("trash_bin_side"), s("trash_bin_side"), s("trash_bin_side"));
     }
 
     private static ResourceLocation location(String name) {

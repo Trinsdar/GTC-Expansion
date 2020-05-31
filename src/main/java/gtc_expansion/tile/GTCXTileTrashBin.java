@@ -1,7 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCXBlocks;
-import gtc_expansion.container.GTCXContainerDestructoBlock;
+import gtc_expansion.container.GTCXContainerTrashBin;
 import gtclassic.api.tile.GTTileBaseRecolorableTile;
 import gtclassic.common.GTItems;
 import ic2.core.RotationList;
@@ -20,9 +20,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class GTCXTileDestructoBlock extends GTTileBaseRecolorableTile implements IHasGui {
+public class GTCXTileTrashBin extends GTTileBaseRecolorableTile implements IHasGui {
     public IFilter filter = new InvertedFilter(new ArrayFilter(new BasicItemFilter(GTItems.destructoPack), new BasicItemFilter(GTItems.debugScanner), new BasicItemFilter(GTItems.portableScanner)));
-    public GTCXTileDestructoBlock() {
+    public GTCXTileTrashBin() {
         super(1);
     }
 
@@ -42,7 +42,7 @@ public class GTCXTileDestructoBlock extends GTTileBaseRecolorableTile implements
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
-        return new GTCXContainerDestructoBlock(this, entityPlayer.inventory);
+        return new GTCXContainerTrashBin(this, entityPlayer.inventory);
     }
 
     @Override
@@ -67,6 +67,6 @@ public class GTCXTileDestructoBlock extends GTTileBaseRecolorableTile implements
 
     @Override
     public Block getBlockDrop() {
-        return GTCXBlocks.destructoBlock;
+        return GTCXBlocks.trashBin;
     }
 }

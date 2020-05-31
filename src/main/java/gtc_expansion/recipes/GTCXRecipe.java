@@ -49,8 +49,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
 
@@ -298,6 +296,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.electricLocker), "SLS", "SlS", "SCS", colorTransfer(GTMaterialGen.get(GTCXBlocks.locker)), 'S', MATERIAL_STEELS, 'L', Ic2Items.lapotronCrystal, 'l', GTCXBlocks.locker, 'C', CIRCUIT_ADVANCED);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.advancedWorktable), "EOE", "EWE", "ECE", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'E', ELECTRUM, 'O', TIER_2_ENERGY, 'W', GTBlocks.tileWorktable, 'C', CIRCUIT_ADVANCED);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dustBin), "IHI", "IWI", "IHI", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'I', MATERIAL_REFINED_IRON, 'H', Blocks.HOPPER, 'W', GTBlocks.tileWorktable);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.trashBin), "I I", "ILI", "III", 'I', MATERIAL_REFINED_IRON, 'L', GTMaterialGen.getFluidStack("lava", 1000));
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialInjector), "PcP", "CAC", "PCP", 'P', Ic2Items.pump.copy(), 'c', CHEST_WOOD, 'C', GTValues.CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialExtractor), "PCP", "CAC", "PcP", 'P', Ic2Items.pump.copy(), 'c', CHEST_WOOD, 'C', GTValues.CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
@@ -307,7 +306,6 @@ public class GTCXRecipe {
     }
 
     public static void initShapelessRecipes(){
-        FluidStack water = new FluidStack(FluidRegistry.WATER, 1000);
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.GUNPOWDER, 3), "dustCoal", "dustSulfur", "dustSaltpeter", "dustSaltpeter");
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.GUNPOWDER, 2), "dustCharcoal", "dustSulfur", "dustSaltpeter", "dustSaltpeter");
         recipes.addShapelessRecipe(GTMaterialGen.getIc2(Ic2Items.fertilizer, 3), Ic2Items.fertilizer, "dustSulfur", GTMaterialGen.getTube(GTMaterial.Calcium, 1));
@@ -315,7 +313,7 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(GTMaterialGen.getIc2(Ic2Items.fertilizer, 2), Ic2Items.fertilizer, "dustDarkAshes");
 
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, LEAD);
-        recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", water);
+        recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", GTMaterialGen.getFluidStack("water", 1000));
         IRecipeInput ashes = GTRecipeCraftingHandler.combineRecipeObjects( "dustAshes", "dustAsh");
         recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "ingotRefinedIron", ashes);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.magicDye), "dyeCyan", "dyeMagenta", "dyeYellow", "dyeBlack");

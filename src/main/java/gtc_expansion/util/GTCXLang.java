@@ -34,7 +34,7 @@ public class GTCXLang {
     public static final LocaleComp ELECTRIC_LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electriclocker");
     public static final LocaleComp ADVANCED_WORKTABLE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.advancedworktable");
     public static final LocaleComp DUSTBIN = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.dustbin");
-    public static final LocaleComp DESTRUCTO_BLOCK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.destructo_block");
+    public static final LocaleComp TRASH_BIN = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.trash_bin");
 
     public static final LocaleComp ELECTRUM_CABLE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcable");
     public static final LocaleComp ELECTRUM_CABLE_INSULATED_1 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electrumcableinsulated1");
