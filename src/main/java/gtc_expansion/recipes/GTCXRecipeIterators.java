@@ -412,11 +412,11 @@ public class GTCXRecipeIterators {
     public static void initAutoOredictMachineRecipes(){
         Set<String> gemBlacklist = new HashSet();
         gemBlacklist.addAll(Arrays.asList("ingotDiamond", "ingotEmerald", "ingotQuartz", "ingotIridium", "ingotCoal", "ingotRedstone", "ingotIridiumAlloy"));
-        String[] var2 = OreDictionary.getOreNames();
-        int var3 = var2.length;
+        String[] oreNames = OreDictionary.getOreNames();
+        int length = oreNames.length;
 
-        for(int var4 = 0; var4 < var3; ++var4) {
-            String id = var2[var4];
+        for(int i = 0; i < length; ++i) {
+            String id = oreNames[i];
             NonNullList<ItemStack> listPlates;
             NonNullList<ItemStack> listIngots;
             NonNullList<ItemStack> listGears;
@@ -428,17 +428,15 @@ public class GTCXRecipeIterators {
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
                 String plate = "plate" + oreName;
-                if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id)){
-                    if (OreDictionary.doesOreNameExist(plate)) {
-                        listPlates = OreDictionary.getOres(plate, false);
-                        if (!listPlates.isEmpty()) {
-                            GTCXTilePlateBender.addRecipe(id, 1, listPlates.get(0));
-                            if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
-                                if (GTCXConfiguration.general.harderPlates){
-                                    recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
-                                }else {
-                                    recipes.addRecipe(listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id );
-                                }
+                if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id) && OreDictionary.doesOreNameExist(plate)){
+                    listPlates = OreDictionary.getOres(plate, false);
+                    if (!listPlates.isEmpty()) {
+                        GTCXTilePlateBender.addRecipe(id, 1, listPlates.get(0));
+                        if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
+                            if (GTCXConfiguration.general.harderPlates){
+                                recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
+                            }else {
+                                recipes.addRecipe(listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id );
                             }
                         }
                     }
@@ -485,7 +483,7 @@ public class GTCXRecipeIterators {
                     }
                 }
             }
-            if (id.startsWith("dust")){
+            if (id.startsWith("dust") && !id.startsWith("dustSmall") && !id.startsWith("dustTiny")){
                 String oreName = id.substring(4);
                 String smallDust = "dustSmall" + oreName;
                 String tinyDust = "dustTiny" + oreName;
