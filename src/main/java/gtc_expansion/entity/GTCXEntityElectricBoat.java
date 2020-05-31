@@ -90,7 +90,7 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
         this.status = this.getBoatStatus();
         Entity rider = this.getRider();
         if (this.chest.getStackInSlot(0).isEmpty() || ElectricItem.manager.getCharge(this.chest.getStackInSlot(0)) == 0) {
-            if (rider instanceof EntityPlayer){
+            if (rider instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) rider;
                 this.updateInputs(player.moveStrafing > 0, player.moveStrafing < 0, player.moveForward > 0, player.moveForward < 0);
             }
@@ -126,38 +126,28 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
         this.onEntityUpdate();
     }
 
-    private EntityBoat.Status getBoatStatus()
-    {
+    private EntityBoat.Status getBoatStatus() {
         EntityBoat.Status status = this.getUnderwaterStatus();
 
-        if (status != null)
-        {
+        if (status != null) {
             this.waterLevel = this.getEntityBoundingBox().maxY;
             return status;
-        }
-        else if (this.checkInWater())
-        {
+        } else if (this.checkInWater()) {
             return EntityBoat.Status.IN_WATER;
-        }
-        else
-        {
+        } else {
             float f = this.getBoatGlide();
 
-            if (f > 0.0F)
-            {
+            if (f > 0.0F) {
                 this.boatGlide = f;
                 return EntityBoat.Status.ON_LAND;
-            }
-            else
-            {
+            } else {
                 return EntityBoat.Status.IN_AIR;
             }
         }
     }
 
     @Nullable
-    private EntityBoat.Status getUnderwaterStatus()
-    {
+    private EntityBoat.Status getUnderwaterStatus() {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
         double d0 = axisAlignedBB.maxY + 0.001D;
         int minX = MathHelper.floor(axisAlignedBB.minX);
@@ -169,32 +159,25 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
         boolean flag = false;
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
-        try
-        {
-            for (int x = minX; x < maxX; ++x)
-            {
-                for (int y = minY; y < maxY; ++y)
-                {
-                    for (int z = minZ; z < maxZ; ++z)
-                    {
+        try {
+            for (int x = minX; x < maxX; ++x) {
+                for (int y = minY; y < maxY; ++y) {
+                    for (int z = minZ; z < maxZ; ++z) {
                         pooledMutableBlockPos.setPos(x, y, z);
                         IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
                         Boolean result = state.getBlock().isAABBInsideMaterial(world, pooledMutableBlockPos, axisAlignedBB, Material.WATER);
                         if (result != null) {
                             if (!result) continue;
 
-                            if(state.getBlock().getBlockLiquidHeight(world, pooledMutableBlockPos, state, Material.WATER) > 0)
-                            {
+                            if (state.getBlock().getBlockLiquidHeight(world, pooledMutableBlockPos, state, Material.WATER) > 0) {
                                 pooledMutableBlockPos.release();
                                 return EntityBoat.Status.UNDER_FLOWING_WATER;
                             } else
                                 continue;
                         }
 
-                        if (state.getMaterial() == Material.WATER && d0 < (double) BlockLiquid.getLiquidHeight(state, this.world, pooledMutableBlockPos))
-                        {
-                            if (state.getValue(BlockLiquid.LEVEL) != 0)
-                            {
+                        if (state.getMaterial() == Material.WATER && d0 < (double) BlockLiquid.getLiquidHeight(state, this.world, pooledMutableBlockPos)) {
+                            if (state.getValue(BlockLiquid.LEVEL) != 0) {
                                 return EntityBoat.Status.UNDER_FLOWING_WATER;
                             }
 
@@ -203,17 +186,14 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
                     }
                 }
             }
-        }
-        finally
-        {
+        } finally {
             pooledMutableBlockPos.release();
         }
 
         return flag ? EntityBoat.Status.UNDER_WATER : null;
     }
 
-    public float getWaterLevelAbove()
-    {
+    public float getWaterLevelAbove() {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
         int minX = MathHelper.floor(axisAlignedBB.minX);
         int maxX = MathHelper.ceil(axisAlignedBB.maxX);
@@ -223,29 +203,23 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
         int maxZ = MathHelper.ceil(axisAlignedBB.maxZ);
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
-        try
-        {
+        try {
             label108:
 
-            for (int y = maxY; y < minY; ++y)
-            {
+            for (int y = maxY; y < minY; ++y) {
                 float f = 0.0F;
                 int x = minX;
 
-                while (true)
-                {
-                    if (x >= maxX)
-                    {
-                        if (f < 1.0F)
-                        {
-                            return (float)pooledMutableBlockPos.getY() + f;
+                while (true) {
+                    if (x >= maxX) {
+                        if (f < 1.0F) {
+                            return (float) pooledMutableBlockPos.getY() + f;
                         }
 
                         break;
                     }
 
-                    for (int z = minZ; z < maxZ; ++z)
-                    {
+                    for (int z = minZ; z < maxZ; ++z) {
                         pooledMutableBlockPos.setPos(x, y, z);
                         IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
 
@@ -255,13 +229,11 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
                             f = Math.max(f, state.getBlock().getBlockLiquidHeight(world, pooledMutableBlockPos, state, Material.WATER) + pooledMutableBlockPos.getY());
                         }
 
-                        if (state.getMaterial() == Material.WATER)
-                        {
+                        if (state.getMaterial() == Material.WATER) {
                             f = Math.max(f, BlockLiquid.getBlockLiquidHeight(state, this.world, pooledMutableBlockPos));
                         }
 
-                        if (f >= 1.0F)
-                        {
+                        if (f >= 1.0F) {
                             continue label108;
                         }
                     }
@@ -270,16 +242,13 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
                 }
             }
 
-            return (float)(minY + 1);
-        }
-        finally
-        {
+            return (float) (minY + 1);
+        } finally {
             pooledMutableBlockPos.release();
         }
     }
 
-    public float getBoatGlide()
-    {
+    public float getBoatGlide() {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
         AxisAlignedBB axisAlignedBB1 = new AxisAlignedBB(axisAlignedBB.minX, axisAlignedBB.minY - 0.001D, axisAlignedBB.minZ, axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ);
         int minX = MathHelper.floor(axisAlignedBB1.minX) - 1;
@@ -288,31 +257,24 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
         int maxY = MathHelper.ceil(axisAlignedBB1.maxY) + 1;
         int minZ = MathHelper.floor(axisAlignedBB1.minZ) - 1;
         int maxZ = MathHelper.ceil(axisAlignedBB1.maxZ) + 1;
-        List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
+        List<AxisAlignedBB> list = Lists.newArrayList();
         float f = 0.0F;
         int i = 0;
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
-        try
-        {
-            for (int x = minX; x < maxX; ++x)
-            {
-                for (int z = minZ; z < maxZ; ++z)
-                {
+        try {
+            for (int x = minX; x < maxX; ++x) {
+                for (int z = minZ; z < maxZ; ++z) {
                     int j = (x != minX && x != maxX - 1 ? 0 : 1) + (z != minZ && z != maxZ - 1 ? 0 : 1);
 
-                    if (j != 2)
-                    {
-                        for (int y = minY; y < maxY; ++y)
-                        {
-                            if (j <= 0 || y != minY && y != maxY - 1)
-                            {
+                    if (j != 2) {
+                        for (int y = minY; y < maxY; ++y) {
+                            if (j <= 0 || y != minY && y != maxY - 1) {
                                 pooledMutableBlockPos.setPos(x, y, z);
                                 IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
                                 state.addCollisionBoxToList(this.world, pooledMutableBlockPos, axisAlignedBB1, list, this, false);
 
-                                if (!list.isEmpty())
-                                {
+                                if (!list.isEmpty()) {
                                     f += state.getBlock().getSlipperiness(state, this.world, pooledMutableBlockPos, this);
                                     ++i;
                                 }
@@ -323,17 +285,14 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
                     }
                 }
             }
-        }
-        finally
-        {
+        } finally {
             pooledMutableBlockPos.release();
         }
 
-        return f / (float)i;
+        return f / (float) i;
     }
 
-    private boolean checkInWater()
-    {
+    private boolean checkInWater() {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
         int minX = MathHelper.floor(axisAlignedBB.minX);
         int maxX = MathHelper.ceil(axisAlignedBB.maxX);
@@ -345,14 +304,10 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
         this.waterLevel = Double.MIN_VALUE;
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
-        try
-        {
-            for (int x = minX; x < maxX; ++x)
-            {
-                for (int y = minY; y < maxY; ++y)
-                {
-                    for (int z = minZ; z < maxZ; ++z)
-                    {
+        try {
+            for (int x = minX; x < maxX; ++x) {
+                for (int y = minY; y < maxY; ++y) {
+                    for (int z = minZ; z < maxZ; ++z) {
                         pooledMutableBlockPos.setPos(x, y, z);
                         IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
 
@@ -362,21 +317,18 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
 
                             float f = state.getBlock().getBlockLiquidHeight(world, pooledMutableBlockPos, state, Material.WATER) + pooledMutableBlockPos.getY();
                             this.waterLevel = Math.max(f, this.waterLevel);
-                            flag |= axisAlignedBB.minY < (double)f;
+                            flag |= axisAlignedBB.minY < (double) f;
                         }
 
-                        if (state.getMaterial() == Material.WATER)
-                        {
+                        if (state.getMaterial() == Material.WATER) {
                             float f = BlockLiquid.getLiquidHeight(state, this.world, pooledMutableBlockPos);
                             this.waterLevel = Math.max(f, this.waterLevel);
-                            flag |= axisAlignedBB.minY < (double)f;
+                            flag |= axisAlignedBB.minY < (double) f;
                         }
                     }
                 }
             }
-        }
-        finally
-        {
+        } finally {
             pooledMutableBlockPos.release();
         }
 
@@ -416,16 +368,12 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
     }
 
     @Override
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
-    {
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
         this.lastYd = this.motionY;
 
-        if (onGroundIn)
-        {
-            if (this.fallDistance > 3.0F)
-            {
-                if (this.status != EntityBoat.Status.ON_LAND)
-                {
+        if (onGroundIn) {
+            if (this.fallDistance > 3.0F) {
+                if (this.status != EntityBoat.Status.ON_LAND) {
                     this.fallDistance = 0.0F;
                     return;
                 }
@@ -438,21 +386,18 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
                 }
                 this.fallDistance = 0.0F;
             }
-        }
-        else if (this.world.getBlockState((new BlockPos(this)).down()).getMaterial() != Material.WATER && y < 0.0D)
-        {
-            this.fallDistance = (float)((double)this.fallDistance - y);
+        } else if (this.world.getBlockState((new BlockPos(this)).down()).getMaterial() != Material.WATER && y < 0.0D) {
+            this.fallDistance = (float) ((double) this.fallDistance - y);
         }
     }
 
-    private void updateMotion()
-    {
+    private void updateMotion() {
         double d1 = this.hasNoGravity() ? 0.0D : -0.03999999910593033D;
         double d2 = 0.0D;
         float momentum = 0.05F;
 
         if (this.previousStatus == EntityBoat.Status.IN_AIR && this.status != EntityBoat.Status.IN_AIR && this.status != EntityBoat.Status.ON_LAND) {
-            this.waterLevel = this.getEntityBoundingBox().minY + (double)this.height;
+            this.waterLevel = this.getEntityBoundingBox().minY + (double) this.height;
             double waterLevelAbove = this.getWaterLevelAbove();
             double partialY = waterLevelAbove - this.height;
             double y = partialY + 0.101D;
@@ -462,25 +407,20 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
             this.status = EntityBoat.Status.IN_WATER;
         } else {
             if (this.status == EntityBoat.Status.IN_WATER) {
-                d2 = (this.waterLevel - this.getEntityBoundingBox().minY) / (double)this.height;
+                d2 = (this.waterLevel - this.getEntityBoundingBox().minY) / (double) this.height;
                 momentum = 0.9F;
-            }
-            else if (this.status == EntityBoat.Status.UNDER_FLOWING_WATER) {
+            } else if (this.status == EntityBoat.Status.UNDER_FLOWING_WATER) {
                 d1 = -7.0E-4D;
                 momentum = 0.9F;
-            }
-            else if (this.status == EntityBoat.Status.UNDER_WATER) {
+            } else if (this.status == EntityBoat.Status.UNDER_WATER) {
                 d2 = 0.009999999776482582D;
                 momentum = 0.45F;
-            }
-            else if (this.status == EntityBoat.Status.IN_AIR) {
+            } else if (this.status == EntityBoat.Status.IN_AIR) {
                 momentum = 0.9F;
-            }
-            else if (this.status == EntityBoat.Status.ON_LAND) {
+            } else if (this.status == EntityBoat.Status.ON_LAND) {
                 momentum = this.boatGlide;
 
-                if (this.getControllingPassenger() instanceof EntityPlayer)
-                {
+                if (this.getControllingPassenger() instanceof EntityPlayer) {
                     this.boatGlide /= 2.0F;
                 }
             }
@@ -498,13 +438,13 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
     }
 
     public void updatePassenger(Entity passenger) {
-        if (chest.getStackInSlot(0).isEmpty() || ElectricItem.manager.getCharge(this.chest.getStackInSlot(0)) == 0){
+        if (chest.getStackInSlot(0).isEmpty() || ElectricItem.manager.getCharge(this.chest.getStackInSlot(0)) == 0) {
             if (this.isPassenger(passenger)) {
                 float f = 0.0F;
-                float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+                float f1 = (float) ((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
 
-                Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
-                passenger.setPosition(this.posX + vec3d.x, this.posY + (double)f1, this.posZ + vec3d.z);
+                Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+                passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
                 passenger.rotationYaw += this.deltaRotation;
                 passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
                 this.applyYawToEntity(passenger);
@@ -526,7 +466,7 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
     @SideOnly(Side.CLIENT)
     @Override
     public void applyOrientationToEntity(Entity entityToUpdate) {
-        if (chest.getStackInSlot(0).isEmpty() || ElectricItem.manager.getCharge(this.chest.getStackInSlot(0)) == 0){
+        if (chest.getStackInSlot(0).isEmpty() || ElectricItem.manager.getCharge(this.chest.getStackInSlot(0)) == 0) {
             this.applyYawToEntity(entityToUpdate);
         } else {
             super.applyOrientationToEntity(entityToUpdate);
@@ -544,8 +484,7 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
     }
 
     @SideOnly(Side.CLIENT)
-    public void updateInputs(boolean leftInputDown, boolean rightInputDown, boolean forwardInputDown, boolean backInputDown)
-    {
+    public void updateInputs(boolean leftInputDown, boolean rightInputDown, boolean forwardInputDown, boolean backInputDown) {
         this.leftInputDown = leftInputDown;
         this.rightInputDown = rightInputDown;
         this.forwardInputDown = forwardInputDown;
