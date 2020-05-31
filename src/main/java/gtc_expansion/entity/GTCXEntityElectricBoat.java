@@ -2,7 +2,6 @@ package gtc_expansion.entity;
 
 import com.google.common.collect.Lists;
 import ic2.api.item.ElectricItem;
-import ic2.core.IC2;
 import ic2.core.entity.boat.EntityElectricBoat;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -90,33 +89,28 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
         this.previousStatus = this.status;
         this.status = this.getBoatStatus();
         Entity rider = this.getRider();
-        if (IC2.platform.isSimulating()) {
-
-            if (this.chest.getStackInSlot(0).isEmpty() || ElectricItem.manager.getCharge(this.chest.getStackInSlot(0)) == 0) {
-                if (rider instanceof EntityPlayer){
-                    EntityPlayer player = (EntityPlayer) rider;
-                    this.updateInputs(player.moveStrafing > 0, player.moveStrafing < 0, player.moveForward > 0, player.moveForward < 0);
-                } else if (leftInputDown || rightInputDown || forwardInputDown || backInputDown){
+        if (this.chest.getStackInSlot(0).isEmpty() || ElectricItem.manager.getCharge(this.chest.getStackInSlot(0)) == 0) {
+            if (rider instanceof EntityPlayer){
+                EntityPlayer player = (EntityPlayer) rider;
+                this.updateInputs(player.moveStrafing > 0, player.moveStrafing < 0, player.moveForward > 0, player.moveForward < 0);
+            }
+            if (this.canPassengerSteer() && (forwardInputDown || leftInputDown || rightInputDown || backInputDown)) {
+                if (this.getPassengers().isEmpty() || !(this.getPassengers().get(0) instanceof EntityPlayer)) {
+                    this.setPaddleState(false, false);
                     this.updateInputs(false, false, false, false);
                 }
-                if (this.canPassengerSteer()) {
-                    if (this.getPassengers().isEmpty() || !(this.getPassengers().get(0) instanceof EntityPlayer)) {
-                        this.setPaddleState(false, false);
-                    }
-                    this.updateMotion();
+                this.updateMotion();
 
-                    if (this.world.isRemote) {
-                        this.controlBoat();
-                        this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
-                    }
 
-                    this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-                    this.doBlockCollisions();
-                } else {
-                    this.setPaddleState(false, false);
-                    super.onUpdate();
+                if (this.world.isRemote) {
+                    this.controlBoat();
+                    this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
                 }
+
+                this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+                this.doBlockCollisions();
             } else {
+                this.setPaddleState(false, false);
                 super.onUpdate();
             }
         } else {
@@ -166,24 +160,24 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
     {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
         double d0 = axisAlignedBB.maxY + 0.001D;
-        int i = MathHelper.floor(axisAlignedBB.minX);
-        int j = MathHelper.ceil(axisAlignedBB.maxX);
-        int k = MathHelper.floor(axisAlignedBB.maxY);
-        int l = MathHelper.ceil(d0);
-        int i1 = MathHelper.floor(axisAlignedBB.minZ);
-        int j1 = MathHelper.ceil(axisAlignedBB.maxZ);
+        int minX = MathHelper.floor(axisAlignedBB.minX);
+        int maxX = MathHelper.ceil(axisAlignedBB.maxX);
+        int minY = MathHelper.floor(axisAlignedBB.maxY);
+        int maxY = MathHelper.ceil(d0);
+        int minZ = MathHelper.floor(axisAlignedBB.minZ);
+        int maxZ = MathHelper.ceil(axisAlignedBB.maxZ);
         boolean flag = false;
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
         try
         {
-            for (int k1 = i; k1 < j; ++k1)
+            for (int x = minX; x < maxX; ++x)
             {
-                for (int l1 = k; l1 < l; ++l1)
+                for (int y = minY; y < maxY; ++y)
                 {
-                    for (int i2 = i1; i2 < j1; ++i2)
+                    for (int z = minZ; z < maxZ; ++z)
                     {
-                        pooledMutableBlockPos.setPos(k1, l1, i2);
+                        pooledMutableBlockPos.setPos(x, y, z);
                         IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
                         Boolean result = state.getBlock().isAABBInsideMaterial(world, pooledMutableBlockPos, axisAlignedBB, Material.WATER);
                         if (result != null) {
@@ -221,39 +215,38 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
     public float getWaterLevelAbove()
     {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
-        int i = MathHelper.floor(axisAlignedBB.minX);
-        int j = MathHelper.ceil(axisAlignedBB.maxX);
-        int k = MathHelper.floor(axisAlignedBB.maxY);
-        int l = MathHelper.ceil(axisAlignedBB.maxY - this.lastYd);
-        int i1 = MathHelper.floor(axisAlignedBB.minZ);
-        int j1 = MathHelper.ceil(axisAlignedBB.maxZ);
+        int minX = MathHelper.floor(axisAlignedBB.minX);
+        int maxX = MathHelper.ceil(axisAlignedBB.maxX);
+        int maxY = MathHelper.floor(axisAlignedBB.maxY);
+        int minY = MathHelper.ceil(axisAlignedBB.maxY - this.lastYd);
+        int minZ = MathHelper.floor(axisAlignedBB.minZ);
+        int maxZ = MathHelper.ceil(axisAlignedBB.maxZ);
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
         try
         {
             label108:
 
-            for (int k1 = k; k1 < l; ++k1)
+            for (int y = maxY; y < minY; ++y)
             {
                 float f = 0.0F;
-                int l1 = i;
+                int x = minX;
 
                 while (true)
                 {
-                    if (l1 >= j)
+                    if (x >= maxX)
                     {
                         if (f < 1.0F)
                         {
-                            float f2 = (float)pooledMutableBlockPos.getY() + f;
-                            return f2;
+                            return (float)pooledMutableBlockPos.getY() + f;
                         }
 
                         break;
                     }
 
-                    for (int i2 = i1; i2 < j1; ++i2)
+                    for (int z = minZ; z < maxZ; ++z)
                     {
-                        pooledMutableBlockPos.setPos(l1, k1, i2);
+                        pooledMutableBlockPos.setPos(x, y, z);
                         IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
 
                         Boolean result = state.getBlock().isAABBInsideMaterial(world, pooledMutableBlockPos, new AxisAlignedBB(pooledMutableBlockPos), Material.WATER);
@@ -273,12 +266,11 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
                         }
                     }
 
-                    ++l1;
+                    ++x;
                 }
             }
 
-            float f1 = (float)(l + 1);
-            return f1;
+            return (float)(minY + 1);
         }
         finally
         {
@@ -290,39 +282,39 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
     {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
         AxisAlignedBB axisAlignedBB1 = new AxisAlignedBB(axisAlignedBB.minX, axisAlignedBB.minY - 0.001D, axisAlignedBB.minZ, axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ);
-        int i = MathHelper.floor(axisAlignedBB1.minX) - 1;
-        int j = MathHelper.ceil(axisAlignedBB1.maxX) + 1;
-        int k = MathHelper.floor(axisAlignedBB1.minY) - 1;
-        int l = MathHelper.ceil(axisAlignedBB1.maxY) + 1;
-        int i1 = MathHelper.floor(axisAlignedBB1.minZ) - 1;
-        int j1 = MathHelper.ceil(axisAlignedBB1.maxZ) + 1;
+        int minX = MathHelper.floor(axisAlignedBB1.minX) - 1;
+        int maxX = MathHelper.ceil(axisAlignedBB1.maxX) + 1;
+        int minY = MathHelper.floor(axisAlignedBB1.minY) - 1;
+        int maxY = MathHelper.ceil(axisAlignedBB1.maxY) + 1;
+        int minZ = MathHelper.floor(axisAlignedBB1.minZ) - 1;
+        int maxZ = MathHelper.ceil(axisAlignedBB1.maxZ) + 1;
         List<AxisAlignedBB> list = Lists.<AxisAlignedBB>newArrayList();
         float f = 0.0F;
-        int k1 = 0;
+        int i = 0;
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
         try
         {
-            for (int l1 = i; l1 < j; ++l1)
+            for (int x = minX; x < maxX; ++x)
             {
-                for (int i2 = i1; i2 < j1; ++i2)
+                for (int z = minZ; z < maxZ; ++z)
                 {
-                    int j2 = (l1 != i && l1 != j - 1 ? 0 : 1) + (i2 != i1 && i2 != j1 - 1 ? 0 : 1);
+                    int j = (x != minX && x != maxX - 1 ? 0 : 1) + (z != minZ && z != maxZ - 1 ? 0 : 1);
 
-                    if (j2 != 2)
+                    if (j != 2)
                     {
-                        for (int k2 = k; k2 < l; ++k2)
+                        for (int y = minY; y < maxY; ++y)
                         {
-                            if (j2 <= 0 || k2 != k && k2 != l - 1)
+                            if (j <= 0 || y != minY && y != maxY - 1)
                             {
-                                pooledMutableBlockPos.setPos(l1, k2, i2);
+                                pooledMutableBlockPos.setPos(x, y, z);
                                 IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
                                 state.addCollisionBoxToList(this.world, pooledMutableBlockPos, axisAlignedBB1, list, this, false);
 
                                 if (!list.isEmpty())
                                 {
                                     f += state.getBlock().getSlipperiness(state, this.world, pooledMutableBlockPos, this);
-                                    ++k1;
+                                    ++i;
                                 }
 
                                 list.clear();
@@ -337,31 +329,31 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
             pooledMutableBlockPos.release();
         }
 
-        return f / (float)k1;
+        return f / (float)i;
     }
 
     private boolean checkInWater()
     {
         AxisAlignedBB axisAlignedBB = this.getEntityBoundingBox();
-        int i = MathHelper.floor(axisAlignedBB.minX);
-        int j = MathHelper.ceil(axisAlignedBB.maxX);
-        int k = MathHelper.floor(axisAlignedBB.minY);
-        int l = MathHelper.ceil(axisAlignedBB.minY + 0.001D);
-        int i1 = MathHelper.floor(axisAlignedBB.minZ);
-        int j1 = MathHelper.ceil(axisAlignedBB.maxZ);
+        int minX = MathHelper.floor(axisAlignedBB.minX);
+        int maxX = MathHelper.ceil(axisAlignedBB.maxX);
+        int minY = MathHelper.floor(axisAlignedBB.minY);
+        int maxY = MathHelper.ceil(axisAlignedBB.minY + 0.001D);
+        int minZ = MathHelper.floor(axisAlignedBB.minZ);
+        int maxZ = MathHelper.ceil(axisAlignedBB.maxZ);
         boolean flag = false;
         this.waterLevel = Double.MIN_VALUE;
         BlockPos.PooledMutableBlockPos pooledMutableBlockPos = BlockPos.PooledMutableBlockPos.retain();
 
         try
         {
-            for (int k1 = i; k1 < j; ++k1)
+            for (int x = minX; x < maxX; ++x)
             {
-                for (int l1 = k; l1 < l; ++l1)
+                for (int y = minY; y < maxY; ++y)
                 {
-                    for (int i2 = i1; i2 < j1; ++i2)
+                    for (int z = minZ; z < maxZ; ++z)
                     {
-                        pooledMutableBlockPos.setPos(k1, l1, i2);
+                        pooledMutableBlockPos.setPos(x, y, z);
                         IBlockState state = this.world.getBlockState(pooledMutableBlockPos);
 
                         Boolean result = state.getBlock().isAABBInsideMaterial(world, pooledMutableBlockPos, axisAlignedBB, Material.WATER);
@@ -455,42 +447,36 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
 
     private void updateMotion()
     {
-        double d0 = -0.03999999910593033D;
         double d1 = this.hasNoGravity() ? 0.0D : -0.03999999910593033D;
         double d2 = 0.0D;
         float momentum = 0.05F;
 
-        if (this.previousStatus == EntityBoat.Status.IN_AIR && this.status != EntityBoat.Status.IN_AIR && this.status != EntityBoat.Status.ON_LAND)
-        {
+        if (this.previousStatus == EntityBoat.Status.IN_AIR && this.status != EntityBoat.Status.IN_AIR && this.status != EntityBoat.Status.ON_LAND) {
             this.waterLevel = this.getEntityBoundingBox().minY + (double)this.height;
-            this.setPosition(this.posX, (double)(this.getWaterLevelAbove() - this.height) + 0.101D, this.posZ);
+            double waterLevelAbove = this.getWaterLevelAbove();
+            double partialY = waterLevelAbove - this.height;
+            double y = partialY + 0.101D;
+            this.setPosition(this.posX, y, this.posZ);
             this.motionY = 0.0D;
             this.lastYd = 0.0D;
             this.status = EntityBoat.Status.IN_WATER;
-        }
-        else
-        {
-            if (this.status == EntityBoat.Status.IN_WATER)
-            {
+        } else {
+            if (this.status == EntityBoat.Status.IN_WATER) {
                 d2 = (this.waterLevel - this.getEntityBoundingBox().minY) / (double)this.height;
                 momentum = 0.9F;
             }
-            else if (this.status == EntityBoat.Status.UNDER_FLOWING_WATER)
-            {
+            else if (this.status == EntityBoat.Status.UNDER_FLOWING_WATER) {
                 d1 = -7.0E-4D;
                 momentum = 0.9F;
             }
-            else if (this.status == EntityBoat.Status.UNDER_WATER)
-            {
+            else if (this.status == EntityBoat.Status.UNDER_WATER) {
                 d2 = 0.009999999776482582D;
                 momentum = 0.45F;
             }
-            else if (this.status == EntityBoat.Status.IN_AIR)
-            {
+            else if (this.status == EntityBoat.Status.IN_AIR) {
                 momentum = 0.9F;
             }
-            else if (this.status == EntityBoat.Status.ON_LAND)
-            {
+            else if (this.status == EntityBoat.Status.ON_LAND) {
                 momentum = this.boatGlide;
 
                 if (this.getControllingPassenger() instanceof EntityPlayer)
@@ -499,16 +485,13 @@ public class GTCXEntityElectricBoat extends EntityElectricBoat {
                 }
             }
 
-            this.motionX *= (double) momentum;
-            this.motionZ *= (double) momentum;
+            this.motionX *= momentum;
+            this.motionZ *= momentum;
             this.deltaRotation *= momentum;
             this.motionY += d1;
 
-            if (d2 > 0.0D)
-            {
-                double d3 = 0.65D;
+            if (d2 > 0.0D) {
                 this.motionY += d2 * 0.06153846016296973D;
-                double d4 = 0.75D;
                 this.motionY *= 0.75D;
             }
         }
