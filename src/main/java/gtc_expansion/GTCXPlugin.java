@@ -1,7 +1,6 @@
 package gtc_expansion;
 
 import gtc_expansion.item.overrides.GTCXItemDrill;
-import gtc_expansion.item.overrides.GTCXItemElectricBoat;
 import ic2.api.classic.addon.IC2Plugin;
 import ic2.api.classic.addon.PluginBase;
 import ic2.api.classic.addon.misc.IOverrideObject;
@@ -21,10 +20,9 @@ public class GTCXPlugin extends PluginBase {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event, Map<String, IOverrideObject> map)
-    {
+    public void preInit(FMLPreInitializationEvent event, Map<String, IOverrideObject> map) {
         map.put(getID(Ic2ItemLang.drillItem), new ModulLoader.ItemOverride(new GTCXItemDrill()));
-        map.put(getID(Ic2ItemLang.boatItem), new ModulLoader.ItemOverride(new GTCXItemElectricBoat()));
+        //map.put(getID(Ic2ItemLang.boatItem), new ModulLoader.ItemOverride(new GTCXItemElectricBoat()));
     }
 
     private static String getID(LocaleComp comp) {
