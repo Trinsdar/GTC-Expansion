@@ -2,7 +2,7 @@ package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
-import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
+import gtc_expansion.container.GTCXContainerLargeGasTurbine;
 import gtc_expansion.interfaces.IGTMultiTileProduction;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
@@ -10,6 +10,7 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkTileEntityEventListener;
@@ -27,7 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
+public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -37,12 +38,16 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             index = 3
     )
     int production;
+    protected MultiRecipe lastRecipe;
     int ticker = 0;
-    public static final IBlockState standardCasingState = GTCXBlocks.casingStandard.getDefaultState();
+    protected boolean shouldCheckRecipe;
+    public static final String RECIPE_TICKS = "recipeTicks";
+    public static final String RECIPE_EU = "recipeEu";
+    public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState dynamoHatchState = GTCXBlocks.dynamoHatch.getDefaultState();
 
-    public GTCXTileMultiLargeSteamTurbine() {
+    public GTCXTileMultiLargeGasTurbine() {
         super(1);
         this.addGuiFields("lastState");
         this.addNetworkFields("production");
@@ -213,7 +218,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
-        return new GTCXContainerLargeSteamTurbine(entityPlayer.inventory, this);
+        return new GTCXContainerLargeGasTurbine(entityPlayer.inventory, this);
     }
 
     @Override
@@ -250,54 +255,54 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         inputs = 0;
         outputs = 0;
         int3 dir = new int3(getPos(), getFacing());
-        if (!isStandardCasingWithSpecial(dir.up(1), 2)){
+        if (!isReinforcedCasingWithSpecial(dir.up(1), 2)){
             return false;
         }
-        if (!isStandardCasingWithSpecial(dir.right(1), 3)){
+        if (!isReinforcedCasingWithSpecial(dir.right(1), 3)){
             return false;
         }
-        if (!isStandardCasingWithSpecial(dir.down(1), 5)){
+        if (!isReinforcedCasingWithSpecial(dir.down(1), 5)){
             return false;
         }
-        if (!isStandardCasingWithSpecial(dir.down(1), 8)){
+        if (!isReinforcedCasingWithSpecial(dir.down(1), 8)){
             return false;
         }
-        if (!isStandardCasingWithSpecial(dir.left(1), 7)){
+        if (!isReinforcedCasingWithSpecial(dir.left(1), 7)){
             return false;
         }
-        if (!isStandardCasingWithSpecial(dir.left(1), 6)){
+        if (!isReinforcedCasingWithSpecial(dir.left(1), 6)){
             return false;
         }
-        if (!isStandardCasingWithSpecial(dir.up(1), 4)){
+        if (!isReinforcedCasingWithSpecial(dir.up(1), 4)){
             return false;
         }
-        if (!isStandardCasingWithSpecial(dir.up(1), 1)){
+        if (!isReinforcedCasingWithSpecial(dir.up(1), 1)){
             return false;
         }
 
         int i;
         for (i = 0; i < 3; i++){
-            if (!isStandardCasing(dir.back(1))){
+            if (!isReinforcedCasing(dir.back(1))){
                 return false;
             }
         }
-        if (!isStandardCasing(dir.right(1))){
+        if (!isReinforcedCasing(dir.right(1))){
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isStandardCasing(dir.forward(1))){
+            if (!isReinforcedCasing(dir.forward(1))){
                 return false;
             }
         }
-        if (!isStandardCasing(dir.right(1))){
+        if (!isReinforcedCasing(dir.right(1))){
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isStandardCasing(dir.back(1))){
+            if (!isReinforcedCasing(dir.back(1))){
                 return false;
             }
         }
-        if (!isStandardCasing(dir.down(1))){
+        if (!isReinforcedCasing(dir.down(1))){
             return false;
         }
         for (i = 0; i < 2; i++){
@@ -314,7 +319,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (!isDynamoHatch(dir.back(1))){
             return false;
         }
-        if (!isStandardCasing(dir.left(1))){
+        if (!isReinforcedCasing(dir.left(1))){
             return false;
         }
         for (i = 0; i < 2; i++){
@@ -322,15 +327,15 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 return false;
             }
         }
-        if (!isStandardCasing(dir.down(1))){
+        if (!isReinforcedCasing(dir.down(1))){
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isStandardCasing(dir.back(1))){
+            if (!isReinforcedCasing(dir.back(1))){
                 return false;
             }
         }
-        if (!isStandardCasing(dir.right(1))){
+        if (!isReinforcedCasing(dir.right(1))){
             return false;
         }
         for (i = 0; i < 2; i++){
@@ -338,11 +343,11 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 return false;
             }
         }
-        if (!isStandardCasing(dir.right(1))){
+        if (!isReinforcedCasing(dir.right(1))){
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isStandardCasing(dir.back(1))){
+            if (!isReinforcedCasing(dir.back(1))){
                 return false;
             }
         }
@@ -366,23 +371,23 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public void addRing(){
         int3 dir = new int3(this.pos, this.getFacing());
-        setStandardCasingWithSpecial(dir.up(1), 2);
-        setStandardCasingWithSpecial(dir.right(1), 3);
-        setStandardCasingWithSpecial(dir.down(1), 5);
-        setStandardCasingWithSpecial(dir.down(1), 8);
-        setStandardCasingWithSpecial(dir.left(1), 7);
-        setStandardCasingWithSpecial(dir.left(1), 6);
-        setStandardCasingWithSpecial(dir.up(1), 4);
-        setStandardCasingWithSpecial(dir.up(1), 1);
+        setReinforcedCasingWithSpecial(dir.up(1), 2);
+        setReinforcedCasingWithSpecial(dir.right(1), 3);
+        setReinforcedCasingWithSpecial(dir.down(1), 5);
+        setReinforcedCasingWithSpecial(dir.down(1), 8);
+        setReinforcedCasingWithSpecial(dir.left(1), 7);
+        setReinforcedCasingWithSpecial(dir.left(1), 6);
+        setReinforcedCasingWithSpecial(dir.up(1), 4);
+        setReinforcedCasingWithSpecial(dir.up(1), 1);
     }
 
-    public boolean isStandardCasing(int3 pos) {
-        return world.getBlockState(pos.asBlockPos()) == standardCasingState;
+    public boolean isReinforcedCasing(int3 pos) {
+        return world.getBlockState(pos.asBlockPos()) == reinforcedCasingState;
     }
 
-    public boolean isStandardCasingWithSpecial(int3 pos, int position) {
+    public boolean isReinforcedCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
-        if (state == standardCasingState){
+        if (state == reinforcedCasingState){
             TileEntity tile = world.getTileEntity(pos.asBlockPos());
             if (tile instanceof GTCXTileCasing){
                 GTCXTileCasing  casing = (GTCXTileCasing) tile;
@@ -394,9 +399,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return false;
     }
 
-    public void setStandardCasingWithSpecial(int3 pos, int position) {
+    public void setReinforcedCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
-        if (state == standardCasingState){
+        if (state == reinforcedCasingState){
             TileEntity tile = world.getTileEntity(pos.asBlockPos());
             if (tile instanceof GTCXTileCasing){
                 GTCXTileCasing  casing = (GTCXTileCasing) tile;
@@ -408,7 +413,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public void removeStandardCasingWithSpecial(int3 pos) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
-        if (state == standardCasingState){
+        if (state == reinforcedCasingState){
             TileEntity tile = world.getTileEntity(pos.asBlockPos());
             if (tile instanceof GTCXTileCasing){
                 ((GTCXTileCasing) tile).setRotor(0);
@@ -426,7 +431,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             inputs++;
             return true;
         }
-        return world.getBlockState(pos.asBlockPos()) == standardCasingState;
+        return world.getBlockState(pos.asBlockPos()) == reinforcedCasingState;
     }
     public boolean isDynamoHatch(int3 pos) {
         if (world.getBlockState(pos.asBlockPos()) == dynamoHatchState){

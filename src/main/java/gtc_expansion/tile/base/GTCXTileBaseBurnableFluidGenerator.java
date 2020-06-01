@@ -55,8 +55,8 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     protected int slotDisplay = 2;
     protected MultiRecipe lastRecipe;
     protected boolean shouldCheckRecipe;
-    public static final String recipeTicks = "recipeTicks";
-    public static final String recipeEu = "recipeEu";
+    public static final String RECIPE_TICKS = "recipeTicks";
+    public static final String RECIPE_EU = "recipeEu";
 
     public GTCXTileBaseBurnableFluidGenerator(int slots) {
         super(slots);
@@ -276,14 +276,14 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
         if (output == null || output.getMetadata() == null) {
             return 0;
         }
-        return output.getMetadata().getInteger(recipeTicks);
+        return output.getMetadata().getInteger(RECIPE_TICKS);
     }
 
     public static int getRecipeEu(MachineOutput output) {
         if (output == null || output.getMetadata() == null) {
             return 0;
         }
-        return output.getMetadata().getInteger(recipeEu);
+        return output.getMetadata().getInteger(RECIPE_EU);
     }
 
     @Override

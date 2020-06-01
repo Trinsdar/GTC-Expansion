@@ -210,7 +210,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
         if (i == 0){
             return this.getTextureFromState(state, facing);
         }
-        if (i == 1 && facing == state.getValue(allFacings) && state.getValue(rotor) > 0 && this == GTCXBlocks.casingStandard){
+        if (i == 1 && facing == state.getValue(allFacings) && state.getValue(rotor) > 0 && (this == GTCXBlocks.casingStandard || this == GTCXBlocks.casingReinforced)){
             return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
         }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
@@ -245,8 +245,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
 
     public TextureAtlasSprite getTextureFromRotor(boolean active, int rotor){
         String activeTexture = active ? "active_" : "";
+        String steam = this == GTCXBlocks.casingStandard ? "steam" : "gas";
         String location = getLocation(rotor);
-        return Ic2Icons.getTextures("steam_turbine_front_" + activeTexture + location)[0];
+        return Ic2Icons.getTextures(steam + "_turbine_front_" + activeTexture + location)[0];
     }
 
     public String getLocation(int rotor){

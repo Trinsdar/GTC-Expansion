@@ -3,7 +3,7 @@ package gtc_expansion.container;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.gui.GTCXGuiCompMultiblockProductionString;
 import gtc_expansion.gui.GTCXGuiCompMultiblockStatusString;
-import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeGasTurbine;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.slots.SlotCustom;
@@ -14,10 +14,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class GTCXContainerLargeGasTurbine extends ContainerTileComponent<GTCXTileMultiLargeSteamTurbine> {
+public class GTCXContainerLargeGasTurbine extends ContainerTileComponent<GTCXTileMultiLargeGasTurbine> {
     public static final ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/multiblockdisplay.png");
 
-    public GTCXContainerLargeGasTurbine(InventoryPlayer player, GTCXTileMultiLargeSteamTurbine tile) {
+    public GTCXContainerLargeGasTurbine(InventoryPlayer player, GTCXTileMultiLargeGasTurbine tile) {
         super(tile);
         this.addSlotToContainer(new SlotCustom(tile, 0, 152, 5, null));
         this.addComponent(new GTCXGuiCompMultiblockStatusString(tile, new Box2D(10, 7, 137, 15)));

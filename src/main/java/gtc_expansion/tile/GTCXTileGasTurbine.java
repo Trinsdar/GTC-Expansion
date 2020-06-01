@@ -58,8 +58,8 @@ public class GTCXTileGasTurbine extends GTCXTileBaseBurnableFluidGenerator {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         NBTTagCompound mods = new NBTTagCompound();
-        mods.setInteger(recipeTicks, ticks);
-        mods.setInteger(recipeEu, euPerTick);
+        mods.setInteger(RECIPE_TICKS, ticks);
+        mods.setInteger(RECIPE_EU, euPerTick);
         inlist.add(input);
         outlist.add(GTMaterialGen.get(Items.REDSTONE));
         addRecipe(inlist, new MachineOutput(mods, outlist), euPerTick);
