@@ -25,7 +25,7 @@ public class GTCXItemBlock extends GTItemBlock {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         PlayerHandler handler = PlayerHandler.getClientPlayerHandler();
         if (handler.hasEUReader()) {
-            if (this.compare(stack, GTCXBlocks.alloySmelter) || this.compare(stack, GTCXBlocks.implosionCompressor) || this.compare(stack, GTCXBlocks.assemblingMachine) || this.compare(stack, GTCXBlocks.chemicalReactor) || this.compare(stack, GTCXBlocks.lathe) || this.compare(stack, GTCXBlocks.microwave) || this.compare(stack, GTCXBlocks.plateBender) || this.compare(stack, GTCXBlocks.wiremill)) {
+            if (this.compare(stack, GTCXBlocks.alloySmelter) || this.compare(stack, GTCXBlocks.implosionCompressor) || this.compare(stack, GTCXBlocks.assemblingMachine) || this.compare(stack, GTCXBlocks.chemicalReactor) || this.compare(stack, GTCXBlocks.lathe) || this.compare(stack, GTCXBlocks.microwave) || this.compare(stack, GTCXBlocks.plateBender) || this.compare(stack, GTCXBlocks.plateCutter) || this.compare(stack, GTCXBlocks.wiremill)) {
                 tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(32));
             }
 

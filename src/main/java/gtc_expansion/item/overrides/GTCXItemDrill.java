@@ -19,7 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class GTCXItemDrill extends ItemElectricToolDrill {
-    ItemStack torch = new ItemStack(Blocks.TORCH);
+    final ItemStack torch = new ItemStack(Blocks.TORCH);
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (facing != EnumFacing.DOWN){
