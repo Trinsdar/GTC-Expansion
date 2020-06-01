@@ -50,17 +50,13 @@ repositories{
         name 'tterrag'
         url 'http://maven.tterrag.com/'
     }
-    maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
-    }
     maven { // Tesla
         name 'MMD'
         url 'https://maven.mcmoddev.com/'
     }
     maven {
         name = "jared"
-        url = "http://maven.blamejared.com"
+        url = "https://maven.blamejared.com"
     }
     maven {
         name = "buildcraft"
