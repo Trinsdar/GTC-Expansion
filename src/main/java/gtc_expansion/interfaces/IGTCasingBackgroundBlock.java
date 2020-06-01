@@ -1,4 +1,4 @@
-package gtc_expansion.util;
+package gtc_expansion.interfaces;
 
 import net.minecraft.util.EnumFacing;
 

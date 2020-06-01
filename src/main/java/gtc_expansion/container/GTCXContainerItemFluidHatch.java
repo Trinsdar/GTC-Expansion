@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTCXContainerItemFluidHatch extends ContainerTileComponent<GTCXTileItemFluidHatches> {
 
-    public static ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/hatchitemfluid.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/hatchitemfluid.png");
 
     public GTCXContainerItemFluidHatch(InventoryPlayer player, GTCXTileItemFluidHatches tile) {
         super(tile);

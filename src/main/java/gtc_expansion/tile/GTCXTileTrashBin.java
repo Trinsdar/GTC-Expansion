@@ -2,6 +2,7 @@ package gtc_expansion.tile;
 
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerTrashBin;
+import gtc_expansion.util.GTCXLang;
 import gtclassic.api.tile.GTTileBaseRecolorableTile;
 import gtclassic.common.GTItems;
 import ic2.core.RotationList;
@@ -15,6 +16,7 @@ import ic2.core.inventory.gui.GuiComponentContainer;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.platform.lang.components.base.LocaleComp;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -68,5 +70,10 @@ public class GTCXTileTrashBin extends GTTileBaseRecolorableTile implements IHasG
     @Override
     public Block getBlockDrop() {
         return GTCXBlocks.trashBin;
+    }
+
+    @Override
+    public LocaleComp getBlockName() {
+        return GTCXLang.TRASH_BIN;
     }
 }

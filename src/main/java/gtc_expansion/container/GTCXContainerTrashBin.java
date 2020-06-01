@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GTCXContainerTrashBin extends ContainerTileComponent<GTCXTileTrashBin> {
 
-    public static ResourceLocation TEXTURE = new ResourceLocation(GTMod.MODID, "textures/gui/destructopack.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(GTMod.MODID, "textures/gui/destructopack.png");
 
     public GTCXContainerTrashBin(GTCXTileTrashBin inv, InventoryPlayer player) {
         super(inv);

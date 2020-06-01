@@ -2,7 +2,7 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
-import gtc_expansion.util.IGTCasingBackgroundBlock;
+import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtclassic.api.model.GTModelOre;
 import ic2.core.RotationList;
 import ic2.core.platform.lang.components.base.LocaleComp;

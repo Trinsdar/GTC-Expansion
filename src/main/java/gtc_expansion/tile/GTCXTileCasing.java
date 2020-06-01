@@ -4,7 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
-import gtc_expansion.util.IGTCasingBackgroundBlock;
+import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;

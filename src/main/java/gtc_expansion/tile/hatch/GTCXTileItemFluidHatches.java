@@ -2,7 +2,7 @@ package gtc_expansion.tile.hatch;
 
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerItemFluidHatch;
-import gtc_expansion.util.IGTCasingBackgroundBlock;
+import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.interfaces.IGTDebuggableTile;

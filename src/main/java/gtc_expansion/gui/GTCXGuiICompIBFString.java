@@ -7,8 +7,8 @@ import ic2.core.platform.registry.Ic2GuiComp;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
-import java.util.Arrays;
+import java.awt.Color;
+import java.util.Collections;
 import java.util.List;
 
 public class GTCXGuiICompIBFString extends GuiComponent {
@@ -20,7 +20,7 @@ public class GTCXGuiICompIBFString extends GuiComponent {
 
     @Override
     public List<ActionRequest> getNeededRequests() {
-        return Arrays.asList(ActionRequest.FrontgroundDraw);
+        return Collections.singletonList(ActionRequest.FrontgroundDraw);
     }
 
     @SideOnly(Side.CLIENT)

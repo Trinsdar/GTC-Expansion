@@ -3,6 +3,7 @@ package gtc_expansion.tile.multi;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
+import gtc_expansion.interfaces.IGTMultiTileProduction;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
@@ -25,7 +26,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
+public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -445,5 +446,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (i == 5){
             addRing();
         }
+    }
+
+    @Override
+    public int getProduction() {
+        return production;
     }
 }
