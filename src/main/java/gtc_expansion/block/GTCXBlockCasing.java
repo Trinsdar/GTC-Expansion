@@ -363,7 +363,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
 
     @Override
     public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
-        if (this == GTCXBlocks.iridiumTungstensteelBlock){
+        if (this == GTCXBlocks.iridiumTungstensteelBlock || this == GTCXBlocks.tungstensteelReinforcedStone){
             if (entity instanceof EntityWither || entity instanceof EntityWitherSkull){
                 return false;
             }

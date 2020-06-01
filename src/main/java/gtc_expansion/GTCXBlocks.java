@@ -92,7 +92,7 @@ public class GTCXBlocks {
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
     public static final GTCXBlockStorage advancedWorktable = registerBlock(new GTCXBlockStorage("advancedworktable", GTCXLang.ADVANCED_WORKTABLE, 1));
     public static final GTCXBlockStorage dustBin = registerBlock(new GTCXBlockStorage("dustbin", GTCXLang.DUSTBIN, 1));
-    public static final GTCXBlockStorage trashBin = registerBlock(new GTCXBlockStorage("trash_bin", GTCXLang.TRASH_BIN));
+    public static final GTCXBlockStorage trashBin = registerBlock(new GTCXBlockStorage("trash_bin", GTCXLang.TRASH_BIN, 1));
 
     public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE));
 

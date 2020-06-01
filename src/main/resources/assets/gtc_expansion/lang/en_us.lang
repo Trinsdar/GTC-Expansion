@@ -681,6 +681,7 @@ tooltip.gtc_expansion.advancedworktable0=For all kinds of projects. Can charge t
 tooltip.gtc_expansion.locker0=For storing a set of armor
 tooltip.gtc_expansion.electriclocker0=For storing a set of armor and charging it
 tooltip.gtc_expansion.dustbin0=For compacting all your small and tiny dusts.
+tooltip.gtc_expansion.trash_bin0=For all your trash needs.
 
 tooltip.gtc_expansion.primitiveblastfurnace0=You'll have a blast!
 tooltip.gtc_expansion.primitiveblastfurnace1=Structure:
