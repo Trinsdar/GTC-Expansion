@@ -25,6 +25,7 @@ public class GTCXWorldGen implements IWorldGenerator {
             GTOreGenerator.generateBasicVein(GTCXBlocks.oreSheldonite, GTCXConfiguration.generation.sheldoniteGenerate, GTCXConfiguration.generation.sheldoniteSize, GTCXConfiguration.generation.sheldoniteWeight, 0, 80, Blocks.END_STONE, world, random, chunkX, chunkZ);
             GTOreGenerator.generateBasicVein(GTCXBlocks.oreOlivine, GTCXConfiguration.generation.olivineGenerate, GTCXConfiguration.generation.olivineSize, GTCXConfiguration.generation.olivineWeight, 0, 80, Blocks.END_STONE, world, random, chunkX, chunkZ);
             GTOreGenerator.generateBasicVein(GTCXBlocks.oreSodalite, GTCXConfiguration.generation.sodaliteGenerate, GTCXConfiguration.generation.sodaliteSize, GTCXConfiguration.generation.sodaliteWeight, 0, 80, Blocks.END_STONE, world, random, chunkX, chunkZ);
+            GTOreGenerator.generateBasicVein(GTCXBlocks.oreChromite, GTCXConfiguration.generation.chromiteGenerate, GTCXConfiguration.generation.chromiteSize, GTCXConfiguration.generation.chromiteWeight, 0, 80, Blocks.END_STONE, world, random, chunkX, chunkZ);
         }
         if (world.provider.getDimensionType().equals(DimensionType.OVERWORLD)){
             GTOreGenerator.generateBasicVein(GTCXBlocks.oreGalena, GTCXConfiguration.generation.galenaGenerate, GTCXConfiguration.generation.galenaSize, GTCXConfiguration.generation.galenaWeight, 0, 64, Blocks.STONE, world, random, chunkX, chunkZ);
