@@ -1,6 +1,7 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXItems;
 import gtclassic.GTMod;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
@@ -41,7 +42,29 @@ public class GTCXItemDamageable extends Item implements IStaticTexturedItem {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add("Durability: " + ((stack.getMaxDamage() - stack.getItemDamage()) + 1) + "/" + (stack.getMaxDamage() + 1));
+        //tooltip.add("Durability: " + ((stack.getMaxDamage() - stack.getItemDamage()) + 1) + "/" + (stack.getMaxDamage() + 1));
+        if (getRotorEfficiency() != 0){
+            tooltip.add("Rotor Efficiency: " + (int)(getRotorEfficiency() * 100) + "%");
+        }
+    }
+
+    public float getRotorEfficiency(){
+        if (this == GTCXItems.bronzeTurbineRotor){
+            return 0.6F;
+        }
+        if (this == GTCXItems.steelTurbineRotor){
+            return 0.8F;
+        }
+        if (this == GTCXItems.magnaliumTurbineRotor){
+            return 1.0F;
+        }
+        if (this == GTCXItems.tungstensteelTurbineRotor){
+            return 0.9F;
+        }
+        if (this == GTCXItems.carbonTurbineRotor){
+            return 1.25F;
+        }
+        return 0.0F;
     }
 
     @Override

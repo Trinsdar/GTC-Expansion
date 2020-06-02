@@ -23,7 +23,6 @@ import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityMacerator;
-import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Items;
@@ -60,9 +59,6 @@ public class GTCXRecipeIterators {
             createHullRecipe(mat);
             createFluidCastingRecipes(mat);
             createTurbineBlade(mat);
-            if (GTCXMaterial.pipes){
-                createPipeRecipe(mat);
-            }
             if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
                 createTinyDustRecipe(mat);
             }
@@ -132,20 +128,6 @@ public class GTCXRecipeIterators {
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(mat, 1296), false, 115200, GTMaterialGen.getMaterialBlock(mat, 1));
                 GTCXTileFluidSmelter.addRecipe("block" + orename, 1, 750 * tier, 115200, GTMaterialGen.getFluidStack(mat, 1296));
             }
-            /*if (mat.hasFlag(GTCXMaterial.pipeFluid) && GTCXMaterial.pipes){
-                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTMaterialGen.getFluidPipeSmall(mat, 1));
-                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTMaterialGen.getFluidPipe(mat, 1));
-                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getFluidPipeLarge(mat, 1));
-                GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 1), 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
-                GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getFluidPipe(mat, 1), 750 * tier, 38400, GTMaterialGen.getFluidStack(mat, 432));
-                GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), 750 * tier, 76800, GTMaterialGen.getFluidStack(mat, 864));
-            }
-            if (mat.hasFlag(GTCXMaterial.pipeItem) && GTCXMaterial.pipes){
-                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTMaterialGen.getItemPipe(mat, 1));
-                GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTMaterialGen.getItemPipeLarge(mat, 1));
-                GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getItemPipe(mat, 1), 750 * tier, 38400, GTMaterialGen.getFluidStack(mat, 432));
-                GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), 750 * tier, 76800, GTMaterialGen.getFluidStack(mat, 864));
-            }*/
             if (mat.getSmeltable()){
                 if (mat.hasFlag(GTMaterialFlag.DUST)){
                     GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
@@ -159,37 +141,6 @@ public class GTCXRecipeIterators {
             }
 
         }
-    }
-
-    public static void createPipeRecipe(GTMaterial mat) {
-        String ingot = "ingot" + mat.getDisplayName();
-        String plate = "plate" + mat.getDisplayName();
-        String material = GTCXConfiguration.general.usePlates ? plate : ingot;
-        String hammer = "craftingToolForgeHammer";
-        if (!mat.hasFlag(GTMaterialFlag.INGOT) || !mat.hasFlag(GTCXMaterial.plate)){
-            return;
-        }
-        IRecipeInput wrench = new RecipeInputCombined(1, new RecipeInputOreDict("craftingToolMonkeyWrench"), new RecipeInputOreDict("craftingToolWrench"));
-        /*if (mat.hasFlag(GTCXMaterial.pipeItem)) {
-            if (GTCXConfiguration.general.enableCraftingTools){
-                recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
-                recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
-            } else {
-                recipes.addRecipe(GTMaterialGen.getItemPipe(mat, 2), "III", " W ", "III", 'I', material, 'W', "craftingToolMonkeyWrench");
-                recipes.addRecipe(GTMaterialGen.getItemPipeLarge(mat, 1), "I I", "I I", "IWI", 'I', material, 'W', "craftingToolMonkeyWrench");
-            }
-        }
-        if (mat.hasFlag(GTCXMaterial.pipeFluid)) {
-            if (GTCXConfiguration.general.enableCraftingTools){
-                recipes.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 6), "IWI", "I I", "IHI", 'I', material, 'W', wrench, 'H', hammer);
-                recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", "W H", "III", 'I', material, 'W', wrench, 'H', hammer);
-                recipes.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), "IHI", "I I", "IWI", 'I', material, 'W', wrench, 'H', hammer);
-            } else {
-                recipes.addRecipe(GTMaterialGen.getFluidPipeSmall(mat, 6), "IWI", "I I", "I I", 'I', material, 'W', "craftingToolMonkeyWrench");
-                recipes.addRecipe(GTMaterialGen.getFluidPipe(mat, 2), "III", " W ", "III", 'I', material, 'W', "craftingToolMonkeyWrench");
-                recipes.addRecipe(GTMaterialGen.getFluidPipeLarge(mat, 1), "I I", "I I", "IWI", 'I', material, 'W', "craftingToolMonkeyWrench");
-            }
-        }*/
     }
 
     public static void createTinyDustRecipe(GTMaterial mat) {
