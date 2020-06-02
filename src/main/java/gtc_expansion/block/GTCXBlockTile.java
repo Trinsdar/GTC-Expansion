@@ -1,7 +1,7 @@
 package gtc_expansion.block;
 
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXIcons;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
@@ -18,6 +18,7 @@ import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
+import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
@@ -157,6 +158,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         }
         if (this == GTCXBlocks.fusionMaterialExtractor){
             return new GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor();
+        }
+        if (this == GTCXBlocks.fusionEnergyInjector){
+            return new GTCXTileFusionEnergyInjector();
         }
         if (this == GTCXBlocks.thermalBoiler){
             return new GTCXTileMultiThermalBoiler();
