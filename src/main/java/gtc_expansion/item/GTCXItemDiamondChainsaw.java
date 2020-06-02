@@ -84,13 +84,13 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
     public void onSortedItemToolTip(ItemStack stack, EntityPlayer player, boolean debugTooltip, List<String> tooltip, Map<ToolTipType, List<String>> sortedTooltip) {
         NBTTagCompound tag = StackUtil.getOrCreateNbtData(stack);
         if (!tag.getBoolean("noShear")) {
-            tooltip.add(GTCXLang.messageDiamondChainsawNormal.getLocalized());
+            tooltip.add(GTCXLang.MESSAGE_DIAMOND_CHAINSAW_NORMAL.getLocalized());
         } else {
-            tooltip.add(GTCXLang.messageDiamondChainsawNoShear.getLocalized());
+            tooltip.add(GTCXLang.MESSAGE_DIAMOND_CHAINSAW_NO_SHEAR.getLocalized());
         }
         List<String> ctrlTip = sortedTooltip.get(ToolTipType.Ctrl);
         ctrlTip.add(Ic2Lang.onItemRightClick.getLocalized());
-        ctrlTip.add(Ic2Lang.pressTo.getLocalizedFormatted(IC2.keyboard.getKeyName(2), GTCXLang.diamondChainsawShearToggle.getLocalized()));
+        ctrlTip.add(Ic2Lang.pressTo.getLocalizedFormatted(IC2.keyboard.getKeyName(2), GTCXLang.DIAMOND_CHAINSAW_SHEAR_TOGGLE.getLocalized()));
     }
 
     @Override
@@ -271,10 +271,10 @@ public class GTCXItemDiamondChainsaw extends ItemElectricTool
         if (IC2.platform.isSimulating() && IC2.keyboard.isModeSwitchKeyDown(player)) {
             if (tag.getBoolean("noShear")) {
                 tag.setBoolean("noShear", false);
-                IC2.platform.messagePlayer(player, TextFormatting.GREEN, GTCXLang.messageDiamondChainsawNormal);
+                IC2.platform.messagePlayer(player, TextFormatting.GREEN, GTCXLang.MESSAGE_DIAMOND_CHAINSAW_NORMAL);
             } else {
                 tag.setBoolean("noShear", true);
-                IC2.platform.messagePlayer(player, TextFormatting.RED, GTCXLang.messageDiamondChainsawNoShear);
+                IC2.platform.messagePlayer(player, TextFormatting.RED, GTCXLang.MESSAGE_DIAMOND_CHAINSAW_NO_SHEAR);
             }
             return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
         } else {

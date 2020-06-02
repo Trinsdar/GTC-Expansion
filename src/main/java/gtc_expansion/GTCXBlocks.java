@@ -37,6 +37,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeGasTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
@@ -84,9 +85,10 @@ public class GTCXBlocks {
     public static final GTCXBlockTile dieselGenerator = registerBlock(new GTCXBlockTile("dieselgenerator", GTCXLang.DIESEL_GENERATOR));
     public static final GTCXBlockTile gasTurbine = registerBlock(new GTCXBlockTile("gasturbine", GTCXLang.GAS_TURBINE));
     public static final GTCXBlockTile stoneCompressor = registerBlock(new GTCXBlockTile("stonecompressor", GTCXLang.STONE_COMPRESSOR));
-    //public static final GEBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
+    //public static final GTCXBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
     public static final GTCXBlockTile thermalBoiler = registerBlock(new GTCXBlockTile("thermalboiler", GTCXLang.THERMAL_BOILER));
     public static final GTCXBlockTile largeSteamTurbine = registerBlock(new GTCXBlockTile("largesteamturbine", GTCXLang.LARGE_STEAM_TURBINE));
+    public static final GTCXBlockTile largeGasTurbine = registerBlock(new GTCXBlockTile("largegasturbine", GTCXLang.LARGE_GAS_TURBINE));
 
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
@@ -181,6 +183,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileGasTurbine.class, "GasTurbine");
         registerUtil(GTCXTileMultiThermalBoiler.class, "ThermalBoiler");
         registerUtil(GTCXTileMultiLargeSteamTurbine.class, "LargeSteamTurbine");
+        registerUtil(GTCXTileMultiLargeGasTurbine.class, "LargeGasTurbine");
         registerUtil(GTCXTileLocker.class, "Locker");
         registerUtil(GTCXTileElectricLocker.class, "ElectricLocker");
         registerUtil(GTCXTileAdvancedWorktable.class, "AdvancedWorktable");

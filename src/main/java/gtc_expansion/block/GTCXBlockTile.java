@@ -23,6 +23,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeGasTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
@@ -163,6 +164,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         if (this == GTCXBlocks.largeSteamTurbine){
             return new GTCXTileMultiLargeSteamTurbine();
         }
+        if (this == GTCXBlocks.largeGasTurbine){
+            return new GTCXTileMultiLargeGasTurbine();
+        }
         if (this == GTCXBlocks.plateCutter){
             return new GTCXTilePlateCutter();
         }
@@ -204,6 +208,10 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
             GTCXTileMultiLargeSteamTurbine turbine = (GTCXTileMultiLargeSteamTurbine) tile;
             turbine.onBlockRemoved();
         }
+        if (this == GTCXBlocks.largeGasTurbine && tile instanceof GTCXTileMultiLargeGasTurbine){
+            GTCXTileMultiLargeGasTurbine turbine = (GTCXTileMultiLargeGasTurbine) tile;
+            turbine.onBlockRemoved();
+        }
     }
 
     @Override
@@ -211,10 +219,11 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
                                 ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (this == GTCXBlocks.largeSteamTurbine){
-            if (tile instanceof GTCXTileMultiLargeSteamTurbine){
-                ((GTCXTileMultiLargeSteamTurbine)tile).onBlockPlaced();
-            }
+        if (this == GTCXBlocks.largeSteamTurbine && tile instanceof GTCXTileMultiLargeSteamTurbine){
+            ((GTCXTileMultiLargeSteamTurbine)tile).onBlockPlaced();
+        }
+        if (this == GTCXBlocks.largeGasTurbine && tile instanceof GTCXTileMultiLargeGasTurbine){
+            ((GTCXTileMultiLargeGasTurbine)tile).onBlockPlaced();
         }
         if (this.hasVertical() && !IC2.platform.isRendering()) {
             if (tile instanceof TileEntityBlock) {

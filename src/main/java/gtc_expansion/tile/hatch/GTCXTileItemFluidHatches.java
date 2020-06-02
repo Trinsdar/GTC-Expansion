@@ -3,6 +3,7 @@ package gtc_expansion.tile.hatch;
 import gtc_expansion.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerItemFluidHatch;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
+import gtc_expansion.interfaces.IGTOwnerTile;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.interfaces.IGTDebuggableTile;
@@ -58,6 +59,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     )
     public int config = 0;
     private int prevConfig = 0;
+    public IGTOwnerTile owner = null;
     public GTCXTileItemFluidHatches(boolean input) {
         super(3);
         this.input = input;
@@ -94,9 +96,20 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     }
 
     @Override
+    public void setStackInSlot(int slot, ItemStack stack) {
+        super.setStackInSlot(slot, stack);
+        if (owner != null){
+            owner.setShouldCheckRecipe(true);
+        }
+    }
+
+    @Override
     public void onTankChanged(IFluidTank iFluidTank) {
         this.getNetwork().updateTileGuiField(this, NBT_TANK);
         this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.tank.getFluid()));
+        if (owner != null){
+            owner.setShouldCheckRecipe(true);
+        }
     }
 
     @Override
@@ -229,6 +242,14 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     public ItemStack getInput(){
         return this.getStackInSlot(slotInput);
+    }
+
+    public void setOwner(IGTOwnerTile tile){
+        this.owner = tile;
+    }
+
+    public IGTOwnerTile getOwner(){
+        return owner;
     }
 
     @Override

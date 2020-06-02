@@ -4,16 +4,20 @@ import gtc_expansion.GTCXBlocks;
 import gtc_expansion.GTCXItems;
 import gtc_expansion.container.GTCXContainerLargeGasTurbine;
 import gtc_expansion.interfaces.IGTMultiTileProduction;
+import gtc_expansion.interfaces.IGTOwnerTile;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
-import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
-import ic2.api.classic.network.adv.NetworkField;
+import ic2.api.classic.recipe.crafting.RecipeInputFluid;
+import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkTileEntityEventListener;
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
@@ -27,16 +31,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.FluidStack;
 
-public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
+import java.util.function.Predicate;
+
+public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, IGTOwnerTile, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
     private BlockPos input2;
     private BlockPos dynamo;
-    @NetworkField(
-            index = 3
-    )
     int production;
     protected MultiRecipe lastRecipe;
     int ticker = 0;
@@ -49,8 +53,8 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
 
     public GTCXTileMultiLargeGasTurbine() {
         super(1);
-        this.addGuiFields("lastState");
-        this.addNetworkFields("production");
+        this.addGuiFields("lastState", "production");
+        shouldCheckRecipe = true;
         input1 = this.getPos();
         input2 = this.getPos();
         dynamo = this.getPos();
@@ -87,6 +91,18 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
 
     public void onBlockPlaced(){
         getNetwork().initiateClientTileEntityEvent(this, 1);
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        shouldCheckRecipe = true;
+    }
+
+    @Override
+    public void setStackInSlot(int slot, ItemStack stack) {
+        super.setStackInSlot(slot, stack);
+        shouldCheckRecipe = true;
     }
 
     public void writeBlockPosToNBT(NBTTagCompound nbt, String id, BlockPos pos){
@@ -128,32 +144,46 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         }
         boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileInputHatch && world.getTileEntity(dynamo) instanceof GTCXTileDynamoHatch;
         if (canWork && isTurbineRotor(this.getStackInSlot(0))){
-            GTCXTileInputHatch inputHatch = (GTCXTileInputHatch) world.getTileEntity(input1);
-            GTCXTileDynamoHatch dynamoHatch = (GTCXTileDynamoHatch) world.getTileEntity(dynamo);
-            production = (int)(800 * getRotorEfficiency(this.getStackInSlot(0)));
-            if (inputHatch.getTank().getFluidAmount() >= 8000 && inputHatch.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000))){
-                if (!this.getActive()){
-                    this.setActive(true);
-                    this.setRingActive(true);
-                }
-                inputHatch.getTank().drainInternal(8000, true);
-                dynamoHatch.addEnergy(production);
-                if (ticker >= 80){
-                    this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
-                    ticker = 0;
-                }
-            } else if (world.getTileEntity(input2) instanceof GTCXTileInputHatch){
-                GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
-                if (inputHatch2.getTank().getFluidAmount() >= 8000 && inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000))){
+            if (this.shouldCheckRecipe) {
+                this.lastRecipe = this.getRecipe();
+                this.shouldCheckRecipe = false;
+            }
+            boolean operate = this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
+            if (operate){
+                GTCXTileInputHatch inputHatch = (GTCXTileInputHatch) world.getTileEntity(input1);
+                GTCXTileDynamoHatch dynamoHatch = (GTCXTileDynamoHatch) world.getTileEntity(dynamo);
+                double baseGeneration = getBaseGeneration();
+                production = (int)(baseGeneration * getRotorEfficiency(this.getStackInSlot(0)));
+                int fluidAmount = 1000 / getBaseDivider();
+                if (inputHatch.getTank().getFluidAmount() >= fluidAmount && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
                     if (!this.getActive()){
                         this.setActive(true);
                         this.setRingActive(true);
                     }
-                    inputHatch2.getTank().drainInternal(8000, true);
+                    inputHatch.getTank().drainInternal(fluidAmount, true);
                     dynamoHatch.addEnergy(production);
                     if (ticker >= 80){
                         this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
                         ticker = 0;
+                    }
+                } else if (world.getTileEntity(input2) instanceof GTCXTileInputHatch){
+                    GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
+                    if (inputHatch2.getTank().getFluidAmount() >= fluidAmount && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
+                        if (!this.getActive()){
+                            this.setActive(true);
+                            this.setRingActive(true);
+                        }
+                        inputHatch2.getTank().drainInternal(fluidAmount, true);
+                        dynamoHatch.addEnergy(production);
+                        if (ticker >= 80){
+                            this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
+                            ticker = 0;
+                        }
+                    } else {
+                        if (this.getActive()){
+                            this.setActive(false);
+                            this.setRingActive(false);
+                        }
                     }
                 } else {
                     if (this.getActive()){
@@ -162,17 +192,87 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                     }
                 }
             } else {
+                if (production != 0){
+                    production = 0;
+                }
                 if (this.getActive()){
                     this.setActive(false);
                     this.setRingActive(false);
                 }
             }
         } else {
+            if (production != 0){
+                production = 0;
+            }
             if (this.getActive()){
                 this.setActive(false);
                 this.setRingActive(false);
             }
         }
+    }
+
+    public MultiRecipe getRecipe(){
+        if (lastRecipe == GTRecipeMultiInputList.INVALID_RECIPE) {
+            return null;
+        }
+        // Check if previous recipe is valid
+        GTCXTileInputHatch hatch1 = (GTCXTileInputHatch) world.getTileEntity(input1);
+        FluidStack input1 = hatch1.getTank().getFluid();
+        TileEntity tile = world.getTileEntity(input2);
+        GTCXTileInputHatch hatch2 = tile instanceof GTCXTileInputHatch ? (GTCXTileInputHatch) tile : null;
+        FluidStack input2 = hatch2 != null ? hatch2.getTank().getFluid() : null;
+        if (lastRecipe != null) {
+            lastRecipe = checkRecipe(lastRecipe, input1) || (input2 != null && checkRecipe(lastRecipe, input2)) ? lastRecipe : null;
+        }
+        // If previous is not valid, find a new one
+        if (lastRecipe == null) {
+            lastRecipe = getRecipeList().getPriorityRecipe(new Predicate<MultiRecipe>() {
+
+                @Override
+                public boolean test(MultiRecipe t) {
+                    return checkRecipe(t, input1);
+                }
+            });
+            // if no recipe is found in input1 but input2 is not null, check input2
+            if (lastRecipe == null && input2 != null){
+                lastRecipe = getRecipeList().getPriorityRecipe(new Predicate<MultiRecipe>() {
+
+                    @Override
+                    public boolean test(MultiRecipe t) {
+                        return checkRecipe(t, input2);
+                    }
+                });
+            }
+        }
+        // If no recipe is found, return
+        if (lastRecipe == null) {
+            return null;
+        }
+        return lastRecipe;
+    }
+
+    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input) {
+        IRecipeInput recipeInput = entry.getInput(0);
+        if (recipeInput instanceof RecipeInputFluid){
+            return input != null && input.isFluidEqual(((RecipeInputFluid)recipeInput).fluid);
+        }
+        return false;
+    }
+
+    public GTRecipeMultiInputList getRecipeList(){
+        return GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST;
+    }
+
+    public int getBaseDivider(){
+        return getTotalRecipeEu() > 40960 ? 25 : 20;
+    }
+
+    public int getTotalRecipeEu(){
+        return getRecipeEu(lastRecipe.getOutputs()) * getRecipeTicks(lastRecipe.getOutputs());
+    }
+
+    public double getBaseGeneration(){
+        return (double) getTotalRecipeEu() / getBaseDivider();
     }
 
     public void setRingActive(boolean active){
@@ -239,6 +339,20 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     @Override
     public boolean hasGui(EntityPlayer entityPlayer) {
         return true;
+    }
+
+    public static int getRecipeTicks(MachineOutput output) {
+        if (output == null || output.getMetadata() == null) {
+            return 0;
+        }
+        return output.getMetadata().getInteger(RECIPE_TICKS);
+    }
+
+    public static int getRecipeEu(MachineOutput output) {
+        if (output == null || output.getMetadata() == null) {
+            return 0;
+        }
+        return output.getMetadata().getInteger(RECIPE_EU);
     }
 
     @Override
@@ -355,6 +469,14 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         if (inputs < 1){
             return false;
         }
+        TileEntity tile = world.getTileEntity(input1);
+        if (tile instanceof GTCXTileInputHatch && ((GTCXTileInputHatch)tile).getOwner() == null){
+            ((GTCXTileInputHatch)tile).setOwner(this);
+        }
+        tile = world.getTileEntity(input2);
+        if (tile instanceof GTCXTileInputHatch && ((GTCXTileInputHatch)tile).getOwner() == null){
+            ((GTCXTileInputHatch)tile).setOwner(this);
+        }
         return true;
     }
 
@@ -367,6 +489,14 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         removeStandardCasingWithSpecial(dir.left(1));
         removeStandardCasingWithSpecial(dir.up(1));
         removeStandardCasingWithSpecial(dir.up(1));
+        TileEntity tile = world.getTileEntity(input1);
+        if (tile instanceof GTCXTileInputHatch && ((GTCXTileInputHatch)tile).getOwner() == this){
+            ((GTCXTileInputHatch)tile).setOwner(null);
+        }
+        tile = world.getTileEntity(input2);
+        if (tile instanceof GTCXTileInputHatch && ((GTCXTileInputHatch)tile).getOwner() == this){
+            ((GTCXTileInputHatch)tile).setOwner(null);
+        }
     }
 
     public void addRing(){
@@ -461,5 +591,10 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     @Override
     public int getProduction() {
         return production;
+    }
+
+    @Override
+    public void setShouldCheckRecipe(boolean checkRecipe) {
+        shouldCheckRecipe = checkRecipe;
     }
 }

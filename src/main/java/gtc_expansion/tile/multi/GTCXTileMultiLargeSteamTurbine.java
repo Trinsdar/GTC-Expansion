@@ -10,7 +10,6 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
-import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.core.block.base.tile.TileEntityMachine;
@@ -33,9 +32,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     private BlockPos input1;
     private BlockPos input2;
     private BlockPos dynamo;
-    @NetworkField(
-            index = 3
-    )
     int production;
     int ticker = 0;
     public static final IBlockState standardCasingState = GTCXBlocks.casingStandard.getDefaultState();
@@ -44,8 +40,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public GTCXTileMultiLargeSteamTurbine() {
         super(1);
-        this.addGuiFields("lastState");
-        this.addNetworkFields("production");
+        this.addGuiFields("lastState", "production");
         input1 = this.getPos();
         input2 = this.getPos();
         dynamo = this.getPos();
@@ -126,7 +121,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             GTCXTileInputHatch inputHatch = (GTCXTileInputHatch) world.getTileEntity(input1);
             GTCXTileDynamoHatch dynamoHatch = (GTCXTileDynamoHatch) world.getTileEntity(dynamo);
             production = (int)(800 * getRotorEfficiency(this.getStackInSlot(0)));
-            if (inputHatch.getTank().getFluidAmount() >= 8000 && inputHatch.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000))){
+            if (inputHatch.getTank().getFluidAmount() >= 8000 && inputHatch.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
                 if (!this.getActive()){
                     this.setActive(true);
                     this.setRingActive(true);
@@ -139,7 +134,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 }
             } else if (world.getTileEntity(input2) instanceof GTCXTileInputHatch){
                 GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
-                if (inputHatch2.getTank().getFluidAmount() >= 8000 && inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000))){
+                if (inputHatch2.getTank().getFluidAmount() >= 8000 && inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
                     if (!this.getActive()){
                         this.setActive(true);
                         this.setRingActive(true);

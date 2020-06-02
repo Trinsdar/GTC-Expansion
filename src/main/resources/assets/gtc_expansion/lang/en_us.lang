@@ -68,6 +68,7 @@ tile.gtc_expansion.stonecompressor.name=Stone Compressor
 tile.gtc_expansion.dieselgenerator.name=Diesel Generator
 tile.gtc_expansion.thermalboiler.name=Thermal Boiler
 tile.gtc_expansion.largesteamturbine.name=Large Steam Turbine
+tile.gtc_expansion.largegasturbine.name=Large Gas Turbine
 tile.gtc_expansion.gasturbine.name=Gas Turbine
 tile.gtc_expansion.locker.name=Locker
 tile.gtc_expansion.electriclocker.name=Electric Locker
