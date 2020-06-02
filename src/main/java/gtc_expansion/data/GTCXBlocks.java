@@ -1,4 +1,4 @@
-package gtc_expansion;
+package gtc_expansion.data;
 
 import gtc_expansion.block.GTCXBlockCasing;
 import gtc_expansion.block.GTCXBlockHatch;
@@ -43,7 +43,6 @@ import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
-import gtc_expansion.util.GTCXLang;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;

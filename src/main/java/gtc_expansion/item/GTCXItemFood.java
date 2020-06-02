@@ -1,7 +1,7 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtclassic.GTMod;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;

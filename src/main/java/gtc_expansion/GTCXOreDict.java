@@ -1,5 +1,7 @@
 package gtc_expansion;
 
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.material.GTCXMaterialDict;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtclassic.api.material.GTMaterial;

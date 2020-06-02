@@ -1,12 +1,12 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerPrimitiveBlastFurnace;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDisplayTickTile;

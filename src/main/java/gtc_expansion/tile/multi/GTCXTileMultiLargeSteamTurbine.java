@@ -1,7 +1,7 @@
 package gtc_expansion.tile.multi;
 
-import gtc_expansion.GTCXBlocks;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
 import gtc_expansion.interfaces.IGTMultiTileProduction;
 import gtc_expansion.tile.GTCXTileCasing;

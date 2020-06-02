@@ -1,7 +1,7 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.GTMod;
 import ic2.api.item.ElectricItem;
 import ic2.core.IC2;

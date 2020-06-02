@@ -1,7 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.tile.GTTileWorktable;

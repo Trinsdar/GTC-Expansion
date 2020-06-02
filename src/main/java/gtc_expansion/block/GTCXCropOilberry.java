@@ -1,6 +1,6 @@
 package gtc_expansion.block;
 
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCExpansion;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.api.crops.CropProperties;

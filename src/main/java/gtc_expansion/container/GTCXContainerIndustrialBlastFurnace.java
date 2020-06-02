@@ -1,6 +1,6 @@
 package gtc_expansion.container;
 
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.gui.GTCXGuiICompIBFString;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtclassic.api.gui.GTGuiCompMachinePower;

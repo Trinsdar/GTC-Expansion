@@ -2,7 +2,7 @@ package gtc_expansion.proxy;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXIcons;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXJei;
 import gtc_expansion.entity.GTCXEntityElectricBoat;
 import ic2.core.entity.render.RenderOldClassicBoat;

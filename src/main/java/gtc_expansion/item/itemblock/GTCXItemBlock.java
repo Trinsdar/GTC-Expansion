@@ -1,6 +1,6 @@
 package gtc_expansion.item.itemblock;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtclassic.api.item.GTItemBlock;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
 import ic2.core.platform.player.PlayerHandler;

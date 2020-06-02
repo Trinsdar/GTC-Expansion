@@ -1,7 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;

@@ -1,4 +1,4 @@
-package gtc_expansion;
+package gtc_expansion.data;
 
 import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;

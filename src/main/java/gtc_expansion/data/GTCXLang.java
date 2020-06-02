@@ -1,4 +1,4 @@
-package gtc_expansion.util;
+package gtc_expansion.data;
 
 import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LangComponentHolder.LocaleItemInfoComp;

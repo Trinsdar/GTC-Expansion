@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtc_expansion.data.GTCXBlocks;
 import gtclassic.api.world.GTOreGenerator;
 import gtclassic.common.GTWorldGen;
 import net.minecraft.init.Blocks;

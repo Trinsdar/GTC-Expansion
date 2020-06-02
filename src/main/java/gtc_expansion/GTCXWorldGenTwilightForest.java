@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtc_expansion.data.GTCXBlocks;
 import twilightforest.world.feature.TFGenCaveStalactite;
 
 public class GTCXWorldGenTwilightForest {

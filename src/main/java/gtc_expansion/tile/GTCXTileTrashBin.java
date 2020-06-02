@@ -1,8 +1,8 @@
 package gtc_expansion.tile;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerTrashBin;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.tile.GTTileBaseRecolorableTile;
 import gtclassic.common.GTItems;
 import ic2.core.RotationList;

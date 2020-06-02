@@ -1,7 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerLocker;
 import gtclassic.api.tile.GTTileBaseRecolorableTile;
 import ic2.core.inventory.base.IHasGui;

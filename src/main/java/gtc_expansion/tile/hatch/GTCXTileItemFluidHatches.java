@@ -1,6 +1,6 @@
 package gtc_expansion.tile.hatch;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerItemFluidHatch;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTOwnerTile;

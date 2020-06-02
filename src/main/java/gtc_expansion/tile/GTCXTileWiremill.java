@@ -1,11 +1,11 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerWiremill;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;

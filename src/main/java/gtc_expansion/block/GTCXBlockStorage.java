@@ -1,6 +1,6 @@
 package gtc_expansion.block;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileTrashBin;
 import gtc_expansion.tile.GTCXTileDustbin;

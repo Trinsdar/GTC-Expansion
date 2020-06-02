@@ -1,7 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerDustbin;
 import gtc_expansion.util.GTCXDustbinFilter;
 import gtclassic.api.helpers.GTHelperStack;

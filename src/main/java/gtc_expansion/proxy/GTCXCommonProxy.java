@@ -1,10 +1,10 @@
 package gtc_expansion.proxy;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXCrops;
 import gtc_expansion.GTCXFluids;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXOreDict;
 import gtc_expansion.GTCXWorldGenTwilightForest;
 import gtc_expansion.container.GTCXContainerFluidSmelter;

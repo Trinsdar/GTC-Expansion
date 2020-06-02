@@ -1,8 +1,8 @@
 package gtc_expansion.recipes;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
@@ -51,7 +51,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
 
-import static gtc_expansion.util.GTCXValues.*;
+import static gtc_expansion.data.GTCXValues.*;
 import static gtclassic.api.helpers.GTValues.*;
 
 public class GTCXRecipe {

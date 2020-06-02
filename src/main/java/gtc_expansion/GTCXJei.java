@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.jei.GTJeiEntry;
 import gtclassic.api.jei.GTJeiHandler;

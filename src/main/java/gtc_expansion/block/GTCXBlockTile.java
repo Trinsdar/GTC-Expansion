@@ -1,6 +1,6 @@
 package gtc_expansion.block;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXIcons;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;

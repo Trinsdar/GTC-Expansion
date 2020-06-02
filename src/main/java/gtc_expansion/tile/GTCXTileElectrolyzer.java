@@ -6,7 +6,7 @@ import gtc_expansion.container.GTCXContainerElectrolyzer;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;

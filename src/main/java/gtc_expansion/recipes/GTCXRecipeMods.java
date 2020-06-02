@@ -1,7 +1,7 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GTCXConfiguration;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
@@ -10,7 +10,7 @@ import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.util.GTCXIc2cECompat;
-import gtc_expansion.util.GTCXValues;
+import gtc_expansion.data.GTCXValues;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;

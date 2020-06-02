@@ -1,7 +1,7 @@
 package gtc_expansion.item.itemblock;
 
-import gtc_expansion.GTCXBlocks;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.color.GTColorItemBlock;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
 import ic2.core.platform.player.PlayerHandler;

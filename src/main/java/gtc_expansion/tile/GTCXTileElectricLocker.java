@@ -1,7 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.tile.machine.IEUStorage;
 import ic2.api.energy.event.EnergyTileLoadEvent;

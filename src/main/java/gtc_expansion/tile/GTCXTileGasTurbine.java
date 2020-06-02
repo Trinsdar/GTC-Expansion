@@ -4,7 +4,7 @@ import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseBurnableFluidGenerator;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;

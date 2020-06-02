@@ -4,7 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerLathe;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;

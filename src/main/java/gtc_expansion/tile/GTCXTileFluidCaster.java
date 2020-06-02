@@ -1,12 +1,12 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerFluidCaster;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.helpers.GTValues;

@@ -1,7 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;

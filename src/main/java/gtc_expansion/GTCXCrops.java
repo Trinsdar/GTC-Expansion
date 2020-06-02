@@ -1,6 +1,7 @@
 package gtc_expansion;
 
 import gtc_expansion.block.GTCXCropOilberry;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.api.crops.GTCropHandler;
 import gtclassic.api.material.GTMaterial;

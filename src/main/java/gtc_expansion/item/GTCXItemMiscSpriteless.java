@@ -1,7 +1,7 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtclassic.GTMod;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;

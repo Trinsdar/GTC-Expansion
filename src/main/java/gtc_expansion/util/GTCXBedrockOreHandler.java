@@ -1,6 +1,6 @@
 package gtc_expansion.util;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtclassic.api.helpers.GTValues;

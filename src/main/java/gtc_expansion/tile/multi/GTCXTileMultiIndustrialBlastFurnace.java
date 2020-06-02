@@ -1,13 +1,13 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerIndustrialBlastFurnace;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.material.GTMaterial;

@@ -1,7 +1,6 @@
-package gtc_expansion.util;
+package gtc_expansion.data;
 
 import gtc_expansion.GTCXConfiguration;
-import gtc_expansion.GTCXItems;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.common.GTItems;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;

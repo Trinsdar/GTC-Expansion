@@ -1,8 +1,8 @@
 package gtc_expansion.jei;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.jei.category.GTCXJeiBurnableFluidCategory;

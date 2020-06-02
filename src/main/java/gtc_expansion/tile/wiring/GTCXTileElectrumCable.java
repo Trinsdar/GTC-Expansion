@@ -1,6 +1,6 @@
 package gtc_expansion.tile.wiring;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;

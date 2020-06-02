@@ -1,9 +1,9 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerStoneCompressor;
-import gtc_expansion.util.GTCXLang;
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.interfaces.IGTDisplayTickTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.material.GTMaterialGen;

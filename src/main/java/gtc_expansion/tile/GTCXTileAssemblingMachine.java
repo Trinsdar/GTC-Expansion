@@ -1,14 +1,14 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
-import gtc_expansion.GTCXItems;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAssemblingMachine;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.util.GTCXLang;
-import gtc_expansion.util.GTCXValues;
+import gtc_expansion.data.GTCXLang;
+import gtc_expansion.data.GTCXValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;

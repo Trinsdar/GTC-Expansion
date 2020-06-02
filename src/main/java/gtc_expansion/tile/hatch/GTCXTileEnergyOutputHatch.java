@@ -1,6 +1,6 @@
 package gtc_expansion.tile.hatch;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;

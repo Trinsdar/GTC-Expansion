@@ -1,6 +1,6 @@
 package gtc_expansion.tile.multi;
 
-import gtc_expansion.GTCXBlocks;
+import gtc_expansion.data.GTCXBlocks;
 import gtclassic.api.helpers.int3;
 import gtclassic.common.GTBlocks;
 import gtclassic.common.tile.multi.GTTileMultiFusionReactor;

@@ -1,5 +1,6 @@
 package gtc_expansion;
 
+import gtc_expansion.data.GTCXBlocks;
 import gtclassic.common.GTConfig;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.Sprites;
