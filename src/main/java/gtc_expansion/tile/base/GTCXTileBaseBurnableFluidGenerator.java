@@ -45,7 +45,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     @NetworkField(
             index = 7
     )
-    public IC2Tank tank;
+    public final IC2Tank tank;
     @NetworkField(
             index = 8
     )

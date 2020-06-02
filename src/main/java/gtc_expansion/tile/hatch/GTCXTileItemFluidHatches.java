@@ -27,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
@@ -43,7 +44,7 @@ import java.util.Map;
 public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickable, IClickable, IGTItemContainerTile, IHasGui, IGTCasingBackgroundBlock, IGTDebuggableTile {
     boolean input;
     @NetworkField(index = 3)
-    protected IC2Tank tank;
+    protected final IC2Tank tank;
     private static final int slotInput = 0;
     private static final int slotOutput = 1;
     private static final int slotDisplay = 2;
@@ -383,8 +384,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     }
 
     public boolean isHatchWithCasing(BlockPos pos){
-        if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
-            return ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).getCasing() == casing;
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IGTCasingBackgroundBlock){
+            return ((IGTCasingBackgroundBlock)tile).getCasing() == casing;
         }
         return false;
     }

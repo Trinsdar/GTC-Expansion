@@ -85,7 +85,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialgrinder.png");
     private static final int defaultEu = 120;
     @NetworkField(index = 13)
-    private IC2Tank inputTank = new IC2Tank(16000);
+    private final IC2Tank inputTank = new IC2Tank(16000);
 
     public GTCXTileMultiIndustrialGrinder() {
         super(9, 2, defaultEu, 128);

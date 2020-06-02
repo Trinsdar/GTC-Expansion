@@ -78,7 +78,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
     @NetworkField(index = 13)
-    private IC2Tank tank;
+    private final IC2Tank tank;
     private static final int defaultEu = 64;
 
     public GTCXTileElectrolyzer() {

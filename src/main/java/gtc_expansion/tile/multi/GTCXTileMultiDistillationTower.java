@@ -84,24 +84,24 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     public static final int[] slotOutputs = { 8, 9 };
     private static final int defaultEu = 64;
     @NetworkField(index = 13)
-    private IC2Tank inputTank = new IC2Tank(16000){
+    private final IC2Tank inputTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
             return super.canFillFluidType(fluid) && validFluids.contains(fluid.getFluid());
         }
     };
     @NetworkField(index = 14)
-    private IC2Tank outputTank1 = new IC2Tank(16000);
+    private final IC2Tank outputTank1 = new IC2Tank(16000);
     @NetworkField(index = 15)
-    private IC2Tank outputTank2 = new IC2Tank(16000);
+    private final IC2Tank outputTank2 = new IC2Tank(16000);
     @NetworkField(index = 16)
-    private IC2Tank outputTank3 = new IC2Tank(16000);
+    private final IC2Tank outputTank3 = new IC2Tank(16000);
     @NetworkField(index = 17)
-    private IC2Tank outputTank4 = new IC2Tank(16000);
+    private final IC2Tank outputTank4 = new IC2Tank(16000);
     @NetworkField(index = 18)
-    private IC2Tank outputTank5 = new IC2Tank(16000);
+    private final IC2Tank outputTank5 = new IC2Tank(16000);
     @NetworkField(index = 19)
-    private IC2Tank outputTank6 = new IC2Tank(16000);
+    private final IC2Tank outputTank6 = new IC2Tank(16000);
 
     public GTCXTileMultiDistillationTower() {
         super(10, 2, defaultEu, 128);

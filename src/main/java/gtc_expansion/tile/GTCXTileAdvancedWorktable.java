@@ -32,7 +32,6 @@ public class GTCXTileAdvancedWorktable extends GTTileWorktable implements IEnerg
     public int maxEnergy = 100000;
     public int maxInput = 128;
     public boolean addedToEnergyNet;
-    protected static final int[] slotTools = new int[] { 17, 18, 19, 20, 21 };
     public static ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/advancedworktable.png");
 
     public GTCXTileAdvancedWorktable() {

@@ -78,7 +78,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 64;
     @NetworkField(index = 13)
-    private IC2Tank outputTank = new IC2Tank(16000);
+    private final IC2Tank outputTank = new IC2Tank(16000);
     public int maxHeat;
     public int heat;
     public static final String neededHeat = "minHeat";

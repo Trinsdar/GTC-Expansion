@@ -19,12 +19,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 
 public class GTCXTileElectricLocker extends GTCXTileLocker implements IEnergySink, IEUStorage, ITickable {
-    public static ResourceLocation TEXTURE_ELECTRIC = new ResourceLocation(GTCExpansion.MODID, "textures/gui/electriclocker.png");
+    public static final ResourceLocation TEXTURE_ELECTRIC = new ResourceLocation(GTCExpansion.MODID, "textures/gui/electriclocker.png");
     @NetworkField(index = 3)
     public int energy;
-    public int tier = 3;
-    public int maxEnergy = 1000000;
-    public int maxInput = 512;
+    public final int tier = 3;
+    public final int maxEnergy = 1000000;
+    public final int maxInput = 512;
     public boolean addedToEnergyNet;
 
     public GTCXTileElectricLocker() {

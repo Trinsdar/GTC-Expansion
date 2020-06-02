@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
@@ -250,8 +251,9 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
     }
 
     public boolean isHatchWithCasing(BlockPos pos){
-        if (world.getTileEntity(pos) instanceof IGTCasingBackgroundBlock){
-            return ((IGTCasingBackgroundBlock)world.getTileEntity(pos)).getCasing() == casing;
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IGTCasingBackgroundBlock){
+            return ((IGTCasingBackgroundBlock)tile).getCasing() == casing;
         }
         return false;
     }

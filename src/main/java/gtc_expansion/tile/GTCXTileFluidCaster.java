@@ -83,7 +83,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidcaster.png");
     private static final int defaultEu = 64;
     @NetworkField(index = 13)
-    private IC2Tank inputTank = new IC2Tank(16000){
+    private final IC2Tank inputTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
             return super.canFillFluidType(fluid) && fluid.getFluid() != FluidRegistry.WATER;
@@ -91,14 +91,14 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     };
 
     @NetworkField(index = 14)
-    private IC2Tank waterTank = new IC2Tank(16000){
+    private final IC2Tank waterTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
             return super.canFillFluidType(fluid) && fluid.getFluid() == FluidRegistry.WATER;
         }
     };
 
-    public static final String consumePress = "consumePress";
+    public static final String CONSUME_PRESS = "consumePress";
 
     public GTCXTileFluidCaster() {
         super(5, 2, defaultEu, 100,128);
@@ -574,7 +574,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         if (output == null || output.getMetadata() == null) {
             return true;
         }
-        return output.getMetadata().getBoolean(consumePress);
+        return output.getMetadata().getBoolean(CONSUME_PRESS);
     }
 
     public static void addRecipe(String input, int amount, FluidStack fluid, boolean press, int totalEu,
@@ -615,7 +615,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         for (RecipeModifierHelpers.IRecipeModifier modifier : modifiers) {
             modifier.apply(mods);
         }
-        mods.setBoolean(consumePress, press);
+        mods.setBoolean(CONSUME_PRESS, press);
         for (ItemStack output : outputs) {
             outlist.add(output);
         }

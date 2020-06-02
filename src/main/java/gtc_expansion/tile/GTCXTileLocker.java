@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 
 public class GTCXTileLocker extends GTTileBaseRecolorableTile implements IHasGui, IClickable {
-    public static ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/locker.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/locker.png");
     public GTCXTileLocker() {
         super(4);
     }

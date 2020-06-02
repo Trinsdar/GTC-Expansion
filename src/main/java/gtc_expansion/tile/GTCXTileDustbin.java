@@ -48,7 +48,7 @@ import java.util.function.Predicate;
 import static gtclassic.api.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
 
 public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGui, ITickable {
-    public static ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/dustbin.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/dustbin.png");
     public static final GTRecipeMultiInputList DUSTBIN_RECIPE_LIST = new GTRecipeMultiInputList("gt.dustbin", 0);
     public IFilter filter = new GTCXDustbinFilter(this);
     private static final int[] slotInputs = MathUtil.fromTo(0, 16);
