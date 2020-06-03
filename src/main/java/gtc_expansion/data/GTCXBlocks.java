@@ -35,6 +35,7 @@ import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
+import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
@@ -47,6 +48,7 @@ import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
+import gtclassic.common.GTLang;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
@@ -85,7 +87,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile dieselGenerator = registerBlock(new GTCXBlockTile("dieselgenerator", GTCXLang.DIESEL_GENERATOR));
     public static final GTCXBlockTile gasTurbine = registerBlock(new GTCXBlockTile("gasturbine", GTCXLang.GAS_TURBINE));
     public static final GTCXBlockTile stoneCompressor = registerBlock(new GTCXBlockTile("stonecompressor", GTCXLang.STONE_COMPRESSOR));
-    //public static final GTCXBlockTile fusionReactor = registerBlock(new GEBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
+    public static final GTCXBlockTile fusionReactor = registerBlock(new GTCXBlockTile("fusionreactor", GTLang.FUSION_REACTOR, 5));
     public static final GTCXBlockTile thermalBoiler = registerBlock(new GTCXBlockTile("thermalboiler", GTCXLang.THERMAL_BOILER));
     public static final GTCXBlockTile largeSteamTurbine = registerBlock(new GTCXBlockTile("largesteamturbine", GTCXLang.LARGE_STEAM_TURBINE));
     public static final GTCXBlockTile largeGasTurbine = registerBlock(new GTCXBlockTile("largegasturbine", GTCXLang.LARGE_GAS_TURBINE));
@@ -108,6 +110,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile fusionMaterialInjector = registerBlock(new GTCXBlockTile("fusionmaterialinjector", GTCXLang.FUSION_MATERIAL_INJECTOR));
     public static final GTCXBlockTile fusionMaterialExtractor = registerBlock(new GTCXBlockTile("fusionmaterialextractor", GTCXLang.FUSION_MATERIAL_EXTRACTOR));
     public static final GTCXBlockTile fusionEnergyInjector = registerBlock(new GTCXBlockTile("fusionenergyinjector", GTCXLang.FUSION_ENERGY_INJECTOR));
+    public static final GTCXBlockTile fusionEnergyExtractor = registerBlock(new GTCXBlockTile("fusionenergyextractor", GTCXLang.FUSION_ENERGY_EXTRACTOR));
 
     public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", GTCXLang.FIRE_BRICK_BLOCK, "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
     public static final GTCXBlockCasing iridiumTungstensteelBlock = registerBlock(new GTCXBlockCasing("iridium_tungstensteel_block", GTCXLang.IRIDIUM_TUNGSTENSTEEL_BLOCK, 4, 2000.0F).setHardness(50.0F));
@@ -199,7 +202,8 @@ public class GTCXBlocks {
         registerUtil(GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector.class, "FusionMaterialInjector");
         registerUtil(GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor.class, "FusionMaterialExtractor");
         registerUtil(GTCXTileFusionEnergyInjector.class, "FusionEnergyInjector");
-        //registerUtil(GETileMultiFusionReactor.class, "BigFusionReactor");
+        registerUtil(GTCXTileEnergyOutputHatch.GTCXTileFusionEnergyExtractor.class, "FusionEnergyExtractor");
+        registerUtil(GTCXTileMultiFusionReactor.class, "BigFusionReactor");
     }
 
     public static void registerUtil(Class tile, String name) {

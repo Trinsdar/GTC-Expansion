@@ -273,4 +273,11 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
             super(4, 10000, 2048);
         }
     }
+
+    public static class GTCXTileFusionEnergyExtractor extends GTCXTileEnergyOutputHatch{
+
+        public GTCXTileFusionEnergyExtractor() {
+            super(12, 1000000000, 134217728);
+        }
+    }
 }

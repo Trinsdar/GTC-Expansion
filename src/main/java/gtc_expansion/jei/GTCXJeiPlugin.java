@@ -1,9 +1,9 @@
 package gtc_expansion.jei;
 
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
-import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.jei.category.GTCXJeiBurnableFluidCategory;
 import gtc_expansion.jei.category.GTCXJeiCustomCategory;
@@ -48,6 +48,8 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil3(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine, GTCXMachineGui.GTCXGasTurbineGui.class, 78, 35, 16, 17);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
+            registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.fusionReactor), "gt.fusion");
+            registry.addRecipeClickArea(GTCXMachineGui.GTCXFusionComputerGui.class,155, 5,  16, 16, "gt.fusion");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
             if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
                 for (GTMaterial mat : GTMaterial.values()){

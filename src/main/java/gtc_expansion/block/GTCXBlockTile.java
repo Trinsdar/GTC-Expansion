@@ -21,6 +21,7 @@ import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
+import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
@@ -162,6 +163,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         if (this == GTCXBlocks.fusionEnergyInjector){
             return new GTCXTileFusionEnergyInjector();
         }
+        if (this == GTCXBlocks.fusionEnergyExtractor){
+            return new GTCXTileEnergyOutputHatch.GTCXTileFusionEnergyExtractor();
+        }
         if (this == GTCXBlocks.thermalBoiler){
             return new GTCXTileMultiThermalBoiler();
         }
@@ -174,9 +178,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         if (this == GTCXBlocks.plateCutter){
             return new GTCXTilePlateCutter();
         }
-//        if (this == GEBlocks.fusionReactor){
-//            return new GETileMultiFusionReactor();
-//        }
+        if (this == GTCXBlocks.fusionReactor){
+            return new GTCXTileMultiFusionReactor();
+        }
         return new TileEntityBlock();
     }
 

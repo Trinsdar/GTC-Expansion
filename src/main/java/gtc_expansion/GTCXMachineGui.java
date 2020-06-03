@@ -117,4 +117,10 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXFusionComputerGui extends MachineGui{
+        public GTCXFusionComputerGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }
