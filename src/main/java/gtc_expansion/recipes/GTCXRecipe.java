@@ -346,7 +346,6 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_tile.blockpesu_281205134", Ic2Items.pesu, "SCS", "PPP", "SCS", 'S', TUNGSTEN, 'C', CIRCUIT_MASTER, 'P', Ic2Items.pesd);
         recipes.overrideRecipe("shaped_tile.blockTransformerIV_1876908464", Ic2Items.transformerIV.copy(), "XYX", "CVB", "XYX", 'X', TUNGSTEN, 'Y', CRAFTING_SUPERCONDUCTOR, 'C', CIRCUIT_MASTER, 'V',
                 Ic2Items.transformerEV.copy(), 'B', Ic2Items.pesd);
-        recipes.addRecipe(Ic2Items.pesu, "SsS", "CTP", "SsS", 'S', TUNGSTEN, 's', GTItems.superConductor, 'C', CIRCUIT_MASTER, 'T', Ic2Items.transformerEV, 'P', Ic2Items.pesd);
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setBoolean("Lossless", true);
         ItemStack stack = Ic2Items.precisionWrench.copy();
