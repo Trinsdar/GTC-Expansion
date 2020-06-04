@@ -220,6 +220,14 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
             GTCXTileMultiLargeGasTurbine turbine = (GTCXTileMultiLargeGasTurbine) tile;
             turbine.onBlockRemoved();
         }
+        if (this == GTCXBlocks.fusionReactor && tile instanceof GTCXTileMultiFusionReactor){
+            GTCXTileMultiFusionReactor reactor = (GTCXTileMultiFusionReactor) tile;
+            reactor.removeTilesWithOwners();
+        }
+        if (this == GTCXBlocks.fusionEnergyInjector && tile instanceof GTCXTileFusionEnergyInjector){
+            GTCXTileFusionEnergyInjector injector = (GTCXTileFusionEnergyInjector) tile;
+            injector.onBlockRemoved();
+        }
     }
 
     @Override
@@ -242,7 +250,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
                 } else if (pitch <= -65) {
                     block.setFacing(EnumFacing.DOWN);
                 } else {
-                    block.setFacing(EnumFacing.fromAngle((double) placer.rotationYaw).getOpposite());
+                    block.setFacing(EnumFacing.fromAngle(placer.rotationYaw).getOpposite());
                 }
             }
         }

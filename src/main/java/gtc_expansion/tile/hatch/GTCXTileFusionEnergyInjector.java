@@ -1,26 +1,40 @@
 package gtc_expansion.tile.hatch;
 
+import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.info.ILocatable;
 import ic2.core.block.base.tile.TileEntityBlock;
+import ic2.core.block.base.util.info.MaxInputInfo;
+import ic2.core.block.base.util.info.SinkTierInfo;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEnergySink, ILocatable {
-    IEnergySink accept;
+    GTCXTileMultiFusionReactor accept;
+    public boolean addedToEnergyNet;
 
     public GTCXTileFusionEnergyInjector() {
         super();
         accept = null;
+        this.addInfos(new SinkTierInfo(this), new MaxInputInfo(this));
     }
 
-    public void setAccept(IEnergySink accept){
+    public void setAccept(GTCXTileMultiFusionReactor accept){
+        if (accept == null){
+            this.accept.addMaxEnergy(-10000000);
+        } else {
+            accept.addMaxEnergy(10000000);
+        }
         this.accept = accept;
     }
 
-    public IEnergySink getAccept(){
+    public GTCXTileMultiFusionReactor getAccept(){
         return accept;
     }
 
@@ -44,6 +58,30 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
         return accept != null;
     }
 
+    public void onLoaded() {
+        super.onLoaded();
+        if (this.isSimulating()) {
+            if (!this.addedToEnergyNet) {
+                MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+                this.addedToEnergyNet = true;
+            }
+
+//            if (this.supportsNotify()) {
+//                this.updateNeighborChanges();
+//            }
+        }
+
+    }
+
+    public void onUnloaded() {
+        if (this.addedToEnergyNet && this.isSimulating()) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+            this.addedToEnergyNet = false;
+        }
+
+        super.onUnloaded();
+    }
+
     @Override
     public BlockPos getPosition() {
         return this.getPos();
@@ -52,5 +90,26 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
     @Override
     public World getWorldObj() {
         return this.getWorld();
+    }
+
+    public void onBlockRemoved(){
+        if (accept != null){
+            this.accept.addMaxEnergy(-10000000);
+        }
+    }
+
+    @Override
+    public boolean canSetFacing(EntityPlayer player, EnumFacing facing) {
+        return this.getFacing() != facing && facing.getAxis().isHorizontal();
+    }
+
+    @Override
+    public boolean canRemoveBlock(EntityPlayer player) {
+        return true;
+    }
+
+    @Override
+    public double getWrenchDropRate() {
+        return 1.0D;
     }
 }

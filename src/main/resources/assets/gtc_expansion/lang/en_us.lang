@@ -92,6 +92,7 @@ tile.gtc_expansion.dynamohatch.name=Dynamo Hatch
 tile.gtc_expansion.fusion_material_injector.name=Fusion Material Injector
 tile.gtc_expansion.fusion_material_extractor.name=Fusion Material Extractor
 tile.gtc_expansion.fusion_energy_injector.name=Fusion Energy Injector
+tile.gtc_expansion.fusion_energy_extractor.name=Fusion Energy Extractor
 
 #crops
 ic2.crop.Olivia.name=Olivia
