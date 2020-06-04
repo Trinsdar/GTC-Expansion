@@ -20,6 +20,7 @@ import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
+import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
@@ -98,6 +99,7 @@ public class GTCXRecipe {
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
         GTCXTileStoneCompressor.init();
+        GTCXTileMultiFusionReactor.postInit();
     }
 
     public static void initShapedItemRecipes(){

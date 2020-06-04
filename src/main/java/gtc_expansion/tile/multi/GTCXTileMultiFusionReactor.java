@@ -10,6 +10,11 @@ import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialElement;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTFluidMachineOutput;
+import gtclassic.api.recipe.GTRecipeMachineHandler;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
@@ -17,7 +22,11 @@ import gtclassic.common.GTBlocks;
 import gtclassic.common.GTLang;
 import gtclassic.common.tile.multi.GTTileMultiFusionReactor;
 import ic2.api.classic.item.IMachineUpgradeItem;
-import ic2.api.classic.tile.IStackOutput;
+import ic2.api.classic.recipe.RecipeModifierHelpers.IRecipeModifier;
+import ic2.api.classic.recipe.crafting.RecipeInputFluid;
+import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.recipe.IRecipeInput;
+import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.platform.lang.components.base.LocaleComp;
@@ -31,9 +40,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -153,7 +165,50 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             if (outputHatch.getOwner() == null){
                 outputHatch.setOwner(this);
             }
-            super.update();
+            handleRedstone();
+            updateNeighbors();
+            boolean noRoom = addToInventory();
+            if (shouldCheckRecipe) {
+                lastRecipe = getRecipe();
+                shouldCheckRecipe = false;
+            }
+            boolean operate = (!noRoom && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
+            if (operate && canContinue() && energy >= energyConsume) {
+                if (!getActive()) {
+                    getNetwork().initiateTileEntityEvent(this, 0, false);
+                }
+                setActive(true);
+                progress += progressPerTick;
+                useEnergy(recipeEnergy);
+                if (progress >= recipeOperation) {
+                    process(lastRecipe);
+                    progress = 0;
+                    notifyNeighbors();
+                }
+                getNetwork().updateTileGuiField(this, "progress");
+            } else {
+                if (getActive()) {
+                    if (progress != 0) {
+                        getNetwork().initiateTileEntityEvent(this, 1, false);
+                    } else {
+                        getNetwork().initiateTileEntityEvent(this, 2, false);
+                    }
+                }
+                if (progress != 0) {
+                    progress = 0;
+                    getNetwork().updateTileGuiField(this, "progress");
+                }
+                setActive(false);
+            }
+            if (supportsUpgrades) {
+                for (int i = 0; i < upgradeSlots; i++) {
+                    ItemStack item = inventory.get(i + inventory.size() - upgradeSlots);
+                    if (item.getItem() instanceof IMachineUpgradeItem) {
+                        ((IMachineUpgradeItem) item.getItem()).onTick(item, this);
+                    }
+                }
+            }
+            updateComparators();
         } else {
             if (!(input1 instanceof GTCXTileFusionMaterialInjector)){
                 this.inputHatch1 = null;
@@ -182,6 +237,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             if (lastRecipe == null) {
                 progress = 0;
             }
+
         }
         // If previous is not valid, find a new one
         if (lastRecipe == null) {
@@ -198,22 +254,152 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             return null;
         }
         applyRecipeEffect(lastRecipe.getOutputs());
-        int empty = 0;
-        ItemStack outputStack = outputHatch.getOutput();
-        if (outputStack.isEmpty()){
-            return lastRecipe;
-        }
-        for (ItemStack output : lastRecipe.getOutputs().getAllOutputs()) {
-            if (StackUtil.isStackEqual(outputStack, output, false, true)) {
-                if (outputStack.getCount()
-                        + output.getCount() <= outputStack.getMaxStackSize()) {
+        MachineOutput outputs = lastRecipe.getOutputs();
+        if (outputs instanceof GTFluidMachineOutput){
+            GTFluidMachineOutput fluidOutputs = (GTFluidMachineOutput) outputs;
+            if (outputHatch.getTank().getFluidAmount() == 0){
+                return lastRecipe;
+            }
+            FluidStack fluid = outputHatch.getTank().getFluid();
+            for (FluidStack output : fluidOutputs.getFluids()){
+                if (output.isFluidEqual(fluid) && outputHatch.getTank().getFluidAmount() + 1000 <= outputHatch.getTank().getCapacity()){
                     return lastRecipe;
+                }
+            }
+        } else {
+            ItemStack outputStack = outputHatch.getOutput();
+            if (outputStack.isEmpty()){
+                return lastRecipe;
+            }
+            for (ItemStack output : lastRecipe.getOutputs().getAllOutputs()) {
+                if (StackUtil.isStackEqual(outputStack, output, false, true)) {
+                    if (outputStack.getCount()
+                            + output.getCount() <= outputStack.getMaxStackSize()) {
+                        return lastRecipe;
+                    }
                 }
             }
         }
         return null;
     }
 
+    @Override
+    public boolean checkRecipe(MultiRecipe entry, List<ItemStack> inputs) {
+        FluidStack fluidInput1 = inputHatch1.getTank().getFluid();
+        FluidStack fluidInput2 = inputHatch2.getTank().getFluid();
+        List<IRecipeInput> recipeKeys = new LinkedList<IRecipeInput>(entry.getInputs());
+        for (Iterator<IRecipeInput> keyIter = recipeKeys.iterator(); keyIter.hasNext();) {
+            IRecipeInput key = keyIter.next();
+            if (key instanceof RecipeInputFluid){
+                FluidStack fluidStack = ((RecipeInputFluid)key).fluid;
+                if (fluidInput1 != null && fluidInput1.isFluidEqual(fluidStack) && fluidInput1.amount >= 1000){
+                    keyIter.remove();
+                    continue;
+                }
+                if (fluidInput2 != null && fluidInput2.isFluidEqual(fluidStack) && fluidInput2.amount >= 1000){
+                    keyIter.remove();
+                    continue;
+                }
+            }
+            int toFind = key.getAmount();
+            for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
+                ItemStack input = inputIter.next();
+                if (key.matches(input)) {
+                    if (input.getCount() >= toFind) {
+                        input.shrink(toFind);
+                        keyIter.remove();
+                        if (input.isEmpty()) {
+                            inputIter.remove();
+                        }
+                        break;
+                    }
+                    toFind -= input.getCount();
+                    input.setCount(0);
+                    inputIter.remove();
+                }
+            }
+        }
+        return recipeKeys.isEmpty();
+    }
+
+    @Override
+    public void process(MultiRecipe recipe) {
+        MachineOutput output = recipe.getOutputs().copy();
+        if (output instanceof GTFluidMachineOutput){
+            for (FluidStack fluid : ((GTFluidMachineOutput)output).getFluids()){
+                outputHatch.getTank().fillInternal(fluid, true);
+                onRecipeComplete();
+            }
+        } else {
+            for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
+                outputs.add(new MultiSlotOutput(stack, 1));
+                onRecipeComplete();
+            }
+        }
+
+        NBTTagCompound nbt = recipe.getOutputs().getMetadata();
+        boolean shiftContainers = nbt != null && nbt.getBoolean(MOVE_CONTAINER_TAG);
+        List<ItemStack> inputs = getInputs();
+        List<IRecipeInput> recipeKeys = new LinkedList<IRecipeInput>(recipe.getInputs());
+        for (Iterator<IRecipeInput> keyIter = recipeKeys.iterator(); keyIter.hasNext();) {
+            IRecipeInput key = keyIter.next();
+            if (key instanceof RecipeInputFluid){
+                FluidStack fluidStack = ((RecipeInputFluid)key).fluid;
+                if (inputHatch1.getTank().getFluid() != null && inputHatch1.getTank().getFluid().isFluidEqual(fluidStack)){
+                    inputHatch1.getTank().drainInternal(1000, true);
+                    keyIter.remove();
+                    continue;
+                }
+                if (inputHatch2.getTank().getFluid() != null && inputHatch2.getTank().getFluid().isFluidEqual(fluidStack)){
+                    inputHatch2.getTank().drainInternal(1000, true);
+                    keyIter.remove();
+                    continue;
+                }
+            }
+            int count = key.getAmount();
+            for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
+                ItemStack input = inputIter.next();
+                if (key.matches(input)) {
+                    if (input.getCount() >= count) {
+                        if (input.getItem().hasContainerItem(input)) {
+                            if (!shiftContainers) {
+                                continue;
+                            }
+                            ItemStack container = input.getItem().getContainerItem(input);
+                            if (!container.isEmpty()) {
+                                container.setCount(count);
+                                outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+                            }
+                        }
+                        input.shrink(count);
+                        count = 0;
+                        if (input.isEmpty()) {
+                            inputIter.remove();
+                        }
+                        keyIter.remove();
+                        break;
+                    }
+                    if (input.getItem().hasContainerItem(input)) {
+                        if (!shiftContainers) {
+                            continue;
+                        }
+                        ItemStack container = input.getItem().getContainerItem(input);
+                        if (!container.isEmpty()) {
+                            container.setCount(input.getCount());
+                            outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+                        }
+                    }
+                    count -= input.getCount();
+                    input.setCount(0);
+                    inputIter.remove();
+                }
+            }
+        }
+        addToInventory();
+        shouldCheckRecipe = true;
+    }
+
+    @Override
     public void onRecipeComplete() {
         if (this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE) {
             int rTime = this.lastRecipe.getOutputs().getMetadata().getInteger("RecipeTime") + 100;
@@ -233,12 +419,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         if (outputs.isEmpty()) {
             return false;
         }
-        for (Iterator<IStackOutput> iter = outputs.iterator(); iter.hasNext();) {
-            IStackOutput output = iter.next();
-            if (output.addToInventory(outputHatch)) {
-                iter.remove();
-            }
-        }
+        outputs.removeIf(output -> output.addToInventory(outputHatch));
         return !outputs.isEmpty();
     }
 
@@ -286,6 +467,74 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         compound.setInteger("Y", pos.getY());
         compound.setInteger("Z", pos.getZ());
         nbt.setTag(id, compound);
+    }
+
+    public static void postInit() {
+        /** Just regular recipes added manually **/
+        addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
+                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(40000000), GTMaterialGen.getFluidStack(GTMaterial.Helium));
+        addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
+                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(40000000), GTMaterialGen.getFluidStack(GTMaterial.Helium));
+        /** This iterates the element objects to create all Fusion recipes **/
+        Set<Integer> usedInputs = new HashSet<>();
+        for (GTMaterialElement sum : GTMaterialElement.getElementList()) {
+            for (GTMaterialElement input1 : GTMaterialElement.getElementList()) {
+                for (GTMaterialElement input2 : GTMaterialElement.getElementList()) {
+                    int hash = input1.hashCode() + input2.hashCode();
+                    if ((input1.getNumber() + input2.getNumber() == sum.getNumber()) && input1 != input2
+                            && !usedInputs.contains(hash)) {
+                        float ratio = (sum.getNumber() / 100.0F) * 7000000.0F;
+                        if (!input1.isFluid() && !input2.isFluid() && !sum.isFluid()){
+                            usedInputs.add(hash);
+                            continue;
+                        }
+                        IRecipeInput recipeInput1 = input1.getInput();
+                        IRecipeInput recipeInput2 = input2.getInput();
+                        if (sum.isFluid()){
+                            addRecipe(recipeInput1,
+                                    recipeInput2, totalEu(Math.round(ratio)), ((RecipeInputFluid)sum.getInput()).fluid);
+                        } else {
+                            addRecipe(recipeInput1,
+                                    recipeInput2, totalEu(Math.round(ratio)), sum.getOutput());
+                        }
+                        usedInputs.add(hash);
+
+                    }
+                }
+            }
+        }
+    }
+
+    public static IRecipeModifier[] totalEu(int total) {
+        return GTRecipeMachineHandler.totalEu(GTTileMultiFusionReactor.RECIPE_LIST, total);
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, ItemStack output){
+        List<IRecipeInput> inlist = new ArrayList<>();
+        inlist.add(input1);
+        inlist.add(input2);
+        NBTTagCompound mods = new NBTTagCompound();
+        if (modifiers != null) {
+            for (IRecipeModifier modifier : modifiers) {
+                modifier.apply(mods);
+            }
+        }
+        GTTileMultiFusionReactor.RECIPE_LIST.addRecipe(inlist, new MachineOutput(modifiers != null ? mods : null, output), output.getUnlocalizedName(), 8192);
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, FluidStack output){
+        List<IRecipeInput> inlist = new ArrayList<>();
+        List<FluidStack> outList = new ArrayList<>();
+        inlist.add(input1);
+        inlist.add(input2);
+        outList.add(output);
+        NBTTagCompound mods = new NBTTagCompound();
+        if (modifiers != null) {
+            for (IRecipeModifier modifier : modifiers) {
+                modifier.apply(mods);
+            }
+        }
+        GTTileMultiFusionReactor.RECIPE_LIST.addRecipe(inlist, new GTFluidMachineOutput(modifiers != null ? mods : null, outList), output.getUnlocalizedName(), 8192);
     }
 
     public void removeTilesWithOwners(){

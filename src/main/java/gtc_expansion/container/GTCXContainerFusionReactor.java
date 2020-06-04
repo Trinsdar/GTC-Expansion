@@ -16,10 +16,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTCXContainerFusionReactor extends ContainerTileComponent<GTCXTileMultiFusionReactor> {
     public static Box2D machineProgressBox = new Box2D(4, 162, 149, 16);
-    public static Vec2i machineProgressPos = new Vec2i(0, 299);
+    public static Vec2i machineProgressPos = new Vec2i(0, 235);
     public static Box2D statusBox = new Box2D(30, 103, 121, 15);
     public static Box2D machineChargeBox = new Box2D(5, 156, 147, 5);
-    public static Vec2i machineChargePos = new Vec2i(0, 315);
+    public static Vec2i machineChargePos = new Vec2i(0, 251);
 
     public GTCXContainerFusionReactor(InventoryPlayer player, GTCXTileMultiFusionReactor tile) {
         super(tile);
