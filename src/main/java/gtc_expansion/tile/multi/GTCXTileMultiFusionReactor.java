@@ -20,7 +20,6 @@ import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.common.GTBlocks;
 import gtclassic.common.GTLang;
-import gtclassic.common.tile.multi.GTTileMultiFusionReactor;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers.IRecipeModifier;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -50,6 +49,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import static gtclassic.common.tile.multi.GTTileMultiFusionReactor.RECIPE_LIST;
+
 public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implements IGTOwnerTile {
     static final IBlockState COIL_STATE = GTBlocks.casingFusion.getDefaultState();
     static final IBlockState CASING_STATE = GTCXBlocks.casingAdvanced.getDefaultState();
@@ -58,7 +59,8 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     static final IBlockState ENERGY_INJECTOR_STATE = GTCXBlocks.fusionEnergyInjector.getDefaultState();
     static final IBlockState ENERGY_EXTRACTOR_STATE = GTCXBlocks.fusionEnergyExtractor.getDefaultState();
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fusioncomputer.png");
-    public String status;
+    public static final String START_EU = "startEu";
+    public boolean usedStartEnergy = false;
     private BlockPos input1;
     private BlockPos input2;
     private BlockPos output;
@@ -129,7 +131,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GTTileMultiFusionReactor.RECIPE_LIST;
+        return RECIPE_LIST;
     }
 
     public ResourceLocation getGuiTexture() {
@@ -174,18 +176,25 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             }
             boolean operate = (!noRoom && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
             if (operate && canContinue() && energy >= energyConsume) {
-                if (!getActive()) {
-                    getNetwork().initiateTileEntityEvent(this, 0, false);
+                int neededStartEu = getStartEu(lastRecipe.getOutputs());
+                if (usedStartEnergy || energy >= neededStartEu + energyConsume || neededStartEu == 0){
+                    if (!usedStartEnergy){
+                        this.useEnergy(neededStartEu);
+                        usedStartEnergy = true;
+                    }
+                    if (!getActive()) {
+                        getNetwork().initiateTileEntityEvent(this, 0, false);
+                    }
+                    setActive(true);
+                    progress += progressPerTick;
+                    useEnergy(recipeEnergy);
+                    if (progress >= recipeOperation) {
+                        process(lastRecipe);
+                        progress = 0;
+                        notifyNeighbors();
+                    }
+                    getNetwork().updateTileGuiField(this, "progress");
                 }
-                setActive(true);
-                progress += progressPerTick;
-                useEnergy(recipeEnergy);
-                if (progress >= recipeOperation) {
-                    process(lastRecipe);
-                    progress = 0;
-                    notifyNeighbors();
-                }
-                getNetwork().updateTileGuiField(this, "progress");
             } else {
                 if (getActive()) {
                     if (progress != 0) {
@@ -196,6 +205,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                 }
                 if (progress != 0) {
                     progress = 0;
+                    usedStartEnergy = false;
                     getNetwork().updateTileGuiField(this, "progress");
                 }
                 setActive(false);
@@ -236,6 +246,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             lastRecipe = checkRecipe(lastRecipe, StackUtil.copyList(inputs)) ? lastRecipe : null;
             if (lastRecipe == null) {
                 progress = 0;
+                usedStartEnergy = false;
             }
 
         }
@@ -402,12 +413,12 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public void onRecipeComplete() {
         if (this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE) {
-            int rTime = this.lastRecipe.getOutputs().getMetadata().getInteger("RecipeTime") + 100;
-            if (rTime < 3000) {
+            int startEu = this.lastRecipe.getOutputs().getMetadata().getInteger(START_EU);
+            if (startEu != 40000000 && startEu != 60000000) {
                 return;
             }
 
-            int euOutput = rTime * 32000;
+            int euOutput = startEu == 40000000 ? 7649712 : 7929856;
             energyOutputHatch.addEnergy(euOutput);
 
         }
@@ -441,6 +452,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.output = readBlockPosFromNBT(nbt, "output");
         this.energyOutput = readBlockPosFromNBT(nbt, "energyOutput");
+        this.usedStartEnergy = nbt.getBoolean("usedStartEnergy");
     }
 
     @Override
@@ -450,6 +462,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "output", output);
         writeBlockPosToNBT(nbt, "energyOutput", energyOutput);
+        nbt.setBoolean("usedStartEnergy", usedStartEnergy);
         return nbt;
     }
 
@@ -470,11 +483,19 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     }
 
     public static void postInit() {
+        RECIPE_LIST.startMassChange();
+        GTRecipeMachineHandler.removeRecipe(RECIPE_LIST, "item.gtclassic.test_tube");
+        GTRecipeMachineHandler.removeRecipe(RECIPE_LIST, "item.gtclassic.test_tube_1");
+        RECIPE_LIST.finishMassChange();
         /** Just regular recipes added manually **/
+        addRecipe( input(GTMaterialGen.getTube(GTMaterial.Deuterium, 1)),
+                input(GTMaterialGen.getTube(GTMaterial.Tritium, 1)), totalEu(1048576), 40000000, GTMaterialGen.getTube(GTMaterial.Helium, 1));
+        addRecipe( input(GTMaterialGen.getTube(GTMaterial.Deuterium, 1)),
+                input(GTMaterialGen.getTube(GTMaterial.Helium3, 1)), totalEu(1048576), 60000000, GTMaterialGen.getTube(GTMaterial.Helium, 1));
         addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
-                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(40000000), GTMaterialGen.getFluidStack(GTMaterial.Helium));
+                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(1048576), 40000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
         addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
-                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(40000000), GTMaterialGen.getFluidStack(GTMaterial.Helium));
+                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(1048576), 60000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
         /** This iterates the element objects to create all Fusion recipes **/
         Set<Integer> usedInputs = new HashSet<>();
         for (GTMaterialElement sum : GTMaterialElement.getElementList()) {
@@ -492,10 +513,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                         IRecipeInput recipeInput2 = input2.getInput();
                         if (sum.isFluid()){
                             addRecipe(recipeInput1,
-                                    recipeInput2, totalEu(Math.round(ratio)), ((RecipeInputFluid)sum.getInput()).fluid);
+                                    recipeInput2, totalEu(Math.round(ratio)), 0, ((RecipeInputFluid)sum.getInput()).fluid);
                         } else {
                             addRecipe(recipeInput1,
-                                    recipeInput2, totalEu(Math.round(ratio)), sum.getOutput());
+                                    recipeInput2, totalEu(Math.round(ratio)), 0, sum.getOutput());
                         }
                         usedInputs.add(hash);
 
@@ -505,11 +526,18 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         }
     }
 
-    public static IRecipeModifier[] totalEu(int total) {
-        return GTRecipeMachineHandler.totalEu(GTTileMultiFusionReactor.RECIPE_LIST, total);
+    public static int getStartEu(MachineOutput output) {
+        if (output == null || output.getMetadata() == null || !output.getMetadata().hasKey(START_EU)) {
+            return 0;
+        }
+        return output.getMetadata().getInteger(START_EU);
     }
 
-    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, ItemStack output){
+    public static IRecipeModifier[] totalEu(int total) {
+        return GTRecipeMachineHandler.totalEu(RECIPE_LIST, total);
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, ItemStack output){
         List<IRecipeInput> inlist = new ArrayList<>();
         inlist.add(input1);
         inlist.add(input2);
@@ -519,10 +547,11 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                 modifier.apply(mods);
             }
         }
-        GTTileMultiFusionReactor.RECIPE_LIST.addRecipe(inlist, new MachineOutput(modifiers != null ? mods : null, output), output.getUnlocalizedName(), 8192);
+        mods.setInteger(START_EU, startEu);
+        RECIPE_LIST.addRecipe(inlist, new MachineOutput(mods, output), output.getUnlocalizedName(), 8192);
     }
 
-    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, FluidStack output){
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, FluidStack output){
         List<IRecipeInput> inlist = new ArrayList<>();
         List<FluidStack> outList = new ArrayList<>();
         inlist.add(input1);
@@ -534,7 +563,8 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                 modifier.apply(mods);
             }
         }
-        GTTileMultiFusionReactor.RECIPE_LIST.addRecipe(inlist, new GTFluidMachineOutput(modifiers != null ? mods : null, outList), output.getUnlocalizedName(), 8192);
+        mods.setInteger(START_EU, startEu);
+        RECIPE_LIST.addRecipe(inlist, new GTFluidMachineOutput(mods, outList), output.getUnlocalizedName(), 8192);
     }
 
     public void removeTilesWithOwners(){
