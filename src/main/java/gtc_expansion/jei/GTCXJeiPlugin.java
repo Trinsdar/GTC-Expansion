@@ -9,6 +9,7 @@ import gtc_expansion.jei.category.GTCXJeiBurnableFluidCategory;
 import gtc_expansion.jei.category.GTCXJeiCustomCategory;
 import gtc_expansion.jei.wrapper.GTCXJeiBurnableFluidWrapper;
 import gtc_expansion.jei.wrapper.GTCXJeiCasterWrapper;
+import gtc_expansion.jei.wrapper.GTCXJeiFusionWrapper;
 import gtc_expansion.jei.wrapper.GTCXJeiHeatWrapper;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
@@ -46,6 +47,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil2(registry, GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster, GTCXMachineGui.GTCXFluidCasterGui.class, 78, 24, 20, 18);
             wrapperUtil3(registry, GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST, GTCXBlocks.dieselGenerator, GTCXMachineGui.GTCXDieselGeneratorGui.class, 78, 35, 16, 17);
             wrapperUtil3(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine, GTCXMachineGui.GTCXGasTurbineGui.class, 78, 35, 16, 17);
+            //wrapperUtil4(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer, GTCXMachineGui.GTCXFusionComputerGui.class, 155, 5, 16, 16);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.fusionComputer), "gt.fusion");
@@ -96,6 +98,7 @@ public class GTCXJeiPlugin implements IModPlugin {
         categoryUtil(registry, GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.industrialBlastFurnace);
         categoryUtil(registry, GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST, GTCXBlocks.fluidSmelter);
         categoryUtil(registry, GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster);
+        //categoryUtil(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer);
         categoryUtil2(registry, GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST, GTCXBlocks.dieselGenerator);
         categoryUtil2(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine);
 
@@ -130,6 +133,18 @@ public class GTCXJeiPlugin implements IModPlugin {
                                      Class gui, int clickX, int clickY, int sizeX, int sizeY) {
         String recipeList = list.getCategory();
         registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GTCXJeiBurnableFluidWrapper::new, recipeList);
+        registry.addRecipes(list.getRecipeList(), recipeList);
+        registry.addRecipeCatalyst(new ItemStack(catalyst), recipeList);
+        if (gui != null) {
+            registry.addRecipeClickArea(gui, clickX, clickY, sizeX, sizeY, recipeList);
+        }
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private static void wrapperUtil4(@Nonnull IModRegistry registry, GTRecipeMultiInputList list, Block catalyst,
+                                     Class gui, int clickX, int clickY, int sizeX, int sizeY) {
+        String recipeList = list.getCategory();
+        registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GTCXJeiFusionWrapper::new, recipeList);
         registry.addRecipes(list.getRecipeList(), recipeList);
         registry.addRecipeCatalyst(new ItemStack(catalyst), recipeList);
         if (gui != null) {
