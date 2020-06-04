@@ -178,7 +178,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         if (this == GTCXBlocks.plateCutter){
             return new GTCXTilePlateCutter();
         }
-        if (this == GTCXBlocks.fusionReactor){
+        if (this == GTCXBlocks.fusionComputer){
             return new GTCXTileMultiFusionReactor();
         }
         return new TileEntityBlock();
@@ -220,7 +220,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
             GTCXTileMultiLargeGasTurbine turbine = (GTCXTileMultiLargeGasTurbine) tile;
             turbine.onBlockRemoved();
         }
-        if (this == GTCXBlocks.fusionReactor && tile instanceof GTCXTileMultiFusionReactor){
+        if (this == GTCXBlocks.fusionComputer && tile instanceof GTCXTileMultiFusionReactor){
             GTCXTileMultiFusionReactor reactor = (GTCXTileMultiFusionReactor) tile;
             reactor.removeTilesWithOwners();
         }

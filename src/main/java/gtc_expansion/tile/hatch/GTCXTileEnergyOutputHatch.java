@@ -9,6 +9,7 @@ import ic2.api.energy.EnergyNet;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.core.block.base.tile.TileEntityElectricBlock;
 import ic2.core.inventory.container.ContainerIC2;
+import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,6 +38,11 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
         this.output = output;
         this.addGuiFields("output");
         this.addNetworkFields("casing", "config");
+    }
+
+    @Override
+    protected void addSlots(InventoryHandler handler) {
+        // empty method since this doesn't have any slots
     }
 
     @Override
@@ -97,18 +103,14 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
     }
 
     @Override
-    public double injectEnergy(EnumFacing directionFrom, double amount, double voltage) {
-        if (amount <= 0.0D) {
+    public double getOfferedEnergy() {
+        if (this.energy < this.output) {
+            return this.energy;
+        } else if (this.redstoneMode == 6 && this.isRedstonePowered()) {
             return 0.0D;
+        } else {
+            return this.redstoneMode == 7 && this.isRedstonePowered() && this.energy < this.maxEnergy ? 0.0D : (double)this.output;
         }
-        energy = ((int) (energy + amount));
-        int left = 0;
-        if (energy >= maxEnergy) {
-            left = energy - maxEnergy;
-            energy = maxEnergy;
-        }
-        getNetwork().updateTileGuiField(this, "energy");
-        return left;
     }
 
     @Override

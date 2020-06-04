@@ -48,7 +48,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil3(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine, GTCXMachineGui.GTCXGasTurbineGui.class, 78, 35, 16, 17);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
-            registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.fusionReactor), "gt.fusion");
+            registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.fusionComputer), "gt.fusion");
             registry.addRecipeClickArea(GTCXMachineGui.GTCXFusionComputerGui.class,155, 5,  16, 16, "gt.fusion");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
             if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
