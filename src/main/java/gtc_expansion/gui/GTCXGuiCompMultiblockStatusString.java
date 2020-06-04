@@ -27,6 +27,6 @@ public class GTCXGuiCompMultiblockStatusString extends GuiComponent {
     @Override
     public void drawFrontground(GuiIC2 gui, int mouseX, int mouseY) {
         String structureValid = tile.getStructureValid() ? "Structure is valid" : "Structure is invalid";
-        gui.drawString(structureValid, box.getX(), box.getY(), Color.white.hashCode());
+        gui.drawString(structureValid, box.getX(), box.getY(), Color.cyan.hashCode());
     }
 }

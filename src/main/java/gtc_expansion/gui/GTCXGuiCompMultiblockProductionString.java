@@ -26,7 +26,7 @@ public class GTCXGuiCompMultiblockProductionString extends GuiComponent {
 
     @Override
     public void drawFrontground(GuiIC2 gui, int mouseX, int mouseY) {
-        gui.drawString("Current Production:", box.getX(), box.getY(), Color.white.hashCode());
-        gui.drawString(tile.getProduction() + " EU/Tick", box.getX(), box.getY() + 8, Color.white.hashCode());
+        gui.drawString("Current Production:", box.getX(), box.getY(), Color.cyan.hashCode());
+        gui.drawString(tile.getProduction() + " EU/Tick", box.getX(), box.getY() + 8, Color.cyan.hashCode());
     }
 }
