@@ -32,6 +32,7 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
             accept.addMaxEnergy(10000000);
         }
         this.accept = accept;
+        this.updateNeighbors(true);
     }
 
     public GTCXTileMultiFusionReactor getAccept(){
@@ -65,10 +66,23 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
                 MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
                 this.addedToEnergyNet = true;
             }
+        }
+    }
 
-//            if (this.supportsNotify()) {
-//                this.updateNeighborChanges();
-//            }
+    public void updateNeighbors(boolean needSelf) {
+        if (needSelf) {
+            this.world.neighborChanged(this.getPos(), this.getBlockType(), this.getPos());
+        }
+
+        EnumFacing[] var2 = EnumFacing.VALUES;
+        int var3 = var2.length;
+
+        for(int var4 = 0; var4 < var3; ++var4) {
+            EnumFacing side = var2[var4];
+            BlockPos newPos = this.getPos().offset(side);
+            if (this.world.isBlockLoaded(newPos)) {
+                this.world.neighborChanged(newPos, this.getBlockType(), this.getPos());
+            }
         }
 
     }
