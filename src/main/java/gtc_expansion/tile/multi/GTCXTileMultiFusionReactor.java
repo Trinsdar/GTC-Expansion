@@ -29,6 +29,7 @@ import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.state.IBlockState;
@@ -417,8 +418,8 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             if (startEu != 40000000 && startEu != 60000000) {
                 return;
             }
-
-            int euOutput = startEu == 40000000 ? 7649712 : 7929856;
+            int rTime = lastRecipe.getOutputs().getMetadata().getInteger("RecipeTime") + 100;
+            int euOutput = startEu == 40000000 ? rTime * 60000 : rTime * 62000;
             energyOutputHatch.addEnergy(euOutput);
 
         }
@@ -484,18 +485,15 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     public static void postInit() {
         RECIPE_LIST.startMassChange();
-        GTRecipeMachineHandler.removeRecipe(RECIPE_LIST, "item.gtclassic.test_tube");
-        GTRecipeMachineHandler.removeRecipe(RECIPE_LIST, "item.gtclassic.test_tube_1");
+        for (MultiRecipe recipe : RECIPE_LIST.getRecipeList()){
+            GTRecipeMachineHandler.removeRecipe(RECIPE_LIST, recipe.getRecipeID());
+        }
         RECIPE_LIST.finishMassChange();
         /** Just regular recipes added manually **/
-        addRecipe( input(GTMaterialGen.getTube(GTMaterial.Deuterium, 1)),
-                input(GTMaterialGen.getTube(GTMaterial.Tritium, 1)), totalEu(1048576), 40000000, GTMaterialGen.getTube(GTMaterial.Helium, 1));
-        addRecipe( input(GTMaterialGen.getTube(GTMaterial.Deuterium, 1)),
-                input(GTMaterialGen.getTube(GTMaterial.Helium3, 1)), totalEu(1048576), 60000000, GTMaterialGen.getTube(GTMaterial.Helium, 1));
         addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
-                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(1048576), 40000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
+                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(2097152), 40000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
         addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
-                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(1048576), 60000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
+                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(2097152), 60000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
         /** This iterates the element objects to create all Fusion recipes **/
         Set<Integer> usedInputs = new HashSet<>();
         for (GTMaterialElement sum : GTMaterialElement.getElementList()) {
@@ -505,18 +503,15 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                     if ((input1.getNumber() + input2.getNumber() == sum.getNumber()) && input1 != input2
                             && !usedInputs.contains(hash)) {
                         float ratio = (sum.getNumber() / 100.0F) * 7000000.0F;
-                        if (!input1.isFluid() && !input2.isFluid() && !sum.isFluid()){
-                            usedInputs.add(hash);
-                            continue;
-                        }
+                        int startEu = sum.getNumber() == GTMaterial.Iridium.getElementNumber() ? 120000000 : 0;
                         IRecipeInput recipeInput1 = input1.getInput();
                         IRecipeInput recipeInput2 = input2.getInput();
                         if (sum.isFluid()){
                             addRecipe(recipeInput1,
-                                    recipeInput2, totalEu(Math.round(ratio)), 0, ((RecipeInputFluid)sum.getInput()).fluid);
+                                    recipeInput2, totalEu(Math.round(ratio)), startEu, ((RecipeInputFluid)sum.getInput()).fluid);
                         } else {
                             addRecipe(recipeInput1,
-                                    recipeInput2, totalEu(Math.round(ratio)), 0, sum.getOutput());
+                                    recipeInput2, totalEu(Math.round(ratio)), startEu, sum.getOutput());
                         }
                         usedInputs.add(hash);
 
@@ -524,6 +519,8 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                 }
             }
         }
+        addRecipe(input(GTMaterialGen.getIc2(Ic2Items.uuMatter, 10)),
+                input(GTMaterialGen.getIc2(Ic2Items.emptyCell, 1)), totalEu(10000000),100000000, GTMaterialGen.getIc2(Ic2Items.plasmaCell, 1));
     }
 
     public static int getStartEu(MachineOutput output) {

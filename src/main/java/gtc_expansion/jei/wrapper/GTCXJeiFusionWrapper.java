@@ -34,26 +34,20 @@ public class GTCXJeiFusionWrapper extends GTJeiMultiRecipeWrapper {
                 * multiRecipe.getMachineEu())
                 + " EU", 0, 80, Color.black.getRGB());
         NBTTagCompound nbt = multiRecipe.getOutputs().getMetadata();
-        if (multiRecipe.getMachineEu() == 8192 && (getEntryTicks(multiRecipe.getOutputs()) > 3000 || (nbt.hasKey("startEu") && nbt.getInteger("startEu") != 0))) {
-            if (nbt.hasKey("startEu")){
-                int startEu = nbt.getInteger("startEu");
-                boolean helium = startEu == 40000000 || startEu == 60000000;
-                extraHeight = helium ? 20 : 10;
-                font.drawString("Start Eu: "
-                        + NumberFormat.getNumberInstance(Locale.US).format(startEu
-                        * multiRecipe.getMachineEu())
-                        + " EU", 0, 90, Color.black.getRGB());
-                if (helium){
-                    int generateEu = startEu == 40000000 ? 7649712 : 7929856;
-                    font.drawString("Output: "
-                            + NumberFormat.getNumberInstance(Locale.US).format(generateEu)
-                            + " EU Out", 0, 90, Color.black.getRGB());
-                }
-            } else {
-                extraHeight = 10;
+        if ((nbt.hasKey("startEu") && nbt.getInteger("startEu") != 0)) {
+            int startEu = nbt.getInteger("startEu");
+            boolean helium = startEu == 40000000 || startEu == 60000000;
+            extraHeight = helium ? 20 : 10;
+            font.drawString("Start Eu: "
+                    + NumberFormat.getNumberInstance(Locale.US).format(startEu
+                    * multiRecipe.getMachineEu())
+                    + " EU", 0, 90, Color.black.getRGB());
+            if (helium){
+                int rTime = getEntryTicks(multiRecipe.getOutputs());
+                int generateEu = startEu == 40000000 ? rTime * 60000 : rTime * 62000;
                 font.drawString("Output: "
-                        + NumberFormat.getNumberInstance(Locale.US).format(getEntryTicks(multiRecipe.getOutputs()) * 32000)
-                        + " EU Out", 0, 90, Color.black.getRGB());
+                        + NumberFormat.getNumberInstance(Locale.US).format(generateEu)
+                        + " EU Out", 0, 100, Color.black.getRGB());
             }
         }
         if (GTConfig.general.debugMode) {
