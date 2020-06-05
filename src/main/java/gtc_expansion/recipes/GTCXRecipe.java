@@ -434,7 +434,7 @@ public class GTCXRecipe {
             recipeId = IC2.config.getFlag("SteelRecipes") ? 1913907474 : 1986006418;
             recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", " W ", 'R', "rodRefinedIron", 'W', "craftingToolWrench");
             recipeId = IC2.config.getFlag("SteelRecipes") ? 480320652 : 527557260;
-            recipes.overrideRecipe("shaped_tile.blockmachine_" + recipeId, Ic2Items.machine, "PPP", "PWP", "PPP", 'P', getRefinedIronPlate(), 'W', "craftingToolWrench");
+            recipes.overrideRecipe("shaped_tile.blockmachine_" + recipeId, Ic2Items.machine, "PPP", "PWP", "PPP", 'P', REFINED_IRON, 'W', "craftingToolWrench");
             recipes.overrideRecipe("shaped_item.upgradekit.mfs_1186329581", Ic2Items.mfsuUpgradeKid, "BMB", "BBB", " B ", 'B', "ingotBronze", 'M', Ic2Items.mfsu);
         } else {
             recipeId = IC2.config.getFlag("SteelRecipes") ? 1913907474 : 1986006418;
