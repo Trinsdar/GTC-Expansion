@@ -1,12 +1,13 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerFluidSmelter;
-import gtc_expansion.material.GTCXMaterial;
-import gtc_expansion.recipes.GTCXRecipeLists;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
+import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.material.GTCXMaterialGen;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.helpers.GTUtility;
@@ -422,16 +423,16 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), 500);
         coilsSlotWhitelist.put(GTMaterialGen.get(GTCXItems.nichromeHeatingCoil), 750);
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-            addRecipe("blockRefinedIron", 1, 750 * (GTCXMaterial.RefinedIron.getTier() + 1), 115200, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296));
-            addRecipe("casingCopper", 1, 750 * (GTCXMaterial.Copper.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72));
-            addRecipe("casingTin", 1, 750 * (GTCXMaterial.Tin.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 72));
-            addRecipe("casingSilver", 1, 750 * (GTCXMaterial.Silver.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 72));
-            addRecipe("casingLead", 1, 750 * (GTCXMaterial.Lead.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Lead, 72));
-            addRecipe("casingIron", 1, 750 * (GTCXMaterial.Iron.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 72));
-            addRecipe("casingGold", 1, 750 * (GTCXMaterial.Gold.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72));
-            addRecipe("casingRefinedIron", 1, 750 * (GTCXMaterial.RefinedIron.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72));
-            addRecipe("casingSteel", 1, 750 * (GTCXMaterial.Steel.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72));
-            addRecipe("casingBronze", 1, 750 * (GTCXMaterial.Bronze.getTier() + 1), 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 72));
+            addRecipe("blockRefinedIron", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.RefinedIron) + 273, 115200, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296));
+            addRecipe("casingCopper", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Copper) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 72));
+            addRecipe("casingTin", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Tin) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 72));
+            addRecipe("casingSilver", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Silver) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Silver, 72));
+            addRecipe("casingLead", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Lead) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Lead, 72));
+            addRecipe("casingIron", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Iron) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Iron, 72));
+            addRecipe("casingGold", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Gold) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Gold, 72));
+            addRecipe("casingRefinedIron", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.RefinedIron) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 72));
+            addRecipe("casingSteel", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Steel) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Steel, 72));
+            addRecipe("casingBronze", 1, GTCXMaterialGen.getMaterialHeatValue(GTCXMaterial.Bronze) + 273, 64000, GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 72));
         }
     }
 

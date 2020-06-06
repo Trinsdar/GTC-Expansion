@@ -40,4 +40,8 @@ public class GTCXMaterialGen {
     public static ItemStack getTinyDust(GTMaterial mat, int count){
         return GTMaterialGen.getStack(mat, GTCXMaterial.tinydust, count);
     }
+
+    public static int getMaterialHeatValue(GTMaterial material){
+        return GTCXMaterial.materialHeatMap.getOrDefault(material, 0);
+    }
 }

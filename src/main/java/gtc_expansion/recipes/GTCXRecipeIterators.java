@@ -96,47 +96,47 @@ public class GTCXRecipeIterators {
         if (mat.hasFlag(GTCXMaterial.molten)){
             String orename = mat.getDisplayName();
             fluidCasterBlacklist.add(orename);
-            int tier = mat.getTier() + 1;
+            int heat = GTCXMaterialGen.getMaterialHeatValue(mat) + 273;
             if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Copper) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tin) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.RefinedIron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Silver) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Bronze)){
-                GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
-                GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
                 if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold)){
-                    GTCXTileFluidSmelter.addRecipe("nugget" + orename, 1, 750 * tier, 1600, GTMaterialGen.getFluidStack(mat, 16));
+                    GTCXTileFluidSmelter.addRecipe("nugget" + orename, 1, heat, 1600, GTMaterialGen.getFluidStack(mat, 16));
                 }
             }
             if (mat.hasFlag(GTMaterialFlag.INGOT)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTMaterialGen.getIngot(mat, 1));
-                GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
             }
             if (mat.hasFlag(GTCXMaterial.plate)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldPlate), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTCXMaterialGen.getPlate(mat, 1));
-                GTCXTileFluidSmelter.addRecipe("plate" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                GTCXTileFluidSmelter.addRecipe("plate" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
             }
             if (mat.hasFlag(GTCXMaterial.nugget)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.getFluidStack(mat, 16), false, 1600, GTCXMaterialGen.getNugget(mat, 1));
-                GTCXTileFluidSmelter.addRecipe("nugget" + orename, 1, 750 * tier, 1600, GTMaterialGen.getFluidStack(mat, 16));
+                GTCXTileFluidSmelter.addRecipe("nugget" + orename, 1, heat, 1600, GTMaterialGen.getFluidStack(mat, 16));
             }
             if (mat.hasFlag(GTCXMaterial.stick)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldRod), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTCXMaterialGen.getRod(mat, 2));
-                GTCXTileFluidSmelter.addRecipe("rod" + orename, 1, 750 * tier, 6400, GTMaterialGen.getFluidStack(mat, 72));
+                GTCXTileFluidSmelter.addRecipe("rod" + orename, 1, heat, 6400, GTMaterialGen.getFluidStack(mat, 72));
             }
             if (mat.hasFlag(GTCXMaterial.gear)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), GTMaterialGen.getFluidStack(mat, 576), false, 51200, GTCXMaterialGen.getGear(mat, 1));
-                GTCXTileFluidSmelter.addRecipe("gear" + orename, 1, 750 * tier, 51200, GTMaterialGen.getFluidStack(mat, 576));
+                GTCXTileFluidSmelter.addRecipe("gear" + orename, 1, heat, 51200, GTMaterialGen.getFluidStack(mat, 576));
             }
             if (mat.hasFlag(GTMaterialFlag.BLOCKMETAL)){
                 GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(mat, 1296), false, 115200, GTMaterialGen.getMaterialBlock(mat, 1));
-                GTCXTileFluidSmelter.addRecipe("block" + orename, 1, 750 * tier, 115200, GTMaterialGen.getFluidStack(mat, 1296));
+                GTCXTileFluidSmelter.addRecipe("block" + orename, 1, heat, 115200, GTMaterialGen.getFluidStack(mat, 1296));
             }
             if (mat.getSmeltable()){
                 if (mat.hasFlag(GTMaterialFlag.DUST)){
-                    GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, 750 * tier, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                    GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
                 }
                 if (mat.hasFlag(GTCXMaterial.smalldust)){
-                    GTCXTileFluidSmelter.addRecipe("dustsmall" + orename, 1, 750 * tier, 6400, GTMaterialGen.getFluidStack(mat, 36));
+                    GTCXTileFluidSmelter.addRecipe("dustsmall" + orename, 1, heat, 6400, GTMaterialGen.getFluidStack(mat, 36));
                 }
                 if (mat.hasFlag(GTCXMaterial.tinydust) && Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-                    GTCXTileFluidSmelter.addRecipe("dusttiny" + orename, 1, 750 * tier, 1600, GTMaterialGen.getFluidStack(mat, 16));
+                    GTCXTileFluidSmelter.addRecipe("dusttiny" + orename, 1, heat, 1600, GTMaterialGen.getFluidStack(mat, 16));
                 }
             }
 
