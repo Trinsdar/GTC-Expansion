@@ -93,7 +93,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         this.outputTank.setCanFill(false);
         maxEnergy = 10000;
         this.addGuiFields("outputTank", "maxHeat", "heat");
-        maxHeat = 500;
+        maxHeat = 750;
         heat = 0;
     }
 
@@ -188,7 +188,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     @Override
     public void setStackInSlot(int slot, ItemStack stack) {
         super.setStackInSlot(slot, stack);
-        maxHeat = 500;
+        maxHeat = 750;
         for (Map.Entry<ItemStack, Integer> entry : coilsSlotWhitelist.entrySet()){
             if (inventory.get(slotCoil).isEmpty()){
                 break;
@@ -456,7 +456,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     }
 
     public static void addRecipe(IRecipeInput input, int heat, int totalEu, FluidStack output) {
-        if (heat > 5000){
+        if (heat > 5250){
             GTCExpansion.logger.info("Max recipe heat cannot be more then 5000!");
             return;
         }
