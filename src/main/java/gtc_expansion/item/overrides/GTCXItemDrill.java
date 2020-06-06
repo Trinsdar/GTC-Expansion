@@ -44,7 +44,7 @@ public class GTCXItemDrill extends ItemElectricToolDrill {
             world.playSound(null, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1.0F, 0.75F);
             return true;
         }
-        if (canPlaceAt(world, pos, facing) && world.getBlockState(offset).getBlock() == Blocks.AIR){
+        if (canPlaceAt(world, pos, facing) && world.getBlockState(offset).getBlock().isAir(world.getBlockState(offset), world, offset)){
             world.setBlockState(offset, Blocks.TORCH.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, 0, player, hand));
             world.playSound(null, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1.0F, 0.75F);
             return true;
