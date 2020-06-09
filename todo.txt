@@ -1,0 +1,7 @@
+change second basic circuit board recipe
+fix either watermill or windmill recipe to magnalium like it's supposed to be
+fix some heat values
+iridium shards to nuggets
+industrial grinder output tiny iridium dust
+add seel casing to mining pipe recipe to plate bender
+change mining pipe compressing recipe to use steel machine hull when steel mode is enabled
