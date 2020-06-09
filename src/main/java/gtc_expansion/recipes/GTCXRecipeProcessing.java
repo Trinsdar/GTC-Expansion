@@ -1,7 +1,7 @@
 package gtc_expansion.recipes;
 
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
@@ -18,6 +18,7 @@ import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.IC2;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityExtractor;
 import ic2.core.block.machine.low.TileEntityMacerator;
@@ -70,6 +71,9 @@ public class GTCXRecipeProcessing {
         TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GTCXMaterial.Olivine, 3));
         if (GTCXConfiguration.general.usePlates && (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras)){
             TileEntityCompressor.addRecipe("plateCopper", 8, Ic2Items.denseCopperPlate);
+        }
+        if (IC2.config.getFlag("SteelRecipes")){
+            TileEntityCompressor.addRecipe(GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1), GTMaterialGen.getIc2(Ic2Items.miningPipe, 10));
         }
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.testTube), GTTileBaseMachine.input(GTMaterialGen.get(GTCXItems.oilberry)), GTMaterialGen.getTube(GTMaterial.Oil, 1));
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTCXItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 2)), GTCXItems.acidBattery.getFull());
