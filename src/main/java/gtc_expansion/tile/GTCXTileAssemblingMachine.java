@@ -169,7 +169,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTMaterialGen.get(GTCXItems.basicCircuitBoard), GTMaterialGen.getIc2(cable, 3), 800, Ic2Items.electricCircuit);
         addRecipe("plateIridiumAlloy", 1, Ic2Items.reinforcedStone, 1600, Ic2Items.iridiumStone);
         addRecipe("plateAluminium", 4, Ic2Items.generator, 51200, GTMaterialGen.getIc2(Ic2Items.waterMill, 2));
-        addRecipe("plateAluminium", 2, Ic2Items.generator, 51200, Ic2Items.windMill);
+        addRecipe("plateMagnalium", 2, Ic2Items.generator, 51200, Ic2Items.windMill);
         addRecipe(GTMaterialGen.getIc2(Ic2Items.carbonPlate, 4), Ic2Items.generator, 51200, Ic2Items.windMill);
 //        addRecipe(GTMaterialGen.getFluidPipeSmall(GTCXMaterial.TungstenSteel, 1), Ic2Items.fluidExportUpgrade, 51200, GTMaterialGen.getFluidPipeSmall(GTMaterial.HighPressure, 1));
 //        addRecipe(GTMaterialGen.getFluidPipe(GTCXMaterial.TungstenSteel, 1), Ic2Items.fluidExportUpgrade, 51200, GTMaterialGen.getFluidPipe(GTMaterial.HighPressure, 1));
