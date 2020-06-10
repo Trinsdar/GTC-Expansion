@@ -1,19 +1,20 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXBlocks;
-import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerImplosionCompressor;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXItems;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.item.IMachineUpgradeItem.UpgradeType;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -214,8 +215,8 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     }
 
     @Override
-    public Set<IMachineUpgradeItem.UpgradeType> getSupportedTypes() {
-        return new LinkedHashSet<>(Arrays.asList(IMachineUpgradeItem.UpgradeType.values()));
+    public Set<UpgradeType> getSupportedTypes() {
+        return new LinkedHashSet<>(Arrays.asList(UpgradeType.ImportExport, UpgradeType.RedstoneControl, UpgradeType.Sounds));
     }
 
     @Override

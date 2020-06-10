@@ -1,13 +1,13 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerIndustrialGrinder;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.helpers.int3;
@@ -19,6 +19,7 @@ import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.item.IMachineUpgradeItem.UpgradeType;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -168,8 +169,8 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
     }
 
     @Override
-    public Set<IMachineUpgradeItem.UpgradeType> getSupportedTypes() {
-        return new LinkedHashSet<>(Arrays.asList(IMachineUpgradeItem.UpgradeType.values()));
+    public Set<UpgradeType> getSupportedTypes() {
+        return new LinkedHashSet<>(Arrays.asList(UpgradeType.ImportExport, UpgradeType.RedstoneControl, UpgradeType.Sounds));
     }
 
     @Override

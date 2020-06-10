@@ -93,7 +93,7 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 
 	@Override
 	public Set<UpgradeType> getSupportedTypes() {
-		return new LinkedHashSet<>(Arrays.asList(UpgradeType.values()));
+		return new LinkedHashSet<>(Arrays.asList(UpgradeType.ImportExport, UpgradeType.RedstoneControl, UpgradeType.Sounds));
 	}
 
 	@Override

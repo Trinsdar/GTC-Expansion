@@ -16,6 +16,7 @@ import gtclassic.api.recipe.GTFluidMachineOutput;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.item.IMachineUpgradeItem.UpgradeType;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -154,8 +155,8 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     }
 
     @Override
-    public Set<IMachineUpgradeItem.UpgradeType> getSupportedTypes() {
-        return new LinkedHashSet<>(Arrays.asList(IMachineUpgradeItem.UpgradeType.values()));
+    public Set<UpgradeType> getSupportedTypes() {
+        return new LinkedHashSet<>(Arrays.asList(UpgradeType.ImportExport, UpgradeType.RedstoneControl, UpgradeType.Sounds));
     }
 
     @Override
