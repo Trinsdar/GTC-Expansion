@@ -94,7 +94,7 @@ public class GTCXRecipeIterators {
         if (mat.hasFlag(GTCXMaterial.molten)){
             String orename = mat.getDisplayName();
             fluidCasterBlacklist.add(orename);
-            int heat = GTCXMaterialGen.getMaterialHeatValue(mat) + 273;
+            int heat = GTCXMaterialGen.getMaterialHeatValue(mat);
             if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Copper) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tin) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.RefinedIron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Silver) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Bronze)){
                 GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
                 GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
