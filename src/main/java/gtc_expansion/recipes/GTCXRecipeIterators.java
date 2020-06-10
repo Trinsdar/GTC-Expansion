@@ -59,9 +59,7 @@ public class GTCXRecipeIterators {
             createHullRecipe(mat);
             createFluidCastingRecipes(mat);
             createTurbineBlade(mat);
-            if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-                createTinyDustRecipe(mat);
-            }
+            createTinyDustRecipe(mat);
             createDustbinTinyDustRecipe(mat);
         }
         fluidCasterBlacklist.add("silicon");

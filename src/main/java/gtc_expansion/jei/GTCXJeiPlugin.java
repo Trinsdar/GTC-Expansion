@@ -61,9 +61,6 @@ public class GTCXJeiPlugin implements IModPlugin {
                     if (mat.hasFlag(GTCXMaterial.crushedorePurified)){
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getPurifiedCrushedOre(mat, 1));
                     }
-                    if (mat.hasFlag(GTCXMaterial.tinydust)){
-                        blacklist.addIngredientToBlacklist(GTCXMaterialGen.getTinyDust(mat, 1));
-                    }
                 }
             }
             if (!Loader.isModLoaded(GTValues.MOD_ID_TFOREST) || !GTConfig.modcompat.compatTwilightForest){

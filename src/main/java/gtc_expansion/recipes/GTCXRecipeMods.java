@@ -154,6 +154,7 @@ public class GTCXRecipeMods {
             TileEntityMacerator.addRecipe("oreBauxite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Bauxite, 2));
             ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));
             TileEntityMacerator.addRecipe("oreIridium", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Iridium, 2));
+            TileEntityMacerator.addRecipe(GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "iridiumshard"), GTCXMaterialGen.getTinyDust(GTMaterial.Iridium, 1));
             GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
             GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
             GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 1), GTMaterialGen.getIngot(GTMaterial.Platinum, 1), 1.0F);
