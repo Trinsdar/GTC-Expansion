@@ -10,6 +10,7 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.data.GTCXLang;
 import gtc_expansion.data.GTCXValues;
 import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTBlocks;
@@ -151,12 +152,10 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("plateElectrum", 4, "plateSilicon", 1, 12800, GTMaterialGen.get(GTCXItems.advancedCircuitBoard, 2));
         addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 3));
         addRecipe(GTCXValues.MATERIAL_MACHINE, input(Ic2Items.pump), 12800, GTMaterialGen.get(GTCXItems.pumpModule));
-        IRecipeInput plateElectric = new RecipeInputCombined(1, new RecipeInputOreDict("plateSteel"),
-                new RecipeInputOreDict("plateAluminium"), new RecipeInputOreDict("plateSilver"));
         if (GTCXConfiguration.general.harderCircuits){
-            addRecipe(plateElectric, input("plateRedAlloy", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard));
+            addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("plateSteel", "plateAluminium", "plateSilver"), input("plateRedAlloy", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard));
         }
-        addRecipe(plateElectric, input("plateElectrum", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard, 2));
+        addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("plateSteel", "plateAluminium"), input("plateElectrum", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard, 2));
         addRecipe(GTCXValues.getRefinedIronPlate(), 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 4));
         addRecipe("platePlatinum", 1, Ic2Items.advancedCircuit, 51200, GTMaterialGen.get(GTCXItems.processorCircuitBoard));
         addRecipe(new RecipeInputCombined(8, input("gemEmerald", 8), input("gemOlivine", 8)), new RecipeInputItemStack(Ic2Items.advancedCircuit), 51200, GTMaterialGen.get(GTItems.chipData, 4));
