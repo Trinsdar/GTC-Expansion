@@ -65,7 +65,7 @@ public class GTCXBlocks {
     }
 
     static final List<Block> toRegister = new ArrayList();
-    public static final GTCXBlockTile electrolyzer = registerBlock(new GTCXBlockTile("industrialelectrolyzer", GTCXLang.INDUSTRIAL_ELECTROLYZER, 1));
+    public static final GTCXBlockTile electrolyzer = registerBlock(new GTCXBlockTile("industrialelectrolyzer", GTCXLang.INDUSTRIAL_ELECTROLYZER, 2));
     public static final GTCXBlockTile alloySmelter = registerBlock(new GTCXBlockTile("alloysmelter", GTCXLang.ALLOY_SMELTER, 1));
     public static final GTCXBlockTile assemblingMachine = registerBlock(new GTCXBlockTile("assemblingmachine", GTCXLang.ASSEMBLING_MACHINE, 1));
     public static final GTCXBlockTile chemicalReactor = registerBlock(new GTCXBlockTile("chemicalreactor", GTCXLang.CHEMICAL_REACTOR, 1));
@@ -108,7 +108,7 @@ public class GTCXBlocks {
     public static final GTCXBlockHatch dynamoHatch = registerBlock(new GTCXBlockHatch("dynamohatch", GTCXLang.DYNAMO_HATCH, 1));
     public static final GTCXBlockTile fusionMaterialInjector = registerBlock(new GTCXBlockTile("fusionmaterialinjector", GTCXLang.FUSION_MATERIAL_INJECTOR, 1));
     public static final GTCXBlockTile fusionMaterialExtractor = registerBlock(new GTCXBlockTile("fusionmaterialextractor", GTCXLang.FUSION_MATERIAL_EXTRACTOR, 1));
-    public static final GTCXBlockTile fusionEnergyInjector = registerBlock(new GTCXBlockTile("fusionenergyinjector", GTCXLang.FUSION_ENERGY_INJECTOR, 1));
+    public static final GTCXBlockTile fusionEnergyInjector = registerBlock(new GTCXBlockTile("fusionenergyinjector", GTCXLang.FUSION_ENERGY_INJECTOR, 2));
     public static final GTCXBlockTile fusionEnergyExtractor = registerBlock(new GTCXBlockTile("fusionenergyextractor", GTCXLang.FUSION_ENERGY_EXTRACTOR, 1));
 
     public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", GTCXLang.FIRE_BRICK_BLOCK, "pickaxe", 3, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
