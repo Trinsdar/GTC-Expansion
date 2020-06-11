@@ -95,6 +95,12 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         return Ic2Icons.getTextures("gtclassic_terrain")[index];
     }
 
+    @Override
+    public TextureAtlasSprite getParticleTexture(IBlockState state) {
+        int cas = state.getValue(casing);
+        return cas > 0 ? Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + 7] : Ic2Icons.getTextures("gtclassic_terrain")[2];
+    }
+
     @SideOnly(Side.CLIENT)
     @Override
     public BaseModel getModelFromState(IBlockState state) {
