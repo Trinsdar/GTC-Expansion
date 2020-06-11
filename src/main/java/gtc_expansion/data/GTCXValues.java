@@ -18,6 +18,7 @@ public class GTCXValues {
     static boolean usePlates = GTCXConfiguration.general.usePlates;
 
     public static final String PRE = usePlates ? "plate" : "ingot";
+    public static final boolean STEEL_MODE = IC2.config.getFlag("SteelRecipes");
 
     public static final IRecipeInput INGOT_STEELS = combineRecipeObjects("ingotSteel", "ingotStainlessSteel");
     public static final IRecipeInput MATERIAL_MACHINE = usePlates ? combineRecipeObjects(getRefinedIronPlate(), "plateAluminium", "plateAluminum") : GTValues.INPUT_INGOT_MACHINE;
@@ -61,7 +62,7 @@ public class GTCXValues {
     }
 
     public static String getRefinedIronRod(){
-        return IC2.config.getFlag("SteelRecipes") ? "rodSteel" : "rodRefinedIron";
+        return GTCXValues.STEEL_MODE ? "rodSteel" : "rodRefinedIron";
     }
 
     public static ICraftingRecipeList.IRecipeModifier colorTransfer(ItemStack input){
@@ -111,6 +112,6 @@ public class GTCXValues {
     }
 
     public static String getRefinedIronPlate() {
-        return IC2.config.getFlag("SteelRecipes") ? "plateSteel" : "plateRefinedIron";
+        return GTCXValues.STEEL_MODE ? "plateSteel" : "plateRefinedIron";
     }
 }

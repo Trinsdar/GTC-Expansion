@@ -1,12 +1,13 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerFluidCaster;
+import gtc_expansion.data.GTCXItems;
+import gtc_expansion.data.GTCXLang;
+import gtc_expansion.data.GTCXValues;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.helpers.GTValues;
@@ -24,7 +25,6 @@ import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.energy.EnergyNet;
 import ic2.api.recipe.IRecipeInput;
-import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBasicElectricMachine;
 import ic2.core.block.base.util.output.MultiSlotOutput;
@@ -548,7 +548,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Copper, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.copperCable, 3));
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Tin, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.tinCable, 4));
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
-        GTMaterial mat = IC2.config.getFlag("SteelRecipes") ? GTCXMaterial.Steel : GTCXMaterial.RefinedIron;
+        GTMaterial mat = GTCXValues.STEEL_MODE ? GTCXMaterial.Steel : GTCXMaterial.RefinedIron;
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(mat, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.ironCable, 6));
 
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){

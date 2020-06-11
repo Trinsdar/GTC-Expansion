@@ -4,6 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerPlateBender;
 import gtc_expansion.data.GTCXLang;
+import gtc_expansion.data.GTCXValues;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
@@ -14,7 +15,6 @@ import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
-import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
@@ -139,7 +139,7 @@ public class GTCXTilePlateBender extends GTTileBaseMachine {
         addRecipe("plateTin", 2, GTMaterialGen.getIc2(Ic2Items.emptyCell, 8));
         addRecipe("plateIron", 3, GTMaterialGen.get(Items.BUCKET));
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-            String refinedIron = IC2.config.getFlag("SteelRecipes") ? "casingSteel" : "casingRefinedIron";
+            String refinedIron = GTCXValues.STEEL_MODE ? "casingSteel" : "casingRefinedIron";
             addRecipe("casingIron", 2, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "emptyfuelrod"));
             addRecipe("casingTin", 1, Ic2Items.tinCan);
             addRecipe(refinedIron, 1, Ic2Items.miningPipe);

@@ -1,6 +1,7 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GTCXConfiguration;
+import gtc_expansion.data.GTCXValues;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
@@ -10,7 +11,6 @@ import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
 import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
-import ic2.core.IC2;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -36,7 +36,7 @@ public class GTCXRecipeRemove {
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustYellowGarnet", 1));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input("dustCarbon", 8));
         ClassicRecipes.compressor.removeRecipe(GTTileBaseMachine.input(Ic2Items.coalChunk));
-        if (IC2.config.getFlag("SteelRecipes")){
+        if (GTCXValues.STEEL_MODE){
             ClassicRecipes.compressor.removeRecipe(Ic2Items.machine);
         }
 

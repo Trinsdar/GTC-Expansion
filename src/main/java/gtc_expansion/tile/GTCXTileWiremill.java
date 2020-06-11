@@ -1,11 +1,12 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerWiremill;
-import gtc_expansion.recipes.GTCXRecipeLists;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
+import gtc_expansion.data.GTCXValues;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -148,7 +149,7 @@ public class GTCXTileWiremill extends GTTileBaseMachine {
         addRecipe("dustCharcoal", 8, Ic2Items.carbonFiber);
         addRecipe("dustCarbon", 8, Ic2Items.carbonFiber);
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-            String steel = IC2.config.getFlag("SteelRecipes") ? "Steel" : "RefinedIron";
+            String steel = GTCXValues.STEEL_MODE ? "Steel" : "RefinedIron";
             addRecipe("casing" + steel, 2, GTMaterialGen.getIc2(Ic2Items.ironFence, 3));
         }
     }
