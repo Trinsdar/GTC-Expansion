@@ -240,6 +240,11 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     @Override
+    public boolean canRemoveBlock(EntityPlayer player) {
+        return true;
+    }
+
+    @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
         return new GTCXContainerThermalBoiler(entityPlayer.inventory, this);
     }

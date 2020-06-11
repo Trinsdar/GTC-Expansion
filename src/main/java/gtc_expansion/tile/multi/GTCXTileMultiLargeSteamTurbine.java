@@ -452,4 +452,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public int getProduction() {
         return production;
     }
+
+    @Override
+    public boolean canRemoveBlock(EntityPlayer player) {
+        return true;
+    }
 }

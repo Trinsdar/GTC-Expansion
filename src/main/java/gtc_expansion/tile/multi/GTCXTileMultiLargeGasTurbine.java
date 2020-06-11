@@ -317,6 +317,11 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     }
 
     @Override
+    public boolean canRemoveBlock(EntityPlayer player) {
+        return true;
+    }
+
+    @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
         return new GTCXContainerLargeGasTurbine(entityPlayer.inventory, this);
     }
