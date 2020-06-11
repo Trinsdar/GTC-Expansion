@@ -673,26 +673,54 @@ tooltip.gtc_expansion.industrialblastfurnace0=You'll have a blast!
 tooltip.gtc_expansion.industrialblastfurnace1=Structure:
 tooltip.gtc_expansion.industrialblastfurnace2=3x4x3 hollow(lava or air in center) rectangle of (34) Standard, Reinforced, or Advanced Machine Casings,
 tooltip.gtc_expansion.industrialblastfurnace3=Controller centered in front at the bottom
+tooltip.gtc_expansion.industrialelectrolyzer0=*Slaps roof of Electrolyzer*
+tooltip.gtc_expansion.industrialelectrolyzer1=This bad boy can process so much stuff!
+tooltip.gtc_expansion.implosioncompressor0=Over 9000 Gibbl!
+tooltip.gtc_expansion.industrialgrinder0=Ultimaceratron 42b
+tooltip.gtc_expansion.vacuumfreezer0=Cools down anything
 tooltip.gtc_expansion.alloysmelter0=HighTech combination smelter
 tooltip.gtc_expansion.assemblingmachine0=Avengers, Assemble!
 tooltip.gtc_expansion.chemicalreactor0=Let 2 chemical substances react together with this!
 tooltip.gtc_expansion.distillationtower0=Like a Refinery, but with byproducts, and more Energy Efficient
-tooltip.gtc_expansion.implosioncompressor0=Over 9000 Gibbl!
-tooltip.gtc_expansion.industrialgrinder0=Ultimaceratron 42a
-tooltip.gtc_expansion.vacuumfreezer0=Cools down anything
+tooltip.gtc_expansion.alloyfurnace0=Smelts together alloys using fuel.
+tooltip.gtc_expansion.primitiveblastfurnace0=You'll have a blast!
+tooltip.gtc_expansion.primitiveblastfurnace1=Structure:
+tooltip.gtc_expansion.primitiveblastfurnace2=3x5x3 hollow rectangle of (41) Fire Bricks,
+tooltip.gtc_expansion.primitiveblastfurnace3=Controller centered at the second lowest layer
+tooltip.gtc_expansion.fluidcaster0=Casts molten fluids into solids.
+tooltip.gtc_expansion.fluidsmelter0=Melts metals
+tooltip.gtc_expansion.platebender0=Boo, he's bad! We want BENDER!!!
+tooltip.gtc_expansion.platecutter0=Slices blocks into plates
+tooltip.gtc_expansion.lathe0=Produces metal rods more efficiently
+tooltip.gtc_expansion.wiremill0=Produces wires more efficiently
+tooltip.gtc_expansion.microwave0=Did you really read the instruction Manual?
+tooltip.gtc_expansion.stonecompressor0=Compresses stuff
+tooltip.gtc_expansion.dieselgenerator0=The second most effective way of burning Fuel
+tooltip.gtc_expansion.thermalboiler0=Converts Heat into Steam
+tooltip.gtc_expansion.largesteamturbine0=Consumes 1600 mb of Steam per tick
+tooltip.gtc_expansion.largegasturbine0=About 42 small Gas Turbines worth
+tooltip.gtc_expansion.gasturbine0=Generate power from Flatulence, uhh I mean Me
+tooltip.gtc_expansion.inputhatch0=For inputting Materials into Multiblocks
+tooltip.gtc_expansion.outputhatch0=For exporting Materials from Multiblocks
+tooltip.gtc_expansion.dynamohatch0=Generating electric Energy from Multiblocks
+tooltip.gtc_expansion.fusion_material_injector0=To inject your fusable Materials into the coils
+tooltip.gtc_expansion.fusion_material_extractor0=Extract your fused Materials out of the coils
+tooltip.gtc_expansion.fusion_energy_injector0=Increases storage of Fusion Reactor by 10kk eu
+tooltip.gtc_expansion.fusion_energy_injector1=and inputs eu directly into fusion reactor
+tooltip.gtc_expansion.fusion_energy_extractor0=Generates eu from Fusion Reactor
 tooltip.gtc_expansion.fusioncomputer0=FUUUUUUUU-SION, HAH!
 tooltip.gtc_expansion.fusioncomputer1=See gui for details on the structure
-tooltip.gtc_expansion.alloyfurnace0=Smelts together alloys using fuel.
 tooltip.gtc_expansion.advancedworktable0=For all kinds of projects. Can charge tools
 tooltip.gtc_expansion.locker0=For storing a set of armor
 tooltip.gtc_expansion.electriclocker0=For storing a set of armor and charging it
 tooltip.gtc_expansion.dustbin0=For compacting all your small and tiny dusts.
 tooltip.gtc_expansion.trash_bin0=For all your trash needs.
 
-tooltip.gtc_expansion.primitiveblastfurnace0=You'll have a blast!
-tooltip.gtc_expansion.primitiveblastfurnace1=Structure:
-tooltip.gtc_expansion.primitiveblastfurnace2=3x5x3 hollow rectangle of (41) Fire Bricks,
-tooltip.gtc_expansion.primitiveblastfurnace3=Controller centered at the second lowest layer
+
+
+
+
+
 
 #item tooltips
 tooltip.gtc_expansion.crafting_tablet=Temporary crafting on the go
@@ -701,8 +729,6 @@ tooltip.gtc_expansion.steel_jackhammer1=Can be upgraded to a diamond to do 3x3 b
 tooltip.gtc_expansion.oilberry=Can be eaten, but I wouldn't recommend it.
 tooltip.gtc_expansion.magicDye=Only for crafting, has no function.
 
-tooltip.gtc_expansion.industrialelectrolyzer0=*Slaps roof of Electrolyzer*
-tooltip.gtc_expansion.industrialelectrolyzer1=This bad boy can process so much stuff!
 tooltip.diamondChainsawShearToggle.name=Enable/Disable Shearing
 
 message.diamondChainsawNormal.name=Enabled Shearing

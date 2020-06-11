@@ -1,12 +1,12 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerChemicalReactor;
+import gtc_expansion.data.GTCXItems;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -16,10 +16,12 @@ import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTBlocks;
 import gtclassic.common.GTItems;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
+import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
 import ic2.core.inventory.filters.BasicItemFilter;
@@ -53,6 +55,12 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine {
     public static final int slotFuel = 5;
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 16;
+    @NetworkField(index = 13)
+    private final IC2Tank inputTank1 = new IC2Tank(16000);
+    @NetworkField(index = 14)
+    private final IC2Tank inputTank2 = new IC2Tank(16000);
+    @NetworkField(index = 15)
+    private final IC2Tank outputTank = new IC2Tank(16000);
 
     public GTCXTileChemicalReactor() {
         super(6, 2, defaultEu, 100, 32);

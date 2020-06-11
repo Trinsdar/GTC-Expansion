@@ -80,6 +80,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     private static final int defaultEu = 64;
     @NetworkField(index = 13)
     private final IC2Tank outputTank = new IC2Tank(16000);
+
     public int maxHeat;
     public int heat;
     public static final String neededHeat = "minHeat";
@@ -156,8 +157,8 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
 
     @Override
     public void onTankChanged(IFluidTank iFluidTank) {
-        this.getNetwork().updateTileGuiField(this, "outputTank");
         this.inventory.set(slotOutputDisplay, ItemDisplayIcon.createWithFluidStack(this.outputTank.getFluid()));
+        this.getNetwork().updateTileGuiField(this, "outputTank");
         shouldCheckRecipe = true;
     }
 

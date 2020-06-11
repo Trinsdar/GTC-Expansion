@@ -121,12 +121,12 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             GTCXTileInputHatch inputHatch = (GTCXTileInputHatch) world.getTileEntity(input1);
             GTCXTileDynamoHatch dynamoHatch = (GTCXTileDynamoHatch) world.getTileEntity(dynamo);
             production = (int)(800 * getRotorEfficiency(this.getStackInSlot(0)));
-            if (inputHatch.getTank().getFluidAmount() >= 8000 && inputHatch.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
+            if (inputHatch.getTank().getFluidAmount() >= 1600 && inputHatch.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 1600)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
                 if (!this.getActive()){
                     this.setActive(true);
                     this.setRingActive(true);
                 }
-                inputHatch.getTank().drainInternal(8000, true);
+                inputHatch.getTank().drainInternal(1600, true);
                 dynamoHatch.addEnergy(production);
                 if (ticker >= 80){
                     this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
@@ -134,12 +134,12 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 }
             } else if (world.getTileEntity(input2) instanceof GTCXTileInputHatch){
                 GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
-                if (inputHatch2.getTank().getFluidAmount() >= 8000 && inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 8000)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
+                if (inputHatch2.getTank().getFluidAmount() >= 1600 && inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 1600)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
                     if (!this.getActive()){
                         this.setActive(true);
                         this.setRingActive(true);
                     }
-                    inputHatch2.getTank().drainInternal(8000, true);
+                    inputHatch2.getTank().drainInternal(1600, true);
                     dynamoHatch.addEnergy(production);
                     if (ticker >= 80){
                         this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
