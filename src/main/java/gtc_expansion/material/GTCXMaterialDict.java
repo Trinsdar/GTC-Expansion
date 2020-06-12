@@ -65,7 +65,15 @@ public class GTCXMaterialDict {
         OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));
         OreDictionary.registerOre("machineBlockVeryAdvanced", GTCXMaterialGen.getHull(GTMaterial.Titanium, 1));
         OreDictionary.registerOre("machineBlockVeryAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.TungstenSteel, 1));
-
+        OreDictionary.registerOre("plateWroughtIron", GTCXMaterialGen.getPlate(GTCXMaterial.RefinedIron, 1));
+        OreDictionary.registerOre("rodWroughtIron", GTCXMaterialGen.getRod(GTCXMaterial.RefinedIron, 1));
+        OreDictionary.registerOre("stickWroughtIron", GTCXMaterialGen.getRod(GTCXMaterial.RefinedIron, 1));
+        OreDictionary.registerOre("gearWroughtIron", GTCXMaterialGen.getGear(GTCXMaterial.RefinedIron, 1));
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
+            OreDictionary.registerOre("casingWroughtIron", GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironcasing"));
+            OreDictionary.registerOre("plateWroughtIron", GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironplate"));
+            OreDictionary.registerOre("blockWroughtIron", GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironblock"));
+        }
     }
 
     public static void registerToolDicts(GTMaterial mat){
