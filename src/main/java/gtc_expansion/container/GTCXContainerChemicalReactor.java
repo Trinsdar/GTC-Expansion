@@ -9,6 +9,7 @@ import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotDischarge;
+import ic2.core.inventory.slots.SlotDisplay;
 import ic2.core.inventory.slots.SlotOutput;
 import ic2.core.util.math.Box2D;
 import ic2.core.util.math.Vec2i;
@@ -31,8 +32,11 @@ public class GTCXContainerChemicalReactor extends ContainerTileComponent<GTCXTil
         this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 5, 8, 62)); // battery
         this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 70, 46)); // output
         this.addSlotToContainer(new SlotOutput(player.player, tile, 4, 90, 46)); // second output
+        this.addSlotToContainer(new SlotDisplay(tile, 6, 41, 16));
+        this.addSlotToContainer(new SlotDisplay(tile, 7, 119, 16));
+        this.addSlotToContainer(new SlotDisplay(tile, 8, 80, 65));
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 6 + i, 152, 26 + i * 18));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 9 + i, 152, 26 + i * 18));
         }
         this.addComponent(new GTGuiCompMachinePower(tile));
         this.addPlayerInventory(player);
