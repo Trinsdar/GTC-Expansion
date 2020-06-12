@@ -80,7 +80,6 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     private static final int defaultEu = 64;
     @NetworkField(index = 13)
     private final IC2Tank outputTank = new IC2Tank(16000);
-
     public int maxHeat;
     public int heat;
     public static final String neededHeat = "minHeat";
@@ -88,7 +87,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     private boolean reachedMaxHeat = false;
 
     public GTCXTileFluidSmelter() {
-        super(9, 2, defaultEu, 100, 128);
+        super(4, 2, defaultEu, 100, 128);
         setFuelSlot(slotFuel);
         this.outputTank.addListener(this);
         this.outputTank.setCanFill(false);
@@ -230,7 +229,6 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
             this.getNetwork().updateTileGuiField(this, "heat");
         }
         GTUtility.exportFluidFromMachineToSide(this, outputTank, right(), 1000);
-
     }
 
     public EnumFacing left(){
