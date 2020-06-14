@@ -76,7 +76,7 @@ dependencies {
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
     deobfCompile "curse.maven:ic2c-extras:2857963"
     compile "curse.maven:baubles:2518667"
-    compile "curse.maven:ic2-classic:2799212"
+    compile "curse.maven:ic2-classic:2979877"
     deobfCompile(group: 'CraftTweaker2', name: 'ZenScript', version: craft_tweaker_version) {
         exclude group: 'org.ow2.asm'
         exclude group: 'com.google.code.gson'
