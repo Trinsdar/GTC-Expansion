@@ -2,15 +2,17 @@ package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
-import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkTileEntityEventListener;
+import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
+import ic2.core.util.helpers.ConnectionState;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -145,6 +147,11 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
     public void getData(Map<String, Boolean> map) {
         map.put("Rotor: " + rotor, true);
         map.put("Config: "+ config, true);
+        for (EnumFacing facing : EnumFacing.VALUES){
+            RotationList list = RotationList.ofNumber(config).remove(facing).remove(facing.getOpposite());
+            ConnectionState connectionState = ConnectionState.fromList(list, facing);
+            map.put("Facing index for facing " + facing.getName() + " = " + connectionState.getIndex(), true);
+        }
     }
 
     public int getConfig() {
