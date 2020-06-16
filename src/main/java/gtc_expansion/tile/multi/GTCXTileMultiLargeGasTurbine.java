@@ -163,7 +163,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                     inputHatch.getTank().drainInternal(fluidAmount, true);
                     dynamoHatch.addEnergy(production);
                     if (ticker >= 80){
-                        this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
+                        if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                            this.getStackInSlot(0).shrink(1);
+                        }
                         ticker = 0;
                     }
                 } else if (world.getTileEntity(input2) instanceof GTCXTileInputHatch){
@@ -176,7 +178,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                         inputHatch2.getTank().drainInternal(fluidAmount, true);
                         dynamoHatch.addEnergy(production);
                         if (ticker >= 80){
-                            this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
+                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                this.getStackInSlot(0).shrink(1);
+                            }
                             ticker = 0;
                         }
                     } else {

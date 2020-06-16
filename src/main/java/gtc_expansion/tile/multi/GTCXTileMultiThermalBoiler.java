@@ -158,7 +158,9 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         }
                         outputHatch1.getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 80){
-                            this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
+                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                this.getStackInSlot(0).shrink(1);
+                            }
                             ticker = 0;
                         }
                     } else if (world.getTileEntity(output2) instanceof GTCXTileOutputHatch && (((GTCXTileOutputHatch)world.getTileEntity(output2)).getTank().getFluidAmount() == 0 || (((GTCXTileOutputHatch)world.getTileEntity(output2)).getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 160)) && ((GTCXTileOutputHatch)world.getTileEntity(output2)).getTank().getFluidAmount() + 160 <= ((GTCXTileOutputHatch)world.getTileEntity(output2)).getTank().getCapacity()))){
@@ -189,7 +191,9 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         }
                         ((GTCXTileOutputHatch)world.getTileEntity(output2)).getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 80){
-                            this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
+                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                this.getStackInSlot(0).shrink(1);
+                            }
                             ticker = 0;
                         }
                     } else if (world.getTileEntity(output3) instanceof GTCXTileOutputHatch && (((GTCXTileOutputHatch)world.getTileEntity(output3)).getTank().getFluidAmount() == 0 || (((GTCXTileOutputHatch)world.getTileEntity(output3)).getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 160)) && ((GTCXTileOutputHatch)world.getTileEntity(output3)).getTank().getFluidAmount() + 160 <= ((GTCXTileOutputHatch)world.getTileEntity(output3)).getTank().getCapacity()))){
@@ -214,7 +218,9 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         }
                         ((GTCXTileOutputHatch)world.getTileEntity(output3)).getTank().fill(GTMaterialGen.getFluidStack("steam", 160), true);
                         if (ticker >= 80){
-                            this.getStackInSlot(0).attemptDamageItem(1, world.rand, null);
+                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                this.getStackInSlot(0).shrink(1);
+                            }
                             ticker = 0;
                         }
                     } else {
