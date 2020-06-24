@@ -44,10 +44,11 @@ import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
-import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
+import gtc_expansion.tile.wiring.GTCXTileColoredCable;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
+import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
@@ -97,7 +98,8 @@ public class GTCXBlocks {
     public static final GTCXBlockStorage dustBin = registerBlock(new GTCXBlockStorage("dustbin", GTCXLang.DUSTBIN, 1));
     public static final GTCXBlockStorage trashBin = registerBlock(new GTCXBlockStorage("trash_bin", GTCXLang.TRASH_BIN, 1));
 
-    public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE));
+    public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE, GTMaterial.Electrum));
+    public static final GTCXBlockWire aluminiumCable = registerBlock(new GTCXBlockWire("aluminiumcable", GTCXLang.ALUMINIUM_CABLE, GTMaterial.Aluminium));
 
     public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", GTCXLang.CASING_STANDARD, 0,75F));
     public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", GTCXLang.CASING_REINFORCED, 1, 150.0F));
@@ -193,7 +195,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileDustbin.class, "Dustbin");
         registerUtil(GTCXTileTrashBin.class, "TrashBin");
         registerUtil(GTCXTileStoneCompressor.class, "StoneCompressor");
-        registerUtil(GTCXTileElectrumCable.class, "ElectrumCable");
+        registerUtil(GTCXTileColoredCable.class, "ElectrumCable");
         registerUtil(GTCXTileCasing.class, "Casing");
         registerUtil(GTCXTileItemFluidHatches.GTCXTileInputHatch.class, "InputHatch");
         registerUtil(GTCXTileItemFluidHatches.GTCXTileOutputHatch.class, "OutputHatch");

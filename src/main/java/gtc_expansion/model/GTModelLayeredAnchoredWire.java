@@ -36,16 +36,14 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     Map<Integer, List<BakedQuad>> comboQuads = new HashMap();// A sum of the above quad lists
     IBlockState state;
-    TextureAtlasSprite sprite; // This the texure all sides will use unless stipulated otherwise in the quad
     // functions
     int[] sizes; // This is an int array to draw the size of the cable, [0, 16] would be a full
     // block, [4, 12] would be half a block.
     TextureAtlasSprite anchorTexture;
-    public GTModelLayeredAnchoredWire(IBlockState block, TextureAtlasSprite texture, TextureAtlasSprite anchorTexture, int[] sizes) {
+    public GTModelLayeredAnchoredWire(IBlockState block, TextureAtlasSprite anchorTexture, int[] sizes) {
         super(Ic2Models.getBlockTransforms());
         this.anchorTexture = anchorTexture;
         this.state = block;
-        this.sprite = texture;
         this.sizes = sizes;
     }
 
@@ -145,7 +143,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
     private Map<EnumFacing, BakedQuad> generateCoreQuads(GTBlockBaseConnect wire, int min, int max, int layer) {
         Vector3f minF = new Vector3f((float) min, (float) min, (float) min);
         Vector3f maxF = new Vector3f((float) max, (float) max, (float) max);
-        int tintIndex = layer == 2 ? -1 : 0;
+        int tintIndex = layer == 2 ? -1 : layer;
         BlockPartFace face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) min,
                 (float) min, (float) max, (float) max }, 0));
         Map<EnumFacing, BakedQuad> quads = new EnumMap(EnumFacing.class);
@@ -201,7 +199,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
             EnumFacing side = facings[i];
             if (side.getOpposite() != facing) {
                 BlockPartFace face = null;
-                int tintIndex = layer == 2 ? -1 : 0;
+                int tintIndex = layer == 2 ? -1 :  layer;
                 if (side == facing) {
                     face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) min,
                             (float) min, (float) max, (float) max }, 0));
@@ -209,7 +207,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
                     face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) max,
                             (float) min, 16.0F, (float) max }, 0));
                 } else {
-                    face = tintIndex == -1 ? this.getUntintedFace(facing, min, max) : this.getFace(facing, min, max);
+                    face = tintIndex == -1 ? this.getUntintedFace(facing, min, max) : this.getFace(facing, min, max, layer);
                 }
                 // If you would like a different texture for connected sides, change the sprite
                 // var to what you want
@@ -240,20 +238,20 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
 
     // The zeros passed as the second arg in the BlockPartFace constructor make it
     // so the face is colorable, make it -1 if you dont want it to be colored
-    private BlockPartFace getFace(EnumFacing facing, int min, int max) {
+    private BlockPartFace getFace(EnumFacing facing, int min, int max, int index) {
         switch (facing) {
             case DOWN:
             case SOUTH:
-                return new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { min, max, max, 16.0F }, 0));
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { min, max, max, 16.0F }, 0));
             case UP:
             case NORTH:
-                return new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { min, 0.0F, max, min }, 0));
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { min, 0.0F, max, min }, 0));
             case WEST:
-                return new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { 0.0F, min, min, max }, 0));
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { 0.0F, min, min, max }, 0));
             case EAST:
-                return new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { max, min, 16.0F, max }, 0));
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { max, min, 16.0F, max }, 0));
         }
-        return new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0));
+        return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0));
     }
 
     private BlockPartFace getUntintedFace(EnumFacing facing, int min, int max) {
