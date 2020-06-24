@@ -343,7 +343,7 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
 
     @Override
     public Color getTileColor() {
-        return new Color(this.color);
+        return insulation > 0 && color == material.getColor().getRGB() ? new Color(4, 4, 4) : new Color(this.color);
     }
 
     @Override

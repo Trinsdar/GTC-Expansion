@@ -123,7 +123,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
                 TileEntity tile = worldIn.getTileEntity(pos);
                 if (tile instanceof IGTRecolorableStorageTile) {
                     IGTRecolorableStorageTile colorTile = (IGTRecolorableStorageTile) tile;
-                    return colorTile.getTileColor() == material.getColor() && state.getValue(INSULATION) > 0 ? new Color(4, 4, 4) : colorTile.getTileColor();
+                    return colorTile.getTileColor();
                 }
             }
             return state != null && state.getValue(INSULATION) > 0? new Color(4, 4, 4) : material.getColor();
