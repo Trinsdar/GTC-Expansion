@@ -51,7 +51,7 @@ import java.util.Random;
 
 public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, ILayeredBlockModel {
     public static final PropertyInteger INSULATION = PropertyInteger.create("insulation", 0, 3);
-    private static final String NBT_INSULATION = "insulation";
+    public static final String NBT_INSULATION = "insulation";
     //public static PropertyInteger foamed = PropertyInteger.create("foamed", 0, 2);
     GTMaterial material;
     public GTCXBlockWire(String name, LocaleComp comp, GTMaterial material){

@@ -3,6 +3,7 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerWiremill;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
 import gtc_expansion.data.GTCXValues;
@@ -142,6 +143,8 @@ public class GTCXTileWiremill extends GTTileBaseMachine {
         addRecipe(IC2.getRefinedIron(), 1, GTMaterialGen.getIc2(Ic2Items.ironCable, 6));
         addRecipe("ingotGold", 1, GTMaterialGen.getIc2(Ic2Items.goldCable, 6));
         addRecipe("ingotBronze", 1, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
+        addRecipe(GTValues.INGOT_ELECTRUM, 1, GTMaterialGen.get(GTCXBlocks.electrumCable, 6));
+        addRecipe(GTValues.INGOT_ALUMINIUM, 1, GTMaterialGen.get(GTCXBlocks.aluminiumCable, 6));
         addRecipe("ingotKanthal", 4, GTMaterialGen.get(GTCXItems.kanthalHeatingCoil));
         addRecipe("ingotConstantan", 3, GTMaterialGen.get(GTCXItems.constantanHeatingCoil));
         addRecipe("ingotNichrome", 4, GTMaterialGen.get(GTCXItems.nichromeHeatingCoil));

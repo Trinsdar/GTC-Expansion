@@ -111,6 +111,69 @@ public class GTCXValues {
         };
     }
 
+    public static ICraftingRecipeList.IRecipeModifier insulationSetting(ItemStack input, int fromInsulation, int toInsulation){
+        return new ICraftingRecipeList.IRecipeModifier() {
+
+            final String id = "insulation";
+            final String colorId = "color";
+            int color;
+            boolean tag = false;
+            boolean colorTag = false;
+
+            @Override
+            public void clear() {
+                tag = false;
+                colorTag = false;
+            }
+
+            @Override
+            public boolean isStackValid(ItemStack provided) {
+                if (StackUtil.isStackEqual(input, provided)){
+                    NBTTagCompound nbt = StackUtil.getNbtData(provided);
+                    if (nbt.hasKey(colorId)){
+                        color = nbt.getInteger(colorId);
+                        colorTag = true;
+                    }
+                    if (fromInsulation == 0 && (!nbt.hasKey(id) || nbt.getInteger(id) == 0)){
+                        tag = true;
+                        return true;
+                    }
+
+                    if (nbt.hasKey(id)){
+                        tag = true;
+                        return nbt.getInteger(id) == fromInsulation;
+                    }
+                    return false;
+                }
+
+                return true;
+            }
+
+            @Override
+            public ItemStack getOutput(ItemStack output, boolean forDisplay) {
+                if (forDisplay) {
+                    StackUtil.addToolTip(output, "Insulation is set");
+                    StackUtil.addToolTip(output, "Color gets transfered");
+                } else {
+                    if (tag){
+                        NBTTagCompound nbt = StackUtil.getOrCreateNbtData(output);
+                        nbt.setInteger(id, toInsulation);
+                        if (colorTag){
+                            nbt.setInteger(colorId, color);
+                        }
+                    }
+                }
+
+                return output;
+            }
+
+            @Override
+            public boolean isOutput(ItemStack possibleOutput) {
+                return false;
+            }
+        };
+    }
+
     public static String getRefinedIronPlate() {
         return GTCXValues.STEEL_MODE ? "plateSteel" : "plateRefinedIron";
     }

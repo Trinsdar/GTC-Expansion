@@ -1,6 +1,7 @@
 package gtc_expansion.recipes;
 
 import gtc_expansion.GTCXConfiguration;
+import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.item.tools.GTCXToolGen;
@@ -43,6 +44,7 @@ import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.item.recipe.upgrades.EnchantmentModifier;
 import ic2.core.platform.registry.Ic2Items;
+import ic2.core.util.misc.StackUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -301,6 +303,33 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.inputHatch), "SCS", "GHG", "SSS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.outputHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dynamoHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.transformerHV, 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
+        ItemStack cable = GTMaterialGen.get(GTCXBlocks.electrumCable);
+        IRecipeInput rubber = GTRecipeCraftingHandler.combineRecipeObjects("itemRubber", "craftingToolDuctTape");
+        recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ELECTRUM);
+        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 1), 4),  " R ", "RER", " R ", 'R', "itemRubber", 'E', INGOT_ELECTRUM);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 1), insulationSetting(cable, 0, 1), cable, rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 1, 2), cableWithInsulationTag(cable.copy(), 1), rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 0, 2), cable, rubber, rubber);
+        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 2), 4),  "RRR", "RER", "RRR", 'R', "itemRubber", 'E', INGOT_ELECTRUM);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 0, 3), cable, rubber, rubber, rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 1, 3), cableWithInsulationTag(cable.copy(), 1), rubber, rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 2, 3), cableWithInsulationTag(cable.copy(), 2), rubber);
+        cable = GTMaterialGen.get(GTCXBlocks.aluminiumCable);
+        recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ALUMINIUM);
+        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 1), 4),  " R ", "RER", " R ", 'R', "itemRubber", 'E', INGOT_ALUMINIUM);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 1), insulationSetting(cable, 0, 1), cable, rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 1, 2), cableWithInsulationTag(cable.copy(), 1), rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 0, 2), cable, rubber, rubber);
+        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 2), 4),  "RRR", "RER", "RRR", 'R', "itemRubber", 'E', INGOT_ALUMINIUM);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 0, 3), cable, rubber, rubber, rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 1, 3), cableWithInsulationTag(cable.copy(), 1), rubber, rubber);
+        recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 2, 3), cableWithInsulationTag(cable.copy(), 2), rubber);
+    }
+
+    public static ItemStack cableWithInsulationTag(ItemStack stack, int insulation){
+        NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
+        nbt.setInteger(GTCXBlockWire.NBT_INSULATION, insulation);
+        return stack;
     }
 
     public static void initShapelessRecipes(){
