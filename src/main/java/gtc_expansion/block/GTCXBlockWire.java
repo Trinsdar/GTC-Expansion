@@ -72,11 +72,6 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     }
 
     @Override
-    public LocaleComp getName() {
-        return super.getName();
-    }
-
-    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
                                 ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
