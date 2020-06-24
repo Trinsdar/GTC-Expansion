@@ -143,8 +143,7 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
     private Map<EnumFacing, BakedQuad> generateCoreQuads(GTBlockBaseConnect wire, int min, int max, int layer) {
         Vector3f minF = new Vector3f((float) min, (float) min, (float) min);
         Vector3f maxF = new Vector3f((float) max, (float) max, (float) max);
-        int tintIndex = layer == 2 ? -1 : layer;
-        BlockPartFace face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) min,
+        BlockPartFace face = new BlockPartFace(null, layer, "", new BlockFaceUV(new float[] { (float) min,
                 (float) min, (float) max, (float) max }, 0));
         Map<EnumFacing, BakedQuad> quads = new EnumMap(EnumFacing.class);
         EnumFacing[] var8 = EnumFacing.VALUES;
@@ -199,15 +198,14 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
             EnumFacing side = facings[i];
             if (side.getOpposite() != facing) {
                 BlockPartFace face = null;
-                int tintIndex = layer == 2 ? -1 :  layer;
                 if (side == facing) {
-                    face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) min,
+                    face = new BlockPartFace(null, layer, "", new BlockFaceUV(new float[] { (float) min,
                             (float) min, (float) max, (float) max }, 0));
                 } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
-                    face = new BlockPartFace(null, tintIndex, "", new BlockFaceUV(new float[] { (float) max,
+                    face = new BlockPartFace(null, layer, "", new BlockFaceUV(new float[] { (float) max,
                             (float) min, 16.0F, (float) max }, 0));
                 } else {
-                    face = tintIndex == -1 ? this.getUntintedFace(facing, min, max) : this.getFace(facing, min, max, layer);
+                    face = this.getFace(facing, min, max, layer);
                 }
                 // If you would like a different texture for connected sides, change the sprite
                 // var to what you want
@@ -268,15 +266,5 @@ public class GTModelLayeredAnchoredWire extends BaseModel {
                 return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { max, min, 16.0F, max }, 0));
         }
         return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0));
-    }
-
-    private List<BakedQuad>[][] createLayers(int first, int second) {
-        List<BakedQuad>[][] quads = new List[first][second];
-
-        for(int i = 0; i < first; ++i) {
-            quads[i] = this.createList(second);
-        }
-
-        return quads;
     }
 }

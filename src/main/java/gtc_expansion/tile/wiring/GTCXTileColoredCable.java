@@ -482,18 +482,19 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
             nbt.setInteger("insulation", this.insulation);
         }
         list.add(block);
-        for(int i = 0; i < 6; ++i) {
-            if (this.anchors.contains(EnumFacing.getFront(i))) {
-                list.add(Ic2Items.miningPipe.copy());
-            }
-        }
-
+        list.addAll(getInventoryDrops());
         return list;
     }
 
     @Override
     public List<ItemStack> getInventoryDrops() {
-        return null;
+        List<ItemStack> list = new ArrayList<>();
+        for(int i = 0; i < 6; ++i) {
+            if (this.anchors.contains(EnumFacing.getFront(i))) {
+                list.add(Ic2Items.miningPipe.copy());
+            }
+        }
+        return list;
     }
 
     @Override
