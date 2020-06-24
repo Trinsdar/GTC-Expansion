@@ -39,6 +39,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -298,6 +299,25 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         int insulation = nbt.hasKey(NBT_INSULATION) ? nbt.getInteger(NBT_INSULATION) : 0;
         IBlockState state = this.getDefaultState().withProperty(GTCXBlockWire.INSULATION, insulation);
         return state;
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        state = this.getActualState(state, world, pos);
+        if (state.getValue(INSULATION) == 0){
+            return super.getPickBlock(state, target, world, pos, player);
+        }
+        ItemStack stack = super.getPickBlock(state, target, world, pos, player);
+        NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
+        nbt.setInteger(NBT_INSULATION, state.getValue(INSULATION));
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof GTCXTileColoredCable){
+            GTCXTileColoredCable cable = (GTCXTileColoredCable) tile;
+            if (cable.isColored() && cable.color != material.getColor().getRGB()) {
+                nbt.setInteger("color", cable.color);
+            }
+        }
+        return stack;
     }
 
     @Override
