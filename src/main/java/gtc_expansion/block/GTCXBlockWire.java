@@ -10,12 +10,14 @@ import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseConnect;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemContainerTile;
+import gtclassic.api.interfaces.IGTReaderInfoBlock;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
 import ic2.api.classic.item.ICutterItem;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.wiring.BlockCable;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.lang.storage.Ic2InfoLang;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
@@ -29,6 +31,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -50,7 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, ILayeredBlockModel {
+public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, ILayeredBlockModel, IGTReaderInfoBlock {
     public static final PropertyInteger INSULATION = PropertyInteger.create("insulation", 0, 3);
     public static final String NBT_INSULATION = "insulation";
     //public static PropertyInteger foamed = PropertyInteger.create("foamed", 0, 2);
@@ -64,6 +67,42 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         this.setHarvestLevel("axe", 0);
         setCreativeTab(GTMod.creativeTabGT);
         this.material = material;
+    }
+
+    @Override
+    public void addReaderInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if (this == GTCXBlocks.electrumCable) {
+            tooltip.add((Ic2InfoLang.euReaderCableLimit.getLocalizedFormatted(512)));
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack.copy());
+            if (nbt.hasKey(NBT_INSULATION)){
+                int insulation = nbt.getInteger(NBT_INSULATION);
+                if (insulation == 1){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.4D));
+                } else if (insulation == 2){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(0.35D));
+                } else if (insulation == 3){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.3D));
+                }
+            } else {
+                tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(0.45D));
+            }
+        }
+        if (this == GTCXBlocks.aluminiumCable) {
+            tooltip.add((Ic2InfoLang.euReaderCableLimit.getLocalizedFormatted(2048)));
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack.copy());
+            if (nbt.hasKey(NBT_INSULATION)){
+                int insulation = nbt.getInteger(NBT_INSULATION);
+                if (insulation == 1){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 1.05D));
+                } else if (insulation == 2){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(1.0D));
+                } else if (insulation == 3){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.9D));
+                }
+            } else {
+                tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(1.1D));
+            }
+        }
     }
 
     @Override

@@ -16,13 +16,13 @@ public class GTCXTileElectrumCable extends GTCXTileColoredCable {
     @Override
     public double getConductionLoss() {
         if (insulation == 1){
-            return 0.04D;
+            return 0.4D;
         }
         if (insulation == 2){
-            return 0.035D;
+            return 0.35D;
         }
         if (insulation == 3){
-            return 0.03D;
+            return 0.3D;
         }
         return 0.045D;
     }
@@ -30,8 +30,8 @@ public class GTCXTileElectrumCable extends GTCXTileColoredCable {
     @Override
     public double getInsulationEnergyAbsorption() {
         switch(insulation) {
-            case 1: return 32.0D;
-            case 2: return 128.0D;
+            case 1: return 128.0D;
+            case 2: return 512.0D;
             case 3: return  9001.0D;
             default: return 0.0D;
         }
@@ -44,6 +44,6 @@ public class GTCXTileElectrumCable extends GTCXTileColoredCable {
 
     @Override
     public double getConductorBreakdownEnergy() {
-        return 129;
+        return 513;
     }
 }

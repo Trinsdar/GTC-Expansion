@@ -17,22 +17,22 @@ public class GTCXTileAluminiumCable extends GTCXTileColoredCable {
     @Override
     public double getConductionLoss() {
         if (insulation == 1){
-            return 0.02D;
+            return 1.05D;
         }
         if (insulation == 2){
-            return 0.015D;
+            return 1.0D;
         }
         if (insulation == 3){
-            return 0.01D;
+            return 0.9D;
         }
-        return 0.025D;
+        return 1.1D;
     }
 
     @Override
     public double getInsulationEnergyAbsorption() {
         switch(insulation) {
-            case 1: return 128.0D;
-            case 2: return 512.0D;
+            case 1: return 512.0D;
+            case 2: return 2048.0D;
             case 3: return  9001.0D;
             default: return 0.0D;
         }
@@ -45,7 +45,7 @@ public class GTCXTileAluminiumCable extends GTCXTileColoredCable {
 
     @Override
     public double getConductorBreakdownEnergy() {
-        return 513;
+        return 2049;
     }
 
 
