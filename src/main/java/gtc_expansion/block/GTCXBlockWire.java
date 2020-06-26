@@ -204,14 +204,14 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     public List<IBlockState> getValidStateList() {
         IBlockState def = this.getDefaultState();
         List<IBlockState> states = new ArrayList<>();
-        EnumFacing[] var3 = EnumFacing.VALUES;
-        int var4 = var3.length;
+        EnumFacing[] facings = EnumFacing.VALUES;
+        int length = facings.length;
 
-        for(int var5 = 0; var5 < var4; ++var5) {
-            for (int i = 0; i < 4; i++){
-                EnumFacing side = var3[var5];
-                states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(INSULATION, i));
-                states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(INSULATION, i));
+        for(int i = 0; i < length; ++i) {
+            for (int j = 0; j < 4; j++){
+                EnumFacing side = facings[i];
+                states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(INSULATION, j));
+                states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(INSULATION, j));
             }
         }
 
