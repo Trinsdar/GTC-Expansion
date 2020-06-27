@@ -197,26 +197,6 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
     }*/
 
     @Override
-    public void onNetworkEvent(int event) {
-        switch(event) {
-            case 0:
-                this.world.playSound(null, this.getPos(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.8F);
-
-                for(int l = 0; l < 8; ++l) {
-                    this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)this.getPos().getX() + Math.random(), (double)this.getPos().getY() + 1.2D, (double)this.getPos().getZ() + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
-                }
-
-                return;
-            default:
-                IC2.platform.displayError("An unknown event type was received over multiplayer.\nThis could happen due to corrupted data or a bug.\n\n(Technical information: event ID " + event + ", tile entity below)\nT: " + this + " (" + this.getPos() + ")");
-        }
-    }
-
-    public Vec3i getConnections() {
-        return new Vec3i(this.connection.getCode(), this.anchors.getCode(), this.connection.getCode() << 6 | this.anchors.getCode());
-    }
-
-    @Override
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side) {
         return this.connection.contains(side);
     }
@@ -251,6 +231,10 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
         if (world.isBlockLoaded(pos)) {
             world.neighborChanged(pos, Blocks.AIR, pos);
         }
+    }
+
+    public Vec3i getConnections() {
+        return new Vec3i(this.connection.getCode(), this.anchors.getCode(), this.connection.getCode() << 6 | this.anchors.getCode());
     }
 
     @Override
@@ -322,6 +306,64 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
 
     public boolean canInteractWithAPICable(IEnergyConductorColored cable) {
         return this.getConductorColor() == WireColor.Blank || cable.getConductorColor() == WireColor.Blank || this.getConductorColor() == cable.getConductorColor();
+    }
+
+    public abstract Block getBlockDrop();
+
+    @Override
+    public List<ItemStack> getDrops() {
+        List<ItemStack> list = new ArrayList<>();
+
+        ItemStack block = GTMaterialGen.get(this.getBlockDrop());
+        if (this.isColored() && this.color != material.getColor().getRGB()) {
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(block);
+            nbt.setInteger("color", this.color);
+        }
+        if (this.insulation > 0){
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(block);
+            nbt.setInteger("insulation", this.insulation);
+        }
+        list.add(block);
+        list.addAll(getInventoryDrops());
+        return list;
+    }
+
+    @Override
+    public List<ItemStack> getInventoryDrops() {
+        List<ItemStack> list = new ArrayList<>();
+        for(int i = 0; i < 6; ++i) {
+            if (this.anchors.contains(EnumFacing.getFront(i))) {
+                list.add(Ic2Items.miningPipe.copy());
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public boolean hasSpecialAction(EntityPlayer player, EnumFacing facing, Vec3d hit) {
+        EnumFacing side = (new BlockCable.ClickHelper(hit, (float) (this.getThickness() / 16.0D))).getFacing(facing);
+        return side != null && this.anchors.contains(side);
+    }
+
+    @Override
+    public EnumActionResult doSpecialAction(EntityPlayer player, EnumFacing facing, Vec3d hit) {
+        EnumFacing side = (new BlockCable.ClickHelper(hit, (float) (this.getThickness() / 16.0D))).getFacing(facing);
+        if (this.isRendering()) {
+            return EnumActionResult.PASS;
+        } else if (side != null && this.removeAnchor(side)) {
+            ItemStack pipe = Ic2Items.miningPipe.copy();
+            if (!player.inventory.addItemStackToInventory(pipe)) {
+                player.dropItem(pipe, true);
+            }
+
+            return EnumActionResult.SUCCESS;
+        } else {
+            return super.doSpecialAction(player, facing, hit);
+        }
+    }
+
+    private int getThickness(){
+        return 2 + (insulation * 2);
     }
 
     @Override
@@ -466,64 +508,6 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
         return true;
     }
 
-    public abstract Block getBlockDrop();
-
-    @Override
-    public List<ItemStack> getDrops() {
-        List<ItemStack> list = new ArrayList<>();
-
-        ItemStack block = GTMaterialGen.get(this.getBlockDrop());
-        if (this.isColored() && this.color != material.getColor().getRGB()) {
-            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(block);
-            nbt.setInteger("color", this.color);
-        }
-        if (this.insulation > 0){
-            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(block);
-            nbt.setInteger("insulation", this.insulation);
-        }
-        list.add(block);
-        list.addAll(getInventoryDrops());
-        return list;
-    }
-
-    @Override
-    public List<ItemStack> getInventoryDrops() {
-        List<ItemStack> list = new ArrayList<>();
-        for(int i = 0; i < 6; ++i) {
-            if (this.anchors.contains(EnumFacing.getFront(i))) {
-                list.add(Ic2Items.miningPipe.copy());
-            }
-        }
-        return list;
-    }
-
-    @Override
-    public boolean hasSpecialAction(EntityPlayer player, EnumFacing facing, Vec3d hit) {
-        EnumFacing side = (new BlockCable.ClickHelper(hit, (float) (this.getThickness() / 16.0D))).getFacing(facing);
-        return side != null && this.anchors.contains(side);
-    }
-
-    @Override
-    public EnumActionResult doSpecialAction(EntityPlayer player, EnumFacing facing, Vec3d hit) {
-        EnumFacing side = (new BlockCable.ClickHelper(hit, (float) (this.getThickness() / 16.0D))).getFacing(facing);
-        if (this.isRendering()) {
-            return EnumActionResult.PASS;
-        } else if (side != null && this.removeAnchor(side)) {
-            ItemStack pipe = Ic2Items.miningPipe.copy();
-            if (!player.inventory.addItemStackToInventory(pipe)) {
-                player.dropItem(pipe, true);
-            }
-
-            return EnumActionResult.SUCCESS;
-        } else {
-            return super.doSpecialAction(player, facing, hit);
-        }
-    }
-
-    private int getThickness(){
-        return 2 + (insulation * 2);
-    }
-
     @Override
     public WireColor getConductorColor() {
         return color == 16383998 || color == material.getColor().getRGB() ? WireColor.Blank : WireColor.fromColor(getColorFromColorValue());
@@ -549,4 +533,21 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
             default: return EnumDyeColor.WHITE;
         }
     }
+
+    @Override
+    public void onNetworkEvent(int event) {
+        switch(event) {
+            case 0:
+                this.world.playSound(null, this.getPos(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.8F);
+
+                for(int l = 0; l < 8; ++l) {
+                    this.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, (double)this.getPos().getX() + Math.random(), (double)this.getPos().getY() + 1.2D, (double)this.getPos().getZ() + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
+                }
+
+                return;
+            default:
+                IC2.platform.displayError("An unknown event type was received over multiplayer.\nThis could happen due to corrupted data or a bug.\n\n(Technical information: event ID " + event + ", tile entity below)\nT: " + this + " (" + this.getPos() + ")");
+        }
+    }
+
 }

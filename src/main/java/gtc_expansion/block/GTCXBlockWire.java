@@ -70,42 +70,6 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     }
 
     @Override
-    public void addReaderInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if (this == GTCXBlocks.electrumCable) {
-            tooltip.add((Ic2InfoLang.euReaderCableLimit.getLocalizedFormatted(512)));
-            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack.copy());
-            if (nbt.hasKey(NBT_INSULATION)){
-                int insulation = nbt.getInteger(NBT_INSULATION);
-                if (insulation == 1){
-                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.4D));
-                } else if (insulation == 2){
-                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(0.35D));
-                } else if (insulation == 3){
-                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.3D));
-                }
-            } else {
-                tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(0.45D));
-            }
-        }
-        if (this == GTCXBlocks.aluminiumCable) {
-            tooltip.add((Ic2InfoLang.euReaderCableLimit.getLocalizedFormatted(2048)));
-            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack.copy());
-            if (nbt.hasKey(NBT_INSULATION)){
-                int insulation = nbt.getInteger(NBT_INSULATION);
-                if (insulation == 1){
-                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 1.05D));
-                } else if (insulation == 2){
-                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(1.0D));
-                } else if (insulation == 3){
-                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.9D));
-                }
-            } else {
-                tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(1.1D));
-            }
-        }
-    }
-
-    @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainerIC2(this, allFacings, active, INSULATION);
     }
@@ -116,18 +80,15 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         TileEntity tile = worldIn.getTileEntity(pos);
         NBTTagCompound nbt = StackUtil.getNbtData(stack);
-        if (tile instanceof IGTRecolorableStorageTile) {
-            IGTRecolorableStorageTile colorTile = (IGTRecolorableStorageTile) tile;
-            if (nbt.hasKey("color")) {
-                colorTile.setTileColor(nbt.getInteger("color"));
-            } else {
-                colorTile.setTileColor(material.getColor().getRGB());
-            }
-        }
         if (tile instanceof GTCXTileColoredCable){
             GTCXTileColoredCable wireTile = (GTCXTileColoredCable) tile;
             if (nbt.hasKey(NBT_INSULATION)) {
                 wireTile.setInsulation(nbt.getInteger(NBT_INSULATION));
+            }
+            if (nbt.hasKey("color")) {
+                wireTile.setTileColor(nbt.getInteger("color"));
+            } else {
+                wireTile.setTileColor(material.getColor().getRGB());
             }
         }
     }
@@ -359,7 +320,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 //        TileEntity tile = worldIn.getTileEntity(pos);
 //        if (tile instanceof GTCXTileElectrumCable) {
 //            int foamed = ((GTCXTileElectrumCable)tile).foamed;
-//            if (foamed > 1) {
+//            if (foamed > 0) {
 //                return BlockFaceShape.SOLID;
 //            }
 //        }
@@ -373,33 +334,33 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         if (!(tile instanceof GTCXTileColoredCable)) {
             return new AxisAlignedBB(0.25D, 0.25D, 0.25D, 0.75D, 0.75D, 0.75D);
         } else {
-            GTCXTileColoredCable pipe = (GTCXTileColoredCable) tile;
+            GTCXTileColoredCable cable = (GTCXTileColoredCable) tile;
 //            if (pipe.foamed > 0) {
 //                return new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
 //            }
-            double thickness = (2 + (pipe.insulation * 2)) / 32.0D;
+            double thickness = (2 + (cable.insulation * 2)) / 32.0D;
             double minX = 0.5D - thickness;
             double minY = 0.5D - thickness;
             double minZ = 0.5D - thickness;
             double maxX = 0.5D + thickness;
             double maxY = 0.5D + thickness;
             double maxZ = 0.5D + thickness;
-            if (pipe.connection.contains(EnumFacing.WEST) || pipe.anchors.contains(EnumFacing.WEST)) {
+            if (cable.connection.contains(EnumFacing.WEST) || cable.anchors.contains(EnumFacing.WEST)) {
                 minX = 0.0D;
             }
-            if (pipe.connection.contains(EnumFacing.DOWN) || pipe.anchors.contains(EnumFacing.DOWN)) {
+            if (cable.connection.contains(EnumFacing.DOWN) || cable.anchors.contains(EnumFacing.DOWN)) {
                 minY = 0.0D;
             }
-            if (pipe.connection.contains(EnumFacing.NORTH) || pipe.anchors.contains(EnumFacing.NORTH)) {
+            if (cable.connection.contains(EnumFacing.NORTH) || cable.anchors.contains(EnumFacing.NORTH)) {
                 minZ = 0.0D;
             }
-            if (pipe.connection.contains(EnumFacing.EAST) || pipe.anchors.contains(EnumFacing.EAST)) {
+            if (cable.connection.contains(EnumFacing.EAST) || cable.anchors.contains(EnumFacing.EAST)) {
                 maxX = 1.0D;
             }
-            if (pipe.connection.contains(EnumFacing.UP) || pipe.anchors.contains(EnumFacing.UP)) {
+            if (cable.connection.contains(EnumFacing.UP) || cable.anchors.contains(EnumFacing.UP)) {
                 maxY = 1.0D;
             }
-            if (pipe.connection.contains(EnumFacing.SOUTH) || pipe.anchors.contains(EnumFacing.SOUTH)) {
+            if (cable.connection.contains(EnumFacing.SOUTH) || cable.anchors.contains(EnumFacing.SOUTH)) {
                 maxZ = 1.0D;
             }
             return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
@@ -413,6 +374,42 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
             ((ICutterItem)stack.getItem()).cutInsulationFrom(stack, worldIn, pos, playerIn);
         }
 
+    }
+
+    @Override
+    public void addReaderInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if (this == GTCXBlocks.electrumCable) {
+            tooltip.add((Ic2InfoLang.euReaderCableLimit.getLocalizedFormatted(512)));
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack.copy());
+            if (nbt.hasKey(NBT_INSULATION)){
+                int insulation = nbt.getInteger(NBT_INSULATION);
+                if (insulation == 1){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.4D));
+                } else if (insulation == 2){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(0.35D));
+                } else if (insulation == 3){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.3D));
+                }
+            } else {
+                tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(0.45D));
+            }
+        }
+        if (this == GTCXBlocks.aluminiumCable) {
+            tooltip.add((Ic2InfoLang.euReaderCableLimit.getLocalizedFormatted(2048)));
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack.copy());
+            if (nbt.hasKey(NBT_INSULATION)){
+                int insulation = nbt.getInteger(NBT_INSULATION);
+                if (insulation == 1){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 1.05D));
+                } else if (insulation == 2){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(1.0D));
+                } else if (insulation == 3){
+                    tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted( 0.9D));
+                }
+            } else {
+                tooltip.add(Ic2InfoLang.euReaderCableLoss.getLocalizedFormatted(1.1D));
+            }
+        }
     }
 
     @Override
