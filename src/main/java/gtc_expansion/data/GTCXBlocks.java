@@ -9,7 +9,6 @@ import gtc_expansion.block.GTCXBlockStorage;
 import gtc_expansion.block.GTCXBlockTile;
 import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.item.itemblock.GTCXColorItemBlock;
-import gtc_expansion.item.itemblock.GTCXItemBlock;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
@@ -49,6 +48,7 @@ import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
+import gtclassic.api.item.GTItemBlock;
 import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
@@ -162,7 +162,7 @@ public class GTCXBlocks {
         if (block instanceof IGTItemBlock) {
             return ((IGTItemBlock)block).getCustomItemBlock();
         } else {
-            return block instanceof IGTColorBlock ? GTCXColorItemBlock.class : GTCXItemBlock.class;
+            return block instanceof IGTColorBlock ? GTCXColorItemBlock.class : GTItemBlock.class;
         }
     }
 

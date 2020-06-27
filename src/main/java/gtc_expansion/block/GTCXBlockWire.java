@@ -136,7 +136,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         if (this == GTCXBlocks.aluminiumCable){
             return new GTCXTileAluminiumCable();
         }
-        return new TileEntityBlock();
+        return null;
     }
 
     @Override

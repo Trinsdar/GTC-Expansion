@@ -6,22 +6,15 @@ import gtc_expansion.data.GTCXLang;
 import gtclassic.api.color.GTColorItemBlock;
 import gtclassic.api.interfaces.IGTColorBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
-import ic2.core.platform.lang.storage.Ic2InfoLang;
-import ic2.core.platform.player.PlayerHandler;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.Color;
-import java.util.List;
 
 public class GTCXColorItemBlock extends GTColorItemBlock{
     private static final String INSULATION = "insulation";
@@ -29,21 +22,6 @@ public class GTCXColorItemBlock extends GTColorItemBlock{
     public GTCXColorItemBlock(Block block) {
         super(block);
         this.block = block;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        PlayerHandler handler = PlayerHandler.getClientPlayerHandler();
-        if (handler.hasEUReader()) {
-            if (this.compare(stack, GTCXBlocks.advancedWorktable)) {
-                tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
-            }
-            if (this.compare(stack, GTCXBlocks.electricLocker)) {
-                tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(512));
-            }
-        }
     }
 
     @Override

@@ -158,6 +158,6 @@ public class GTCXBlockStorage extends GTCXBlockTile implements IGTColorBlock {
 		if (this == GTCXBlocks.trashBin){
 			return new GTCXTileTrashBin();
 		}
-		return new TileEntityBlock();
+		return null;
 	}
 }

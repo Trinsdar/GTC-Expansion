@@ -33,13 +33,18 @@ import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
 import gtclassic.api.interfaces.IGTItemContainerTile;
+import gtclassic.api.interfaces.IGTReaderInfoBlock;
 import ic2.core.IC2;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.lang.storage.Ic2InfoLang;
+import ic2.core.util.misc.StackUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -54,7 +59,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXBlockTile extends GTBlockBaseMachine {
+public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBlock {
     String name;
     public GTCXBlockTile(String name, LocaleComp comp) {
         this(name, comp, 0);
@@ -181,7 +186,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
         if (this == GTCXBlocks.fusionComputer){
             return new GTCXTileMultiFusionReactor();
         }
-        return new TileEntityBlock();
+        return null;
     }
 
     @Override
@@ -254,5 +259,29 @@ public class GTCXBlockTile extends GTBlockBaseMachine {
                 }
             }
         }
+    }
+
+    @Override
+    public void addReaderInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag iTooltipFlag) {
+        if (this.compare(stack, GTCXBlocks.alloySmelter) || this.compare(stack, GTCXBlocks.implosionCompressor) || this.compare(stack, GTCXBlocks.assemblingMachine) || this.compare(stack, GTCXBlocks.chemicalReactor) || this.compare(stack, GTCXBlocks.lathe) || this.compare(stack, GTCXBlocks.microwave) || this.compare(stack, GTCXBlocks.plateBender) || this.compare(stack, GTCXBlocks.plateCutter) || this.compare(stack, GTCXBlocks.wiremill)) {
+            tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(32));
+        }
+
+        if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace) || this.compare(stack, GTCXBlocks.fluidCaster) || this.compare(stack, GTCXBlocks.fluidSmelter) || this.compare(stack, GTCXBlocks.distillationTower) || this.compare(stack, GTCXBlocks.advancedWorktable)) {
+            tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
+        }
+        if (this.compare(stack, GTCXBlocks.electricLocker)) {
+            tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(512));
+        }
+        if (this.compare(stack, GTCXBlocks.gasTurbine) || this.compare(stack, GTCXBlocks.dieselGenerator)){
+            tooltip.add(Ic2InfoLang.electricProduction.getLocalizedFormatted(Ic2InfoLang.electricTransferRateVariable.getLocalized()));
+        }
+        if (this.compare(stack, GTCXBlocks.fusionComputer)){
+            tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(8192));
+        }
+    }
+
+    public boolean compare(ItemStack stack, Block block) {
+        return StackUtil.isStackEqual(stack, new ItemStack(block));
     }
 }
