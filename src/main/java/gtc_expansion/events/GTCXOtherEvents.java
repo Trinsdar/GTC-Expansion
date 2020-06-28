@@ -40,7 +40,7 @@ public class GTCXOtherEvents {
     }
 
     @SubscribeEvent
-    public void onRetextureEventClassicEvent(RetextureEventClassic event){
+    public void onRetextureEvent(RetextureEventClassic event){
         if (!event.isApplied() && !event.isCanceled()){
             TileEntity tile = event.getTargetTile();
             if (tile instanceof IGTTextureStorageTile){
