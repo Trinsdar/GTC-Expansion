@@ -1,5 +1,6 @@
 package gtc_expansion.tile.wiring;
 
+import gtc_expansion.interfaces.IGTTextureStorageTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
@@ -8,6 +9,7 @@ import gtclassic.api.tile.GTTileBaseSuperconductorCable;
 import ic2.api.classic.energy.tile.IAnchorConductor;
 import ic2.api.classic.energy.tile.IEnergyConductorColored;
 import ic2.api.classic.energy.tile.IInsulationModifieableConductor;
+import ic2.api.classic.event.RetextureEventClassic;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.network.adv.NetworkField.BitLevel;
 import ic2.api.energy.EnergyNet;
@@ -21,6 +23,8 @@ import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityBlock;
+import ic2.core.block.base.util.texture.ICopyEntry;
+import ic2.core.block.base.util.texture.TextureCopyStorage;
 import ic2.core.block.wiring.BlockCable;
 import ic2.core.block.wiring.tile.TileEntityCable;
 import ic2.core.block.wiring.tile.TileEntityMultipartLuminator;
@@ -28,12 +32,14 @@ import ic2.core.energy.EnergyNetLocal;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -47,7 +53,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GTCXTileColoredCable extends TileEntityBlock implements IEnergyConductorColored, IInsulationModifieableConductor, IGTRecolorableStorageTile, INetworkTileEntityEventListener, IAnchorConductor, IGTItemContainerTile {
+public abstract class GTCXTileColoredCable extends TileEntityBlock implements IEnergyConductorColored, IInsulationModifieableConductor, IGTRecolorableStorageTile, INetworkTileEntityEventListener, IAnchorConductor, IGTItemContainerTile, IGTTextureStorageTile {
 
     @NetworkField(index = 8)
     public RotationList connection;
@@ -59,16 +65,17 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
     @NetworkField(index = 10)
     public int color;
     private int prevColor = 0;
-    /*@NetworkField(
+    @NetworkField(
             index = 11
     )
     public byte foamed;
+    private byte prevFoamed;
     @NetworkField(
-            index = 11
+            index = 12
     )
-    public TextureCopyStorage storage;*/
+    public TextureCopyStorage storage;
     @NetworkField(
-            index = 11,
+            index = 13,
             compression = BitLevel.Bit8
     )
     public int insulation;
@@ -79,10 +86,11 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
     public GTCXTileColoredCable(GTMaterial material) {
         this.color = 16383998;
         this.insulation = 0;
-        //this.foamed = 0;
+        this.foamed = 0;
+        this.storage = new TextureCopyStorage(6);
         this.connection = RotationList.EMPTY;
         this.anchors = RotationList.EMPTY;
-        this.addNetworkFields("connection", NBT_COLOR, "storage", "insulation", "anchors");
+        this.addNetworkFields("connection", "foamed", NBT_COLOR, "storage", "insulation", "anchors");
         this.material = material;
     }
 
@@ -113,15 +121,15 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
         } else {
             this.color = 16383998;
         }
-        //byte newFoamed = nbt.getByte("Foaming");
+        byte newFoamed = nbt.getByte("Foaming");
         this.insulation = nbt.getInteger("Insulation");
         this.anchors = RotationList.ofNumber(nbt.getByte("Anchors"));
-//        if (newFoamed == 1) {
-//            this.changeFoam(newFoamed, true);
-//        } else {
-//            this.foamed = newFoamed;
-//        }
-        //this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
+        if (newFoamed == 1) {
+            this.changeFoam(newFoamed, true);
+        } else {
+            this.foamed = newFoamed;
+        }
+        this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
 
     }
 
@@ -129,19 +137,20 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setInteger(NBT_COLOR, this.color);
-        //nbt.setByte("Foaming", this.foamed);
+        nbt.setByte("Foaming", this.foamed);
         nbt.setInteger("Insulation", this.insulation);
         nbt.setByte("Anchors", (byte)this.anchors.getCode());
-        //this.storage.writeToNBT(this.getTag(nbt, "Storage"));
+        this.storage.writeToNBT(this.getTag(nbt, "Storage"));
         return nbt;
     }
 
     @Override
     public void onNetworkUpdate(String field) {
         super.onNetworkUpdate(field);
-        if (orString(field,"insulation", "anchors", "color", "connection")) {
+        if (orString(field,"insulation", "anchors", "color", "connection", "foamed", "storage")) {
             this.prevInsulation = this.insulation;
             this.prevColor = this.color;
+            this.prevFoamed = this.foamed;
             this.world.markBlockRangeForRenderUpdate(this.getPos(), this.getPos());
         }
     }
@@ -155,7 +164,7 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
         return false;
     }
 
-    /*public boolean changeFoam(byte foamed) {
+    public boolean changeFoam(byte foamed) {
         return this.changeFoam(foamed, false);
     }
 
@@ -170,18 +179,16 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
                         this.getNetwork().updateTileEntityField(this, "storage");
                     }
 
-                    IC2.callbacks.addCallback(this.world, new IWorldTickCallback() {
-                        public ActionResult<Integer> tickCallback(World world) {
-                            if (!isInvalid() && foamed == 1) {
-                                if (world.getLightFromNeighbors(getPos()) * 6 >= world.rand.nextInt(1000)) {
-                                    changeFoam((byte)2);
-                                    return ActionResult.newResult(EnumActionResult.SUCCESS, 0);
-                                } else {
-                                    return ActionResult.newResult(EnumActionResult.PASS, 500);
-                                }
+                    IC2.callbacks.addCallback(this.world, world -> {
+                        if (!isInvalid() && foamed == 1) {
+                            if (world.getLightFromNeighbors(getPos()) * 6 >= world.rand.nextInt(1000)) {
+                                changeFoam((byte)2);
+                                return ActionResult.newResult(EnumActionResult.SUCCESS, 0);
                             } else {
-                                return ActionResult.newResult(EnumActionResult.FAIL, 0);
+                                return ActionResult.newResult(EnumActionResult.PASS, 500);
                             }
+                        } else {
+                            return ActionResult.newResult(EnumActionResult.FAIL, 0);
                         }
                     }, 500);
                 } else if (this.foamed == 0) {
@@ -194,7 +201,7 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
 
             return true;
         }
-    }*/
+    }
 
     @Override
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side) {
@@ -368,19 +375,33 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
 
     @Override
     public void setTileColor(int color) {
+        this.setTileColor(color, null);
+
+    }
+
+    public void setTileColor(int color, EnumFacing side){
         if (this.addedToEnergyNet) {
             MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
         }
 
         this.addedToEnergyNet = false;
-        this.color = color;
+        if (this.foamed == 2) {
+            if (side == null) {
+                this.storage.setAll(WireColor.fromColor(getColorFromColorValue(color)));
+            } else {
+                this.storage.set(side.getIndex(), WireColor.fromColor(getColorFromColorValue(color)));
+            }
+
+            this.getNetwork().updateTileEntityField(this, "storage");
+        } else {
+            this.color = color;
+        }
         MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
         this.addedToEnergyNet = true;
         if (color != this.prevColor) {
             this.getNetwork().updateTileEntityField(this, NBT_COLOR);
         }
         this.prevColor = color;
-
     }
 
     @Override
@@ -510,10 +531,10 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
 
     @Override
     public WireColor getConductorColor() {
-        return color == 16383998 || color == material.getColor().getRGB() ? WireColor.Blank : WireColor.fromColor(getColorFromColorValue());
+        return color == 16383998 || color == material.getColor().getRGB() ? WireColor.Blank : WireColor.fromColor(getColorFromColorValue(color));
     }
 
-    public EnumDyeColor getColorFromColorValue(){
+    public EnumDyeColor getColorFromColorValue(int color){
         switch (color){
             case 1908001 : return EnumDyeColor.BLACK;
             case 11546150 : return EnumDyeColor.RED;
@@ -550,4 +571,19 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
         }
     }
 
+    @Override
+    public TextureCopyStorage getStorage() {
+        return storage;
+    }
+
+    @Override
+    public boolean setStorage(EnumFacing targetSide, IBlockState model, IBlockState render, int[] color, RetextureEventClassic.Rotation[] rot, EnumFacing facing) {
+        ICopyEntry entry = this.storage.getEntry(targetSide.getIndex());
+        if (!this.storage.isColored(targetSide.getIndex()) && entry.getModelState() == model && entry.getRenderState() == render && entry.getSide() == facing) {
+            return false;
+        }
+        this.storage.set(targetSide.getIndex(), model, render, color, rot, facing);
+        this.getNetwork().updateTileEntityField(this, "storage");
+        return true;
+    }
 }

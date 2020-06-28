@@ -1,14 +1,17 @@
 package gtc_expansion.events;
 
+import gtc_expansion.interfaces.IGTTextureStorageTile;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTBlocks;
+import ic2.api.classic.event.RetextureEventClassic;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -34,6 +37,20 @@ public class GTCXOtherEvents {
             }
 
         }
+    }
+
+    @SubscribeEvent
+    public void onRetextureEventClassicEvent(RetextureEventClassic event){
+        if (!event.isApplied() && !event.isCanceled()){
+            TileEntity tile = event.getTargetTile();
+            if (tile instanceof IGTTextureStorageTile){
+                IGTTextureStorageTile storage = (IGTTextureStorageTile) tile;
+                if (storage.setStorage(event.getTargetSide(), event.getModelState(), event.getRenderState(), event.getColorMultipliers(), event.getRotations(), event.getRefSide())){
+                    event.setApplied(true);
+                }
+            }
+        }
+
     }
 
     @SubscribeEvent

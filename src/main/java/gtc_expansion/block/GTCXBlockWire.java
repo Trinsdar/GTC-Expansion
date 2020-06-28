@@ -15,10 +15,12 @@ import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
 import ic2.api.classic.item.ICutterItem;
 import ic2.core.block.base.tile.TileEntityBlock;
+import ic2.core.block.render.model.BlockCopyModel;
 import ic2.core.block.wiring.BlockCable;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
 import ic2.core.platform.registry.Ic2Items;
+import ic2.core.platform.registry.Ic2States;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.platform.textures.obj.ILayeredBlockModel;
@@ -34,6 +36,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -56,7 +59,7 @@ import java.util.Random;
 public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, ILayeredBlockModel, IGTReaderInfoBlock {
     public static final PropertyInteger INSULATION = PropertyInteger.create("insulation", 0, 3);
     public static final String NBT_INSULATION = "insulation";
-    //public static PropertyInteger foamed = PropertyInteger.create("foamed", 0, 2);
+    public static final PropertyInteger FOAMED = PropertyInteger.create("foamed", 0, 2);
     GTMaterial material;
     public GTCXBlockWire(String name, LocaleComp comp, GTMaterial material){
         super();
@@ -71,7 +74,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainerIC2(this, allFacings, active, INSULATION);
+        return new BlockStateContainerIC2(this, active, INSULATION, FOAMED);
     }
 
     @Override
@@ -98,11 +101,11 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof GTCXTileColoredCable) {
             GTCXTileColoredCable colorTile = (GTCXTileColoredCable) tile;
-            if (!colorTile.hasInsulation()){
+            if (!colorTile.hasInsulation() && colorTile.foamed < 2){
                 return false;
             }
             int color1 = color == EnumDyeColor.WHITE ? material.getColor().getRGB() : color.getColorValue();
-            colorTile.setTileColor(color1);
+            colorTile.setTileColor(color1, side);
             IBlockState state = tile.getWorld().getBlockState(tile.getPos());
             world.notifyBlockUpdate(pos, state, state, 2);
             return true;
@@ -145,7 +148,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         if (tile instanceof GTCXTileColoredCable) {
             GTCXTileColoredCable cable = (GTCXTileColoredCable)tile;
             int i = cable.insulation > 3 ? 3 : cable.insulation;
-            return state.withProperty(INSULATION, i).withProperty(active, cable.getActive());
+            return state.withProperty(INSULATION, i).withProperty(active, cable.getActive()).withProperty(FOAMED, (int)cable.foamed);
         } else {
             return super.getActualState(state, worldIn, pos);
         }
@@ -153,10 +156,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 
     @Override
     public IBlockState getDefaultBlockState() {
-        IBlockState state = this.getDefaultState().withProperty(active, false).withProperty(INSULATION, 0);
-        if (this.hasFacing()) {
-            state = state.withProperty(allFacings, EnumFacing.NORTH);
-        }
+        IBlockState state = this.getDefaultState().withProperty(active, false).withProperty(INSULATION, 0).withProperty(FOAMED, 0);
 
         return state;
     }
@@ -165,14 +165,10 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     public List<IBlockState> getValidStateList() {
         IBlockState def = this.getDefaultState();
         List<IBlockState> states = new ArrayList<>();
-        EnumFacing[] facings = EnumFacing.VALUES;
-        int length = facings.length;
-
-        for(int i = 0; i < length; ++i) {
-            for (int j = 0; j < 4; j++){
-                EnumFacing side = facings[i];
-                states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(INSULATION, j));
-                states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(INSULATION, j));
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 3; j++){
+                states.add(def.withProperty(active, false).withProperty(INSULATION, i).withProperty(FOAMED, j));
+                states.add(def.withProperty(active, true).withProperty(INSULATION, i).withProperty(FOAMED, j));
             }
         }
 
@@ -185,6 +181,9 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof GTCXTileColoredCable) {
                 GTCXTileColoredCable cable = (GTCXTileColoredCable)tile;
+                if (cable.foamed > 1) {
+                    return new BlockStateContainerIC2.IC2BlockState(state, cable.storage.getQuads());
+                }
                 return new BlockStateContainerIC2.IC2BlockState(state, cable.getConnections());
             }
         } catch (Exception var6) {
@@ -193,10 +192,29 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         return super.getExtendedState(state, world, pos);
     }
 
+
+    public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
+        return tile instanceof GTCXTileColoredCable && ((GTCXTileColoredCable)tile).foamed > 0 ? 255 : 0;
+    }
+
     @Override
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack) {
         state = this.getActualState(state, worldIn, pos);
         super.harvestBlock(worldIn, player, pos, state, te, stack);
+    }
+
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof GTCXTileColoredCable){
+            GTCXTileColoredCable cable = (GTCXTileColoredCable) tile;
+            if (cable.foamed > 0 && player.isSneaking()){
+                cable.changeFoam((byte)0);
+                return false;
+            }
+        }
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
     }
 
     @Override
@@ -218,6 +236,11 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     @Override
     public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
         return true;
+    }
+
+    @Override
+    public boolean hasFacing() {
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
@@ -249,12 +272,11 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     @SideOnly(Side.CLIENT)
     @Override
     public BaseModel getModelFromState(IBlockState state) {
-//        if (state.getValue(foamed) == 1) {
-//            return BlockCopyModel.getFoamModel(Ic2States.constructionFoamCable);
-//        } else {
-//            return state.getValue(foamed) == 2 ? BlockCopyModel.getFoamModel(Ic2Icons.getTextures("bcable")[195]) : new GTModelWire(state, Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6], getSize(state));
-//        }
-        return new GTModelLayeredAnchoredWire(state, Ic2Icons.getTextures("bcable")[277], getSize(state));
+        if (state.getValue(FOAMED) == 1) {
+            return BlockCopyModel.getFoamModel(Ic2States.constructionFoamCable);
+        } else {
+            return state.getValue(FOAMED) == 2 ? BlockCopyModel.getFoamModel(Ic2Icons.getTextures("bcable")[195]) : new GTModelLayeredAnchoredWire(state, Ic2Icons.getTextures("bcable")[277], getSize(state));
+        }
     }
 
     @Override
@@ -292,7 +314,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     public IBlockState getStateFromStack(ItemStack stack) {
         NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
         int insulation = nbt.hasKey(NBT_INSULATION) ? nbt.getInteger(NBT_INSULATION) : 0;
-        IBlockState state = this.getDefaultState().withProperty(GTCXBlockWire.INSULATION, insulation);
+        IBlockState state = this.getDefaultState().withProperty(GTCXBlockWire.INSULATION, insulation).withProperty(FOAMED, 0);
         return state;
     }
 
@@ -302,12 +324,22 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         if (state.getValue(INSULATION) == 0){
             return super.getPickBlock(state, target, world, pos, player);
         }
+        if (state.getValue(FOAMED) == 1){
+            return Ic2Items.constructionFoam;
+        }
         ItemStack stack = super.getPickBlock(state, target, world, pos, player);
         NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
         nbt.setInteger(NBT_INSULATION, state.getValue(INSULATION));
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof GTCXTileColoredCable){
             GTCXTileColoredCable cable = (GTCXTileColoredCable) tile;
+            if (cable.foamed > 0) {
+                try {
+                    IBlockState realState = cable.storage.getEntry(target.sideHit.getIndex()).getModelState();
+                    return realState.getBlock().getPickBlock(realState, target, world, pos, player);
+                } catch (Exception ignored) {
+                }
+            }
             if (cable.isColored() && cable.color != material.getColor().getRGB()) {
                 nbt.setInteger("color", cable.color);
             }
@@ -317,15 +349,34 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-//        TileEntity tile = worldIn.getTileEntity(pos);
-//        if (tile instanceof GTCXTileElectrumCable) {
-//            int foamed = ((GTCXTileElectrumCable)tile).foamed;
-//            if (foamed > 0) {
-//                return BlockFaceShape.SOLID;
-//            }
-//        }
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof GTCXTileColoredCable) {
+            int foamed = ((GTCXTileColoredCable)tile).foamed;
+            if (foamed > 0) {
+                return BlockFaceShape.SOLID;
+            }
+        }
 
         return BlockFaceShape.UNDEFINED;
+    }
+
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof GTCXTileColoredCable) {
+            GTCXTileColoredCable cable = (GTCXTileColoredCable)tile;
+            if (cable.foamed > 1) {
+                IBlockState state = cable.storage.getEntry(side.getIndex()).getModelState();
+                if (state != null) {
+                    try {
+                        return state.isSideSolid(world, pos, side);
+                    } catch (Exception var9) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return super.isSideSolid(base_state, world, pos, side);
     }
 
     @Override
@@ -335,9 +386,9 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
             return new AxisAlignedBB(0.25D, 0.25D, 0.25D, 0.75D, 0.75D, 0.75D);
         } else {
             GTCXTileColoredCable cable = (GTCXTileColoredCable) tile;
-//            if (pipe.foamed > 0) {
-//                return new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-//            }
+            if (cable.foamed > 0) {
+                return new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+            }
             double thickness = (2 + (cable.insulation * 2)) / 32.0D;
             double minX = 0.5D - thickness;
             double minY = 0.5D - thickness;
@@ -418,7 +469,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         if (tile instanceof GTCXTileColoredCable) {
             GTCXTileColoredCable cable = (GTCXTileColoredCable) tile;
             ItemStack stack = playerIn.getHeldItem(hand);
-            /*if (cable.foamed == 1 && StackUtil.isStackEqual(stack, new ItemStack(Blocks.SAND))) {
+            if (cable.foamed == 1 && StackUtil.isStackEqual(stack, new ItemStack(Blocks.SAND))) {
                 cable.changeFoam((byte) 2);
                 if (!playerIn.capabilities.isCreativeMode) {
                     stack.shrink(1);
@@ -434,7 +485,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
                 }
 
                 return true;
-            }*/
+            }
 
             if (StackUtil.isStackEqual(stack, Ic2Items.miningPipe)) {
                 EnumFacing rotation = (new BlockCable.ClickHelper(hitX, hitY, hitZ, (float) this.getThickness(state) / 16)).getFacing(facing);
