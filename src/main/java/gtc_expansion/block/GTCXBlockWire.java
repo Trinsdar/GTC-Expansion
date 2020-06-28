@@ -115,19 +115,37 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 
     @Override
     public Color getColor(IBlockState state, IBlockAccess worldIn, BlockPos pos, Block block, int index) {
-        if (index == 0){
-            return material.getColor();
-        } else if (index == 1){
+        if (state.getValue(FOAMED) > 0){
             if (worldIn != null) {
                 TileEntity tile = worldIn.getTileEntity(pos);
-                if (tile instanceof IGTRecolorableStorageTile) {
-                    IGTRecolorableStorageTile colorTile = (IGTRecolorableStorageTile) tile;
-                    return colorTile.getTileColor();
+                if (tile instanceof GTCXTileColoredCable && state.getValue(FOAMED) > 1) {
+                    GTCXTileColoredCable colorTile = (GTCXTileColoredCable) tile;
+                    int dir = index / 50;
+                    int tintIndex = index % 50;
+                    int[] colors = colorTile.getStorage().getEntry(dir).getColorMultiplier();
+                    if (tintIndex >= colors.length){
+                        GTCExpansion.logger.info("Color invalid");
+                        return Color.WHITE;
+                    }
+                    return new Color(colors[tintIndex]);
                 }
             }
-            return state != null && state.getValue(INSULATION) > 0? new Color(4, 4, 4) : material.getColor();
-        } else {
             return Color.WHITE;
+        } else {
+            if (index == 0){
+                return material.getColor();
+            } else if (index == 1){
+                if (worldIn != null) {
+                    TileEntity tile = worldIn.getTileEntity(pos);
+                    if (tile instanceof IGTRecolorableStorageTile) {
+                        IGTRecolorableStorageTile colorTile = (IGTRecolorableStorageTile) tile;
+                        return colorTile.getTileColor();
+                    }
+                }
+                return state != null && state.getValue(INSULATION) > 0? new Color(4, 4, 4) : material.getColor();
+            } else {
+                return Color.WHITE;
+            }
         }
     }
 
