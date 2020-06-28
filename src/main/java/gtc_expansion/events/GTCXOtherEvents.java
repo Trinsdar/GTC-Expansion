@@ -3,8 +3,10 @@ package gtc_expansion.events;
 import gtc_expansion.interfaces.IGTTextureStorageTile;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.tile.wiring.GTCXTileColoredCable;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTBlocks;
+import ic2.api.classic.event.FoamEvent;
 import ic2.api.classic.event.RetextureEventClassic;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.state.IBlockState;
@@ -50,7 +52,31 @@ public class GTCXOtherEvents {
                 }
             }
         }
+    }
 
+    @SubscribeEvent
+    public void onFoamCheckEvent(FoamEvent.Check event) {
+        if (!event.hasCustomTarget()){
+            TileEntity tile = event.getTileEntity();
+            if (tile instanceof GTCXTileColoredCable) {
+                GTCXTileColoredCable cable = (GTCXTileColoredCable)tile;
+                if (cable.foamed == 0) {
+                    event.setResult(FoamEvent.FoamResult.Cable);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onFoamPlaceEvent(FoamEvent.Place event){
+
+        TileEntity tile = event.getTileEntity();
+        if (tile instanceof GTCXTileColoredCable) {
+            GTCXTileColoredCable cable = (GTCXTileColoredCable)tile;
+            if (cable.changeFoam((byte)1)) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     @SubscribeEvent
