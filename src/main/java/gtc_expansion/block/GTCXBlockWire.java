@@ -367,11 +367,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
             if (cable.foamed > 1) {
                 IBlockState state = cable.storage.getEntry(side.getIndex()).getModelState();
                 if (state != null) {
-                    try {
-                        return state.isSideSolid(world, pos, side);
-                    } catch (Exception var9) {
-                        return true;
-                    }
+                    return state.isSideSolid(world, pos, side);
                 }
             }
         }
