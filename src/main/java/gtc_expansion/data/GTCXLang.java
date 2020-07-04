@@ -3,6 +3,8 @@ package gtc_expansion.data;
 import ic2.core.platform.lang.components.base.LangComponentHolder;
 import ic2.core.platform.lang.components.base.LangComponentHolder.LocaleItemInfoComp;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.lang.components.special.ColoredLocalComp;
+import net.minecraft.util.text.TextFormatting;
 
 public class GTCXLang {
     public static final LocaleComp IMPLOSION_COMPRESSOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.implosioncompressor");
@@ -61,7 +63,9 @@ public class GTCXLang {
     public static final LocaleComp TUNGSTENSTEEL_REINFORCED_STONE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.tungstensteel_reinforced_stone");
     public static final LocaleComp FIRE_BRICK_BLOCK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fire_brick_block");
 
-    public static final LocaleComp MESSAGE_DIAMOND_CHAINSAW_NORMAL = new LocaleItemInfoComp("message.diamondChainsawNormal.name");
-    public static final LocaleComp MESSAGE_DIAMOND_CHAINSAW_NO_SHEAR = new LocaleItemInfoComp("message.diamondChainsawNoShear.name");
-    public static final LocaleComp DIAMOND_CHAINSAW_SHEAR_TOGGLE = new LocaleItemInfoComp("tooltip.diamondChainsawShearToggle.name");
+    public static final LocaleComp MESSAGE_DIAMOND_CHAINSAW_NORMAL = new LocaleItemInfoComp("message.gtc_expansion.diamondChainsawNormal.name");
+    public static final LocaleComp MESSAGE_DIAMOND_CHAINSAW_NO_SHEAR = new LocaleItemInfoComp("message.gtc_expansion.diamondChainsawNoShear.name");
+    public static final LocaleComp DIAMOND_CHAINSAW_SHEAR_TOGGLE = new LocaleItemInfoComp("tooltip.gtc_expansion.diamondChainsawShearToggle.name");
+
+    public static final LocaleComp PRESS_SHIFT = new ColoredLocalComp("miscInfo.gtc_expansion.pressShift.name", TextFormatting.AQUA);
 }

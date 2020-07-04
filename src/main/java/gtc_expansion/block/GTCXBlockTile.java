@@ -2,6 +2,7 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCXIcons;
 import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
@@ -43,7 +44,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -86,6 +89,24 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         setCreativeTab(GTMod.creativeTabGT);
         this.setSoundType(SoundType.STONE);
         this.setHardness(4.0F);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        if (this == GTCXBlocks.thermalBoiler || this == GTCXBlocks.largeGasTurbine || this == GTCXBlocks.largeSteamTurbine){
+            if (GuiScreen.isShiftKeyDown()){
+                tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + "multiblock0"));
+                tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + "multiblock1"));
+                tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + "multiblock2"));
+                tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + "multiblock3"));
+                if (this != GTCXBlocks.thermalBoiler){
+                    tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + "multiblock4"));
+                }
+            } else {
+                tooltip.add(GTCXLang.PRESS_SHIFT.getLocalized());
+            }
+        }
     }
 
     @Override

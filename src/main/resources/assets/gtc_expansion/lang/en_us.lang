@@ -720,6 +720,21 @@ tooltip.gtc_expansion.electriclocker0=For storing a set of armor and charging it
 tooltip.gtc_expansion.dustbin0=For compacting all your small and tiny dusts.
 tooltip.gtc_expansion.trash_bin0=For all your trash needs.
 
+#multiblock tooltips
+tooltip.gtc_expansion.thermalboilermultiblock0=Size(LxWxH): 3x3x3 (Hollow), Controller (Front Centered)
+tooltip.gtc_expansion.thermalboilermultiblock1=2x Input Hatch (Side Centered)
+tooltip.gtc_expansion.thermalboilermultiblock2=1x-3x Output Hatch (Side Centered)
+tooltip.gtc_expansion.thermalboilermultiblock3=Reinforced Machine Casings for the rest (20 at least!)
+tooltip.gtc_expansion.largesteamturbinemultiblock0=Size(LxWxH): 3x4x3 (Hollow), Controller (Front Centered)
+tooltip.gtc_expansion.largesteamturbinemultiblock1=1x-2x Input Hatch (Side Centered)
+tooltip.gtc_expansion.largesteamturbinemultiblock2=1x Dynamo Hatch (Back Centered)
+tooltip.gtc_expansion.largesteamturbinemultiblock3=1x Output Hatch (Side Centered, COMPLETELY OPTIONAL)
+tooltip.gtc_expansion.largesteamturbinemultiblock4=Standard Machine Casings for the rest (24 at least!)
+tooltip.gtc_expansion.largegasturbinemultiblock0=Size(LxWxH): 3x4x3 (Hollow), Controller (Front Centered)
+tooltip.gtc_expansion.largegasturbinemultiblock1=1x-2x Input Hatch (Side Centered)
+tooltip.gtc_expansion.largegasturbinemultiblock2=1x Dynamo Hatch (Back Centered)
+tooltip.gtc_expansion.largegasturbinemultiblock3=1x Output Hatch (Side Centered, COMPLETELY OPTIONAL)
+tooltip.gtc_expansion.largegasturbinemultiblock4=Reinforced Machine Casings for the rest (24 at least!)
 
 
 
@@ -733,7 +748,9 @@ tooltip.gtc_expansion.steel_jackhammer1=Can be upgraded to a diamond to do 3x3 b
 tooltip.gtc_expansion.oilberry=Can be eaten, but I wouldn't recommend it.
 tooltip.gtc_expansion.magicDye=Only for crafting, has no function.
 
-tooltip.diamondChainsawShearToggle.name=Enable/Disable Shearing
+tooltip.gtc_expansion.diamondChainsawShearToggle.name=Enable/Disable Shearing
 
-message.diamondChainsawNormal.name=Enabled Shearing
-message.diamondChainsawNoShear.name=Disabled Shearing
+message.gtc_expansion.diamondChainsawNormal.name=Enabled Shearing
+message.gtc_expansion.diamondChainsawNoShear.name=Disabled Shearing
+
+miscInfo.gtc_expansion.pressShift.name=Press%1$s Shift%2$s for Structure Information
