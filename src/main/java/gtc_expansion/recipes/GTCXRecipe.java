@@ -455,7 +455,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.battery, 2), " C ", "TST", "TLT", 'C', Ic2Items.copperCable, 'T', tin, 'S', GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 1), 'L', "dustLead");
         recipes.overrideRecipe("shaped_item.itembatre_2077392104", Ic2Items.battery, " C ", "TRT", "TRT", 'C', Ic2Items.copperCable, 'T', tin, 'R', DUST_REDSTONE);
         recipeId = STEEL_MODE ? 389795443 : -650149377;
-        recipes.overrideRecipe("shaped_item.itemingotalloy_" + recipeId, GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 2), "TTT", "MMM", "BBB", 'T', MATERIAL_REFINED_IRON, 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_TIN_ZINC);
+        recipes.overrideRecipe("shaped_item.itemingotalloy_" + recipeId, GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 2), "TTT", "MMM", "BBB", 'T', GTRecipeCraftingHandler.combineRecipeObjects(MATERIAL_REFINED_IRON, INVAR), 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_TIN_ZINC);
         recipeId = STEEL_MODE ? -1060574968 : -795420664;
         recipes.overrideRecipe("shaped_item.reactorvent_" + recipeId, Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', ALUMINIUM, 'B', Blocks.IRON_BARS);
         recipes.overrideRecipe("shaped_item.reactorheatswitch_688109925", Ic2Items.reactorHeatSwitch, " C ", "TcT", " T ", 'C', CIRCUIT_BASIC, 'T', TIN, 'c', Ic2Items.denseCopperPlate);
