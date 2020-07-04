@@ -124,7 +124,6 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
                     int tintIndex = index % 50;
                     int[] colors = colorTile.getStorage().getEntry(dir).getColorMultiplier();
                     if (tintIndex >= colors.length){
-                        GTCExpansion.logger.info("Color invalid");
                         return Color.WHITE;
                     }
                     return new Color(colors[tintIndex]);
