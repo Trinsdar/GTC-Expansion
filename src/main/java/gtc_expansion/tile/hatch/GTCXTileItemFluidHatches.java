@@ -1,14 +1,17 @@
 package gtc_expansion.tile.hatch;
 
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerItemFluidHatch;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTOwnerTile;
+import gtc_expansion.item.tools.GTCXItemToolHammer;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import ic2.api.classic.network.adv.NetworkField;
+import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.fluid.IC2Tank;
@@ -408,17 +411,126 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
     }
 
-    public static class GTCXTileOutputHatch extends GTCXTileItemFluidHatches{
+    public static class GTCXTileOutputHatch extends GTCXTileItemFluidHatches implements IClickable, IGTDebuggableTile{
+        OutputModes cycle = OutputModes.ITEM_AND_FLUID;
 
         public GTCXTileOutputHatch() {
             super(false);
         }
+
+        @Override
+        public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+            super.writeToNBT(nbt);
+            nbt.setBoolean("SupportsFluidOutput", cycle.isFluid());
+            nbt.setBoolean("SupportsItemOutput", cycle.isItem());
+            return nbt;
+        }
+
+        @Override
+        public void readFromNBT(NBTTagCompound nbt) {
+            super.readFromNBT(nbt);
+            boolean fluid = nbt.getBoolean("SupportsFluidOutput");
+            boolean item = nbt.getBoolean("SupportsItemOutput");
+            cycle = cycle.fromBool(item, fluid);
+        }
+
+        public OutputModes getCycle() {
+            return cycle;
+        }
+
+        public void cycleModes(EntityPlayer player){
+            if (this.isSimulating()){
+                this.cycle = cycle.cycle(player);
+            }
+        }
+
+        private enum OutputModes{
+            ITEM_AND_FLUID(true, true),
+            ITEM_ONLY(true, false),
+            FLUID_ONLY(false, true),
+            NEITHER(false, false);
+
+            boolean item;
+            boolean fluid;
+            OutputModes(boolean item, boolean fluid){
+                this.item = item;
+                this.fluid = fluid;
+            }
+
+            OutputModes fromBool(boolean item, boolean fluid){
+                if (item && fluid){
+                    return ITEM_AND_FLUID;
+                } else if (item){
+                    return ITEM_ONLY;
+                } else if (fluid){
+                    return FLUID_ONLY;
+                } else {
+                    return NEITHER;
+                }
+            }
+
+            OutputModes cycle(EntityPlayer player){
+                if (this == ITEM_AND_FLUID){
+                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_HATCH_MODE_0);
+                    return ITEM_ONLY;
+                } else if (this == ITEM_ONLY){
+                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_HATCH_MODE_1);
+                    return FLUID_ONLY;
+                } else if (this == FLUID_ONLY){
+                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_HATCH_MODE_2);
+                    return NEITHER;
+                } else {
+                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_HATCH_MODE_3);
+                    return ITEM_AND_FLUID;
+                }
+            }
+
+            public boolean isFluid() {
+                return fluid;
+            }
+
+            public boolean isItem() {
+                return item;
+            }
+        }
+
+        @Override
+        public boolean hasRightClick() {
+            return true;
+        }
+
+        @Override
+        public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
+            ItemStack stack = entityPlayer.getHeldItem(enumHand);
+            if (stack.getItem() instanceof GTCXItemToolHammer){
+                this.cycleModes(entityPlayer);
+                stack.damageItem(1, entityPlayer);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean hasLeftClick() {
+            return false;
+        }
+
+        @Override
+        public void onLeftClick(EntityPlayer entityPlayer, Side side) {
+
+        }
+
+        @Override
+        public void getData(Map<String, Boolean> data){
+            data.put("Outputs Items: " + cycle.isItem(), false);
+            data.put("Outputs Fluids: " + cycle.isFluid(), false);
+        }
     }
 
-    public static class GTCXTileFusionMaterialInjector extends GTCXTileItemFluidHatches{
+    public static class GTCXTileFusionMaterialInjector extends GTCXTileInputHatch{
 
         public GTCXTileFusionMaterialInjector() {
-            super(true);
+            super();
         }
 
         @Override
@@ -427,10 +539,10 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
     }
 
-    public static class GTCXTileFusionMaterialExtractor extends GTCXTileItemFluidHatches{
+    public static class GTCXTileFusionMaterialExtractor extends GTCXTileOutputHatch{
 
         public GTCXTileFusionMaterialExtractor() {
-            super(false);
+            super();
         }
 
         @Override

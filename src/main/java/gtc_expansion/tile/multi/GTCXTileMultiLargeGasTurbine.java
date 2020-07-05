@@ -41,6 +41,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     private BlockPos input1;
     private BlockPos input2;
     private BlockPos dynamo;
+    private GTCXTileInputHatch inputHatch1 = null;
+    private GTCXTileInputHatch inputHatch2 = null;
+    private GTCXTileDynamoHatch dynamoHatch = null;
     int production;
     protected MultiRecipe lastRecipe;
     int ticker = 0;
@@ -144,52 +147,104 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         }
         boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileInputHatch && world.getTileEntity(dynamo) instanceof GTCXTileDynamoHatch;
         if (canWork && isTurbineRotor(this.getStackInSlot(0))){
+            if (inputHatch1 == null){
+                inputHatch1 = (GTCXTileInputHatch)world.getTileEntity(input1);
+                //noinspection ConstantConditions
+                inputHatch1.setOwner(this);
+            }
+            if (dynamoHatch == null){
+                dynamoHatch = (GTCXTileDynamoHatch)world.getTileEntity(dynamo);
+            }
+            if (world.getTileEntity(input2) instanceof GTCXTileInputHatch && inputHatch2 == null){
+                inputHatch2 = (GTCXTileInputHatch)world.getTileEntity(input2);
+                //noinspection ConstantConditions
+                inputHatch2.setOwner(this);
+            }
             if (this.shouldCheckRecipe) {
                 this.lastRecipe = this.getRecipe();
                 this.shouldCheckRecipe = false;
             }
             boolean operate = this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
             if (operate){
-                GTCXTileInputHatch inputHatch = (GTCXTileInputHatch) world.getTileEntity(input1);
-                GTCXTileDynamoHatch dynamoHatch = (GTCXTileDynamoHatch) world.getTileEntity(dynamo);
                 double baseGeneration = getBaseGeneration();
                 production = (int)(baseGeneration * getRotorEfficiency(this.getStackInSlot(0)));
                 int fluidAmount = 1000 / getBaseDivider();
-                if (inputHatch.getTank().getFluidAmount() >= fluidAmount && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
-                    if (!this.getActive()){
-                        this.setActive(true);
-                        this.setRingActive(true);
-                    }
-                    inputHatch.getTank().drainInternal(fluidAmount, true);
-                    dynamoHatch.addEnergy(production);
-                    if (ticker >= 80){
-                        if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                            this.getStackInSlot(0).shrink(1);
-                        }
-                        ticker = 0;
-                    }
-                } else if (world.getTileEntity(input2) instanceof GTCXTileInputHatch){
-                    GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
-                    if (inputHatch2.getTank().getFluidAmount() >= fluidAmount && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
-                        if (!this.getActive()){
-                            this.setActive(true);
-                            this.setRingActive(true);
-                        }
-                        inputHatch2.getTank().drainInternal(fluidAmount, true);
-                        dynamoHatch.addEnergy(production);
-                        if (ticker >= 80){
-                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                                this.getStackInSlot(0).shrink(1);
+                if (dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
+                    if (inputHatch2 != null){
+                        if (inputHatch1.getTank().getFluidAmount() >= fluidAmount){
+                            if (!this.getActive()){
+                                this.setActive(true);
+                                this.setRingActive(true);
                             }
-                            ticker = 0;
+                            inputHatch1.getTank().drainInternal(fluidAmount, true);
+                            dynamoHatch.addEnergy(production);
+                            if (ticker >= 80){
+                                if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                    this.getStackInSlot(0).shrink(1);
+                                }
+                                ticker = 0;
+                            }
+                        } else {
+                            if (inputHatch1.getTank().getFluidAmount() > 0){
+                                int amount = inputHatch1.getTank().getFluidAmount();
+                                int remaining = fluidAmount - amount;
+                                if (inputHatch2.getTank().getFluidAmount() >= remaining){
+                                    if (!this.getActive()){
+                                        this.setActive(true);
+                                        this.setRingActive(true);
+                                    }
+                                    inputHatch1.getTank().drainInternal(amount, true);
+                                    inputHatch2.getTank().drainInternal(remaining, true);
+                                    dynamoHatch.addEnergy(production);
+                                    if (ticker >= 80){
+                                        if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                            this.getStackInSlot(0).shrink(1);
+                                        }
+                                        ticker = 0;
+                                    }
+                                }
+                            } else if (inputHatch2.getTank().getFluidAmount() >= fluidAmount){
+                                if (!this.getActive()){
+                                    this.setActive(true);
+                                    this.setRingActive(true);
+                                }
+                                inputHatch2.getTank().drainInternal(fluidAmount, true);
+                                dynamoHatch.addEnergy(production);
+                                if (ticker >= 80){
+                                    if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                        this.getStackInSlot(0).shrink(1);
+                                    }
+                                    ticker = 0;
+                                }
+                            } else {
+                                if (this.getActive()){
+                                    this.setActive(false);
+                                    this.setRingActive(false);
+                                }
+                            }
                         }
                     } else {
-                        if (this.getActive()){
-                            this.setActive(false);
-                            this.setRingActive(false);
+                        if (inputHatch1.getTank().getFluidAmount() >= fluidAmount){
+                            if (!this.getActive()){
+                                this.setActive(true);
+                                this.setRingActive(true);
+                            }
+                            inputHatch1.getTank().drainInternal(fluidAmount, true);
+                            dynamoHatch.addEnergy(production);
+                            if (ticker >= 80){
+                                if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                    this.getStackInSlot(0).shrink(1);
+                                }
+                                ticker = 0;
+                            }
+                        } else {
+                            if (this.getActive()){
+                                this.setActive(false);
+                                this.setRingActive(false);
+                            }
                         }
                     }
-                } else {
+                }else {
                     if (this.getActive()){
                         this.setActive(false);
                         this.setRingActive(false);
@@ -205,6 +260,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                 }
             }
         } else {
+            if (inputHatch1 != null) inputHatch1 = null;
+            if (inputHatch2 != null) inputHatch2 = null;
+            if (dynamoHatch != null) dynamoHatch = null;
             if (production != 0){
                 production = 0;
             }
@@ -220,13 +278,10 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             return null;
         }
         // Check if previous recipe is valid
-        GTCXTileInputHatch hatch1 = (GTCXTileInputHatch) world.getTileEntity(input1);
-        FluidStack input1 = hatch1.getTank().getFluid();
-        TileEntity tile = world.getTileEntity(input2);
-        GTCXTileInputHatch hatch2 = tile instanceof GTCXTileInputHatch ? (GTCXTileInputHatch) tile : null;
-        FluidStack input2 = hatch2 != null ? hatch2.getTank().getFluid() : null;
+        FluidStack input1 = inputHatch1.getTank().getFluid();
+        FluidStack input2 = inputHatch2 != null ? inputHatch2.getTank().getFluid() : null;
         if (lastRecipe != null) {
-            lastRecipe = checkRecipe(lastRecipe, input1) || (input2 != null && checkRecipe(lastRecipe, input2)) ? lastRecipe : null;
+            lastRecipe = checkRecipe(lastRecipe, input1, input2) ? lastRecipe : null;
         }
         // If previous is not valid, find a new one
         if (lastRecipe == null) {
@@ -234,19 +289,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
 
                 @Override
                 public boolean test(MultiRecipe t) {
-                    return checkRecipe(t, input1);
+                    return checkRecipe(t, input1, input2);
                 }
             });
-            // if no recipe is found in input1 but input2 is not null, check input2
-            if (lastRecipe == null && input2 != null){
-                lastRecipe = getRecipeList().getPriorityRecipe(new Predicate<MultiRecipe>() {
-
-                    @Override
-                    public boolean test(MultiRecipe t) {
-                        return checkRecipe(t, input2);
-                    }
-                });
-            }
         }
         // If no recipe is found, return
         if (lastRecipe == null) {
@@ -255,10 +300,28 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         return lastRecipe;
     }
 
-    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input) {
+    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input, FluidStack input2) {
         IRecipeInput recipeInput = entry.getInput(0);
+
         if (recipeInput instanceof RecipeInputFluid){
-            return input != null && input.isFluidEqual(((RecipeInputFluid)recipeInput).fluid);
+            RecipeInputFluid recipeInputFluid = (RecipeInputFluid) recipeInput;
+            if (input2 == null){
+                return input != null && input.amount >= ((RecipeInputFluid) recipeInput).fluid.amount && input.isFluidEqual((recipeInputFluid).fluid);
+            } else {
+               if (input.amount >= recipeInputFluid.fluid.amount){
+                   return input.isFluidEqual(recipeInputFluid.fluid);
+               } else {
+                   if (input.amount > 0){
+                       int amount = input.amount;
+                       int remaining = recipeInputFluid.fluid.amount - amount;
+                       if (input2.amount >= remaining){
+                           return input.isFluidEqual(recipeInputFluid.fluid) && input2.isFluidEqual(recipeInputFluid.fluid);
+                       }
+                   } else if (input2.amount >= recipeInputFluid.fluid.amount){
+                       return input2.isFluidEqual(recipeInputFluid.fluid);
+                   }
+               }
+            }
         }
         return false;
     }
@@ -477,14 +540,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
 
         if (inputs < 1){
             return false;
-        }
-        TileEntity tile = world.getTileEntity(input1);
-        if (tile instanceof GTCXTileInputHatch && ((GTCXTileInputHatch)tile).getOwner() == null){
-            ((GTCXTileInputHatch)tile).setOwner(this);
-        }
-        tile = world.getTileEntity(input2);
-        if (tile instanceof GTCXTileInputHatch && ((GTCXTileInputHatch)tile).getOwner() == null){
-            ((GTCXTileInputHatch)tile).setOwner(this);
         }
         return true;
     }

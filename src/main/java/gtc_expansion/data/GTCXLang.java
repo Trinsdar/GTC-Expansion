@@ -67,5 +67,10 @@ public class GTCXLang {
     public static final LocaleComp MESSAGE_DIAMOND_CHAINSAW_NO_SHEAR = new LocaleItemInfoComp("message.gtc_expansion.diamondChainsawNoShear.name");
     public static final LocaleComp DIAMOND_CHAINSAW_SHEAR_TOGGLE = new LocaleItemInfoComp("tooltip.gtc_expansion.diamondChainsawShearToggle.name");
 
+    public static final LocaleComp MESSAGE_HATCH_MODE_0 = new LocaleItemInfoComp("message.gtc_expansion.hatch_mode0.name");
+    public static final LocaleComp MESSAGE_HATCH_MODE_1 = new LocaleItemInfoComp("message.gtc_expansion.hatch_mode1.name");
+    public static final LocaleComp MESSAGE_HATCH_MODE_2 = new LocaleItemInfoComp("message.gtc_expansion.hatch_mode2.name");
+    public static final LocaleComp MESSAGE_HATCH_MODE_3 = new LocaleItemInfoComp("message.gtc_expansion.hatch_mode3.name");
+
     public static final LocaleComp PRESS_SHIFT = new ColoredLocalComp("miscInfo.gtc_expansion.pressShift.name", TextFormatting.AQUA);
 }

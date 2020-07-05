@@ -25,6 +25,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.FluidStack;
 
 public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
     public boolean lastState;
@@ -32,6 +33,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     private BlockPos input1;
     private BlockPos input2;
     private BlockPos dynamo;
+    private GTCXTileInputHatch inputHatch1 = null;
+    private GTCXTileInputHatch inputHatch2 = null;
+    private GTCXTileDynamoHatch dynamoHatch = null;
     int production;
     int ticker = 0;
     public static final IBlockState standardCasingState = GTCXBlocks.casingStandard.getDefaultState();
@@ -118,50 +122,112 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         }
         boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileInputHatch && world.getTileEntity(dynamo) instanceof GTCXTileDynamoHatch;
         if (canWork && isTurbineRotor(this.getStackInSlot(0))){
-            GTCXTileInputHatch inputHatch = (GTCXTileInputHatch) world.getTileEntity(input1);
-            GTCXTileDynamoHatch dynamoHatch = (GTCXTileDynamoHatch) world.getTileEntity(dynamo);
+            if (inputHatch1 == null){
+                inputHatch1 = (GTCXTileInputHatch)world.getTileEntity(input1);
+            }
+            if (dynamoHatch == null){
+                dynamoHatch = (GTCXTileDynamoHatch)world.getTileEntity(dynamo);
+            }
+            if (world.getTileEntity(input2) instanceof GTCXTileInputHatch && inputHatch2 == null){
+                inputHatch2 = (GTCXTileInputHatch)world.getTileEntity(input2);
+            }
             production = (int)(800 * getRotorEfficiency(this.getStackInSlot(0)));
-            if (inputHatch.getTank().getFluidAmount() >= 1600 && inputHatch.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 1600)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
-                if (!this.getActive()){
-                    this.setActive(true);
-                    this.setRingActive(true);
-                }
-                inputHatch.getTank().drainInternal(1600, true);
-                dynamoHatch.addEnergy(production);
-                if (ticker >= 80){
-                    if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                        this.getStackInSlot(0).shrink(1);
-                    }
-                    ticker = 0;
-                }
-            } else if (world.getTileEntity(input2) instanceof GTCXTileInputHatch){
-                GTCXTileInputHatch inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
-                if (inputHatch2.getTank().getFluidAmount() >= 1600 && inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("steam", 1600)) && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
-                    if (!this.getActive()){
-                        this.setActive(true);
-                        this.setRingActive(true);
-                    }
-                    inputHatch2.getTank().drainInternal(1600, true);
-                    dynamoHatch.addEnergy(production);
-                    if (ticker >= 80){
-                        if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                            this.getStackInSlot(0).shrink(1);
+            int fluidAmount = 1600;
+            FluidStack compare = GTMaterialGen.getFluidStack("steam", fluidAmount);
+            if (dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
+                FluidStack inputFluid1 = inputHatch1.getTank().getFluid();
+                if (inputHatch2 != null){
+                    FluidStack inputFluid2 = inputHatch2.getTank().getFluid();
+                    if (inputFluid1 != null && inputFluid1.isFluidEqual(compare)){
+                        if (inputFluid1.amount >= fluidAmount){
+                            if (!this.getActive()){
+                                this.setActive(true);
+                                this.setRingActive(true);
+                            }
+                            inputHatch1.getTank().drainInternal(fluidAmount, true);
+                            dynamoHatch.addEnergy(production);
+                            if (ticker >= 80){
+                                if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                    this.getStackInSlot(0).shrink(1);
+                                }
+                                ticker = 0;
+                            }
+                        } else if (inputFluid2 != null && inputFluid2.isFluidEqual(compare) && inputHatch1.getTank().getFluidAmount() > 0) {
+                            int amount = inputHatch1.getTank().getFluidAmount();
+                            int remaining = fluidAmount - amount;
+                            if (inputHatch2.getTank().getFluidAmount() >= remaining) {
+                                if (!this.getActive()) {
+                                    this.setActive(true);
+                                    this.setRingActive(true);
+                                }
+                                inputHatch1.getTank().drainInternal(amount, true);
+                                inputHatch2.getTank().drainInternal(remaining, true);
+                                dynamoHatch.addEnergy(production);
+                                if (ticker >= 80) {
+                                    if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)) {
+                                        this.getStackInSlot(0).shrink(1);
+                                    }
+                                    ticker = 0;
+                                }
+                            }
+                        } else {
+                            if (this.getActive()){
+                                this.setActive(false);
+                                this.setRingActive(false);
+                            }
                         }
-                        ticker = 0;
+                    } else if (inputFluid2 != null && inputFluid2.isFluidEqual(compare) && inputHatch2.getTank().getFluidAmount() >= fluidAmount){
+                        if (!this.getActive()){
+                            this.setActive(true);
+                            this.setRingActive(true);
+                        }
+                        inputHatch2.getTank().drainInternal(fluidAmount, true);
+                        dynamoHatch.addEnergy(production);
+                        if (ticker >= 80){
+                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                this.getStackInSlot(0).shrink(1);
+                            }
+                            ticker = 0;
+                        }
+                    } else {
+                        if (this.getActive()){
+                            this.setActive(false);
+                            this.setRingActive(false);
+                        }
                     }
+
                 } else {
-                    if (this.getActive()){
-                        this.setActive(false);
-                        this.setRingActive(false);
+                    if (inputFluid1 != null && inputFluid1.isFluidEqual(compare) && inputFluid1.amount >= fluidAmount){
+                        if (!this.getActive()){
+                            this.setActive(true);
+                            this.setRingActive(true);
+                        }
+                        inputHatch1.getTank().drainInternal(1600, true);
+                        dynamoHatch.addEnergy(production);
+                        if (ticker >= 80){
+                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                this.getStackInSlot(0).shrink(1);
+                            }
+                            ticker = 0;
+                        }
+                    } else {
+                        if (this.getActive()){
+                            this.setActive(false);
+                            this.setRingActive(false);
+                        }
                     }
                 }
-            } else {
+            }else {
                 if (this.getActive()){
                     this.setActive(false);
                     this.setRingActive(false);
                 }
             }
         } else {
+            if (inputHatch1 != null) inputHatch1 = null;
+            if (inputHatch2 != null) inputHatch2 = null;
+            if (dynamoHatch != null) dynamoHatch = null;
+
             if (this.getActive()){
                 this.setActive(false);
                 this.setRingActive(false);
