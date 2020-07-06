@@ -444,7 +444,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             }
         }
 
-        private enum OutputModes{
+        public enum OutputModes{
             ITEM_AND_FLUID(true, true),
             ITEM_ONLY(true, false),
             FLUID_ONLY(false, true),
