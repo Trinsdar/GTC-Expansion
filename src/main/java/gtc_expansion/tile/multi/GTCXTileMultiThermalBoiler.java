@@ -40,6 +40,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     private GTCXTileOutputHatch outputHatch1 = null;
     private GTCXTileOutputHatch outputHatch2 = null;
     private final FluidStack steam = GTMaterialGen.getFluidStack("steam", 160);
+    private final ItemStack obsidian = GTMaterialGen.get(Blocks.OBSIDIAN, 1);
     int ticker = 0;
     int obsidianTicker = 0;
     public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
@@ -194,7 +195,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                                         this.setActive(false);
                                     }
                                 }
-                            } else if (opposite(cycle1, cycle2)){
+                            } else if (opposite(cycle1, cycle2) || (cycle1 == ITEM_AND_FLUID && cycle2 == ITEM_ONLY) || (cycle2 == ITEM_AND_FLUID && cycle1 == ITEM_ONLY)){
                                 if (cycle1.isFluid()){
                                     //noinspection ConstantConditions
                                     if (outputTank1.getFluidAmount() == 0 || (outputTank1.getFluid().isFluidEqual(steam) && outputTank1.getFluidAmount() + 160 <= outputTank1.getCapacity())){
@@ -273,53 +274,51 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
 
     public void addObsidian(boolean both){
         OutputModes cycle1 = outputHatch1.getCycle();
-        OutputModes cycle2 = outputHatch2.getCycle();
         if (both){
-            ItemStack output = outputHatch1.getOutput();
-            if (output.getItem() == new ItemStack(Blocks.OBSIDIAN).getItem() && output.getCount() < 64 && cycle1.isItem()){
+            OutputModes cycle2 = outputHatch2.getCycle();
+            if (!cycle1.isItem() && !cycle2.isItem()){
+                return;
+            }
+            GTCXTileOutputHatch hatch;
+            if (cycle1.isItem() && !cycle2.isItem()){
+                hatch = outputHatch1;
+            } else if (!cycle1.isItem()){
+                hatch = outputHatch2;
+            } else {
+                hatch = outputHatch1.getOutput().isEmpty() || (outputHatch1.getOutput().getItem() == obsidian.getItem() && outputHatch1.getOutput().getCount() < 64) ? outputHatch1 : outputHatch2;
+            }
+            ItemStack output = hatch.getOutput();
+
+            if (output.getItem() == obsidian.getItem() && output.getCount() < 64){
                 output1Full = false;
-                outputHatch1.skip5Ticks();
+                hatch.skip5Ticks();
                 output.grow(1);
-            } else if (output.isEmpty() && cycle1.isItem()){
+            } else if (output.isEmpty()){
                 output1Full = false;
-                outputHatch1.skip5Ticks();
-                outputHatch1.setStackInSlot(1, GTMaterialGen.get(Blocks.OBSIDIAN, 1));
+                hatch.skip5Ticks();
+                hatch.setStackInSlot(1, obsidian.copy());
             } else {
                 output1Full = true;
-            }
-            if (output1Full){
-                output = outputHatch2.getOutput();
-                if (output.getItem() == new ItemStack(Blocks.OBSIDIAN).getItem() && output.getCount() < 64 && cycle2.isItem()){
-                    output2Full = false;
-                    outputHatch1.skip5Ticks();
-                    output.grow(1);
-                } else if (output.isEmpty() && cycle2.isItem()){
-                    output2Full = false;
-                    outputHatch1.skip5Ticks();
-                    outputHatch1.setStackInSlot(1, GTMaterialGen.get(Blocks.OBSIDIAN, 1));
-                } else {
-                    output2Full = true;
-                }
-            }
-            if (!output1Full || !output2Full){
-                obsidianTicker = 0;
             }
         } else {
+            if (!cycle1.isItem()){
+                return;
+            }
             ItemStack output = outputHatch1.getOutput();
-            if (output.getItem() == new ItemStack(Blocks.OBSIDIAN).getItem() && output.getCount() < 64 && cycle1.isItem()){
+            if (output.getItem() == obsidian.getItem() && output.getCount() < 64){
                 output1Full = false;
                 outputHatch1.skip5Ticks();
                 output.grow(1);
-            } else if (output.isEmpty() && cycle1.isItem()){
+            } else if (output.isEmpty()){
                 output1Full = false;
                 outputHatch1.skip5Ticks();
-                outputHatch1.setStackInSlot(1, GTMaterialGen.get(Blocks.OBSIDIAN, 1));
+                outputHatch1.setStackInSlot(1, obsidian.copy());
             } else {
                 output1Full = true;
             }
-            if (!output1Full){
-                obsidianTicker = 0;
-            }
+        }
+        if (!output1Full){
+            obsidianTicker = 0;
         }
 
     }
