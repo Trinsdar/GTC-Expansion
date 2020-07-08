@@ -59,6 +59,7 @@ public class GTCXMaterial {
     public static final GTMaterial BioFuel = new GTMaterial("BioFuel", 153, 204, 0, fluid);
     public static final GTMaterial Brass = setHeat(new GTMaterial("Brass", 1, 255, 180, 0, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, hull , pipeItem), 1160);
     public static final GTMaterial Bronze = setHeat(new GTMaterial("Bronze", 1, 255, 128, 0, pipeFluid, molten, smalldust, nugget, plate, stick, gear, hull, turbineBlade), 1357);
+    public static final GTMaterial CarbonDioxide = new GTMaterial("CarbonDioxide", 40, 40, 40, gas);
     public static final GTMaterial Cassiterite = new GTMaterial("Cassiterite", 220, 220, 220, false, crushedAll);
     public static final GTMaterial Charcoal = new GTMaterial("Charcoal", 100, 70, 70, smalldust);
     public static final GTMaterial Chromite = new GTMaterial("Chromite", 35, 20, 15, crushedAll);

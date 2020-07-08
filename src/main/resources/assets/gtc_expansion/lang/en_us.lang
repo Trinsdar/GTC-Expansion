@@ -624,6 +624,7 @@ fluid.nitrocarbon=Nitro-Carbon
 fluid.nitricacid=Nitric Acid
 fluid.biofuel=Biofuel
 fluid.coalfuel=Coalfuel
+fluid.carbondioxide=Carbon Dioxide
 #molten fluids
 fluid.antimony=Molten Antimony
 fluid.iron=Molten Iron

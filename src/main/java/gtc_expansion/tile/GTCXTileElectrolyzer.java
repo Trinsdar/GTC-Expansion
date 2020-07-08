@@ -409,6 +409,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.NitroCarbon, 2000), 1, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Nitrogen, 1), GTMaterialGen.getDust(GTMaterial.Carbon, 1));
         addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Methane, 5000), 4, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getDust(GTMaterial.Carbon, 1));
         addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.SodiumSulfide, 2000), 1, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Sodium, 1), GTMaterialGen.getDust(GTMaterial.Sulfur, 1));
+        addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.CarbonDioxide, 3000), 2, totalEu(5760), GTMaterialGen.getDust(GTMaterial.Carbon, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
     }
 
     public static void addCustomRecipe(ItemStack stack0, ItemStack stack1, IRecipeModifier[] modifiers,

@@ -592,6 +592,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         numInputs = 0;
         numOutputs = 0;
         numEnergyOutputs = 0;
+        input1 = this.getPos();
+        input2 = this.getPos();
+        output = this.getPos();
+        energyOutput = this.getPos();
         int3 dir = new int3(this.getPos(), this.getFacing());
         //top section
         if (!isCasing(dir.up(1).back(1))){

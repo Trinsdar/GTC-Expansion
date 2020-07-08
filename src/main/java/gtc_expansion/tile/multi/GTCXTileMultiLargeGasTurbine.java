@@ -1,16 +1,19 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.container.GTCXContainerLargeGasTurbine;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
-import gtc_expansion.container.GTCXContainerLargeGasTurbine;
 import gtc_expansion.interfaces.IGTMultiTileProduction;
 import gtc_expansion.interfaces.IGTOwnerTile;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
+import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
+import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -35,18 +38,23 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.function.Predicate;
 
+import static gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine.outputHatchState;
+
 public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, IGTOwnerTile, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
     private BlockPos input2;
+    private BlockPos output;
     private BlockPos dynamo;
     private GTCXTileInputHatch inputHatch1 = null;
     private GTCXTileInputHatch inputHatch2 = null;
+    private GTCXTileOutputHatch outputHatch = null;
     private GTCXTileDynamoHatch dynamoHatch = null;
     int production;
     protected MultiRecipe lastRecipe;
     int ticker = 0;
+    final FluidStack co2 = GTMaterialGen.getFluidStack(GTCXMaterial.CarbonDioxide, 10);
     protected boolean shouldCheckRecipe;
     public static final String RECIPE_TICKS = "recipeTicks";
     public static final String RECIPE_EU = "recipeEu";
@@ -155,10 +163,21 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             if (dynamoHatch == null){
                 dynamoHatch = (GTCXTileDynamoHatch)world.getTileEntity(dynamo);
             }
-            if (world.getTileEntity(input2) instanceof GTCXTileInputHatch && inputHatch2 == null){
-                inputHatch2 = (GTCXTileInputHatch)world.getTileEntity(input2);
-                //noinspection ConstantConditions
-                inputHatch2.setOwner(this);
+            if (world.getTileEntity(input2) instanceof GTCXTileInputHatch) {
+                if (inputHatch2 == null) {
+                    inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
+                    //noinspection ConstantConditions
+                    inputHatch2.setOwner(this);
+                }
+            } else {
+                if (inputHatch2 != null) inputHatch2 = null;
+            }
+            if (world.getTileEntity(output) instanceof GTCXTileOutputHatch) {
+                if (outputHatch == null) {
+                    outputHatch = (GTCXTileOutputHatch) world.getTileEntity(output);
+                }
+            } else {
+                if (outputHatch != null) outputHatch = null;
             }
             if (this.shouldCheckRecipe) {
                 this.lastRecipe = this.getRecipe();
@@ -170,45 +189,42 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                 production = (int)(baseGeneration * getRotorEfficiency(this.getStackInSlot(0)));
                 int fluidAmount = 1000 / getBaseDivider();
                 if (dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
-                    if (inputHatch2 != null){
-                        if (inputHatch1.getTank().getFluidAmount() >= fluidAmount){
-                            if (!this.getActive()){
-                                this.setActive(true);
-                                this.setRingActive(true);
+                    if (inputHatch1.getTank().getFluidAmount() >= fluidAmount){
+                        if (!this.getActive()){
+                            this.setActive(true);
+                            this.setRingActive(true);
+                        }
+                        inputHatch1.getTank().drainInternal(fluidAmount, true);
+                        if (outputHatch != null && outputHatch.getCycle().isFluid()){
+                            //noinspection ConstantConditions
+                            if (outputHatch.getTank().getFluidAmount() == 0 || (outputHatch.getTank().getFluid().isFluidEqual(co2) && outputHatch.getTank().getFluidAmount() + 10 <= outputHatch.getTank().getCapacity())){
+                                outputHatch.getTank().fillInternal(co2, true);
                             }
-                            inputHatch1.getTank().drainInternal(fluidAmount, true);
-                            dynamoHatch.addEnergy(production);
-                            if (ticker >= 80){
-                                if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                                    this.getStackInSlot(0).shrink(1);
-                                }
-                                ticker = 0;
+                        }
+                        dynamoHatch.addEnergy(production);
+                        if (ticker >= 80){
+                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                                this.getStackInSlot(0).shrink(1);
                             }
-                        } else {
-                            if (inputHatch1.getTank().getFluidAmount() > 0){
-                                int amount = inputHatch1.getTank().getFluidAmount();
-                                int remaining = fluidAmount - amount;
-                                if (inputHatch2.getTank().getFluidAmount() >= remaining){
-                                    if (!this.getActive()){
-                                        this.setActive(true);
-                                        this.setRingActive(true);
-                                    }
-                                    inputHatch1.getTank().drainInternal(amount, true);
-                                    inputHatch2.getTank().drainInternal(remaining, true);
-                                    dynamoHatch.addEnergy(production);
-                                    if (ticker >= 80){
-                                        if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                                            this.getStackInSlot(0).shrink(1);
-                                        }
-                                        ticker = 0;
-                                    }
-                                }
-                            } else if (inputHatch2.getTank().getFluidAmount() >= fluidAmount){
+                            ticker = 0;
+                        }
+                    } else if (inputHatch2 != null){
+                        if (inputHatch1.getTank().getFluidAmount() > 0){
+                            int amount = inputHatch1.getTank().getFluidAmount();
+                            int remaining = fluidAmount - amount;
+                            if (inputHatch2.getTank().getFluidAmount() >= remaining){
                                 if (!this.getActive()){
                                     this.setActive(true);
                                     this.setRingActive(true);
                                 }
-                                inputHatch2.getTank().drainInternal(fluidAmount, true);
+                                inputHatch1.getTank().drainInternal(amount, true);
+                                inputHatch2.getTank().drainInternal(remaining, true);
+                                if (outputHatch != null && outputHatch.getCycle().isFluid()){
+                                    //noinspection ConstantConditions
+                                    if (outputHatch.getTank().getFluidAmount() == 0 || (outputHatch.getTank().getFluid().isFluidEqual(co2) && outputHatch.getTank().getFluidAmount() + 10 <= outputHatch.getTank().getCapacity())){
+                                        outputHatch.getTank().fillInternal(co2, true);
+                                    }
+                                }
                                 dynamoHatch.addEnergy(production);
                                 if (ticker >= 80){
                                     if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
@@ -216,20 +232,19 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                                     }
                                     ticker = 0;
                                 }
-                            } else {
-                                if (this.getActive()){
-                                    this.setActive(false);
-                                    this.setRingActive(false);
-                                }
                             }
-                        }
-                    } else {
-                        if (inputHatch1.getTank().getFluidAmount() >= fluidAmount){
+                        } else if (inputHatch2.getTank().getFluidAmount() >= fluidAmount){
                             if (!this.getActive()){
                                 this.setActive(true);
                                 this.setRingActive(true);
                             }
-                            inputHatch1.getTank().drainInternal(fluidAmount, true);
+                            inputHatch2.getTank().drainInternal(fluidAmount, true);
+                            if (outputHatch != null && outputHatch.getCycle().isFluid()){
+                                //noinspection ConstantConditions
+                                if (outputHatch.getTank().getFluidAmount() == 0 || (outputHatch.getTank().getFluid().isFluidEqual(co2) && outputHatch.getTank().getFluidAmount() + 10 <= outputHatch.getTank().getCapacity())){
+                                    outputHatch.getTank().fillInternal(co2, true);
+                                }
+                            }
                             dynamoHatch.addEnergy(production);
                             if (ticker >= 80){
                                 if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
@@ -242,6 +257,11 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                                 this.setActive(false);
                                 this.setRingActive(false);
                             }
+                        }
+                    } else {
+                        if (this.getActive()){
+                            this.setActive(false);
+                            this.setRingActive(false);
                         }
                     }
                 }else {
@@ -263,6 +283,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             if (inputHatch1 != null) inputHatch1 = null;
             if (inputHatch2 != null) inputHatch2 = null;
             if (dynamoHatch != null) dynamoHatch = null;
+            if (outputHatch != null) outputHatch = null;
             if (production != 0){
                 production = 0;
             }
@@ -300,23 +321,20 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         return lastRecipe;
     }
 
-    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, FluidStack input, FluidStack input2) {
+    public boolean checkRecipe(MultiRecipe entry, FluidStack input, FluidStack input2) {
         IRecipeInput recipeInput = entry.getInput(0);
 
         if (recipeInput instanceof RecipeInputFluid){
             RecipeInputFluid recipeInputFluid = (RecipeInputFluid) recipeInput;
             if (input2 == null){
-                return input != null && input.amount >= ((RecipeInputFluid) recipeInput).fluid.amount && input.isFluidEqual((recipeInputFluid).fluid);
+                return input != null && input.isFluidEqual((recipeInputFluid).fluid);
             } else {
-               if (input.amount >= recipeInputFluid.fluid.amount){
+               int recipeAmount = 1000 / getBaseDivider(entry);
+               if (input.amount >= recipeAmount){
                    return input.isFluidEqual(recipeInputFluid.fluid);
                } else {
                    if (input.amount > 0){
-                       int amount = input.amount;
-                       int remaining = recipeInputFluid.fluid.amount - amount;
-                       if (input2.amount >= remaining){
-                           return input.isFluidEqual(recipeInputFluid.fluid) && input2.isFluidEqual(recipeInputFluid.fluid);
-                       }
+                       return input.isFluidEqual(recipeInputFluid.fluid) && input2.isFluidEqual(recipeInputFluid.fluid);
                    } else if (input2.amount >= recipeInputFluid.fluid.amount){
                        return input2.isFluidEqual(recipeInputFluid.fluid);
                    }
@@ -331,15 +349,19 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     }
 
     public int getBaseDivider(){
-        return getTotalRecipeEu() > 40960 ? 25 : 20;
+        return getTotalRecipeEu(lastRecipe) > 40960 ? 25 : 20;
     }
 
-    public int getTotalRecipeEu(){
-        return getRecipeEu(lastRecipe.getOutputs()) * getRecipeTicks(lastRecipe.getOutputs());
+    public int getBaseDivider(MultiRecipe recipe){
+        return getTotalRecipeEu(recipe) > 40960 ? 25 : 20;
+    }
+
+    public int getTotalRecipeEu(MultiRecipe recipe){
+        return getRecipeEu(recipe.getOutputs()) * getRecipeTicks(recipe.getOutputs());
     }
 
     public double getBaseGeneration(){
-        return (double) getTotalRecipeEu() / getBaseDivider();
+        return (double) getTotalRecipeEu(lastRecipe) / getBaseDivider();
     }
 
     public void setRingActive(boolean active){
@@ -440,6 +462,10 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         }
         inputs = 0;
         outputs = 0;
+        this.input1 = this.getPos();
+        this.input2 = this.getPos();
+        this.output = this.getPos();
+        this.dynamo = this.getPos();
         int3 dir = new int3(getPos(), getFacing());
         if (!isReinforcedCasingWithSpecial(dir.up(1), 2)){
             return false;
@@ -492,7 +518,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isInputHatch(dir.forward(1))){
+            if (!isInputOutputHatch(dir.forward(1))){
                 return false;
             }
         }
@@ -509,7 +535,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isInputHatch(dir.forward(1))){
+            if (!isInputOutputHatch(dir.forward(1))){
                 return false;
             }
         }
@@ -525,7 +551,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isInputHatch(dir.forward(1))){
+            if (!isInputOutputHatch(dir.forward(1))){
                 return false;
             }
         }
@@ -615,7 +641,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         }
     }
 
-    public boolean isInputHatch(int3 pos) {
+    public boolean isInputOutputHatch(int3 pos) {
         if (world.getBlockState(pos.asBlockPos()) == inputHatchState){
             if (world.getBlockState(input1) != inputHatchState){
                 input1 = pos.asBlockPos();
@@ -623,6 +649,12 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                 input2 = pos.asBlockPos();
             }
             inputs++;
+            return true;
+        }
+        if (world.getBlockState(pos.asBlockPos()) == outputHatchState){
+            if (world.getBlockState(output) != outputHatchState){
+                output = pos.asBlockPos();
+            }
             return true;
         }
         return world.getBlockState(pos.asBlockPos()) == reinforcedCasingState;

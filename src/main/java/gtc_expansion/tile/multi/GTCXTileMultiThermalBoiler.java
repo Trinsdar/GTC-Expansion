@@ -384,6 +384,10 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         }
         inputs = 0;
         outputs = 0;
+        this.output1 = this.getPos();
+        this.output2 = this.getPos();
+        this.input1 = this.getPos();
+        this.input2 = this.getPos();
         int3 dir = new int3(getPos(), getFacing());
         if (!isReinforcedCasing(dir.down(1))){
             return false;
