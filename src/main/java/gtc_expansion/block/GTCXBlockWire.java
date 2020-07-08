@@ -115,7 +115,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 
     @Override
     public Color getColor(IBlockState state, IBlockAccess worldIn, BlockPos pos, Block block, int index) {
-        if (state.getValue(FOAMED) > 0){
+        if (state != null && state.getValue(FOAMED) > 0){
             if (worldIn != null) {
                 TileEntity tile = worldIn.getTileEntity(pos);
                 if (tile instanceof GTCXTileColoredCable && state.getValue(FOAMED) > 1) {

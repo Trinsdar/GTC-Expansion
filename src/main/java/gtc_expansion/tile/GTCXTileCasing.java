@@ -1,6 +1,5 @@
 package gtc_expansion.tile;
 
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
@@ -97,7 +96,6 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
 
 
     public void setRotors(Block block){
-        GTCExpansion.logger.info("Setting Rotors");
         if (block == GTCXBlocks.casingStandard){
             int3 original = new int3(getPos(), getFacing());
             int3 dir = new int3(getPos(), getFacing());
