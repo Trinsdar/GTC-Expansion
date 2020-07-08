@@ -62,7 +62,6 @@ public class GTCXMaterialDict {
         OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));
         OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTMaterial.Titanium, 1));
         OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.TungstenSteel, 1));
-        OreDictionary.registerOre("machineBlockAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));
         OreDictionary.registerOre("machineBlockVeryAdvanced", GTCXMaterialGen.getHull(GTMaterial.Titanium, 1));
         OreDictionary.registerOre("machineBlockVeryAdvanced", GTCXMaterialGen.getHull(GTCXMaterial.TungstenSteel, 1));
         OreDictionary.registerOre("plateWroughtIron", GTCXMaterialGen.getPlate(GTCXMaterial.RefinedIron, 1));
