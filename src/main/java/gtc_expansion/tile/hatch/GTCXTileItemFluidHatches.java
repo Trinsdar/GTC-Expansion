@@ -170,13 +170,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public void update() {
         if (tickSkipper <= 0){
-            if (input) {
-                GTUtility.importFromSideIntoMachine(this, this.getFacing());
-                GTUtility.importFluidFromSideToMachine(this, tank, this.getFacing(), 1000);
-            } else {
-                GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
-                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
-            }
+            inputOutputFromFacing();
             GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
             if (tickSkipper < 0){
                 tickSkipper = 0;
@@ -187,8 +181,21 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     }
 
+    public void inputOutputFromFacing(){
+        if (input) {
+            GTUtility.importFromSideIntoMachine(this, this.getFacing());
+            GTUtility.importFluidFromSideToMachine(this, tank, this.getFacing(), 1000);
+        } else {
+            GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
+            GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+        }
+    }
+
     public void skip5Ticks(){
         tickSkipper = 5;
+    }
+    public void skipTick(){
+        tickSkipper = 1;
     }
 
     @Override
@@ -432,6 +439,16 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             boolean fluid = nbt.getBoolean("SupportsFluidOutput");
             boolean item = nbt.getBoolean("SupportsItemOutput");
             cycle = cycle.fromBool(item, fluid);
+        }
+
+        @Override
+        public void inputOutputFromFacing(){
+            if (cycle.isFluid()){
+                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+            }
+            if (cycle.isItem()){
+                GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
+            }
         }
 
         public OutputModes getCycle() {

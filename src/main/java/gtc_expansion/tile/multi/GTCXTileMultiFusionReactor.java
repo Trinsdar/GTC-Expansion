@@ -337,6 +337,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public void process(MultiRecipe recipe) {
         MachineOutput output = recipe.getOutputs().copy();
+        inputHatch1.skip5Ticks();
+        inputHatch2.skip5Ticks();
+        outputHatch.skip5Ticks();
         if (output instanceof GTFluidMachineOutput){
             for (FluidStack fluid : ((GTFluidMachineOutput)output).getFluids()){
                 outputHatch.getTank().fillInternal(fluid, true);

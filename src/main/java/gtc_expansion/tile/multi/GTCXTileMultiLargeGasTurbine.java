@@ -68,6 +68,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         shouldCheckRecipe = true;
         input1 = this.getPos();
         input2 = this.getPos();
+        output = this.getPos();
         dynamo = this.getPos();
         production = 0;
     }
@@ -153,28 +154,30 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         if (ticker < 80){
             ticker++;
         }
-        boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileInputHatch && world.getTileEntity(dynamo) instanceof GTCXTileDynamoHatch;
+        TileEntity tile = world.getTileEntity(input1);
+        TileEntity tile2 = world.getTileEntity(input2);
+        TileEntity oTile = world.getTileEntity(output);
+        TileEntity dTile2 = world.getTileEntity(dynamo);
+        boolean canWork = canWork() && tile instanceof GTCXTileInputHatch && dTile2 instanceof GTCXTileDynamoHatch;
         if (canWork && isTurbineRotor(this.getStackInSlot(0))){
-            if (inputHatch1 == null){
-                inputHatch1 = (GTCXTileInputHatch)world.getTileEntity(input1);
-                //noinspection ConstantConditions
+            if (inputHatch1 != tile){
+                inputHatch1 = (GTCXTileInputHatch) tile;
                 inputHatch1.setOwner(this);
             }
-            if (dynamoHatch == null){
-                dynamoHatch = (GTCXTileDynamoHatch)world.getTileEntity(dynamo);
+            if (dynamoHatch != dTile2){
+                dynamoHatch = (GTCXTileDynamoHatch) dTile2;
             }
-            if (world.getTileEntity(input2) instanceof GTCXTileInputHatch) {
-                if (inputHatch2 == null) {
-                    inputHatch2 = (GTCXTileInputHatch) world.getTileEntity(input2);
-                    //noinspection ConstantConditions
+            if (tile2 instanceof GTCXTileInputHatch) {
+                if (inputHatch2 != tile2) {
+                    inputHatch2 = (GTCXTileInputHatch) tile2;
                     inputHatch2.setOwner(this);
                 }
             } else {
                 if (inputHatch2 != null) inputHatch2 = null;
             }
-            if (world.getTileEntity(output) instanceof GTCXTileOutputHatch) {
-                if (outputHatch == null) {
-                    outputHatch = (GTCXTileOutputHatch) world.getTileEntity(output);
+            if (oTile instanceof GTCXTileOutputHatch) {
+                if (outputHatch != oTile) {
+                    outputHatch = (GTCXTileOutputHatch) oTile;
                 }
             } else {
                 if (outputHatch != null) outputHatch = null;
