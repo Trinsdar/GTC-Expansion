@@ -12,6 +12,7 @@ public class GTCXRecipeLists {
     public static final GTRecipeMultiInputList VACUUM_FREEZER_RECIPE_LIST = new GTRecipeMultiInputList("gt.vacuumfreezer", 64);
     public static final GTRecipeMultiInputList PRIMITIVE_BLAST_FURNACE_RECIPE_LIST = new GTRecipeMultiInputList("gt.primitiveblastfurnace", 0);
     public static final GTRecipeMultiInputList INDUSTRIAL_GRINDER_RECIPE_LIST = new GTRecipeMultiInputList("gt.industrialgrinder", 120);
+    public static final GTRecipeMultiInputList INDUSTRIAL_SAWMILL_RECIPE_LIST = new GTRecipeMultiInputList("gt.industrialsawmill", 30);
     public static final GTRecipeMultiInputList IMPLOSION_COMPRESSOR_RECIPE_LIST = new GTRecipeMultiInputList("gt.implosioncompressor", 32);
     public static final GTRecipeMultiInputList INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST = new GTRecipeMultiInputList("gt.industrialblastfurnace", 120);
     public static final GTRecipeMultiInputList FLUID_CASTER_RECIPE_LIST = new GTRecipeMultiInputList("gt.fluidcaster", 64);

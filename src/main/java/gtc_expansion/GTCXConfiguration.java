@@ -118,6 +118,8 @@ public class GTCXConfiguration {
         public boolean removeCraftingUURecipes = false;
         @Comment("Removes vaniila log to charcoal furnace recipes. Will remove all furnace recipes that output charcoal.")
         public boolean removeVanillaCharcoalRecipe = false;
+        @Comment("Overrides Ic2 Classic's sawmill with the industrial sawmill")
+        public boolean overrideIc2cSawmill = true;
         @Comment("Makes regular and advanced circuits take plates in place of refined iron ingot and red alloy in place of redstone and also uninsulated copper cables.")
         public boolean harderCircuits = true;
         @Comment({

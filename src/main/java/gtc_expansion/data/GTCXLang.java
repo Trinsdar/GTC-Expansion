@@ -9,6 +9,7 @@ import net.minecraft.util.text.TextFormatting;
 public class GTCXLang {
     public static final LocaleComp IMPLOSION_COMPRESSOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.implosioncompressor");
     public static final LocaleComp INDUSTRIAL_GRINDER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.industrialgrinder");
+    public static final LocaleComp INDUSTRIAL_SAWMILL = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.industrialsawmill");
     public static final LocaleComp VACUUM_FREEZER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.vacuumfreezer");
     public static final LocaleComp INDUSTRIAL_BLAST_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.industrialblastfurnace");
     public static final LocaleComp INDUSTRIAL_ELECTROLYZER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.industrialelectrolyzer");

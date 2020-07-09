@@ -12,6 +12,7 @@ import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
+import gtc_expansion.tile.GTCXTileExtruder;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileGasTurbine;
@@ -25,6 +26,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GTCXTileMultiIndustrialSawmill;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtclassic.GTMod;
@@ -81,6 +83,7 @@ public class GTCXRecipe {
         GTCXTilePlateBender.init();
         GTCXTilePlateCutter.init();
         GTCXTileWiremill.init();
+        GTCXTileExtruder.init();
         GTCXTileDieselGenerator.init();
         GTCXTileGasTurbine.init();
         GTCXRecipeMods.init();
@@ -102,6 +105,7 @@ public class GTCXRecipe {
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
         GTCXTileStoneCompressor.init();
+        GTCXTileMultiIndustrialSawmill.init();
         GTCXTileMultiFusionReactor.postInit();
     }
 
@@ -112,7 +116,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.wolframiumGrinder, 2), "TST", "SBS", "TST", 'T', TUNGSTEN, 'S', STEEL, 'B', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.steelJackhammer), "SBS", " C ", " s ", 'S', ROD_STEELS, 'B', Ic2Items.battery, 'C', CIRCUIT_ADVANCED, 's', INGOT_STEELS);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.diamondChainsaw), " DD", "TdD", "CT ", 'D', "dustDiamond", 'd', Ic2Items.chainSaw, 'T', TITANIUM, 'C', CIRCUIT_ADVANCED);
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.diamondSawblade), " D ", "DSD", " D ", 'D', "dustsmallDiamond", 'S', "gearSteel");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.diamondSawblade), " D ", "DSD", " D ", 'D', "dustSmallDiamond", 'S', combineRecipeObjects("gearSteel", "gearStainlessSteel"));
         if (GTCXConfiguration.general.unfiredBricks){
             recipes.addRecipe(GTMaterialGen.get(GTCXItems.unfiredBrick, 2), "C", "C", 'C', Items.CLAY_BALL);
             recipes.addRecipe(GTMaterialGen.get(GTCXItems.unfiredFireBrick, 2), "C", "C", 'C', GTCXItems.fireClayBall);
@@ -274,6 +278,11 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.wiremill), "PDP", "CMC", "PcP", 'P', BRASS, 'D', GEM_DIAMOND, 'C', CIRCUIT_BASIC, 'M', MACHINE_BASIC, 'c', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.lathe), "PCP", "GMG", "PmP", 'P', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'G', "gearSteel", 'M', GTCXItems.conveyorModule, 'm', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.microwave), "AAA", "L M", "AAA", 'A', ALUMINIUM, 'L', LEAD, 'M', Ic2Items.magnetizer);
+        if (GTCXConfiguration.general.overrideIc2cSawmill){
+            recipes.overrideRecipe("shaped_tile.blocksawmill_-1444206344", GTMaterialGen.get(GTCXBlocks.industrialSawmill), "PCP", "DDD", "CMC", 'P', Ic2Items.pump, 'C', CIRCUIT_ADVANCED, 'D', GTMaterialGen.get(GTCXItems.diamondSawblade), 'M', MACHINE_BASIC);
+        } else {
+            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.industrialSawmill), "PCP", "DDD", "CMC", 'P', Ic2Items.pump, 'C', CIRCUIT_ADVANCED, 'D', GTMaterialGen.get(GTCXItems.diamondSawblade), 'M', MACHINE_BASIC);
+        }
         IRecipeInput materialStainlessTitatium = combineRecipeObjects(STAINLESS_STEEL, TITANIUM);
         //IRecipeInput pipe = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTMaterial.Titanium, 1)), new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTCXMaterial.StainlessSteel, 1)));
         ItemStack pipe = new ItemStack(Items.BUCKET, 1);
@@ -416,7 +425,9 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_tile.blockcroplibrary_1883857081", Ic2Items.cropLibary, "sBs", "LNO", "CMC", 's', Ic2Items.cropStick, 'B', battery, 'L', Ic2Items.luminator, 'N', Ic2Items.carbonBox, 'O', Ic2Items.obscurator, 'M', machineBlock, 'C', circuit);
         recipes.overrideRecipe("shaped_tile.blockmachinebuffer_-989169435", Ic2Items.machineBuffer, " b ", "CTC", " M ", 'b', Ic2Items.upgradeBase, 'T', Ic2Items.toolBox, 'M', machineBlock, 'C', circuit);
         recipes.overrideRecipe("shaped_tile.blockindustrialworktable_2049276174", Ic2Items.industrialWorktable, "HCH", "NcN", "HMH", 'H', Blocks.HOPPER, 'C', input(circuit, 4), 'N', Ic2Items.carbonBox, 'c', new ItemStack(Blocks.CRAFTING_TABLE, 28), 'M', machineBlock);
-        recipes.overrideRecipe("shaped_tile.blocksawmill_-1444206344", Ic2Items.sawMill, "ABA", "bMb", "bCb", 'A', Items.STONE_AXE, 'B', Ic2Items.turbineBlade, 'b', BRONZE, 'M', machineBlock, 'C', circuit);
+        if (!GTCXConfiguration.general.overrideIc2cSawmill){
+            recipes.overrideRecipe("shaped_tile.blocksawmill_-1444206344", Ic2Items.sawMill, "ABA", "bMb", "bCb", 'A', Items.STONE_AXE, 'B', Ic2Items.turbineBlade, 'b', BRONZE, 'M', machineBlock, 'C', circuit);
+        }
         recipes.overrideRecipe("shaped_tile.blockadvmachine_1515831549", Ic2Items.advMachine, " C ", "AMA", " C ", 'C', Ic2Items.carbonPlate, 'A', Ic2Items.advancedAlloy, 'M', machineBlock);
         recipes.overrideRecipe("shaped_tile.blockadvmachine_-1920290047", Ic2Items.advMachine, " A ", "CMC", " A ", 'C', Ic2Items.carbonPlate, 'A', Ic2Items.advancedAlloy, 'M', machineBlock);
         recipes.overrideRecipe("shaped_tile.blocktransformermv_-1785545281", Ic2Items.transformerMV, "C", "M", "C", 'C', Ic2Items.doubleInsulatedGoldCable, 'M', machineBlock);

@@ -3,6 +3,7 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerFluidCaster;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
 import gtc_expansion.data.GTCXValues;
@@ -550,6 +551,8 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTCXMaterial.Bronze, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
         GTMaterial mat = GTCXValues.STEEL_MODE ? GTCXMaterial.Steel : GTCXMaterial.RefinedIron;
         addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(mat, 144), true, 12800, GTMaterialGen.getIc2(Ic2Items.ironCable, 6));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTMaterial.Electrum, 144), true, 12800, GTMaterialGen.get(GTCXBlocks.electrumCable, 6));
+        addRecipe(GTMaterialGen.get(GTCXItems.moldWire), GTMaterialGen.getFluidStack(GTMaterial.Aluminium, 144), true, 12800, GTMaterialGen.get(GTCXBlocks.aluminiumCable, 6));
 
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
             addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.getFluidStack(GTCXMaterial.RefinedIron, 1296), false, 115200, GTMaterialGen.getModBlock(GTValues.MOD_ID_IC2_EXTRAS, "refinedironblock"));

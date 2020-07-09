@@ -21,5 +21,7 @@ public class GTCXJei {
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.WIREMILL_RECIPE_LIST, GTCXBlocks.wiremill, GTCXMachineGui.GTCXWiremillGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.MICROWAVE_RECIPE_LIST, GTCXBlocks.microwave, GTCXMachineGui.GTCXMicrowaveGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.PLATE_CUTTER_RECIPE_LIST, GTCXBlocks.plateCutter, GTCXMachineGui.GTCXPlateCutterGui.class, 78, 24, 20, 18));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.INDUSTRIAL_SAWMILL_RECIPE_LIST, GTCXBlocks.industrialSawmill, GTCXMachineGui.GTCXIndustrialSawmillGui.class, 58, 28, 20, 11));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.EXTRUDER_RECIPE_LIST, GTCXBlocks.extruder, GTCXMachineGui.GTCXExtruderGui.class, 78, 24, 20, 18));
     }
 }

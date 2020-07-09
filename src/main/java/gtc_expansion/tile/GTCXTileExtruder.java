@@ -3,10 +3,17 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerExtruder;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
+import gtc_expansion.data.GTCXValues;
 import gtc_expansion.recipes.GTCXRecipeLists;
+import gtclassic.api.helpers.GTValues;
+import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
@@ -32,6 +39,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +53,7 @@ public class GTCXTileExtruder extends GTTileBaseMachine {
     public static final int[] slotOutputs = {2, 3};
     public static final int slotFuel = 4;
     public IFilter filter = new MachineFilter(this);
-    private static final int defaultEu = 16;
+    private static final int defaultEu = 96;
 
     public GTCXTileExtruder() {
         super(5, 2, defaultEu, 100, 128);
@@ -72,7 +80,7 @@ public class GTCXTileExtruder extends GTTileBaseMachine {
 
     @Override
     public LocaleComp getBlockName() {
-        return GTCXLang.ASSEMBLING_MACHINE;
+        return GTCXLang.EXTRUDER;
     }
 
     @Override
@@ -130,7 +138,28 @@ public class GTCXTileExtruder extends GTTileBaseMachine {
     }
 
     public static void init() {
+        addRecipe("ingotTin", 1, GTMaterialGen.get(GTCXItems.moldCell), 1920, GTMaterialGen.getIc2(Ic2Items.emptyCell, 4));
+        addRecipe("ingotGold", 1, GTMaterialGen.get(GTCXItems.moldWire), 1920, GTMaterialGen.getIc2(Ic2Items.goldCable, 6));
+        addRecipe("ingotCopper", 1, GTMaterialGen.get(GTCXItems.moldWire), 1920, GTMaterialGen.getIc2(Ic2Items.copperCable, 3));
+        addRecipe("ingotTin", 1, GTMaterialGen.get(GTCXItems.moldWire), 1920, GTMaterialGen.getIc2(Ic2Items.tinCable, 4));
+        addRecipe("ingotBronze", 1, GTMaterialGen.get(GTCXItems.moldWire), 1920, GTMaterialGen.getIc2(Ic2Items.bronzeCable, 3));
+        String steel = GTCXValues.STEEL_MODE ? "Steel" : "RefinedIron";
+        addRecipe("ingot" + steel, 1, GTMaterialGen.get(GTCXItems.moldWire), 1920, GTMaterialGen.getIc2(Ic2Items.ironCable, 6));
+        addRecipe("ingotElectrum", 1, GTMaterialGen.get(GTCXItems.moldWire), 1920, GTMaterialGen.get(GTCXBlocks.electrumCable, 6));
+        addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("ingotAluminium", "ingotAluminum"), input(GTMaterialGen.get(GTCXItems.moldWire)), 1920, GTMaterialGen.get(GTCXBlocks.aluminiumCable, 6));
 
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
+            addRecipe("ingotIron", 1, GTMaterialGen.get(GTCXItems.moldCell), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "emptyfuelrod"));
+            addRecipe("ingotCopper", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coppercasing", 2));
+            addRecipe("ingotTin", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "tincasing", 2));
+            addRecipe("ingotSilver", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "silvercasing", 2));
+            addRecipe("ingotLead", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "leadcasing", 2));
+            addRecipe("ingotIron", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "ironcasing", 2));
+            addRecipe("ingotGold", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "goldcasing", 2));
+            addRecipe("ingotRefinedIron", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironcasing", 2));
+            addRecipe("ingotSteel", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "steelcasing", 2));
+            addRecipe("ingotBronze", 1, GTMaterialGen.get(GTCXItems.moldCasing), 1920, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "bronzecasing", 2));
+        }
     }
 
     public static void addRecipe(String input1, int amount1, int totalEu, ItemStack output) {

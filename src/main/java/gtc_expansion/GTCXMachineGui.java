@@ -64,6 +64,12 @@ public class GTCXMachineGui {
         }
     }
 
+    public static class GTCXIndustrialSawmillGui extends MachineGui{
+        public GTCXIndustrialSawmillGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
     public static class GTCXPrimitiveBlastFurnaceGui extends MachineGui{
         public GTCXPrimitiveBlastFurnaceGui(ContainerComponent container) {
             super(container);

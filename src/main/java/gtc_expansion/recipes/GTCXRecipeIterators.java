@@ -7,6 +7,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileDustbin;
+import gtc_expansion.tile.GTCXTileExtruder;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
@@ -45,6 +46,8 @@ public class GTCXRecipeIterators {
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
     public static final List<String> plateBenderBlacklist = new ArrayList<>();
     public static final List<String> fluidCasterBlacklist = new ArrayList<>();
+    public static final List<String> latheBlacklist = new ArrayList<>();
+    public static final List<String> gearBlacklist = new ArrayList<>();
     public static final List<String> metalList = new ArrayList<>();
     public static final List<String> dustBlacklist = new ArrayList<>();
     public static final List<String> tinyDustBlacklist = new ArrayList<>();
@@ -223,6 +226,7 @@ public class GTCXRecipeIterators {
             }
             plateBenderBlacklist.add(ingot);
             GTCXTilePlateBender.addRecipe(ingot, 1, GTCXMaterialGen.getPlate(mat, 1));
+            GTCXTileExtruder.addRecipe(ingot, 1, GTMaterialGen.get(GTCXItems.moldPlate), 1920, GTCXMaterialGen.getPlate(mat, 1));
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 TileEntityMacerator.addRecipe(plate, 1, getDust(mat), 0.0F);
@@ -244,7 +248,9 @@ public class GTCXRecipeIterators {
             } else {
                 recipes.addRecipe(GTCXMaterialGen.getRod(mat, 4), "X", "X", 'X', ingot);
             }
+            latheBlacklist.add(ingot);
             GTCXTileLathe.addRecipe(ingot, 1, GTCXMaterialGen.getRod(mat, 2));
+            GTCXTileExtruder.addRecipe(ingot, 1, GTMaterialGen.get(GTCXItems.moldRod), 1920, GTCXMaterialGen.getRod(mat, 2));
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 TileEntityMacerator.addRecipe(rod, 2, getDust(mat), 0.0F);
@@ -262,6 +268,8 @@ public class GTCXRecipeIterators {
             IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("craftingToolWrench") : null;
             recipes.addRecipe(GTCXMaterialGen.getGear(mat, 1), "RIR", "IWI", "RIR", 'R', rod,
                     'W', wrench, 'I', plate);
+            gearBlacklist.add(ingot);
+            GTCXTileExtruder.addRecipe(ingot, 4, GTMaterialGen.get(GTCXItems.moldGear), 7680, GTCXMaterialGen.getGear(mat, 1));
             // If a dust is present create a maceration recipe
             if (mat.hasFlag(GTCXMaterial.smalldust)) {
                 TileEntityMacerator.addRecipe(gear, 1, getDust(mat, 4), 0.0F);
@@ -377,23 +385,39 @@ public class GTCXRecipeIterators {
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
                 String plate = "plate" + oreName;
-                if (!plateBenderBlacklist.contains(id) && !gemBlacklist.contains(id) && OreDictionary.doesOreNameExist(plate)){
-                    listPlates = OreDictionary.getOres(plate, false);
-                    if (!listPlates.isEmpty()) {
-                        GTCXTilePlateBender.addRecipe(id, 1, listPlates.get(0));
-                        if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
-                            if (GTCXConfiguration.general.harderPlates){
-                                recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id );
-                            }else {
-                                recipes.addRecipe(listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id );
+                String gear = "gear" + oreName;
+                String rod = "rod" + oreName;
+                if (!gemBlacklist.contains(id)) {
+                    if (!plateBenderBlacklist.contains(id) && OreDictionary.doesOreNameExist(plate)) {
+                        listPlates = OreDictionary.getOres(plate, false);
+                        if (!listPlates.isEmpty()) {
+                            GTCXTilePlateBender.addRecipe(id, 1, listPlates.get(0));
+                            GTCXTileExtruder.addRecipe(id, 1, GTMaterialGen.get(GTCXItems.moldPlate), 1920, listPlates.get(0));
+                            if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)) {
+                                if (GTCXConfiguration.general.harderPlates) {
+                                    recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id);
+                                } else {
+                                    recipes.addRecipe(listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id);
+                                }
                             }
+                        }
+                    }
+                    if (!latheBlacklist.contains(id) && OreDictionary.doesOreNameExist(rod)){
+                        listRods = OreDictionary.getOres(rod, false);
+                        if (!listRods.isEmpty()){
+                            GTCXTileLathe.addRecipe(id, 1, GTMaterialGen.getIc2(listRods.get(0), 2));
+                            GTCXTileExtruder.addRecipe(id, 1, GTMaterialGen.get(GTCXItems.moldRod), 1920, GTMaterialGen.getIc2(listRods.get(0), 2));
+                        }
+                    }
+                    if (!gemBlacklist.contains(id) && OreDictionary.doesOreNameExist(gear)){
+                        listGears = OreDictionary.getOres(gear, false);
+                        if (!listGears.isEmpty()){
+                            GTCXTileExtruder.addRecipe(id, 4, GTMaterialGen.get(GTCXItems.moldGear), 7680, listGears.get(0));
                         }
                     }
                 }
                 if (moltenExist && !fluidCasterBlacklist.contains(oreName)){
                     Fluid fluid = FluidRegistry.getFluid(oreName.toLowerCase());
-                    String gear = "gear" + oreName;
-                    String rod = "rod" + oreName;
                     String block = "block" + oreName;
                     String nugget = "nugget" + oreName;
                     listIngots = OreDictionary.getOres(id, false);

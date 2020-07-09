@@ -9,6 +9,7 @@ import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
+import gtc_expansion.tile.GTCXTileExtruder;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileGasTurbine;
@@ -26,6 +27,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
+import gtc_expansion.tile.multi.GTCXTileMultiIndustrialSawmill;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeGasTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
@@ -207,6 +209,12 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         if (this == GTCXBlocks.fusionComputer){
             return new GTCXTileMultiFusionReactor();
         }
+        if (this == GTCXBlocks.extruder){
+            return new GTCXTileExtruder();
+        }
+        if (this == GTCXBlocks.industrialSawmill){
+            return new GTCXTileMultiIndustrialSawmill();
+        }
         return null;
     }
 
@@ -288,7 +296,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
             tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(32));
         }
 
-        if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace) || this.compare(stack, GTCXBlocks.fluidCaster) || this.compare(stack, GTCXBlocks.fluidSmelter) || this.compare(stack, GTCXBlocks.distillationTower) || this.compare(stack, GTCXBlocks.advancedWorktable)) {
+        if (this.compare(stack, GTCXBlocks.electrolyzer) || this.compare(stack, GTCXBlocks.vacuumFreezer) || this.compare(stack, GTCXBlocks.industrialGrinder) || this.compare(stack, GTCXBlocks.industrialSawmill) || this.compare(stack, GTCXBlocks.extruder) || this.compare(stack, GTCXBlocks.industrialBlastFurnace) || this.compare(stack, GTCXBlocks.fluidCaster) || this.compare(stack, GTCXBlocks.fluidSmelter) || this.compare(stack, GTCXBlocks.distillationTower) || this.compare(stack, GTCXBlocks.advancedWorktable)) {
             tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(128));
         }
         if (this.compare(stack, GTCXBlocks.electricLocker)) {
