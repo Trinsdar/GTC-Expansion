@@ -56,6 +56,7 @@ import net.minecraftforge.registries.ForgeRegistry;
 
 import static gtc_expansion.data.GTCXValues.*;
 import static gtclassic.api.helpers.GTValues.*;
+import static gtclassic.api.recipe.GTRecipeCraftingHandler.combineRecipeObjects;
 
 public class GTCXRecipe {
     static GTCXRecipe instance = new GTCXRecipe();
@@ -111,6 +112,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.wolframiumGrinder, 2), "TST", "SBS", "TST", 'T', TUNGSTEN, 'S', STEEL, 'B', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.steelJackhammer), "SBS", " C ", " s ", 'S', ROD_STEELS, 'B', Ic2Items.battery, 'C', CIRCUIT_ADVANCED, 's', INGOT_STEELS);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.diamondChainsaw), " DD", "TdD", "CT ", 'D', "dustDiamond", 'd', Ic2Items.chainSaw, 'T', TITANIUM, 'C', CIRCUIT_ADVANCED);
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.diamondSawblade), " D ", "DSD", " D ", 'D', "dustsmallDiamond", 'S', "gearSteel");
         if (GTCXConfiguration.general.unfiredBricks){
             recipes.addRecipe(GTMaterialGen.get(GTCXItems.unfiredBrick, 2), "C", "C", 'C', Items.CLAY_BALL);
             recipes.addRecipe(GTMaterialGen.get(GTCXItems.unfiredFireBrick, 2), "C", "C", 'C', GTCXItems.fireClayBall);
@@ -139,7 +141,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), "W", " ", "M", 'W', "craftingToolWireCutter", 'M', GTCXItems.mold);
         IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
         IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.integratedCircuit), "PHP", "RRR", "PWP", 'P', GTRecipeCraftingHandler.combineRecipeObjects(REFINED_IRON, PRE + "Iron", STEEL), 'H', hammer, 'R', GTRecipeCraftingHandler.combineRecipeObjects("rodRefinedIron", "rodIron", "rodSteel"), 'W', wrench);
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.integratedCircuit), "PHP", "RRR", "PWP", 'P', combineRecipeObjects(REFINED_IRON, PRE + "Iron", STEEL), 'H', hammer, 'R', combineRecipeObjects("rodRefinedIron", "rodIron", "rodSteel"), 'W', wrench);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.bronzeTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Bronze, GTCXMaterial.turbineBlade, 1), 'b', "blockBronze");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.steelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Steel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.magnaliumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Magnalium, GTCXMaterial.turbineBlade, 1), 'b', "blockIron");
@@ -253,7 +255,7 @@ public class GTCXRecipe {
         ((ForgeRegistry)ForgeRegistries.RECIPES).remove(new ResourceLocation("quark", "hopper"));
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.hopper_-82413824");
         recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
-        IRecipeInput material = GTRecipeCraftingHandler.combineRecipeObjects(BRONZE, ALUMINIUM, ELECTRUM, PLATINUM, PRE + "Nickel", REFINED_IRON, PRE + "Silver", PRE + "Iron");
+        IRecipeInput material = combineRecipeObjects(BRONZE, ALUMINIUM, ELECTRUM, PLATINUM, PRE + "Nickel", REFINED_IRON, PRE + "Silver", PRE + "Iron");
         int recipeID = STEEL_MODE ? -305222786 : -156474894;
         GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", "shaped_tile.hopper_" + recipeID, GTMaterialGen.get(Blocks.HOPPER), "IWI", "ICI", " I ", 'I', material, 'W', "craftingToolWrench", 'C', CHEST_WOOD);
     }
@@ -272,24 +274,26 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.wiremill), "PDP", "CMC", "PcP", 'P', BRASS, 'D', GEM_DIAMOND, 'C', CIRCUIT_BASIC, 'M', MACHINE_BASIC, 'c', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.lathe), "PCP", "GMG", "PmP", 'P', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'G', "gearSteel", 'M', GTCXItems.conveyorModule, 'm', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.microwave), "AAA", "L M", "AAA", 'A', ALUMINIUM, 'L', LEAD, 'M', Ic2Items.magnetizer);
-        IRecipeInput materialStainlessTitatium = GTRecipeCraftingHandler.combineRecipeObjects(STAINLESS_STEEL, TITANIUM);
+        IRecipeInput materialStainlessTitatium = combineRecipeObjects(STAINLESS_STEEL, TITANIUM);
         //IRecipeInput pipe = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTMaterial.Titanium, 1)), new RecipeInputItemStack(GTMaterialGen.getFluidPipe(GTCXMaterial.StainlessSteel, 1)));
         ItemStack pipe = new ItemStack(Items.BUCKET, 1);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fluidCaster), "IcI", "PMP", "ICI", 'I', materialStainlessTitatium, 'c', GTCXItems.mold, 'P', pipe, 'M', "machineBlockVeryAdvanced", 'C', "circuitElite");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fluidSmelter), "IbI", "PMP", "BCB", 'I', materialStainlessTitatium, 'c', GTCXBlocks.industrialBlastFurnace, 'P', pipe, 'M', "machineBlockVeryAdvanced", 'C', "circuitElite", 'B', Blocks.BRICK_BLOCK);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.primitiveBlastFurnace), "BBB", "BPB", "BBB", 'B', GTCXBlocks.fireBrickBlock, 'P', "plateIron");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.alloyFurnace), "CCC", "FHF", "CCC", 'C', Blocks.BRICK_BLOCK, 'F', Blocks.FURNACE, 'H', Blocks.HOPPER);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingStandard, 4), "III", "CBC", "III", 'I', GTRecipeCraftingHandler.combineRecipeObjects(REFINED_IRON, ALUMINIUM), 'C', CIRCUIT_BASIC, 'B', MACHINE_CHEAP);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingStandard, 4), "III", "CBC", "III", 'I', combineRecipeObjects(REFINED_IRON, ALUMINIUM), 'C', CIRCUIT_BASIC, 'B', MACHINE_CHEAP);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 4), "III", "CMC", "III", 'I', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'M', MACHINE_ADV);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', CHROME, 'C', CIRCUIT_DATA, 'B', MACHINE_ELITE);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dieselGenerator), "PPP", "P P", "CGC", 'P', MATERIAL_MACHINE, 'C', CIRCUIT_BASIC, 'G', Ic2Items.generator);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.gasTurbine), "PCP", "WGW", "PCP", 'P', MATERIAL_INVAR_ALUMINIUM, 'C', CIRCUIT_ADVANCED, 'W', Ic2Items.windMill, 'G', REINFORCED_GLASS);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.thermalBoiler), "TcT", "GCG", "TcT", 'T', Ic2Items.thermalGenerator, 'c', GTBlocks.tileCentrifuge, 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearTitanium", "gearTungstensteel"), 'C', CIRCUIT_MASTER);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.largeSteamTurbine), "GGG", "gMg", "GCG", 'G', Ic2Items.basicTurbine.copy(), 'g', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'M', MACHINE_BASIC, 'C', CIRCUIT_ADVANCED);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.largeGasTurbine), "GGG", "gMg", "GCG", 'G', GTCXBlocks.gasTurbine, 'g', GTRecipeCraftingHandler.combineRecipeObjects("gearTitanium", "gearTungstensteel"), 'M', MACHINE_VERY_ADV, 'C', CIRCUIT_MASTER);
-        IRecipeInput aluiron = GTRecipeCraftingHandler.combineRecipeObjects( REFINED_IRON, ALUMINIUM);
-        IRecipeInput rodAluiron = GTRecipeCraftingHandler.combineRecipeObjects( "rodAluminium", "rodAluminum", "rodRefinedIron");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.thermalBoiler), "TcT", "GCG", "TcT", 'T', Ic2Items.thermalGenerator, 'c', GTBlocks.tileCentrifuge, 'G', combineRecipeObjects("gearTitanium", "gearTungstensteel"), 'C', CIRCUIT_MASTER);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.largeSteamTurbine), "GGG", "gMg", "GCG", 'G', Ic2Items.basicTurbine.copy(), 'g', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'M', MACHINE_BASIC, 'C', CIRCUIT_ADVANCED);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.largeGasTurbine), "GGG", "gMg", "GCG", 'G', GTCXBlocks.gasTurbine, 'g', combineRecipeObjects("gearTitanium", "gearTungstensteel"), 'M', MACHINE_VERY_ADV, 'C', CIRCUIT_MASTER);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.extruder), "PGP", "NMD", "PCP", 'P', combineRecipeObjects(TITANIUM, TUNGSTEN_STEEL), 'G', combineRecipeObjects("gearTitanium", "gearTungstensteel"), 'N', GTCXItems.nichromeHeatingCoil, 'M', MACHINE_VERY_ADV, 'D', GTCXItems.diamondSawblade, 'C', CIRCUIT_ELITE);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.plateCutter), "PCP", "GDG", "PMP", 'P', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'D', GTCXItems.diamondSawblade, 'M', MACHINE_BASIC);
+        IRecipeInput aluiron = combineRecipeObjects( REFINED_IRON, ALUMINIUM);
+        IRecipeInput rodAluiron = combineRecipeObjects( "rodAluminium", "rodAluminum", "rodRefinedIron");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.locker), "RLR", "LCL", "PMP", colorTransfer(GTMaterialGen.get(GTBlocks.tileCabinet)), 'R', rodAluiron, 'L', Items.LEATHER, 'C', GTBlocks.tileCabinet, 'P', aluiron, 'M', MACHINE_CHEAP);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.electricLocker), "SLS", "SlS", "SCS", colorTransfer(GTMaterialGen.get(GTCXBlocks.locker)), 'S', MATERIAL_STEELS, 'L', Ic2Items.lapotronCrystal, 'l', GTCXBlocks.locker, 'C', CIRCUIT_ADVANCED);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.advancedWorktable), "EOE", "EWE", "ECE", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'E', ELECTRUM, 'O', TIER_2_ENERGY, 'W', GTBlocks.tileWorktable, 'C', CIRCUIT_ADVANCED);
@@ -300,11 +304,11 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialExtractor), "PCP", "CAC", "PcP", 'P', Ic2Items.pump.copy(), 'c', CHEST_WOOD, 'C', CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionEnergyInjector), "SCS", "CsC", "SCS", 'S', GTItems.superConductor, 'C', CIRCUIT_MASTER, 's', GTBlocks.tileSupercondensator);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionEnergyExtractor), "CSC", "SsS", "CSC", 'S', GTItems.superConductor, 'C', CIRCUIT_MASTER, 's', GTBlocks.tileSupercondensator);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.inputHatch), "SCS", "GHG", "SSS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.outputHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dynamoHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.transformerHV, 'G', GTRecipeCraftingHandler.combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.inputHatch), "SCS", "GHG", "SSS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.outputHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dynamoHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.transformerHV, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         ItemStack cable = GTMaterialGen.get(GTCXBlocks.electrumCable);
-        IRecipeInput rubber = GTRecipeCraftingHandler.combineRecipeObjects("itemRubber", "craftingToolDuctTape");
+        IRecipeInput rubber = combineRecipeObjects("itemRubber", "craftingToolDuctTape");
         recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ELECTRUM);
         recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 1), 4),  " R ", "RER", " R ", 'R', "itemRubber", 'E', INGOT_ELECTRUM);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 1), insulationSetting(cable, 0, 1), cable, rubber);
@@ -341,7 +345,7 @@ public class GTCXRecipe {
 
         recipes.addShapelessRecipe(Ic2Items.reactorPlatingExplosive, Ic2Items.reactorPlating, LEAD);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.fireClayBall, 2), Items.CLAY_BALL, "sand", "dustFlint", GTMaterialGen.getFluidStack("water", 1000));
-        IRecipeInput ashes = GTRecipeCraftingHandler.combineRecipeObjects( "dustAshes", "dustAsh");
+        IRecipeInput ashes = combineRecipeObjects( "dustAshes", "dustAsh");
         recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "ingotRefinedIron", ashes);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.magicDye), "dyeCyan", "dyeMagenta", "dyeYellow", "dyeBlack");
     }
@@ -455,7 +459,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.battery, 2), " C ", "TST", "TLT", 'C', Ic2Items.copperCable, 'T', tin, 'S', GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 1), 'L', "dustLead");
         recipes.overrideRecipe("shaped_item.itembatre_2077392104", Ic2Items.battery, " C ", "TRT", "TRT", 'C', Ic2Items.copperCable, 'T', tin, 'R', DUST_REDSTONE);
         recipeId = STEEL_MODE ? 389795443 : -650149377;
-        recipes.overrideRecipe("shaped_item.itemingotalloy_" + recipeId, GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 2), "TTT", "MMM", "BBB", 'T', GTRecipeCraftingHandler.combineRecipeObjects(MATERIAL_REFINED_IRON, INVAR), 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_TIN_ZINC);
+        recipes.overrideRecipe("shaped_item.itemingotalloy_" + recipeId, GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 2), "TTT", "MMM", "BBB", 'T', combineRecipeObjects(MATERIAL_REFINED_IRON, INVAR), 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_TIN_ZINC);
         recipeId = STEEL_MODE ? -1060574968 : -795420664;
         recipes.overrideRecipe("shaped_item.reactorvent_" + recipeId, Ic2Items.reactorVent, "PBP", "B B", "PBP", 'P', ALUMINIUM, 'B', Blocks.IRON_BARS);
         recipes.overrideRecipe("shaped_item.reactorheatswitch_688109925", Ic2Items.reactorHeatSwitch, " C ", "TcT", " T ", 'C', CIRCUIT_BASIC, 'T', TIN, 'c', Ic2Items.denseCopperPlate);
@@ -485,7 +489,7 @@ public class GTCXRecipe {
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', ANY_LAPIS);
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', ANY_LAPIS);
         } else {
-            IRecipeInput ingotElectric = GTRecipeCraftingHandler.combineRecipeObjects(INGOT_REFINEDIRON, INGOT_SILICON,
+            IRecipeInput ingotElectric = combineRecipeObjects(INGOT_REFINEDIRON, INGOT_SILICON,
                     "ingotAluminium","ingotSilver",
                     "ingotElectrum", "ingotPlatinum");
             if (GTConfig.general.addBasicCircuitRecipes) {
@@ -519,8 +523,8 @@ public class GTCXRecipe {
 		instance.overrideGTRecipe("shaped_tile.gtclassic.dragoneggenergysiphon_640702183", GTMaterialGen.get(GTBlocks.tileDragonEggEnergySiphon, 1), "CTC", "PSP", "CBC", 'C', CIRCUIT_MASTER, 'S', GTBlocks.tileSupercondensator, 'B', BATTERY_ULTIMATE, 'P', PLATE_IRIDIUM_ALLOY, 'T', Ic2Items.teleporter.copy());
 		instance.overrideGTRecipe("shaped_tile.gtclassic.magicenergyconverter_605182006", GTMaterialGen.get(GTBlocks.tileMagicEnergyConverter, 1), "CTC", "IBI", "CLC", 'C', CIRCUIT_ADVANCED, 'B', Blocks.BEACON, 'L', Ic2Items.lapotronCrystal.copy(), 'I', PLATINUM, 'T', Ic2Items.teleporter.copy());
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTesseractSlave),"TCT", "CEC", "TcT", 'T', TITANIUM, 'C', "circuitElite", 'E', Blocks.ENDER_CHEST, 'c', Ic2Items.advMachine);
-        IRecipeInput rod = GTRecipeCraftingHandler.combineRecipeObjects( "rodTitanium", "rodTungstensteel");
-        IRecipeInput plate = GTRecipeCraftingHandler.combineRecipeObjects( TITANIUM, TUNGSTEN_STEEL);
+        IRecipeInput rod = combineRecipeObjects( "rodTitanium", "rodTungstensteel");
+        IRecipeInput plate = combineRecipeObjects( TITANIUM, TUNGSTEN_STEEL);
         recipes.addRecipe(GTMaterialGen.get(GTItems.rockCutter), "DR ", "DT ", "DCB", new EnchantmentModifier(GTMaterialGen.get(GTItems.rockCutter), Enchantments.SILK_TOUCH).setUsesInput(), 'R', rod, 'T', plate, 'B', Ic2Items.battery, 'C', CIRCUIT_BASIC, 'D', "dustDiamond");
         recipes.addRecipe(GTMaterialGen.get(GTItems.jackHammer), "TJT", " D ", 'T', "rodTungstensteel", 'J', GTCXItems.steelJackhammer, 'C', CIRCUIT_BASIC, 'D', "dustDiamond");
         recipes.addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), " C ", "ALA", "ALA", 'C', Ic2Items.goldCable, 'A', ALUMINIUM, 'L', "dustLithium");
@@ -539,14 +543,14 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 8), "TTT", "MMM", "BBB", 'T', TUNGSTEN_STEEL, 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_MIXED_METAL_1);
         recipes.addRecipe(GTMaterialGen.get(GTItems.circuitEnergy, 4), "CTC", "LIL", "CTC", 'C', CIRCUIT_ADVANCED, 'T', TUNGSTEN, 'L', Ic2Items.lapotronCrystal, 'I', Ic2Items.iridiumPlate);
         recipes.addRecipe(GTMaterialGen.get(GTItems.superConductor, 4), "CCC", "TIT", "ccc", 'C', INPUT_COOLANT_SUPERCONDUCTOTR, 'I', Ic2Items.iridiumPlate, 'T', TUNGSTEN, 'c', CIRCUIT_MASTER);
-        IRecipeInput rodIrons = GTRecipeCraftingHandler.combineRecipeObjects("rodIron", "rodRefinedIron");
+        IRecipeInput rodIrons = combineRecipeObjects("rodIron", "rodRefinedIron");
         recipes.addRecipe(GTMaterialGen.get(GTItems.magnifyingGlass), "R ", " G", 'R', rodIrons, 'G', "paneGlass");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTranslocator), "EWE", "CBC", "EME", 'E', ELECTRUM, 'W', Ic2Items.insulatedCopperCable, 'C', CIRCUIT_BASIC, 'B', MACHINE_CHEAP, 'M', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBufferLarge), "EWE", "CBC", "EcE", 'E', ELECTRUM, 'W', Ic2Items.insulatedCopperCable, 'C', CIRCUIT_ADVANCED, 'B', MACHINE_CHEAP, 'c', CHEST_WOOD);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBufferFluid), "EWE", "CBC", "EbE", 'E', ELECTRUM, 'W', Ic2Items.insulatedCopperCable, 'C', CIRCUIT_ADVANCED, 'B', MACHINE_CHEAP, 'b', Items.BUCKET);
-        IRecipeInput aluiron = GTRecipeCraftingHandler.combineRecipeObjects( REFINED_IRON, ALUMINIUM);
+        IRecipeInput aluiron = combineRecipeObjects( REFINED_IRON, ALUMINIUM);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCabinet), "III", "CIC", "III", 'I', aluiron, 'C', CHEST_WOOD);
-        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? GTRecipeCraftingHandler.combineRecipeObjects( "craftingToolMonkeyWrench", "craftingToolWrench") : new RecipeInputOreDict("rodRefinedIron");
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? combineRecipeObjects( "craftingToolMonkeyWrench", "craftingToolWrench") : new RecipeInputOreDict("rodRefinedIron");
         rod = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("rodRefinedIron") : null;
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDrum), "PWP", "PMP", "PRP", 'P', REFINED_IRON, 'W', wrench, 'M', rod, 'R', "rodRefinedIron");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileWorktable), "ICI", "IMI", "IcI", 'I', aluiron, 'C', "workbench", 'c', CHEST_WOOD, 'M', MACHINE_CHEAP);
@@ -557,7 +561,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCharcoalPit), "RFR", "RFR", "RFR", 'R', REFINED_IRON, 'F', Items.FLINT);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTypeFilter), "PPP", "TCB", "PPP", 'P', aluiron, 'T', GTBlocks.tileTranslocator, 'C', CIRCUIT_ADVANCED, 'B', GTBlocks.tileBufferLarge);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileItemFilter), "PPP", "TCB", "PPP", 'P', PRE + "Iron", 'T', GTBlocks.tileTranslocator, 'C', CIRCUIT_BASIC, 'B', GTBlocks.tileBufferLarge);
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDisplayScreen), "cGc", "CMC", "IRI", 'c', GTCXItems.computerMonitor, 'G', "paneGlass", 'C', CIRCUIT_BASIC, 'M', MACHINE_BASIC, 'I', GTRecipeCraftingHandler.combineRecipeObjects(PRE + "Iron", REFINED_IRON), 'R', Items.REDSTONE);
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDisplayScreen), "cGc", "CMC", "IRI", 'c', GTCXItems.computerMonitor, 'G', "paneGlass", 'C', CIRCUIT_BASIC, 'M', MACHINE_BASIC, 'I', combineRecipeObjects(PRE + "Iron", REFINED_IRON), 'R', Items.REDSTONE);
         /** Fusion Computer **/
         if (GTConfig.general.removeIC2Plasmafier) {
             recipes.overrideRecipe("shaped_tile.blockPlasmafier_679353211", GTMaterialGen.get(GTCXBlocks.fusionComputer, 1), "CCC", "cMc", "CCC", 'C', CIRCUIT_MASTER, 'c', GTBlocks.tileComputer, 'M',

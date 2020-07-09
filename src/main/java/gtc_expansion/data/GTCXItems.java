@@ -5,6 +5,7 @@ import gtc_expansion.item.GTCXItemBatterySingleUse;
 import gtc_expansion.item.GTCXItemDamageable;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.GTCXItemFood;
+import gtc_expansion.item.GTCXItemHardeningSpray;
 import gtc_expansion.item.GTCXItemInsulationCutter;
 import gtc_expansion.item.GTCXItemIntegratedCircuit;
 import gtc_expansion.item.GTCXItemMisc;
@@ -30,6 +31,7 @@ public class GTCXItems {
     public static final GTCXItemMisc pumpModule = createItem(new GTCXItemMisc("pump_module",3, 0));
     public static final GTCXItemMisc diamondGrinder = createItem(new GTCXItemMisc("diamond_grinder", 4, 0));
     public static final GTCXItemMisc wolframiumGrinder = createItem(new GTCXItemMisc("wolframium_grinder", 5, 0));
+    public static final GTCXItemMisc diamondSawblade = createItem(new GTCXItemMisc("diamond_sawblade", 14, 1));
     public static final GTCXItemMisc constantanHeatingCoil = createItem(new GTCXItemMisc("constantan_heating_coil",8, 0));
     public static final GTCXItemMisc kanthalHeatingCoil = createItem(new GTCXItemMisc("kanthal_heating_coil",6, 0));
     public static final GTCXItemMisc nichromeHeatingCoil = createItem(new GTCXItemMisc("nichrome_heating_coil",7, 0));
@@ -79,6 +81,7 @@ public class GTCXItems {
     public static final GTCXItemDamageable magnaliumTurbineRotor = createItem(new GTCXItemDamageable("magnalium_turbine_rotor",2, 3, 10000));
     public static final GTCXItemDamageable tungstensteelTurbineRotor = createItem(new GTCXItemDamageable("tungstensteel_turbine_rotor",3, 3, 30000));
     public static final GTCXItemDamageable carbonTurbineRotor = createItem(new GTCXItemDamageable("carbon_turbine_rotor",4, 3, 2500));
+    public static final GTCXItemHardeningSpray hardeningSpray = createItem(new GTCXItemHardeningSpray());
 
     public static <T extends Item> T createItem(T item) {
         toRegister.add(item);

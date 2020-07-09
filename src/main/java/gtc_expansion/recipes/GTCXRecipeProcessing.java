@@ -69,6 +69,7 @@ public class GTCXRecipeProcessing {
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Constantan, 3));
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Kanthal, 4));
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.nichromeHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Nichrome, 4));
+        ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.sprayCanEmpty), GTCXRecipe.input("sand", 16), GTMaterialGen.get(GTCXItems.hardeningSpray));
         //TileEntityMacerator.addRecipe(GTRecipeCraftingHandler.combineRecipeObjects(GTMaterialGen.get(GTCXItems.mold), GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.get(GTCXItems.moldCell), GTMaterialGen.get(GTCXItems.moldGear), GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.get(GTCXItems.moldPlate), GTMaterialGen.get(GTCXItems.moldRod), GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.get(GTCXItems.moldWire)), GTMaterialGen.getDust(GTCXMaterial.Steel, 4));
         GTRecipe.maceratorUtil("oreSodalite", 1, GTMaterialGen.getDust(GTMaterial.Sodalite, 12));
         GTRecipe.maceratorUtil("gemDiamond", 1, GTMaterialGen.getDust(GTCXMaterial.Diamond, 1));

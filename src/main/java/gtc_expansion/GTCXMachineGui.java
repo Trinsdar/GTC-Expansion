@@ -22,6 +22,12 @@ public class GTCXMachineGui {
         }
     }
 
+    public static class GTCXExtruderGui extends MachineGui{
+        public GTCXExtruderGui(ContainerComponent container) {
+            super(container);
+        }
+    }
+
     public static class GTCXChemicalReactorGui extends MachineGui{
         public GTCXChemicalReactorGui(ContainerComponent container) {
             super(container);
