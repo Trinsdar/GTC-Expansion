@@ -1,6 +1,5 @@
 package gtc_expansion.tile.multi;
 
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
@@ -507,12 +506,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public boolean isInputOutputHatch(int3 pos) {
         if (world.getBlockState(pos.asBlockPos()) == inputHatchState){
-            GTCExpansion.logger.info("Checking input hatches");
             if (world.getBlockState(input1) != inputHatchState){
-                GTCExpansion.logger.info("first input hatch: " + pos.asBlockPos().toString());
                 input1 = pos.asBlockPos();
             } else if (world.getBlockState(input2) != inputHatchState){
-                GTCExpansion.logger.info("second input hatch: " + pos.asBlockPos().toString());
                 input2 = pos.asBlockPos();
             }
             inputs++;
