@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Set;
 
 public class GTCXTileExtruder extends GTTileBaseMachine {
-    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/extrudere.png");
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/extruder.png");
     public static final int[] slotInputs = {0, 1};
     public static final int[] slotOutputs = {2, 3};
     public static final int slotFuel = 4;
