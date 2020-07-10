@@ -30,7 +30,9 @@ import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialSawmill;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
+import gtc_expansion.util.GTCXRecipeInputIngredient;
 import gtclassic.GTMod;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeCraftingHandler;
@@ -52,10 +54,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static gtc_expansion.data.GTCXValues.*;
 import static gtclassic.api.helpers.GTValues.*;
@@ -268,6 +274,16 @@ public class GTCXRecipe {
         if (GTCXConfiguration.general.harderWood){
             registry.remove(new ResourceLocation("minecraft", "stick"));
             recipes.addRecipe(GTMaterialGen.get(Items.STICK, 2), "P", "P", 'P', "plankWood");
+            List<IRecipe> recipeList = new ArrayList<>();
+            for (IRecipe recipe : ForgeRegistries.RECIPES){
+                if (GTHelperStack.matchOreDict(recipe.getRecipeOutput(), "plankWood") && recipe.getIngredients().size() == 1 && GTHelperStack.matchOreDict(recipe.getIngredients().get(0).getMatchingStacks()[0], "logWood")){
+                    recipeList.add(recipe);
+                }
+            }
+            for (IRecipe recipe : recipeList){
+                registry.remove(recipe.getRegistryName());
+                recipes.addRecipe(StackUtil.copyWithSize(recipe.getRecipeOutput(), (recipe.getRecipeOutput().getCount() / 2)), "W", 'W', new GTCXRecipeInputIngredient(recipe.getIngredients().get(0)));
+            }
         }
     }
 
