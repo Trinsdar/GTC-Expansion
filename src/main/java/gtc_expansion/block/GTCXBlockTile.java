@@ -18,6 +18,7 @@ import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
+import gtc_expansion.tile.GTCXTileStoneExtractor;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
@@ -214,6 +215,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         }
         if (this == GTCXBlocks.industrialSawmill){
             return new GTCXTileMultiIndustrialSawmill();
+        }
+        if (this == GTCXBlocks.stoneExtractor){
+            return new GTCXTileStoneExtractor();
         }
         return null;
     }

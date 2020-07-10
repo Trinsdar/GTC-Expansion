@@ -20,6 +20,7 @@ import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
+import gtc_expansion.tile.GTCXTileStoneExtractor;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
@@ -105,6 +106,7 @@ public class GTCXRecipe {
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
         GTCXTileStoneCompressor.init();
+        GTCXTileStoneExtractor.init();
         GTCXTileMultiIndustrialSawmill.init();
         GTCXTileMultiFusionReactor.postInit();
     }
@@ -254,14 +256,19 @@ public class GTCXRecipe {
     }
 
     public static void initOVerrideVanillaRecipes(){
-        ((ForgeRegistry)ForgeRegistries.RECIPES).remove(new ResourceLocation("minecraft", "iron_bars"));
-        ((ForgeRegistry)ForgeRegistries.RECIPES).remove(new ResourceLocation("minecraft", "hopper"));
-        ((ForgeRegistry)ForgeRegistries.RECIPES).remove(new ResourceLocation("quark", "hopper"));
+        ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
+        registry.remove(new ResourceLocation("minecraft", "iron_bars"));
+        registry.remove(new ResourceLocation("minecraft", "hopper"));
+        registry.remove(new ResourceLocation("quark", "hopper"));
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.hopper_-82413824");
         recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
         IRecipeInput material = combineRecipeObjects(BRONZE, ALUMINIUM, ELECTRUM, PLATINUM, PRE + "Nickel", REFINED_IRON, PRE + "Silver", PRE + "Iron");
         int recipeID = STEEL_MODE ? -305222786 : -156474894;
         GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", "shaped_tile.hopper_" + recipeID, GTMaterialGen.get(Blocks.HOPPER), "IWI", "ICI", " I ", 'I', material, 'W', "craftingToolWrench", 'C', CHEST_WOOD);
+        if (GTCXConfiguration.general.harderWood){
+            registry.remove(new ResourceLocation("minecraft", "stick"));
+            recipes.addRecipe(GTMaterialGen.get(Items.STICK, 2), "P", "P", 'P', "plankWood");
+        }
     }
 
     public static void initShapedBlockRecipes(){
@@ -309,6 +316,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dustBin), "IHI", "IWI", "IHI", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'I', MATERIAL_REFINED_IRON, 'H', Blocks.HOPPER, 'W', GTBlocks.tileWorktable);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.trashBin), "I I", "ILI", "III", 'I', MATERIAL_REFINED_IRON, 'L', GTMaterialGen.getFluidStack("lava", 1000));
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneExtractor), " H ", "TFT", "TPT", 'T', Ic2Items.treeTap, 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialInjector), "PcP", "CAC", "PCP", 'P', Ic2Items.pump.copy(), 'c', CHEST_WOOD, 'C', CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialExtractor), "PCP", "CAC", "PcP", 'P', Ic2Items.pump.copy(), 'c', CHEST_WOOD, 'C', CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionEnergyInjector), "SCS", "CsC", "SCS", 'S', GTItems.superConductor, 'C', CIRCUIT_MASTER, 's', GTBlocks.tileSupercondensator);
@@ -361,6 +369,8 @@ public class GTCXRecipe {
 
     public static void initIc2(){
         recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_REFINED_IRON, 'M', GTCXBlocks.stoneCompressor, 'C',
+                CIRCUIT_BASIC);
+        recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_REFINED_IRON, 'M', GTCXBlocks.stoneExtractor, 'C',
                 CIRCUIT_BASIC);
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GTCXItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);

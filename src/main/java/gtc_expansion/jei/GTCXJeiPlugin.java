@@ -50,6 +50,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             //wrapperUtil4(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer, GTCXMachineGui.GTCXFusionComputerGui.class, 155, 5, 16, 16);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
+            registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.fusionComputer), "gt.fusion");
             registry.addRecipeClickArea(GTCXMachineGui.GTCXFusionComputerGui.class,155, 5,  16, 16, "gt.fusion");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();

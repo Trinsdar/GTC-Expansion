@@ -33,6 +33,7 @@ public class GTCXLang {
     public static final LocaleComp LARGE_GAS_TURBINE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.largegasturbine");
     public static final LocaleComp FUSION_COMPUTER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusioncomputer");
     public static final LocaleComp STONE_COMPRESSOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.stonecompressor");
+    public static final LocaleComp STONE_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.stoneextractor");
     public static final LocaleComp EXTRUDER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.extruder");
 
     public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
