@@ -163,7 +163,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("dustFlint", 5, GTMaterialGen.get(Blocks.TNT, 3), 1600, GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5));
         addRecipe("dustGunpowder", 4, GTMaterialGen.get(Blocks.SAND), 400, GTMaterialGen.get(Blocks.TNT));
         addRecipe(input("dustGlowstone", 1), GTCXValues.ANY_LAPIS, 1600, GTMaterialGen.get(GTCXItems.advancedCircuitParts, 2));
-        addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), Ic2Items.cropAnalyzer, 204800, GTMaterialGen.get(GTItems.portableScanner));
+        addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), Ic2Items.cropAnalyzer, 20480, GTMaterialGen.get(GTItems.portableScanner));
         ItemStack cable = GTCXConfiguration.general.harderCircuits ? Ic2Items.copperCable : Ic2Items.insulatedCopperCable;
         addRecipe(GTMaterialGen.get(GTCXItems.basicCircuitBoard), GTMaterialGen.getIc2(cable, 3), 800, Ic2Items.electricCircuit);
         addRecipe("plateIridiumAlloy", 1, Ic2Items.reinforcedStone, 1600, Ic2Items.iridiumStone);
