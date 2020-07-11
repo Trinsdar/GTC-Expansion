@@ -1,14 +1,15 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXConfiguration;
-import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAssemblingMachine;
-import gtc_expansion.recipes.GTCXRecipeLists;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
 import gtc_expansion.data.GTCXValues;
+import gtc_expansion.recipes.GTCXRecipeLists;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -162,7 +163,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(GTCXValues.REFINED_IRON, 6, GTMaterialGen.get(GTCXItems.machineParts), 3200, Ic2Items.machine);
         addRecipe("dustFlint", 5, GTMaterialGen.get(Blocks.TNT, 3), 1600, GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5));
         addRecipe("dustGunpowder", 4, GTMaterialGen.get(Blocks.SAND), 400, GTMaterialGen.get(Blocks.TNT));
-        addRecipe(input("dustGlowstone", 1), GTCXValues.ANY_LAPIS, 1600, GTMaterialGen.get(GTCXItems.advancedCircuitParts, 2));
+        addRecipe(input("dustGlowstone", 1), GTValues.INPUT_LAPIS_ANY, 1600, GTMaterialGen.get(GTCXItems.advancedCircuitParts, 2));
         addRecipe(GTMaterialGen.get(GTItems.lithiumBattery), Ic2Items.cropAnalyzer, 20480, GTMaterialGen.get(GTItems.portableScanner));
         ItemStack cable = GTCXConfiguration.general.harderCircuits ? Ic2Items.copperCable : Ic2Items.insulatedCopperCable;
         addRecipe(GTMaterialGen.get(GTCXItems.basicCircuitBoard), GTMaterialGen.getIc2(cable, 3), 800, Ic2Items.electricCircuit);

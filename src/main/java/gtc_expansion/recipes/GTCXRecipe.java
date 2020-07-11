@@ -523,8 +523,8 @@ public class GTCXRecipe {
             recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
             recipeId = STEEL_MODE ? -1911001323 : 1521116961;
             recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CRC", "CEC", "CRC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
-            recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', ANY_LAPIS);
-            recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', ANY_LAPIS);
+            recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', INPUT_LAPIS_ANY);
+            recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', INPUT_LAPIS_ANY);
         } else {
             IRecipeInput ingotElectric = combineRecipeObjects(INGOT_REFINEDIRON, INGOT_SILICON,
                     "ingotAluminium","ingotSilver",
@@ -540,10 +540,10 @@ public class GTCXRecipe {
                 recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.electricCircuit, 2), "CIC", "CIC", "CIC", 'C', Ic2Items.insulatedCopperCable.copy(), 'I', ingotElectric);
             }
             if (GTConfig.general.addAdvCircuitRecipes) {
-                recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', DUST_REDSTONE, 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', ANY_LAPIS);
-                recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', DUST_REDSTONE, 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', ANY_LAPIS);
-                recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 2), "RGR", "LCL", "RGR", 'R', INPUT_INGOT_SILVER, 'G', DUST_GLOWSTONE, 'C', INPUT_CIRCUIT_BASIC_X2, 'L', ANY_LAPIS);
-                recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 2), "RLR", "GCG", "RLR", 'R', INPUT_INGOT_SILVER, 'G', DUST_GLOWSTONE, 'C', INPUT_CIRCUIT_BASIC_X2, 'L', ANY_LAPIS);
+                recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', DUST_REDSTONE, 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', INPUT_LAPIS_ANY);
+                recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', DUST_REDSTONE, 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', INPUT_LAPIS_ANY);
+                recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 2), "RGR", "LCL", "RGR", 'R', INPUT_INGOT_SILVER, 'G', DUST_GLOWSTONE, 'C', INPUT_CIRCUIT_BASIC_X2, 'L', INPUT_LAPIS_ANY);
+                recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 2), "RLR", "GCG", "RLR", 'R', INPUT_INGOT_SILVER, 'G', DUST_GLOWSTONE, 'C', INPUT_CIRCUIT_BASIC_X2, 'L', INPUT_LAPIS_ANY);
             }
         }
 

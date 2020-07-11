@@ -36,7 +36,6 @@ public class GTCXValues {
     public static final IRecipeInput REINFORCED_GLASS = combineRecipeObjects( Ic2Items.reinforcedGlass, Ic2Items.reinforcedGlassClear);
     public static final IRecipeInput GRINDER = combineRecipeObjects( GTCXItems.diamondGrinder, GTCXItems.wolframiumGrinder);
     public static final IRecipeInput TIER_2_ENERGY = combineRecipeObjects( Ic2Items.energyCrystal, GTItems.lithiumBattery);
-    public static final IRecipeInput ANY_LAPIS = combineRecipeObjects("gemLapis", "dustLazurite", "dustSodalite");
     public static final String MACHINE_CHEAP = "machineBlockCheap";
     public static final String MACHINE_VERY_ADV = "machineBlockVeryAdvanced";
 
