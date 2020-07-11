@@ -156,7 +156,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.integratedCircuit), "PHP", "RRR", "PWP", 'P', combineRecipeObjects(REFINED_IRON, PRE + "Iron", STEEL), 'H', hammer, 'R', combineRecipeObjects("rodRefinedIron", "rodIron", "rodSteel"), 'W', wrench);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.bronzeTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Bronze, GTCXMaterial.turbineBlade, 1), 'b', "blockBronze");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.steelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Steel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.magnaliumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Magnalium, GTCXMaterial.turbineBlade, 1), 'b', "blockIron");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.magnaliumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Magnalium, GTCXMaterial.turbineBlade, 1), 'b', "blockMagnalium");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.tungstensteelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.TungstenSteel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.carbonTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTMaterial.Carbon, GTCXMaterial.turbineBlade, 1), 'b', Ic2Items.carbonPlate);
     }

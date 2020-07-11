@@ -86,7 +86,7 @@ public class GTCXMaterial {
     public static final GTMaterial Iron = setHeat(new GTMaterial(26,"Iron", 1, 184, 184, 184, molten, smalldust, plate, stick, gear), 1811);
     public static final GTMaterial Kanthal = new GTMaterial("Kanthal", 219, 191, 111, false, dust, smalldust, nugget, ingot, plate, hotIngot);
     public static final GTMaterial Lead = setHeat(new GTMaterial(82,"Lead", 140, 100, 140, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal), 600);
-    public static final GTMaterial Magnalium = setHeat(new GTMaterial("Magnalium", 2, 200, 190, 255, molten, smalldust, dust, nugget, ingot, plate, stick, turbineBlade),929);
+    public static final GTMaterial Magnalium = setHeat(new GTMaterial("Magnalium", 2, 200, 190, 255, molten, smalldust, dust, nugget, ingot, plate, stick, turbineBlade, blockMetal),929);
     public static final GTMaterial Magnesium = new GTMaterial(12,"Magnesium", 255, 200, 200, dustAll);
     public static final GTMaterial Manganese = setHeat(new GTMaterial(25,"Manganese", 2, 250, 235, 250, molten, smalldust, dust, tinydust, nugget, ingot, plate, blockMetal), 1519);
     public static final GTMaterial Marble = new GTMaterial("Marble", 200, 200, 200, dustAll);
