@@ -505,7 +505,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             return false;
         }
         for (i = 0; i < 2; i++){
-            if (!isReinforcedCasing(dir.forward(1))){
+            if (!isInputOutputHatch(dir.forward(1))){
                 return false;
             }
         }
