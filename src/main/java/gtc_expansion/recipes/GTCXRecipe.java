@@ -314,7 +314,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.primitiveBlastFurnace), "BBB", "BPB", "BBB", 'B', GTCXBlocks.fireBrickBlock, 'P', "plateIron");
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.alloyFurnace), "CCC", "FHF", "CCC", 'C', Blocks.BRICK_BLOCK, 'F', Blocks.FURNACE, 'H', Blocks.HOPPER);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingStandard, 4), "III", "CBC", "III", 'I', combineRecipeObjects(REFINED_IRON, ALUMINIUM), 'C', CIRCUIT_BASIC, 'B', MACHINE_CHEAP);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 4), "III", "CMC", "III", 'I', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'M', MACHINE_ADV);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingReinforced, 4), "III", "CMC", "III", 'I', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'M', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.casingAdvanced, 4), "III", "CBC", "III", 'I', CHROME, 'C', CIRCUIT_DATA, 'B', MACHINE_ELITE);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fireBrickBlock), "BB", "BB", 'B', GTCXItems.fireBrick);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dieselGenerator), "PPP", "P P", "CGC", 'P', MATERIAL_MACHINE, 'C', CIRCUIT_BASIC, 'G', Ic2Items.generator);

@@ -19,6 +19,7 @@ import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.common.GTConfig;
+import gtclassic.common.tile.multi.GTTileMultiFusionReactor;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.jeiIntigration.SubModul;
 import mezz.jei.api.IJeiRuntime;
@@ -47,12 +48,10 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil2(registry, GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster, GTCXMachineGui.GTCXFluidCasterGui.class, 78, 24, 20, 18);
             wrapperUtil3(registry, GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST, GTCXBlocks.dieselGenerator, GTCXMachineGui.GTCXDieselGeneratorGui.class, 78, 35, 16, 17);
             wrapperUtil3(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine, GTCXMachineGui.GTCXGasTurbineGui.class, 78, 35, 16, 17);
-            //wrapperUtil4(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer, GTCXMachineGui.GTCXFusionComputerGui.class, 155, 5, 16, 16);
+            wrapperUtil4(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer, GTCXMachineGui.GTCXFusionComputerGui.class, 155, 5, 16, 16);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
-            registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.fusionComputer), "gt.fusion");
-            registry.addRecipeClickArea(GTCXMachineGui.GTCXFusionComputerGui.class,155, 5,  16, 16, "gt.fusion");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
             if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
                 for (GTMaterial mat : GTMaterial.values()){
@@ -96,7 +95,7 @@ public class GTCXJeiPlugin implements IModPlugin {
         categoryUtil(registry, GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.industrialBlastFurnace);
         categoryUtil(registry, GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST, GTCXBlocks.fluidSmelter);
         categoryUtil(registry, GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster);
-        //categoryUtil(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer);
+        categoryUtil(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer);
         categoryUtil2(registry, GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST, GTCXBlocks.dieselGenerator);
         categoryUtil2(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine);
 
