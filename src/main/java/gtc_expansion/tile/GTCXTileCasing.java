@@ -3,6 +3,7 @@ package gtc_expansion.tile;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeGasTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
@@ -96,7 +97,7 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
 
 
     public void setRotors(Block block){
-        if (block == GTCXBlocks.casingStandard){
+        if (block == GTCXBlocks.casingStandard && getFacing().getHorizontalIndex() != -1){
             int3 original = new int3(getPos(), getFacing());
             int3 dir = new int3(getPos(), getFacing());
             if (world.getTileEntity(dir.up(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
@@ -114,6 +115,34 @@ public class GTCXTileCasing extends TileEntityBlock implements IGTDebuggableTile
             } else if (world.getTileEntity(dir.set(original).down(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
                 rotor = 2;
             } else if (world.getTileEntity(dir.set(original).down(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 1;
+            } else {
+                rotor = 0;
+            }
+            if (rotor != this.prevRotor) {
+                this.getNetwork().updateTileEntityField(this, "rotor");
+            }
+
+            this.prevRotor = rotor;
+        }
+        if (block == GTCXBlocks.casingReinforced && getFacing().getHorizontalIndex() != -1){
+            int3 original = new int3(getPos(), getFacing());
+            int3 dir = new int3(getPos(), getFacing());
+            if (world.getTileEntity(dir.up(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 8;
+            } else if (world.getTileEntity(dir.set(original).up(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 7;
+            } else if (world.getTileEntity(dir.set(original).up(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 6;
+            } else if (world.getTileEntity(dir.set(original).left(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 5;
+            } else if (world.getTileEntity(dir.set(original).right(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 4;
+            } else if (world.getTileEntity(dir.set(original).down(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 3;
+            } else if (world.getTileEntity(dir.set(original).down(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 2;
+            } else if (world.getTileEntity(dir.set(original).down(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
                 rotor = 1;
             } else {
                 rotor = 0;
