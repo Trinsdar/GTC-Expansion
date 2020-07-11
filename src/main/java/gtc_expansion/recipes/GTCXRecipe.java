@@ -573,7 +573,8 @@ public class GTCXRecipe {
         IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
         recipes.addRecipe(GTMaterialGen.get(GTItems.springBoots), "RWR", "RBR", 'R', getRefinedIronRod(), 'B', Ic2Items.compositeBoots, 'W', hammer);
         recipes.addRecipe(GTMaterialGen.get(GTItems.destructoPack, 1), "CIC", "ILI", "CIC", 'L', FS_LAVA, 'C', CIRCUIT_BASIC, 'I', MATERIAL_REFINED_IRON);
-        recipes.addRecipe(GTMaterialGen.get(GTItems.electroMagnet, 1), "M M", "WMW", "IBI", 'M', Ic2Items.magnet, 'B', Ic2Items.battery, 'I', getRefinedIronRod(), 'W', Ic2Items.copperCable);recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 3), "TTT", "MMM", "BBB", 'T', MATERIAL_REFINED_IRON, 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_MIXED_METAL_1);
+        recipes.addRecipe(GTMaterialGen.get(GTItems.electroMagnet, 1), "M M", "WMW", "IBI", 'M', Ic2Items.magnet, 'B', Ic2Items.battery, 'I', getRefinedIronRod(), 'W', Ic2Items.copperCable);
+        recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 3), "TTT", "MMM", "BBB", 'T', combineRecipeObjects(MATERIAL_REFINED_IRON, INVAR), 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_MIXED_METAL_1);
         recipes.addRecipe(GTMaterialGen.get(GTItems.cloakingDevice, 1), "IPI", "POP", "IPI", 'I', CHROME, 'P', PLATE_IRIDIUM_ALLOY, 'O', BATTERY_ULTIMATE);
         recipes.addRecipe(GTMaterialGen.get(GTItems.teslaStaff, 1), " SL", " PS", "P  ", 'L', BATTERY_ULTIMATE, 'S', CRAFTING_SUPERCONDUCTOR, 'P', "rodIridium");
         recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.mixedMetalIngot, 6), "TTT", "MMM", "BBB", 'T', MATERIAL_MIXED_METAL_2, 'M', MATERIAL_BRASS_BRONZE, 'B', MATERIAL_MIXED_METAL_1);
