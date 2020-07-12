@@ -66,6 +66,9 @@ public class GTCXRecipeProcessing {
             GTRecipe.maceratorUtil("oreSphalerite", 1, GTMaterialGen.getDust(GTCXMaterial.Sphalerite, 2));
             GTRecipe.maceratorUtil("oreTungstate", 1, GTMaterialGen.getDust(GTMaterial.Tungsten, 4));
         }
+        if (OreDictionary.doesOreNameExist("stoneMarble")){
+            GTRecipe.maceratorUtil("stoneMarble", 1, GTMaterialGen.getDust(GTCXMaterial.Marble, 1));
+        }
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Constantan, 3));
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Kanthal, 4));
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.nichromeHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Nichrome, 4));

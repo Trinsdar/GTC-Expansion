@@ -186,8 +186,8 @@ public class GTCXRecipeMods {
             GTCXTileAlloySmelter.addRecipe("dustLumium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass_alloy", 6, 2));
             GTCXTileAlloySmelter.addRecipe("dustEnderium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass_alloy", 7, 2));
             GTCXTileMultiVacuumFreezer.addRecipe("clathrateRedstone", 1, 4000, GTMaterialGen.get(Items.REDSTONE, 2));
-            GTCXTileMultiVacuumFreezer.addRecipe("clathrateGlowstone", 1, 4000, GTMaterialGen.get(Items.GLOWSTONE_DUST, 2));
-            GTCXTileMultiVacuumFreezer.addRecipe("clathrateEnder", 1, 4000, GTMaterialGen.get(Items.ENDER_PEARL, 2));
+            GTCXTileMultiVacuumFreezer.addRecipe("clathrateGlowstone", 1, 4000, GTMaterialGen.get(Items.GLOWSTONE_DUST, 1));
+            GTCXTileMultiVacuumFreezer.addRecipe("clathrateEnder", 1, 4000, GTMaterialGen.get(Items.ENDER_PEARL, 1));
         }
         if (Loader.isModLoaded("gravisuit") && GTCXConfiguration.modcompat.compatGravisuit){
             GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddiamondchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXValues.TUNGSTEN_STEEL, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
@@ -214,6 +214,9 @@ public class GTCXRecipeMods {
             GTCXTileWiremill.addRecipe("nuggetSteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts"));
             GTCXTileWiremill.addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("nuggetTungsten", "nuggetTitanium"), GTMaterialGen.getModItem("railcraft", "track_parts", 2));
             GTCXTileWiremill.addRecipe("nuggetTungstensteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts", 3));
+        }
+        if (Loader.isModLoaded("traverse")){
+            TileEntityMacerator.addRecipe(GTMaterialGen.getModItem("traverse", "red_rock"), GTMaterialGen.getDust(GTCXMaterial.RedRock, 1));
         }
     }
 
