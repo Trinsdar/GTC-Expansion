@@ -132,7 +132,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         TileEntity tile2 = world.getTileEntity(input2);
         TileEntity oTile = world.getTileEntity(output);
         TileEntity dTile2 = world.getTileEntity(dynamo);
-        boolean canWork = canWork() && world.getTileEntity(input1) instanceof GTCXTileInputHatch && world.getTileEntity(dynamo) instanceof GTCXTileDynamoHatch;
+        boolean canWork = canWork() && tile instanceof GTCXTileInputHatch && dTile2 instanceof GTCXTileDynamoHatch;
         if (canWork && isTurbineRotor(this.getStackInSlot(0))){
             if (inputHatch1 != tile){
                 inputHatch1 = (GTCXTileInputHatch) tile;
