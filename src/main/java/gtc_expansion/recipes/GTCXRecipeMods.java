@@ -186,6 +186,8 @@ public class GTCXRecipeMods {
             GTCXTileAlloySmelter.addRecipe("dustLumium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass_alloy", 6, 2));
             GTCXTileAlloySmelter.addRecipe("dustEnderium", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass_alloy", 7, 2));
             GTCXTileMultiVacuumFreezer.addRecipe("clathrateRedstone", 1, 4000, GTMaterialGen.get(Items.REDSTONE, 2));
+            GTCXTileMultiVacuumFreezer.addRecipe("clathrateGlowstone", 1, 4000, GTMaterialGen.get(Items.GLOWSTONE_DUST, 2));
+            GTCXTileMultiVacuumFreezer.addRecipe("clathrateEnder", 1, 4000, GTMaterialGen.get(Items.ENDER_PEARL, 2));
         }
         if (Loader.isModLoaded("gravisuit") && GTCXConfiguration.modcompat.compatGravisuit){
             GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddiamondchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXValues.TUNGSTEN_STEEL, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
