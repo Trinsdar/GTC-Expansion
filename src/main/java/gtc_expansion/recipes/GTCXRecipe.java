@@ -388,6 +388,10 @@ public class GTCXRecipe {
                 CIRCUIT_BASIC);
         recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_REFINED_IRON, 'M', GTCXBlocks.stoneExtractor, 'C',
                 CIRCUIT_BASIC);
+        ItemStack cable = GTMaterialGen.get(GTCXBlocks.aluminiumCable, 2);
+        recipes.addRecipe(Ic2Items.detectorCable.copy(), " C ", "RcR", " R ",  hasEnoughInsulation(cable.copy(), 3), 'C', CIRCUIT_BASIC, 'R', "dustRedstone", 'c', cableWithInsulationTag(cable.copy(), 3));
+        recipes.addRecipe(Ic2Items.splitterCable.copy(), " R ", "cLc", " R ",  hasEnoughInsulation(cable.copy(), 3), 'L', Blocks.LEVER, 'R', "dustRedstone", 'c', cableWithInsulationTag(cable.copy(), 3));
+        recipes.addRecipe(Ic2Items.transformerHV.copy(), " c ", "CTE", " c ",  hasEnoughInsulation(cable.copy(), 3), 'C', CIRCUIT_BASIC, 'T', Ic2Items.transformerMV, 'E', Ic2Items.energyCrystal, 'c', cableWithInsulationTag(cable.copy(), 3));
         recipes.overrideRecipe("shaped_item.itempartiridium_1100834802", GTMaterialGen.get(GTCXItems.iridiumAlloyIngot), "IAI", "ADA", "IAI", 'I', "ingotIridium", 'A', Ic2Items.advancedAlloy, 'D', "dustDiamond");
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FFF", "TTT", "FFF", 'F', "dustFlint", 'T', Blocks.TNT);
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);

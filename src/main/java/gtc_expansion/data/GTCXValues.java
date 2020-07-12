@@ -173,6 +173,46 @@ public class GTCXValues {
         };
     }
 
+    public static ICraftingRecipeList.IRecipeModifier hasEnoughInsulation(ItemStack input, int insulation){
+        return new ICraftingRecipeList.IRecipeModifier() {
+
+            final String id = "insulation";
+            int color;
+            boolean tag = false;
+
+            @Override
+            public void clear() {
+                tag = false;
+            }
+
+            @Override
+            public boolean isStackValid(ItemStack provided) {
+                if (StackUtil.isStackEqual(input, provided)){
+                    NBTTagCompound nbt = StackUtil.getNbtData(provided);
+                    if (insulation == 0 && (!nbt.hasKey(id) || nbt.getInteger(id) == 0)){
+                        return true;
+                    }
+                    if (nbt.hasKey(id)){
+                        return nbt.getInteger(id) == insulation;
+                    }
+                    return false;
+                }
+
+                return true;
+            }
+
+            @Override
+            public ItemStack getOutput(ItemStack output, boolean forDisplay) {
+                return output;
+            }
+
+            @Override
+            public boolean isOutput(ItemStack possibleOutput) {
+                return false;
+            }
+        };
+    }
+
     public static String getRefinedIronPlate() {
         return GTCXValues.STEEL_MODE ? "plateSteel" : "plateRefinedIron";
     }
