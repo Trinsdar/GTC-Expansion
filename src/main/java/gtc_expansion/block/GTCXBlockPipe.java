@@ -1,12 +1,16 @@
 package gtc_expansion.block;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.interfaces.IGTCoverBlock;
+import gtc_expansion.model.GTCXModelPipe;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
+import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseConnect;
 import gtclassic.api.material.GTMaterial;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.util.helpers.BlockStateContainerIC2;
 import net.minecraft.block.SoundType;
@@ -20,7 +24,8 @@ import net.minecraft.world.World;
 
 public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock {
     GTMaterial material;
-    public GTCXBlockPipe(String name, LocaleComp comp, GTMaterial material){
+    GTCXHelperPipe.GTPipeModel type;
+    public GTCXBlockPipe(String name, LocaleComp comp, GTMaterial material, GTCXHelperPipe.GTPipeModel type){
         super();
         setUnlocalizedName(comp);
         setRegistryName(name);
@@ -28,6 +33,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock {
         this.setSoundType(SoundType.METAL);
         setCreativeTab(GTMod.creativeTabGT);
         this.material = material;
+        this.type = type;
     }
     @Override
     public TextureAtlasSprite getCoverTexture(EnumFacing facing) {
@@ -45,8 +51,18 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock {
     }
 
     @Override
+    public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[7];
+    }
+
+    @Override
+    public TextureAtlasSprite getParticleTexture(IBlockState state) {
+        return this.getTextureFromState(state, EnumFacing.SOUTH);
+    }
+
+    @Override
     public BaseModel getModelFromState(IBlockState iBlockState) {
-        return null;
+        return new GTCXModelPipe(iBlockState, type.getSizes());
     }
 
     @Override
