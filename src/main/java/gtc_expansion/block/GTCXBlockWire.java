@@ -269,7 +269,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState iBlockState, EnumFacing enumFacing) {
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[6];
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[2];
     }
 
     @Override
@@ -320,11 +320,11 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 
     @Override
     public TextureAtlasSprite getLayerTexture(IBlockState state, EnumFacing enumFacing, int i) {
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[ i == 2 ? getInsulationIndex(state) : 6 + i];
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[ i == 2 ? getInsulationIndex(state) : 2 + i];
     }
 
     public int getInsulationIndex(IBlockState state){
-        return 7 + state.getValue(INSULATION);
+        return 3 + state.getValue(INSULATION);
     }
 
     @Override
