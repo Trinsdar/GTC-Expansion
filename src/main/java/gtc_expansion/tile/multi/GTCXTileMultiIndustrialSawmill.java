@@ -13,7 +13,9 @@ import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
+import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
+import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.classic.item.IMachineUpgradeItem.UpgradeType;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.ClassicRecipes;
@@ -23,6 +25,7 @@ import ic2.api.classic.recipe.machine.IMachineRecipeList;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
+import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
@@ -176,23 +179,90 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     }
 
     @Override
-    public boolean canContinue() {
-        return inputTank.getFluidAmount() >= 1000;
+    public void process(MultiRecipe recipe) {
+        MachineOutput output = recipe.getOutputs().copy();
+        for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
+            outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
+            onRecipeComplete();
+        }
+        NBTTagCompound nbt = recipe.getOutputs().getMetadata();
+        boolean shiftContainers = nbt != null && nbt.getBoolean(MOVE_CONTAINER_TAG);
+        boolean fluidExtracted = false;
+        List<ItemStack> inputs = getInputs();
+        List<IRecipeInput> recipeKeys = new LinkedList<IRecipeInput>(recipe.getInputs());
+        for (Iterator<IRecipeInput> keyIter = recipeKeys.iterator(); keyIter.hasNext();) {
+            IRecipeInput key = keyIter.next();
+            if (key instanceof RecipeInputFluid && !fluidExtracted) {
+                inputTank.drainInternal(((RecipeInputFluid) key).fluid, true);
+                fluidExtracted = true;
+                keyIter.remove();
+                continue;
+            }
+            int count = key.getAmount();
+            for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
+                ItemStack input = inputIter.next();
+                if (key.matches(input)) {
+                    if (input.getCount() >= count) {
+                        if (input.getItem().hasContainerItem(input)) {
+                            if (!shiftContainers) {
+                                continue;
+                            }
+                            ItemStack container = input.getItem().getContainerItem(input);
+                            if (!container.isEmpty()) {
+                                container.setCount(count);
+                                outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+                            }
+                        }
+                        input.shrink(count);
+                        count = 0;
+                        if (input.isEmpty()) {
+                            inputIter.remove();
+                        }
+                        keyIter.remove();
+                        break;
+                    }
+                    if (input.getItem().hasContainerItem(input)) {
+                        if (!shiftContainers) {
+                            continue;
+                        }
+                        ItemStack container = input.getItem().getContainerItem(input);
+                        if (!container.isEmpty()) {
+                            container.setCount(input.getCount());
+                            outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+                        }
+                    }
+                    count -= input.getCount();
+                    input.setCount(0);
+                    inputIter.remove();
+                }
+            }
+        }
+        addToInventory();
+        if (supportsUpgrades) {
+            for (int i = 0; i < upgradeSlots; i++) {
+                ItemStack item = inventory.get(i + inventory.size() - upgradeSlots);
+                if (item.getItem() instanceof IMachineUpgradeItem) {
+                    ((IMachineUpgradeItem) item.getItem()).onProcessFinished(item, this);
+                }
+            }
+        }
+        shouldCheckRecipe = true;
     }
 
     @Override
-    public void onRecipeComplete() {
-        inputTank.drainInternal(1000, true);
-    }
-
-    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, List<ItemStack> inputs) {
+    public boolean checkRecipe(MultiRecipe entry, List<ItemStack> inputs) {
         List<IRecipeInput> recipeKeys = new LinkedList<IRecipeInput>(entry.getInputs());
         int index = 0;
+        FluidStack fluidInput = inputTank.getFluid();
         for (Iterator<IRecipeInput> keyIter = recipeKeys.iterator(); keyIter.hasNext();) {
             IRecipeInput key = keyIter.next();
             int toFind = key.getAmount();
-            if (index > 0){
-                keyIter.remove();
+            if (key instanceof RecipeInputFluid){
+                FluidStack fluidStack = ((RecipeInputFluid)key).fluid;
+                if (fluidInput != null && fluidInput.isFluidEqual(fluidStack) && fluidInput.amount >= fluidStack.amount){
+                    keyIter.remove();
+                    continue;
+                }
             }
             for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
                 ItemStack input = inputIter.next();
@@ -287,16 +357,19 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     public static void init(){
         for(IMachineRecipeList.RecipeEntry  entry : ClassicRecipes.sawMill.getRecipeMap()){
             IRecipeInput input = entry.getInput();
-            if (GTHelperStack.isEqual(input.getInputs().get(0), Ic2Items.rubberWood)){
+            ItemStack stack = input.getInputs().get(0);
+            if (GTHelperStack.isEqual(stack, Ic2Items.rubberWood) || GTHelperStack.matchOreDict(stack, "plankWood")){
                 continue;
             }
-            if (GTHelperStack.matchOreDict(input.getInputs().get(0), "logWood")){
-                addRecipe(input, 6000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
+            if (GTHelperStack.matchOreDict(stack, "logWood")){
+                addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
             } else {
-                addRecipe(input, 6000, entry.getOutput().getAllOutputs().get(0));
+                addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 6000, entry.getOutput().getAllOutputs().get(0));
+                addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0));
             }
         }
-        addRecipe(input("logRubber", 1), 6000, Ic2Items.stickyResin.copy(), GTMaterialGen.getDust(GTMaterial.Wood, 8), GTMaterialGen.get(Blocks.PLANKS, 9, 3));
+        addRecipe(input("logRubber", 1), GTMaterialGen.getFluidStack("water", 1000),6000, Ic2Items.stickyResin.copy(), GTMaterialGen.getDust(GTMaterial.Wood, 8), GTMaterialGen.get(Blocks.PLANKS, 9, 3));
+        addRecipe(input("logRubber", 1), GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000),4000, Ic2Items.stickyResin.copy(), GTMaterialGen.getDust(GTMaterial.Wood, 8), GTMaterialGen.get(Blocks.PLANKS, 9, 3));
     }
 
     public static void addRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -319,13 +392,13 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
         addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputFluid(GTMaterialGen.getFluidStack("water", 1000)) }, modifiers, outlist);
     }
 
-    public static void addRecipe(IRecipeInput input, int totalEu,
+    public static void addRecipe(IRecipeInput input, FluidStack fluidInput, int totalEu,
                                         ItemStack... outputs) {
         List<ItemStack> outlist = new ArrayList<>();
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(new IRecipeInput[] { input, new RecipeInputFluid(GTMaterialGen.getFluidStack("water", 1000))}, totalEu(totalEu), outlist);
+        addRecipe(new IRecipeInput[] { input, new RecipeInputFluid(fluidInput)}, totalEu(totalEu), outlist);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {

@@ -5,6 +5,7 @@ import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerLathe;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.data.GTCXLang;
+import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
@@ -127,6 +128,9 @@ public class GTCXTileLathe extends GTTileBaseMachine {
     @Override
     public ResourceLocation getStartSoundFile() {
         return GTCExpansion.getAprilFirstSound(Ic2Sounds.extractorOp);
+    }
+    public static void init(){
+        addRecipe("plankWood", 1, GTMaterialGen.get(Items.STICK, 4));
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int total) {

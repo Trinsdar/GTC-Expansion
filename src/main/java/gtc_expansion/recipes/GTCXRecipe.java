@@ -16,6 +16,7 @@ import gtc_expansion.tile.GTCXTileExtruder;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileGasTurbine;
+import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
@@ -91,6 +92,7 @@ public class GTCXRecipe {
         GTCXTilePlateCutter.init();
         GTCXTileWiremill.init();
         GTCXTileExtruder.init();
+        GTCXTileLathe.init();
         GTCXTileDieselGenerator.init();
         GTCXTileGasTurbine.init();
         GTCXRecipeMods.init();
