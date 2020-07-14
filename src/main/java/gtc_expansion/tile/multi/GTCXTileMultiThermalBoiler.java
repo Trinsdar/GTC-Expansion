@@ -3,11 +3,14 @@ package gtc_expansion.tile.multi;
 import gtc_expansion.container.GTCXContainerThermalBoiler;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
+import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.fluid.IC2Tank;
@@ -24,6 +27,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.Random;
 
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.FLUID_ONLY;
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
@@ -111,15 +116,12 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
 
     @Override
     public void update() {
-        if (ticker < 80){
-            ticker++;
-        }
         TileEntity tile = world.getTileEntity(input1);
         TileEntity tile2 = world.getTileEntity(input2);
         TileEntity oTile = world.getTileEntity(output1);
         TileEntity oTile2 = world.getTileEntity(output2);
         boolean canWork = canWork() && tile instanceof GTCXTileInputHatch && tile2 instanceof GTCXTileInputHatch && oTile instanceof GTCXTileOutputHatch;
-        if (canWork && this.getStackInSlot(0).getItem() == GTCXItems.lavaFilter){
+        if (canWork){
             if (inputHatch1 != tile){
                 inputHatch1 = (GTCXTileInputHatch) tile;
             }
@@ -175,20 +177,14 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                                         }
                                         waterTank.drainInternal(5, true);
                                         lavaTank.drainInternal(500, true);
-                                        if (obsidianTicker == 1){
+                                        if (obsidianTicker >= 1){
                                             addObsidian(true);
-                                        } else if (obsidianTicker < 1){
+                                        } else {
                                             obsidianTicker++;
                                         }
 
                                         outputTank1.fill(GTMaterialGen.getFluidStack("steam", amount), true);
                                         outputTank2.fill(GTMaterialGen.getFluidStack("steam", remaining), true);
-                                        if (ticker >= 80){
-                                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                                                this.getStackInSlot(0).shrink(1);
-                                            }
-                                            ticker = 0;
-                                        }
                                     }
                                 } else if (outputTank2.getFluidAmount() == 0 || (outputTank2.getFluid().isFluidEqual(steam) && outputTank2.getFluidAmount() + 800 <= outputTank2.getCapacity())){
                                     if (!this.getActive()){
@@ -256,7 +252,6 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                         }
                     }
                 }
-
             } else {
                 if (this.getActive()){
                     this.setActive(false);
@@ -279,53 +274,69 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
 
     public void addObsidian(boolean both){
         OutputModes cycle1 = outputHatch1.getCycle();
+
+        ItemStack compare = this.getStackInSlot(0).getItem() == GTCXItems.lavaFilter ? getOutput() : obsidian;
+        GTCXTileOutputHatch hatch = outputHatch1;
         if (both){
             OutputModes cycle2 = outputHatch2.getCycle();
             if (!cycle1.isItem() && !cycle2.isItem()){
                 return;
             }
-            GTCXTileOutputHatch hatch;
+
             if (cycle1.isItem() && !cycle2.isItem()){
                 hatch = outputHatch1;
             } else if (!cycle1.isItem()){
                 hatch = outputHatch2;
             } else {
-                hatch = outputHatch1.getOutput().isEmpty() || (outputHatch1.getOutput().getItem() == obsidian.getItem() && outputHatch1.getOutput().getCount() < 64) ? outputHatch1 : outputHatch2;
-            }
-            ItemStack output = hatch.getOutput();
-
-            if (output.getItem() == obsidian.getItem() && output.getCount() < 64){
-                output1Full = false;
-                hatch.skipTick();
-                output.grow(1);
-            } else if (output.isEmpty()){
-                output1Full = false;
-                hatch.skipTick();
-                hatch.setStackInSlot(1, obsidian.copy());
-            } else {
-                output1Full = true;
+                hatch = outputHatch1.getOutput().isEmpty() || (outputHatch1.getOutput().getItem() == compare.getItem() && outputHatch1.getOutput().getCount() < 64) ? outputHatch1 : outputHatch2;
             }
         } else {
             if (!cycle1.isItem()){
                 return;
             }
-            ItemStack output = outputHatch1.getOutput();
-            if (output.getItem() == obsidian.getItem() && output.getCount() < 64){
-                output1Full = false;
-                outputHatch1.skipTick();
-                output.grow(1);
-            } else if (output.isEmpty()){
-                output1Full = false;
-                outputHatch1.skipTick();
-                outputHatch1.setStackInSlot(1, obsidian.copy());
-            } else {
-                output1Full = true;
-            }
+        }
+        ItemStack output = hatch.getOutput();
+
+        if (output.getItem() == compare.getItem() && output.getCount() < 64){
+            output1Full = false;
+            hatch.skipTick();
+            output.grow(1);
+        } else if (output.isEmpty()){
+            output1Full = false;
+            hatch.skipTick();
+            hatch.setStackInSlot(1, compare.copy());
+        } else {
+            output1Full = true;
         }
         if (!output1Full){
             obsidianTicker = 0;
         }
+        if (this.getStackInSlot(0).getItem() == GTCXItems.lavaFilter){
+            if (ticker < 80){
+                ticker++;
+            } else {
+                if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
+                    this.getStackInSlot(0).shrink(1);
+                }
+                ticker = 0;
+            }
+        }
 
+
+    }
+
+    public ItemStack getOutput(){
+        Random random = world.rand;
+        int randomNumber = random.nextInt(100);
+        if (randomNumber < 90){
+            return obsidian;
+        } else if (randomNumber < 95){
+            return GTCXMaterialGen.getNugget(GTCXMaterial.Tin, 1);
+        } else if (randomNumber < 99){
+            return GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 1);
+        } else {
+            return GTCXMaterialGen.getNugget(GTMaterial.Electrum, 1);
+        }
     }
 
     public void fillSteam(IC2Tank water, IC2Tank lava, IC2Tank output){
@@ -333,17 +344,10 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         lava.drainInternal(500, true);
         if (obsidianTicker < 1){
             obsidianTicker++;
-        }
-        if (obsidianTicker == 1){
+        } else {
             addObsidian(outputHatch2 != null);
         }
         output.fill(steam, true);
-        if (ticker >= 80){
-            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                this.getStackInSlot(0).shrink(1);
-            }
-            ticker = 0;
-        }
     }
 
     @Override
