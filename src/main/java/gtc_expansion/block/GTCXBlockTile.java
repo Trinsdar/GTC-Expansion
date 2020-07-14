@@ -247,7 +247,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
     }
 
     public boolean hasVertical() {
-        return this == GTCXBlocks.inputHatch || this == GTCXBlocks.outputHatch || this == GTCXBlocks.dynamoHatch;
+        return this == GTCXBlocks.inputHatch || this == GTCXBlocks.outputHatch || this == GTCXBlocks.dynamoHatch || this == GTCXBlocks.machineControlHatch;
     }
 
     @Override
