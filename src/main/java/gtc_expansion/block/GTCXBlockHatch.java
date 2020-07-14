@@ -80,7 +80,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
             return this.getTextureFromState(state, facing);
         }
         if (i == 1 && facing == state.getValue(allFacings)){
-            return this == GTCXBlocks.dynamoHatch ? Ic2Icons.getTextures("dynamo_hatch_front_overlay")[0] : this == GTCXBlocks.inputHatch ? Ic2Icons.getTextures("input_hatch_front_overlay")[0] : Ic2Icons.getTextures("output_hatch_front_overlay")[0];
+            return this == GTCXBlocks.dynamoHatch ? Ic2Icons.getTextures("dynamo_hatch_front_overlay")[0] : this == GTCXBlocks.inputHatch ? Ic2Icons.getTextures("input_hatch_front_overlay")[0] : this == GTCXBlocks.machineControlHatch ? Ic2Icons.getTextures("machine_control_hatch_overlay")[0] : Ic2Icons.getTextures("output_hatch_front_overlay")[0];
         }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
     }

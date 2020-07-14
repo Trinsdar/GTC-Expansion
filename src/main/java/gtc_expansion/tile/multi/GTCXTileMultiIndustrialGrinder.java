@@ -68,7 +68,9 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -306,9 +308,46 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
         return null;
     }
 
+    @Override
+    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, List<ItemStack> inputs) {
+        List<IRecipeInput> recipeKeys = new LinkedList<IRecipeInput>(entry.getInputs());
+        int index = 0;
+        FluidStack fluidInput = inputTank.getFluid();
+        for (Iterator<IRecipeInput> keyIter = recipeKeys.iterator(); keyIter.hasNext();) {
+            IRecipeInput key = keyIter.next();
+            int toFind = key.getAmount();
+            if (key instanceof RecipeInputFluid){
+                FluidStack fluidStack = ((RecipeInputFluid)key).fluid;
+                if (fluidInput != null && fluidInput.isFluidEqual(fluidStack) && fluidInput.amount >= fluidStack.amount){
+                    keyIter.remove();
+                    continue;
+                }
+            }
+            for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
+                ItemStack input = inputIter.next();
+                if (key.matches(input)) {
+                    if (input.getCount() >= toFind) {
+                        input.shrink(toFind);
+                        keyIter.remove();
+                        if (input.isEmpty()) {
+                            inputIter.remove();
+                        }
+                        break;
+                    }
+                    toFind -= input.getCount();
+                    input.setCount(0);
+                    inputIter.remove();
+                }
+            }
+            index++;
+        }
+        return recipeKeys.isEmpty();
+    }
+
     public boolean checkRecipe(MultiRecipe entry, FluidStack input, ItemStack inputItem) {
         IRecipeInput recipeInput = entry.getInput(0);
         IRecipeInput recipeInput1 = entry.getInput(1);
+        FluidStack fluidInput = inputTank.getFluid();
         boolean hasFluid = false;
         boolean hasItem = false;
         if (recipeInput instanceof RecipeInputFluid){

@@ -54,6 +54,7 @@ public class GTCXLang {
     public static final LocaleComp INPUT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.inputhatch");
     public static final LocaleComp OUTPUT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.outputhatch");
     public static final LocaleComp DYNAMO_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.dynamohatch");
+    public static final LocaleComp MACHINE_CONTROL_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.machinecontrolhatch");
     public static final LocaleComp FUSION_MATERIAL_INJECTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_injector");
     public static final LocaleComp FUSION_MATERIAL_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_material_extractor");
     public static final LocaleComp FUSION_ENERGY_INJECTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fusion_energy_injector");

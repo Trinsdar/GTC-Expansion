@@ -3,11 +3,13 @@ package gtc_expansion.tile.multi;
 import gtc_expansion.container.GTCXContainerThermalBoiler;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
+import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes;
+import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterial;
@@ -34,7 +36,7 @@ import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHa
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_ONLY;
 
-public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus {
+public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTOwnerTile {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -45,6 +47,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     private GTCXTileInputHatch inputHatch2 = null;
     private GTCXTileOutputHatch outputHatch1 = null;
     private GTCXTileOutputHatch outputHatch2 = null;
+    private GTCXTileMachineControlHatch controlHatch = null;
+    private boolean disabled = false;
     private final FluidStack steam = GTMaterialGen.getFluidStack("steam", 800);
     private final ItemStack obsidian = GTMaterialGen.get(Blocks.OBSIDIAN, 1);
     int ticker = 0;
@@ -52,6 +56,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState outputHatchState = GTCXBlocks.outputHatch.getDefaultState();
+    public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
 
     public GTCXTileMultiThermalBoiler() {
         super(1);
@@ -66,6 +71,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
+        this.disabled = nbt.getBoolean("disabled");
         this.ticker = nbt.getInteger("ticker");
         this.obsidianTicker = nbt.getInteger("obsidianTicker");
         this.input1 = readBlockPosFromNBT(nbt, "input1");
@@ -77,6 +83,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("lastState", this.lastState);
+        nbt.setBoolean("disabled", disabled);
         nbt.setInteger("ticker", ticker);
         nbt.setInteger("obsidianTicker", obsidianTicker);
         writeBlockPosToNBT(nbt, "input1", input1);
@@ -134,7 +141,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
             if (oTile2 instanceof GTCXTileOutputHatch && outputHatch2 != oTile2){
                 outputHatch2 = (GTCXTileOutputHatch) oTile2;
             }
-            if (inputHatch1.getTank().getFluid() != null && inputHatch2.getTank().getFluid() != null && inputHatch1.getTank().getFluidAmount() > 0 && inputHatch2.getTank().getFluidAmount() > 0){
+            if (inputHatch1.getTank().getFluid() != null && inputHatch2.getTank().getFluid() != null && inputHatch1.getTank().getFluidAmount() > 0 && inputHatch2.getTank().getFluidAmount() > 0 && !disabled){
                 boolean lava = false;
                 boolean water = false;
                 IC2Tank lavaTank = inputHatch1.getTank();
@@ -487,6 +494,17 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     public boolean isHatch(int3 pos) {
+        if (world.getBlockState(pos.asBlockPos()) == machineControlHatchState){
+            TileEntity tile = world.getTileEntity(pos.asBlockPos());
+            if (controlHatch != tile && tile instanceof GTCXTileMachineControlHatch){
+                if (controlHatch != null){
+                    controlHatch.setOwner(null);
+                }
+                controlHatch = (GTCXTileMachineControlHatch) tile;
+                controlHatch.setOwner(this);
+            }
+            return true;
+        }
         if (world.getBlockState(pos.asBlockPos()) == inputHatchState){
             if (world.getBlockState(input1) != inputHatchState){
                 input1 = pos.asBlockPos();
@@ -506,5 +524,23 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
             return true;
         }
         return world.getBlockState(pos.asBlockPos()) == reinforcedCasingState;
+    }
+
+    @Override
+    public void onBlockBreak() {
+        if (controlHatch != null){
+            controlHatch.setOwner(null);
+        }
+    }
+
+    @Override
+    public void setShouldCheckRecipe(boolean checkRecipe) {
+
+    }
+
+    @Override
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+
     }
 }

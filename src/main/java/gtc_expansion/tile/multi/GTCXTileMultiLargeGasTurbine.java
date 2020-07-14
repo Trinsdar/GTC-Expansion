@@ -11,6 +11,7 @@ import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
+import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
@@ -51,6 +52,8 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     private GTCXTileInputHatch inputHatch2 = null;
     private GTCXTileOutputHatch outputHatch = null;
     private GTCXTileDynamoHatch dynamoHatch = null;
+    private GTCXTileMachineControlHatch controlHatch = null;
+    private boolean disabled = false;
     int production;
     protected MultiRecipe lastRecipe;
     int ticker = 0;
@@ -61,6 +64,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState dynamoHatchState = GTCXBlocks.dynamoHatch.getDefaultState();
+    public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
 
     public GTCXTileMultiLargeGasTurbine() {
         super(1);
@@ -78,6 +82,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
+        this.disabled = nbt.getBoolean("disabled");
         this.ticker = nbt.getInteger("ticker");
         this.input1 = readBlockPosFromNBT(nbt, "input1");
         this.input2 = readBlockPosFromNBT(nbt, "input2");
@@ -89,6 +94,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("lastState", this.lastState);
+        nbt.setBoolean("disabled", this.disabled);
         nbt.setInteger("ticker", ticker);
         writeBlockPosToNBT(nbt, "input1", input1);
         writeBlockPosToNBT(nbt, "input2", input2);
@@ -99,6 +105,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
 
     public void onBlockRemoved() {
         removeRing(new int3(getPos(), getFacing()));
+        if (controlHatch != null){
+            controlHatch.setOwner(null);
+        }
     }
 
     public void onBlockPlaced(){
@@ -186,7 +195,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                 this.lastRecipe = this.getRecipe();
                 this.shouldCheckRecipe = false;
             }
-            boolean operate = this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
+            boolean operate = !disabled && this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
             if (operate){
                 double baseGeneration = getBaseGeneration();
                 production = (int)(baseGeneration * getRotorEfficiency(this.getStackInSlot(0)));
@@ -645,6 +654,17 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     }
 
     public boolean isInputOutputHatch(int3 pos) {
+        if (world.getBlockState(pos.asBlockPos()) == machineControlHatchState){
+            TileEntity tile = world.getTileEntity(pos.asBlockPos());
+            if (controlHatch != tile && tile instanceof GTCXTileMachineControlHatch){
+                if (controlHatch != null){
+                    controlHatch.setOwner(null);
+                }
+                controlHatch = (GTCXTileMachineControlHatch) tile;
+                controlHatch.setOwner(this);
+            }
+            return true;
+        }
         if (world.getBlockState(pos.asBlockPos()) == inputHatchState){
             if (world.getBlockState(input1) != inputHatchState){
                 input1 = pos.asBlockPos();
@@ -668,6 +688,13 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBlockBreak() {
+        if (controlHatch != null){
+            controlHatch.setOwner(null);
+        }
     }
 
     @Override
@@ -695,5 +722,10 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     @Override
     public void setShouldCheckRecipe(boolean checkRecipe) {
         shouldCheckRecipe = checkRecipe;
+    }
+
+    @Override
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }

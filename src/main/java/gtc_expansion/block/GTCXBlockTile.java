@@ -23,6 +23,7 @@ import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
+import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
@@ -183,6 +184,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         if (this == GTCXBlocks.dynamoHatch){
             return new GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch();
         }
+        if (this == GTCXBlocks.machineControlHatch){
+            return new GTCXTileMachineControlHatch();
+        }
         if (this == GTCXBlocks.fusionMaterialInjector){
             return new GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector();
         }
@@ -265,6 +269,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         if (this == GTCXBlocks.fusionEnergyInjector && tile instanceof GTCXTileFusionEnergyInjector){
             GTCXTileFusionEnergyInjector injector = (GTCXTileFusionEnergyInjector) tile;
             injector.onBlockRemoved();
+        }
+        if (this == GTCXBlocks.thermalBoiler && tile instanceof GTCXTileMultiThermalBoiler){
+            ((GTCXTileMultiThermalBoiler)tile).onBlockBreak();
         }
     }
 

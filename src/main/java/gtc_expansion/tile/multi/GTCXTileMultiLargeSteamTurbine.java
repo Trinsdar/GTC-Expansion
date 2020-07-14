@@ -4,10 +4,12 @@ import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.interfaces.IGTMultiTileProduction;
+import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
+import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
@@ -28,7 +30,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
+public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -39,6 +41,8 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     private GTCXTileInputHatch inputHatch2 = null;
     private GTCXTileDynamoHatch dynamoHatch = null;
     private GTCXTileOutputHatch outputHatch = null;
+    private GTCXTileMachineControlHatch controlHatch = null;
+    private boolean disabled = false;
     int production;
     int ticker = 0;
     final FluidStack water = GTMaterialGen.getFluidStack("water", 10);
@@ -46,6 +50,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState outputHatchState = GTCXBlocks.outputHatch.getDefaultState();
     public static final IBlockState dynamoHatchState = GTCXBlocks.dynamoHatch.getDefaultState();
+    public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
 
     public GTCXTileMultiLargeSteamTurbine() {
         super(1);
@@ -62,6 +67,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
+        this.disabled = nbt.getBoolean("disabled");
         this.ticker = nbt.getInteger("ticker");
         this.input1 = readBlockPosFromNBT(nbt, "input1");
         this.input2 = readBlockPosFromNBT(nbt, "input2");
@@ -74,6 +80,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setBoolean("lastState", this.lastState);
+        nbt.setBoolean("disabled", this.disabled);
         nbt.setInteger("ticker", ticker);
         writeBlockPosToNBT(nbt, "input1", input1);
         writeBlockPosToNBT(nbt, "input2", input2);
@@ -85,6 +92,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public void onBlockRemoved() {
         removeRing(new int3(getPos(), getFacing()));
+        if (controlHatch != null){
+            controlHatch.setOwner(null);
+        }
     }
 
     public void onBlockPlaced(){
@@ -157,7 +167,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             production = (int)(800 * getRotorEfficiency(this.getStackInSlot(0)));
             int fluidAmount = 1600;
             FluidStack compare = GTMaterialGen.getFluidStack("steam", fluidAmount);
-            if (dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
+            if (dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage() && !disabled){
                 FluidStack inputFluid1 = inputHatch1.getTank().getFluid();
                 if (inputFluid1 != null && inputFluid1.isFluidEqual(compare) && inputFluid1.amount >= fluidAmount){
                     if (!this.getActive()){
@@ -505,6 +515,17 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     }
 
     public boolean isInputOutputHatch(int3 pos) {
+        if (world.getBlockState(pos.asBlockPos()) == machineControlHatchState){
+            TileEntity tile = world.getTileEntity(pos.asBlockPos());
+            if (controlHatch != tile && tile instanceof GTCXTileMachineControlHatch){
+                if (controlHatch != null){
+                    controlHatch.setOwner(null);
+                }
+                controlHatch = (GTCXTileMachineControlHatch) tile;
+                controlHatch.setOwner(this);
+            }
+            return true;
+        }
         if (world.getBlockState(pos.asBlockPos()) == inputHatchState){
             if (world.getBlockState(input1) != inputHatchState){
                 input1 = pos.asBlockPos();
@@ -528,6 +549,13 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBlockBreak() {
+        if (controlHatch != null){
+            controlHatch.setOwner(null);
+        }
     }
 
     @Override
@@ -555,5 +583,15 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     @Override
     public boolean canRemoveBlock(EntityPlayer player) {
         return true;
+    }
+
+    @Override
+    public void setShouldCheckRecipe(boolean checkRecipe) {
+
+    }
+
+    @Override
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }
