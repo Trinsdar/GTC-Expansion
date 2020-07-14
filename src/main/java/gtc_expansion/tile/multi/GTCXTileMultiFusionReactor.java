@@ -1144,4 +1144,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     public void setShouldCheckRecipe(boolean checkRecipe) {
         this.shouldCheckRecipe = checkRecipe;
     }
+
+    @Override
+    public void setDisabled(boolean disabled) {
+        
+    }
 }

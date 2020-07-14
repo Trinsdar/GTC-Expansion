@@ -342,6 +342,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.inputHatch), "SCS", "GHG", "SSS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.outputHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dynamoHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.transformerHV, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.machineControlHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.redstoneSUpgrade, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         ItemStack cable = GTMaterialGen.get(GTCXBlocks.electrumCable);
         IRecipeInput rubber = combineRecipeObjects("itemRubber", "craftingToolDuctTape");
         recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ELECTRUM);
