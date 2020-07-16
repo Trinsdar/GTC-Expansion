@@ -91,6 +91,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
         this.inputTank1.addListener(this);
         this.inputTank2.addListener(this);
         this.outputTank.addListener(this);
+        this.outputTank.setCanFill(false);
         this.addGuiFields("inputTank1", "inputTank2", "outputTank");
         setFuelSlot(slotFuel);
         maxEnergy = 10000;
@@ -379,9 +380,11 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null){
-            if (facing == EnumFacing.UP || facing == left()){
-                return facing == left() ? CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.inputTank1) : CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank2);
-            }else if (facing == EnumFacing.DOWN || facing == right()){
+            if (facing == left() || facing == this.getFacing()){
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.inputTank1);
+            }else if (facing == right() || facing == this.getFacing().getOpposite()){
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank2);
+            }else if (facing == EnumFacing.DOWN){
                 return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank);
             }else {
                 return super.getCapability(capability, facing);

@@ -5,6 +5,7 @@ import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerLathe;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.data.GTCXLang;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
@@ -112,6 +113,11 @@ public class GTCXTileLathe extends GTTileBaseMachine {
     }
 
     @Override
+    public boolean isValidInput(ItemStack par1) {
+        return super.isValidInput(par1) || GTHelperStack.matchOreDict(par1, "plankWood");
+    }
+
+    @Override
     public GTRecipeMultiInputList getRecipeList() {
         return GTCXRecipeLists.LATHE_RECIPE_LIST;
     }
@@ -129,6 +135,7 @@ public class GTCXTileLathe extends GTTileBaseMachine {
     public ResourceLocation getStartSoundFile() {
         return GTCExpansion.getAprilFirstSound(Ic2Sounds.extractorOp);
     }
+
     public static void init(){
         addRecipe("plankWood", 1, GTMaterialGen.get(Items.STICK, 4));
     }
