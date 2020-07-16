@@ -73,6 +73,9 @@ public class GTCXJeiPlugin implements IModPlugin {
             if (GTCXConfiguration.general.enableCraftingTools){
                 blacklist.addIngredientToBlacklist(Ic2Items.wrench);
             }
+            if (GTCXConfiguration.general.overrideIc2cSawmill){
+                blacklist.addIngredientToBlacklist(Ic2Items.sawMill);
+            }
             blacklist.addIngredientToBlacklist(GTCXMaterialGen.getHull(GTCXMaterial.RefinedIron, 1));
             blacklist.addIngredientToBlacklist(Ic2Items.cutter);
             if (!GTCXConfiguration.general.enableCraftingTools){
