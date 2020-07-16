@@ -1,6 +1,7 @@
 package gtc_expansion.tile.wiring;
 
 import gtc_expansion.interfaces.IGTTextureStorageTile;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
@@ -52,8 +53,9 @@ import net.minecraftforge.common.MinecraftForge;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public abstract class GTCXTileColoredCable extends TileEntityBlock implements IEnergyConductorColored, IInsulationModifieableConductor, IGTRecolorableStorageTile, INetworkTileEntityEventListener, IAnchorConductor, IGTItemContainerTile, IGTTextureStorageTile {
+public abstract class GTCXTileColoredCable extends TileEntityBlock implements IEnergyConductorColored, IInsulationModifieableConductor, IGTRecolorableStorageTile, INetworkTileEntityEventListener, IAnchorConductor, IGTItemContainerTile, IGTTextureStorageTile, IGTDebuggableTile {
 
     @NetworkField(index = 8)
     public RotationList connection;
@@ -585,5 +587,11 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
         this.storage.set(targetSide.getIndex(), model, render, color, rot, facing);
         this.getNetwork().updateTileEntityField(this, "storage");
         return true;
+    }
+
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        map.put("Color: " + this.getConductorColor().getName(), true);
+        map.put("Pure Color Value:" + color, true);
     }
 }

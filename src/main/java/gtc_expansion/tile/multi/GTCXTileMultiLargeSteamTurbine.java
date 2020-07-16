@@ -11,6 +11,7 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.api.network.INetworkClientTileEntityEventListener;
@@ -30,7 +31,9 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile {
+import java.util.Map;
+
+public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile, IGTDebuggableTile {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -593,5 +596,15 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     @Override
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
+    }
+
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        boolean enoughSteam = inputHatch1 != null && ((inputHatch2 != null && inputHatch1.getTank().getFluidAmount() + inputHatch2.getTank().getFluidAmount() >= 1600) || (inputHatch1.getTank().getFluidAmount() >= 1600));
+        map.put("Has Enough Steam: " + enoughSteam, true);
+        map.put("Dynamo Hatch has enough room: " + (dynamoHatch != null && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()), true);
+        map.put("Disabled: " + disabled, true);
+        map.put("Input Hatch 1 amount: " + (inputHatch1 != null ? inputHatch1.getTank().getFluidAmount() : 0), true);
+        map.put("Input Hatch 2 amount: " + (inputHatch2 != null ? inputHatch2.getTank().getFluidAmount() : 0), true);
     }
 }
