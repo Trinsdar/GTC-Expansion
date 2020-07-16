@@ -96,6 +96,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         }
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public boolean recolorBlock(World world, BlockPos pos, EnumFacing side, EnumDyeColor color) {
         TileEntity tile = world.getTileEntity(pos);
