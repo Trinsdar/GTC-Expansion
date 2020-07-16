@@ -363,6 +363,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
             }
             if (GTHelperStack.matchOreDict(stack, "logWood")){
                 addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
+                addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 4000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
             } else {
                 addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 6000, entry.getOutput().getAllOutputs().get(0));
                 addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0));
