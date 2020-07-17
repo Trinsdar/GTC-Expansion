@@ -1,5 +1,6 @@
 package gtc_expansion.model;
 
+import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.api.block.GTBlockBaseConnect;
 import ic2.core.RotationList;
 import ic2.core.platform.textures.Ic2Icons;
@@ -95,8 +96,8 @@ public class GTCXModelPipe extends BaseModel {
                 // (4+8) (north+south)
                 return this.quads[12];
             } else {
-                QuadList quadList = ((IC2BlockState)state).getData();
-                Vec3i vec = quadList.getVec();
+                GTCXHelperPipe.GTCXQuadWrapper wrapper = ((IC2BlockState)state).getData();
+                Vec3i vec = wrapper.getVec();
                 if (vec.getY() > 0) {
                     List<BakedQuad> list = this.comboQuads.get(vec.getZ());
                     if (list == null) {
@@ -111,7 +112,8 @@ public class GTCXModelPipe extends BaseModel {
             }
         } else {
             if (state instanceof IC2BlockState){
-                QuadList quadList = ((IC2BlockState)state).getData();
+                GTCXHelperPipe.GTCXQuadWrapper wrapper = ((IC2BlockState)state).getData();
+                QuadList quadList = wrapper.getQuadList();
                 return quadList.getQuads(side);
             }
             return this.getEmptyList();
@@ -164,25 +166,21 @@ public class GTCXModelPipe extends BaseModel {
         int var8 = var7.length;
         for (int var9 = 0; var9 < var8; ++var9) {
             EnumFacing side = var7[var9];
-            if (side.getOpposite() != facing) {// This part keeps the backside of anchors from rendering which the user
-                // would never see
-                BlockPartFace face = null;
-                // Below these just resize the texture of the anchor but not the side of the
-                // actual quads
-                if (side == facing || side == facing.getOpposite()) {
-                    face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) min,
-                            (float) min, (float) max, (float) max }, 0));
-                } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
-                    face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max,
-                            (float) min, 16.0F, (float) max }, 0));
-                } else {
-                    face = this.getFace(facing, min, max, -1);
-                }
-                // If you would like a different texture for anchors, change the sprite var to
-                // what you want, by default its passing the sprite in the model constructor
-                TextureAtlasSprite textureAtlasSprite = side == facing ? sprite : this.anchorBackTexture;
-                quads.add(this.getBakery().makeBakedQuad(position.getKey(), position.getValue(), face, sprite, side, ModelRotation.X0_Y0, null, true, true));
+            BlockPartFace face = null;
+            // Below these just resize the texture of the anchor but not the side of the
+            // actual quads
+            if (side == facing || side == facing.getOpposite()) {
+                face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) min,
+                        (float) min, (float) max, (float) max }, 0));
+            } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
+                face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max,
+                        (float) min, 16.0F, (float) max }, 0));
+            } else {
+                face = this.getFace(facing, min, max, -1);
             }
+            // If you would like a different texture for anchors, change the sprite var to
+            // what you want, by default its passing the sprite in the model constructor
+            quads.add(this.getBakery().makeBakedQuad(position.getKey(), position.getValue(), face, sprite, side, ModelRotation.X0_Y0, null, true, true));
         }
         return quads;
     }
@@ -271,10 +269,8 @@ public class GTCXModelPipe extends BaseModel {
     @SideOnly(Side.CLIENT)
     public static class QuadList {
         List<BakedQuad>[] quads = createList();
-        Vec3i vec;
 
-        public QuadList(Vec3i vec) {
-            this.vec = vec;
+        public QuadList() {
         }
 
         public void addQuads(List<BakedQuad> list, EnumFacing facing) {
@@ -283,10 +279,6 @@ public class GTCXModelPipe extends BaseModel {
 
         public List<BakedQuad> getQuads(EnumFacing facing) {
             return this.quads[facing.getIndex()];
-        }
-
-        public Vec3i getVec() {
-            return vec;
         }
 
         protected List<BakedQuad>[] createList() {

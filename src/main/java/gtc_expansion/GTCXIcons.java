@@ -29,6 +29,7 @@ public class GTCXIcons {
         makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
         collectBasicTileSprites();
+        collectCoverSprites();
         collectTurbineSprites(true);
         collectTurbineSprites(false);
         if (GTConfig.general.animatedTextures){
@@ -111,6 +112,15 @@ public class GTCXIcons {
             Ic2Icons.addTextureEntry(new Sprites.TextureEntry(string, 0, 0, 1, 1));
         }
 
+    }
+
+    public static void collectCoverSprites(){
+        String[] covers = { "", "conveyor", "drain", "itemvalve", "valve"};
+        for (String cover : covers){
+            String under = cover.isEmpty() ? "" : "_";
+            Ic2Icons.addSprite(new Sprites.SpriteData("cover" + under + cover, "gtc_expansion:textures/sprites/tiles/covers/"  + "cover" + under + cover + ".png", new Sprites.SpriteInfo(1, 1)));
+            Ic2Icons.addTextureEntry(new Sprites.TextureEntry("cover" + under + cover, 0, 0, 1, 1));
+        }
     }
 
     public static void collectTurbineSprites(boolean isSteam){

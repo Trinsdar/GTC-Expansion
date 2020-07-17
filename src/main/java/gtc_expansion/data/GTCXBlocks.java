@@ -1,14 +1,17 @@
 package gtc_expansion.data;
 
 import gtc_expansion.block.GTCXBlockCasing;
+import gtc_expansion.block.GTCXBlockDummyCover;
 import gtc_expansion.block.GTCXBlockHatch;
 import gtc_expansion.block.GTCXBlockMisc;
 import gtc_expansion.block.GTCXBlockOre;
 import gtc_expansion.block.GTCXBlockOreBedrock;
+import gtc_expansion.block.GTCXBlockPipe;
 import gtc_expansion.block.GTCXBlockStorage;
 import gtc_expansion.block.GTCXBlockTile;
 import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.item.itemblock.GTCXColorItemBlock;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
@@ -47,8 +50,10 @@ import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
+import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.wiring.GTCXTileAluminiumCable;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
+import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
@@ -109,6 +114,8 @@ public class GTCXBlocks {
     public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE, GTMaterial.Electrum));
     public static final GTCXBlockWire aluminiumCable = registerBlock(new GTCXBlockWire("aluminiumcable", GTCXLang.ALUMINIUM_CABLE, GTMaterial.Aluminium));
 
+    public static final GTCXBlockPipe brassPipe = registerBlock(new GTCXBlockPipe("brass_pipe", GTCXLang.BRASS_PIPE, GTCXMaterial.Brass, GTCXHelperPipe.GTPipeModel.MED));
+
     public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", GTCXLang.CASING_STANDARD, 0,75F));
     public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", GTCXLang.CASING_REINFORCED, 1, 150.0F));
     public static final GTCXBlockCasing casingAdvanced = registerBlock(new GTCXBlockCasing("advanced", GTCXLang.CASING_ADVANCED, 2, 200F));
@@ -149,6 +156,7 @@ public class GTCXBlocks {
     public static final GTCXBlockOreBedrock oreBedrockTetrahedrite = registerBlock(new GTCXBlockOreBedrock("tetrahedrite", 23));
     public static final GTCXBlockOreBedrock oreBedrockGalena = registerBlock(new GTCXBlockOreBedrock("galena", 24));
 
+    public static final GTCXBlockDummyCover dummyCover = registerBlock(new GTCXBlockDummyCover());
 
     public static final String[] textureTileBasic = new String[]{"advanced_worktable_bottom", "advanced_worktable_side", "advanced_worktable_top", "advanced_worktable_top_active", "alloy_furnace_front", "alloy_furnace_front_active", "alloy_furnace_side", "alloy_smelter_front", "alloy_smelter_front_active", "assembling_machine_top", "chemical_reactor_side", "chemical_reactor_side_active", "diesel_generator_top", "diesel_generator_top_active", "distillation_tower_side", "dustbin_bottom", "dustbin_front", "dustbin_top", "dynamo_hatch_front_overlay", "electric_locker_front", "electrolyzer_side", "electrolyzer_side_active", "extruder_front", "extruder_front_active", "fluid_caster_front", "fluid_caster_front_active", "fluid_smelter_front", "fluid_smelter_front_active", "gas_turbine_top", "gas_turbine_top_active", "implosion_compressor_side_1", "implosion_compressor_side_2", "industrial_blast_furnace_side", "industrial_front", "industrial_front_active", "industrial_grinder_side", "industrial_sawmill_side_1", "industrial_sawmill_side_2", "industrial_side", "input_hatch_front_overlay", "lathe_front", "lathe_front_active", "locker_front", "machine_back", "machine_control_hatch_overlay", "machine_side_gauge", "machine_side_gauge_red", "microwave_front", "microwave_front_active", "output_hatch_front_overlay", "plate_bender_front", "plate_bender_front_active", "plate_cutter_front", "plate_cutter_front_active", "primitive_blast_furnace_front", "primitive_blast_furnace_front_active", "stone_compressor_front", "stone_compressor_front_active", "stone_compressor_top", "stone_extractor_front", "stone_extractor_front_active", "stone_extractor_side", "stone_extractor_side_active", "thermal_boiler_front", "thermal_boiler_front_active", "trash_bin_side", "vacuum_freezer_side", "wiremill_top", "wiremill_top_active"};
     public static void registerBlocks() {
@@ -219,6 +227,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileFusionEnergyInjector.class, "FusionEnergyInjector");
         registerUtil(GTCXTileEnergyOutputHatch.GTCXTileFusionEnergyExtractor.class, "FusionEnergyExtractor");
         registerUtil(GTCXTileMultiFusionReactor.class, "BigFusionReactor");
+        registerUtil(GTCXTileBaseItemPipe.class, "BaseItemPipe");
     }
 
     public static void registerUtil(Class tile, String name) {
