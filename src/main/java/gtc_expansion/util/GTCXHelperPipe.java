@@ -1,5 +1,6 @@
 package gtc_expansion.util;
 
+import ic2.core.block.base.util.texture.TextureCopyStorage.QuadList;
 import net.minecraft.util.math.Vec3i;
 
 public class GTCXHelperPipe {
@@ -30,14 +31,14 @@ public class GTCXHelperPipe {
     }
 
     public static class GTCXQuadWrapper{
-        CoverStorage.QuadList quadList;
+        QuadList quadList;
         Vec3i vec;
-        public GTCXQuadWrapper(CoverStorage.QuadList list, Vec3i vec){
+        public GTCXQuadWrapper(QuadList list, Vec3i vec){
             this.quadList = list;
             this.vec = vec;
         }
 
-        public CoverStorage.QuadList getQuadList(){
+        public QuadList getQuadList(){
             return quadList;
         }
 

@@ -63,8 +63,9 @@ public class GTCXItemMisc extends Item implements IStaticTexturedItem {
             if (tile instanceof GTCXTileBasePipe){
                 ItemStack stack = player.getHeldItem(hand);
                 GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
-                if (!pipe.anchors.contains(facing)){
-                    pipe.addCover(facing, GTCXBlocks.dummyCover.getStateFromMeta(1));
+                EnumFacing enumFacing = player.isSneaking() ? facing.getOpposite() : facing;
+                if (!pipe.anchors.contains(enumFacing)){
+                    pipe.addCover(enumFacing, GTCXBlocks.dummyCover.getStateFromMeta(1));
                     stack.shrink(1);
                     return EnumActionResult.SUCCESS;
                 }

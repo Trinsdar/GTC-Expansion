@@ -6,16 +6,13 @@ import ic2.api.classic.network.INetworkFieldData;
 import ic2.api.classic.network.adv.IInputBuffer;
 import ic2.api.classic.network.adv.IOutputBuffer;
 import ic2.core.block.base.util.texture.TextureCopyEntry;
+import ic2.core.block.base.util.texture.TextureCopyStorage.QuadList;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CoverStorage implements INetworkFieldData {
     TextureCopyEntry[] entries;
@@ -56,7 +53,7 @@ public class CoverStorage implements INetworkFieldData {
         QuadList list = new QuadList();
 
         for(int i = 0; i < 6; ++i) {
-            list.addQuads(this.entries[i].getQuads(), EnumFacing.getFront(i));
+            list.addQuads(this.entries[i].getQuads());
         }
 
         return list;
@@ -88,7 +85,7 @@ public class CoverStorage implements INetworkFieldData {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     public static class QuadList {
         List<BakedQuad>[] quads = createList();
 
@@ -112,5 +109,5 @@ public class CoverStorage implements INetworkFieldData {
 
             return quads;
         }
-    }
+    }*/
 }

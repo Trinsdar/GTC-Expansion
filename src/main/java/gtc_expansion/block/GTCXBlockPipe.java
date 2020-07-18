@@ -79,6 +79,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             if (tile instanceof GTCXTileBasePipe) {
                 GTCXTileBasePipe pipe = (GTCXTileBasePipe)tile;
                 return new BlockStateContainerIC2.IC2BlockState(state, new GTCXHelperPipe.GTCXQuadWrapper(pipe.storage.getQuads(), pipe.getConnections()));
+                //return new BlockStateContainerIC2.IC2BlockState(state, pipe.getConnections());
             }
         } catch (Exception var6) {
         }
@@ -112,21 +113,57 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             double maxZ = 0.5D + thickness;
             if (pipe.connection.contains(EnumFacing.WEST) || pipe.anchors.contains(EnumFacing.WEST)) {
                 minX = 0.0D;
+                if (pipe.anchors.contains(EnumFacing.WEST)){
+                    minZ = 0.0D;
+                    maxZ = 1.0D;
+                    minY = 0.0D;
+                    maxY = 1.0D;
+                }
             }
             if (pipe.connection.contains(EnumFacing.DOWN) || pipe.anchors.contains(EnumFacing.DOWN)) {
                 minY = 0.0D;
+                if (pipe.anchors.contains(EnumFacing.DOWN)){
+                    minX = 0.0D;
+                    maxX = 1.0D;
+                    minZ = 0.0D;
+                    maxZ = 1.0D;
+                }
             }
             if (pipe.connection.contains(EnumFacing.NORTH) || pipe.anchors.contains(EnumFacing.NORTH)) {
                 minZ = 0.0D;
+                if (pipe.anchors.contains(EnumFacing.NORTH)){
+                    minX = 0.0D;
+                    maxX = 1.0D;
+                    minY = 0.0D;
+                    maxY = 1.0D;
+                }
             }
             if (pipe.connection.contains(EnumFacing.EAST) || pipe.anchors.contains(EnumFacing.EAST)) {
                 maxX = 1.0D;
+                if (pipe.anchors.contains(EnumFacing.EAST)){
+                    minZ = 0.0D;
+                    maxZ = 1.0D;
+                    minY = 0.0D;
+                    maxY = 1.0D;
+                }
             }
             if (pipe.connection.contains(EnumFacing.UP) || pipe.anchors.contains(EnumFacing.UP)) {
                 maxY = 1.0D;
+                if (pipe.anchors.contains(EnumFacing.UP)){
+                    minX = 0.0D;
+                    maxX = 1.0D;
+                    minZ = 0.0D;
+                    maxZ = 1.0D;
+                }
             }
             if (pipe.connection.contains(EnumFacing.SOUTH) || pipe.anchors.contains(EnumFacing.SOUTH)) {
                 maxZ = 1.0D;
+                if (pipe.anchors.contains(EnumFacing.SOUTH)){
+                    minX = 0.0D;
+                    maxX = 1.0D;
+                    minY = 0.0D;
+                    maxY = 1.0D;
+                }
             }
             return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
         }

@@ -123,12 +123,14 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine {
     public void addCover(EnumFacing facing, IBlockState coverState){
         this.storage.setCover(coverState, facing);
         this.anchors = this.anchors.add(facing);
+        updateConnections();
         this.getNetwork().updateTileEntityField(this, "storage");
     }
 
     public void removeCover(EnumFacing facing){
         this.storage.removeCover(facing);
         this.anchors = anchors.remove(facing);
+        updateConnections();
         this.getNetwork().updateTileEntityField(this, "storage");
     }
 }

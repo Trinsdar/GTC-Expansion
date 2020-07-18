@@ -1,6 +1,5 @@
 package gtc_expansion.model;
 
-import gtc_expansion.util.CoverStorage;
 import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.api.block.GTBlockBaseConnect;
 import ic2.core.RotationList;
@@ -103,6 +102,7 @@ public class GTCXModelPipe extends BaseModel {
                     if (list == null) {
                         list = new ArrayList(this.quads[vec.getX()]);
                         list.addAll(this.anchorQuads[vec.getY()]);
+                        list.addAll(wrapper.getQuadList().getQuads());
                         this.comboQuads.put(vec.getZ(), list);
                     }
                     return list;
@@ -111,11 +111,11 @@ public class GTCXModelPipe extends BaseModel {
                 }
             }
         } else {
-            if (state instanceof IC2BlockState){
+            /*if (state instanceof IC2BlockState){
                 GTCXHelperPipe.GTCXQuadWrapper wrapper = ((IC2BlockState)state).getData();
-                CoverStorage.QuadList quadList = wrapper.getQuadList();
-                return quadList.getQuads(side);
-            }
+                TextureCopyStorage.QuadList quadList = wrapper.getQuadList();
+                return quadList.getQuads();
+            }*/
             return this.getEmptyList();
         }
     }
@@ -169,7 +169,7 @@ public class GTCXModelPipe extends BaseModel {
             BlockPartFace face = null;
             // Below these just resize the texture of the anchor but not the side of the
             // actual quads
-            if (side == facing || side == facing.getOpposite()) {
+            if (side == facing.getOpposite()) {
                 face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) min,
                         (float) min, (float) max, (float) max }, 0));
             } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
