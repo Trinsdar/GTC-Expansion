@@ -8,20 +8,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 
 public abstract class GTCXTileBasePipe extends TileEntityMachine {
-    @NetworkField(index = 8)
+    @NetworkField(index = 3)
     public RotationList connection;
     @NetworkField(
-            index = 9
+            index = 4
     )
     public RotationList anchors;
     @NetworkField(
-            index = 10
+            index = 5
     )
     public CoverStorage storage;
     public GTCXTileBasePipe(int slots) {
@@ -36,6 +37,22 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine {
     public void onLoaded() {
         super.onLoaded();
         updateConnections();
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        this.anchors = RotationList.ofNumber(nbt.getByte("Anchors"));
+        this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
+
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setByte("Anchors", (byte)this.anchors.getCode());
+        this.storage.writeToNBT(this.getTag(nbt, "Storage"));
+        return nbt;
     }
 
     @Override

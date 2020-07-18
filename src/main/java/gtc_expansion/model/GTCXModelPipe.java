@@ -1,5 +1,6 @@
 package gtc_expansion.model;
 
+import gtc_expansion.util.CoverStorage;
 import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.api.block.GTBlockBaseConnect;
 import ic2.core.RotationList;
@@ -18,8 +19,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.client.model.PerspectiveMapWrapper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -98,6 +97,7 @@ public class GTCXModelPipe extends BaseModel {
             } else {
                 GTCXHelperPipe.GTCXQuadWrapper wrapper = ((IC2BlockState)state).getData();
                 Vec3i vec = wrapper.getVec();
+                //Vec3i vec = ((IC2BlockState)state).getData();
                 if (vec.getY() > 0) {
                     List<BakedQuad> list = this.comboQuads.get(vec.getZ());
                     if (list == null) {
@@ -113,7 +113,7 @@ public class GTCXModelPipe extends BaseModel {
         } else {
             if (state instanceof IC2BlockState){
                 GTCXHelperPipe.GTCXQuadWrapper wrapper = ((IC2BlockState)state).getData();
-                QuadList quadList = wrapper.getQuadList();
+                CoverStorage.QuadList quadList = wrapper.getQuadList();
                 return quadList.getQuads(side);
             }
             return this.getEmptyList();
@@ -266,29 +266,4 @@ public class GTCXModelPipe extends BaseModel {
         return new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, 0));
     }
 
-    @SideOnly(Side.CLIENT)
-    public static class QuadList {
-        List<BakedQuad>[] quads = createList();
-
-        public QuadList() {
-        }
-
-        public void addQuads(List<BakedQuad> list, EnumFacing facing) {
-            this.quads[facing.getIndex()].addAll(list);
-        }
-
-        public List<BakedQuad> getQuads(EnumFacing facing) {
-            return this.quads[facing.getIndex()];
-        }
-
-        protected List<BakedQuad>[] createList() {
-            List<BakedQuad>[] quads = new List[6];
-
-            for(int i = 0; i < 6; ++i) {
-                quads[i] = new ArrayList<>();
-            }
-
-            return quads;
-        }
-    }
 }

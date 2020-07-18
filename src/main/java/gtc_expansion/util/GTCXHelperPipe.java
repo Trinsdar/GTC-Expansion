@@ -1,6 +1,5 @@
 package gtc_expansion.util;
 
-import gtc_expansion.model.GTCXModelPipe;
 import net.minecraft.util.math.Vec3i;
 
 public class GTCXHelperPipe {
@@ -31,14 +30,14 @@ public class GTCXHelperPipe {
     }
 
     public static class GTCXQuadWrapper{
-        GTCXModelPipe.QuadList quadList;
+        CoverStorage.QuadList quadList;
         Vec3i vec;
-        public GTCXQuadWrapper(GTCXModelPipe.QuadList list, Vec3i vec){
+        public GTCXQuadWrapper(CoverStorage.QuadList list, Vec3i vec){
             this.quadList = list;
             this.vec = vec;
         }
 
-        public GTCXModelPipe.QuadList getQuadList(){
+        public CoverStorage.QuadList getQuadList(){
             return quadList;
         }
 
