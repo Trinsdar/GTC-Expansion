@@ -38,6 +38,7 @@ public class GTCXToolGen {
         itemMap.put(mat.getName() + "_hammer", new GTCXItemToolHammer(mat, tmat));
         itemMap.put(mat.getName() + "_file", new GTCXItemToolFile(mat, tmat));
         itemMap.put(mat.getName() + "_wrench", new GTCXItemToolWrench(mat, tmat));
+        itemMap.put(mat.getName() + "_crowbar", new GTCXItemToolCrowbar(mat, tmat));
     }
 
     public static void createVanillaSet(GTMaterial mat, ToolMaterial tmat){
@@ -51,6 +52,7 @@ public class GTCXToolGen {
         itemMap.put(mat.getName() + "_hammer", new GTCXItemToolHammer(mat, tmat));
         itemMap.put(mat.getName() + "_file", new GTCXItemToolFile(mat, tmat));
         itemMap.put(mat.getName() + "_wrench", new GTCXItemToolWrench(mat, tmat));
+        itemMap.put(mat.getName() + "_crowbar", new GTCXItemToolCrowbar(mat, tmat));
     }
 
     public static ItemStack getPickaxe(GTMaterial material){
@@ -79,5 +81,9 @@ public class GTCXToolGen {
 
     public static ItemStack getWrench(GTMaterial material){
         return new ItemStack(itemMap.get(material.getName() + "_wrench"));
+    }
+
+    public static ItemStack getCrowbar(GTMaterial material){
+        return new ItemStack(itemMap.get(material.getName() + "_crowbar"));
     }
 }

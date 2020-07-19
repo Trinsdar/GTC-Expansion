@@ -5,6 +5,9 @@ import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import gtclassic.GTMod;
+import ic2.api.classic.audio.PositionSpec;
+import ic2.core.IC2;
+import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -67,6 +70,9 @@ public class GTCXItemMisc extends Item implements IStaticTexturedItem {
                 if (!pipe.anchors.contains(enumFacing)){
                     pipe.addCover(enumFacing, GTCXBlocks.dummyCover.getStateFromMeta(1));
                     stack.shrink(1);
+                    if (worldIn.isRemote){
+                        IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
+                    }
                     return EnumActionResult.SUCCESS;
                 }
             }

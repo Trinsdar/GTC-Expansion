@@ -26,6 +26,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.Color;
 
@@ -42,6 +44,8 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
         this.material = material;
         this.type = type;
     }
+
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getCoverTexture(EnumFacing facing) {
         return null;
@@ -52,21 +56,25 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
         return new GTCXTileBaseItemPipe();
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite[] getIconSheet(int i) {
         return new TextureAtlasSprite[0];
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[side == EnumFacing.UP ? 8 : 7];
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getParticleTexture(IBlockState state) {
         return this.getTextureFromState(state, EnumFacing.SOUTH);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public BaseModel getModelFromState(IBlockState iBlockState) {
         return new GTCXModelPipe(iBlockState, type.getSizes());

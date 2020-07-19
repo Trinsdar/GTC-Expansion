@@ -63,8 +63,8 @@ public class GTCXModelPipe extends BaseModel {
         int facingsLength = facings.length;
         for (int i = 0; i < facingsLength; ++i) {
             EnumFacing side = facings[i];
-            sideQuads.put(side, this.generateQuadsForSide(wire, side, min, max));
-            anchorQuadList.put(side, this.generateQuadsForAnchor(anchorBackTexture, side, 0, 16));
+            sideQuads.put(side, this.generateQuadsForSide(wire, side, min, max, false));
+            anchorQuadList.put(side, this.generateQuadsForAnchor(wire, anchorBackTexture, side, 0, 16));
         }
 
         for (int j = 0; j < 64; ++j) {
@@ -172,7 +172,7 @@ public class GTCXModelPipe extends BaseModel {
 
     // This is where anchor quads are generated
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private List<BakedQuad> generateQuadsForAnchor(TextureAtlasSprite sprite, EnumFacing facing, int min, int max) {
+    private List<BakedQuad> generateQuadsForAnchor(GTBlockBaseConnect wire, TextureAtlasSprite sprite, EnumFacing facing, int min, int max) {
         List<BakedQuad> quads = new ArrayList();
         Pair<Vector3f, Vector3f> position = this.getPosForSide(facing, min, max, 2);
         EnumFacing[] facings = EnumFacing.VALUES;
@@ -183,33 +183,35 @@ public class GTCXModelPipe extends BaseModel {
                 BlockPartFace face;
                 // Below these just resize the texture of the anchor but not the side of the
                 // actual quads
+                int rotation = (side == EnumFacing.NORTH && facing.getHorizontalIndex() != -1) || (side == EnumFacing.WEST && facing == EnumFacing.NORTH) || (side == EnumFacing.EAST && facing == EnumFacing.SOUTH) || (side == EnumFacing.DOWN && facing.getAxis() == EnumFacing.Axis.Z) ? 180 : 0;
                 if (side == facing.getOpposite()) {
                     face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) min,
                             (float) min, (float) max, (float) max }, 0));
                 } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
-                    face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max,
-                            (float) min, 14.0F, (float) max }, 0));
+                    face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max - 2,
+                            (float) min, 16.0F, (float) max }, rotation));
                 } else {
-                    face = this.getFace(facing, min, max - 2, -1, 0);
+                    face = this.getFace(facing, min, max, -1, rotation);
                 }
                 // If you would like a different texture for anchors, change the sprite var to
                 // what you want, by default its passing the sprite in the model constructor
                 quads.add(this.getBakery().makeBakedQuad(position.getKey(), position.getValue(), face, sprite, side, ModelRotation.X0_Y0, null, true, true));
             }
         }
+        //quads.addAll(generateQuadsForSide(wire, facing, this.sizes[0], this.sizes[1], true));
         return quads;
     }
 
     // This is where the sides connected to things are generated
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private List<BakedQuad> generateQuadsForSide(GTBlockBaseConnect wire, EnumFacing facing, int min, int max) {
+    private List<BakedQuad> generateQuadsForSide(GTBlockBaseConnect wire, EnumFacing facing, int min, int max, boolean anchor) {
         List<BakedQuad> quads = new ArrayList();
         Pair<Vector3f, Vector3f> position = this.getPosForSide(facing, min, max, 0);
         EnumFacing[] facings = EnumFacing.VALUES;
         int facingLength = facings.length;
         for (int i = 0; i < facingLength; ++i) {
             EnumFacing side = facings[i];
-            if (side.getOpposite() != facing) {
+            if (side.getOpposite() != facing && (side != facing || !anchor)) {
                 BlockPartFace face = null;
                 int rotation = (side == EnumFacing.NORTH && facing.getHorizontalIndex() != -1) || (side == EnumFacing.WEST && facing == EnumFacing.NORTH) || (side == EnumFacing.EAST && facing == EnumFacing.SOUTH) || (side == EnumFacing.DOWN && facing.getAxis() == EnumFacing.Axis.Z) ? 180 : 0;
                 if (side == facing) {
@@ -262,6 +264,22 @@ public class GTCXModelPipe extends BaseModel {
                 return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { 0.0F, min, min, max }, rotation));
             case EAST:
                 return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { max, min, 16.0F, max }, rotation));
+        }
+        return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, rotation));
+    }
+
+    private BlockPartFace getAnchorFace(EnumFacing facing, int min, int max, int index, int rotation) {
+        switch (facing) {
+            case DOWN:
+            case SOUTH:
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { min, max, max, 16.0F }, rotation));
+            case UP:
+            case NORTH:
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { min + 2, 0.0F, max, min }, rotation));
+            case WEST:
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { 2.0F, min, min, max }, rotation));
+            case EAST:
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { max - 2, min, 16.0F, max }, rotation));
         }
         return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { 0.0F, 0.0F, 16.0F, 16.0F }, rotation));
     }

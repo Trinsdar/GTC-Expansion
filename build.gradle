@@ -77,6 +77,7 @@ dependencies {
     deobfCompile "curse.maven:ic2c-extras:2857963"
     compile "curse.maven:baubles:2518667"
     compile "curse.maven:ic2-classic:2979877"
+    compile "curse.maven:railcraft:2687757"
     deobfCompile(group: 'CraftTweaker2', name: 'ZenScript', version: craft_tweaker_version) {
         exclude group: 'org.ow2.asm'
         exclude group: 'com.google.code.gson'

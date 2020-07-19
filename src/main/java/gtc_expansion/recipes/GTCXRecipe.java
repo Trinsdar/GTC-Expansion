@@ -261,6 +261,8 @@ public class GTCXRecipe {
         }
         recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Bronze), "PPP", "PPP", " S ", 'P', "ingotBronze", 'S', stick);
         recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Iron), "PPP", "PPP", " S ", 'P', "ingotIron", 'S', stick);
+        recipes.addRecipe(GTCXToolGen.getCrowbar(GTCXMaterial.Iron), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rodIron");
+        recipes.addRecipe(GTCXToolGen.getCrowbar(GTCXMaterial.Bronze), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rodBronze");
     }
 
     public static void initOVerrideVanillaRecipes(){

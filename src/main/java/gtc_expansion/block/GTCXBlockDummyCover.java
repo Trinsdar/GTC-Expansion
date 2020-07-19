@@ -1,18 +1,21 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.data.GTCXItems;
 import ic2.core.block.base.BlockMultiID;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class GTCXBlockDummyCover extends BlockMultiID {
     public GTCXBlockDummyCover() {
@@ -77,5 +80,13 @@ public class GTCXBlockDummyCover extends BlockMultiID {
     @Override
     public TextureAtlasSprite getParticleTexture(IBlockState state) {
         return this.getTextureFromState(state, EnumFacing.SOUTH);
+    }
+
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        if (this.getMetaFromState(state) == 1){
+            return GTCXItems.conveyorModule;
+        }
+        return super.getItemDropped(state, rand, fortune);
     }
 }

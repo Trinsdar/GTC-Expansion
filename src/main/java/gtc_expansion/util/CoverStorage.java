@@ -8,6 +8,7 @@ import ic2.api.classic.network.adv.IOutputBuffer;
 import ic2.core.block.base.util.texture.TextureCopyEntry;
 import ic2.core.block.base.util.texture.TextureCopyStorage.QuadList;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -67,6 +68,14 @@ public class CoverStorage implements INetworkFieldData {
 
     public void removeCover(EnumFacing facing){
         entries[facing.getIndex()].clear();
+    }
+
+    public ItemStack getCoverDrop(EnumFacing facing){
+        if (this.entries[facing.getIndex()].getRenderState() != null && this.entries[facing.getIndex()].getModelState() != null){
+            IBlockState state = this.entries[facing.getIndex()].getModelState();
+            return new ItemStack(state.getBlock().getItemDropped(state, owner.getWorld().rand, 0));
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override

@@ -508,6 +508,12 @@ item.gtc_expansion.tungstensteel_file.name=Tungstensteel File
 item.gtc_expansion.ruby_file.name=Ruby File
 item.gtc_expansion.sapphire_file.name=Sapphire File
 
+#crowbars
+item.gtc_expansion.bronze_crowbar.name=Bronze Crowbar
+item.gtc_expansion.iron_crowbar.name=Iron Crowbar
+item.gtc_expansion.steel_crowbar.name=Steel Crowbar
+item.gtc_expansion.tungstensteel_crowbar.name=Tungstensteel Crowbar
+
 #hammers
 item.gtc_expansion.bronze_hammer.name=Bronze Hammer
 item.gtc_expansion.iron_hammer.name=Iron Hammer
@@ -759,6 +765,7 @@ tooltip.gtc_expansion.steel_jackhammer=Mines any stone block at 4x the speed of 
 tooltip.gtc_expansion.steel_jackhammer1=Can be upgraded to a diamond to do 3x3 but at 1/8th the speed.
 tooltip.gtc_expansion.oilberry=Can be eaten, but I wouldn't recommend it.
 tooltip.gtc_expansion.magicDye=Only for crafting, has no function.
+tooltip.gtc_expansion.crowbar=To remove Covers from Pipes
 
 tooltip.gtc_expansion.diamondChainsawShearToggle.name=Enable/Disable Shearing
 

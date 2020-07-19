@@ -29,8 +29,11 @@ import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.ForgeRegistry;
 
 import static gtclassic.common.recipe.GTRecipeMods.input;
 import static gtclassic.common.recipe.GTRecipeMods.metal;
@@ -214,6 +217,9 @@ public class GTCXRecipeMods {
             GTCXTileWiremill.addRecipe("nuggetSteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts"));
             GTCXTileWiremill.addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("nuggetTungsten", "nuggetTitanium"), GTMaterialGen.getModItem("railcraft", "track_parts", 2));
             GTCXTileWiremill.addRecipe("nuggetTungstensteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts", 3));
+            ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
+            registry.remove(new ResourceLocation("railcraft", "tool_crowbar_steel$1"));
+            registry.remove(new ResourceLocation("railcraft", "tool_crowbar_iron$1"));
         }
         if (Loader.isModLoaded("traverse")){
             TileEntityMacerator.addRecipe(GTMaterialGen.getModItem("traverse", "red_rock"), GTMaterialGen.getDust(GTCXMaterial.RedRock, 1));

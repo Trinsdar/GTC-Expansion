@@ -5,6 +5,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
 import gtclassic.api.material.GTMaterial;
+import ic2.api.item.IBoxable;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.ILayeredItemModel;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
@@ -18,7 +19,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class GTCXItemToolFile extends Item implements IStaticTexturedItem, IGTColorItem, ILayeredItemModel {
+public class GTCXItemToolFile extends Item implements IStaticTexturedItem, IGTColorItem, ILayeredItemModel, IBoxable {
 
     GTMaterial material;
 
@@ -76,5 +77,10 @@ public class GTCXItemToolFile extends Item implements IStaticTexturedItem, IGTCo
     @Override
     public TextureAtlasSprite getTexture(int var1, ItemStack var2) {
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_materials")[18 + var1];
+    }
+
+    @Override
+    public boolean canBeStoredInToolbox(ItemStack itemStack) {
+        return true;
     }
 }
