@@ -59,7 +59,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
 
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[7];
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[side == EnumFacing.UP ? 8 : 7];
     }
 
     @Override
@@ -79,9 +79,10 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             if (tile instanceof GTCXTileBasePipe) {
                 GTCXTileBasePipe pipe = (GTCXTileBasePipe)tile;
                 return new BlockStateContainerIC2.IC2BlockState(state, new GTCXHelperPipe.GTCXQuadWrapper(pipe.storage.getQuads(), pipe.getConnections()));
-                //return new BlockStateContainerIC2.IC2BlockState(state, pipe.getConnections());
             }
-        } catch (Exception var6) {
+        } catch (Exception e) {
+            GTCExpansion.logger.info("IC2BlockState Failed");
+            e.printStackTrace();
         }
 
         return super.getExtendedState(state, world, pos);
@@ -111,6 +112,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             double maxX = 0.5D + thickness;
             double maxY = 0.5D + thickness;
             double maxZ = 0.5D + thickness;
+            //TODO: make this an iterator
             if (pipe.connection.contains(EnumFacing.WEST) || pipe.anchors.contains(EnumFacing.WEST)) {
                 minX = 0.0D;
                 if (pipe.anchors.contains(EnumFacing.WEST)){

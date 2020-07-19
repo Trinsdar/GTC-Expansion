@@ -1,6 +1,7 @@
 package gtc_expansion.tile.pipes;
 
 import gtc_expansion.util.CoverStorage;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
@@ -14,7 +15,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 
-public abstract class GTCXTileBasePipe extends TileEntityMachine {
+import java.util.Map;
+
+public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTDebuggableTile {
     @NetworkField(index = 3)
     public RotationList connection;
     @NetworkField(
@@ -77,6 +80,11 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine {
         return true;
     }
 
+    @Override
+    public boolean supportsRotation() {
+        return false;
+    }
+
     public void updateConnections() {
         for (EnumFacing facing : EnumFacing.VALUES) {
             BlockPos sidedPos = pos.offset(facing);
@@ -103,7 +111,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine {
             for (int i = 0; i < length; ++i) {
                 EnumFacing dir = facings[i];
                 TileEntity tile = world.getTileEntity(this.getPos().offset(dir));
-                if (tile != null && this.canConnectOnClient(tile, dir)) {
+                if ((tile != null && this.canConnect(tile, dir)) || this.anchors.contains(dir)) {
                     newList = newList.add(dir);
                 }
             }
@@ -132,5 +140,17 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine {
         this.anchors = anchors.remove(facing);
         updateConnections();
         this.getNetwork().updateTileEntityField(this, "storage");
+    }
+
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        for (EnumFacing facing : EnumFacing.VALUES){
+            if (connection.contains(facing)){
+                map.put("Connections has facing " + facing.getName(), true);
+            }
+            if (anchors.contains(facing)){
+                map.put("Anchors has facing " + facing.getName(), true);
+            }
+        }
     }
 }

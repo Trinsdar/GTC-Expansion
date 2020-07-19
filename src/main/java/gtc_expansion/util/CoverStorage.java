@@ -53,7 +53,9 @@ public class CoverStorage implements INetworkFieldData {
         QuadList list = new QuadList();
 
         for(int i = 0; i < 6; ++i) {
-            list.addQuads(this.entries[i].getQuads());
+            if (this.entries[i].getModelState() != null && this.entries[i].getRenderState() != null){
+                list.addQuads(this.entries[i].getQuads());
+            }
         }
 
         return list;
