@@ -188,9 +188,9 @@ public class GTCXModelPipe extends BaseModel {
                             (float) min, (float) max, (float) max }, 0));
                 } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
                     face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max,
-                            (float) min, 16.0F, (float) max }, 0));
+                            (float) min, 14.0F, (float) max }, 0));
                 } else {
-                    face = this.getFace(facing, min, max, -1, 0);
+                    face = this.getFace(facing, min, max - 2, -1, 0);
                 }
                 // If you would like a different texture for anchors, change the sprite var to
                 // what you want, by default its passing the sprite in the model constructor
