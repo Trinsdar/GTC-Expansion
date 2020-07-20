@@ -354,8 +354,6 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     public static void init() {
         Item tube = GTItems.testTube;
         /** Recipes from GT1 **/
-        addRecipe(GTMaterialGen.getWater(6), 0, totalEu(50000), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
-        addRecipe(GTMaterialGen.getIc2(Ic2Items.waterCell, 6), 6, totalEu(50000), GTMaterialGen.getIc2(Ic2Items.emptyCell, 6), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getTube(GTMaterial.Oxygen, 2));
         addRecipe("dustCoal", 4, 0, totalEu(7500), GTMaterialGen.getDust(GTMaterial.Carbon, 8));
         addRecipe("dustRuby", 9, 3, totalEu(25000), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getDust(GTMaterial.Chrome, 1), GTMaterialGen.getTube(GTMaterial.Oxygen, 3));
         addRecipe("dustSapphire", 8, 3, totalEu(20000), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 3));
@@ -388,11 +386,6 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         addRecipe("dustUvarovite", 20, 9, totalEu(110000), GTMaterialGen.getTube(GTMaterial.Calcium, 3), GTMaterialGen.getDust(GTMaterial.Chrome, 2), GTMaterialGen.getDust(GTMaterial.Silicon, 3), GTMaterialGen.getTube(GTMaterial.Oxygen, 6));
 
         addRecipe(GTMaterialGen.getTube(GTCXMaterial.Glyceryl, 20), 0, totalEu(720000), GTMaterialGen.getDust(GTMaterial.Carbon, 3), GTMaterialGen.getTube(GTMaterial.Hydrogen, 5), GTMaterialGen.getTube(GTMaterial.Nitrogen, 3), GTMaterialGen.get(GTItems.testTube, 12));
-        addRecipe(GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 7), 0, totalEu(35280), GTMaterialGen.getTube(GTMaterial.Hydrogen, 2), GTMaterialGen.getTube(GTMaterial.Oxygen, 2), GTMaterialGen.getDust(GTMaterial.Sulfur, 1), GTMaterialGen.get(GTItems.testTube, 3));
-        addRecipe(GTMaterialGen.getTube(GTCXMaterial.SodiumPersulfate, 6), 0, totalEu(38880), GTMaterialGen.getTube(GTMaterial.Oxygen, 2), GTMaterialGen.getTube(GTMaterial.Sodium, 1), GTMaterialGen.getDust(GTMaterial.Sulfur, 1), GTMaterialGen.get(GTItems.testTube, 3));
-        addRecipe(GTMaterialGen.getTube(GTCXMaterial.NitroCarbon, 2), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Nitrogen, 1), GTMaterialGen.getDust(GTMaterial.Carbon, 1), GTMaterialGen.get(GTItems.testTube));
-        addRecipe(GTMaterialGen.getTube(GTMaterial.Methane, 5), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Hydrogen, 4), GTMaterialGen.getDust(GTMaterial.Carbon, 1), GTMaterialGen.get(GTItems.testTube));
-        addRecipe(GTMaterialGen.getTube(GTCXMaterial.SodiumSulfide, 2), 0, totalEu(5760), GTMaterialGen.getTube(GTMaterial.Sodium, 1), GTMaterialGen.getDust(GTMaterial.Sulfur, 1), GTMaterialGen.get(GTItems.testTube));
         addRecipe(GTMaterialGen.getIc2(Ic2Items.airCell, 16), 16, totalEu(1000000), GTMaterialGen.getIc2(Ic2Items.emptyCell, 16), GTMaterialGen.getTube(GTMaterial.Nitrogen, 9), GTMaterialGen.getTube(GTMaterial.Oxygen, 4), GTMaterialGen.getTube(GTMaterial.Helium, 1), GTMaterialGen.getTube(GTMaterial.Neon, 1), GTMaterialGen.getTube(GTMaterial.Argon, 1));
         addRecipe("dustSteel", 50, 0, totalEu(83200), GTMaterialGen.getIc2(Ic2Items.ironDust, 50), GTMaterialGen.getDust(GTMaterial.Carbon, 1));
         addRecipe("dustStainlessSteel", 9, 0, totalEu(14080), GTMaterialGen.getIc2(Ic2Items.ironDust, 6), GTMaterialGen.getDust(GTMaterial.Chrome, 1), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTMaterialGen.getDust(GTCXMaterial.Manganese, 1));

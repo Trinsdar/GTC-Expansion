@@ -38,8 +38,6 @@ import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
-import ic2.core.item.recipe.entry.RecipeInputItemStack;
-import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.util.obj.IClickable;
@@ -380,7 +378,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount), new RecipeInputFluid(GTMaterialGen.getFluidStack("water", 1000)) }, modifiers, outlist);
+        addRecipe(new IRecipeInput[] { input(input, amount), input(GTMaterialGen.getFluidStack("water", 1000)) }, modifiers, outlist);
     }
 
     public static void addRecipe(ItemStack input, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -390,7 +388,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(new IRecipeInput[] { new RecipeInputItemStack(input), new RecipeInputFluid(GTMaterialGen.getFluidStack("water", 1000)) }, modifiers, outlist);
+        addRecipe(new IRecipeInput[] { input(input), input(GTMaterialGen.getFluidStack("water", 1000)) }, modifiers, outlist);
     }
 
     public static void addRecipe(IRecipeInput input, FluidStack fluidInput, int totalEu,
@@ -399,7 +397,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(new IRecipeInput[] { input, new RecipeInputFluid(fluidInput)}, totalEu(totalEu), outlist);
+        addRecipe(new IRecipeInput[] { input, input(fluidInput)}, totalEu(totalEu), outlist);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {

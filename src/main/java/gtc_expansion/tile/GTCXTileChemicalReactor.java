@@ -560,8 +560,4 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     public void onLeftClick(EntityPlayer entityPlayer, Side side) {
 
     }
-
-    public static IRecipeInput input(FluidStack input) {
-        return new RecipeInputFluid(input);
-    }
 }

@@ -493,10 +493,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         }
         RECIPE_LIST.finishMassChange();
         /** Just regular recipes added manually **/
-        addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
-                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(2097152), 40000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
-        addRecipe(new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
-                new RecipeInputFluid(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(2097152), 60000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
+        addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
+                input(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(2097152), 40000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
+        addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
+                input(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(2097152), 60000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
         /** This iterates the element objects to create all Fusion recipes **/
         Set<Integer> usedInputs = new HashSet<>();
         for (GTMaterialElement sum : GTMaterialElement.getElementList()) {
@@ -539,6 +539,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, ItemStack output){
         List<IRecipeInput> inlist = new ArrayList<>();
+        if (startEu > 161000000){
+            GTCExpansion.logger.info("Recipe: " +  output.getUnlocalizedName() + " has too high of a start eu amount");
+        }
         inlist.add(input1);
         inlist.add(input2);
         NBTTagCompound mods = new NBTTagCompound();
@@ -554,6 +557,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, FluidStack output){
         List<IRecipeInput> inlist = new ArrayList<>();
         List<FluidStack> outList = new ArrayList<>();
+        if (startEu > 161000000){
+            GTCExpansion.logger.info("Recipe: " +  output.getUnlocalizedName() + " has too high of a start eu amount");
+        }
         inlist.add(input1);
         inlist.add(input2);
         outList.add(output);
