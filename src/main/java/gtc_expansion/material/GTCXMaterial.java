@@ -102,6 +102,7 @@ public class GTCXMaterial {
     public static final GTMaterial OilCrude = new GTMaterial("Crude_Oil", 0, 0, 0, fluid);
     public static final GTMaterial Olivine = new GTMaterial("Olivine", 150, 255, 150, gemAll1);
     public static final GTMaterial Osmium = setHeat(new GTMaterial(76,"Osmium", 5, 50, 50, 255, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal, tinydust), 3306);
+    public static final GTMaterial Osmiridium = setHeat(new GTMaterial("Osmiridium", 100, 100, 255, false, molten, smalldust, dust, nugget, ingot, hotIngot, plate, stick, gear, blockMetal), 3450);
     public static final GTMaterial Propane = new GTMaterial("Propane", 81, 27, 27, gas);
     public static final GTMaterial Pyrope = new GTMaterial("Pyrope", 120, 50, 100, dustAll);
     public static final GTMaterial RedAlloy = setHeat(new GTMaterial("RedAlloy", 1, 200, 0, 0, molten, smalldust, dust, ingot, plate, nugget, stick), 1400);

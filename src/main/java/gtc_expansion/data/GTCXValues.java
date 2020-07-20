@@ -55,6 +55,7 @@ public class GTCXValues {
     public static final String TUNGSTEN = PRE + "Tungsten";
     public static final String STAINLESS_STEEL = PRE + "StainlessSteel";
     public static final String STEEL = PRE + "Steel";
+    public static final String OSMIUM = PRE + "OsmiumGT";
 
     private GTCXValues() {
         throw new IllegalStateException("Utility class");

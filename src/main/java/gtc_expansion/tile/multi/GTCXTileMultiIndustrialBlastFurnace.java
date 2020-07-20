@@ -219,13 +219,16 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 				input("dustGalena", 2) }, 1500, COST_MED, GTMaterialGen.getIngot(GTCXMaterial.Lead, 1), GTMaterialGen.getIc2(Ic2Items.silverIngot, 1));
 		/* Osmium **/
 		addRecipe(new IRecipeInput[] {
-				input("dustOsmium", 1) }, 3000, COST_EXTREME, GTMaterialGen.getHotIngot(GTCXMaterial.Osmium, 1));
+				input("dustOsmiumGT", 1) }, 3000, COST_EXTREME, GTMaterialGen.getHotIngot(GTCXMaterial.Osmium, 1));
 		/* Thorium **/
 		addRecipe(new IRecipeInput[] {
 				input("dustThorium", 1) }, 1500, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Thorium, 1));
 		/* Chrome **/
 		addRecipe(new IRecipeInput[] {
 				input("dustChrome", 1), input(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1)) }, 1700, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Chrome, 1));
+
+		/* Osmiridium **/
+		addRecipe(new IRecipeInput[]{input("ingotOsmiumGT", 1), input("ingotIridium", 1)}, 3000, COST_EXTREME, GTMaterialGen.getHotIngot(GTCXMaterial.Osmiridium, 2));
 
 		/* Stainless Steel **/
 		addRecipe(new IRecipeInput[]{metal("Iron", 6), metal("Nickel", 1), metal("Chrome", 1), metal("Manganese", 1)}, 1700, COST_HIGH * 6, GTMaterialGen.getIngot(GTCXMaterial.StainlessSteel, 9));

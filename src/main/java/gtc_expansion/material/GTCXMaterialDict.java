@@ -73,6 +73,19 @@ public class GTCXMaterialDict {
             OreDictionary.registerOre("plateWroughtIron", GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironplate"));
             OreDictionary.registerOre("blockWroughtIron", GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "refinedironblock"));
         }
+
+        GTMaterial mat = GTCXMaterial.Osmium;
+        OreDictionary.registerOre("dustSmall" + mat.getDisplayName() + "GT", GTCXMaterialGen.getSmallDust(mat, 1));
+        OreDictionary.registerOre("block" + mat.getDisplayName() + "GT", GTMaterialGen.getMaterialBlock(mat, 1));
+        OreDictionary.registerOre("dust" + mat.getDisplayName() + "GT", GTMaterialGen.getDust(mat, 1));
+        OreDictionary.registerOre("ingot" + mat.getDisplayName() + "GT", GTMaterialGen.getIngot(mat, 1));
+        OreDictionary.registerOre("ingotHot" + mat.getDisplayName() + "GT", GTMaterialGen.getHotIngot(mat, 1));
+        OreDictionary.registerOre("nugget" + mat.getDisplayName() + "GT", GTCXMaterialGen.getNugget(mat, 1));
+        OreDictionary.registerOre("plate" + mat.getDisplayName() + "GT", GTCXMaterialGen.getPlate(mat, 1));
+        OreDictionary.registerOre("gear" + mat.getDisplayName() + "GT", GTMaterialGen.getStack(mat, GTCXMaterial.gear, 1));
+        OreDictionary.registerOre("rod" + mat.getDisplayName() + "GT", GTMaterialGen.getStack(mat, GTCXMaterial.stick, 1));
+        OreDictionary.registerOre("stick" + mat.getDisplayName() + "GT", GTMaterialGen.getStack(mat, GTCXMaterial.stick, 1));
+        OreDictionary.registerOre("dustTiny" + mat.getDisplayName() + "GT", GTCXMaterialGen.getTinyDust(mat, 1));
     }
 
     public static void registerToolDicts(GTMaterial mat){
