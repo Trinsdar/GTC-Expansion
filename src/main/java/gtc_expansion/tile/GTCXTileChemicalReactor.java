@@ -272,6 +272,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
                     keyIter.remove();
                     continue;
                 }
+                continue;
             }
             int toFind = key.getAmount();
             for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
@@ -327,6 +328,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
                     keyIter.remove();
                     continue;
                 }
+                continue;
             }
             int count = key.getAmount();
             for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
