@@ -388,9 +388,9 @@ public class GTCXRecipe {
     }
 
     public static void initIc2(){
-        recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_REFINED_IRON, 'M', GTCXBlocks.stoneCompressor, 'C',
+        recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneCompressor, 'C',
                 CIRCUIT_BASIC);
-        recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_REFINED_IRON, 'M', GTCXBlocks.stoneExtractor, 'C',
+        recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneExtractor, 'C',
                 CIRCUIT_BASIC);
         ItemStack cable = GTMaterialGen.get(GTCXBlocks.aluminiumCable, 2);
         recipes.addRecipe(Ic2Items.detectorCable.copy(), " C ", "RcR", " R ",  hasEnoughInsulation(cable.copy(), 3), 'C', CIRCUIT_BASIC, 'R', "dustRedstone", 'c', cableWithInsulationTag(cable.copy(), 3));
@@ -407,7 +407,7 @@ public class GTCXRecipe {
             recipes.overrideRecipe("shaped_tile.blockStoneMacerator_-130868445", Ic2Items.stoneMacerator.copy(), "FDF", "DPD", "FBF", 'D', GEM_DIAMOND, 'F', Items.FLINT, 'P', Blocks.PISTON, 'B',
                     Blocks.FURNACE);
             int recipeId = STEEL_MODE ? 2144549784 : 127744036;
-            recipes.overrideRecipe("shaped_tile.blockMacerator_" + recipeId, Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', MATERIAL_REFINED_IRON, 'M', Ic2Items.stoneMacerator.copy(), 'C',
+            recipes.overrideRecipe("shaped_tile.blockMacerator_" + recipeId, Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', Ic2Items.stoneMacerator.copy(), 'C',
                     CIRCUIT_ADVANCED);
             recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', GEM_DIAMOND, 'F', MATERIAL_STEELS, 'M', MACHINE_BASIC, 'C',
                     CIRCUIT_ADVANCED);
@@ -603,7 +603,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileAutocrafter), "EBE", "CcC", "EME", 'E', ELECTRUM, 'B', Ic2Items.battery, 'C', CIRCUIT_ADVANCED, 'c', "workbench", 'M', MACHINE_ADV);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTranslocatorFluid), "EWE", "CBC", "EME", 'E', ELECTRUM, 'W', Ic2Items.insulatedCopperCable, 'C', CIRCUIT_BASIC, 'B', MACHINE_CHEAP, 'M', Ic2Items.basicFluidImportUpgrade);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDisassembler, 1), "RAR", "ECE", "RWR", 'A', GTMaterialGen.getIc2(Ic2Items.extractor),
-                'W', GTCXBlocks.assemblingMachine, 'R', MATERIAL_REFINED_IRON, 'E', Ic2Items.insulatedCopperCable.copy(), 'C', CIRCUIT_ADVANCED );
+                'W', GTCXBlocks.assemblingMachine, 'R', MATERIAL_STEELS, 'E', Ic2Items.insulatedCopperCable.copy(), 'C', CIRCUIT_ADVANCED );
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCharcoalPit), "RFR", "RFR", "RFR", 'R', REFINED_IRON, 'F', Items.FLINT);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTypeFilter), "PPP", "TCB", "PPP", 'P', aluiron, 'T', GTBlocks.tileTranslocator, 'C', CIRCUIT_ADVANCED, 'B', GTBlocks.tileBufferLarge);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileItemFilter), "PPP", "TCB", "PPP", 'P', PRE + "Iron", 'T', GTBlocks.tileTranslocator, 'C', CIRCUIT_BASIC, 'B', GTBlocks.tileBufferLarge);

@@ -166,10 +166,10 @@ public class GTCXRecipeMods {
             GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Cassiterite, 1), Ic2Items.tinIngot, 0.5F);
             GTRecipeCraftingHandler.removeRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shapeless_item.itemdustbronze_-1753288283");
             String circuit = "circuitBasic";
-            String machineBlock = "machineBlockBasic";
             int recipeId = GTCXValues.STEEL_MODE ? 42294514 : -997650306;
-            GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.orewashingplant_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "orewashingplant"), "PPP", "BMB", "cCc", 'P', GTCXValues.MATERIAL_REFINED_IRON, 'B', Items.BUCKET, 'M', machineBlock, 'c', Ic2Items.carbonMesh, 'C', circuit);
-            GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.roller_-2064391190", GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "roller"), "CPC", "PMP", "cPc", 'C', circuit, 'P', Blocks.PISTON, 'M', machineBlock, 'c', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coil"));
+            GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.orewashingplant_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "orewashingplant"), "PPP", "BMB", "cCc", 'P', GTCXValues.MATERIAL_STEELS, 'B', Items.BUCKET, 'M', GTValues.MACHINE_BASIC, 'c', Ic2Items.carbonMesh, 'C', circuit);
+            recipeId = GTCXValues.STEEL_MODE ? 47090041 : -929770887;
+            GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.thermalcentrifuge_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "thermalcentrifuge"), "CLC", "SAS", "SHS", 'C', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coil"), 'L', Ic2Items.miningLaser, 'S', GTCXValues.MATERIAL_STEELS, 'A', GTValues.MACHINE_ADV, 'H', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "heatconductor"));
         }
         if (Loader.isModLoaded(GTValues.MOD_ID_THERMAL) && GTConfig.modcompat.compatThermal){
             GTCXTileAlloySmelter.addRecipe("dustCopper", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass", 0, 2));

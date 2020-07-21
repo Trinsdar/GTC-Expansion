@@ -85,7 +85,7 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.largeGasTurbine, s(0), s(1), s(2), s("gas_turbine_front_center"), s(2), s(2), s(0), s(1), s(2), s("gas_turbine_front_active_center"), s(2), s(2));
         setTexture(GTCXBlocks.fusionComputer, s(42), s(42), s(42), s(47), s(42), s(42), s(43), s(43), s(43), s(47), s(43), s(43));
         setTexture(GTCXBlocks.trashBin, s(0), s(97), s("trash_bin_side"), s("trash_bin_side"), s("trash_bin_side"), s("trash_bin_side"));
-        setTexture(GTCXBlocks.extruder, s(0), s(21), s("machine_back"), s("extruder_front"), s("machine_side_gauge"), s("machine_side_gauge"), s(0), s(22), s("machine_back"), s("extruder_front_active"), s("machine_side_gauge_red"), s("machine_side_gauge_red"));
+        setTexture(GTCXBlocks.extruder, s(0), s(21), s("machine_back"), s("extruder_front"), s("machine_side_gauge"), s("machine_side_gauge"), s(0), s(22), s("machine_back"), s("extruder_front_active2"), s("machine_side_gauge_red"), s("machine_side_gauge_red"));
         setTexture(GTCXBlocks.industrialSawmill, s("industrial_side"), s("industrial_front"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_1"), s("industrial_sawmill_side_1"), s("industrial_side"), s("industrial_front_active"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_1"), s("industrial_sawmill_side_1"));
     }
 
