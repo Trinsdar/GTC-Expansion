@@ -55,7 +55,6 @@ public class GTCXModelPipe extends BaseModel {
         this.setParticalTexture(wire.getParticleTexture(this.state));
         int min = this.sizes[0];// low size
         int max = this.sizes[1];// high size
-        Map<EnumFacing, List<BakedQuad>> anchorQuadList = new EnumMap(EnumFacing.class);
         Map<EnumFacing, BakedQuad> coreQuads = this.generateCoreQuads(wire, min, max, false);
         Map<EnumFacing, BakedQuad> coreQuadsSided = this.generateCoreQuads(wire, min, max, true);
         Map<EnumFacing, List<BakedQuad>> sideQuads = new EnumMap(EnumFacing.class);
@@ -64,14 +63,17 @@ public class GTCXModelPipe extends BaseModel {
         for (int i = 0; i < facingsLength; ++i) {
             EnumFacing side = facings[i];
             sideQuads.put(side, this.generateQuadsForSide(wire, side, min, max, false));
-            anchorQuadList.put(side, this.generateQuadsForAnchor(wire, anchorBackTexture, side, 0, 16));
         }
 
         for (int j = 0; j < 64; ++j) {
+            Map<EnumFacing, List<BakedQuad>> anchorQuadList = new EnumMap(EnumFacing.class);
             RotationList rotation = RotationList.ofNumber(j);
             List<BakedQuad> quadList = this.quads[j];
             Iterator rotations = rotation.iterator();
             EnumFacing side;
+            for (EnumFacing facing : rotation){
+                anchorQuadList.put(facing, this.generateQuadsForAnchor(wire, anchorBackTexture, facing, 0, 16, rotation));
+            }
             while (rotations.hasNext()) {
                 side = (EnumFacing) rotations.next();
                 quadList.addAll(sideQuads.get(side));
@@ -167,14 +169,14 @@ public class GTCXModelPipe extends BaseModel {
 
     // This is where anchor quads are generated
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private List<BakedQuad> generateQuadsForAnchor(GTBlockBaseConnect wire, TextureAtlasSprite sprite, EnumFacing facing, int min, int max) {
+    private List<BakedQuad> generateQuadsForAnchor(GTBlockBaseConnect wire, TextureAtlasSprite sprite, EnumFacing facing, int min, int max, RotationList rotationList) {
         List<BakedQuad> quads = new ArrayList();
         Pair<Vector3f, Vector3f> position = this.getPosForSide(facing, min, max, 2);
         EnumFacing[] facings = EnumFacing.VALUES;
         int length = facings.length;
         for (int i = 0; i < length; ++i) {
             EnumFacing side = facings[i];
-            if (side != facing){
+            if (side != facing && rotationList.notContains(side)){
                 BlockPartFace face;
                 // Below these just resize the texture of the anchor but not the side of the
                 // actual quads
