@@ -124,11 +124,6 @@ public class GTCXModelPipe extends BaseModel {
                 }
             }
         } else {
-            /*if (state instanceof IC2BlockState){
-                GTCXHelperPipe.GTCXQuadWrapper wrapper = ((IC2BlockState)state).getData();
-                TextureCopyStorage.QuadList quadList = wrapper.getQuadList();
-                return quadList.getQuads();
-            }*/
             return this.getEmptyList();
         }
     }
@@ -190,6 +185,13 @@ public class GTCXModelPipe extends BaseModel {
                 } else if (facing.getAxis() == EnumFacing.Axis.Z && side.getAxis() == EnumFacing.Axis.X) {
                     face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max - 2,
                             (float) min, 16.0F, (float) max }, rotation));
+                } else if (facing.getAxis() == EnumFacing.Axis.X && side.getAxis() == EnumFacing.Axis.Z) {
+                    int rotate = facing == EnumFacing.WEST && side == EnumFacing.SOUTH || facing == EnumFacing.EAST && side == EnumFacing.NORTH ? 180 : 0;
+                    face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max - 2,
+                            (float) min, 16.0F, (float) max }, rotate));
+                } else if (facing.getAxis() != EnumFacing.Axis.Y && side.getAxis() == EnumFacing.Axis.Y) {
+                    face = new BlockPartFace(null, -1, "", new BlockFaceUV(new float[] { (float) max - 2,
+                            (float) min, 16.0F, (float) max }, 0));
                 } else {
                     face = this.getFace(facing, min, max, -1, rotation);
                 }
@@ -221,7 +223,7 @@ public class GTCXModelPipe extends BaseModel {
                     face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { (float) max,
                             (float) min, 16.0F, (float) max }, rotation));
                 } else {
-                    face = this.getFace(facing, min, max, 0, rotation);
+                    face = this.getAnchorFace(facing, min, max, 0, rotation);
                 }
                 // If you would like a different texture for connected sides, change the sprite
                 // var to what you want
@@ -272,7 +274,7 @@ public class GTCXModelPipe extends BaseModel {
         switch (facing) {
             case DOWN:
             case SOUTH:
-                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { min, max, max, 16.0F }, rotation));
+                return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { min + 2, max, max, 16.0F }, rotation));
             case UP:
             case NORTH:
                 return new BlockPartFace(null, index, "", new BlockFaceUV(new float[] { min + 2, 0.0F, max, min }, rotation));
