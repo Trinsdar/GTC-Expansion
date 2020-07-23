@@ -20,26 +20,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GTCXContainerElectrolyzer extends ContainerTileComponent<GTCXTileElectrolyzer> {
 
-    public static final Box2D machineProgressBox = new Box2D(78, 24, 20, 18);
+    public static final Box2D machineProgressBox = new Box2D(69, 24, 20, 18);
     public static final Vec2i machineProgressPos = new Vec2i(176, 0);
 
     public GTCXContainerElectrolyzer(InventoryPlayer player, GTCXTileElectrolyzer tile) {
         super(tile);
         for (int x = 0; x < 2; ++x) {
-            this.addSlotToContainer(new SlotCustom(tile, x, 35 + x * 18, 17, tile.filter));
+            this.addSlotToContainer(new SlotCustom(tile, x, 26 + x * 18, 17, tile.filter));
         }
 
         for (int y = 0; y < 2; ++y) {
             for (int x = 0; x < 3; ++x) {
-                this.addSlotToContainer(new SlotOutput(player.player, tile, 2 + x + y * 3, 107 + x * 18, 17 + y * 18));
+                this.addSlotToContainer(new SlotOutput(player.player, tile, 2 + x + y * 3, 98 + x * 18, 8 + y * 18));
+            }
+        }for (int y = 0; y < 2; ++y) {
+            for (int x = 0; x < 3; ++x) {
+                this.addSlotToContainer(new SlotDisplay(tile, 8 + x + y * 3, 98 + x * 18, 44 + y * 18));
             }
         }
-        this.addSlotToContainer(new SlotDisplay(tile, 8, 35, 62));
-        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 9, 8, 62));
+        this.addSlotToContainer(new SlotDisplay(tile, 14, 35, 36));
+        this.addSlotToContainer(new SlotDischarge(tile, Integer.MAX_VALUE, 15, 8, 62));
         for (int i = 0; i < 2; ++i) {
-            this.addSlotToContainer(new GTSlotUpgrade(tile, 10 + i, 80 + (i * 18), 62));
+            this.addSlotToContainer(new GTSlotUpgrade(tile, 16 + i, 60 + (i * 18), 62));
         }
-        this.addComponent(new GTGuiCompMachinePower(tile));
+        this.addComponent(new GTGuiCompMachinePower(tile, 75, 40));
         this.addPlayerInventory(player);
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }
@@ -48,6 +52,7 @@ public class GTCXContainerElectrolyzer extends ContainerTileComponent<GTCXTileEl
     @SideOnly(Side.CLIENT)
     public void onGuiLoaded(GuiIC2 gui) {
         gui.dissableInvName();
+        gui.disableName();
     }
 
     @Override

@@ -176,7 +176,7 @@ public class GTCXModelPipe extends BaseModel {
         int length = facings.length;
         for (int i = 0; i < length; ++i) {
             EnumFacing side = facings[i];
-            if (side != facing && rotationList.notContains(side)){
+            if (side != facing && (rotationList.notContains(side) || side == facing.getOpposite())){
                 BlockPartFace face;
                 // Below these just resize the texture of the anchor but not the side of the
                 // actual quads

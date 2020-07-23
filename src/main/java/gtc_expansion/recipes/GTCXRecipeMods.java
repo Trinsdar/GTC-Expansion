@@ -227,9 +227,9 @@ public class GTCXRecipeMods {
         }
         if (Loader.isModLoaded("appliedenergistics2")){
             ClassicRecipes.electrolyzer.addChargeRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 0, 1), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 1, 1), 800, GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 1, 1).getUnlocalizedName());
-            GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 0, 1), 0,GTCXTileElectrolyzer.totalEu(327680), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 10, 1));
-            GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 600, 1), 0,GTCXTileElectrolyzer.totalEu(327680), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 11, 1));
-            GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 1200, 1), 0,GTCXTileElectrolyzer.totalEu(327680), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 12, 1));
+            GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 0, 1), 0,GTCXTileElectrolyzer.totalEu(327680), new ItemStack[]{GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 10, 1)});
+            GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 600, 1), 0,GTCXTileElectrolyzer.totalEu(327680), new ItemStack[]{GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 11, 1)});
+            GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 1200, 1), 0,GTCXTileElectrolyzer.totalEu(327680), new ItemStack[]{GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 12, 1)});
         }
     }
 
