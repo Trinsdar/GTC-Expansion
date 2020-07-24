@@ -418,7 +418,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
     }
 
-    public static class GTCXTileOutputHatch extends GTCXTileItemFluidHatches implements IClickable, IGTDebuggableTile{
+    public static class GTCXTileOutputHatch extends GTCXTileItemFluidHatches implements IGTDebuggableTile{
         OutputModes cycle = OutputModes.ITEM_AND_FLUID;
 
         public GTCXTileOutputHatch() {
@@ -512,11 +512,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
 
         @Override
-        public boolean hasRightClick() {
-            return true;
-        }
-
-        @Override
         public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
             ItemStack stack = entityPlayer.getHeldItem(enumHand);
             if (stack.getItem() instanceof GTCXItemToolHammer){
@@ -524,17 +519,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
                 stack.damageItem(1, entityPlayer);
                 return true;
             }
-            return false;
-        }
-
-        @Override
-        public boolean hasLeftClick() {
-            return false;
-        }
-
-        @Override
-        public void onLeftClick(EntityPlayer entityPlayer, Side side) {
-
+            return super.onRightClick(entityPlayer, enumHand, enumFacing, side);
         }
 
         @Override
