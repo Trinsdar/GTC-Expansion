@@ -454,7 +454,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
         addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Calcium)), input("dustCarbon", 1), 7500, GTMaterialGen.getDust(GTMaterial.Calcite, 2));
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getFluidStack(GTMaterial.Hydrogen, 4000)), 105000, GTMaterialGen.getFluidStack(GTMaterial.Methane, 5000));
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getFluidStack(GTMaterial.Nitrogen)), 45000, GTMaterialGen.getFluidStack(GTCXMaterial.NitroCarbon, 2000));
-        addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getFluidStack(GTMaterial.Sodium)), 3000, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumSulfide, 2000));
+        addRecipe(input("dustSulfur", 1), input(GTMaterialGen.getFluidStack(GTMaterial.Sodium)), 3000, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumSulfide, 2000));
         addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.NitroCarbon)), input(GTMaterialGen.getFluidStack("water", 1000)), 17490, GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl, 2000));
         addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.SodiumSulfide)), input(GTMaterialGen.getFluidStack(GTMaterial.Oxygen)), 60000, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate, 2000));
         addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Nitrogen)), input(GTMaterialGen.getFluidStack(GTMaterial.Oxygen)), 37500, GTMaterialGen.getFluidStack(GTCXMaterial.NitrogenDioxide, 2000));
