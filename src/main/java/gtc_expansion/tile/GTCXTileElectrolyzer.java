@@ -59,8 +59,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -69,8 +72,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankListener, IClickable {
+public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankListener, IClickable, IFluidHandler {
 
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialelectrolyzer.png");
     public IFilter filter = new MachineFilter(this);
@@ -182,7 +186,9 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         this.getNetwork().updateTileGuiField(this, "outputTank5");
         this.setStackInSlot(13, ItemDisplayIcon.createWithFluidStack(this.outputTank6.getFluid()));
         this.getNetwork().updateTileGuiField(this, "outputTank6");
-        //this.setStackInSlot(8, ItemDisplayIcon.createWithFluidStack(this.outputTankMulti.getTankProperties()[0].getContents()));
+        /*for (int i = 0; i < outputTankMulti.getTankProperties().length; i++) {
+            this.setStackInSlot( 8 + i, ItemDisplayIcon.createWithFluidStack(this.outputTankMulti.getTankProperties()[i].getContents()));
+        }*/
         shouldCheckRecipe = true;
     }
 
@@ -197,6 +203,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         if (output instanceof GTFluidMachineOutput){
             GTFluidMachineOutput fluidOutput = (GTFluidMachineOutput) output;
             for (FluidStack fluid : fluidOutput.getFluids()){
+                //outputTankMulti.fill(fluid, true);
                 if (outputTank1.getFluid() == null || outputTank1.getFluid().isFluidEqual(fluid) && outputTank1.getFluidAmount() + fluid.amount <= outputTank1.getCapacity()){
                     outputTank1.fillInternal(fluid, true);
                 } else if (outputTank2.getFluid() == null || outputTank2.getFluid().isFluidEqual(fluid) && outputTank2.getFluidAmount() + fluid.amount <= outputTank2.getCapacity()){
@@ -315,6 +322,10 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
                     empty++;
                 }
             }
+            /*if (outputTankMulti.getFluidAmount() == 0){
+                return lastRecipe;
+            }*/
+
             int emptyTanks = 0;
             if (outputTank1.getFluidAmount() == 0) emptyTanks++;
             if (outputTank2.getFluidAmount() == 0) emptyTanks++;
@@ -681,5 +692,29 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     @Override
     public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
         return GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, inputTank) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank5) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank6);
+    }
+
+    @Override
+    public IFluidTankProperties[] getTankProperties() {
+        List<IFluidTankProperties> combined = new ArrayList<>();
+        Stream.of(inputTank.getTankProperties(), outputTankMulti.getTankProperties()).flatMap(Stream::of).forEach(combined::add);
+        return combined.toArray(new IFluidTankProperties[0]);
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
+        return inputTank.fill(resource, doFill);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        return outputTankMulti.drain(resource, doDrain);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        return outputTankMulti.drain(maxDrain, doDrain);
     }
 }

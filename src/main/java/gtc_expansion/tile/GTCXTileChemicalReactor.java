@@ -57,8 +57,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -68,8 +71,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankListener, IClickable, IGTDebuggableTile {
+public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankListener, IClickable, IGTDebuggableTile, IFluidHandler {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/chemicalreactor.png");
     protected static final int[] slotInputs = { 0, 1, 2 };
     public static final int[] slotOutputs = { 3, 4 };
@@ -382,15 +386,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null){
-            if (facing == left() || facing == this.getFacing()){
-                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.inputTank1);
-            }else if (facing == right() || facing == this.getFacing().getOpposite()){
-                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank2);
-            }else if (facing == EnumFacing.DOWN){
-                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank);
-            }else {
-                return super.getCapability(capability, facing);
-            }
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
         }
         return super.getCapability(capability, facing);
     }
@@ -561,5 +557,29 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     @Override
     public void onLeftClick(EntityPlayer entityPlayer, Side side) {
 
+    }
+
+    @Override
+    public IFluidTankProperties[] getTankProperties() {
+        List<IFluidTankProperties> combined = new ArrayList<>();
+        Stream.of(inputTank1.getTankProperties(), inputTank2.getTankProperties(), outputTank.getTankProperties()).flatMap(Stream::of).forEach(combined::add);
+        return combined.toArray(new IFluidTankProperties[0]);
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
+        return inputTank1.getFluid() == null || inputTank1.getFluid().isFluidEqual(resource) ? inputTank1.fill(resource, doFill) : inputTank2.fill(resource, doFill);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        return outputTank.drain(resource, doDrain);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        return outputTank.drain(maxDrain, doDrain);
     }
 }
