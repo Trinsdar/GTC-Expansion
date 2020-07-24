@@ -361,10 +361,12 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
             }
             if (GTHelperStack.matchOreDict(stack, "logWood")){
                 addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
-                addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 4000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
+                addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 6000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
             } else {
+                if (input.getInputs().get(0).getItem() != new ItemStack(Blocks.MELON_BLOCK).getItem()){
+                    addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0));
+                }
                 addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 6000, entry.getOutput().getAllOutputs().get(0));
-                addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0));
             }
         }
         addRecipe(input("logRubber", 1), GTMaterialGen.getFluidStack("water", 1000),6000, Ic2Items.stickyResin.copy(), GTMaterialGen.getDust(GTMaterial.Wood, 8), GTMaterialGen.get(Blocks.PLANKS, 9, 3));
