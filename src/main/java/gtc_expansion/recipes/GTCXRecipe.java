@@ -160,6 +160,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.magnaliumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Magnalium, GTCXMaterial.turbineBlade, 1), 'b', "blockMagnalium");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.tungstensteelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.TungstenSteel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.carbonTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTMaterial.Carbon, GTCXMaterial.turbineBlade, 1), 'b', Ic2Items.carbonPlate);
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.osmiumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Osmium, GTCXMaterial.turbineBlade, 1), 'b', "blockOsmiumGT");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.osmiridiumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Osmiridium, GTCXMaterial.turbineBlade, 1), 'b', "blockOsmiridium");
     }
 
     public static void initUURecipes(){
@@ -270,10 +272,15 @@ public class GTCXRecipe {
         registry.remove(new ResourceLocation("minecraft", "hopper"));
         registry.remove(new ResourceLocation("quark", "hopper"));
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.hopper_-82413824");
-        recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
+        if (GTCXConfiguration.general.enableCraftingTools){
+            recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), " W ", "RRR", "RRR", 'R', "rodIron", 'W', "craftingToolWrench");
+        } else {
+            recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), "RRR", "RRR", 'R', "rodIron");
+        }
         IRecipeInput material = combineRecipeObjects(BRONZE, ALUMINIUM, ELECTRUM, PLATINUM, PRE + "Nickel", REFINED_IRON, PRE + "Silver", PRE + "Iron");
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
         int recipeID = STEEL_MODE ? -305222786 : -156474894;
-        GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", "shaped_tile.hopper_" + recipeID, GTMaterialGen.get(Blocks.HOPPER), "IWI", "ICI", " I ", 'I', material, 'W', "craftingToolWrench", 'C', CHEST_WOOD);
+        GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", "shaped_tile.hopper_" + recipeID, GTMaterialGen.get(Blocks.HOPPER), "IWI", "ICI", " I ", 'I', material, 'W', wrench, 'C', CHEST_WOOD);
         if (GTCXConfiguration.general.harderWood){
             registry.remove(new ResourceLocation("minecraft", "stick"));
             recipes.addRecipe(GTMaterialGen.get(Items.STICK, 2), "P", "P", 'P', "plankWood");
@@ -392,7 +399,7 @@ public class GTCXRecipe {
                 CIRCUIT_BASIC);
         recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneExtractor, 'C',
                 CIRCUIT_BASIC);
-        ItemStack cable = GTMaterialGen.get(GTCXBlocks.aluminiumCable, 2);
+        ItemStack cable = GTMaterialGen.get(GTCXBlocks.aluminiumCable, 1);
         recipes.addRecipe(Ic2Items.detectorCable.copy(), " C ", "RcR", " R ",  hasEnoughInsulation(cable.copy(), 3), 'C', CIRCUIT_BASIC, 'R', "dustRedstone", 'c', cableWithInsulationTag(cable.copy(), 3));
         recipes.addRecipe(Ic2Items.splitterCable.copy(), " R ", "cLc", " R ",  hasEnoughInsulation(cable.copy(), 3), 'L', Blocks.LEVER, 'R', "dustRedstone", 'c', cableWithInsulationTag(cable.copy(), 3));
         recipes.addRecipe(Ic2Items.transformerHV.copy(), " c ", "CTE", " c ",  hasEnoughInsulation(cable.copy(), 3), 'C', CIRCUIT_BASIC, 'T', Ic2Items.transformerMV, 'E', Ic2Items.energyCrystal, 'c', cableWithInsulationTag(cable.copy(), 3));
@@ -478,6 +485,10 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.sideaccessupgrade_-607927002", Ic2Items.sideAccessUpgrade, " T ", "TMT", " T ", 'T', "trapdoorWood", 'M', machineBlock);
         recipes.overrideRecipe("shaped_item.rotationdisablerupgrade_412194477", Ic2Items.rotationDissablerUpgrade, "C", "R", "M", 'C', Items.COMPASS, 'R', Blocks.REDSTONE_TORCH, 'M', machineBlock);
         recipes.overrideRecipe("shaped_item.itemarmorquantumlegs_-1246661396", Ic2Items.quantumLeggings, "MLM", "INI", "G G", 'M', machineBlock, 'L', Ic2Items.lapotronCrystal, 'I', Ic2Items.iridiumPlate, 'N', Ic2Items.nanoLeggings, 'G', DUST_GLOWSTONE);
+        recipeId = STEEL_MODE ? 314434482 : 1752336958;
+        recipes.overrideRecipe("shaped_tile.wavegenerator_" + recipeId, Ic2Items.waveGenerator, "SAC", "STW", "SAC", 'S', MATERIAL_STEELS, 'A', Ic2Items.advancedAlloy, 'C', CIRCUIT_BASIC, 'T', GTCXItems.magnaliumTurbineRotor, 'W', Ic2Items.waterMill);
+        recipeId = STEEL_MODE ? -1390003848 : -1674978904;
+        recipes.overrideRecipe("shaped_tile.oceangenerator_" + recipeId, Ic2Items.oceanGenerator, "SAS", "TWT", "SAS", 'S', MATERIAL_STEELS, 'A', Ic2Items.advancedAlloy, 'T', GTCXItems.osmiumTurbineRotor, 'W', Ic2Items.waterMill);
         recipeId = STEEL_MODE ? 1337979563 : 1053004507;
         recipes.overrideRecipe("shaped_tile.blockthermalgenerator_" + recipeId, Ic2Items.thermalGenerator, "PPP", "PAP", "CGC", 'P', MATERIAL_INVAR_ALUMINIUM, 'A', MACHINE_ADV, 'C', CIRCUIT_BASIC, 'G', Ic2Items.geothermalGenerator);
 
@@ -513,7 +524,7 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.reactorventgold_2067100004", Ic2Items.reactorVentGold, "G", "R", "G", 'G', PRE + "Gold", 'R', Ic2Items.reactorVentCore);
         if (GTCXConfiguration.general.enableCraftingTools){
             recipeId = STEEL_MODE ? 1913907474 : 1986006418;
-            recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", " W ", 'R', "rodRefinedIron", 'W', "craftingToolWrench");
+            recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
             recipeId = STEEL_MODE ? 480320652 : 527557260;
             recipes.overrideRecipe("shaped_tile.blockmachine_" + recipeId, Ic2Items.machine, "PPP", "PWP", "PPP", 'P', REFINED_IRON, 'W', "craftingToolWrench");
             recipes.overrideRecipe("shaped_item.upgradekit.mfs_1186329581", Ic2Items.mfsuUpgradeKid, "BMB", "BBB", " B ", 'B', "ingotBronze", 'M', Ic2Items.mfsu);
@@ -526,6 +537,7 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.reactorcoolanttriple_1052008285", Ic2Items.reactorCoolantCellTriple, "TTT", "WWW", "TTT", 'T', TIN, 'W', Ic2Items.reactorCoolantCellSimple);
         recipes.overrideRecipe("shaped_item.reactorcoolanttriple_-606011908", Ic2Items.reactorCoolantCellTriple, "TTT", "WWW", "TTT", 'T', input(TIN, 2), 'W', GTMaterialGen.getIc2(Ic2Items.waterCell, 2));
         recipes.overrideRecipe("shaped_item.reactorcoolantsix_-1912497898", Ic2Items.reactorCoolantCellSix, "TWT", "TCT", "TWT", 'T', TIN, 'W', Ic2Items.reactorCoolantCellTriple, 'C', Ic2Items.denseCopperPlate);
+        recipes.overrideRecipe("shaped_item.itemthermometer_1507613392", Ic2Items.thermometer, " GT", "GMG", "GG ", 'G', "blockGlass", 'T', TIN, 'M', GTMaterialGen.getFluidStack(GTMaterial.Mercury, 1000));
         if (GTCXConfiguration.general.harderCircuits){
             recipeId = STEEL_MODE ? 1921363733 : 1058514721;
             recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
