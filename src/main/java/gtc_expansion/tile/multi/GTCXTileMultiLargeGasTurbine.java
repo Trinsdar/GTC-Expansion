@@ -414,6 +414,12 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         if (stack.getItem() == GTCXItems.carbonTurbineRotor){
             return 1.25F;
         }
+        if (stack.getItem() == GTCXItems.osmiumTurbineRotor){
+            return 1.75F;
+        }
+        if (stack.getItem() == GTCXItems.osmiridiumTurbineRotor){
+            return 1.5F;
+        }
         return 0.0F;
     }
 

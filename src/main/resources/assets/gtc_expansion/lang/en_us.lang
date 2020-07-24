@@ -463,6 +463,8 @@ item.gtclassic.turbinebladeSteel.name=Steel Turbine Blade
 item.gtclassic.turbinebladeMagnalium.name=Magnalium Turbine Blade
 item.gtclassic.turbinebladeTungstensteel.name=Tungstensteel Turbine Blade
 item.gtclassic.turbinebladeCarbon.name=Carbon Turbine Blade
+item.gtclassic.turbinebladeOsmium.name=Osmium Turbine Blade
+item.gtclassic.turbinebladeOsmiridium.name=Osmiridium Turbine Blade
 
 
 #ic2c extras compat materials
@@ -609,6 +611,8 @@ item.gtc_expansion.steel_turbine_rotor.name=Steel Turbine Rotor
 item.gtc_expansion.magnalium_turbine_rotor.name=Magnalium Turbine Rotor
 item.gtc_expansion.tungstensteel_turbine_rotor.name=Tungstensteel Turbine Rotor
 item.gtc_expansion.carbon_turbine_rotor.name=Carbon Turbine Rotor
+item.gtc_expansion.osmium_turbine_rotor.name=Osmium Turbine Rotor
+item.gtc_expansion.osmiridium_turbine_rotor.name=Osmiridium Turbine Rotor
 
 item.gtc_expansion.mold.name=Blank Mold
 item.gtc_expansion.mold_rod.name=Rod Mold
@@ -732,6 +736,7 @@ tooltip.gtc_expansion.gasturbine0=Generate power from Flatulence, uhh I mean Me
 tooltip.gtc_expansion.inputhatch0=For inputting Materials into Multiblocks
 tooltip.gtc_expansion.outputhatch0=For exporting Materials from Multiblocks
 tooltip.gtc_expansion.dynamohatch0=Generating electric Energy from Multiblocks
+tooltip.gtc_expansion.dynamohatch1=Output Tier can be cycled with hammer(will be screwdriver later)
 tooltip.gtc_expansion.machinecontrolhatch0=For Controlling Multiblocks with Redstone
 tooltip.gtc_expansion.fusion_material_injector0=To inject your fusable Materials into the coils
 tooltip.gtc_expansion.fusion_material_extractor0=Extract your fused Materials out of the coils
@@ -783,5 +788,7 @@ message.gtc_expansion.hatch_mode0.name=Outputs Items
 message.gtc_expansion.hatch_mode1.name=Outputs Fluids
 message.gtc_expansion.hatch_mode2.name=Outputs Nothing
 message.gtc_expansion.hatch_mode3.name=Outputs Items and Fluids
+message.gtc_expansion.dynamo_hatch_mode0=Tier set to tier 4
+message.gtc_expansion.dynamo_hatch_mode1=Tier set to tier 5
 
 miscInfo.gtc_expansion.pressShift.name=Press%1$s Shift%2$s for Structure Information

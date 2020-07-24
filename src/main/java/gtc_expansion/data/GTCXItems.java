@@ -12,6 +12,9 @@ import gtc_expansion.item.GTCXItemMisc;
 import gtc_expansion.item.GTCXItemMiscSpriteless;
 import gtc_expansion.item.GTCXItemMold;
 import gtc_expansion.item.GTCXItemSteelJackHammer;
+import gtc_expansion.item.GTCXItemTurbineRotor;
+import gtc_expansion.material.GTCXMaterial;
+import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
 import net.minecraft.item.Item;
 
@@ -76,11 +79,13 @@ public class GTCXItems {
     public static final GTCXItemDiamondChainsaw diamondChainsaw = createItem(new GTCXItemDiamondChainsaw());
     public static final GTCXItemIntegratedCircuit integratedCircuit = createItem(new GTCXItemIntegratedCircuit());
     public static final GTCXItemDamageable lavaFilter = createItem(new GTCXItemDamageable("lava_filter",13, 1, 100));
-    public static final GTCXItemDamageable bronzeTurbineRotor = createItem(new GTCXItemDamageable("bronze_turbine_rotor",0, 3, 15000));
-    public static final GTCXItemDamageable steelTurbineRotor = createItem(new GTCXItemDamageable("steel_turbine_rotor",1, 3, 10000));
-    public static final GTCXItemDamageable magnaliumTurbineRotor = createItem(new GTCXItemDamageable("magnalium_turbine_rotor",2, 3, 10000));
-    public static final GTCXItemDamageable tungstensteelTurbineRotor = createItem(new GTCXItemDamageable("tungstensteel_turbine_rotor",3, 3, 30000));
-    public static final GTCXItemDamageable carbonTurbineRotor = createItem(new GTCXItemDamageable("carbon_turbine_rotor",4, 3, 2500));
+    public static final GTCXItemTurbineRotor bronzeTurbineRotor = createItem(new GTCXItemTurbineRotor(GTCXMaterial.Bronze, 15000));
+    public static final GTCXItemTurbineRotor steelTurbineRotor = createItem(new GTCXItemTurbineRotor(GTCXMaterial.Steel, 10000));
+    public static final GTCXItemTurbineRotor magnaliumTurbineRotor = createItem(new GTCXItemTurbineRotor(GTCXMaterial.Magnalium, 10000));
+    public static final GTCXItemTurbineRotor tungstensteelTurbineRotor = createItem(new GTCXItemTurbineRotor(GTCXMaterial.TungstenSteel, 30000));
+    public static final GTCXItemTurbineRotor carbonTurbineRotor = createItem(new GTCXItemTurbineRotor(GTMaterial.Carbon, 2500));
+    public static final GTCXItemTurbineRotor osmiumTurbineRotor = createItem(new GTCXItemTurbineRotor(GTCXMaterial.Osmium, 60000));
+    public static final GTCXItemTurbineRotor osmiridiumTurbineRotor = createItem(new GTCXItemTurbineRotor(GTCXMaterial.Osmiridium, 120000));
     public static final GTCXItemHardeningSpray hardeningSpray = createItem(new GTCXItemHardeningSpray());
 
     public static <T extends Item> T createItem(T item) {

@@ -1,23 +1,30 @@
 package gtc_expansion.tile.hatch;
 
 import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
+import gtc_expansion.item.tools.GTCXItemToolHammer;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.energy.EnergyNet;
 import ic2.api.energy.tile.IEnergyEmitter;
+import ic2.core.IC2;
 import ic2.core.block.base.tile.TileEntityElectricBlock;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.util.obj.IClickable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Map;
 
@@ -270,9 +277,47 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
         return super.getActive();
     }
 
-    public static class GTCXTileDynamoHatch extends GTCXTileEnergyOutputHatch{
+    public static class GTCXTileDynamoHatch extends GTCXTileEnergyOutputHatch implements IClickable {
         public GTCXTileDynamoHatch() {
-            super(4, 10000, 2048);
+            super(4, 100000, 2048);
+        }
+
+        public void cycleTier(EntityPlayer player){
+            if (tier == 4){
+                tier = 5;
+                output = 8192;
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_1);
+            } else {
+                tier = 4;
+                output = 2048;
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_0);
+            }
+        }
+
+        @Override
+        public boolean hasRightClick() {
+            return true;
+        }
+
+        @Override
+        public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
+            ItemStack stack = entityPlayer.getHeldItem(enumHand);
+            if (stack.getItem() instanceof GTCXItemToolHammer){
+                this.cycleTier(entityPlayer);
+                stack.damageItem(1, entityPlayer);
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean hasLeftClick() {
+            return false;
+        }
+
+        @Override
+        public void onLeftClick(EntityPlayer entityPlayer, Side side) {
+
         }
     }
 

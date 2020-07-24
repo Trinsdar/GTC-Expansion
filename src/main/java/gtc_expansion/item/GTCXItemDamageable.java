@@ -18,9 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GTCXItemDamageable extends Item implements IStaticTexturedItem {
-    String name;
-    int x;
-    int y;
+    protected String name;
+    protected int x;
+    protected int y;
 
     /**
      * Constructor for making a simple item with no action.
@@ -63,6 +63,12 @@ public class GTCXItemDamageable extends Item implements IStaticTexturedItem {
         }
         if (this == GTCXItems.carbonTurbineRotor){
             return 1.25F;
+        }
+        if (this == GTCXItems.osmiumTurbineRotor){
+            return 1.75F;
+        }
+        if (this == GTCXItems.osmiridiumTurbineRotor){
+            return 1.5F;
         }
         return 0.0F;
     }
