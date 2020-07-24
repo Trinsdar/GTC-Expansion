@@ -220,9 +220,6 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 		/* Osmium **/
 		addRecipe(new IRecipeInput[] {
 				input("dustOsmiumGT", 1) }, 3000, COST_EXTREME, GTMaterialGen.getHotIngot(GTCXMaterial.Osmium, 1));
-		/* Thorium **/
-		addRecipe(new IRecipeInput[] {
-				input("dustThorium", 1) }, 1500, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Thorium, 1));
 		/* Chrome **/
 		addRecipe(new IRecipeInput[] {
 				input("dustChrome", 1), input(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1)) }, 1700, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Chrome, 1));
