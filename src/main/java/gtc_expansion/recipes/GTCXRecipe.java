@@ -394,7 +394,35 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.magicDye), "dyeCyan", "dyeMagenta", "dyeYellow", "dyeBlack");
     }
 
+    public static void initUrnaiumRodOverrides(){
+        overrideGTRecipe("shaped_item.gtclassic.rod_thorium_double_-1641330943", GTMaterialGen.get(GTItems.rodThorium2), "RCR", 'R', GTItems.rodThorium1, 'C', COPPER);
+        overrideGTRecipe("shaped_item.gtclassic.rod_thorium_quad_1590232849", GTMaterialGen.get(GTItems.rodThorium4), " R ","CCC", " R ", 'R', GTItems.rodThorium2, 'C', COPPER);
+        overrideGTRecipe("shaped_item.gtclassic.rod_thorium_quad_1727480257", GTMaterialGen.get(GTItems.rodThorium4), "RCR", "CCC", "RCR", 'R', GTItems.rodThorium1, 'C', COPPER);
+        overrideGTRecipe("shaped_item.gtclassic.rod_plutonium_double_-695190114", GTMaterialGen.get(GTItems.rodPlutonium2), "RCR", 'R', GTItems.rodPlutonium1, 'C', COPPER);
+        overrideGTRecipe("shaped_item.gtclassic.rod_plutonium_quad_1932443438", GTMaterialGen.get(GTItems.rodPlutonium4), " R ","CCC", " R ", 'R', GTItems.rodPlutonium2, 'C', COPPER);
+        overrideGTRecipe("shaped_item.gtclassic.rod_plutonium_quad_1460535640", GTMaterialGen.get(GTItems.rodPlutonium4), "RCR", "CCC", "RCR", 'R', GTItems.rodPlutonium1, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumdual_-755015514", Ic2Items.reactorUraniumRodDual, "RCR", 'R', Ic2Items.reactorUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumquad_1936822515", Ic2Items.reactorUraniumRodQuad, " R ","CCC", " R ", 'R', Ic2Items.reactorUraniumRodDual, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumquad_545094699", Ic2Items.reactorUraniumRodQuad, "RCR", "CCC", "RCR", 'R', Ic2Items.reactorUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumredstonedual_-752241975", Ic2Items.reactorRedstoneUraniumRodDual, "RCR", 'R', Ic2Items.reactorRedstoneUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumredstonequad_304369238", Ic2Items.reactorRedstoneUraniumRodQuad, " R ","CCC", " R ", 'R', Ic2Items.reactorRedstoneUraniumRodDual, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumredstonequad_-1675414636", Ic2Items.reactorRedstoneUraniumRodQuad, "RCR", "CCC", "RCR", 'R', Ic2Items.reactorRedstoneUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumblazedual_-749468436", Ic2Items.reactorBlazeUraniumRodDual, "RCR", 'R', Ic2Items.reactorBlazeUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumblazequad_-1328084039", Ic2Items.reactorBlazeUraniumRodQuad, " R ","CCC", " R ", 'R', Ic2Items.reactorBlazeUraniumRodDual, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumblazequad_399043325", Ic2Items.reactorBlazeUraniumRodQuad, "RCR", "CCC", "RCR", 'R', Ic2Items.reactorBlazeUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumenderpearldual_-746694897", Ic2Items.reactorEnderPearlUraniumRodDual, "RCR", 'R', Ic2Items.reactorEnderPearlUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumenderpearlquad_1334429980", Ic2Items.reactorEnderPearlUraniumRodQuad, " R ","CCC", " R ", 'R', Ic2Items.reactorEnderPearlUraniumRodDual, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumenderpearlquad_-1821466010", Ic2Items.reactorEnderPearlUraniumRodQuad, "RCR", "CCC", "RCR", 'R', Ic2Items.reactorEnderPearlUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumnetherstardual_-743921358", Ic2Items.reactorNetherStarUraniumRodDual, "RCR", 'R', Ic2Items.reactorNetherStarUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumnetherstarquad_-298023297", Ic2Items.reactorNetherStarUraniumRodQuad, " R ","CCC", " R ", 'R', Ic2Items.reactorNetherStarUraniumRodDual, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumnetherstarquad_252991951", Ic2Items.reactorNetherStarUraniumRodQuad, "RCR", "CCC", "RCR", 'R', Ic2Items.reactorNetherStarUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumcharcoaldual_-741147819", Ic2Items.reactorCharcoalUraniumRodDual, "RCR", 'R', Ic2Items.reactorCharcoalUraniumRodSingle, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumcharcoalquad_-1930476574", Ic2Items.reactorCharcoalUraniumRodQuad, " R ","CCC", " R ", 'R', Ic2Items.reactorCharcoalUraniumRodDual, 'C', COPPER);
+        recipes.overrideRecipe("shaped_item.reactoruraniumcharcoalquad_-1967517384", Ic2Items.reactorCharcoalUraniumRodQuad, "RCR", "CCC", "RCR", 'R', Ic2Items.reactorCharcoalUraniumRodSingle, 'C', COPPER);
+    }
+
     public static void initIc2(){
+        initUrnaiumRodOverrides();
         recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneCompressor, 'C',
                 CIRCUIT_BASIC);
         recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneExtractor, 'C',
