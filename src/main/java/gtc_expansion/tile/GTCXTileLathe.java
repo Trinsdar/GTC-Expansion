@@ -137,7 +137,7 @@ public class GTCXTileLathe extends GTTileBaseMachine {
     }
 
     public static void init(){
-        addRecipe("plankWood", 1, GTMaterialGen.get(Items.STICK, 4));
+        addRecipe(input("plankWood", 1), 40, GTMaterialGen.get(Items.STICK, 4));
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int total) {

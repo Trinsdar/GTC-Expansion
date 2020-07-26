@@ -55,8 +55,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -85,20 +89,9 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
     @NetworkField(index = 13)
     private final IC2Tank inputTank;
-    @NetworkField(index = 14)
-    private final IC2Tank outputTank1 = new IC2Tank(16000);
-    @NetworkField(index = 15)
-    private final IC2Tank outputTank2 = new IC2Tank(16000);
-    @NetworkField(index = 16)
-    private final IC2Tank outputTank3 = new IC2Tank(16000);
-    @NetworkField(index = 17)
-    private final IC2Tank outputTank4 = new IC2Tank(16000);
-    @NetworkField(index = 18)
-    private final IC2Tank outputTank5 = new IC2Tank(16000);
-    @NetworkField(index = 19)
-    private final IC2Tank outputTank6 = new IC2Tank(16000);
 
-    private final LayeredFluidTank outputTankMulti = new LayeredFluidTank(96000);
+    @NetworkField(index = 14)
+    private final LayeredFluidTank outputTank = new LayeredFluidTank(96000);
     private static final int defaultEu = 64;
 
     public GTCXTileElectrolyzer() {
@@ -106,19 +99,8 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         setFuelSlot(slotFuel);
         this.inputTank = new IC2Tank(32000);
         this.inputTank.addListener(this);
-        outputTank1.addListener(this);
-        outputTank2.addListener(this);
-        outputTank3.addListener(this);
-        outputTank4.addListener(this);
-        outputTank5.addListener(this);
-        outputTank6.addListener(this);
-        outputTank1.setCanFill(false);
-        outputTank2.setCanFill(false);
-        outputTank3.setCanFill(false);
-        outputTank4.setCanFill(false);
-        outputTank5.setCanFill(false);
-        outputTank6.setCanFill(false);
-        this.addGuiFields(NBT_TANK, "outputTank1", "outputTank2", "outputTank3", "outputTank4", "outputTank5", "outputTank6");
+        this.outputTank.addListener(this);
+        this.addGuiFields(NBT_TANK, "outputTank1", "outputTank2", "outputTank3", "outputTank4", "outputTank5", "outputTank6", "outputTank");
         maxEnergy = 10000;
     }
 
@@ -144,24 +126,14 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.inputTank.readFromNBT(nbt.getCompoundTag(NBT_TANK));
-        this.outputTank1.readFromNBT(nbt.getCompoundTag("outputTank1"));
-        this.outputTank2.readFromNBT(nbt.getCompoundTag("outputTank2"));
-        this.outputTank3.readFromNBT(nbt.getCompoundTag("outputTank3"));
-        this.outputTank4.readFromNBT(nbt.getCompoundTag("outputTank4"));
-        this.outputTank5.readFromNBT(nbt.getCompoundTag("outputTank5"));
-        this.outputTank6.readFromNBT(nbt.getCompoundTag("outputTank6"));
+        this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         this.inputTank.writeToNBT(this.getTag(nbt, NBT_TANK));
-        this.outputTank1.writeToNBT(this.getTag(nbt, "outputTank1"));
-        this.outputTank2.writeToNBT(this.getTag(nbt, "outputTank2"));
-        this.outputTank3.writeToNBT(this.getTag(nbt, "outputTank3"));
-        this.outputTank4.writeToNBT(this.getTag(nbt, "outputTank4"));
-        this.outputTank5.writeToNBT(this.getTag(nbt, "outputTank5"));
-        this.outputTank6.writeToNBT(this.getTag(nbt, "outputTank6"));
+        this.outputTank.writeToNBT(this.getTag(nbt,"outputTank"));
         return nbt;
     }
 
@@ -174,21 +146,14 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     public void onTankChanged(IFluidTank tank) {
         this.setStackInSlot(SLOT_TANK, ItemDisplayIcon.createWithFluidStack(this.inputTank.getFluid()));
         this.getNetwork().updateTileGuiField(this, NBT_TANK);
-        this.setStackInSlot(8, ItemDisplayIcon.createWithFluidStack(this.outputTank1.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank1");
-        this.setStackInSlot(9, ItemDisplayIcon.createWithFluidStack(this.outputTank2.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank2");
-        this.setStackInSlot(10, ItemDisplayIcon.createWithFluidStack(this.outputTank3.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank3");
-        this.setStackInSlot(11, ItemDisplayIcon.createWithFluidStack(this.outputTank4.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank4");
-        this.setStackInSlot(12, ItemDisplayIcon.createWithFluidStack(this.outputTank5.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank5");
-        this.setStackInSlot(13, ItemDisplayIcon.createWithFluidStack(this.outputTank6.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank6");
-        /*for (int i = 0; i < outputTankMulti.getTankProperties().length; i++) {
-            this.setStackInSlot( 8 + i, ItemDisplayIcon.createWithFluidStack(this.outputTankMulti.getTankProperties()[i].getContents()));
-        }*/
+        for (int i = 0; i < 6; i++) {
+            if (i < outputTank.getTankProperties().length) {
+                this.setStackInSlot( 8 + i, ItemDisplayIcon.createWithFluidStack(this.outputTank.getTankProperties()[i].getContents()));
+            } else {
+                this.setStackInSlot(8 + i, ItemStack.EMPTY);
+            }
+        }
+        this.getNetwork().updateTileGuiField(this, "outputTank");
         shouldCheckRecipe = true;
     }
 
@@ -203,20 +168,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         if (output instanceof GTFluidMachineOutput){
             GTFluidMachineOutput fluidOutput = (GTFluidMachineOutput) output;
             for (FluidStack fluid : fluidOutput.getFluids()){
-                //outputTankMulti.fill(fluid, true);
-                if (outputTank1.getFluid() == null || outputTank1.getFluid().isFluidEqual(fluid) && outputTank1.getFluidAmount() + fluid.amount <= outputTank1.getCapacity()){
-                    outputTank1.fillInternal(fluid, true);
-                } else if (outputTank2.getFluid() == null || outputTank2.getFluid().isFluidEqual(fluid) && outputTank2.getFluidAmount() + fluid.amount <= outputTank2.getCapacity()){
-                    outputTank2.fillInternal(fluid, true);
-                } else if (outputTank3.getFluid() == null || outputTank3.getFluid().isFluidEqual(fluid) && outputTank3.getFluidAmount() + fluid.amount <= outputTank3.getCapacity()){
-                    outputTank3.fillInternal(fluid, true);
-                } else if (outputTank4.getFluid() == null || outputTank4.getFluid().isFluidEqual(fluid) && outputTank4.getFluidAmount() + fluid.amount <= outputTank4.getCapacity()){
-                    outputTank4.fillInternal(fluid, true);
-                } else if (outputTank5.getFluid() == null || outputTank5.getFluid().isFluidEqual(fluid) && outputTank5.getFluidAmount() + fluid.amount <= outputTank5.getCapacity()){
-                    outputTank5.fillInternal(fluid, true);
-                } else if (outputTank6.getFluid() == null || outputTank6.getFluid().isFluidEqual(fluid) && outputTank6.getFluidAmount() + fluid.amount <= outputTank6.getCapacity()){
-                    outputTank6.fillInternal(fluid, true);
-                }
+                outputTank.fill(fluid, true);
             }
         }
         NBTTagCompound nbt = recipe.getOutputs().getMetadata();
@@ -322,52 +274,14 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
                     empty++;
                 }
             }
-            /*if (outputTankMulti.getFluidAmount() == 0){
-                return lastRecipe;
-            }*/
-
-            int emptyTanks = 0;
-            if (outputTank1.getFluidAmount() == 0) emptyTanks++;
-            if (outputTank2.getFluidAmount() == 0) emptyTanks++;
-            if (outputTank3.getFluidAmount() == 0) emptyTanks++;
-            if (outputTank4.getFluidAmount() == 0) emptyTanks++;
-            if (outputTank5.getFluidAmount() == 0) emptyTanks++;
-            if (outputTank6.getFluidAmount() == 0) emptyTanks++;
-            if (empty == outputSlots.length && emptyTanks == 6) {
+            if (empty == outputSlots.length && outputTank.getFluidAmount() == 0){
                 return lastRecipe;
             }
-            int fluidListSize = output.getFluids().size();
-            int availableTanks = 0;
-            boolean checkedTank1 = false;
-            boolean checkedTank2 = false;
-            boolean checkedTank3 = false;
-            boolean checkedTank4 = false;
-            boolean checkedTank5 = false;
-            boolean checkedTank6 = false;
+            int totalAmount = 0;
             for (FluidStack fluid : output.getFluids()){
-                if (((fluid.isFluidEqual(outputTank1.getFluid()) && outputTank1.getFluidAmount() + fluid.amount <= outputTank1.getCapacity()) || outputTank1.getFluidAmount() == 0) && !checkedTank1){
-                    availableTanks++;
-                    checkedTank1 = true;
-                } else if (((fluid.isFluidEqual(outputTank2.getFluid()) && outputTank2.getFluidAmount() + fluid.amount <= outputTank2.getCapacity()) || outputTank2.getFluidAmount() == 0) && !checkedTank2){
-                    availableTanks++;
-                    checkedTank2 = true;
-                } else if (((fluid.isFluidEqual(outputTank3.getFluid()) && outputTank3.getFluidAmount() + fluid.amount <= outputTank3.getCapacity()) || outputTank3.getFluidAmount() == 0) && !checkedTank3){
-                    availableTanks++;
-                    checkedTank3 = true;
-                } else if (((fluid.isFluidEqual(outputTank4.getFluid()) && outputTank4.getFluidAmount() + fluid.amount <= outputTank4.getCapacity()) || outputTank4.getFluidAmount() == 0) && !checkedTank4){
-                    availableTanks++;
-                    checkedTank4 = true;
-                } else if (((fluid.isFluidEqual(outputTank5.getFluid()) && outputTank5.getFluidAmount() + fluid.amount <= outputTank5.getCapacity()) || outputTank5.getFluidAmount() == 0) && !checkedTank5){
-                    availableTanks++;
-                    checkedTank5 = true;
-                } else if (((fluid.isFluidEqual(outputTank6.getFluid()) && outputTank6.getFluidAmount() + fluid.amount <= outputTank6.getCapacity()) || outputTank6.getFluidAmount() == 0) && !checkedTank6){
-                    availableTanks++;
-                    checkedTank6 = true;
-                } else {
-                    availableTanks = 0;
-                }
+                totalAmount += fluid.amount;
             }
-            if (fluidListSize <= 6 && availableTanks == fluidListSize){
+            if (outputTank.getFluidAmount() + totalAmount <= outputTank.getCapacity()){
                 for (ItemStack outputItem : lastRecipe.getOutputs().getAllOutputs()) {
                     if (!(outputItem.getItem() instanceof ItemDisplayIcon)){
                         for (int outputSlot : outputSlots) {
@@ -460,28 +374,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (facing!= null && capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
-            if (facing == EnumFacing.DOWN || facing == this.getFacing().getOpposite()){
-                if (outputTank1.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank1);
-                }
-                if (outputTank2.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank2);
-                }
-                if (outputTank3.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank3);
-                }
-                if (outputTank4.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank4);
-                }
-                if (outputTank5.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank5);
-                }
-                if (outputTank6.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank6);
-                }
-                return super.getCapability(capability, facing);
-            }
-            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.inputTank);
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
         }
         return super.getCapability(capability, facing);
     }
@@ -691,13 +584,31 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
 
     @Override
     public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
-        return GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, inputTank) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank1) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank2) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank3) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank4) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank5) || GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, outputTank6);
+        return GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, inputTank) || doClickableFluidContainerFillThings(player, hand, world, pos, outputTank);
+    }
+
+    public static boolean doClickableFluidContainerFillThings(EntityPlayer player, EnumHand hand, World world, BlockPos pos, LayeredFluidTank tank) {
+        ItemStack playerStack = player.getHeldItem(hand);
+        if (!playerStack.isEmpty()) {
+            FluidActionResult result = FluidUtil.tryFillContainer(playerStack, tank, tank.getCapacity(), player, true);
+            if (result.isSuccess()) {
+                playerStack.shrink(1);
+                ItemStack resultStack = result.getResult();
+                if (!resultStack.isEmpty() && !player.inventory.addItemStackToInventory(resultStack)) {
+                    player.dropItem(resultStack, false);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
     public IFluidTankProperties[] getTankProperties() {
         List<IFluidTankProperties> combined = new ArrayList<>();
-        Stream.of(inputTank.getTankProperties(), outputTankMulti.getTankProperties()).flatMap(Stream::of).forEach(combined::add);
+        Stream.of(inputTank.getTankProperties(), outputTank.getTankProperties()).flatMap(Stream::of).forEach(combined::add);
         return combined.toArray(new IFluidTankProperties[0]);
     }
 
@@ -709,12 +620,12 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     @Nullable
     @Override
     public FluidStack drain(FluidStack resource, boolean doDrain) {
-        return outputTankMulti.drain(resource, doDrain);
+        return outputTank.drain(resource, doDrain);
     }
 
     @Nullable
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
-        return outputTankMulti.drain(maxDrain, doDrain);
+        return outputTank.drain(maxDrain, doDrain);
     }
 }
