@@ -577,6 +577,7 @@ item.gtc_expansion.constantan_heating_coil.name=Constantan Heating Coil
 item.gtc_expansion.nichrome_heating_coil.name=Nichrome Heating Coil
 item.gtc_expansion.kanthal_heating_coil.name=Kanthal Heating Coil
 item.gtc_expansion.match.name=Match
+item.gtc_expansion.match_box.name=Match Box
 item.gtc_expansion.magnifying_glass.name=Magnifying Glass
 item.gtc_expansion.fire_clay_ball.name=Fire Clay
 item.gtc_expansion.unfired_fire_brick.name=Unfired Fire Brick
