@@ -8,6 +8,7 @@ import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
+import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
@@ -192,6 +193,18 @@ public class GTCXRecipeMods {
             GTCXTileMultiVacuumFreezer.addRecipe("clathrateRedstone", 1, 4000, GTMaterialGen.get(Items.REDSTONE, 2));
             GTCXTileMultiVacuumFreezer.addRecipe("clathrateGlowstone", 1, 4000, GTMaterialGen.get(Items.GLOWSTONE_DUST, 1));
             GTCXTileMultiVacuumFreezer.addRecipe("clathrateEnder", 1, 4000, GTMaterialGen.get(Items.ENDER_PEARL, 1));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 1024, 1), 200, 12800, GTMaterialGen.getFluidStack("pyrotheum", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 1025, 1), 200, 12800, GTMaterialGen.getFluidStack("cryotheum", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 1026, 1), 200, 12800, GTMaterialGen.getFluidStack("aerotheum", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 1027, 1), 200, 12800, GTMaterialGen.getFluidStack("petrotheum", 250));
+            GTCXTileFluidSmelter.addRecipe("dustCoal", 1, 200, 12800, GTMaterialGen.getFluidStack("coal", 100));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.get(Items.ENDER_PEARL), 200, 12800, GTMaterialGen.getFluidStack("ender", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.get(Items.REDSTONE), 200, 12800, GTMaterialGen.getFluidStack("redstone", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.get(Items.GLOWSTONE_DUST), 200, 12800, GTMaterialGen.getFluidStack("glowstone", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 892, 1), 200, 12800, GTMaterialGen.getFluidStack("crude_oil", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 893, 1), 200, 12800, GTMaterialGen.getFluidStack("redstone", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 894, 1), 200, 12800, GTMaterialGen.getFluidStack("glowstone", 250));
+            GTCXTileFluidSmelter.addRecipe(GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "material", 895, 1), 200, 12800, GTMaterialGen.getFluidStack("ender", 250));
         }
         if (Loader.isModLoaded("gravisuit") && GTCXConfiguration.modcompat.compatGravisuit){
             GTRecipeCraftingHandler.overrideGTRecipe("gravisuit", "shaped_item.advanceddiamondchainsaw_-416372460", GTMaterialGen.getModItem("gravisuit", "advancedchainsaw"), " SS", "SCS", "BS ", 'S', GTCXValues.TUNGSTEN_STEEL, 'C', GTCXItems.diamondChainsaw, 'B', GTItems.lithiumBattery);
