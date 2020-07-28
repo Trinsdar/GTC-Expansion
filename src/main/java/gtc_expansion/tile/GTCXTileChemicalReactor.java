@@ -84,9 +84,19 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 16;
     @NetworkField(index = 13)
-    private final IC2Tank inputTank1 = new IC2Tank(16000);
+    private final IC2Tank inputTank1 = new IC2Tank(16000){
+        @Override
+        public boolean canFillFluidType(FluidStack fluid) {
+            return super.canFillFluidType(fluid) && (inputTank2.getFluid() == null || !inputTank2.getFluid().isFluidEqual(fluid));
+        }
+    };
     @NetworkField(index = 14)
-    private final IC2Tank inputTank2 = new IC2Tank(16000);
+    private final IC2Tank inputTank2 = new IC2Tank(16000){
+        @Override
+        public boolean canFillFluidType(FluidStack fluid) {
+            return super.canFillFluidType(fluid) && (inputTank1.getFluid() == null || !inputTank1.getFluid().isFluidEqual(fluid));
+        }
+    };
     @NetworkField(index = 15)
     private final IC2Tank outputTank = new IC2Tank(16000);
 

@@ -1,12 +1,12 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerDistillationTower;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
@@ -24,6 +24,7 @@ import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.fluid.IC2Tank;
+import ic2.core.fluid.LayeredFluidTank;
 import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
@@ -58,8 +59,11 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -67,8 +71,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener, IClickable, IGTDebuggableTile {
+public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine implements ITankListener, IClickable, IGTDebuggableTile, IFluidHandler {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/distillationtower.png");
     public static final List<Fluid> validFluids = new ArrayList<>();
     public static final IBlockState standardCasingState = GTCXBlocks.casingStandard.getDefaultState();
@@ -103,6 +108,8 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     private final IC2Tank outputTank5 = new IC2Tank(16000);
     @NetworkField(index = 19)
     private final IC2Tank outputTank6 = new IC2Tank(16000);
+    @NetworkField(index = 20)
+    private final LayeredFluidTank outputTank = new LayeredFluidTank(96000);
 
     public GTCXTileMultiDistillationTower() {
         super(10, 2, defaultEu, 128);
@@ -115,7 +122,8 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
         this.outputTank4.addListener(this);
         this.outputTank5.addListener(this);
         this.outputTank6.addListener(this);
-        this.addGuiFields("inputTank", "outputTank1", "outputTank2", "outputTank3", "outputTank4", "outputTank5", "outputTank6");
+        this.outputTank.addListener(this);
+        this.addGuiFields("inputTank", "outputTank1", "outputTank2", "outputTank3", "outputTank4", "outputTank5", "outputTank6", "outputTank");
     }
 
     @Override
@@ -139,19 +147,29 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     public void onTankChanged(IFluidTank tank) {
         this.inventory.set(slotDisplayIn, ItemDisplayIcon.createWithFluidStack(this.inputTank.getFluid()));
         this.getNetwork().updateTileGuiField(this, "inputTank");
-        this.inventory.set(slotDisplayOut1, ItemDisplayIcon.createWithFluidStack(this.outputTank1.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank1");
-        this.inventory.set(slotDisplayOut2, ItemDisplayIcon.createWithFluidStack(this.outputTank2.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank2");
-        this.inventory.set(slotDisplayOut3, ItemDisplayIcon.createWithFluidStack(this.outputTank3.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank3");
-        this.inventory.set(slotDisplayOut4, ItemDisplayIcon.createWithFluidStack(this.outputTank4.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank4");
-        this.inventory.set(slotDisplayOut5, ItemDisplayIcon.createWithFluidStack(this.outputTank5.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank5");
-        this.inventory.set(slotDisplayOut6, ItemDisplayIcon.createWithFluidStack(this.outputTank6.getFluid()));
-        this.getNetwork().updateTileGuiField(this, "outputTank6");
+        for (int i = 0; i < 6; i++) {
+            if (this.getOutputTank(i + 1).getFluidAmount() > 0){
+                this.setStackInSlot(2 + i, ItemDisplayIcon.createWithFluidStack(this.getOutputTank(i + 1).getFluid()));
+                this.getNetwork().updateTileGuiField(this, "outputTank" + (i + 1));
+            } else if (i < outputTank.getTankProperties().length) {
+                this.setStackInSlot( 2 + i, ItemDisplayIcon.createWithFluidStack(this.outputTank.getTankProperties()[i].getContents()));
+            } else {
+                this.setStackInSlot(2 + i, ItemStack.EMPTY);
+            }
+        }
+        this.getNetwork().updateTileGuiField(this, "outputTank");
         shouldCheckRecipe = true;
+    }
+
+    private IC2Tank getOutputTank(int index){
+        switch (index){
+            case 2: return outputTank2;
+            case 3: return outputTank3;
+            case 4: return outputTank4;
+            case 5: return outputTank5;
+            case 6: return outputTank6;
+            default: return outputTank1;
+        }
     }
 
     @Override
@@ -218,6 +236,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
         this.outputTank4.readFromNBT(nbt.getCompoundTag("outputTank4"));
         this.outputTank5.readFromNBT(nbt.getCompoundTag("outputTank5"));
         this.outputTank6.readFromNBT(nbt.getCompoundTag("outputTank6"));
+        this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
     }
 
     @Override
@@ -230,6 +249,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
         this.outputTank4.writeToNBT(this.getTag(nbt, "outputTank4"));
         this.outputTank5.writeToNBT(this.getTag(nbt, "outputTank5"));
         this.outputTank6.writeToNBT(this.getTag(nbt, "outputTank6"));
+        this.outputTank.writeToNBT(this.getTag(nbt, "outputTank"));
         return nbt;
     }
 
@@ -287,30 +307,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     public <T> T getCapability(Capability<T> capability, EnumFacing facing)
     {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null){
-            if (facing == EnumFacing.UP || facing == left()){
-                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.inputTank);
-            }else if (facing == EnumFacing.DOWN || facing == right()){
-                if (outputTank1.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank1);
-                }
-                if (outputTank2.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank2);
-                }
-                if (outputTank3.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank3);
-                }
-                if (outputTank4.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank4);
-                }
-                if (outputTank5.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank5);
-                }
-                if (outputTank6.getFluidAmount() > 0){
-                    return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.outputTank6);
-                }
-            }else {
-                return super.getCapability(capability, facing);
-            }
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
         }
         return super.getCapability(capability, facing);
     }
@@ -329,19 +326,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
             inputTank.drain(((RecipeInputFluid) input).fluid, true);
             NBTTagCompound nbt = recipe.getOutputs().getMetadata();
             for (FluidStack fluid : output.getFluids()){
-                if (outputTank1.getFluid() == null || outputTank1.getFluid().isFluidEqual(fluid)){
-                    outputTank1.fill(fluid, true);
-                } else if (outputTank2.getFluid() == null || outputTank2.getFluid().isFluidEqual(fluid)){
-                    outputTank2.fill(fluid, true);
-                } else if (outputTank3.getFluid() == null || outputTank3.getFluid().isFluidEqual(fluid)){
-                    outputTank3.fill(fluid, true);
-                } else if (outputTank4.getFluid() == null || outputTank4.getFluid().isFluidEqual(fluid)){
-                    outputTank4.fill(fluid, true);
-                } else if (outputTank5.getFluid() == null || outputTank5.getFluid().isFluidEqual(fluid)){
-                    outputTank5.fill(fluid, true);
-                } else if (outputTank6.getFluid() == null || outputTank6.getFluid().isFluidEqual(fluid)){
-                    outputTank6.fill(fluid, true);
-                }
+                outputTank.fill(fluid, true);
             }
 
             addToInventory();
@@ -408,48 +393,14 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
                 empty++;
             }
         }
-        int emptyTanks = 0;
-        if (outputTank1.getFluidAmount() == 0) emptyTanks++;
-        if (outputTank2.getFluidAmount() == 0) emptyTanks++;
-        if (outputTank3.getFluidAmount() == 0) emptyTanks++;
-        if (outputTank4.getFluidAmount() == 0) emptyTanks++;
-        if (outputTank5.getFluidAmount() == 0) emptyTanks++;
-        if (outputTank6.getFluidAmount() == 0) emptyTanks++;
-        if (empty == outputSlots.length && emptyTanks == 6) {
+        if (empty == outputSlots.length && outputTank.getFluidAmount() == 0) {
             return lastRecipe;
         }
-        int fluidListSize = output.getFluids().size();
-        int availableTanks = 0;
-        boolean checkedTank1 = false;
-        boolean checkedTank2 = false;
-        boolean checkedTank3 = false;
-        boolean checkedTank4 = false;
-        boolean checkedTank5 = false;
-        boolean checkedTank6 = false;
+        int totalAmount = 0;
         for (FluidStack fluid : output.getFluids()){
-            if (((fluid.isFluidEqual(outputTank1.getFluid()) && outputTank1.getFluidAmount() + fluid.amount <= outputTank1.getCapacity()) || outputTank1.getFluidAmount() == 0) && !checkedTank1){
-                availableTanks++;
-                checkedTank1 = true;
-            } else if (((fluid.isFluidEqual(outputTank2.getFluid()) && outputTank2.getFluidAmount() + fluid.amount <= outputTank2.getCapacity()) || outputTank2.getFluidAmount() == 0) && !checkedTank2){
-                availableTanks++;
-                checkedTank2 = true;
-            } else if (((fluid.isFluidEqual(outputTank3.getFluid()) && outputTank3.getFluidAmount() + fluid.amount <= outputTank3.getCapacity()) || outputTank3.getFluidAmount() == 0) && !checkedTank3){
-                availableTanks++;
-                checkedTank3 = true;
-            } else if (((fluid.isFluidEqual(outputTank4.getFluid()) && outputTank4.getFluidAmount() + fluid.amount <= outputTank4.getCapacity()) || outputTank4.getFluidAmount() == 0) && !checkedTank4){
-                availableTanks++;
-                checkedTank4 = true;
-            } else if (((fluid.isFluidEqual(outputTank5.getFluid()) && outputTank5.getFluidAmount() + fluid.amount <= outputTank5.getCapacity()) || outputTank5.getFluidAmount() == 0) && !checkedTank5){
-                availableTanks++;
-                checkedTank5 = true;
-            } else if (((fluid.isFluidEqual(outputTank6.getFluid()) && outputTank6.getFluidAmount() + fluid.amount <= outputTank6.getCapacity()) || outputTank6.getFluidAmount() == 0) && !checkedTank6){
-                availableTanks++;
-                checkedTank6 = true;
-            } else {
-                availableTanks = 0;
-            }
+            totalAmount += fluid.amount;
         }
-        if (fluidListSize <= 6 && availableTanks == fluidListSize){
+        if (outputTank.getFluidAmount() + totalAmount <= outputTank.getCapacity()){
             for (ItemStack outputItem : lastRecipe.getOutputs().getAllOutputs()) {
                 if (!(outputItem.getItem() instanceof ItemDisplayIcon)){
                     for (int outputSlot : outputSlots) {
@@ -797,15 +748,69 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     public void getData(Map<String, Boolean> map) {
         FluidStack fluid = this.inputTank.getFluid();
         map.put("Input Tank: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
-        fluid = this.outputTank1.getFluid();
-        map.put("Output Tank 1: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
-        fluid = this.outputTank2.getFluid();
-        map.put("Output Tank 2: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
-        fluid = this.outputTank3.getFluid();
-        map.put("Output Tank 3: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
-        fluid = this.outputTank5.getFluid();
-        map.put("Output Tank 5: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
-        fluid = this.outputTank6.getFluid();
-        map.put("Output Tank 6: " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        for (int i = 0; i < outputTank.getTankProperties().length; i++) {
+            fluid = this.outputTank.getTankProperties()[i].getContents();
+            map.put("Output Tank Fluid " + (i + 1) + " : " + (fluid != null ? fluid.amount + "mb of " + fluid.getLocalizedName() : "Empty"), false);
+        }
+    }
+
+    @Override
+    public IFluidTankProperties[] getTankProperties() {
+        List<IFluidTankProperties> combined = new ArrayList<>();
+        Stream.of(inputTank.getTankProperties(), outputTank.getTankProperties()).flatMap(Stream::of).forEach(combined::add);
+        return combined.toArray(new IFluidTankProperties[0]);
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
+        return inputTank.fill(resource, doFill);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        if (outputTank1.getFluidAmount() > 0){
+            return outputTank1.drain(resource, doDrain);
+        }
+        if (outputTank2.getFluidAmount() > 0){
+            return outputTank2.drain(resource, doDrain);
+        }
+        if (outputTank3.getFluidAmount() > 0){
+            return outputTank3.drain(resource, doDrain);
+        }
+        if (outputTank4.getFluidAmount() > 0){
+            return outputTank4.drain(resource, doDrain);
+        }
+        if (outputTank5.getFluidAmount() > 0){
+            return outputTank5.drain(resource, doDrain);
+        }
+        if (outputTank6.getFluidAmount() > 0){
+            return outputTank6.drain(resource, doDrain);
+        }
+        return outputTank.drain(resource, doDrain);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        if (outputTank1.getFluidAmount() > 0){
+            return outputTank1.drain(maxDrain, doDrain);
+        }
+        if (outputTank2.getFluidAmount() > 0){
+            return outputTank2.drain(maxDrain, doDrain);
+        }
+        if (outputTank3.getFluidAmount() > 0){
+            return outputTank3.drain(maxDrain, doDrain);
+        }
+        if (outputTank4.getFluidAmount() > 0){
+            return outputTank4.drain(maxDrain, doDrain);
+        }
+        if (outputTank5.getFluidAmount() > 0){
+            return outputTank5.drain(maxDrain, doDrain);
+        }
+        if (outputTank6.getFluidAmount() > 0){
+            return outputTank6.drain(maxDrain, doDrain);
+        }
+        return outputTank.drain(maxDrain, doDrain);
     }
 }
