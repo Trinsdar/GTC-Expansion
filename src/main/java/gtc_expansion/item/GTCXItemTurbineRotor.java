@@ -1,8 +1,10 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.material.GTCXMaterial;
 import gtclassic.api.interfaces.IGTColorItem;
 import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
 import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
@@ -33,5 +35,9 @@ public class GTCXItemTurbineRotor extends GTCXItemDamageable implements IGTColor
     @SideOnly(Side.CLIENT)
     public TextureAtlasSprite getTexture(int i) {
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_materials")[36];
+    }
+
+    public ItemStack getBroken(){
+        return GTMaterialGen.getStack(this.material, GTCXMaterial.brokenTurbineRotor, 1);
     }
 }

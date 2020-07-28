@@ -5,6 +5,7 @@ import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.interfaces.IGTMultiTileProduction;
 import gtc_expansion.interfaces.IGTOwnerTile;
+import gtc_expansion.item.GTCXItemTurbineRotor;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.GTCXTileCasing;
@@ -33,6 +34,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
@@ -154,7 +157,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     }
 
     public boolean isTurbineRotor(ItemStack stack){
-        return stack.getItem() == GTCXItems.bronzeTurbineRotor || stack.getItem() == GTCXItems.steelTurbineRotor || stack.getItem() == GTCXItems.magnaliumTurbineRotor || stack.getItem() == GTCXItems.tungstensteelTurbineRotor || stack.getItem() == GTCXItems.carbonTurbineRotor;
+        return stack.getItem() == GTCXItems.bronzeTurbineRotor || stack.getItem() == GTCXItems.steelTurbineRotor || stack.getItem() == GTCXItems.magnaliumTurbineRotor || stack.getItem() == GTCXItems.tungstensteelTurbineRotor || stack.getItem() == GTCXItems.carbonTurbineRotor || stack.getItem() == GTCXItems.osmiumTurbineRotor || stack.getItem() == GTCXItems.osmiridiumTurbineRotor;
     }
 
 
@@ -215,8 +218,24 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                         }
                         dynamoHatch.addEnergy(production);
                         if (ticker >= 80){
-                            if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                                this.getStackInSlot(0).shrink(1);
+                            ItemStack slotStack = this.getStackInSlot(0);
+                            if (slotStack.attemptDamageItem(1, world.rand, null)) {
+                                if (slotStack.getItem() instanceof GTCXItemTurbineRotor){
+                                    slotStack.shrink(1);
+                                    this.setStackInSlot(0, ((GTCXItemTurbineRotor)slotStack.getItem()).getBroken());
+                                } else {
+                                    slotStack.shrink(1);
+                                }
+                                if (world.isAnyPlayerWithinRangeAt(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), 5)){
+                                    for (EntityPlayer player : world.playerEntities){
+                                        if (EntitySelectors.NOT_SPECTATING.apply(player) && !player.isCreative()) {
+                                            double d0 = player.getDistanceSq(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
+                                            if (d0 < 5 * 5) {
+                                                player.attackEntityFrom(DamageSource.GENERIC, 8);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                             ticker = 0;
                         }
@@ -239,8 +258,24 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                                 }
                                 dynamoHatch.addEnergy(production);
                                 if (ticker >= 80){
-                                    if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                                        this.getStackInSlot(0).shrink(1);
+                                    ItemStack slotStack = this.getStackInSlot(0);
+                                    if (slotStack.attemptDamageItem(1, world.rand, null)) {
+                                        if (slotStack.getItem() instanceof GTCXItemTurbineRotor){
+                                            slotStack.shrink(1);
+                                            this.setStackInSlot(0, ((GTCXItemTurbineRotor)slotStack.getItem()).getBroken());
+                                        } else {
+                                            slotStack.shrink(1);
+                                        }
+                                        if (world.isAnyPlayerWithinRangeAt(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), 5)){
+                                            for (EntityPlayer player : world.playerEntities){
+                                                if (EntitySelectors.NOT_SPECTATING.apply(player) && !player.isCreative()) {
+                                                    double d0 = player.getDistanceSq(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
+                                                    if (d0 < 5 * 5) {
+                                                        player.attackEntityFrom(DamageSource.GENERIC, 8);
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                     ticker = 0;
                                 }
@@ -259,8 +294,24 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                             }
                             dynamoHatch.addEnergy(production);
                             if (ticker >= 80){
-                                if (this.getStackInSlot(0).attemptDamageItem(1, world.rand, null)){
-                                    this.getStackInSlot(0).shrink(1);
+                                ItemStack slotStack = this.getStackInSlot(0);
+                                if (slotStack.attemptDamageItem(1, world.rand, null)) {
+                                    if (slotStack.getItem() instanceof GTCXItemTurbineRotor){
+                                        slotStack.shrink(1);
+                                        this.setStackInSlot(0, ((GTCXItemTurbineRotor)slotStack.getItem()).getBroken());
+                                    } else {
+                                        slotStack.shrink(1);
+                                    }
+                                    if (world.isAnyPlayerWithinRangeAt(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), 5)){
+                                        for (EntityPlayer player : world.playerEntities){
+                                            if (EntitySelectors.NOT_SPECTATING.apply(player) && !player.isCreative()) {
+                                                double d0 = player.getDistanceSq(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
+                                                if (d0 < 5 * 5) {
+                                                    player.attackEntityFrom(DamageSource.GENERIC, 8);
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                                 ticker = 0;
                             }

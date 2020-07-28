@@ -466,6 +466,15 @@ item.gtclassic.turbinebladeCarbon.name=Carbon Turbine Blade
 item.gtclassic.turbinebladeOsmium.name=Osmium Turbine Blade
 item.gtclassic.turbinebladeOsmiridium.name=Osmiridium Turbine Blade
 
+#broken turbine rotors
+item.gtclassic.brokenturbinerotorBronze.name=Broken Bronze Turbine Rotor
+item.gtclassic.brokenturbinerotorSteel.name=Broken Steel Turbine Rotor
+item.gtclassic.brokenturbinerotorMagnalium.name=Broken Magnalium Turbine Rotor
+item.gtclassic.brokenturbinerotorTungstensteel.name=Broken Tungstensteel Turbine Rotor
+item.gtclassic.brokenturbinerotorCarbon.name=Broken Carbon Turbine Rotor
+item.gtclassic.brokenturbinerotorOsmium.name=Broken Osmium Turbine Rotor
+item.gtclassic.brokenturbinerotorOsmiridium.name=Broken Osmiridium Turbine Rotor
+
 
 #ic2c extras compat materials
 item.gtclassic.crushedoreTungsten.name=Crushed Tungsten Ore
@@ -780,6 +789,7 @@ tooltip.gtc_expansion.steel_jackhammer1=Can be upgraded to a diamond to do 3x3 b
 tooltip.gtc_expansion.oilberry=Can be eaten, but I wouldn't recommend it.
 tooltip.gtc_expansion.magicDye=Only for crafting, has no function.
 tooltip.gtc_expansion.crowbar=To remove Covers from Pipes
+tooltip.gtc_expansion.broken_turbine_rotor=Craft with 4 turbine blades to repair
 
 tooltip.gtc_expansion.diamondChainsawShearToggle.name=Enable/Disable Shearing
 

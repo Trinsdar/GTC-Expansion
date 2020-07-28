@@ -155,13 +155,18 @@ public class GTCXRecipe {
         IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
         IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.integratedCircuit), "PHP", "RRR", "PWP", 'P', combineRecipeObjects(REFINED_IRON, PRE + "Iron", STEEL), 'H', hammer, 'R', combineRecipeObjects("rodRefinedIron", "rodIron", "rodSteel"), 'W', wrench);
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.bronzeTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Bronze, GTCXMaterial.turbineBlade, 1), 'b', "blockBronze");
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.steelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Steel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.magnaliumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Magnalium, GTCXMaterial.turbineBlade, 1), 'b', "blockMagnalium");
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.tungstensteelTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.TungstenSteel, GTCXMaterial.turbineBlade, 1), 'b', "blockSteel");
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.carbonTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTMaterial.Carbon, GTCXMaterial.turbineBlade, 1), 'b', Ic2Items.carbonPlate);
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.osmiumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Osmium, GTCXMaterial.turbineBlade, 1), 'b', "blockOsmiumGT");
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.osmiridiumTurbineRotor) , "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(GTCXMaterial.Osmiridium, GTCXMaterial.turbineBlade, 1), 'b', "blockOsmiridium");
+        addRotorRecipe(GTMaterialGen.get(GTCXItems.bronzeTurbineRotor) , GTCXMaterial.Bronze, "blockBronze");
+        addRotorRecipe(GTMaterialGen.get(GTCXItems.steelTurbineRotor) , GTCXMaterial.Steel, "blockSteel");
+        addRotorRecipe(GTMaterialGen.get(GTCXItems.magnaliumTurbineRotor) , GTCXMaterial.Magnalium, "blockMagnalium");
+        addRotorRecipe(GTMaterialGen.get(GTCXItems.tungstensteelTurbineRotor) , GTCXMaterial.TungstenSteel, "blockSteel");
+        addRotorRecipe(GTMaterialGen.get(GTCXItems.carbonTurbineRotor) , GTMaterial.Carbon, Ic2Items.carbonPlate);
+        addRotorRecipe(GTMaterialGen.get(GTCXItems.osmiumTurbineRotor) , GTCXMaterial.Osmium, "blockOsmiumGT");
+        addRotorRecipe(GTMaterialGen.get(GTCXItems.osmiridiumTurbineRotor) , GTCXMaterial.Osmiridium, "blockOsmiridium");
+    }
+
+    public static void addRotorRecipe(ItemStack rotor, GTMaterial material, Object center){
+        recipes.addRecipe(rotor, "BBB", "BbB", "BBB", 'B', GTMaterialGen.getStack(material, GTCXMaterial.turbineBlade, 1), 'b', center);
+        recipes.addRecipe(rotor, " B ", "BbB", " B ", 'B', GTMaterialGen.getStack(material, GTCXMaterial.turbineBlade, 1), 'b', GTMaterialGen.getStack(material, GTCXMaterial.brokenTurbineRotor, 1));
     }
 
     public static void initUURecipes(){
