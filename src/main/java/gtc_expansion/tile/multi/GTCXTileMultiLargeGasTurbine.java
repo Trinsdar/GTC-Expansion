@@ -221,7 +221,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                             ItemStack slotStack = this.getStackInSlot(0);
                             if (slotStack.attemptDamageItem(1, world.rand, null)) {
                                 if (slotStack.getItem() instanceof GTCXItemTurbineRotor){
-                                    slotStack.shrink(1);
                                     this.setStackInSlot(0, ((GTCXItemTurbineRotor)slotStack.getItem()).getBroken());
                                 } else {
                                     slotStack.shrink(1);
@@ -261,7 +260,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                                     ItemStack slotStack = this.getStackInSlot(0);
                                     if (slotStack.attemptDamageItem(1, world.rand, null)) {
                                         if (slotStack.getItem() instanceof GTCXItemTurbineRotor){
-                                            slotStack.shrink(1);
                                             this.setStackInSlot(0, ((GTCXItemTurbineRotor)slotStack.getItem()).getBroken());
                                         } else {
                                             slotStack.shrink(1);
@@ -297,7 +295,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                                 ItemStack slotStack = this.getStackInSlot(0);
                                 if (slotStack.attemptDamageItem(1, world.rand, null)) {
                                     if (slotStack.getItem() instanceof GTCXItemTurbineRotor){
-                                        slotStack.shrink(1);
                                         this.setStackInSlot(0, ((GTCXItemTurbineRotor)slotStack.getItem()).getBroken());
                                     } else {
                                         slotStack.shrink(1);
