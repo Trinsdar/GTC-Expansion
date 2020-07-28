@@ -53,6 +53,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -72,6 +73,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     protected static final int[] slotInputs = { 1 };
     protected static final int[] slotOutputs = { 2, 3, 4 };
     protected static final int slotFuel = 5;
+    public static final List<Fluid> validFluids = new ArrayList<>();
     public IFilter filter = new MachineFilter(this);
     public static final IBlockState casingStandardState = GTCXBlocks.casingStandard.getDefaultState();
     public static final IBlockState casingReinforcedState = GTCXBlocks.casingReinforced.getDefaultState();
@@ -82,7 +84,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     private final IC2Tank inputTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
-            return super.canFillFluidType(fluid) && fluid.isFluidEqual(GTMaterialGen.getFluidStack("water", 1));
+            return super.canFillFluidType(fluid) && validFluids.contains(fluid.getFluid());
         }
     };
 
@@ -420,6 +422,11 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        for (IRecipeInput in : input){
+            if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
+                validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
+            }
+        }
         GTCXRecipeLists.INDUSTRIAL_SAWMILL_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 

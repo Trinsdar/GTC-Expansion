@@ -58,6 +58,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -85,10 +86,16 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     public static final int slotFuel = 15;
     public static final int SLOT_TANK = 14;
     public static final String NBT_TANK = "inputTank";
+    public static final List<Fluid> validFluids = new ArrayList<>();
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
     @NetworkField(index = 13)
-    private final IC2Tank inputTank;
+    private final IC2Tank inputTank = new IC2Tank(32000){
+        @Override
+        public boolean canFillFluidType(FluidStack fluid) {
+            return super.canFillFluidType(fluid) && validFluids.contains(fluid.getFluid());
+        }
+    };
 
     @NetworkField(index = 14)
     private final LayeredFluidTank outputTank = new LayeredFluidTank(96000);
@@ -97,7 +104,6 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     public GTCXTileElectrolyzer() {
         super(16, 2, defaultEu, 100, 128);
         setFuelSlot(slotFuel);
-        this.inputTank = new IC2Tank(32000);
         this.inputTank.addListener(this);
         this.outputTank.addListener(this);
         this.addGuiFields(NBT_TANK, "outputTank1", "outputTank2", "outputTank3", "outputTank4", "outputTank5", "outputTank6", "outputTank");
@@ -561,6 +567,11 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        for (IRecipeInput in : input){
+            if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
+                validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
+            }
+        }
         GTCXRecipeLists.ELECTROLYZER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 

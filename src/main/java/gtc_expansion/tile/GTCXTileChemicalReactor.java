@@ -54,6 +54,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -81,20 +82,21 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     public static final int slotDisplayIn1 = 6;
     public static final int slotDisplayIn2 = 7;
     public static final int slotDisplayOut = 8;
+    public static final List<Fluid> validFluids = new ArrayList<>();
     public IFilter filter = new MachineFilter(this);
     private static final int defaultEu = 16;
     @NetworkField(index = 13)
     private final IC2Tank inputTank1 = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
-            return super.canFillFluidType(fluid) && (inputTank2.getFluid() == null || !inputTank2.getFluid().isFluidEqual(fluid));
+            return super.canFillFluidType(fluid) && (inputTank2.getFluid() == null || !inputTank2.getFluid().isFluidEqual(fluid)) && validFluids.contains(fluid.getFluid());
         }
     };
     @NetworkField(index = 14)
     private final IC2Tank inputTank2 = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
-            return super.canFillFluidType(fluid) && (inputTank1.getFluid() == null || !inputTank1.getFluid().isFluidEqual(fluid));
+            return super.canFillFluidType(fluid) && (inputTank1.getFluid() == null || !inputTank1.getFluid().isFluidEqual(fluid)) && validFluids.contains(fluid.getFluid());
         }
     };
     @NetworkField(index = 15)
@@ -536,6 +538,11 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        for (IRecipeInput in : input){
+            if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
+                validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
+            }
+        }
         GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 16);
     }
 

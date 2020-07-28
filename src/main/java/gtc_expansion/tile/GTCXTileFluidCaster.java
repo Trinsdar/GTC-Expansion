@@ -58,6 +58,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -79,6 +80,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     protected static final int slotInput = 2;
     protected static final int slotOutput = 3;
     protected static final int slotFuel = 4;
+    public static final List<Fluid> validFluids = new ArrayList<>();
     public IFilter filter = new MachineFilter(this);
     float oldProgressPerTick;
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/fluidcaster.png");
@@ -87,7 +89,7 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     private final IC2Tank inputTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
-            return super.canFillFluidType(fluid) && fluid.getFluid() != FluidRegistry.WATER;
+            return super.canFillFluidType(fluid) && fluid.getFluid() != FluidRegistry.WATER && validFluids.contains(fluid.getFluid());
         }
     };
 
@@ -626,6 +628,11 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        for (IRecipeInput in : input){
+            if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
+                validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
+            }
+        }
         GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 
