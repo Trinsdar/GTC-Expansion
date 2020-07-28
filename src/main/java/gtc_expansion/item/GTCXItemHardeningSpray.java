@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 public class GTCXItemHardeningSpray extends GTCXItemDamageable {
 
     public GTCXItemHardeningSpray() {
-        super("hardening_spray", 5, 3, 256);
+        super("hardening_spray", 0, 3, 256);
     }
 
     @Override

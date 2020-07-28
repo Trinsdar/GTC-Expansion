@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class GTCXItemMatchBox extends GTCXItemDamageable {
 
     public GTCXItemMatchBox() {
-        super("match_box", 7, 3, 64);
+        super("match_box", 2, 3, 64);
     }
 
     @Override
