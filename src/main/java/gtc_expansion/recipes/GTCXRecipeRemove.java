@@ -72,6 +72,7 @@ public class GTCXRecipeRemove {
         removeCentrifugeRecipe("item.gtclassic.dustSilicon_2");
         removeCentrifugeRecipe("item.gtclassic.dustSilicon_3");
         removeCentrifugeRecipe("item.gtclassic.dustLithium");
+        removeCentrifugeRecipe("tile.sand.default_4");
         GTTileCentrifuge.RECIPE_LIST.finishMassChange();
     }
 

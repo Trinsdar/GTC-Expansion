@@ -321,7 +321,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
             }
         } else {
             for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
-                outputs.add(new MultiSlotOutput(stack, 1));
+                outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
                 onRecipeComplete();
             }
         }
@@ -543,7 +543,7 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
                 validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
             }
         }
-        GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 16);
+        GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST.addRecipe(input, output, (output instanceof GTFluidMachineOutput ? ((GTFluidMachineOutput)output).getFluids().get(0).getUnlocalizedName() : output.getAllOutputs().get(0).getUnlocalizedName()), 16);
     }
 
     @Override

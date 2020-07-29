@@ -125,6 +125,7 @@ public class GTCXRecipeProcessing {
         GTTileCentrifuge.addRecipe("dustNichrome", 5, 0, totalCentrifugeEu(35840), GTMaterialGen.getDust(GTMaterial.Nickel, 4), GTMaterialGen.getDust(GTMaterial.Chrome, 1));
         GTTileCentrifuge.addRecipe("dustCinnabar", 4, 2, totalCentrifugeEu(58880), GTMaterialGen.getTube(GTMaterial.Mercury, 2), GTMaterialGen.getDust(GTMaterial.Sulfur, 2));
         GTTileCentrifuge.addRecipe("dustIridium", 9, 0, totalCentrifugeEu(117760), GTMaterialGen.getDust(GTCXMaterial.Osmium, 1));
+        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Blocks.SOUL_SAND, 16), 1, totalCentrifugeEu(12000), GTMaterialGen.get(Blocks.SAND), GTMaterialGen.getDust(GTCXMaterial.Saltpeter, 1), GTMaterialGen.getTube(GTMaterial.Oil, 1), Ic2Items.coalDust);
     }
 
     public static void removals() {
