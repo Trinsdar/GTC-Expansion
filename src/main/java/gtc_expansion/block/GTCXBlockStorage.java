@@ -74,6 +74,8 @@ public class GTCXBlockStorage extends GTCXBlockTile implements IGTColorBlock {
 				colorTile.setTileColor(nbt.getInteger("color"));
 			} else if (this == GTCXBlocks.advancedWorktable){
 				colorTile.setTileColor(GTMaterial.Electrum.getColor().getRGB());
+			} else {
+				colorTile.setTileColor(Color.WHITE.getRGB());
 			}
 		}
 	}

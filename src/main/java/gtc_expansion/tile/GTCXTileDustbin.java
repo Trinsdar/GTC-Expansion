@@ -1,11 +1,11 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerDustbin;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.util.GTCXDustbinFilter;
 import gtclassic.api.helpers.GTHelperStack;
-import gtclassic.api.helpers.int3;
+import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -18,14 +18,11 @@ import ic2.core.RotationList;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
-import ic2.core.inventory.filters.CommonFilters;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.gui.GuiComponentContainer;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
-import ic2.core.inventory.transport.IItemTransporter;
-import ic2.core.inventory.transport.TransporterManager;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.util.math.MathUtil;
@@ -35,14 +32,16 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import static gtclassic.api.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
@@ -53,11 +52,14 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     public IFilter filter = new GTCXDustbinFilter(this);
     private static final int[] slotInputs = MathUtil.fromTo(0, 16);
     private static final int[] slotOutputs = MathUtil.fromTo(16, 32);
-    public MultiRecipe lastRecipe;
+    public Map<Integer, MultiRecipe> lastRecipes = new LinkedHashMap<>();
     protected LinkedList<IStackOutput> outputs = new LinkedList<>();
 
     public GTCXTileDustbin() {
         super(32);
+        for (int i = 0; i < 16; i++){
+            lastRecipes.put(i, null);
+        }
     }
 
     @Override
@@ -106,86 +108,25 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
         return true;
     }
 
-    int counter = 0;
-
     @Override
     public void update() {
-        tryImportItems();
-        counter++;
-        if (counter == 20){
-            GTHelperStack.tryCondenseInventory(this, 0, 16);
-            counter = 0;
-        }
-        if (counter > 20){
-            counter = 0;
-        }
+        GTUtility.importFromSideIntoMachine(this, EnumFacing.UP);
         handleRedstone();
         boolean noRoom;
         for (int i = 0; i < 16; i++){
-            if (inventory.get(i).isEmpty() || inventory.get(i).getCount() < 4){
+            if (this.getStackInSlot(i).isEmpty() || this.getStackInSlot(i).getCount() < 4){
                 continue;
             }
+            lastRecipes.put(i, getRecipe(i));
             noRoom = addToInventory();
-            lastRecipe = getRecipe(i);
+            MultiRecipe lastRecipe = lastRecipes.get(i);
             boolean operate = (!noRoom && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
             if (operate){
                 process(lastRecipe, i);
             }
         }
-        tryExportItems();
+        GTUtility.exportFromMachineToSide(this, EnumFacing.DOWN, slotOutputs);
         updateComparators();
-    }
-
-    public BlockPos getImportTilePos() {
-        int3 dir = new int3(getPos(), getFacing());
-        return dir.up(1).asBlockPos();
-    }
-
-    public BlockPos getExportTilePos() {
-        int3 dir = new int3(getPos(), getFacing());
-        return dir.down(1).asBlockPos();
-    }
-
-    public void tryImportItems() {
-        if (world.isBlockLoaded(getImportTilePos())) {
-            IItemTransporter slave = TransporterManager.manager.getTransporter(world.getTileEntity(getImportTilePos()), true);
-            if (slave != null) {
-                IItemTransporter controller = TransporterManager.manager.getTransporter(this, true);
-                int limit = controller.getSizeInventory(getFacing());
-                for (int i = 0; i < limit; ++i) {
-                    ItemStack stack = slave.removeItem(CommonFilters.Anything, getFacing(), 1, false);
-                    if (stack.isEmpty()) {
-                        break;
-                    }
-                    ItemStack added = controller.addItem(stack, getFacing().getOpposite(), true);
-                    if (added.getCount() <= 0) {
-                        break;
-                    }
-                    slave.removeItem(CommonFilters.Anything, getFacing(), 1, true);
-                }
-            }
-        }
-    }
-
-    public void tryExportItems() {
-        if (world.isBlockLoaded(getExportTilePos())) {
-            IItemTransporter slave = TransporterManager.manager.getTransporter(world.getTileEntity(getExportTilePos()), false);
-            if (slave != null) {
-                IItemTransporter controller = TransporterManager.manager.getTransporter(this, true);
-                int limit = controller.getSizeInventory(getFacing());
-                for (int i = 0; i < limit; ++i) {
-                    ItemStack stack = controller.removeItem(CommonFilters.Anything, getFacing(), 1, false);
-                    if (stack.isEmpty()) {
-                        break;
-                    }
-                    ItemStack added = slave.addItem(stack, getFacing().getOpposite(), true);
-                    if (added.getCount() <= 0) {
-                        break;
-                    }
-                    controller.removeItem(CommonFilters.Anything, getFacing(), 1, true);
-                }
-            }
-        }
     }
 
     public void process(MultiRecipe recipe, int slot) {
@@ -197,7 +138,7 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
         boolean shiftContainers = nbt != null && nbt.getBoolean(MOVE_CONTAINER_TAG);
         for (IRecipeInput key : recipe.getInputs()) {
             int count = key.getAmount();
-            ItemStack input = inventory.get(slot);
+            ItemStack input = this.getStackInSlot(slot);
             if (key.matches(input)) {
                 if (input.getCount() >= count) {
                     if (input.getItem().hasContainerItem(input)) {
@@ -245,12 +186,13 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     }
 
     public MultiRecipe getRecipe(int slot) {
+        MultiRecipe lastRecipe = lastRecipes.get(slot);
         if (lastRecipe == GTRecipeMultiInputList.INVALID_RECIPE) {
             return null;
         }
         // Check if previous recipe is valid
         // Check if previous recipe is valid
-        ItemStack input = inventory.get(slot);
+        ItemStack input = this.getStackInSlot(slot);
         if (lastRecipe != null) {
             lastRecipe = checkRecipe(lastRecipe, input.copy()) ? lastRecipe : null;
         }
@@ -303,16 +245,20 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     @Override
     public void setStackInSlot(int slot, ItemStack stack) {
         super.setStackInSlot(slot, stack);
-        if (isSimulating() && isRecipeSlot(slot) && lastRecipe == GTRecipeMultiInputList.INVALID_RECIPE) {
-            lastRecipe = null;
+        GTHelperStack.tryCondenseInventory(this, 0, 16);
+        for (int i = 0; i < 16; i++){
+            if (isSimulating() && isRecipeSlot(slot) && lastRecipes.get(i) == GTRecipeMultiInputList.INVALID_RECIPE) {
+                lastRecipes.put(i, null);
+            }
         }
+
     }
 
     public int[] getInputSlots(){
         return slotInputs;
     };
 
-    public IFilter[] getInputFilters(int[] slots){
+    public IFilter[] getInputFilters(){
         return new IFilter[]{ filter };
     };
 
