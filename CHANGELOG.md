@@ -1,5 +1,95 @@
 # Changelog
 
+# 0.1.2
+ - Added thermal boiler
+ - Added input, output, machine control, and dynamo hatches
+ - Adeed lava filter, turbine rotors, turbine blades, and broken turbine rotors 
+ - Added large steam turbine 
+ - Added large gas turbine 
+ - Added plate cutting machine
+ - Added fusion reactor
+ - Added extruder
+ - Added diamond sawblade
+ - Added hardening spray
+ - Added industrial sawmill - by default it overrides the ic2c sawmill, but that can be changed in the config if so desired
+ - Added trash bin
+ - Added stone compressor and stone extractor
+ - Fuxed greg icon in alloy furnace gui not being a simple yellow
+ - Added diamond to diamond dust recipe to macerator
+ - Added nugget to ingot recipes 
+ - Added tungstensteel reinforced stone
+ - Added connected textures for casings
+ - Made electrolyzer output fluids instead of fluid tubes, will be pr’d into the centrifuge soon.
+ - Fixed itnt recipe in assembling machine 
+ - Fixed possible lang crash
+ - Fluid smelter and caster now auto output and input fluids in the right and left sides respectively 
+ - Rebalanced damage done by gtcx tools
+ - Made tungstensteel tools use steel rods and steel tools use iron rods
+ - Assembling machine no longer accepts aluminium instead of steel in its crafting recipe
+ - Magic energy converter now uses plates
+ - Added tungstensteel dust to hot tungstensteel ingot recipe to ibf
+ - Fixed magnalium recipe only making 1 instead of 3
+ - Added 3 tetrahedrite 1 zinc to 3 brass and 3 tetrahedrite 1 tin to 3 bronze recipes to alloy smelter
+ - Made cinnabar electrolyzing recipes take a bit longer 
+ - Did same with redrock dust, endstone dyst, and tetrahedrite dust
+ - Added various centrifuging and electrolyzing recipes for alloy dusts
+ - added fertilizer recipe to chemical reactor 
+ - Added config option to make my tools not have the enchantment tool glean, client side only
+ - Made integrated circuit get it’s mode based off the metadata
+ - Fixed iron bars recipe and put the wrench on the top instead of bottom for the recipe
+ - Made hull recycling recipes only output 6 ingots instead of 8 cause of an exploit found
+ - Fixed refined iron + ash to iron recipe
+ - Fixed chromite not generating
+ - Removed extra pesu recipe
+ - Changed heat values for materials in the fluid smelter to match gt6
+ - Added torch placement to ic2 drills
+ - Fixed windmill recipes using aluminium instead of magnalium
+ - Made machine block permanently a cheap machine block, steel hull is now used instead in basic machine block recipes
+ - Made sheldonite processing output tiny iridium dust instead of iridium nuggets
+ - Added ic2c extras iridium shard to iridium tiny dust recipe in macerator
+ - Made electrum circuit board recipe not use silver
+ - Multiblocks now only support certain types of ic2 upgrades: ImportExport, RedstoneControl, and Sounds
+ - Changed recipes of some reactor heat vents and such, and cells
+ - Added some tooltips for blocks
+ - Added fluid support to chemical reactor
+ - Fixed fluid smelter not working with upgrades
+ - Added refined iron plate, rod, and gear to wrought iron oredict
+ - Added aluminium and electrum cables
+ - Added saphire acid i. grinder recipe
+ - Added invar as a viable alternative to steel/refined iron in mixed metal ingot recipe
+ - Fixed nichrome conflict with stainless steel
+ - Added coil recycling recipes
+ - Removed stainless steel hull from the advanced machine block oredict
+ - Added wood nerf config, defaults to false
+ - Changed reinforced casing recipe to use basic machine blocks instead of advanced
+ - Fixed a rare crash
+ - Made sodalite not usable in circuit recipes
+ - Added alternative hv cable using recipes that use aluminium cables instead
+ - Added thermal glowstone and ender clathrate recipe to vacuum freezer
+ - Added proper marble and redrock support
+ - Fixed colors of my color blocks not getting set on the server side
+ - Added crowbar - only useful as railcraft crowbar right now, but will be used to remove covers from pipes once those are finished
+ - Ic2c extras thermal centrifuge now uses steel plates instead of refined iron/steel ingots based off ic2c steel config
+ - A couple other machines also now only use steel even when the steel mode is off
+ - Added osmiridium material
+ - Made cloaking device and forcefield require osmium, and made tesla staff require osmiridium
+ - Added "OsmiumGT" oredict to all osmium items to prevent usage of mekanism osmium in gtcx recipes
+ - Added 9 iridium dust to 1 osmium dust centrifuging recipe
+ - Added ae2 compat - pure crystals can now be made in indusrial electrolyzer, and charged certus can now be made in ic2c electrolyzer
+ - Moved thorium to regular furnace from ibf
+ - Fixed sodium sulfide using carbon instead of sulfur
+ - Iron fence now uses iron rods instead of refined iron rods, excep in the instance that crafting tools are disabled
+ - Made wave generator and ocean generator more expensive - wave generator now require magnalium turbine rotors, ocean generator require osmium rotors
+ - Thermometer now requires mercury
+ - Nuclear rods now use regular copper plates instead of dense copper plates in dual and quad recipes
+ - Fixed chemical reactor texture having slot textures where slots don't exist
+ - Added match and match box
+ - Added ability to make thermal fluids by smelting certain items in the fluid smelter
+ - Fixed the no power icon overlaying over the slots in the chemical reactor, it now overlays at the bottom
+ - Made distillation tower use the multitank that the machine tank uses, you won't lose your fluids, it'll just add any new fluids to the new tank. next release after this curse one those old tanks will be gone, so take out your fluids now.
+ - Added fluid filters to all input tanks of machines that didn't have ones, fixed i sawmill only accepting water in the process
+ - Made soul sand in centrifuge give saltpeter
+
 # 0.1.1
 - Added intergrated circuit
 - Added more rc recipes
