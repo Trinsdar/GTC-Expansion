@@ -9,6 +9,8 @@ import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
@@ -28,6 +30,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -123,14 +126,20 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
             if (production > 0){
                 if (storage > 0){
                     if (production != 32){
+                        MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
                         production = 32;
+                        MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
                     }
                 } else {
+                    MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
                     production = 0;
+                    MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
                 }
             } else {
                 if (storage > 0){
+                    MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
                     production = 32;
+                    MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
                 }
             }
         }
@@ -151,7 +160,12 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
                         this.tank.drainInternal(1000, true);
                         this.fuel += toAdd;
                         this.maxFuel = (float)toAdd;
-                        this.production = getRecipeEu(lastRecipe.getOutputs());
+                        int newProduction = getRecipeEu(lastRecipe.getOutputs());
+                        if (production != newProduction){
+                            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+                            this.production = newProduction;
+                            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+                        }
                         this.getNetwork().updateTileGuiField(this, "fuel");
                         this.getNetwork().updateTileGuiField(this, "maxFuel");
                         this.getNetwork().updateTileGuiField(this, "production");
@@ -204,6 +218,9 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     public void onTankChanged(IFluidTank tank) {
         this.getNetwork().updateTileGuiField(this, "tank");
         this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.tank.getFluid()));
+        if (isSimulating() && lastRecipe == GTRecipeMultiInputList.INVALID_RECIPE){
+            lastRecipe = null;
+        }
         shouldCheckRecipe = true;
     }
 
