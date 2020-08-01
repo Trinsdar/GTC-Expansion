@@ -37,6 +37,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -190,9 +191,9 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	public static void init() {
 		/* Iron Processing **/
 		addRecipe(new IRecipeInput[] { input("oreIron", 1),
-				input("dustCalcite", 1) }, 1500, 12800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 3));
+				input("dustCalcite", 1) }, 1500, 12800, GTMaterialGen.get(Items.IRON_INGOT, 3));
 		addRecipe(new IRecipeInput[] { input("dustPyrite", 3),
-				input("dustCalcite", 1) }, 1500, 12800, GTMaterialGen.getIc2(Ic2Items.refinedIronIngot, 2));
+				input("dustCalcite", 1) }, 1500, 12800, GTMaterialGen.get(Items.IRON_INGOT, 2));
 		/* Steel **/
 		addRecipe(new IRecipeInput[] { input("dustSteel", 1) }, 1000, COST_MED, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
 		addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
