@@ -45,7 +45,10 @@ public class GTCXRecipeMods {
         if (GTConfig.modcompat.compatTwilightForest && Loader.isModLoaded(GTValues.MOD_ID_TFOREST)) {
             GTCXTileMultiPrimitiveBlastFurnace.addRecipe(new IRecipeInput[] { metal("Iron", 1),
                     input(GTMaterialGen.getModItem(GTValues.MOD_ID_TFOREST, "liveroot")),
-                    input("nuggetGold", 1) }, 400, GTMaterialGen.getModItem(GTValues.MOD_ID_TFOREST, "ironwood_ingot", 2));
+                    input("nuggetGold", 1) }, 1500, 6400, GTMaterialGen.getModItem(GTValues.MOD_ID_TFOREST, "ironwood_ingot", 2));
+            GTCXTileMultiIndustrialBlastFurnace.addRecipe(new IRecipeInput[] { metal("Iron", 1),
+                    input(GTMaterialGen.getModItem(GTValues.MOD_ID_TFOREST, "liveroot")),
+                    input("nuggetGold", 1) }, 1500, 6400, GTMaterialGen.getModItem(GTValues.MOD_ID_TFOREST, "ironwood_ingot", 2));
         }
 
         if (GTConfig.modcompat.compatEnderIO && Loader.isModLoaded(GTValues.MOD_ID_ENDERIO)) {
