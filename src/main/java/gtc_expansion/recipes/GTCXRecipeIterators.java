@@ -205,9 +205,10 @@ public class GTCXRecipeIterators {
     }
 
     public static void createPlateRecipe(GTMaterial mat) {
-        String ingot = "ingot" + mat.getDisplayName();
-        String plate = "plate" + mat.getDisplayName();
-        String block = "block" + mat.getDisplayName();
+        String gt = mat.equals(GTCXMaterial.Osmium) ? "GT" : "";
+        String ingot = "ingot" + mat.getDisplayName() + gt;
+        String plate = "plate" + mat.getDisplayName() + gt;
+        String block = "block" + mat.getDisplayName() + gt;
         if (mat.hasFlag(GTCXMaterial.plate)) {
             // Plate crafting recipe
             if (GTCXConfiguration.general.harderPlates) {
@@ -216,13 +217,6 @@ public class GTCXRecipeIterators {
             } else {
                 recipes.addRecipe(GTCXMaterialGen.getPlate(mat, 1), "H", "X", 'H',
                         "craftingToolForgeHammer", 'X', ingot);
-            }
-            if (Loader.isModLoaded("ic2c_extras")){
-                // Add to auto add blacklist first
-                GTCXIc2cECompat.addToRollerIngotBlacklist(mat.getDisplayName());
-                if (GTConfig.modcompat.compatIc2Extras){
-                    GTCXIc2cECompat.addRollerRecipe(ingot, 1, GTCXMaterialGen.getPlate(mat, 1));
-                }
             }
             plateBenderBlacklist.add(ingot);
             GTCXTilePlateBender.addRecipe(ingot, 1, GTCXMaterialGen.getPlate(mat, 1));
@@ -238,8 +232,9 @@ public class GTCXRecipeIterators {
     }
 
     public static void createRodRecipe(GTMaterial mat) {
-        String ingot = "ingot" + mat.getDisplayName();
-        String rod = "rod" + mat.getDisplayName();
+        String gt = mat.equals(GTCXMaterial.Osmium) ? "GT" : "";
+        String ingot = "ingot" + mat.getDisplayName() + gt;
+        String rod = "rod" + mat.getDisplayName() + gt;
         if (mat.hasFlag(GTCXMaterial.stick)) {
             // Rod crafting recipe
             if (GTCXConfiguration.general.enableCraftingTools){
@@ -259,10 +254,11 @@ public class GTCXRecipeIterators {
     }
 
     public static void createGearRecipe(GTMaterial mat) {
-        String ingot = "ingot" + mat.getDisplayName();
-        String plate = "plate" + mat.getDisplayName();
-        String gear = "gear" + mat.getDisplayName();
-        String rod = "rod" + mat.getDisplayName();
+        String gt = mat.equals(GTCXMaterial.Osmium) ? "GT" : "";
+        String ingot = "ingot" + mat.getDisplayName() + gt;
+        String plate = "plate" + mat.getDisplayName() + gt;
+        String gear = "gear" + mat.getDisplayName() + gt;
+        String rod = "rod" + mat.getDisplayName() + gt;
         if (mat.hasFlag(GTCXMaterial.gear)) {
             // Rod crafting recipe
             IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("craftingToolWrench") : null;
@@ -369,7 +365,7 @@ public class GTCXRecipeIterators {
 
     public static void initAutoOredictMachineRecipes(){
         Set<String> gemBlacklist = new HashSet();
-        gemBlacklist.addAll(Arrays.asList("ingotDiamond", "ingotEmerald", "ingotQuartz", "ingotIridium", "ingotCoal", "ingotRedstone", "ingotIridiumAlloy"));
+        gemBlacklist.addAll(Arrays.asList("ingotDiamond", "ingotEmerald", "ingotQuartz", "ingotIridium", "ingotCoal", "ingotRedstone", "ingotIridiumAlloy", "ingotOsmium", "ingotWroughtIron"));
         String[] oreNames = OreDictionary.getOreNames();
         int length = oreNames.length;
 
