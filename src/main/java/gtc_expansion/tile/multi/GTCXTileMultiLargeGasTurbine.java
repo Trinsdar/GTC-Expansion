@@ -27,6 +27,7 @@ import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
+import ic2.core.util.obj.ITickListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +37,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -44,7 +44,7 @@ import java.util.function.Predicate;
 
 import static gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine.outputHatchState;
 
-public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, IGTOwnerTile, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
+public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickListener, IHasGui, IGTMultiTileStatus, IGTMultiTileProduction, IGTOwnerTile, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -162,7 +162,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
 
 
     @Override
-    public void update() {
+    public void onTick() {
         if (ticker < 80){
             ticker++;
         }

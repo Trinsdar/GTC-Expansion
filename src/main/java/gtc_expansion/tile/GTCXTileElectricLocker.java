@@ -10,15 +10,15 @@ import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
+import ic2.core.util.obj.ITickListener;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 
-public class GTCXTileElectricLocker extends GTCXTileLocker implements IEnergySink, IEUStorage, ITickable {
+public class GTCXTileElectricLocker extends GTCXTileLocker implements IEnergySink, IEUStorage, ITickListener {
     public static final ResourceLocation TEXTURE_ELECTRIC = new ResourceLocation(GTCExpansion.MODID, "textures/gui/electriclocker.png");
     @NetworkField(index = 3)
     public int energy;
@@ -119,7 +119,7 @@ public class GTCXTileElectricLocker extends GTCXTileLocker implements IEnergySin
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         tryCharge();
     }
 

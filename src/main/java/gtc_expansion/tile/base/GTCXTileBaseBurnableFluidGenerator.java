@@ -82,7 +82,7 @@ public abstract class GTCXTileBaseBurnableFluidGenerator extends TileEntityFuelG
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         if (this.shouldCheckRecipe) {
             this.lastRecipe = this.getRecipe();
             this.shouldCheckRecipe = false;

@@ -14,18 +14,18 @@ import ic2.api.energy.tile.IEnergySink;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.ITickListener;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXTileAdvancedWorktable extends GTTileWorktable implements IEnergySink, IEUStorage, ITickable {
+public class GTCXTileAdvancedWorktable extends GTTileWorktable implements IEnergySink, IEUStorage, ITickListener {
     @NetworkField(index = 3)
     public int energy;
     public int tier = 2;
@@ -141,7 +141,7 @@ public class GTCXTileAdvancedWorktable extends GTTileWorktable implements IEnerg
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         tryCharge();
     }
 

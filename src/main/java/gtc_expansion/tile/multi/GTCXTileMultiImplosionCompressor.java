@@ -91,7 +91,7 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         this.handleRedstone();
         this.updateNeighbors();
         boolean noRoom = this.addToInventory();

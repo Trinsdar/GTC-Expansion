@@ -105,9 +105,9 @@ public abstract class GTCXTileMultiBaseMachineAdv extends GTTileBaseMachine impl
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         tryImportItems();
-        super.update();
+        super.onTick();
         tryExportItems();
     }
 

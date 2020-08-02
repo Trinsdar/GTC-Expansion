@@ -6,6 +6,7 @@ import gtc_expansion.interfaces.IGTOwnerTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.block.base.tile.TileEntityMachine;
+import ic2.core.util.obj.ITickListener;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -13,13 +14,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXTileMachineControlHatch extends TileEntityMachine implements IGTCasingBackgroundBlock, IGTItemContainerTile, ITickable {
+public class GTCXTileMachineControlHatch extends TileEntityMachine implements IGTCasingBackgroundBlock, IGTItemContainerTile, ITickListener {
     @NetworkField(
             index = 4
     )
@@ -240,7 +240,7 @@ public class GTCXTileMachineControlHatch extends TileEntityMachine implements IG
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         if (this.shouldUpdate || this.redstoneLevel == -1){
             int newLevel = world.getRedstonePower(this.pos.offset(this.getFacing()), this.getFacing());
             if (newLevel != this.redstoneLevel) {

@@ -94,7 +94,7 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         if (this.hasEnergy(10) ){
             if (inventory.get(slotInput).getItem() instanceof ItemEgg){
                 world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, true);
@@ -105,7 +105,7 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
                 }
             }
         }
-        super.update();
+        super.onTick();
     }
 
     @Override

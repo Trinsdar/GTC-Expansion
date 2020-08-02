@@ -19,6 +19,7 @@ import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
+import ic2.core.util.obj.ITickListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +27,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -36,7 +36,7 @@ import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHa
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_ONLY;
 
-public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTOwnerTile {
+public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickListener, IHasGui, IGTMultiTileStatus, IGTOwnerTile {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -122,7 +122,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     boolean output2Full = false;
 
     @Override
-    public void update() {
+    public void onTick() {
         TileEntity tile = world.getTileEntity(input1);
         TileEntity tile2 = world.getTileEntity(input2);
         TileEntity oTile = world.getTileEntity(output1);

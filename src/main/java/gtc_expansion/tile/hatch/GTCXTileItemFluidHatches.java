@@ -24,6 +24,7 @@ import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
+import ic2.core.util.obj.ITickListener;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,7 +34,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.IFluidTank;
@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickable, IClickable, IGTItemContainerTile, IHasGui, IGTCasingBackgroundBlock, IGTDebuggableTile {
+public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickListener, IClickable, IGTItemContainerTile, IHasGui, IGTCasingBackgroundBlock, IGTDebuggableTile {
     boolean input;
     @NetworkField(index = 3)
     protected final IC2Tank tank;
@@ -168,7 +168,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     int tickSkipper = 0;
 
     @Override
-    public void update() {
+    public void onTick() {
         if (tickSkipper <= 0){
             inputOutputFromFacing();
             GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);

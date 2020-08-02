@@ -27,13 +27,13 @@ import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.util.math.MathUtil;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.ITickListener;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ import java.util.function.Predicate;
 
 import static gtclassic.api.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
 
-public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGui, ITickable {
+public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGui, ITickListener {
     public static final ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/dustbin.png");
     public static final GTRecipeMultiInputList DUSTBIN_RECIPE_LIST = new GTRecipeMultiInputList("gt.dustbin", 0);
     public IFilter filter = new GTCXDustbinFilter(this);
@@ -109,7 +109,7 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         GTUtility.importFromSideIntoMachine(this, EnumFacing.UP);
         handleRedstone();
         boolean noRoom;

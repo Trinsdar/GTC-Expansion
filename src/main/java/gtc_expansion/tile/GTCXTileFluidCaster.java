@@ -213,8 +213,8 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void onTick() {
+        super.onTick();
         GTUtility.importFluidFromSideToMachine(this, inputTank, left(), 1000);
     }
 

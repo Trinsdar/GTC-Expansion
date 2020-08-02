@@ -203,8 +203,8 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void onTick() {
+        super.onTick();
         if (((lastRecipe != null && !this.inventory.get(slotInput).isEmpty()) || this.redstone) && this.energy > 0) {
             if (this.heat < maxHeat) {
                 ++this.heat;

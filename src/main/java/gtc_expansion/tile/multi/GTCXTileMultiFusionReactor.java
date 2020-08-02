@@ -140,7 +140,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     }
 
     @Override
-    public void update() {
+    public void onTick() {
         TileEntity input1 = world.getTileEntity(this.input1);
         TileEntity input2 = world.getTileEntity(this.input2);
         TileEntity output = world.getTileEntity(this.output);
