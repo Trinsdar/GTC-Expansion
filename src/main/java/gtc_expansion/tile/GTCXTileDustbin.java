@@ -54,12 +54,14 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     private static final int[] slotOutputs = MathUtil.fromTo(16, 32);
     public Map<Integer, MultiRecipe> lastRecipes = new LinkedHashMap<>();
     protected LinkedList<IStackOutput> outputs = new LinkedList<>();
+    protected boolean shouldCheckRecipe;
 
     public GTCXTileDustbin() {
         super(32);
         for (int i = 0; i < 16; i++){
             lastRecipes.put(i, null);
         }
+        shouldCheckRecipe = true;
     }
 
     @Override
@@ -113,18 +115,22 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
         GTUtility.importFromSideIntoMachine(this, EnumFacing.UP);
         handleRedstone();
         boolean noRoom;
-        for (int i = 0; i < 16; i++){
-            if (this.getStackInSlot(i).isEmpty() || this.getStackInSlot(i).getCount() < 4){
-                continue;
+        if (shouldCheckRecipe){
+            for (int i = 0; i < 16; i++){
+                if (this.getStackInSlot(i).isEmpty() || this.getStackInSlot(i).getCount() < 4){
+                    continue;
+                }
+                lastRecipes.put(i, getRecipe(i));
+                noRoom = addToInventory();
+                MultiRecipe lastRecipe = lastRecipes.get(i);
+                boolean operate = (!noRoom && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
+                if (operate){
+                    process(lastRecipe, i);
+                }
             }
-            lastRecipes.put(i, getRecipe(i));
-            noRoom = addToInventory();
-            MultiRecipe lastRecipe = lastRecipes.get(i);
-            boolean operate = (!noRoom && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
-            if (operate){
-                process(lastRecipe, i);
-            }
+            shouldCheckRecipe = false;
         }
+
         GTUtility.exportFromMachineToSide(this, EnumFacing.DOWN, slotOutputs);
         updateComparators();
     }
@@ -246,6 +252,7 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
     public void setStackInSlot(int slot, ItemStack stack) {
         super.setStackInSlot(slot, stack);
         GTHelperStack.tryCondenseInventory(this, 0, 16);
+        shouldCheckRecipe = true;
         for (int i = 0; i < 16; i++){
             if (isSimulating() && isRecipeSlot(slot) && lastRecipes.get(i) == GTRecipeMultiInputList.INVALID_RECIPE) {
                 lastRecipes.put(i, null);
