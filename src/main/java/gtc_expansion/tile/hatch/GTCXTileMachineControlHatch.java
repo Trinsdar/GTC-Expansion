@@ -13,13 +13,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXTileMachineControlHatch extends TileEntityMachine implements IGTCasingBackgroundBlock, IGTItemContainerTile, ITickable {
+public class GTCXTileMachineControlHatch extends TileEntityMachine implements IGTCasingBackgroundBlock, IGTItemContainerTile {
     @NetworkField(
             index = 4
     )
@@ -33,7 +32,6 @@ public class GTCXTileMachineControlHatch extends TileEntityMachine implements IG
     private int prevConfig = 0;
     public IGTOwnerTile owner = null;
     private int redstoneLevel = -1;
-    private boolean shouldUpdate;
     public GTCXTileMachineControlHatch() {
         super(1);
         this.addNetworkFields("casing", "config");
@@ -236,24 +234,20 @@ public class GTCXTileMachineControlHatch extends TileEntityMachine implements IG
 
     @Override
     public void onBlockUpdate(Block block) {
-        this.shouldUpdate = true;
+        onBlockPlaced();
     }
 
-    @Override
-    public void update() {
-        if (this.shouldUpdate || this.redstoneLevel == -1){
-            int newLevel = world.getRedstonePower(this.pos.offset(this.getFacing()), this.getFacing());
-            if (newLevel != this.redstoneLevel) {
-                this.redstoneLevel = newLevel;
+    public void onBlockPlaced(){
+        int newLevel = world.getRedstonePower(this.pos.offset(this.getFacing()), this.getFacing());
+        if (newLevel != this.redstoneLevel) {
+            this.redstoneLevel = newLevel;
+        }
+        if (this.owner != null) {
+            if (this.redstoneLevel > 0) {
+                owner.setDisabled(true);
+            } else {
+                owner.setDisabled(false);
             }
-            if (this.owner != null) {
-                if (this.redstoneLevel > 0) {
-                    owner.setDisabled(true);
-                } else {
-                    owner.setDisabled(false);
-                }
-            }
-            this.shouldUpdate = false;
         }
     }
 }

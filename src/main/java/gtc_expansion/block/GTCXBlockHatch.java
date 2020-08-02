@@ -3,6 +3,7 @@ package gtc_expansion.block;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
+import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtclassic.api.model.GTModelOre;
 import ic2.core.RotationList;
 import ic2.core.platform.lang.components.base.LocaleComp;
@@ -234,6 +235,9 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         if (tile instanceof IGTCasingBackgroundBlock){
             ((IGTCasingBackgroundBlock)tile).setCasing();
             ((IGTCasingBackgroundBlock)tile).setConfig();
+        }
+        if (tile instanceof GTCXTileMachineControlHatch){
+            ((GTCXTileMachineControlHatch)tile).onBlockPlaced();
         }
     }
 
