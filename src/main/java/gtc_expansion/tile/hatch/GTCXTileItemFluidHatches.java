@@ -446,7 +446,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             if (cycle.isFluid()){
                 GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
             }
-            if (cycle.isItem()){
+            if (cycle.isItem() && !this.getStackInSlot(slotOutput).isEmpty()){
                 GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
             }
         }
