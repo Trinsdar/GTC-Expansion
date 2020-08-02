@@ -203,7 +203,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                 double baseGeneration = getBaseGeneration();
                 production = (int)(baseGeneration * getRotorEfficiency(this.getStackInSlot(0)));
                 int fluidAmount = 1000 / getBaseDivider();
-                if (dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()){
+                if (dynamoHatch.getStoredEU() + production <= dynamoHatch.getMaxEU()){
                     if (inputHatch1.getTank().getFluidAmount() >= fluidAmount){
                         if (!this.getActive()){
                             this.setActive(true);

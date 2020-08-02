@@ -173,7 +173,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
             production = (int)(800 * getRotorEfficiency(this.getStackInSlot(0)));
             int fluidAmount = 1600;
             FluidStack compare = GTMaterialGen.getFluidStack("steam", fluidAmount);
-            if (dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage() && !disabled){
+            if (dynamoHatch.getStoredEU() + production <= dynamoHatch.getMaxEU() && !disabled){
                 FluidStack inputFluid1 = inputHatch1.getTank().getFluid();
                 if (inputFluid1 != null && inputFluid1.isFluidEqual(compare) && inputFluid1.amount >= fluidAmount){
                     if (!this.getActive()){
@@ -656,7 +656,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public void getData(Map<String, Boolean> map) {
         boolean enoughSteam = inputHatch1 != null && ((inputHatch2 != null && inputHatch1.getTank().getFluidAmount() + inputHatch2.getTank().getFluidAmount() >= 1600) || (inputHatch1.getTank().getFluidAmount() >= 1600));
         map.put("Has Enough Steam: " + enoughSteam, true);
-        map.put("Dynamo Hatch has enough room: " + (dynamoHatch != null && dynamoHatch.getStoredEnergy() + production <= dynamoHatch.getMaxEnergyStorage()), true);
+        map.put("Dynamo Hatch has enough room: " + (dynamoHatch != null && dynamoHatch.getStoredEU() + production <= dynamoHatch.getMaxEU()), true);
         map.put("Disabled: " + disabled, true);
         map.put("Input Hatch 1 amount: " + (inputHatch1 != null ? inputHatch1.getTank().getFluidAmount() : 0), true);
         map.put("Input Hatch 2 amount: " + (inputHatch2 != null ? inputHatch2.getTank().getFluidAmount() : 0), true);

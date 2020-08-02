@@ -6,11 +6,20 @@ import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.item.tools.GTCXItemToolHammer;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;
+import ic2.api.classic.energy.tile.IEnergySourceInfo;
 import ic2.api.classic.network.adv.NetworkField;
-import ic2.api.energy.EnergyNet;
-import ic2.api.energy.tile.IEnergyEmitter;
+import ic2.api.classic.tile.machine.IEUStorage;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
+import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.core.IC2;
-import ic2.core.block.base.tile.TileEntityElectricBlock;
+import ic2.core.block.base.tile.TileEntityMachine;
+import ic2.core.block.base.util.comparator.ComparatorManager;
+import ic2.core.block.base.util.comparator.comparators.ComparatorEUStorage;
+import ic2.core.block.base.util.info.EmitterInfo;
+import ic2.core.block.base.util.info.EnergyInfo;
+import ic2.core.block.base.util.info.TierInfo;
+import ic2.core.block.base.util.info.misc.IEmitterTile;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.platform.lang.components.base.LocaleComp;
@@ -24,32 +33,46 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Map;
 
-public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock implements IGTCasingBackgroundBlock, IGTDebuggableTile {
+public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implements IEUStorage, IEnergySourceInfo, IEmitterTile, IGTCasingBackgroundBlock, IGTDebuggableTile {
+    public int tier;
+    public int output;
+    public int maxEnergy;
     @NetworkField(
-            index = 6
+            index = 3
+    )
+    public int energy;
+    public boolean addedToEnergyNet;
+    @NetworkField(
+            index = 4
     )
     public int casing = 0;
     private int prevCasing = 0;
 
     @NetworkField(
-            index = 7
+            index = 5
     )
     public int config = 0;
     private int prevConfig = 0;
     public GTCXTileEnergyOutputHatch(int tier, int maxEnergy, int output) {
-        super(tier, (int) EnergyNet.instance.getPowerFromTier(tier), maxEnergy);
+        super(0);
         this.output = output;
+        this.addedToEnergyNet = false;
+        this.tier = tier;
+        this.maxEnergy = maxEnergy;
         this.addGuiFields("output");
-        this.addNetworkFields("casing", "config");
+        this.addNetworkFields("casing", "config", "energy");
+        this.addInfos(new InfoComponent[]{new EnergyInfo(this), new TierInfo(tier), new EmitterInfo(this)});
     }
 
     @Override
-    protected void addSlots(InventoryHandler handler) {
-        // empty method since this doesn't have any slots
+    protected void addComparators(ComparatorManager manager) {
+        super.addComparators(manager);
+        manager.addComparatorMode(new ComparatorEUStorage(this));
     }
 
     @Override
@@ -63,8 +86,27 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
     }
 
     @Override
+    public void onLoaded() {
+        super.onLoaded();
+        if (!this.addedToEnergyNet && this.isSimulating()) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+            this.addedToEnergyNet = true;
+        }
+    }
+
+    @Override
+    public void onUnloaded() {
+        if (this.addedToEnergyNet && this.isSimulating()) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+            this.addedToEnergyNet = false;
+        }
+        super.onUnloaded();
+    }
+
+    @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
+        this.energy = nbt.getInteger("energy");
         this.output = nbt.getInteger("output");
         casing = nbt.getInteger("casing");
         config = nbt.getInteger("config");
@@ -73,25 +115,11 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
+        nbt.setInteger("energy", this.energy);
         nbt.setInteger("output", this.output);
         nbt.setInteger("casing", casing);
         nbt.setInteger("config", config);
         return nbt;
-    }
-
-    @Override
-    public ContainerIC2 getGuiContainer(EntityPlayer player) {
-        return null;
-    }
-
-    @Override
-    public boolean hasGui(EntityPlayer player) {
-        return false;
-    }
-
-    @Override
-    public int getProcessRate() {
-        return 128;
     }
 
     @Override
@@ -105,19 +133,47 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityElectricBlock 
     }
 
     @Override
-    public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side) {
-        return false;
+    public double getOfferedEnergy() {
+        return this.energy < this.output ? 0.0f :  this.output;
     }
 
     @Override
-    public double getOfferedEnergy() {
-        if (this.energy < this.output) {
-            return this.energy;
-        } else if (this.redstoneMode == 6 && this.isRedstonePowered()) {
-            return 0.0D;
-        } else {
-            return this.redstoneMode == 7 && this.isRedstonePowered() && this.energy < this.maxEnergy ? 0.0D : (double)this.output;
-        }
+    public int getMaxSendingEnergy() {
+        return this.output;
+    }
+
+    @Override
+    public int getStoredEU() {
+        return this.energy;
+    }
+
+    @Override
+    public int getMaxEU() {
+        return this.maxEnergy;
+    }
+
+    @Override
+    public void drawEnergy(double amount) {
+        this.energy -= (int)amount;
+    }
+
+    @Override
+    public int getSourceTier() {
+        return this.tier;
+    }
+
+    @Override
+    public boolean emitsEnergyTo(IEnergyAcceptor iEnergyAcceptor, EnumFacing enumFacing) {
+        return this.getFacing() == enumFacing;
+    }
+
+    @Override
+    public int getOutput() {
+        return this.output;
+    }
+
+    public void addEnergy(int amount){
+        this.energy += amount;
     }
 
     @Override
