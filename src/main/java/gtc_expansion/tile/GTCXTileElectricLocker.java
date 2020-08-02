@@ -118,9 +118,15 @@ public class GTCXTileElectricLocker extends GTCXTileLocker implements IEnergySin
         return true;
     }
 
+    int ticker = 0;
+
     @Override
     public void update() {
-        tryCharge();
+        if (ticker > 0){
+            ticker--;
+        } else {
+            tryCharge();
+        }
     }
 
     public boolean hasEnergy() {
@@ -129,18 +135,27 @@ public class GTCXTileElectricLocker extends GTCXTileLocker implements IEnergySin
 
     public void tryCharge() {
         // Here I iterate the input slots to try to charge items
+        int empty = 0;
         for (int i = 0; i < 4; ++i) {
             ItemStack stack = this.getStackInSlot(i);
             if (!stack.isEmpty() && stack.getItem() instanceof IElectricItem && ElectricItem.manager.getCharge(stack) < ElectricItem.manager.getMaxCharge(stack)) {
+                if (ticker != 0) ticker = 0;
                 if (hasEnergy()) {
                     int removed = (int) ElectricItem.manager.charge((ItemStack) stack, (double) this.energy, this.tier, false, false);
                     this.energy -= removed;
                     if (removed > 0) {
                         this.getNetwork().updateTileGuiField(this, "energy");
                     }
+                } else {
+                    empty++;
                 }
                 // MABYEDO limit charge to one item at a time?
+            } else {
+                empty++;
             }
+        }
+        if (empty == 4){
+            this.ticker = 10;
         }
     }
 }
