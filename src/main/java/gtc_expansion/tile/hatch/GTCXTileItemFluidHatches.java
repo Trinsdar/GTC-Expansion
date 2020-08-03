@@ -6,15 +6,16 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.item.tools.GTCXItemToolHammer;
+import gtc_expansion.util.GTCXTank;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import ic2.api.classic.network.adv.NetworkField;
+import ic2.api.energy.tile.IEnergyTile;
 import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
-import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
@@ -39,15 +40,16 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickable, IClickable, IGTItemContainerTile, IHasGui, IGTCasingBackgroundBlock, IGTDebuggableTile {
+public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickable, IClickable, IGTItemContainerTile, IHasGui, IGTCasingBackgroundBlock, IGTDebuggableTile, IEnergyTile {
     boolean input;
     @NetworkField(index = 3)
-    protected final IC2Tank tank;
+    protected final GTCXTank tank;
     private static final int slotInput = 0;
     private static final int slotOutput = 1;
     private static final int slotDisplay = 2;
@@ -64,10 +66,11 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public int config = 0;
     private int prevConfig = 0;
     public IGTOwnerTile owner = null;
+    protected boolean second = false;
     public GTCXTileItemFluidHatches(boolean input) {
         super(3);
         this.input = input;
-        this.tank = new IC2Tank(32000);
+        this.tank = new GTCXTank(32000);
         this.tank.addListener(this);
         this.addGuiFields(NBT_TANK);
         this.addNetworkFields("casing", "config");
@@ -101,16 +104,47 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     @Override
     public void setStackInSlot(int slot, ItemStack stack) {
-        super.setStackInSlot(slot, stack);
+        if (slot == slotInput){
+            if (input && owner != null){
+                int offset = second ? 2 : 0;
+                owner.setStackInSlot(1 + offset, stack);
+            }
+        } else if (slot == slotOutput){
+            if (!input && owner != null){
+                int offset = second ? 2 : 0;
+                owner.setStackInSlot(2 + offset, stack);
+            }
+        } else {
+            super.setStackInSlot(slot, stack);
+        }
         if (owner != null){
             owner.setShouldCheckRecipe(true);
         }
     }
 
     @Override
+    public ItemStack getStackInSlot(int slot) {
+        if (slot == slotInput){
+            if (input && owner != null){
+                int offset = second ? 2 : 0;
+                return owner.getStackInSlot(1 + offset);
+            }
+            return ItemStack.EMPTY;
+        }
+        if (slot == slotOutput){
+            if (!input && owner != null){
+                int offset = second ? 2 : 0;
+                return owner.getStackInSlot(2 + offset);
+            }
+            return ItemStack.EMPTY;
+        }
+        return super.getStackInSlot(slot);
+    }
+
+    @Override
     public void onTankChanged(IFluidTank iFluidTank) {
         this.getNetwork().updateTileGuiField(this, NBT_TANK);
-        this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.tank.getFluid()));
+        this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.getTank().getFluid()));
         if (owner != null){
             owner.setShouldCheckRecipe(true);
         }
@@ -118,14 +152,21 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing!= null) || super.hasCapability(capability, facing);
+        if (owner != null){
+            return owner.hasCapability(capability, facing);
+        } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+            return false;
+        } else {
+            return super.hasCapability(capability, facing);
+        }
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null
-                ? CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this.tank)
-                : super.getCapability(capability, facing);
+        if (owner != null){
+            return owner.getCapability(capability, facing);
+        }
+        return super.getCapability(capability, facing);
     }
 
     @Override
@@ -145,6 +186,10 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         return nbt;
     }
 
+    public void setSecond(boolean second) {
+        this.second = second;
+    }
+
     @Override
     public List<ItemStack> getDrops() {
         List<ItemStack> list = new ArrayList<>();
@@ -155,8 +200,10 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public List<ItemStack> getInventoryDrops() {
         List<ItemStack> list = new ArrayList<>();
-        list.add(this.getStackInSlot(slotInput));
-        list.add(this.getStackInSlot(slotOutput));
+        list.add(this.getStackInSlot(slotInput).copy());
+        list.add(this.getStackInSlot(slotOutput).copy());
+        this.setStackInSlot(slotInput, ItemStack.EMPTY);
+        this.setStackInSlot(slotOutput, ItemStack.EMPTY);
         return list;
     }
 
@@ -171,7 +218,8 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public void update() {
         if (tickSkipper <= 0){
             inputOutputFromFacing();
-            GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
+            // commenting out for now as it won't work with the new system as is at least
+            //GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
             if (tickSkipper < 0){
                 tickSkipper = 0;
             }
@@ -184,10 +232,10 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public void inputOutputFromFacing(){
         if (input) {
             GTUtility.importFromSideIntoMachine(this, this.getFacing());
-            GTUtility.importFluidFromSideToMachine(this, tank, this.getFacing(), 1000);
+            GTUtility.importFluidFromSideToMachine(this, this.getTank(), this.getFacing(), 1000);
         } else {
             GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
-            GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+            GTUtility.exportFluidFromMachineToSide(this, this.getTank(), this.getFacing(), 1000);
         }
     }
 
@@ -205,7 +253,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     @Override
     public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
-        return input ? GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, this.tank) : GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, this.tank);
+        return input ? GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, this.getTank()) : GTHelperFluid.doClickableFluidContainerFillThings(player, hand, world, pos, this.getTank());
     }
 
     @Override
@@ -243,7 +291,14 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         return true;
     }
 
-    public IC2Tank getTank() {
+    public GTCXTank getTank() {
+        if (owner != null){
+            if (input){
+                return second ? owner.getInputTank2() : owner.getInputTank1();
+            } else {
+                return second ? owner.getOutputTank2() : owner.getOutputTank1();
+            }
+        }
         return tank;
     }
 
@@ -256,7 +311,13 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     }
 
     public void setOwner(IGTOwnerTile tile){
+        if (tile == null){
+            this.getTank().removeListener(this);
+        }
         this.owner = tile;
+        if (this.owner != null){
+            this.getTank().addListener(this);
+        }
     }
 
     public IGTOwnerTile getOwner(){
@@ -458,6 +519,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         public void cycleModes(EntityPlayer player){
             if (this.isSimulating()){
                 this.cycle = cycle.cycle(player);
+                if (this.owner != null){
+                    this.owner.setOutputModes(second, cycle);
+                }
             }
         }
 

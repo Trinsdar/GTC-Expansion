@@ -10,10 +10,12 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
+import gtc_expansion.util.GTCXTank;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasGui;
@@ -26,8 +28,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Random;
@@ -51,15 +55,30 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     private boolean disabled = false;
     private final FluidStack steam = GTMaterialGen.getFluidStack("steam", 800);
     private final ItemStack obsidian = GTMaterialGen.get(Blocks.OBSIDIAN, 1);
+    @NetworkField(index = 3)
+    private GTCXTank inputTank1 = new GTCXTank(32000);
+    @NetworkField(index = 4)
+    private GTCXTank inputTank2 = new GTCXTank(32000);
+    @NetworkField(index = 5)
+    private GTCXTank outputTank1 = new GTCXTank(32000);
+    @NetworkField(index = 6)
+    private GTCXTank outputTank2 = new GTCXTank(32000);
+    private static int slotInput1 = 1;
+    private static int slotInput2 = 3;
+    private static int slotOutput1 = 2;
+    private static int slotOutput2 = 4;
     int ticker = 0;
     int obsidianTicker = 0;
+    protected OutputModes outputMode1 = ITEM_AND_FLUID;
+    protected OutputModes outputMode2 = ITEM_AND_FLUID;
+    private boolean hasBothOutputs = false;
     public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState outputHatchState = GTCXBlocks.outputHatch.getDefaultState();
     public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
 
     public GTCXTileMultiThermalBoiler() {
-        super(1);
+        super(5);
         this.addGuiFields("lastState");
         input1 = this.getPos();
         input2 = this.getPos();
@@ -78,6 +97,10 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.output1 = readBlockPosFromNBT(nbt, "output1");
         this.output2 = readBlockPosFromNBT(nbt, "output2");
+        this.inputTank1.readFromNBT(nbt.getCompoundTag("inputTank1"));
+        this.inputTank2.readFromNBT(nbt.getCompoundTag("inputTank2"));
+        this.outputTank1.readFromNBT(nbt.getCompoundTag("outputTank1"));
+        this.outputTank2.readFromNBT(nbt.getCompoundTag("outputTank2"));
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
@@ -90,6 +113,10 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "output1", output1);
         writeBlockPosToNBT(nbt, "output2", output2);
+        this.inputTank1.writeToNBT(this.getTag(nbt, "inputTank1"));
+        this.inputTank2.writeToNBT(this.getTag(nbt, "inputTank2"));
+        this.outputTank1.writeToNBT(this.getTag(nbt, "outputTank1"));
+        this.outputTank2.writeToNBT(this.getTag(nbt, "outputTank2"));
         return nbt;
     }
 
@@ -131,110 +158,84 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (canWork){
             if (inputHatch1 != tile){
                 inputHatch1 = (GTCXTileInputHatch) tile;
+                inputHatch1.setOwner(this);
+                inputHatch1.setSecond(false);
             }
             if (inputHatch2 != tile2){
                 inputHatch2 = (GTCXTileInputHatch) tile2;
+                inputHatch2.setOwner(this);
+                inputHatch2.setSecond(true);
             }
             if (outputHatch1 != oTile){
                 outputHatch1 = (GTCXTileOutputHatch) world.getTileEntity(output1);
+                outputHatch1.setOwner(this);
+                outputHatch1.setSecond(false);
             }
             if (oTile2 instanceof GTCXTileOutputHatch && outputHatch2 != oTile2){
                 outputHatch2 = (GTCXTileOutputHatch) oTile2;
+                outputHatch2.setOwner(this);
+                outputHatch2.setSecond(true);
             }
-            if (inputHatch1.getTank().getFluid() != null && inputHatch2.getTank().getFluid() != null && inputHatch1.getTank().getFluidAmount() > 0 && inputHatch2.getTank().getFluidAmount() > 0 && !disabled){
+            if (inputTank1.getFluid() != null && inputTank2.getFluid() != null && inputTank1.getFluidAmount() > 0 && inputTank2.getFluidAmount() > 0 && !disabled){
                 boolean lava = false;
                 boolean water = false;
-                IC2Tank lavaTank = inputHatch1.getTank();
-                IC2Tank waterTank = inputHatch2.getTank();
-                if (inputHatch1.getTank().getFluid() != null && inputHatch2.getTank().getFluid() != null){
-                    if (inputHatch1.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1))){
-                        water = true;
-                        waterTank = inputHatch1.getTank();
-                    } else if (inputHatch1.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1))){
-                        lava = true;
-                        lavaTank = inputHatch1.getTank();
-                    }
-                    if (inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1)) && !water){
-                        water = true;
-                        waterTank = inputHatch2.getTank();
-                    } else if (inputHatch2.getTank().getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1)) && !lava){
-                        lava = true;
-                        lavaTank = inputHatch2.getTank();
-                    }
-                    if (water && lava && lavaTank.getFluidAmount() >= 500 && waterTank.getFluidAmount() >= 5){
-                        OutputModes cycle1 = outputHatch1.getCycle();
-                        IC2Tank outputTank1 = outputHatch1.getTank();
-                        if (outputHatch2 != null){
-                            OutputModes cycle2 = outputHatch2.getCycle();
-                            IC2Tank outputTank2 = outputHatch2.getTank();
-                            if ((cycle1 == ITEM_AND_FLUID && cycle2 == ITEM_AND_FLUID) || (cycle1 == ITEM_AND_FLUID && cycle2 == FLUID_ONLY) || (cycle1 == FLUID_ONLY && cycle2 == ITEM_AND_FLUID)){
+                IC2Tank lavaTank = inputTank1;
+                IC2Tank waterTank = inputTank2;
+                if (inputTank2.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1))){
+                    water = true;
+                    waterTank = inputTank1;
+                } else if (inputTank2.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1))){
+                    lava = true;
+                    lavaTank = inputTank1;
+                }
+                if (inputTank2.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1)) && !water){
+                    water = true;
+                    waterTank = inputTank2;
+                } else if (inputTank2.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1)) && !lava){
+                    lava = true;
+                    lavaTank = inputTank2;
+                }
+                if (water && lava && lavaTank.getFluidAmount() >= 500 && waterTank.getFluidAmount() >= 5){
+                    OutputModes cycle1 = outputMode1;
+                    if (hasBothOutputs){
+                        OutputModes cycle2 = outputMode2;
+                        if ((cycle1 == ITEM_AND_FLUID && cycle2 == ITEM_AND_FLUID) || (cycle1 == ITEM_AND_FLUID && cycle2 == FLUID_ONLY) || (cycle1 == FLUID_ONLY && cycle2 == ITEM_AND_FLUID)){
+                            //noinspection ConstantConditions
+                            if (outputTank1.getFluidAmount() == 0 || (outputTank1.getFluid().isFluidEqual(steam) && outputTank1.getFluidAmount() + 800 <= outputTank1.getCapacity())){
+                                if (!this.getActive()){
+                                    this.setActive(true);
+                                }
+                                fillSteam(waterTank, lavaTank, outputTank1);
+                            } else if (outputTank1.getFluidAmount() < outputTank1.getCapacity() && outputTank1.getFluid().isFluidEqual(steam)){
+                                int amount = outputTank1.getCapacity() - outputTank1.getFluidAmount();
+                                int remaining = 800 - amount;
                                 //noinspection ConstantConditions
-                                if (outputTank1.getFluidAmount() == 0 || (outputTank1.getFluid().isFluidEqual(steam) && outputTank1.getFluidAmount() + 800 <= outputTank1.getCapacity())){
+                                if (outputTank2.getFluidAmount() == 0 || (outputTank2.getFluid().isFluidEqual(steam) && outputTank2.getFluidAmount() + remaining <= outputTank2.getCapacity())){
                                     if (!this.getActive()){
                                         this.setActive(true);
                                     }
-                                    fillSteam(waterTank, lavaTank, outputTank1);
-                                } else if (outputTank1.getFluidAmount() < outputTank1.getCapacity() && outputTank1.getFluid().isFluidEqual(steam)){
-                                    int amount = outputTank1.getCapacity() - outputTank1.getFluidAmount();
-                                    int remaining = 800 - amount;
-                                    //noinspection ConstantConditions
-                                    if (outputTank2.getFluidAmount() == 0 || (outputTank2.getFluid().isFluidEqual(steam) && outputTank2.getFluidAmount() + remaining <= outputTank2.getCapacity())){
-                                        if (!this.getActive()){
-                                            this.setActive(true);
-                                        }
-                                        waterTank.drainInternal(5, true);
-                                        lavaTank.drainInternal(500, true);
-                                        if (obsidianTicker >= 1){
-                                            addObsidian(true);
-                                        } else {
-                                            obsidianTicker++;
-                                        }
+                                    waterTank.drainInternal(5, true);
+                                    lavaTank.drainInternal(500, true);
+                                    if (obsidianTicker >= 1){
+                                        addObsidian(true);
+                                    } else {
+                                        obsidianTicker++;
+                                    }
 
-                                        outputTank1.fill(GTMaterialGen.getFluidStack("steam", amount), true);
-                                        outputTank2.fill(GTMaterialGen.getFluidStack("steam", remaining), true);
-                                    }
-                                } else if (outputTank2.getFluidAmount() == 0 || (outputTank2.getFluid().isFluidEqual(steam) && outputTank2.getFluidAmount() + 800 <= outputTank2.getCapacity())){
-                                    if (!this.getActive()){
-                                        this.setActive(true);
-                                    }
-                                    fillSteam(waterTank, lavaTank, outputTank2);
-                                } else {
-                                    if (this.getActive()){
-                                        this.setActive(false);
-                                    }
+                                    outputTank1.fill(GTMaterialGen.getFluidStack("steam", amount), true);
+                                    outputTank2.fill(GTMaterialGen.getFluidStack("steam", remaining), true);
                                 }
-                            } else if (opposite(cycle1, cycle2) || (cycle1 == ITEM_AND_FLUID && cycle2 == ITEM_ONLY) || (cycle2 == ITEM_AND_FLUID && cycle1 == ITEM_ONLY)){
-                                if (cycle1.isFluid()){
-                                    //noinspection ConstantConditions
-                                    if (outputTank1.getFluidAmount() == 0 || (outputTank1.getFluid().isFluidEqual(steam) && outputTank1.getFluidAmount() + 800 <= outputTank1.getCapacity())){
-                                        if (!this.getActive()){
-                                            this.setActive(true);
-                                        }
-                                        fillSteam(waterTank, lavaTank, outputTank1);
-                                    } else {
-                                        if (this.getActive()){
-                                            this.setActive(false);
-                                        }
-                                    }
-                                } else {
-                                    //noinspection ConstantConditions
-                                    if (outputTank2.getFluidAmount() == 0 || (outputTank2.getFluid().isFluidEqual(steam) && outputTank2.getFluidAmount() + 800 <= outputTank2.getCapacity())){
-                                        if (!this.getActive()){
-                                            this.setActive(true);
-                                        }
-                                        fillSteam(waterTank, lavaTank, outputTank2);
-                                    } else {
-                                        if (this.getActive()){
-                                            this.setActive(false);
-                                        }
-                                    }
+                            } else if (outputTank2.getFluidAmount() == 0 || (outputTank2.getFluid().isFluidEqual(steam) && outputTank2.getFluidAmount() + 800 <= outputTank2.getCapacity())){
+                                if (!this.getActive()){
+                                    this.setActive(true);
                                 }
+                                fillSteam(waterTank, lavaTank, outputTank2);
                             } else {
                                 if (this.getActive()){
                                     this.setActive(false);
                                 }
                             }
-                        } else {
+                        } else if (opposite(cycle1, cycle2) || (cycle1 == ITEM_AND_FLUID && cycle2 == ITEM_ONLY) || (cycle2 == ITEM_AND_FLUID && cycle1 == ITEM_ONLY)){
                             if (cycle1.isFluid()){
                                 //noinspection ConstantConditions
                                 if (outputTank1.getFluidAmount() == 0 || (outputTank1.getFluid().isFluidEqual(steam) && outputTank1.getFluidAmount() + 800 <= outputTank1.getCapacity())){
@@ -247,16 +248,46 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                                         this.setActive(false);
                                     }
                                 }
-                            }else {
+                            } else {
+                                //noinspection ConstantConditions
+                                if (outputTank2.getFluidAmount() == 0 || (outputTank2.getFluid().isFluidEqual(steam) && outputTank2.getFluidAmount() + 800 <= outputTank2.getCapacity())){
+                                    if (!this.getActive()){
+                                        this.setActive(true);
+                                    }
+                                    fillSteam(waterTank, lavaTank, outputTank2);
+                                } else {
+                                    if (this.getActive()){
+                                        this.setActive(false);
+                                    }
+                                }
+                            }
+                        } else {
+                            if (this.getActive()){
+                                this.setActive(false);
+                            }
+                        }
+                    } else {
+                        if (cycle1.isFluid()){
+                            //noinspection ConstantConditions
+                            if (outputTank1.getFluidAmount() == 0 || (outputTank1.getFluid().isFluidEqual(steam) && outputTank1.getFluidAmount() + 800 <= outputTank1.getCapacity())){
+                                if (!this.getActive()){
+                                    this.setActive(true);
+                                }
+                                fillSteam(waterTank, lavaTank, outputTank1);
+                            } else {
                                 if (this.getActive()){
                                     this.setActive(false);
                                 }
                             }
+                        }else {
+                            if (this.getActive()){
+                                this.setActive(false);
+                            }
                         }
-                    } else {
-                        if (this.getActive()){
-                            this.setActive(false);
-                        }
+                    }
+                } else {
+                    if (this.getActive()){
+                        this.setActive(false);
                     }
                 }
             } else {
@@ -280,38 +311,36 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     public void addObsidian(boolean both){
-        OutputModes cycle1 = outputHatch1.getCycle();
+        OutputModes cycle1 = outputMode1;
 
         ItemStack compare = this.getStackInSlot(0).getItem() == GTCXItems.lavaFilter ? getOutput() : obsidian;
-        GTCXTileOutputHatch hatch = outputHatch1;
+        int slot = slotOutput1;
         if (both){
-            OutputModes cycle2 = outputHatch2.getCycle();
+            OutputModes cycle2 = outputMode2;
             if (!cycle1.isItem() && !cycle2.isItem()){
                 return;
             }
 
             if (cycle1.isItem() && !cycle2.isItem()){
-                hatch = outputHatch1;
+                slot = slotOutput1;
             } else if (!cycle1.isItem()){
-                hatch = outputHatch2;
+                slot = slotOutput2;
             } else {
-                hatch = outputHatch1.getOutput().isEmpty() || (outputHatch1.getOutput().getItem() == compare.getItem() && outputHatch1.getOutput().getCount() < 64) ? outputHatch1 : outputHatch2;
+                slot = this.getStackInSlot(slotOutput1).isEmpty() || (this.getStackInSlot(slotOutput1).getItem() == compare.getItem() && this.getStackInSlot(slotOutput1).getCount() < 64) ? slotOutput1 : slotOutput2;
             }
         } else {
             if (!cycle1.isItem()){
                 return;
             }
         }
-        ItemStack output = hatch.getOutput();
+        ItemStack output = this.getStackInSlot(slot);
 
         if (output.getItem() == compare.getItem() && output.getCount() < 64){
             output1Full = false;
-            hatch.skipTick();
             output.grow(1);
         } else if (output.isEmpty()){
             output1Full = false;
-            hatch.skipTick();
-            hatch.setStackInSlot(1, compare.copy());
+            this.setStackInSlot(slot, compare.copy());
         } else {
             output1Full = true;
         }
@@ -352,7 +381,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (obsidianTicker < 1){
             obsidianTicker++;
         } else {
-            addObsidian(outputHatch2 != null);
+            addObsidian(hasBothOutputs);
         }
         output.fill(steam, true);
     }
@@ -404,6 +433,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         this.output2 = this.getPos();
         this.input1 = this.getPos();
         this.input2 = this.getPos();
+        hasBothOutputs = false;
         int3 dir = new int3(getPos(), getFacing());
         if (!isReinforcedCasing(dir.down(1))){
             return false;
@@ -519,6 +549,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                 output1 = pos.asBlockPos();
             } else if (world.getBlockState(output2) != outputHatchState){
                 output2 = pos.asBlockPos();
+                hasBothOutputs = true;
             }
             outputs++;
             return true;
@@ -534,6 +565,36 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public GTCXTank getInputTank1() {
+        return this.inputTank1;
+    }
+
+    @Override
+    public GTCXTank getInputTank2() {
+        return this.inputTank2;
+    }
+
+    @Override
+    public GTCXTank getOutputTank1() {
+        return this.outputTank1;
+    }
+
+    @Override
+    public GTCXTank getOutputTank2() {
+        return this.outputTank2;
+    }
+
+    @Override
     public void setShouldCheckRecipe(boolean checkRecipe) {
 
     }
@@ -542,5 +603,14 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
 
+    }
+
+    @Override
+    public void setOutputModes(boolean second, OutputModes mode) {
+        if (second) {
+            this.outputMode2 = mode;
+        } else {
+            this.outputMode1 = mode;
+        }
     }
 }
