@@ -34,24 +34,21 @@ public class GTCXJeiFusionWrapper extends GTJeiMultiRecipeWrapper {
                 * multiRecipe.getMachineEu())
                 + " EU", 0, 80, Color.black.getRGB());
         NBTTagCompound nbt = multiRecipe.getOutputs().getMetadata();
-        if ((nbt.hasKey("startEu") && nbt.getInteger("startEu") != 0)) {
-            int startEu = nbt.getInteger("startEu");
-            boolean helium = startEu == 40000000 || startEu == 60000000;
-            extraHeight = helium ? 20 : 10;
+        int startEu = nbt.hasKey("startEu") ? nbt.getInteger("startEu") : 0;
+        if (startEu != 0) {
+            extraHeight = 10;
             font.drawString("Start Eu: "
                     + NumberFormat.getNumberInstance(Locale.US).format(startEu
                     * multiRecipe.getMachineEu())
                     + " EU", 0, 90, Color.black.getRGB());
-            if (helium){
-                int rTime = getEntryTicks(multiRecipe.getOutputs());
-                int generateEu = startEu == 40000000 ? rTime * 60000 : rTime * 62000;
-                font.drawString("Output: "
-                        + NumberFormat.getNumberInstance(Locale.US).format(generateEu)
-                        + " EU Out", 0, 100, Color.black.getRGB());
-            }
         }
+        int rTime = getEntryTicks(multiRecipe.getOutputs());
+        int generateEu = startEu == 40000000 ? rTime * 60000 : startEu == 60000000 ? rTime * 62000 : rTime * 12000;
+        font.drawString("Output: "
+                + NumberFormat.getNumberInstance(Locale.US).format(generateEu)
+                + " EU Out", 0, 90 + extraHeight, Color.black.getRGB());
         if (GTConfig.general.debugMode) {
-            font.drawString("Recipe Id: " + multiRecipe.getRecipeID(), 0, 90 + extraHeight, Color.black.getRGB());
+            font.drawString("Recipe Id: " + multiRecipe.getRecipeID(), 0, 100 + extraHeight, Color.black.getRGB());
         }
     }
 }

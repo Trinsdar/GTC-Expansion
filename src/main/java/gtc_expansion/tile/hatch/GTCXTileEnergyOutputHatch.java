@@ -3,6 +3,7 @@ package gtc_expansion.tile.hatch;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
+import gtc_expansion.interfaces.IGTEnergySource;
 import gtc_expansion.item.tools.GTCXItemToolHammer;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;
@@ -20,8 +21,6 @@ import ic2.core.block.base.util.info.EmitterInfo;
 import ic2.core.block.base.util.info.EnergyInfo;
 import ic2.core.block.base.util.info.TierInfo;
 import ic2.core.block.base.util.info.misc.IEmitterTile;
-import ic2.core.inventory.container.ContainerIC2;
-import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.util.obj.IClickable;
 import net.minecraft.block.Block;
@@ -58,6 +57,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
     )
     public int config = 0;
     private int prevConfig = 0;
+    private IGTEnergySource owner = null;
     public GTCXTileEnergyOutputHatch(int tier, int maxEnergy, int output) {
         super(0);
         this.output = output;
@@ -66,7 +66,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         this.maxEnergy = maxEnergy;
         this.addGuiFields("output");
         this.addNetworkFields("casing", "config", "energy");
-        this.addInfos(new InfoComponent[]{new EnergyInfo(this), new TierInfo(tier), new EmitterInfo(this)});
+        this.addInfos(new EnergyInfo(this), new TierInfo(tier), new EmitterInfo(this));
     }
 
     @Override
@@ -106,7 +106,6 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        this.energy = nbt.getInteger("energy");
         this.output = nbt.getInteger("output");
         casing = nbt.getInteger("casing");
         config = nbt.getInteger("config");
@@ -115,7 +114,6 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        nbt.setInteger("energy", this.energy);
         nbt.setInteger("output", this.output);
         nbt.setInteger("casing", casing);
         nbt.setInteger("config", config);
@@ -134,7 +132,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
 
     @Override
     public double getOfferedEnergy() {
-        return this.energy < this.output ? 0.0f :  this.output;
+        return this.owner == null || this.owner.getStoredEnergy() < this.output ? 0.0f : this.output;
     }
 
     @Override
@@ -144,17 +142,19 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
 
     @Override
     public int getStoredEU() {
-        return this.energy;
+        return this.owner != null ? this.owner.getStoredEnergy() : 0;
     }
 
     @Override
     public int getMaxEU() {
-        return this.maxEnergy;
+        return this.owner != null ? this.owner.getMaxEnergy() : 0;
     }
 
     @Override
     public void drawEnergy(double amount) {
-        this.energy -= (int)amount;
+        if (owner != null){
+            owner.drawEnergy(amount);
+        }
     }
 
     @Override
@@ -169,7 +169,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
 
     @Override
     public int getOutput() {
-        return this.output;
+        return this.getMaxSendingEnergy();
     }
 
     public void addEnergy(int amount){
@@ -213,47 +213,14 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
                 advanced++;
             }
         }
-        int max = max(standard, reinforced, advanced);
-        if (standard == 0 && reinforced == 0 && advanced == 0){
+        if (standard > 3){
+            casing = 1;
+        } else if (reinforced > 3){
+            casing = 2;
+        } else if (advanced > 3){
+            casing = 3;
+        } else {
             casing = 0;
-        }
-        else if (standard > 3){
-            casing = 1;
-        }
-        else if (reinforced > 3){
-            casing = 2;
-        }
-        else if (advanced > 3){
-            casing = 3;
-        }
-        else if (twoOutOfThree(standard, reinforced, advanced)){
-            casing = world.rand.nextInt(2) + 1;
-        }
-        else if (twoOutOfThree(standard, advanced, reinforced)){
-            casing = world.rand.nextInt(2) == 0 ? 1 : 3;
-        }
-        else if (twoOutOfThree(reinforced, advanced, standard)){
-            casing = world.rand.nextInt(2) + 2;
-        }
-        else if ((standard == 2 && reinforced == 2 && advanced == 2) || (standard == 1 && reinforced == 1 && advanced == 1)){
-            casing = world.rand.nextInt(3) + 1;
-        }
-        else if (only(standard, reinforced, advanced)){
-            casing = 1;
-        }
-        else if (only(reinforced, advanced, standard)){
-            casing = 2;
-        }
-        else if (only(advanced, standard, reinforced)){
-            casing = 3;
-        }
-        else if (max == standard){
-            casing = 1;
-        } else if (max == reinforced){
-            casing = 2;
-        }
-        else if (max == advanced){
-            casing = 3;
         }
         if (casing != this.prevCasing) {
             world.notifyNeighborsOfStateChange(pos, GTCXBlocks.casingStandard, true);
@@ -261,36 +228,6 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         }
 
         this.prevCasing = casing;
-    }
-
-    public boolean only(int value, int compare1, int compare2){
-        return value <= 3 && compare1 == 0 && compare2 == 0;
-    }
-
-    public boolean twoOutOfThree(int value, int value2, int compare){
-        return compare == 0 && ((value == 3 && value2 == 3) || (value == 2 && value2 == 2) ||(value == 1 && value2 == 1));
-    }
-
-    public int max(int value1, int value2, int value3){
-        if (value1 > value2 && value1 > value3){
-            return value1;
-        }
-        if (value2 > value1 && value2 > value3){
-            return value2;
-        }
-        if (value3 > value1 && value3 > value2){
-            return value3;
-        }
-        return 0;
-    }
-
-    public boolean or(int compare, int... values){
-        for (int i : values){
-            if (compare == i){
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -331,6 +268,14 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
     @Override
     public boolean getActive(){
         return super.getActive();
+    }
+
+    public void setOwner(IGTEnergySource owner) {
+        this.owner = owner;
+    }
+
+    public IGTEnergySource getOwner() {
+        return owner;
     }
 
     public static class GTCXTileDynamoHatch extends GTCXTileEnergyOutputHatch implements IClickable {

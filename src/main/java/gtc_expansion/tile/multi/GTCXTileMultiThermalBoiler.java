@@ -33,6 +33,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import java.util.Random;
 
@@ -63,8 +64,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     private GTCXTank outputTank1 = new GTCXTank(32000);
     @NetworkField(index = 6)
     private GTCXTank outputTank2 = new GTCXTank(32000);
-    private static int slotInput1 = 1;
-    private static int slotInput2 = 3;
+    private int tickOffset = 0;
     private static int slotOutput1 = 2;
     private static int slotOutput2 = 4;
     int ticker = 0;
@@ -80,12 +80,20 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public GTCXTileMultiThermalBoiler() {
         super(5);
         this.addGuiFields("lastState");
+        this.addNetworkFields("inputTank1", "inputTank2", "outputTank1", "outputTank2");
         input1 = this.getPos();
         input2 = this.getPos();
         output1 = this.getPos();
         output2 = this.getPos();
     }
 
+    @Override
+    public void onLoaded() {
+        super.onLoaded();
+        if (this.isSimulating()) {
+            this.tickOffset = world.rand.nextInt(128);
+        }
+    }
 
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
@@ -137,7 +145,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     public boolean canWork() {
-        if (this.world.getTotalWorldTime() % 256L == 0L || this.firstCheck) {
+        if (this.world.getTotalWorldTime() % (128 + this.tickOffset) == 0 || this.firstCheck) {
             this.lastState = this.checkStructure();
             this.firstCheck = false;
             this.getNetwork().updateTileGuiField(this, "lastState");
@@ -146,36 +154,14 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     boolean output1Full = false;
-    boolean output2Full = false;
 
     @Override
     public void update() {
         TileEntity tile = world.getTileEntity(input1);
         TileEntity tile2 = world.getTileEntity(input2);
         TileEntity oTile = world.getTileEntity(output1);
-        TileEntity oTile2 = world.getTileEntity(output2);
         boolean canWork = canWork() && tile instanceof GTCXTileInputHatch && tile2 instanceof GTCXTileInputHatch && oTile instanceof GTCXTileOutputHatch;
         if (canWork){
-            if (inputHatch1 != tile){
-                inputHatch1 = (GTCXTileInputHatch) tile;
-                inputHatch1.setOwner(this);
-                inputHatch1.setSecond(false);
-            }
-            if (inputHatch2 != tile2){
-                inputHatch2 = (GTCXTileInputHatch) tile2;
-                inputHatch2.setOwner(this);
-                inputHatch2.setSecond(true);
-            }
-            if (outputHatch1 != oTile){
-                outputHatch1 = (GTCXTileOutputHatch) world.getTileEntity(output1);
-                outputHatch1.setOwner(this);
-                outputHatch1.setSecond(false);
-            }
-            if (oTile2 instanceof GTCXTileOutputHatch && outputHatch2 != oTile2){
-                outputHatch2 = (GTCXTileOutputHatch) oTile2;
-                outputHatch2.setOwner(this);
-                outputHatch2.setSecond(true);
-            }
             if (inputTank1.getFluid() != null && inputTank2.getFluid() != null && inputTank1.getFluidAmount() > 0 && inputTank2.getFluidAmount() > 0 && !disabled){
                 boolean lava = false;
                 boolean water = false;
@@ -296,10 +282,6 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                 }
             }
         } else {
-            if (inputHatch1 != null) inputHatch1 = null;
-            if (inputHatch2 != null) inputHatch2 = null;
-            if (outputHatch1 != null) outputHatch1 = null;
-            if (outputHatch2 != null) outputHatch2 = null;
             if (this.getActive()){
                 this.setActive(false);
             }
@@ -538,8 +520,25 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (world.getBlockState(pos.asBlockPos()) == inputHatchState){
             if (world.getBlockState(input1) != inputHatchState){
                 input1 = pos.asBlockPos();
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (inputHatch1 != tile && tile instanceof GTCXTileInputHatch){
+                    if (inputHatch1 != null){
+                        inputHatch1.setOwner(null);
+                    }
+                    inputHatch1 = (GTCXTileInputHatch) tile;
+                    inputHatch1.setOwner(this);
+                }
             } else if (world.getBlockState(input2) != inputHatchState){
                 input2 = pos.asBlockPos();
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (inputHatch2 != tile && tile instanceof GTCXTileInputHatch){
+                    if (inputHatch2 != null){
+                        inputHatch2.setOwner(null);
+                    }
+                    inputHatch2 = (GTCXTileInputHatch) tile;
+                    inputHatch2.setOwner(this);
+                    inputHatch2.setSecond(true);
+                }
             }
             inputs++;
             return true;
@@ -547,9 +546,26 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (world.getBlockState(pos.asBlockPos()) == outputHatchState){
             if (world.getBlockState(output1) != outputHatchState){
                 output1 = pos.asBlockPos();
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (outputHatch1 != tile && tile instanceof GTCXTileOutputHatch){
+                    if (outputHatch1 != null){
+                        outputHatch1.setOwner(null);
+                    }
+                    outputHatch1 = (GTCXTileOutputHatch) tile;
+                    outputHatch1.setOwner(this);
+                }
             } else if (world.getBlockState(output2) != outputHatchState){
                 output2 = pos.asBlockPos();
                 hasBothOutputs = true;
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (outputHatch2 != tile && tile instanceof GTCXTileOutputHatch){
+                    if (outputHatch2 != null){
+                        outputHatch2.setOwner(null);
+                    }
+                    outputHatch2 = (GTCXTileOutputHatch) tile;
+                    outputHatch2.setOwner(this);
+                    outputHatch2.setSecond(true);
+                }
             }
             outputs++;
             return true;
@@ -566,7 +582,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return super.hasCapability(capability, facing);
+        return super.hasCapability(capability, facing) || (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null);
     }
 
     @Override
@@ -612,5 +628,10 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         } else {
             this.outputMode1 = mode;
         }
+    }
+
+    @Override
+    public void invalidateStructure() {
+        this.firstCheck = true;
     }
 }

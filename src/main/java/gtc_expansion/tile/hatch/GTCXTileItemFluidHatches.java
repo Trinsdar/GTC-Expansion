@@ -6,13 +6,13 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.item.tools.GTCXItemToolHammer;
+import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.util.GTCXTank;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import ic2.api.classic.network.adv.NetworkField;
-import ic2.api.energy.tile.IEnergyTile;
 import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
@@ -37,16 +37,20 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.items.CapabilityItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickable, IClickable, IGTItemContainerTile, IHasGui, IGTCasingBackgroundBlock, IGTDebuggableTile, IEnergyTile {
+public abstract class GTCXTileItemFluidHatches extends TileEntityMachine implements ITankListener, ITickable, IClickable, IGTItemContainerTile, IHasGui, IGTCasingBackgroundBlock, IGTDebuggableTile, IFluidHandler {
     boolean input;
     @NetworkField(index = 3)
     protected final GTCXTank tank;
@@ -106,8 +110,14 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public void setStackInSlot(int slot, ItemStack stack) {
         if (slot == slotInput){
             if (input && owner != null){
-                int offset = second ? 2 : 0;
-                owner.setStackInSlot(1 + offset, stack);
+                if (owner instanceof GTCXTileMultiFusionReactor){
+                    int offset = second ? 1 : 0;
+                    owner.setStackInSlot(offset, stack);
+                } else {
+                    int offset = second ? 2 : 0;
+                    owner.setStackInSlot(1 + offset, stack);
+                }
+
             }
         } else if (slot == slotOutput){
             if (!input && owner != null){
@@ -126,8 +136,13 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public ItemStack getStackInSlot(int slot) {
         if (slot == slotInput){
             if (input && owner != null){
-                int offset = second ? 2 : 0;
-                return owner.getStackInSlot(1 + offset);
+                if (owner instanceof GTCXTileMultiFusionReactor){
+                    int offset = second ? 1 : 0;
+                    owner.getStackInSlot(offset);
+                } else {
+                    int offset = second ? 2 : 0;
+                    return owner.getStackInSlot(1 + offset);
+                }
             }
             return ItemStack.EMPTY;
         }
@@ -151,6 +166,14 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     }
 
     @Override
+    public void onBlockBreak() {
+        if (this.owner != null){
+            this.getTank().drainInternal(32000, true);
+            owner.invalidateStructure();
+        }
+    }
+
+    @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         if (owner != null){
             return owner.hasCapability(capability, facing);
@@ -164,6 +187,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (owner != null){
+            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
+            }
             return owner.getCapability(capability, facing);
         }
         return super.getCapability(capability, facing);
@@ -361,11 +387,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
                 advanced++;
             }
         }
-        int max = max(standard, reinforced, advanced);
-        if (standard == 0 && reinforced == 0 && advanced == 0){
-            casing = 0;
-        }
-        else if (standard > 3){
+        if (standard > 3){
             casing = 1;
         }
         else if (reinforced > 3){
@@ -373,35 +395,8 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
         else if (advanced > 3){
             casing = 3;
-        }
-        else if (twoOutOfThree(standard, reinforced, advanced)){
-            casing = world.rand.nextInt(2) + 1;
-        }
-        else if (twoOutOfThree(standard, advanced, reinforced)){
-            casing = world.rand.nextInt(2) == 0 ? 1 : 3;
-        }
-        else if (twoOutOfThree(reinforced, advanced, standard)){
-            casing = world.rand.nextInt(2) + 2;
-        }
-        else if ((standard == 2 && reinforced == 2 && advanced == 2) || (standard == 1 && reinforced == 1 && advanced == 1)){
-            casing = world.rand.nextInt(3) + 1;
-        }
-        else if (only(standard, reinforced, advanced)){
-            casing = 1;
-        }
-        else if (only(reinforced, advanced, standard)){
-            casing = 2;
-        }
-        else if (only(advanced, standard, reinforced)){
-            casing = 3;
-        }
-        else if (max == standard){
-            casing = 1;
-        } else if (max == reinforced){
-            casing = 2;
-        }
-        else if (max == advanced){
-            casing = 3;
+        } else {
+            casing = 0;
         }
         if (casing != this.prevCasing) {
             world.notifyNeighborsOfStateChange(pos, GTCXBlocks.casingStandard, true);
@@ -410,28 +405,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
         this.prevCasing = casing;
     }
-
-    public boolean only(int value, int compare1, int compare2){
-        return value <= 3 && compare1 == 0 && compare2 == 0;
-    }
-
-    public boolean twoOutOfThree(int value, int value2, int compare){
-        return compare == 0 && ((value == 3 && value2 == 3) || (value == 2 && value2 == 2) ||(value == 1 && value2 == 1));
-    }
-
-    public int max(int value1, int value2, int value3){
-        if (value1 > value2 && value1 > value3){
-            return value1;
-        }
-        if (value2 > value1 && value2 > value3){
-            return value2;
-        }
-        if (value3 > value1 && value3 > value2){
-            return value3;
-        }
-        return 0;
-    }
-
     @Override
     public int getConfig(){
         return config;
@@ -470,6 +443,28 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public boolean getActive(){
         return super.getActive();
+    }
+
+    @Override
+    public IFluidTankProperties[] getTankProperties() {
+        return this.getTank().getTankProperties();
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
+        return this.getTank().fill(resource, doFill);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        return this.getTank().drain(resource, doDrain);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        return this.getTank().drain(maxDrain, doDrain);
     }
 
     public static class GTCXTileInputHatch extends GTCXTileItemFluidHatches{

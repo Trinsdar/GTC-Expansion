@@ -14,7 +14,7 @@ public class GTCXTank extends IC2Tank {
 
     @Override
     public void addListener(ITankListener list) {
-        if (!listeners.contains(list)); listeners.add(list);
+        if (!listeners.contains(list)) listeners.add(list);
     }
 
     @Override

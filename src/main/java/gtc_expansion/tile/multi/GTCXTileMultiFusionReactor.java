@@ -4,11 +4,13 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui.GTCXFusionComputerGui;
 import gtc_expansion.container.GTCXContainerFusionReactor;
 import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.interfaces.IGTEnergySource;
 import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileFusionEnergyExtractor;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector;
+import gtc_expansion.util.GTCXTank;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialElement;
@@ -21,9 +23,15 @@ import gtclassic.api.tile.multi.GTTileMultiBaseMachine;
 import gtclassic.common.GTBlocks;
 import gtclassic.common.GTLang;
 import ic2.api.classic.item.IMachineUpgradeItem;
+import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.RecipeModifierHelpers.IRecipeModifier;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
+import ic2.api.energy.tile.IEnergyAcceptor;
+import ic2.api.energy.tile.IEnergyTile;
+import ic2.api.energy.tile.IMetaDelegate;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.container.ContainerIC2;
@@ -32,15 +40,21 @@ import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,7 +66,7 @@ import java.util.function.Predicate;
 
 import static gtclassic.common.tile.multi.GTTileMultiFusionReactor.RECIPE_LIST;
 
-public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implements IGTOwnerTile {
+public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implements IGTOwnerTile, IGTEnergySource, IMetaDelegate, ITankListener {
     static final IBlockState COIL_STATE = GTBlocks.casingFusion.getDefaultState();
     static final IBlockState CASING_STATE = GTCXBlocks.casingAdvanced.getDefaultState();
     static final IBlockState MATERIAL_INJECTOR_STATE = GTCXBlocks.fusionMaterialInjector.getDefaultState();
@@ -67,18 +81,44 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     private BlockPos output;
     private BlockPos energyOutput;
     private List<BlockPos> energyInputList = new ArrayList<>();
+    @NetworkField(index = 13)
+    private GTCXTank inputTank1 = new GTCXTank(32000);
+    @NetworkField(index = 14)
+    private GTCXTank inputTank2 = new GTCXTank(32000);
+    @NetworkField(index = 15)
+    private GTCXTank outputTank = new GTCXTank(32000);
+    public int maxProducedEnergy = 1000000000;
+    @NetworkField(
+            index = 16
+    )
+    public int producedEnergy;
+    public boolean lastState;
+    public boolean firstCheck = true;
+    List<IEnergyTile> lastPositions = null;
+    private int tickOffset = 0;
     private GTCXTileFusionMaterialInjector inputHatch1 = null;
     private GTCXTileFusionMaterialInjector inputHatch2 = null;
     private GTCXTileFusionMaterialExtractor outputHatch = null;
     private GTCXTileFusionEnergyExtractor energyOutputHatch = null;
 
     public GTCXTileMultiFusionReactor() {
-        super(0, 0, 8192, 8192);
+        super(3, 0, 8192, 8192);
         this.maxEnergy = 1000000;
         input1 = this.getPos();
         input2 = this.getPos();
         output = this.getPos();
         energyOutput = this.getPos();
+        this.inputTank1.addListener(this);
+        this.inputTank2.addListener(this);
+        this.outputTank.addListener(this);
+    }
+
+    @Override
+    public void onLoaded() {
+        super.onLoaded();
+        if (this.isSimulating()){
+            this.tickOffset = world.rand.nextInt(128);
+        }
     }
 
     public void addMaxEnergy(int add){
@@ -102,7 +142,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public int[] getInputSlots() {
-        return new int[0];
+        return new int[] {0, 1};
     }
 
     @Override
@@ -117,7 +157,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public int[] getOutputSlots() {
-        return new int[0];
+        return new int[]{ 2 };
     }
 
     @Override
@@ -140,6 +180,16 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     }
 
     @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        return super.hasCapability(capability, facing) || (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null);
+    }
+
+    @Override
+    public void onTankChanged(IFluidTank iFluidTank) {
+        this.shouldCheckRecipe = true;
+    }
+
+    @Override
     public void update() {
         TileEntity input1 = world.getTileEntity(this.input1);
         TileEntity input2 = world.getTileEntity(this.input2);
@@ -147,27 +197,6 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         TileEntity energyOutput = world.getTileEntity(this.energyOutput);
         boolean hasHatches = this.canWork() && input1 instanceof GTCXTileFusionMaterialInjector && input2 instanceof GTCXTileFusionMaterialInjector && output instanceof GTCXTileFusionMaterialExtractor && energyOutput instanceof GTCXTileFusionEnergyExtractor;
         if (hasHatches){
-            if (this.inputHatch1 != input1){
-                this.inputHatch1 = (GTCXTileFusionMaterialInjector) input1;
-            }
-            if (this.inputHatch2 != input2){
-                this.inputHatch2 = (GTCXTileFusionMaterialInjector) input2;
-            }
-            if (this.outputHatch != output){
-                this.outputHatch = (GTCXTileFusionMaterialExtractor) output;
-            }
-            if (this.energyOutputHatch !=  energyOutput){
-                this.energyOutputHatch = (GTCXTileFusionEnergyExtractor) energyOutput;
-            }
-            if (inputHatch1.getOwner() == null){
-                inputHatch1.setOwner(this);
-            }
-            if (inputHatch2.getOwner() == null){
-                inputHatch2.setOwner(this);
-            }
-            if (outputHatch.getOwner() == null){
-                outputHatch.setOwner(this);
-            }
             handleRedstone();
             updateNeighbors();
             boolean noRoom = addToInventory();
@@ -220,19 +249,6 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                 }
             }
             updateComparators();
-        } else {
-            if (!(input1 instanceof GTCXTileFusionMaterialInjector)){
-                this.inputHatch1 = null;
-            }
-            if (!(input2 instanceof GTCXTileFusionMaterialInjector)){
-                this.inputHatch2 = null;
-            }
-            if (!(output instanceof GTCXTileFusionMaterialExtractor)){
-                this.outputHatch = null;
-            }
-            if (!(energyOutput instanceof GTCXTileFusionEnergyExtractor)){
-                this.energyOutputHatch = null;
-            }
         }
     }
 
@@ -269,17 +285,17 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         MachineOutput outputs = lastRecipe.getOutputs();
         if (outputs instanceof GTFluidMachineOutput){
             GTFluidMachineOutput fluidOutputs = (GTFluidMachineOutput) outputs;
-            if (outputHatch.getTank().getFluidAmount() == 0){
+            if (outputTank.getFluidAmount() == 0){
                 return lastRecipe;
             }
-            FluidStack fluid = outputHatch.getTank().getFluid();
+            FluidStack fluid = outputTank.getFluid();
             for (FluidStack output : fluidOutputs.getFluids()){
-                if (output.isFluidEqual(fluid) && outputHatch.getTank().getFluidAmount() + 1000 <= outputHatch.getTank().getCapacity()){
+                if (output.isFluidEqual(fluid) && outputTank.getFluidAmount() + 1000 <= outputTank.getCapacity()){
                     return lastRecipe;
                 }
             }
         } else {
-            ItemStack outputStack = outputHatch.getOutput();
+            ItemStack outputStack = this.getStackInSlot(2);
             if (outputStack.isEmpty()){
                 return lastRecipe;
             }
@@ -297,8 +313,8 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public boolean checkRecipe(MultiRecipe entry, List<ItemStack> inputs) {
-        FluidStack fluidInput1 = inputHatch1.getTank().getFluid();
-        FluidStack fluidInput2 = inputHatch2.getTank().getFluid();
+        FluidStack fluidInput1 = inputTank1.getFluid();
+        FluidStack fluidInput2 = inputTank2.getFluid();
         List<IRecipeInput> recipeKeys = new LinkedList<IRecipeInput>(entry.getInputs());
         for (Iterator<IRecipeInput> keyIter = recipeKeys.iterator(); keyIter.hasNext();) {
             IRecipeInput key = keyIter.next();
@@ -312,6 +328,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                     keyIter.remove();
                     continue;
                 }
+                continue;
             }
             int toFind = key.getAmount();
             for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
@@ -337,12 +354,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public void process(MultiRecipe recipe) {
         MachineOutput output = recipe.getOutputs().copy();
-        inputHatch1.skip5Ticks();
-        inputHatch2.skip5Ticks();
-        outputHatch.skip5Ticks();
         if (output instanceof GTFluidMachineOutput){
             for (FluidStack fluid : ((GTFluidMachineOutput)output).getFluids()){
-                outputHatch.getTank().fillInternal(fluid, true);
+                outputTank.fillInternal(fluid, true);
                 onRecipeComplete();
             }
         } else {
@@ -360,16 +374,17 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             IRecipeInput key = keyIter.next();
             if (key instanceof RecipeInputFluid){
                 FluidStack fluidStack = ((RecipeInputFluid)key).fluid;
-                if (inputHatch1.getTank().getFluid() != null && inputHatch1.getTank().getFluid().isFluidEqual(fluidStack)){
-                    inputHatch1.getTank().drainInternal(1000, true);
+                if (inputTank1.getFluid() != null && inputTank1.getFluid().isFluidEqual(fluidStack)){
+                    inputTank1.drainInternal(1000, true);
                     keyIter.remove();
                     continue;
                 }
-                if (inputHatch2.getTank().getFluid() != null && inputHatch2.getTank().getFluid().isFluidEqual(fluidStack)){
-                    inputHatch2.getTank().drainInternal(1000, true);
+                if (inputTank2.getFluid() != null && inputTank2.getFluid().isFluidEqual(fluidStack)){
+                    inputTank2.drainInternal(1000, true);
                     keyIter.remove();
                     continue;
                 }
+                continue;
             }
             int count = key.getAmount();
             for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
@@ -418,35 +433,45 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     public void onRecipeComplete() {
         if (this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE) {
             int startEu = this.lastRecipe.getOutputs().getMetadata().getInteger(START_EU);
+            int rTime = lastRecipe.getOutputs().getMetadata().getInteger("RecipeTime") + 100;
             if (startEu != 40000000 && startEu != 60000000) {
+                int euOutput = rTime * 12000;
+                producedEnergy += euOutput;
                 return;
             }
-            int rTime = lastRecipe.getOutputs().getMetadata().getInteger("RecipeTime") + 100;
             int euOutput = startEu == 40000000 ? rTime * 60000 : rTime * 62000;
-            energyOutputHatch.addEnergy(euOutput);
+            this.producedEnergy += euOutput;
 
         }
 
     }
 
     @Override
-    public boolean addToInventory() {
-        if (outputs.isEmpty()) {
-            return false;
+    public boolean canWork() {
+        boolean superCall = !this.redstoneSensitive || this.isRedstonePowered();
+        if (superCall){
+            if (this.world.getTotalWorldTime() % (128 + this.tickOffset) == 0 || this.firstCheck) {
+                this.lastState = this.checkStructure();
+                boolean lastCheck = lastState;
+                lastState = checkStructure();
+                firstCheck = false;
+                if(lastCheck != lastState){
+                    if(addedToEnergyNet) {
+                        MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+                    }
+                    lastPositions = null;
+                    MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+                    addedToEnergyNet = true;
+                }
+                this.getNetwork().updateTileGuiField(this, "lastState");
+            }
+            superCall = superCall && lastState;
         }
-        outputs.removeIf(output -> output.addToInventory(outputHatch));
-        return !outputs.isEmpty();
+        return superCall;
     }
 
-    public List<ItemStack> getInputs() {
-        ArrayList<ItemStack> inputs = new ArrayList<>();
-        if (!inputHatch1.getInput().isEmpty()){
-            inputs.add(inputHatch1.getInput());
-        }
-        if (!inputHatch2.getInput().isEmpty()){
-            inputs.add(inputHatch2.getInput());
-        }
-        return inputs;
+    public int getTickOffset() {
+        return tickOffset;
     }
 
     @Override
@@ -457,6 +482,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.output = readBlockPosFromNBT(nbt, "output");
         this.energyOutput = readBlockPosFromNBT(nbt, "energyOutput");
         this.usedStartEnergy = nbt.getBoolean("usedStartEnergy");
+        this.producedEnergy = nbt.getInteger("producedEnergy");
     }
 
     @Override
@@ -467,6 +493,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         writeBlockPosToNBT(nbt, "output", output);
         writeBlockPosToNBT(nbt, "energyOutput", energyOutput);
         nbt.setBoolean("usedStartEnergy", usedStartEnergy);
+        nbt.setInteger("producedEnergy", producedEnergy);
         return nbt;
     }
 
@@ -492,12 +519,12 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             GTRecipeMachineHandler.removeRecipe(RECIPE_LIST, recipe.getRecipeID());
         }
         RECIPE_LIST.finishMassChange();
-        /** Just regular recipes added manually **/
+        /* Just regular recipes added manually **/
         addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
                 input(GTMaterialGen.getFluidStack(GTMaterial.Tritium)), totalEu(2097152), 40000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
         addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Deuterium)),
                 input(GTMaterialGen.getFluidStack(GTMaterial.Helium3)), totalEu(2097152), 60000000, GTMaterialGen.getFluidStack(GTMaterial.Helium));
-        /** This iterates the element objects to create all Fusion recipes **/
+        /* This iterates the element objects to create all Fusion recipes **/
         Set<Integer> usedInputs = new HashSet<>();
         for (GTMaterialElement sum : GTMaterialElement.getElementList()) {
             for (GTMaterialElement input1 : GTMaterialElement.getElementList()) {
@@ -541,6 +568,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         List<IRecipeInput> inlist = new ArrayList<>();
         if (startEu > 161000000){
             GTCExpansion.logger.info("Recipe: " +  output.getUnlocalizedName() + " has too high of a start eu amount");
+            return;
         }
         inlist.add(input1);
         inlist.add(input2);
@@ -559,6 +587,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         List<FluidStack> outList = new ArrayList<>();
         if (startEu > 161000000){
             GTCExpansion.logger.info("Recipe: " +  output.getUnlocalizedName() + " has too high of a start eu amount");
+            return;
         }
         inlist.add(input1);
         inlist.add(input2);
@@ -582,6 +611,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         }
         if (outputHatch != null && outputHatch.getOwner() == this){
             outputHatch.setOwner(null);
+        }
+        if (energyOutputHatch != null && energyOutputHatch.getOwner() == this){
+            energyOutputHatch.setOwner(null);
         }
         for (BlockPos blockPos : energyInputList){
             TileEntity tile = world.getTileEntity(blockPos);
@@ -1089,10 +1121,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         if (!isInputHatch(dir.back(1).right(1))){
             return false;
         }
-        if (numInputs < 2 || numOutputs < 1 || energyInputList.size() < 4 || numEnergyOutputs < 1){
-            return false;
-        }
-        return true;
+        return numInputs >= 2 && numOutputs >= 1 && energyInputList.size() >= 4 && numEnergyOutputs >= 1;
     }
 
     public boolean isCasing(int3 pos){
@@ -1107,8 +1136,25 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         if (world.getBlockState(pos.asBlockPos()) == MATERIAL_INJECTOR_STATE){
             if (world.getBlockState(input1) != MATERIAL_INJECTOR_STATE){
                 input1 = pos.asBlockPos();
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (inputHatch1 != tile && tile instanceof GTCXTileFusionMaterialInjector) {
+                    if (inputHatch1 != null){
+                        inputHatch1.setOwner(null);
+                    }
+                    inputHatch1 = (GTCXTileFusionMaterialInjector) tile;
+                    inputHatch1.setOwner(this);
+                }
             } else if (world.getBlockState(input2) != MATERIAL_INJECTOR_STATE){
                 input2 = pos.asBlockPos();
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (inputHatch2 != tile && tile instanceof GTCXTileFusionMaterialInjector) {
+                    if (inputHatch2 != null){
+                        inputHatch2.setOwner(null);
+                    }
+                    inputHatch2 = (GTCXTileFusionMaterialInjector) tile;
+                    inputHatch2.setOwner(this);
+                    inputHatch2.setSecond(true);
+                }
             }
             numInputs++;
             return true;
@@ -1120,6 +1166,14 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         if (world.getBlockState(pos.asBlockPos()) == MATERIAL_EXTRACTOR_STATE){
             if (world.getBlockState(output) != MATERIAL_EXTRACTOR_STATE){
                 output = pos.asBlockPos();
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (outputHatch != tile && tile instanceof GTCXTileFusionMaterialExtractor) {
+                    if (outputHatch != null){
+                        outputHatch.setOwner(null);
+                    }
+                    outputHatch = (GTCXTileFusionMaterialExtractor) tile;
+                    outputHatch.setOwner(this);
+                }
             }
             numOutputs++;
             return true;
@@ -1127,6 +1181,14 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         if (world.getBlockState(pos.asBlockPos()) == ENERGY_EXTRACTOR_STATE){
             if (world.getBlockState(energyOutput) != ENERGY_EXTRACTOR_STATE){
                 energyOutput = pos.asBlockPos();
+                TileEntity tile = world.getTileEntity(pos.asBlockPos());
+                if (energyOutputHatch != tile && tile instanceof GTCXTileFusionEnergyExtractor) {
+                    if (energyOutputHatch != null){
+                        energyOutputHatch.setOwner(null);
+                    }
+                    energyOutputHatch = (GTCXTileFusionEnergyExtractor) tile;
+                    energyOutputHatch.setOwner(this);
+                }
             }
             numEnergyOutputs++;
             return true;
@@ -1154,5 +1216,83 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public void setDisabled(boolean disabled) {
         
+    }
+
+    @Override
+    public GTCXTank getInputTank1() {
+        return this.inputTank1;
+    }
+
+    @Override
+    public GTCXTank getInputTank2() {
+        return this.inputTank2;
+    }
+
+    @Override
+    public GTCXTank getOutputTank1() {
+        return this.outputTank;
+    }
+
+    @Override
+    public GTCXTank getOutputTank2() {
+        return null;
+    }
+
+    @Override
+    public void invalidateStructure() {
+        this.firstCheck = true;
+    }
+
+    @Override
+    public int getStoredEnergy() {
+        return producedEnergy;
+    }
+
+    @Override
+    public int getMaxEnergy() {
+        return maxProducedEnergy;
+    }
+
+    @Override
+    public int getMaxSendingEnergy() {
+        return 0;
+    }
+
+    @Override
+    public double getOfferedEnergy() {
+        return 0;
+    }
+
+    @Override
+    public void drawEnergy(double v) {
+        producedEnergy -= v;
+    }
+
+    @Override
+    public int getSourceTier() {
+        return 0;
+    }
+
+    @Override
+    public boolean emitsEnergyTo(IEnergyAcceptor iEnergyAcceptor, EnumFacing enumFacing) {
+        return false;
+    }
+
+    @Override
+    public List<IEnergyTile> getSubTiles() {
+        if (lastPositions == null){
+            lastPositions = new ArrayList<>();
+            lastPositions.add(this);
+            if (energyOutputHatch != null){
+                lastPositions.add(energyOutputHatch);
+            }
+            for (BlockPos pos : energyInputList){
+                TileEntity tile = world.getTileEntity(pos);
+                if (tile instanceof GTCXTileFusionEnergyInjector){
+                    lastPositions.add(((GTCXTileFusionEnergyInjector)tile));
+                }
+            }
+        }
+        return lastPositions;
     }
 }

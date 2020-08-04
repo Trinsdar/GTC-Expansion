@@ -4,6 +4,7 @@ import gtc_expansion.events.GTCXOtherEvents;
 import gtc_expansion.events.GTCXRadiationEvent;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.proxy.GTCXCommonProxy;
+import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.GTValues;
 import ic2.core.IC2;
 import net.minecraft.util.ResourceLocation;
@@ -63,6 +64,7 @@ public class GTCExpansion {
 	public void init(FMLInitializationEvent e) {
 		proxy.init(e);
 		MinecraftForge.EVENT_BUS.register(new GTCXOtherEvents());
+		MultiBlockHelper.INSTANCE.init();
 		GTCXRadiationEvent.init();
 		if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTCXConfiguration.general.enableRadiation){
 			MinecraftForge.EVENT_BUS.register(new GTCXRadiationEvent());

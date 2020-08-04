@@ -5,17 +5,15 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
-import ic2.api.info.ILocatable;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.block.base.util.info.MaxInputInfo;
 import ic2.core.block.base.util.info.SinkTierInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEnergySink, ILocatable {
+public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEnergySink {
     GTCXTileMultiFusionReactor accept;
     public boolean addedToEnergyNet;
 
@@ -94,16 +92,6 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
         }
 
         super.onUnloaded();
-    }
-
-    @Override
-    public BlockPos getPosition() {
-        return this.getPos();
-    }
-
-    @Override
-    public World getWorldObj() {
-        return this.getWorld();
     }
 
     public void onBlockRemoved(){

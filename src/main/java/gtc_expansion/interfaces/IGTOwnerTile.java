@@ -28,4 +28,6 @@ public interface IGTOwnerTile {
     GTCXTank getOutputTank2();
 
     default void setOutputModes(boolean second, OutputModes mode){}
+
+    void invalidateStructure();
 }

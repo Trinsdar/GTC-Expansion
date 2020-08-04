@@ -254,14 +254,6 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
     public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
         super.onBlockHarvested(world, pos, state, player);
         TileEntity tile = world.getTileEntity(pos);
-        if (this == GTCXBlocks.largeSteamTurbine && tile instanceof GTCXTileMultiLargeSteamTurbine){
-            GTCXTileMultiLargeSteamTurbine turbine = (GTCXTileMultiLargeSteamTurbine) tile;
-            turbine.onBlockRemoved();
-        }
-        if (this == GTCXBlocks.largeGasTurbine && tile instanceof GTCXTileMultiLargeGasTurbine){
-            GTCXTileMultiLargeGasTurbine turbine = (GTCXTileMultiLargeGasTurbine) tile;
-            turbine.onBlockRemoved();
-        }
         if (this == GTCXBlocks.fusionComputer && tile instanceof GTCXTileMultiFusionReactor){
             GTCXTileMultiFusionReactor reactor = (GTCXTileMultiFusionReactor) tile;
             reactor.removeTilesWithOwners();

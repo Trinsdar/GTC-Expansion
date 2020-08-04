@@ -56,6 +56,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;
+    private int tickOffset = 0;
     public static final IBlockState brickState = GTCXBlocks.fireBrickBlock.getDefaultState();
     public static final IBlockState airState = Blocks.AIR.getDefaultState();
 
@@ -197,7 +198,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
 
     @Override
     public boolean canWork() {
-        if (world.getTotalWorldTime() % 256 == 0 || firstCheck) {
+        if (world.getTotalWorldTime() % (128 + this.tickOffset) == 0 || firstCheck) {
             boolean lastCheck = this.lastState;
             lastState = checkStructure();
             firstCheck = false;
@@ -210,6 +211,15 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
             }
         }
         return lastState;
+    }
+
+
+    @Override
+    public void onLoaded() {
+        super.onLoaded();
+        if (this.isSimulating()) {
+            this.tickOffset = world.rand.nextInt(128);
+        }
     }
 
     @Override
