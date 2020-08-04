@@ -139,7 +139,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             if (input && owner != null){
                 if (owner instanceof GTCXTileMultiFusionReactor){
                     int offset = second ? 1 : 0;
-                    owner.getStackInSlot(offset);
+                    return owner.getStackInSlot(offset);
                 } else {
                     int offset = second ? 2 : 0;
                     return owner.getStackInSlot(1 + offset);
