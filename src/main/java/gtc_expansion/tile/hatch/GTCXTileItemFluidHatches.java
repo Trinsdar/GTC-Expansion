@@ -1,5 +1,6 @@
 package gtc_expansion.tile.hatch;
 
+import gtc_expansion.block.GTCXBlockHatch;
 import gtc_expansion.container.GTCXContainerItemFluidHatch;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXLang;
@@ -160,16 +161,13 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public void onTankChanged(IFluidTank iFluidTank) {
         this.getNetwork().updateTileGuiField(this, NBT_TANK);
         this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.getTank().getFluid()));
-        if (owner != null){
-            owner.setShouldCheckRecipe(true);
-        }
     }
 
     @Override
     public void onBlockBreak() {
         if (this.owner != null){
-            this.getTank().drainInternal(32000, true);
             owner.invalidateStructure();
+            this.getTank().removeListener(this);
         }
     }
 
@@ -242,17 +240,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     @Override
     public void update() {
-        if (tickSkipper <= 0){
-            inputOutputFromFacing();
-            // commenting out for now as it won't work with the new system as is at least
-            //GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
-            if (tickSkipper < 0){
-                tickSkipper = 0;
-            }
-        } else {
-            tickSkipper--;
-        }
-
+        inputOutputFromFacing();
+        // commenting out for now as it won't work with the new system as is at least
+        //GTHelperFluid.doFluidContainerThings(this, this.tank, slotInput, slotOutput);
     }
 
     public void inputOutputFromFacing(){
@@ -263,13 +253,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
             GTUtility.exportFluidFromMachineToSide(this, this.getTank(), this.getFacing(), 1000);
         }
-    }
-
-    public void skip5Ticks(){
-        tickSkipper = 5;
-    }
-    public void skipTick(){
-        tickSkipper = 1;
     }
 
     @Override
@@ -337,7 +320,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     }
 
     public void setOwner(IGTOwnerTile tile){
-        if (tile == null){
+        if (tile == null || this.owner != tile){
             this.getTank().removeListener(this);
         }
         this.owner = tile;
@@ -355,6 +338,11 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         Block block = fromCasing(casing);
         map.put("Casing: " + (block == Blocks.AIR ? "None" : block.getLocalizedName()), true);
         map.put("Config: "+ config, true);
+        boolean hasOwner = owner != null;
+        map.put("Has owner: " + hasOwner, true);
+        map.put("Is Second : " + second, true);
+        map.put("Tank: " + getTank().toString(), true);
+        map.put("Fluid in tank: " + (getTank().getFluid() != null ? getTank().getFluid().getLocalizedName() : "Empty"), true);
     }
 
     public Block fromCasing(int casing){
@@ -376,6 +364,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         int standard = 0;
         int reinforced = 0;
         int advanced = 0;
+        int hatches = 0;
         for (EnumFacing facing : EnumFacing.VALUES){
             BlockPos offset = this.getPos().offset(facing);
             Block block = world.getBlockState(offset).getBlock();
@@ -385,24 +374,24 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
                 reinforced++;
             } else if (block == GTCXBlocks.casingAdvanced){
                 advanced++;
+            } else if (block instanceof GTCXBlockHatch){
+                hatches++;
             }
         }
-        if (standard > 3){
+        if (standard > 3 || (standard == 3 && hatches == 1)){
             casing = 1;
-        }
-        else if (reinforced > 3){
+        } else if (reinforced > 3 || (reinforced == 3 && hatches == 1)){
             casing = 2;
-        }
-        else if (advanced > 3){
+        } else if (advanced > 3 || (advanced == 3 && hatches == 1)){
             casing = 3;
         } else {
             casing = 0;
         }
         if (casing != this.prevCasing) {
+            setConfig();
             world.notifyNeighborsOfStateChange(pos, GTCXBlocks.casingStandard, true);
             this.getNetwork().updateTileEntityField(this, "casing");
         }
-
         this.prevCasing = casing;
     }
     @Override
@@ -585,6 +574,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         public void getData(Map<String, Boolean> data){
             data.put("Outputs Items: " + cycle.isItem(), false);
             data.put("Outputs Fluids: " + cycle.isFluid(), false);
+            super.getData(data);
         }
     }
 

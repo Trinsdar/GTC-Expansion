@@ -12,6 +12,7 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.Out
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtc_expansion.util.GTCXTank;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -35,13 +36,14 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
+import java.util.Map;
 import java.util.Random;
 
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.FLUID_ONLY;
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_ONLY;
 
-public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTOwnerTile {
+public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTOwnerTile, IGTDebuggableTile {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -633,5 +635,13 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     @Override
     public void invalidateStructure() {
         this.firstCheck = true;
+    }
+
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        map.put("Input hatch 1 pos: " + (inputHatch1 != null ? inputHatch1.getPos() : "null"), true);
+        map.put("Input hatch 2 pos: " + (inputHatch2 != null ? inputHatch2.getPos() : "null"), true);
+        map.put("Output hatch 1 pos: " + (outputHatch1 != null ? outputHatch1.getPos() : "null"), true);
+        map.put("Output hatch 2 pos: " + (outputHatch2 != null ? outputHatch2.getPos() : "null"), true);
     }
 }

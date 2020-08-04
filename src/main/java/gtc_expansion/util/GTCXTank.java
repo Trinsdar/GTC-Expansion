@@ -7,9 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GTCXTank extends IC2Tank {
+    String debug = "";
     List<ITankListener> listeners = new ArrayList<>();
     public GTCXTank(int capacity) {
         super(capacity);
+    }
+
+    public GTCXTank setDebug(String debug) {
+        this.debug = debug;
+        return this;
     }
 
     @Override
@@ -26,5 +32,13 @@ public class GTCXTank extends IC2Tank {
 
     public void removeListener(ITankListener list){
         listeners.remove(list);
+    }
+
+    @Override
+    public String toString() {
+        return "GTCXTank{" +
+                "debug='" + debug + '\'' +
+                ", listeners=" + listeners +
+                '}';
     }
 }

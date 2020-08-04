@@ -1,5 +1,6 @@
 package gtc_expansion.tile.hatch;
 
+import gtc_expansion.block.GTCXBlockHatch;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTOwnerTile;
@@ -113,6 +114,7 @@ public class GTCXTileMachineControlHatch extends TileEntityMachine implements IG
         int standard = 0;
         int reinforced = 0;
         int advanced = 0;
+        int hatches = 0;
         for (EnumFacing facing : EnumFacing.VALUES){
             BlockPos offset = this.getPos().offset(facing);
             Block block = world.getBlockState(offset).getBlock();
@@ -122,15 +124,15 @@ public class GTCXTileMachineControlHatch extends TileEntityMachine implements IG
                 reinforced++;
             } else if (block == GTCXBlocks.casingAdvanced){
                 advanced++;
+            } else if (block instanceof GTCXBlockHatch){
+                hatches++;
             }
         }
-        if (standard > 3){
+        if (standard > 3 || (standard == 3 && hatches == 1)){
             casing = 1;
-        }
-        else if (reinforced > 3){
+        } else if (reinforced > 3 || (reinforced == 3 && hatches == 1)){
             casing = 2;
-        }
-        else if (advanced > 3){
+        } else if (advanced > 3 || (advanced == 3 && hatches == 1)){
             casing = 3;
         } else {
             casing = 0;

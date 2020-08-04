@@ -67,9 +67,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     private GTCXTileOutputHatch outputHatch = null;
     private GTCXTileMachineControlHatch controlHatch = null;
     @NetworkField(index = 3)
-    private GTCXTank inputTank1 = new GTCXTank(32000);
+    private GTCXTank inputTank1 = new GTCXTank(32000).setDebug("inputTank1");
     @NetworkField(index = 4)
-    private GTCXTank inputTank2 = new GTCXTank(32000);
+    private GTCXTank inputTank2 = new GTCXTank(32000).setDebug("inputTank2");
     @NetworkField(index = 5)
     private GTCXTank outputTank = new GTCXTank(32000);
     private boolean disabled = false;

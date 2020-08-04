@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.AxisDirection;
+import net.minecraft.util.EnumFacing.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -33,12 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.minecraft.util.EnumFacing.DOWN;
-import static net.minecraft.util.EnumFacing.EAST;
-import static net.minecraft.util.EnumFacing.NORTH;
-import static net.minecraft.util.EnumFacing.SOUTH;
-import static net.minecraft.util.EnumFacing.UP;
-import static net.minecraft.util.EnumFacing.WEST;
+import static net.minecraft.util.EnumFacing.*;
 
 public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel, ICustomModeledBlock {
     public static PropertyInteger casing = PropertyInteger.create("casing", 0, 3);
@@ -90,10 +85,19 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
         int cas = state.getValue(casing);
         if (cas > 0){
-            return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + getIndexes(side, state)];
+            GTCXBlockCasing casing = fromCasing(cas);
+            return casing.getTextureFromState(casing.getDefaultState().withProperty(config, state.getValue(config)), side);
         }
         int index = side == DOWN ? 0 : side == UP ? 1 : 2;
         return Ic2Icons.getTextures("gtclassic_terrain")[index];
+    }
+
+    public GTCXBlockCasing fromCasing(int casing){
+        switch (casing){
+            case 1: return GTCXBlocks.casingStandard;
+            case 2: return GTCXBlocks.casingReinforced;
+            default: return GTCXBlocks.casingAdvanced;
+        }
     }
 
     @Override
