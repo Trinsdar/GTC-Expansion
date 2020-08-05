@@ -1,8 +1,8 @@
 package gtc_expansion.container;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.gui.GTCXGuiCompFluidTank;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
+import gtclassic.api.gui.GTGuiCompFluidTank;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.slots.SlotCustom;
@@ -23,7 +23,7 @@ public class GTCXContainerItemFluidHatch extends ContainerTileComponent<GTCXTile
         this.addSlotToContainer(new SlotCustom(tile, 0, 80, 17, null));
         this.addSlotToContainer(new SlotOutput(player.player, tile, 1, 80, 53));
         this.addSlotToContainer(new SlotDisplay(tile, 2, 59, 42));
-        this.addComponent(new GTCXGuiCompFluidTank(tile));
+        this.addComponent(new GTGuiCompFluidTank(tile.getTank()));
         this.addPlayerInventory(player, 0, 0);
     }
 

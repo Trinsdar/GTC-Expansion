@@ -355,12 +355,14 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
         if (casing != this.prevCasing) {
             world.notifyNeighborsOfStateChange(pos, world.getBlockState(this.getPos()).getBlock(), true);
-            world.scheduleBlockUpdate(pos, Blocks.AIR, 10, 0);
+            for (EnumFacing facing : EnumFacing.values()) {
+                world.scheduleBlockUpdate(pos.offset(facing), Blocks.AIR, 10, 0);
+            }
             this.getNetwork().updateTileEntityField(this, "casing");
         }
         this.prevCasing = casing;
     }
-    
+
     @Override
     public int getConfig(){
         return config;
@@ -381,6 +383,12 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
 
         this.prevConfig = config;
+    }
+
+    @Override
+    public void onBlockUpdate(Block block) {
+        super.onBlockUpdate(block);
+        this.setConfig();
     }
 
     public boolean isHatchWithCasing(BlockPos pos){

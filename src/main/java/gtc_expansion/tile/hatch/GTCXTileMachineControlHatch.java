@@ -139,6 +139,9 @@ public class GTCXTileMachineControlHatch extends TileEntityMachine implements IG
         }
         if (casing != this.prevCasing) {
             world.notifyNeighborsOfStateChange(pos, GTCXBlocks.casingStandard, true);
+            for (EnumFacing facing : EnumFacing.values()) {
+                world.scheduleBlockUpdate(pos.offset(facing), Blocks.AIR, 10, 0);
+            }
             this.getNetwork().updateTileEntityField(this, "casing");
         }
 
