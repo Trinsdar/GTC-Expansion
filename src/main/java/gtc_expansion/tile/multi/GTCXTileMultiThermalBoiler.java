@@ -44,6 +44,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.Map;
 import java.util.Random;
@@ -92,6 +93,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
     public static final IBlockState outputHatchState = GTCXBlocks.outputHatch.getDefaultState();
     public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
+    protected InventoryHandler secondHandler = new InventoryHandler(this);
 
     public GTCXTileMultiThermalBoiler() {
         super(8);
@@ -105,13 +107,16 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         inputTank2.addListener(this);
         outputTank1.addListener(this);
         outputTank2.addListener(this);
+        addSlots(secondHandler);
+        secondHandler.validateSlots();
     }
 
     @Override
     protected void addSlots(InventoryHandler handler) {
-        handler.registerDefaultSlotAccess(AccessRule.Export, slotOutput1, slotOutput2);
-        handler.registerDefaultSlotsForSide(RotationList.DOWN, slotOutput1, slotOutput2);
-        handler.registerSlotType(SlotType.Output, slotOutput1, slotOutput2);
+        int slot = handler == secondHandler ? slotOutput2 : slotOutput1;
+        handler.registerDefaultSlotAccess(AccessRule.Export, slot);
+        handler.registerDefaultSlotsForSide(RotationList.DOWN, slot);
+        handler.registerSlotType(SlotType.Output, slot);
     }
 
     @Override
@@ -622,26 +627,40 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing, GTCXTileItemFluidHatches hatch) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+            if (hatch.isInput()){
+                return hatch.isSecond() ? CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank2) : CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank1);
+            } else {
+                return hatch.isSecond() ? CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(outputTank2) : CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(outputTank1);
+            }
+        }
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && facing == EnumFacing.DOWN){
+            if (hatch.isSecond()){
+                return this.secondHandler == null ? null : CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.secondHandler.getInventory(facing));
+            }
+            return this.getHandler() == null ? null : CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.handler.getInventory(facing));
+        }
         return super.getCapability(capability, facing);
     }
 
     @Override
+    public GTCXTank getTank(GTCXTileItemFluidHatches hatch) {
+        return hatch.isInput() ? (hatch.isSecond() ? this.inputTank2 : this.inputTank1) : (hatch.isSecond() ? this.outputTank2 : this.outputTank1);
+    }
+
     public GTCXTank getInputTank1() {
         return this.inputTank1;
     }
 
-    @Override
     public GTCXTank getInputTank2() {
         return this.inputTank2;
     }
 
-    @Override
     public GTCXTank getOutputTank1() {
         return this.outputTank1;
     }
 
-    @Override
     public GTCXTank getOutputTank2() {
         return this.outputTank2;
     }

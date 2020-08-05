@@ -24,7 +24,7 @@ public class GTCXContainerLargeSteamTurbineHatch extends ContainerTileComponent<
         this.addSlotToContainer(new SlotOutput(player.player, tile, 4, 80, 53));
         int display = input ? second ? 2 : 1 : 3;
         this.addSlotToContainer(new SlotDisplay(tile, display, 59, 42));
-        GTCXTank tank = input ? second ? tile.getInputTank2() : tile.getInputTank1() : tile.getOutputTank1();
+        GTCXTank tank = input ? second ? tile.getInputTank2() : tile.getInputTank1() : tile.getOutputTank();
         this.addComponent(new GTGuiCompFluidTank(tank));
         this.addPlayerInventory(player, 0, 0);
     }

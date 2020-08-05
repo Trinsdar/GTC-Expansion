@@ -139,17 +139,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (owner != null){
-            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
-                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
-            }
-            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this.owner instanceof GTCXTileMultiFusionReactor || this.owner instanceof GTCXTileMultiThermalBoiler)){
-                if (owner instanceof GTCXTileMultiThermalBoiler){
-                    return owner.getCapability(capability, input ? EnumFacing.UP : EnumFacing.DOWN);
-                } else if (owner.getFacing().getAxis() != EnumFacing.Axis.Y){
-                    return owner.getCapability(capability, input ? owner.getFacing().rotateY() : owner.getFacing().rotateYCCW());
-                }
-            }
-            return owner.getCapability(capability, facing);
+            return owner.getCapability(capability, facing, this);
         }
         return super.getCapability(capability, facing);
     }
@@ -288,11 +278,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     public GTCXTank getTank() {
         if (owner != null){
-            if (input){
-                return second ? owner.getInputTank2() : owner.getInputTank1();
-            } else {
-                return second ? owner.getOutputTank2() : owner.getOutputTank1();
-            }
+            return owner.getTank(this);
         }
         return tank;
     }
@@ -374,6 +360,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
         this.prevCasing = casing;
     }
+    
     @Override
     public int getConfig(){
         return config;

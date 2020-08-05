@@ -195,6 +195,23 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     }
 
     @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing, GTCXTileItemFluidHatches hatch) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+            if (hatch.isInput()){
+                return hatch.isSecond() ? CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank2) : CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank1);
+            } else {
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(outputTank);
+            }
+        }
+        return super.getCapability(capability, facing);
+    }
+
+
+    @Override
+    public GTCXTank getTank(GTCXTileItemFluidHatches hatch) {
+        return hatch.isInput() ? hatch.isSecond() ? this.inputTank2 : this.inputTank1 : this.outputTank;
+    }
+
     public GTCXTank getInputTank1() {
         return this.inputTank1;
     }
@@ -203,14 +220,8 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         return this.inputTank2;
     }
 
-    @Override
-    public GTCXTank getOutputTank1() {
+    public GTCXTank getOutputTank() {
         return this.outputTank;
-    }
-
-    @Override
-    public GTCXTank getOutputTank2() {
-        return null;
     }
 
     @Override

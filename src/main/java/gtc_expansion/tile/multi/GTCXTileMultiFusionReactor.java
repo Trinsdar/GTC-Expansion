@@ -107,6 +107,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     public boolean lastState;
     public boolean firstCheck = true;
     List<IEnergyTile> lastPositions = null;
+    protected InventoryHandler secondHandler = new InventoryHandler(this);
     private int tickOffset = 0;
     private GTCXTileFusionMaterialInjector inputHatch1 = null;
     private GTCXTileFusionMaterialInjector inputHatch2 = null;
@@ -123,16 +124,19 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.inputTank1.addListener(this);
         this.inputTank2.addListener(this);
         this.outputTank.addListener(this);
+        this.addSlots(secondHandler);
+        secondHandler.validateSlots();
     }
 
     @Override
     protected void addSlots(InventoryHandler handler) {
+        int slot = handler == secondHandler ? 1 : 0;
         handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
-        handler.registerDefaultSlotAccess(AccessRule.Import, 0, 1);
+        handler.registerDefaultSlotAccess(AccessRule.Import, slot);
         handler.registerDefaultSlotAccess(AccessRule.Export, 2);
-        handler.registerDefaultSlotsForSide(RotationList.UP, 0, 1);
+        handler.registerDefaultSlotsForSide(RotationList.UP, slot);
         handler.registerDefaultSlotsForSide(RotationList.DOWN, 2);
-        handler.registerSlotType(SlotType.Input, 0, 1);
+        handler.registerSlotType(SlotType.Input, slot);
         handler.registerSlotType(SlotType.Output, 2);
     }
 
@@ -217,11 +221,30 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return null;
+        }
+        return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing, GTCXTileItemFluidHatches hatch) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
+            if (hatch.isInput()){
+                return hatch.isSecond() ? CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank2) : CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(inputTank1);
+            } else {
+                return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(outputTank);
+            }
+        }
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
+            InventoryHandler handler = this.getHandler();
+            if (hatch.isSecond()){
+                handler = this.secondHandler;
+            }
             if (this.getFacing().getAxis() == EnumFacing.Axis.Y){
                 return null;
             }
             EnumFacing dir = facing == this.getFacing().rotateY() ? EnumFacing.UP : EnumFacing.DOWN;
-            return this.getHandler() == null  || facing == EnumFacing.DOWN || facing == EnumFacing.UP || facing == this.getFacing() || facing == this.getFacing().getOpposite() ? null : CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.handler.getInventory(dir));
+            return handler == null || facing == EnumFacing.DOWN || facing == EnumFacing.UP || facing == this.getFacing() || facing == this.getFacing().getOpposite() ? null : CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(handler.getInventory(dir));
         }
         return super.getCapability(capability, facing);
     }
@@ -1267,23 +1290,20 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     }
 
     @Override
+    public GTCXTank getTank(GTCXTileItemFluidHatches hatch) {
+        return hatch.isInput() ? hatch.isSecond() ? this.inputTank2 : this.inputTank1 : this.outputTank;
+    }
+
     public GTCXTank getInputTank1() {
         return this.inputTank1;
     }
 
-    @Override
     public GTCXTank getInputTank2() {
         return this.inputTank2;
     }
 
-    @Override
-    public GTCXTank getOutputTank1() {
+    public GTCXTank getOutputTank() {
         return this.outputTank;
-    }
-
-    @Override
-    public GTCXTank getOutputTank2() {
-        return null;
     }
 
     @Override

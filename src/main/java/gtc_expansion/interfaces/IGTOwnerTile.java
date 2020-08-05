@@ -20,15 +20,9 @@ public interface IGTOwnerTile {
 
     boolean hasCapability(Capability<?> capability, EnumFacing facing);
 
-    <T> T getCapability(Capability<T> capability, EnumFacing facing);
+    <T> T getCapability(Capability<T> capability, EnumFacing facing, GTCXTileItemFluidHatches hatch);
 
-    GTCXTank getInputTank1();
-
-    GTCXTank getInputTank2();
-
-    GTCXTank getOutputTank1();
-
-    GTCXTank getOutputTank2();
+    GTCXTank getTank(GTCXTileItemFluidHatches hatch);
 
     default void setOutputModes(boolean second, OutputModes mode){}
 
