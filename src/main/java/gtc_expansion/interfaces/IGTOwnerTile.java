@@ -34,5 +34,7 @@ public interface IGTOwnerTile {
 
     void invalidateStructure();
 
+    EnumFacing getFacing();
+
     ContainerIC2 getGuiContainer(EntityPlayer entityPlayer, GTCXTileItemFluidHatches hatch);
 }

@@ -19,11 +19,15 @@ import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.api.classic.network.adv.NetworkField;
+import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
+import ic2.core.inventory.management.AccessRule;
+import ic2.core.inventory.management.InventoryHandler;
+import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
@@ -101,6 +105,13 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         inputTank2.addListener(this);
         outputTank1.addListener(this);
         outputTank2.addListener(this);
+    }
+
+    @Override
+    protected void addSlots(InventoryHandler handler) {
+        handler.registerDefaultSlotAccess(AccessRule.Export, slotOutput1, slotOutput2);
+        handler.registerDefaultSlotsForSide(RotationList.DOWN, slotOutput1, slotOutput2);
+        handler.registerSlotType(SlotType.Output, slotOutput1, slotOutput2);
     }
 
     @Override

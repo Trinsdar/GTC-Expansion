@@ -35,9 +35,13 @@ import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.energy.tile.IMetaDelegate;
 import ic2.api.recipe.IRecipeInput;
+import ic2.core.RotationList;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.IFilter;
+import ic2.core.inventory.management.AccessRule;
+import ic2.core.inventory.management.InventoryHandler;
+import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
@@ -58,6 +62,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -118,6 +123,17 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.inputTank1.addListener(this);
         this.inputTank2.addListener(this);
         this.outputTank.addListener(this);
+    }
+
+    @Override
+    protected void addSlots(InventoryHandler handler) {
+        handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
+        handler.registerDefaultSlotAccess(AccessRule.Import, 0, 1);
+        handler.registerDefaultSlotAccess(AccessRule.Export, 2);
+        handler.registerDefaultSlotsForSide(RotationList.UP, 0, 1);
+        handler.registerDefaultSlotsForSide(RotationList.DOWN, 2);
+        handler.registerSlotType(SlotType.Input, 0, 1);
+        handler.registerSlotType(SlotType.Output, 2);
     }
 
     @Override
@@ -188,7 +204,26 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (this.getFacing().getAxis() == EnumFacing.Axis.Y){
+                return false;
+            }
+            EnumFacing dir = facing == this.getFacing().rotateY() ? EnumFacing.UP : EnumFacing.DOWN;
+            return this.getHandler() != null && facing != EnumFacing.DOWN && facing != EnumFacing.UP && facing != this.getFacing() && facing != this.getFacing().getOpposite() && super.hasCapability(capability, dir);
+        }
         return super.hasCapability(capability, facing) || (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (this.getFacing().getAxis() == EnumFacing.Axis.Y){
+                return null;
+            }
+            EnumFacing dir = facing == this.getFacing().rotateY() ? EnumFacing.UP : EnumFacing.DOWN;
+            return this.getHandler() == null  || facing == EnumFacing.DOWN || facing == EnumFacing.UP || facing == this.getFacing() || facing == this.getFacing().getOpposite() ? null : CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this.handler.getInventory(dir));
+        }
+        return super.getCapability(capability, facing);
     }
 
     @Override

@@ -125,6 +125,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         if (owner != null){
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.owner instanceof GTCXTileMultiFusionReactor && owner.getFacing().getAxis() != EnumFacing.Axis.Y) {
+                return owner.hasCapability(capability, input ? owner.getFacing().rotateY() : owner.getFacing().rotateYCCW());
+            }
             return owner.hasCapability(capability, facing);
         } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
             return false;
@@ -138,6 +141,13 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         if (owner != null){
             if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY){
                 return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(this);
+            }
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this.owner instanceof GTCXTileMultiFusionReactor || this.owner instanceof GTCXTileMultiThermalBoiler)){
+                if (owner instanceof GTCXTileMultiThermalBoiler){
+                    return owner.getCapability(capability, input ? EnumFacing.UP : EnumFacing.DOWN);
+                } else if (owner.getFacing().getAxis() != EnumFacing.Axis.Y){
+                    return owner.getCapability(capability, input ? owner.getFacing().rotateY() : owner.getFacing().rotateYCCW());
+                }
             }
             return owner.getCapability(capability, facing);
         }
