@@ -1,6 +1,7 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.container.GTCXContainerLargeGasTurbine;
+import gtc_expansion.container.GTCXContainerLargeGasTurbineHatch;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.interfaces.IGTEnergySource;
@@ -11,6 +12,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
+import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
@@ -35,6 +37,7 @@ import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
+import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
@@ -84,6 +87,10 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     private GTCXTank inputTank2 = new GTCXTank(32000);
     @NetworkField(index = 5)
     private GTCXTank outputTank = new GTCXTank(32000);
+    private static int slotDisplayIn1 = 1;
+    private static int slotDisplayIn2 = 2;
+    private static int slotDisplayOut = 3;
+    public static int slotNothing = 4;
     public int maxEnergy = 100000;
     @NetworkField(
             index = 6
@@ -103,8 +110,8 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
 
     public GTCXTileMultiLargeGasTurbine() {
-        super(1);
-        this.addGuiFields("lastState", "production");
+        super(5);
+        this.addGuiFields("lastState", "production", "inputTank1", "inputTank2", "outputTank");
         this.addNetworkFields("energy", "inputTank1", "inputTank2", "outputTank");
         this.inputTank1.addListener(this);
         this.inputTank2.addListener(this);
@@ -209,11 +216,22 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     @Override
     public void onTankChanged(IFluidTank iFluidTank) {
         this.shouldCheckRecipe = true;
+        this.setStackInSlot(slotDisplayIn1, ItemDisplayIcon.createWithFluidStack(inputTank1.getFluid()));
+        this.setStackInSlot(slotDisplayIn2, ItemDisplayIcon.createWithFluidStack(inputTank2.getFluid()));
+        this.setStackInSlot(slotDisplayOut, ItemDisplayIcon.createWithFluidStack(outputTank.getFluid()));
+        this.getNetwork().updateTileGuiField(this, "inputTank1");
+        this.getNetwork().updateTileGuiField(this, "inputTank2");
+        this.getNetwork().updateTileGuiField(this, "outputTank");
     }
 
     @Override
     public void invalidateStructure() {
         this.firstCheck = true;
+    }
+
+    @Override
+    public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer, GTCXTileItemFluidHatches hatch) {
+        return new GTCXContainerLargeGasTurbineHatch(entityPlayer.inventory, this, hatch.isSecond(), hatch.isInput());
     }
 
     public void writeBlockPosToNBT(NBTTagCompound nbt, String id, BlockPos pos){
@@ -599,8 +617,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         this.input2 = this.getPos();
         this.output = this.getPos();
         this.dynamo = this.getPos();
-        hasOutput = false;
-        hasSecondInput = false;
         int3 dir = new int3(getPos(), getFacing());
         if (!isReinforcedCasingWithSpecial(dir.up(1), 2)){
             return false;
@@ -698,7 +714,8 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                 return false;
             }
         }
-
+        hasSecondInput = inputs > 1;
+        hasOutput = outputs > 0;
         return inputs >= 1;
     }
 

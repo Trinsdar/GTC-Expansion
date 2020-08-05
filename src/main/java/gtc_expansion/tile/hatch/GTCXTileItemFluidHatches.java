@@ -8,6 +8,7 @@ import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.item.tools.GTCXItemToolHammer;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
+import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.util.GTCXTank;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
@@ -77,7 +78,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         this.input = input;
         this.tank = new GTCXTank(32000);
         this.tank.addListener(this);
-        this.addGuiFields(NBT_TANK);
+        this.addGuiFields(NBT_TANK, "owner");
         this.addNetworkFields("casing", "config");
     }
 
@@ -108,58 +109,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     }
 
     @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
-        if (slot == slotInput){
-            if (input && owner != null){
-                if (owner instanceof GTCXTileMultiFusionReactor){
-                    int offset = second ? 1 : 0;
-                    owner.setStackInSlot(offset, stack);
-                } else {
-                    int offset = second ? 2 : 0;
-                    owner.setStackInSlot(1 + offset, stack);
-                }
-
-            }
-        } else if (slot == slotOutput){
-            if (!input && owner != null){
-                int offset = second ? 2 : 0;
-                owner.setStackInSlot(2 + offset, stack);
-            }
-        } else {
-            super.setStackInSlot(slot, stack);
-        }
-        if (owner != null){
-            owner.setShouldCheckRecipe(true);
-        }
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int slot) {
-        if (slot == slotInput){
-            if (input && owner != null){
-                if (owner instanceof GTCXTileMultiFusionReactor){
-                    int offset = second ? 1 : 0;
-                    return owner.getStackInSlot(offset);
-                } else {
-                    int offset = second ? 2 : 0;
-                    return owner.getStackInSlot(1 + offset);
-                }
-            }
-            return ItemStack.EMPTY;
-        }
-        if (slot == slotOutput){
-            if (!input && owner != null){
-                int offset = second ? 2 : 0;
-                return owner.getStackInSlot(2 + offset);
-            }
-            return ItemStack.EMPTY;
-        }
-        return super.getStackInSlot(slot);
-    }
-
-    @Override
     public void onTankChanged(IFluidTank iFluidTank) {
         this.getNetwork().updateTileGuiField(this, NBT_TANK);
+        this.getNetwork().updateTileGuiField(this, "owner");
         this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.getTank().getFluid()));
     }
 
@@ -167,7 +119,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public void onBlockBreak() {
         if (this.owner != null){
             owner.invalidateStructure();
-            this.getTank().removeListener(this);
         }
     }
 
@@ -214,6 +165,14 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         this.second = second;
     }
 
+    public boolean isSecond() {
+        return second;
+    }
+
+    public boolean isInput() {
+        return input;
+    }
+
     @Override
     public List<ItemStack> getDrops() {
         List<ItemStack> list = new ArrayList<>();
@@ -224,10 +183,26 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public List<ItemStack> getInventoryDrops() {
         List<ItemStack> list = new ArrayList<>();
-        list.add(this.getStackInSlot(slotInput).copy());
-        list.add(this.getStackInSlot(slotOutput).copy());
-        this.setStackInSlot(slotInput, ItemStack.EMPTY);
-        this.setStackInSlot(slotOutput, ItemStack.EMPTY);
+        if (this.owner != null && (owner instanceof GTCXTileMultiThermalBoiler || owner instanceof GTCXTileMultiFusionReactor)){
+            int slot;
+            if (owner instanceof GTCXTileMultiFusionReactor){
+                if (input){
+                    slot = second ? 1 : 0;
+                } else {
+                    slot = 2;
+                }
+                list.add(owner.getStackInSlot(slot).copy());
+                owner.setStackInSlot(slot, ItemStack.EMPTY);
+            } else {
+                if (!input){
+                    slot = second ? 2 : 1;
+                    list.add(owner.getStackInSlot(slot).copy());
+                    owner.setStackInSlot(slot, ItemStack.EMPTY);
+                }
+            }
+        }
+        list.add(this.getStackInSlot(slotInput));
+        list.add(this.getStackInSlot(slotOutput));
         return list;
     }
 
@@ -235,8 +210,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public boolean canRemoveBlock(EntityPlayer player) {
         return true;
     }
-
-    int tickSkipper = 0;
 
     @Override
     public void update() {
@@ -277,6 +250,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
+        if (owner != null){
+            return owner.getGuiContainer(entityPlayer, this);
+        }
         return new GTCXContainerItemFluidHatch(entityPlayer.inventory, this);
     }
 
@@ -320,13 +296,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     }
 
     public void setOwner(IGTOwnerTile tile){
-        if (tile == null || this.owner != tile){
-            this.getTank().removeListener(this);
-        }
         this.owner = tile;
-        if (this.owner != null){
-            this.getTank().addListener(this);
-        }
     }
 
     public IGTOwnerTile getOwner(){
@@ -388,8 +358,8 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             casing = 0;
         }
         if (casing != this.prevCasing) {
-            setConfig();
-            world.notifyNeighborsOfStateChange(pos, GTCXBlocks.casingStandard, true);
+            world.notifyNeighborsOfStateChange(pos, world.getBlockState(this.getPos()).getBlock(), true);
+            world.scheduleBlockUpdate(pos, Blocks.AIR, 10, 0);
             this.getNetwork().updateTileEntityField(this, "casing");
         }
         this.prevCasing = casing;

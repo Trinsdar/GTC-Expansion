@@ -3,11 +3,13 @@ package gtc_expansion.tile.multi;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui.GTCXFusionComputerGui;
 import gtc_expansion.container.GTCXContainerFusionReactor;
+import gtc_expansion.container.GTCXContainerFusionReactorHatch;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTEnergySource;
 import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileFusionEnergyExtractor;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
+import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector;
 import gtc_expansion.util.GTCXTank;
@@ -36,6 +38,7 @@ import ic2.api.recipe.IRecipeInput;
 import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.IFilter;
+import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
@@ -87,6 +90,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     private GTCXTank inputTank2 = new GTCXTank(32000);
     @NetworkField(index = 15)
     private GTCXTank outputTank = new GTCXTank(32000);
+    private static int slotDisplayIn1 = 3;
+    private static int slotDisplayIn2 = 4;
+    private static int slotDisplayOut = 5;
+    public static int slotNothing = 6;
     public int maxProducedEnergy = 1000000000;
     @NetworkField(
             index = 16
@@ -102,7 +109,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     private GTCXTileFusionEnergyExtractor energyOutputHatch = null;
 
     public GTCXTileMultiFusionReactor() {
-        super(3, 0, 8192, 8192);
+        super(7, 0, 8192, 8192);
         this.maxEnergy = 1000000;
         input1 = this.getPos();
         input2 = this.getPos();
@@ -187,6 +194,12 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public void onTankChanged(IFluidTank iFluidTank) {
         this.shouldCheckRecipe = true;
+        this.setStackInSlot(slotDisplayIn1, ItemDisplayIcon.createWithFluidStack(inputTank1.getFluid()));
+        this.setStackInSlot(slotDisplayIn2, ItemDisplayIcon.createWithFluidStack(inputTank2.getFluid()));
+        this.setStackInSlot(slotDisplayOut, ItemDisplayIcon.createWithFluidStack(outputTank.getFluid()));
+        this.getNetwork().updateTileGuiField(this, "inputTank1");
+        this.getNetwork().updateTileGuiField(this, "inputTank2");
+        this.getNetwork().updateTileGuiField(this, "outputTank");
     }
 
     @Override
@@ -1241,6 +1254,11 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public void invalidateStructure() {
         this.firstCheck = true;
+    }
+
+    @Override
+    public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer, GTCXTileItemFluidHatches hatch) {
+        return new GTCXContainerFusionReactorHatch(entityPlayer.inventory, this, hatch.isSecond(), hatch.isInput());
     }
 
     @Override

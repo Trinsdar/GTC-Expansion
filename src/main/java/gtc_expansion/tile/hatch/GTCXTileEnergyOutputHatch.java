@@ -5,6 +5,7 @@ import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTEnergySource;
+import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.item.tools.GTCXItemToolHammer;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;
@@ -129,6 +130,13 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
     @Override
     public LocaleComp getBlockName() {
         return GTLang.AESU;
+    }
+
+    @Override
+    public void onBlockBreak() {
+        if (this.owner != null && owner instanceof IGTOwnerTile){
+            ((IGTOwnerTile)owner).invalidateStructure();
+        }
     }
 
     @Override

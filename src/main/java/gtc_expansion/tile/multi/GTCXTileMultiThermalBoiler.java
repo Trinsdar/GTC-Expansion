@@ -1,11 +1,13 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.container.GTCXContainerThermalBoiler;
+import gtc_expansion.container.GTCXContainerThermalBoilerHatch;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
+import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes;
@@ -22,6 +24,8 @@ import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
+import ic2.core.item.misc.ItemDisplayIcon;
+import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +38,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import java.util.Map;
@@ -43,7 +48,7 @@ import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHa
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_ONLY;
 
-public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickable, IHasGui, IGTMultiTileStatus, IGTOwnerTile, IGTDebuggableTile {
+public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITickable, IHasGui, ITankListener, IGTMultiTileStatus, IGTOwnerTile, IGTDebuggableTile {
     public boolean lastState;
     public boolean firstCheck = true;
     private BlockPos input1;
@@ -67,8 +72,13 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     @NetworkField(index = 6)
     private GTCXTank outputTank2 = new GTCXTank(32000);
     private int tickOffset = 0;
-    private static int slotOutput1 = 2;
-    private static int slotOutput2 = 4;
+    private static int slotOutput1 = 1;
+    private static int slotOutput2 = 2;
+    private static int slotDisplayIn1 = 3;
+    private static int slotDisplayIn2 = 4;
+    private static int slotDisplayOut1 = 5;
+    private static int slotDisplayOut2 = 6;
+    public static int slotNothing = 7;
     int ticker = 0;
     int obsidianTicker = 0;
     protected OutputModes outputMode1 = ITEM_AND_FLUID;
@@ -80,13 +90,17 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
 
     public GTCXTileMultiThermalBoiler() {
-        super(5);
-        this.addGuiFields("lastState");
+        super(8);
+        this.addGuiFields("lastState", "inputTank1", "inputTank2", "outputTank1", "outputTank2");
         this.addNetworkFields("inputTank1", "inputTank2", "outputTank1", "outputTank2");
         input1 = this.getPos();
         input2 = this.getPos();
         output1 = this.getPos();
         output2 = this.getPos();
+        inputTank1.addListener(this);
+        inputTank2.addListener(this);
+        outputTank1.addListener(this);
+        outputTank2.addListener(this);
     }
 
     @Override
@@ -155,6 +169,18 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         return this.lastState;
     }
 
+    @Override
+    public void onTankChanged(IFluidTank iFluidTank) {
+        this.setStackInSlot(slotDisplayIn1, ItemDisplayIcon.createWithFluidStack(inputTank1.getFluid()));
+        this.setStackInSlot(slotDisplayIn2, ItemDisplayIcon.createWithFluidStack(inputTank2.getFluid()));
+        this.setStackInSlot(slotDisplayOut1, ItemDisplayIcon.createWithFluidStack(outputTank1.getFluid()));
+        this.setStackInSlot(slotDisplayOut2, ItemDisplayIcon.createWithFluidStack(outputTank2.getFluid()));
+        this.getNetwork().updateTileGuiField(this, "inputTank1");
+        this.getNetwork().updateTileGuiField(this, "inputTank2");
+        this.getNetwork().updateTileGuiField(this, "outputTank1");
+        this.getNetwork().updateTileGuiField(this, "outputTank2");
+    }
+
     boolean output1Full = false;
 
     @Override
@@ -169,10 +195,10 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
                 boolean water = false;
                 IC2Tank lavaTank = inputTank1;
                 IC2Tank waterTank = inputTank2;
-                if (inputTank2.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1))){
+                if (inputTank1.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("water", 1))){
                     water = true;
                     waterTank = inputTank1;
-                } else if (inputTank2.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1))){
+                } else if (inputTank1.getFluid().isFluidEqual(GTMaterialGen.getFluidStack("lava", 1))){
                     lava = true;
                     lavaTank = inputTank1;
                 }
@@ -417,7 +443,6 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         this.output2 = this.getPos();
         this.input1 = this.getPos();
         this.input2 = this.getPos();
-        hasBothOutputs = false;
         int3 dir = new int3(getPos(), getFacing());
         if (!isReinforcedCasing(dir.down(1))){
             return false;
@@ -497,10 +522,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (!isHatch(dir.down(1))){
             return false;
         }
-        if (inputs < 2 || outputs < 1){
-            return false;
-        }
-        return true;
+        hasBothOutputs = outputs > 1;
+        return inputs >= 2 && outputs >= 1;
     }
 
     public boolean isReinforcedCasing(int3 pos) {
@@ -635,6 +658,11 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     @Override
     public void invalidateStructure() {
         this.firstCheck = true;
+    }
+
+    @Override
+    public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer, GTCXTileItemFluidHatches hatch) {
+        return new GTCXContainerThermalBoilerHatch(entityPlayer.inventory, this, hatch.isSecond(), hatch.isInput());
     }
 
     @Override

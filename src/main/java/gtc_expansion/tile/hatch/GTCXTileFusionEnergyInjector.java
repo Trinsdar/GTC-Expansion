@@ -97,6 +97,7 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
     public void onBlockRemoved(){
         if (accept != null){
             this.accept.addMaxEnergy(-10000000);
+            accept.invalidateStructure();
         }
     }
 

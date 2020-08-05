@@ -179,6 +179,7 @@ public class GTCXTileMachineControlHatch extends TileEntityMachine implements IG
     public void onBlockBreak() {
         if (owner != null){
             owner.setDisabled(false);
+            owner.invalidateStructure();
         }
     }
 

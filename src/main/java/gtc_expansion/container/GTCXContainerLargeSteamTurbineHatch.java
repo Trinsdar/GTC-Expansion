@@ -1,11 +1,11 @@
 package gtc_expansion.container;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.gui.GTCXGuiCompFluidTank;
-import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
+import gtc_expansion.util.GTCXTank;
+import gtclassic.api.gui.GTGuiCompFluidTank;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
-import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotDisplay;
 import ic2.core.inventory.slots.SlotOutput;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,16 +14,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class GTCXContainerItemFluidHatch extends ContainerTileComponent<GTCXTileItemFluidHatches> {
+public class GTCXContainerLargeSteamTurbineHatch extends ContainerTileComponent<GTCXTileMultiLargeSteamTurbine> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(GTCExpansion.MODID, "textures/gui/hatchitemfluid.png");
 
-    public GTCXContainerItemFluidHatch(InventoryPlayer player, GTCXTileItemFluidHatches tile) {
+    public GTCXContainerLargeSteamTurbineHatch(InventoryPlayer player, GTCXTileMultiLargeSteamTurbine tile, boolean second, boolean input) {
         super(tile);
-        this.addSlotToContainer(new SlotCustom(tile, 0, 80, 17, null));
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 1, 80, 53));
-        this.addSlotToContainer(new SlotDisplay(tile, 2, 59, 42));
-        this.addComponent(new GTCXGuiCompFluidTank(tile));
+        this.addSlotToContainer(new SlotDisplay(tile, 4, 80, 17));
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 4, 80, 53));
+        int display = input ? second ? 2 : 1 : 3;
+        this.addSlotToContainer(new SlotDisplay(tile, display, 59, 42));
+        GTCXTank tank = input ? second ? tile.getInputTank2() : tile.getInputTank1() : tile.getOutputTank1();
+        this.addComponent(new GTGuiCompFluidTank(tank));
         this.addPlayerInventory(player, 0, 0);
     }
 

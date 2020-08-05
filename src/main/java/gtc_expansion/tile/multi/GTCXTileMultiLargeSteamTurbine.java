@@ -1,6 +1,7 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
+import gtc_expansion.container.GTCXContainerLargeSteamTurbineHatch;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.interfaces.IGTEnergySource;
@@ -9,6 +10,7 @@ import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.item.GTCXItemTurbineRotor;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
+import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
@@ -29,6 +31,8 @@ import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.gui.GuiComponentContainer;
+import ic2.core.item.misc.ItemDisplayIcon;
+import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,6 +48,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import java.util.ArrayList;
@@ -52,7 +57,7 @@ import java.util.Map;
 
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTEnergySource, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile, IGTDebuggableTile, IMetaDelegate {
+public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTEnergySource, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile, IGTDebuggableTile, IMetaDelegate, ITankListener {
     public boolean lastState;
     public boolean firstCheck = true;
     List<IEnergyTile> lastPositions = null;
@@ -72,6 +77,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     private GTCXTank inputTank2 = new GTCXTank(32000).setDebug("inputTank2");
     @NetworkField(index = 5)
     private GTCXTank outputTank = new GTCXTank(32000);
+    private static int slotDisplayIn1 = 1;
+    private static int slotDisplayIn2 = 2;
+    private static int slotDisplayOut = 3;
+    public static int slotNothing = 4;
     private boolean disabled = false;
     public int maxEnergy = 100000;
     @NetworkField(
@@ -93,12 +102,15 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public GTCXTileMultiLargeSteamTurbine() {
         super(5);
-        this.addGuiFields("lastState", "production");
+        this.addGuiFields("lastState", "production", "inputTank1", "inputTank2", "outputTank");
         this.addNetworkFields("energy", "inputTank1", "inputTank2", "outputTank");
         input1 = this.getPos();
         input2 = this.getPos();
         dynamo = this.getPos();
         output = this.getPos();
+        this.inputTank1.addListener(this);
+        this.inputTank2.addListener(this);
+        this.outputTank.addListener(this);
         production = 0;
     }
 
@@ -130,6 +142,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         this.disabled = nbt.getBoolean("disabled");
         this.energy = nbt.getInteger("energy");
         this.ticker = nbt.getInteger("ticker");
+        this.inputTank1.readFromNBT(nbt.getCompoundTag("inputTank1"));
+        this.inputTank2.readFromNBT(nbt.getCompoundTag("inputTank2"));
+        this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
         this.input1 = readBlockPosFromNBT(nbt, "input1");
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.dynamo = readBlockPosFromNBT(nbt, "dynamo");
@@ -144,11 +159,15 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         nbt.setBoolean("disabled", this.disabled);
         nbt.setInteger("energy", this.energy);
         nbt.setInteger("ticker", ticker);
+        this.inputTank1.writeToNBT(this.getTag(nbt, "inputTank1"));
+        this.inputTank2.writeToNBT(this.getTag(nbt, "inputTank2"));
+        this.outputTank.writeToNBT(this.getTag(nbt, "outputTank"));
         writeBlockPosToNBT(nbt, "input1", input1);
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "dynamo", dynamo);
         writeBlockPosToNBT(nbt, "output", output);
         nbt.setInteger("production", production);
+
         return nbt;
     }
 
@@ -175,6 +194,16 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         if (dynamoHatch != null){
             dynamoHatch.setOwner(null);
         }
+    }
+
+    @Override
+    public void onTankChanged(IFluidTank iFluidTank) {
+        this.setStackInSlot(slotDisplayIn1, ItemDisplayIcon.createWithFluidStack(inputTank1.getFluid()));
+        this.setStackInSlot(slotDisplayIn2, ItemDisplayIcon.createWithFluidStack(inputTank2.getFluid()));
+        this.setStackInSlot(slotDisplayOut, ItemDisplayIcon.createWithFluidStack(outputTank.getFluid()));
+        this.getNetwork().updateTileGuiField(this, "inputTank1");
+        this.getNetwork().updateTileGuiField(this, "inputTank2");
+        this.getNetwork().updateTileGuiField(this, "outputTank");
     }
 
     public void onBlockPlaced(){
@@ -460,8 +489,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         this.input2 = this.getPos();
         this.dynamo = this.getPos();
         this.output = this.getPos();
-        hasOutput = false;
-        hasSecondInput = false;
         int3 dir = new int3(getPos(), getFacing());
         if (!isStandardCasingWithSpecial(dir.up(1), 2)){
             return false;
@@ -559,7 +586,8 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 return false;
             }
         }
-
+        hasSecondInput = inputs > 1;
+        hasOutput = outputs > 0;
         return inputs >= 1;
     }
 
@@ -659,7 +687,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                     inputHatch2 = (GTCXTileInputHatch) tile;
                     inputHatch2.setOwner(this);
                     inputHatch2.setSecond(true);
-                    hasSecondInput = true;
                 }
             }
             inputs++;
@@ -764,6 +791,11 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     }
 
     @Override
+    public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer, GTCXTileItemFluidHatches hatch) {
+        return new GTCXContainerLargeSteamTurbineHatch(entityPlayer.inventory, this, hatch.isSecond(), hatch.isInput());
+    }
+
+    @Override
     public void setOutputModes(boolean second, GTCXTileOutputHatch.OutputModes mode) {
         if (!second) {
             this.outputMode = mode;
@@ -772,12 +804,13 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     @Override
     public void getData(Map<String, Boolean> map) {
-        boolean enoughSteam = inputHatch1 != null && ((inputHatch2 != null && inputHatch1.getTank().getFluidAmount() + inputHatch2.getTank().getFluidAmount() >= 1600) || (inputHatch1.getTank().getFluidAmount() >= 1600));
-        map.put("Has Enough Steam: " + enoughSteam, true);
-        map.put("Dynamo Hatch has enough room: " + (dynamoHatch != null && dynamoHatch.getStoredEU() + production <= dynamoHatch.getMaxEU()), true);
+        //boolean enoughSteam = inputHatch1 != null && ((inputHatch2 != null && inputHatch1.getTank().getFluidAmount() + inputHatch2.getTank().getFluidAmount() >= 1600) || (inputHatch1.getTank().getFluidAmount() >= 1600));
+        //map.put("Has Enough Steam: " + enoughSteam, true);
+        map.put("Dynamo Hatch has enough room: " + (energy + production <= maxEnergy), true);
         map.put("Disabled: " + disabled, true);
-        map.put("Input Hatch 1 amount: " + (inputHatch1 != null ? inputHatch1.getTank().getFluidAmount() : 0), true);
-        map.put("Input Hatch 2 amount: " + (inputHatch2 != null ? inputHatch2.getTank().getFluidAmount() : 0), true);
+        map.put("Input Hatch 1 amount: " + (inputTank1.getFluidAmount() == 0 ? "Empty" : inputTank1.getFluidAmount() + "mb of " + inputTank1.getFluid().getLocalizedName()), true);
+        map.put("Input Hatch 2 amount: " + (inputTank2.getFluidAmount() == 0 ? "Empty" : inputTank2.getFluidAmount() + "mb of " + inputTank2.getFluid().getLocalizedName()), true);
+        map.put("Has second Input ? " + hasSecondInput, true);
     }
 
     @Override
