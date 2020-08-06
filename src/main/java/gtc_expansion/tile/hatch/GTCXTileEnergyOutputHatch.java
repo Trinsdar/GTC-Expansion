@@ -236,9 +236,6 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         }
         if (casing != this.prevCasing) {
             world.notifyNeighborsOfStateChange(pos, GTCXBlocks.casingStandard, true);
-            for (EnumFacing facing : EnumFacing.values()) {
-                world.scheduleBlockUpdate(pos.offset(facing), Blocks.AIR, 10, 0);
-            }
             this.getNetwork().updateTileEntityField(this, "casing");
         }
 
@@ -273,6 +270,12 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
             return ((IGTCasingBackgroundBlock)tile).getCasing() == casing;
         }
         return false;
+    }
+
+    @Override
+    public void onBlockUpdate(Block block) {
+        super.onBlockUpdate(block);
+        this.setConfig();
     }
 
     @Override

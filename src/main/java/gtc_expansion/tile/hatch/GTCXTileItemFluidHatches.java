@@ -357,9 +357,6 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
         if (casing != this.prevCasing) {
             world.notifyNeighborsOfStateChange(pos, world.getBlockState(this.getPos()).getBlock(), true);
-            for (EnumFacing facing : EnumFacing.values()) {
-                world.scheduleBlockUpdate(pos.offset(facing), Blocks.AIR, 10, 0);
-            }
             this.getNetwork().updateTileEntityField(this, "casing");
         }
         this.prevCasing = casing;
