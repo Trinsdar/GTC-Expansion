@@ -24,6 +24,8 @@ import ic2.core.inventory.gui.GuiComponentContainer;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.inventory.transport.IItemTransporter;
+import ic2.core.inventory.transport.TransporterManager;
 import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
@@ -464,10 +466,43 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         @Override
         public void inputOutputFromFacing(){
             if (cycle.isFluid()){
-                GTUtility.exportFluidFromMachineToSide(this, tank, this.getFacing(), 1000);
+                GTUtility.exportFluidFromMachineToSide(this, this.getTank(), this.getFacing(), 1000);
             }
-            if (cycle.isItem() && !this.getStackInSlot(slotOutput).isEmpty()){
-                GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
+            if (cycle.isItem()){
+                if (this.owner != null && (owner instanceof GTCXTileMultiThermalBoiler || owner instanceof GTCXTileMultiFusionReactor)){
+                    int slot;
+                    if (owner instanceof GTCXTileMultiFusionReactor){
+                        slot = 2;
+                    } else {
+                        slot = second ? 2 : 1;
+                    }
+                    if (owner.getStackInSlot(slot).isEmpty()){
+                        return;
+                    }
+                    exportFromMachineToSide((TileEntityMachine) owner, this.getPos(), this.getFacing(), slot);
+                } else {
+                    if (!this.getStackInSlot(slotOutput).isEmpty()){
+                        GTUtility.exportFromMachineToSide(this, this.getFacing(), slotOutput);
+                    }
+                }
+
+            }
+        }
+
+        public static void exportFromMachineToSide(TileEntityMachine machine, BlockPos original, EnumFacing side, int... slots) {
+            BlockPos exportPos = original.offset(side);
+            if (machine.getWorld().isBlockLoaded(exportPos)) {
+                IItemTransporter slave = TransporterManager.manager.getTransporter(machine.getWorld().getTileEntity(exportPos), false);
+                if (slave != null) {
+                    for (int i : slots) {
+                        int added = slave.addItem(machine.getStackInSlot(i).copy(), side.getOpposite(), true).getCount();
+                        if (added > 0) {
+                            machine.getStackInSlot(i).shrink(added);
+                            break;
+                        }
+                    }
+                }
+
             }
         }
 
