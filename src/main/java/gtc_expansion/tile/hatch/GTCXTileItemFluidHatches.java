@@ -121,6 +121,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     public void onBlockBreak() {
         if (this.owner != null){
             owner.invalidateStructure();
+            owner.getTank(this).drainInternal(32000, true);
         }
     }
 
