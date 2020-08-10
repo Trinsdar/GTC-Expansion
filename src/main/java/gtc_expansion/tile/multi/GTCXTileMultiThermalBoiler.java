@@ -86,8 +86,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     public static int slotNothing = 7;
     int ticker = 0;
     int obsidianTicker = 0;
-    protected OutputModes outputMode1 = ITEM_AND_FLUID;
-    protected OutputModes outputMode2 = ITEM_AND_FLUID;
+    protected OutputModes outputMode1;
+    protected OutputModes outputMode2;
     private boolean hasBothOutputs = false;
     public static final IBlockState reinforcedCasingState = GTCXBlocks.casingReinforced.getDefaultState();
     public static final IBlockState inputHatchState = GTCXBlocks.inputHatch.getDefaultState();
@@ -99,6 +99,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         super(8);
         this.addGuiFields("lastState", "inputTank1", "inputTank2", "outputTank1", "outputTank2");
         this.addNetworkFields("inputTank1", "inputTank2", "outputTank1", "outputTank2");
+        outputMode1 = ITEM_AND_FLUID;
+        outputMode2 = ITEM_AND_FLUID;
         input1 = this.getPos();
         input2 = this.getPos();
         output1 = this.getPos();
@@ -133,6 +135,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         this.disabled = nbt.getBoolean("disabled");
         this.ticker = nbt.getInteger("ticker");
         this.obsidianTicker = nbt.getInteger("obsidianTicker");
+        this.outputMode1 = OutputModes.values()[nbt.getInteger("outputMode1")];
+        this.outputMode2 = OutputModes.values()[nbt.getInteger("outputMode2")];
         this.input1 = readBlockPosFromNBT(nbt, "input1");
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.output1 = readBlockPosFromNBT(nbt, "output1");
@@ -149,6 +153,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         nbt.setBoolean("disabled", disabled);
         nbt.setInteger("ticker", ticker);
         nbt.setInteger("obsidianTicker", obsidianTicker);
+        nbt.setInteger("outputMode1", outputMode1.ordinal());
+        nbt.setInteger("outputMode2", outputMode2.ordinal());
         writeBlockPosToNBT(nbt, "input1", input1);
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "output1", output1);
@@ -697,6 +703,8 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
 
     @Override
     public void getData(Map<String, Boolean> map) {
+        map.put("Output Mode 1: " + outputMode1.toString(), true);
+        map.put("Output Mode 2: " + outputMode2.toString(), true);
         map.put("Input hatch 1 pos: " + (inputHatch1 != null ? inputHatch1.getPos() : "null"), true);
         map.put("Input hatch 2 pos: " + (inputHatch2 != null ? inputHatch2.getPos() : "null"), true);
         map.put("Output hatch 1 pos: " + (outputHatch1 != null ? outputHatch1.getPos() : "null"), true);
