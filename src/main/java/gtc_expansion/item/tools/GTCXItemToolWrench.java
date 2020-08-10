@@ -68,4 +68,9 @@ public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem {
     public boolean canOverrideLossChance(ItemStack stack) {
         return true;
     }
+
+    @Override
+    public boolean hasBigCost(ItemStack stack) {
+        return false;
+    }
 }
