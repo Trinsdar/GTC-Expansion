@@ -555,6 +555,7 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.reactorheatswitchspread_94917204", Ic2Items.reactorHeatSwitchGold, " G ", "GRG", " G ", 'G', PRE + "Gold", 'R', Ic2Items.reactorHeatSwitch);
         recipes.overrideRecipe("shaped_item.reactorventspread_2144532227", Ic2Items.reactorVentSpread, "ITI", "TRT", "ITI", 'I', Blocks.IRON_BARS, 'T', TIN, 'R', Ic2Items.reactorVent);
         recipes.overrideRecipe("shaped_item.reactorventgold_2067100004", Ic2Items.reactorVentGold, "G", "R", "G", 'G', PRE + "Gold", 'R', Ic2Items.reactorVentCore);
+        recipes.overrideShapelessRecipe("shapeless_item.itemreactorplating_1093967048", Ic2Items.reactorPlating, LEAD, Ic2Items.advancedAlloy);
         if (GTCXConfiguration.general.enableCraftingTools){
             recipeId = STEEL_MODE ? 1913907474 : 1986006418;
             recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
