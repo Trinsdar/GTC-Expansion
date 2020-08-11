@@ -1,10 +1,10 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.GTCXMachineGui;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseBurnableFluidGenerator;
-import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterialGen;
@@ -118,10 +118,14 @@ public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator 
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {
-        addRecipe(new RecipeInputFluid(new FluidStack(fluid, 1000)), ticks, euPerTick);
+        addRecipe(fluid, ticks, euPerTick, fluid.getUnlocalizedName());
     }
 
-    private static void addRecipe(IRecipeInput input, int ticks, int euPerTick) {
+    public static void addRecipe(Fluid fluid, int ticks, int euPerTick, String recipeId) {
+        addRecipe(new RecipeInputFluid(new FluidStack(fluid, 1000)), ticks, euPerTick, recipeId);
+    }
+
+    private static void addRecipe(IRecipeInput input, int ticks, int euPerTick, String recipeID) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         NBTTagCompound mods = new NBTTagCompound();
@@ -129,12 +133,12 @@ public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator 
         mods.setInteger(RECIPE_EU, euPerTick);
         inlist.add(input);
         outlist.add(GTMaterialGen.get(Items.REDSTONE));
-        addRecipe(inlist, new MachineOutput(mods, outlist), euPerTick);
+        addRecipe(inlist, new MachineOutput(mods, outlist), euPerTick, recipeID);
     }
 
-    private static void addRecipe(List<IRecipeInput> input, MachineOutput output, int euPerTick) {
+    private static void addRecipe(List<IRecipeInput> input, MachineOutput output, int euPerTick, String recipeID) {
         if (!input.isEmpty()) {
-            GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST.addRecipe(input, output, input.get(0).getInputs().get(0).getUnlocalizedName(), euPerTick                                                );
+            GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST.addRecipe(input, output, recipeID, euPerTick                                                );
         }
     }
 

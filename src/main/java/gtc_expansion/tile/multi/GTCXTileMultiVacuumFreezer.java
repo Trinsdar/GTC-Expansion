@@ -162,6 +162,10 @@ public class GTCXTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
     }
 
     public static void addRecipe(IRecipeInput input, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack output){
+        addRecipe(input, modifiers, output, output.getUnlocalizedName());
+    }
+
+    public static void addRecipe(IRecipeInput input, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack output, String recipeId){
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         inlist.add(input);
@@ -170,11 +174,11 @@ public class GTCXTileMultiVacuumFreezer extends GTTileMultiBaseMachine {
             modifier.apply(mods);
         }
         outlist.add(output);
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.VACUUM_FREEZER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        GTCXRecipeLists.VACUUM_FREEZER_RECIPE_LIST.addRecipe(input, output, recipeId, defaultEu);
     }
 
     /*@Override

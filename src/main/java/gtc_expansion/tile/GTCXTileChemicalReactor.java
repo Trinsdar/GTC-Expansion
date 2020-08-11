@@ -506,6 +506,14 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
     }
 
     public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+        addRecipe(inputs, modifiers, outputs[0].getUnlocalizedName(), outputs);
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, FluidStack fluidOutput, ItemStack... outputs) {
+        addRecipe(inputs, modifiers, fluidOutput, fluidOutput.getUnlocalizedName(), outputs);
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, String recipeId, ItemStack... outputs) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         for (IRecipeInput input : inputs) {
@@ -518,10 +526,10 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeId);
     }
 
-    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, FluidStack fluidOutput, ItemStack... outputs) {
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, FluidStack fluidOutput, String recipeId, ItemStack... outputs) {
         List<ItemStack> outlist = new ArrayList<>();
         List<FluidStack> fluidOutlist = new ArrayList<>();
         fluidOutlist.add(fluidOutput);
@@ -534,16 +542,16 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
             outlist.addAll(Arrays.asList(outputs));
         }
         GTFluidMachineOutput output = outputs.length > 0 ? new GTFluidMachineOutput(mods, outlist, fluidOutlist) : new GTFluidMachineOutput(mods, fluidOutlist);
-        addRecipe(inlist, output);
+        addRecipe(inlist, output, recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
         for (IRecipeInput in : input){
             if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
                 validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
             }
         }
-        GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST.addRecipe(input, output, (output instanceof GTFluidMachineOutput ? ((GTFluidMachineOutput)output).getFluids().get(0).getUnlocalizedName() : output.getAllOutputs().get(0).getUnlocalizedName()), 16);
+        GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST.addRecipe(input, output, recipeId, 16);
     }
 
     @Override

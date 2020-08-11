@@ -46,7 +46,7 @@ public class GTCXAssemblingMachineSupport {
                         + "Eu amount must be greater then 0!!");
                 return;
             }
-            GTCXTileAssemblingMachine.addRecipe(input1, input2, totalEu, output);
+            GTCXTileAssemblingMachine.addRecipe(new IRecipeInput[]{input1, input2}, GTCXTileAssemblingMachine.totalEu(totalEu), output.getUnlocalizedName() + "_ct", output);
         }
 
         @Override

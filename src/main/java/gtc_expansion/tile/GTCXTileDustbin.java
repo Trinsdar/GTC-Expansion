@@ -297,25 +297,33 @@ public class GTCXTileDustbin extends GTTileBaseRecolorableTile implements IHasGu
         addTinyDustRecipe(name, GTMaterialGen.getDust(output, 1));
     }
 
+    public static void addTinyDustRecipe(String name, ItemStack output, String recipeId){
+        addRecipe("dustTiny" + name, 9, output, recipeId);
+    }
+
     public static void addTinyDustRecipe(String name, ItemStack output){
-        addRecipe("dustTiny" + name, 9, output);
+        addTinyDustRecipe(name, output, output.getUnlocalizedName());
     }
 
     public static void addSmallDustRecipe(String name, GTMaterial output){
         addSmallDustRecipe(name, GTMaterialGen.getDust(output, 1));
     }
 
-    public static void addSmallDustRecipe(String name, ItemStack output){
-        addRecipe("dustSmall" + name, 4, output);
+    public static void addSmallDustRecipe(String name, ItemStack output, String recipeId){
+        addRecipe("dustSmall" + name, 4, output, recipeId);
     }
 
-    private static void addRecipe(String input1, int amount1, ItemStack output) {
+    public static void addSmallDustRecipe(String name, ItemStack output){
+        addSmallDustRecipe(name, output, output.getUnlocalizedName());
+    }
+
+    private static void addRecipe(String input1, int amount1, ItemStack output, String recipeId) {
         List<IRecipeInput> inputs = new ArrayList<>();
         inputs.add(new RecipeInputOreDict(input1, amount1));
-        addRecipe(inputs, new MachineOutput(null, output));
+        addRecipe(inputs, new MachineOutput(null, output), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        DUSTBIN_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        DUSTBIN_RECIPE_LIST.addRecipe(input, output, recipeId, 4);
     }
 }

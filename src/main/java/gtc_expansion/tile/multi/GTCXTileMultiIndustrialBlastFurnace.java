@@ -259,6 +259,10 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 	}
 
 	public static void addRecipe(IRecipeInput[] inputs, int heat, int totalEu, ItemStack... outputs) {
+		addRecipe(inputs, heat, totalEu, outputs[0].getUnlocalizedName(), outputs);
+	}
+
+	public static void addRecipe(IRecipeInput[] inputs, int heat, int totalEu, String recipeID, ItemStack... outputs) {
 		List<IRecipeInput> inlist = new ArrayList<>();
 		List<ItemStack> outlist = new ArrayList<>();
 		IRecipeModifier[] modifiers = totalEu(totalEu);
@@ -273,11 +277,11 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 		for (ItemStack output : outputs) {
 			outlist.add(output);
 		}
-		addRecipe(inlist, new MachineOutput(mods, outlist));
+		addRecipe(inlist, new MachineOutput(mods, outlist), recipeID);
 	}
 
-	static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-		GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+	static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+		GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST.addRecipe(input, output, recipeId, defaultEu);
 	}
 
 	public static void removeRecipe(String id) {

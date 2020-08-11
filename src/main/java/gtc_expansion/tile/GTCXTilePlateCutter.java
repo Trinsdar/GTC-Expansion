@@ -157,22 +157,26 @@ public class GTCXTilePlateCutter extends GTTileBaseMachine {
     }
 
     public static void addRecipe(ItemStack input, ItemStack output) {
-        addRecipe(new IRecipeInput[]{input(input)}, totalEu(400), output);
+        addRecipe(input(input), 400, output);
     }
 
     public static void addRecipe(String input, int amount, ItemStack output) {
-        addRecipe(new IRecipeInput[]{input(input, amount)}, totalEu(400), output);
+        addRecipe(input(input, amount), 400, output);
     }
 
     public static void addRecipe(IRecipeInput input, ItemStack output) {
-        addRecipe(new IRecipeInput[]{input}, totalEu(400), output);
+        addRecipe(input, 400, output);
     }
 
     public static void addRecipe(IRecipeInput input, int totalEu, ItemStack output) {
-        addRecipe(new IRecipeInput[]{input}, totalEu(totalEu), output);
+        addRecipe(new IRecipeInput[]{input}, totalEu(totalEu), output.getUnlocalizedName(), output);
     }
 
-    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+    public static void addRecipe(IRecipeInput input, int totalEu, ItemStack output, String recipeId) {
+        addRecipe(new IRecipeInput[]{input}, totalEu(totalEu), recipeId, output);
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, String recipeId, ItemStack... outputs) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         for (IRecipeInput input : inputs) {
@@ -185,10 +189,10 @@ public class GTCXTilePlateCutter extends GTTileBaseMachine {
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.PLATE_CUTTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        GTCXRecipeLists.PLATE_CUTTER_RECIPE_LIST.addRecipe(input, output, recipeId, 4);
     }
 }

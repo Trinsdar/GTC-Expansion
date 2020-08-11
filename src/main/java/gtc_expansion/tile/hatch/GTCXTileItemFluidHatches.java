@@ -115,6 +115,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         this.getNetwork().updateTileGuiField(this, NBT_TANK);
         this.getNetwork().updateTileGuiField(this, "owner");
         this.inventory.set(slotDisplay, ItemDisplayIcon.createWithFluidStack(this.getTank().getFluid()));
+        
     }
 
     @Override

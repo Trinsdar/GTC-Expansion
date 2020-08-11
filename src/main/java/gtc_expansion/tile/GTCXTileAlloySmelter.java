@@ -3,15 +3,14 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerAlloySmelter;
+import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.data.GTCXLang;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
 import ic2.api.classic.item.IMachineUpgradeItem;
-import ic2.api.classic.recipe.RecipeModifierHelpers;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
@@ -33,7 +32,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
@@ -186,10 +184,14 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, ItemStack output) {
+        addRecipe(input1, input2, output, output.getUnlocalizedName());
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, ItemStack output, String recipeId) {
         List<IRecipeInput> inputs = new ArrayList<>();
         inputs.add(input1);
         inputs.add(input2);
-        addRecipe(inputs, new MachineOutput(null, output));
+        addRecipe(inputs, new MachineOutput(null, output), recipeId);
     }
 
     public static void addRecipe(ItemStack input1, ItemStack input2, ItemStack output) {
@@ -199,23 +201,11 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
         addRecipe(inputs, new MachineOutput(null, output));
     }
 
-    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
-        List<IRecipeInput> inlist = new ArrayList<>();
-        List<ItemStack> outlist = new ArrayList<>();
-        for (IRecipeInput input : inputs) {
-            inlist.add(input);
-        }
-        NBTTagCompound mods = new NBTTagCompound();
-        for (RecipeModifierHelpers.IRecipeModifier modifier : modifiers) {
-            modifier.apply(mods);
-        }
-        for (ItemStack output : outputs) {
-            outlist.add(output);
-        }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+        addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName());
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, recipeId, 4);
     }
 }

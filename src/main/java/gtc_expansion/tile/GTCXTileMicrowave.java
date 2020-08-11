@@ -3,8 +3,8 @@ package gtc_expansion.tile;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerMicrowave;
-import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.data.GTCXLang;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseMachine;
@@ -25,7 +25,6 @@ import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
-import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.platform.registry.Ic2Sounds;
@@ -185,22 +184,26 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
     public static void addRecipe(ItemStack input, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
         inputs.add(new RecipeInputItemStack(input));
-        addRecipe(inputs, new MachineOutput(null, output));
+        addRecipe(input(input), output);
     }
 
     public static void addRecipe(String input, int amount, ItemStack output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(new RecipeInputOreDict(input, amount));
-        addRecipe(inputs, new MachineOutput(null, output));
+        addRecipe(input(input, amount), output);
     }
 
     public static void addRecipe(IRecipeInput input1, ItemStack output) {
         List<IRecipeInput> inputs = new ArrayList<>();
         inputs.add(input1);
-        addRecipe(inputs, new MachineOutput(null, output));
+        addRecipe(inputs, new MachineOutput(null, output), output.getUnlocalizedName());
     }
 
-    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+    public static void addRecipe(IRecipeInput input1, ItemStack output, String recipeId) {
+        List<IRecipeInput> inputs = new ArrayList<>();
+        inputs.add(input1);
+        addRecipe(inputs, new MachineOutput(null, output), recipeId);
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, String recipeId, ItemStack... outputs) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         for (IRecipeInput input : inputs) {
@@ -213,10 +216,10 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.MICROWAVE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        GTCXRecipeLists.MICROWAVE_RECIPE_LIST.addRecipe(input, output, recipeId, 4);
     }
 }

@@ -566,7 +566,32 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         addRecipe(inlist, output);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+    public static void addRecipe(IRecipeInput[] inputs, IRecipeModifier[] modifiers, ItemStack[] outputs, FluidStack[] fluidOutputs, String recipeId) {
+        List<IRecipeInput> inlist = new ArrayList<>();
+        List<ItemStack> outlist = new ArrayList<>();
+        List<FluidStack> fluidOutlist = new ArrayList<>();
+        for (IRecipeInput input : inputs) {
+            inlist.add(input);
+        }
+        NBTTagCompound mods = new NBTTagCompound();
+        for (IRecipeModifier modifier : modifiers) {
+            modifier.apply(mods);
+        }
+        for (ItemStack output : outputs) {
+            outlist.add(output);
+        }
+        for (FluidStack output : fluidOutputs){
+            fluidOutlist.add(output);
+        }
+        MachineOutput output = fluidOutputs.length > 0 ? outputs.length > 0 ? new GTFluidMachineOutput(mods, outlist, fluidOutlist) : new GTFluidMachineOutput(mods, fluidOutlist) : new MachineOutput(mods, outlist);
+        addRecipe(inlist, output, recipeId);
+    }
+
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output){
+        addRecipe(input, output, (output instanceof GTFluidMachineOutput ? ((GTFluidMachineOutput)output).getFluids().get(0).getUnlocalizedName() : output.getAllOutputs().get(0).getUnlocalizedName()));
+    }
+
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeID) {
         for (IRecipeInput in : input){
             if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
                 validFluids.add(((RecipeInputFluid)in).fluid.getFluid());

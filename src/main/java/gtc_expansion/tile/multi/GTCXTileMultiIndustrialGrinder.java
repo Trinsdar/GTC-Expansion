@@ -603,12 +603,17 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
     }
 
     public static void addRecipe(IRecipeInput input, FluidStack fluid, int totalEu,
+                                 ItemStack... outputs) {
+        addRecipe(input, fluid, totalEu, outputs[0].getUnlocalizedName(), outputs);
+    }
+
+    public static void addRecipe(IRecipeInput input, FluidStack fluid, int totalEu, String recipeID,
                                         ItemStack... outputs) {
         List<ItemStack> outlist = new ArrayList<>();
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(new IRecipeInput[] { input, new RecipeInputFluid(fluid) }, totalEu(totalEu), outlist);
+        addRecipe(new IRecipeInput[] { input, new RecipeInputFluid(fluid) }, totalEu(totalEu), outlist, recipeID);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
@@ -616,6 +621,10 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
     }
 
     static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, List<ItemStack> outputs) {
+        addRecipe(inputs, modifiers, outputs, outputs.get(0).getUnlocalizedName());
+    }
+
+    static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, List<ItemStack> outputs, String recipeId) {
         List<IRecipeInput> inlist = new ArrayList<>();
         for (IRecipeInput input : inputs) {
             inlist.add(input);
@@ -625,16 +634,16 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             modifier.apply(mods);
         }
 
-        addRecipe(inlist, new MachineOutput(mods, outputs));
+        addRecipe(inlist, new MachineOutput(mods, outputs), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeID) {
         for (IRecipeInput in : input){
             if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
                 validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
             }
         }
-        GTCXRecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        GTCXRecipeLists.INDUSTRIAL_GRINDER_RECIPE_LIST.addRecipe(input, output, recipeID, defaultEu);
     }
 
     /*@Override

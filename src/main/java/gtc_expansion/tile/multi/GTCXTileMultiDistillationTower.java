@@ -444,6 +444,14 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     }
 
     public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, ItemStack... outputItem){
+        addRecipe(input, totalEu, outputFluid, outputFluid[0].getUnlocalizedName(), outputItem);
+    }
+
+    public static void addRecipe(FluidStack input, int totalEu, FluidStack... outputFluid){
+        addRecipe(input, totalEu, outputFluid[0].getUnlocalizedName(), outputFluid);
+    }
+
+    public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, String recipeId, ItemStack... outputItem){
         if (outputFluid.length > 6){
             GTCExpansion.logger.info("There can only be up to 6 fluid outputs");
             return;
@@ -458,10 +466,10 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
             outListFluid.add(fluid);
         }
 
-        addRecipe(new IRecipeInput[]{new RecipeInputFluid(input)}, totalEu(totalEu), outListFluid, outListItem);
+        addRecipe(new IRecipeInput[]{new RecipeInputFluid(input)}, totalEu(totalEu), outListFluid, outListItem, recipeId);
     }
 
-    public static void addRecipe(FluidStack input, int totalEu, FluidStack... outputFluid){
+    public static void addRecipe(FluidStack input, int totalEu, String recipeId, FluidStack... outputFluid){
         if (outputFluid.length > 6){
             GTCExpansion.logger.info("There can only be up to 6 fluid outputs");
             return;
@@ -474,14 +482,14 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
             outListFluid.add(fluid);
         }
 
-        addRecipe(new IRecipeInput[]{new RecipeInputFluid(input)}, totalEu(totalEu), outListFluid, outListItem);
+        addRecipe(new IRecipeInput[]{new RecipeInputFluid(input)}, totalEu(totalEu), outListFluid, outListItem, recipeId);
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalEu(int amount) {
         return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((amount / defaultEu) - 100) };
     }
 
-    private static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, List<FluidStack> fluidOutputs, List<ItemStack> outputs) {
+    private static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, List<FluidStack> fluidOutputs, List<ItemStack> outputs, String recipeID) {
         List<IRecipeInput> inlist = new ArrayList<>();
         for (IRecipeInput input : inputs) {
             inlist.add(input);
@@ -491,7 +499,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
             modifier.apply(mods);
         }
 
-        addRecipe(inlist, new GTFluidMachineOutput(mods, outputs, fluidOutputs), fluidOutputs.get(0).getUnlocalizedName());
+        addRecipe(inlist, new GTFluidMachineOutput(mods, outputs, fluidOutputs), recipeID);
     }
 
     private static void addRecipe(List<IRecipeInput> input, GTFluidMachineOutput output, String recipeId) {

@@ -175,7 +175,11 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
         return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create(total - 100) };
     }
 
-    public static void addRecipe(IRecipeInput[] inputs, int totalTime, ItemStack... outputs) {
+    public static void addRecipe(IRecipeInput[] inputs, int totalTime,  ItemStack... outputs) {
+        addRecipe(inputs, totalTime, outputs[0].getUnlocalizedName(), outputs);
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, int totalTime, String recipeId, ItemStack... outputs) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         RecipeModifierHelpers.IRecipeModifier[] modifiers = totalTime(totalTime);
@@ -189,11 +193,11 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.PRIMITIVE_BLAST_FURNACE_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 0);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        GTCXRecipeLists.PRIMITIVE_BLAST_FURNACE_RECIPE_LIST.addRecipe(input, output, recipeId, 0);
     }
 
     @Override

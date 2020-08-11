@@ -269,7 +269,11 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((amount / defaultEu) - 100) };
     }
 
-    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs){
+        addRecipe(inputs, modifiers, outputs[0].getUnlocalizedName(), outputs);
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, String recipeID, ItemStack... outputs) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         for (IRecipeInput input : inputs) {
@@ -282,10 +286,10 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeID);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeID) {
         GTCXRecipeLists.IMPLOSION_COMPRESSOR_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
     }
 

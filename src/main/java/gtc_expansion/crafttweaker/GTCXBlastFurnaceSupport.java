@@ -62,7 +62,7 @@ public class GTCXBlastFurnaceSupport {
 				CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine()+ " > "
 						+ "Required heat cannot be greater then the max heat of the ibf!!!");
 			}else {
-				GTCXTileMultiIndustrialBlastFurnace.addRecipe(input, requiredHeat, totalEu, output);
+				GTCXTileMultiIndustrialBlastFurnace.addRecipe(input, requiredHeat, totalEu, output[0].getUnlocalizedName() + "_ct", output);
 			}
 		}
 
