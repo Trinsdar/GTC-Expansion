@@ -47,7 +47,7 @@ public class GTCXDieselGeneratorSupport {
                         + "Tick duration must be greater then 0!!");
                 return;
             }
-            GTCXTileDieselGenerator.addRecipe(this.input, this.ticks, this.euPerTick);
+            GTCXTileDieselGenerator.addRecipe(this.input, this.ticks, this.euPerTick, this.input.getUnlocalizedName() + "_ct");
         }
 
         @Override

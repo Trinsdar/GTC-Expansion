@@ -59,9 +59,9 @@ public class GTCXDistillationTowerSupport {
                 return;
             }
             if (outputItem == null){
-                GTCXTileMultiDistillationTower.addRecipe(input, totalEu, output);
+                GTCXTileMultiDistillationTower.addRecipe(input, totalEu,output[0].getUnlocalizedName() + "_ct", output);
             } else {
-                GTCXTileMultiDistillationTower.addRecipe(input, totalEu, output, outputItem);
+                GTCXTileMultiDistillationTower.addRecipe(input, totalEu,output[0].getUnlocalizedName() + "_ct", output, outputItem);
             }
         }
 

@@ -444,14 +444,14 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     }
 
     public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, ItemStack... outputItem){
-        addRecipe(input, totalEu, outputFluid, outputFluid[0].getUnlocalizedName(), outputItem);
+        addRecipe(input, totalEu, outputFluid[0].getUnlocalizedName(), outputFluid, outputItem);
     }
 
     public static void addRecipe(FluidStack input, int totalEu, FluidStack... outputFluid){
         addRecipe(input, totalEu, outputFluid[0].getUnlocalizedName(), outputFluid);
     }
 
-    public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, String recipeId, ItemStack... outputItem){
+    public static void addRecipe(FluidStack input, int totalEu, String recipeId, FluidStack[] outputFluid, ItemStack... outputItem){
         if (outputFluid.length > 6){
             GTCExpansion.logger.info("There can only be up to 6 fluid outputs");
             return;
