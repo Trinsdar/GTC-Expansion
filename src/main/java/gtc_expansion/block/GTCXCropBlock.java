@@ -19,6 +19,6 @@ public class GTCXCropBlock extends GTCropBlock {
     @SideOnly(Side.CLIENT)
     public TextureAtlasSprite getTexture(int state) {
         return state == 4 ? this.getSprite(this.entry.getSpriteSheet())[this.entry.getId()]
-                : (entry.getMaterial().hasFlag(GTMaterialFlag.RUBY) || entry.getMaterial().hasFlag(GTMaterialFlag.SAPPHIRE) ? this.getSprite(GTMod.MODID +"_crops")[8 + state] : this.getSprite("bc")[31 + state]);
+                : (entry.getMaterial().hasFlag(GTMaterialFlag.RUBY) || entry.getMaterial().hasFlag(GTMaterialFlag.SAPPHIRE) ? this.getSprite(GTMod.MODID +"_crops")[7 + state] : this.getSprite("bc")[31 + state]);
     }
 }
