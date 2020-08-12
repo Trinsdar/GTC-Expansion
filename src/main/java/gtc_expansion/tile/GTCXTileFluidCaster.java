@@ -600,16 +600,20 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), new RecipeInputItemStack(input) }, press, totalEu, output);
     }
 
-    public static void addRecipe(IRecipeInput input, FluidStack fluid, boolean press, int totalEu,
+    public static void addRecipe(IRecipeInput input, FluidStack fluid, boolean press, int totalEu, String recipeId,
                                  ItemStack output) {
         if (fluid.getFluid() == FluidRegistry.WATER){
             GTCExpansion.logger.info("Fluid in fluid casting recipes can't be water.");
             return;
         }
-        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), input }, press, totalEu, output);
+        addRecipe(new IRecipeInput[] { new RecipeInputFluid(fluid), input }, press, totalEu, recipeId, output);
     }
 
     private static void addRecipe(IRecipeInput[] inputs, boolean press, int totalEu, ItemStack... outputs) {
+        addRecipe(inputs, press, totalEu, outputs[0].getUnlocalizedName(), outputs);
+    }
+
+    private static void addRecipe(IRecipeInput[] inputs, boolean press, int totalEu, String recipeId, ItemStack... outputs) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         RecipeModifierHelpers.IRecipeModifier[] modifiers = totalEu(totalEu);
@@ -624,16 +628,16 @@ public class GTCXTileFluidCaster extends GTTileBaseMachine implements ITankListe
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
         for (IRecipeInput in : input){
             if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
                 validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
             }
         }
-        GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), defaultEu);
+        GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST.addRecipe(input, output, recipeId, defaultEu);
     }
 
     @Override

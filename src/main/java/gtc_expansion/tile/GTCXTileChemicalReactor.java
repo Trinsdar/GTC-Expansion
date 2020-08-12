@@ -484,20 +484,13 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
         addRecipe(input("dustCalcite", 1), input("dustPhosphorus", 1), 3200, GTMaterialGen.getIc2(Ic2Items.fertilizer, 3));
     }
 
-    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack... output) {
-        addRecipe(input1, input2, 0, totalEu, output);
-    }
-
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, FluidStack fluidOutput, ItemStack... output) {
         IRecipeInput[] inputs = new IRecipeInput[]{input1, input2};
         addRecipe(inputs, totalEu(totalEu), fluidOutput, output);
     }
 
-    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int cells, int totalEu, ItemStack... output) {
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack... output) {
         IRecipeInput[] inputs = new IRecipeInput[]{input1, input2};
-        if (cells > 0){
-            inputs = new IRecipeInput[]{input1, input2, input(new ItemStack(GTItems.testTube, cells))};
-        }
         addRecipe(inputs, totalEu(totalEu), output);
     }
 

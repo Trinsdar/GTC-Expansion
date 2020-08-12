@@ -182,6 +182,10 @@ public class GTCXTileExtruder extends GTTileBaseMachine {
         addRecipe(new IRecipeInput[]{input1, input2}, totalEu(totalEu), output);
     }
 
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, int totalEu, ItemStack output, String recipeId) {
+        addRecipe(new IRecipeInput[]{input1, input2}, totalEu(totalEu), recipeId, output);
+    }
+
     public static void addRecipe(ItemStack input1, ItemStack input2, int totalEu, ItemStack output) {
         addRecipe(new IRecipeInput[]{new RecipeInputItemStack(input1), new RecipeInputItemStack(input2)}, totalEu(totalEu), output);
     }
@@ -190,7 +194,11 @@ public class GTCXTileExtruder extends GTTileBaseMachine {
         return new RecipeModifierHelpers.IRecipeModifier[] { RecipeModifierHelpers.ModifierType.RECIPE_LENGTH.create((amount / defaultEu) - 100) };
     }
 
-    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs){
+        addRecipe(inputs, modifiers, outputs[0].getUnlocalizedName(), outputs);
+    }
+
+    public static void addRecipe(IRecipeInput[] inputs, RecipeModifierHelpers.IRecipeModifier[] modifiers, String recipeId, ItemStack... outputs) {
         List<IRecipeInput> inlist = new ArrayList<>();
         List<ItemStack> outlist = new ArrayList<>();
         for (IRecipeInput input : inputs) {
@@ -203,11 +211,11 @@ public class GTCXTileExtruder extends GTTileBaseMachine {
         for (ItemStack output : outputs) {
             outlist.add(output);
         }
-        addRecipe(inlist, new MachineOutput(mods, outlist));
+        addRecipe(inlist, new MachineOutput(mods, outlist), recipeId);
     }
 
-    static void addRecipe(List<IRecipeInput> input, MachineOutput output) {
-        GTCXRecipeLists.EXTRUDER_RECIPE_LIST.addRecipe(input, output, output.getAllOutputs().get(0).getUnlocalizedName(), 16);
+    static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
+        GTCXRecipeLists.EXTRUDER_RECIPE_LIST.addRecipe(input, output, recipeId, 16);
     }
 
     @Override

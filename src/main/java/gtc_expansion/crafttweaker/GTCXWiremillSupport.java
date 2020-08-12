@@ -44,7 +44,7 @@ public class GTCXWiremillSupport {
                         + "Eu amount must be greater then 0!!");
                 return;
             }
-            GTCXTileWiremill.addRecipe(input1, totalEu, output);
+            GTCXTileWiremill.addRecipe(input1, totalEu, output, output.getUnlocalizedName() + "_ct");
         }
 
         @Override

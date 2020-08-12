@@ -454,7 +454,7 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         addRecipe(new RecipeInputOreDict(input, amount), heat, totalEu, output);
     }
 
-    public static void addRecipe(IRecipeInput input, int heat, int totalEu, FluidStack output) {
+    public static void addRecipe(IRecipeInput input, int heat, int totalEu, FluidStack output, String recipeID) {
         if (heat > 5250){
             GTCExpansion.logger.info("Max recipe heat cannot be more then 5000!");
             return;
@@ -469,7 +469,11 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
         }
         mods.setInteger(neededHeat, heat);
         outlist.add(output);
-        addRecipe(inlist, new GTFluidMachineOutput(mods, outlist), output.getUnlocalizedName());
+        addRecipe(inlist, new GTFluidMachineOutput(mods, outlist), recipeID);
+    }
+
+    public static void addRecipe(IRecipeInput input, int heat, int totalEu, FluidStack output) {
+        addRecipe(input, heat, totalEu, output, output.getUnlocalizedName());
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {

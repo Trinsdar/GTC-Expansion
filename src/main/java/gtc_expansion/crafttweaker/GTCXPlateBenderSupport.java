@@ -44,7 +44,7 @@ public class GTCXPlateBenderSupport {
                         + "Eu amount must be greater then 0!!");
                 return;
             }
-            GTCXTilePlateBender.addRecipe(input1, totalEu, output);
+            GTCXTilePlateBender.addRecipe(input1, totalEu, output, output.getUnlocalizedName() + "_ct");
         }
 
         @Override

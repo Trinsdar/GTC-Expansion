@@ -47,7 +47,7 @@ public class GTCXImplosionCompressorSupport {
                         + "Eu amount must be greater then 0!!");
                 return;
             }
-            GTCXTileMultiImplosionCompressor.addRecipe(input1, tnt, totalEu, output);
+            GTCXTileMultiImplosionCompressor.addRecipe(input1, tnt, totalEu, output[0].getUnlocalizedName() + "_ct", output);
         }
 
         @Override

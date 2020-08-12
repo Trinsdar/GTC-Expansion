@@ -7,7 +7,7 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.tile.GTCXTileLathe;
+import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtclassic.api.crafttweaker.GTCraftTweakerActions;
 import ic2.api.recipe.IRecipeInput;
 import net.minecraft.item.ItemStack;
@@ -17,21 +17,21 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Locale;
 
-@ZenClass("mods.gtclassic.Lathe")
+@ZenClass("mods.gtclassic.PlateCutter")
 @ZenRegister
-public class GTCXLatheSupport {
+public class GTCXPlateCutterSupport {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input1, @Optional(valueLong = 400L)int totalEu){
-        GTCraftTweakerActions.apply(new LatheRecipeAction(GTCraftTweakerActions.of(input1), totalEu, CraftTweakerMC.getItemStack(output)));
+        GTCraftTweakerActions.apply(new PlateCutterRecipeAction(GTCraftTweakerActions.of(input1), totalEu, CraftTweakerMC.getItemStack(output)));
     }
 
-    private static final class LatheRecipeAction implements IAction {
+    private static final class PlateCutterRecipeAction implements IAction {
 
         private final IRecipeInput input1;
         private final int totalEu;
         private final ItemStack output;
 
-        LatheRecipeAction(IRecipeInput input1, int totalEu, ItemStack output) {
+        PlateCutterRecipeAction(IRecipeInput input1, int totalEu, ItemStack output) {
             this.input1 = input1;
             this.totalEu = totalEu;
             this.output = output;
@@ -44,12 +44,12 @@ public class GTCXLatheSupport {
                         + "Eu amount must be greater then 0!!");
                 return;
             }
-            GTCXTileLathe.addRecipe(input1, totalEu, output, output.getUnlocalizedName() + "_ct");
+            GTCXTilePlateCutter.addRecipe(input1, totalEu, output, output.getUnlocalizedName() + "_ct");
         }
 
         @Override
         public String describe() {
-            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s] to %s", input1, totalEu, output, GTCXRecipeLists.LATHE_RECIPE_LIST);
+            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s] to %s", input1, totalEu, output, GTCXRecipeLists.PLATE_CUTTER_RECIPE_LIST);
         }
     }
 }

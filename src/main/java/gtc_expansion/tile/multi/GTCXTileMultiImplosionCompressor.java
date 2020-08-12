@@ -30,7 +30,6 @@ import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
-import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.block.state.IBlockState;
@@ -238,30 +237,30 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
 
     public static void addRecipe(ItemStack stack, int tnt, RecipeModifierHelpers.IRecipeModifier[] modifiers, ItemStack... outputs) {
         if (tnt > 0) {
-            addRecipe(new IRecipeInput[] { new RecipeInputItemStack(stack),
+            addRecipe(new IRecipeInput[] { input(stack),
                     new RecipeInputItemStack(GTMaterialGen.getIc2(Ic2Items.industrialTNT, tnt)) }, modifiers, outputs);
         } else {
-            addRecipe(new IRecipeInput[] { new RecipeInputItemStack(stack) }, modifiers, outputs);
+            addRecipe(new IRecipeInput[] { input(stack) }, modifiers, outputs);
         }
     }
 
     public static void addRecipe(String input, int amount, int tnt, RecipeModifierHelpers.IRecipeModifier[] modifiers,
                                  ItemStack... outputs) {
         if (tnt > 0) {
-            addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount),
+            addRecipe(new IRecipeInput[] { input(input, amount),
                     new RecipeInputItemStack(GTMaterialGen.getIc2(Ic2Items.industrialTNT, tnt)) }, modifiers, outputs);
         } else {
-            addRecipe(new IRecipeInput[] { new RecipeInputOreDict(input, amount) }, modifiers, outputs);
+            addRecipe(new IRecipeInput[] { input(input, amount) }, modifiers, outputs);
         }
     }
 
-    public static void addRecipe(IRecipeInput input, int tnt, int totalEu,
+    public static void addRecipe(IRecipeInput input, int tnt, int totalEu, String recipeId,
                                  ItemStack... outputs) {
         if (tnt > 0) {
             addRecipe(new IRecipeInput[] { input,
-                    new RecipeInputItemStack(GTMaterialGen.getIc2(Ic2Items.industrialTNT, tnt)) }, totalEu(totalEu), outputs);
+                    input(GTMaterialGen.getIc2(Ic2Items.industrialTNT, tnt)) }, totalEu(totalEu), recipeId, outputs);
         } else {
-            addRecipe(new IRecipeInput[] { input }, totalEu(totalEu), outputs);
+            addRecipe(new IRecipeInput[] { input }, totalEu(totalEu), recipeId, outputs);
         }
     }
 

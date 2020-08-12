@@ -8,7 +8,7 @@ import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.tile.GTCXTileFluidCaster;
+import gtc_expansion.tile.multi.GTCXTileMultiIndustrialSawmill;
 import gtclassic.api.crafttweaker.GTCraftTweakerActions;
 import ic2.api.recipe.IRecipeInput;
 import net.minecraft.item.ItemStack;
@@ -17,28 +17,27 @@ import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.Arrays;
 import java.util.Locale;
 
-@ZenClass("mods.gtclassic.FluidCaster")
+@ZenClass("mods.gtclassic.IndustrialSawmill")
 @ZenRegister
-public class GTCXFluidCasterSupport {
+public class GTCXIndustrialSawmillSupport {
     @ZenMethod
-    public static void addRecipe(IItemStack output, IIngredient input1, ILiquidStack inputFluid, boolean consumePress, @Optional(valueLong = 2560L)int totalEu){
-        GTCraftTweakerActions.apply(new FluidCasterRecipeAction(GTCraftTweakerActions.of(input1), CraftTweakerMC.getLiquidStack(inputFluid), consumePress, totalEu, CraftTweakerMC.getItemStack(output)));
+    public static void addRecipe(IItemStack[] output, IIngredient input1, ILiquidStack inputFluid, @Optional(valueLong = 2560L)int totalEu){
+        GTCraftTweakerActions.apply(new IndustrialSawmillRecipeAction(GTCraftTweakerActions.of(input1), CraftTweakerMC.getLiquidStack(inputFluid), totalEu, CraftTweakerMC.getItemStacks(output)));
     }
 
-    private static final class FluidCasterRecipeAction implements IAction {
+    private static final class IndustrialSawmillRecipeAction implements IAction {
 
         private final IRecipeInput input1;
         private final FluidStack inputFluid;
         private final int totalEu;
-        private final boolean consumePress;
-        private final ItemStack output;
+        private final ItemStack[] output;
 
-        FluidCasterRecipeAction(IRecipeInput input1, FluidStack inputFluid, boolean consumePress, int totalEu, ItemStack output) {
+        IndustrialSawmillRecipeAction(IRecipeInput input1, FluidStack inputFluid, int totalEu, ItemStack... output) {
             this.input1 = input1;
             this.inputFluid = inputFluid;
-            this.consumePress = consumePress;
             this.totalEu = totalEu;
             this.output = output;
         }
@@ -50,12 +49,12 @@ public class GTCXFluidCasterSupport {
                         + "Eu amount must be greater then 0!!");
                 return;
             }
-            GTCXTileFluidCaster.addRecipe(input1, inputFluid, consumePress, totalEu, output.getUnlocalizedName() + "_ct", output);
+            GTCXTileMultiIndustrialSawmill.addRecipe(input1, inputFluid, totalEu, output[0].getUnlocalizedName() + "_ct", output);
         }
 
         @Override
         public String describe() {
-            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s, %s -> %s] to %s", input1, inputFluid, consumePress, totalEu, output, GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST);
+            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s -> %s] to %s", input1, inputFluid, totalEu, Arrays.deepToString(output), GTCXRecipeLists.INDUSTRIAL_SAWMILL_RECIPE_LIST);
         }
     }
 }

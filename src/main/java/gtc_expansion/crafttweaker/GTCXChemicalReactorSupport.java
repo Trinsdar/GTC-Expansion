@@ -5,52 +5,109 @@ import crafttweaker.IAction;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtclassic.api.crafttweaker.GTCraftTweakerActions;
+import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.recipe.IRecipeInput;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 @ZenClass("mods.gtclassic.ChemicalReactor")
 @ZenRegister
 public class GTCXChemicalReactorSupport {
     @ZenMethod
-    public static void addRecipe(IItemStack[] output, IIngredient input1, IIngredient input2, int cells, @Optional(valueLong = 3200L) int totalEu) {
-        GTCraftTweakerActions.apply(new ChemicalReactorRecipeAction(GTCraftTweakerActions.of(input1), GTCraftTweakerActions.of(input2), cells, totalEu, CraftTweakerMC.getItemStacks(output)));
+    public static void addRecipe(IItemStack[] output, IIngredient[] input, @Optional(valueLong = 3200L) int totalEu) {
+        if (input.length > 3){
+            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
+                    + "There can't be any more then 3 item Inputs!");
+        }
+        GTCraftTweakerActions.apply(new ChemicalReactorRecipeAction(GTCraftTweakerActions.of(input), totalEu, CraftTweakerMC.getItemStacks(output)));
     }
 
     @ZenMethod
-    public static void addRecipe(IItemStack[] output, IIngredient input1, IIngredient input2, @Optional(valueLong = 3200L) int totalEu) {
-        addRecipe(output, input1, input2, 0, totalEu);
+    public static void addRecipe(IItemStack[] output, IIngredient[] input, ILiquidStack[] fluidInputs, @Optional(valueLong = 3200L) int totalEu) {
+        if (input.length > 3){
+            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
+                    + "There can't be any more then 3 item Inputs!");
+        }
+        if (fluidInputs.length > 2){
+            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
+                    + "There can't be any more then 2 fluid Inputs!");
+        }
+        IRecipeInput[] fluids = new IRecipeInput[fluidInputs.length];
+        for (int i = 0; i < fluidInputs.length; i++){
+            fluids[i] = new RecipeInputFluid(CraftTweakerMC.getLiquidStack(fluidInputs[i]));
+        }
+        IRecipeInput[] total = Stream.of(fluids, GTCraftTweakerActions.of(input)).flatMap(Stream::of).toArray(IRecipeInput[]::new);
+        GTCraftTweakerActions.apply(new ChemicalReactorRecipeAction(total, totalEu, CraftTweakerMC.getItemStacks(output)));
+    }
+
+    @ZenMethod
+    public static void addRecipe(IItemStack[] output, ILiquidStack fluidOutput, IIngredient[] input, @Optional(valueLong = 3200L) int totalEu) {
+        if (input.length > 3){
+            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
+                    + "There can't be any more then 3 item Inputs!");
+        }
+        GTCraftTweakerActions.apply(new ChemicalReactorRecipeAction(GTCraftTweakerActions.of(input), totalEu, CraftTweakerMC.getLiquidStack(fluidOutput), CraftTweakerMC.getItemStacks(output)));
+    }
+
+    @ZenMethod
+    public static void addRecipe(IItemStack[] output, ILiquidStack fluidOutput, IIngredient[] input, ILiquidStack[] fluidInputs, @Optional(valueLong = 3200L) int totalEu) {
+        if (input.length > 3){
+            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
+                    + "There can't be any more then 3 item Inputs!");
+        }
+        if (fluidInputs.length > 2){
+            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
+                    + "There can't be any more then 2 fluid Inputs!");
+        }
+        IRecipeInput[] fluids = new IRecipeInput[fluidInputs.length];
+        for (int i = 0; i < fluidInputs.length; i++){
+            fluids[i] = new RecipeInputFluid(CraftTweakerMC.getLiquidStack(fluidInputs[i]));
+        }
+        IRecipeInput[] total = Stream.of(fluids, GTCraftTweakerActions.of(input)).flatMap(Stream::of).toArray(IRecipeInput[]::new);
+        GTCraftTweakerActions.apply(new ChemicalReactorRecipeAction(total, totalEu, CraftTweakerMC.getLiquidStack(fluidOutput), CraftTweakerMC.getItemStacks(output)));
     }
 
     private static final class ChemicalReactorRecipeAction implements IAction {
 
-        private final IRecipeInput input1;
-        private final IRecipeInput input2;
+        private final IRecipeInput[] inputs;
         private final int totalEu;
-        private final int cells;
+        private final FluidStack fluidOutput;
         private final ItemStack[] output;
 
-        ChemicalReactorRecipeAction(IRecipeInput input1, IRecipeInput input2, int cells, int totalEu, ItemStack... output) {
-            this.input1 = input1;
-            this.input2 = input2;
-            this.cells = cells;
+        ChemicalReactorRecipeAction(IRecipeInput[] inputs, int totalEu, ItemStack... output) {
+            this.inputs = inputs;
             this.totalEu = totalEu;
             this.output = output;
+            this.fluidOutput = null;
+        }
+
+        ChemicalReactorRecipeAction(IRecipeInput[] inputs, int totalEu, FluidStack fluidOutput, ItemStack... output) {
+            this.inputs = inputs;
+            this.totalEu = totalEu;
+            this.output = output;
+            this.fluidOutput = fluidOutput;
         }
 
         @Override
         public void apply() {
             if (totalEu > 0) {
-                GTCXTileChemicalReactor.addRecipe(input1, input2, cells, totalEu, output);
+                if (fluidOutput != null){
+                    GTCXTileChemicalReactor.addRecipe(inputs, GTCXTileChemicalReactor.totalEu(totalEu), fluidOutput, fluidOutput.getUnlocalizedName() + "_ct", output);
+                } else {
+                    GTCXTileChemicalReactor.addRecipe(inputs, GTCXTileChemicalReactor.totalEu(totalEu), output[0].getUnlocalizedName() + "_ct", output);
+                }
             } else {
                 CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
                         + "Eu amount must be greater then 0!!");
@@ -59,7 +116,10 @@ public class GTCXChemicalReactorSupport {
 
         @Override
         public String describe() {
-            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s, %s, %s -> %s] to %s", this.input1, this.input2, this.cells, this.totalEu, Arrays.deepToString(this.output), GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST);
+            if (fluidOutput != null){
+                return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s, %s] to %s", Arrays.deepToString(inputs), this.totalEu, this.fluidOutput, Arrays.deepToString(this.output), GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST);
+            }
+            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s] to %s", Arrays.deepToString(inputs), this.totalEu, Arrays.deepToString(this.output), GTCXRecipeLists.CHEMICAL_REACTOR_RECIPE_LIST);
         }
     }
 }

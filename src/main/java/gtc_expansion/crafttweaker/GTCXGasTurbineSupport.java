@@ -46,7 +46,7 @@ public class GTCXGasTurbineSupport {
                         + "Tick duration must be greater then 0!!");
                 return;
             }
-            GTCXTileGasTurbine.addRecipe(this.input, this.ticks, this.euPerTick);
+            GTCXTileGasTurbine.addRecipe(this.input, this.ticks, this.euPerTick, this.input.getUnlocalizedName() + "_ct");
         }
 
         @Override

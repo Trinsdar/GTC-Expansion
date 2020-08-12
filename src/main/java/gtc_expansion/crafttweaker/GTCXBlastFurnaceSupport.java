@@ -93,7 +93,7 @@ public class GTCXBlastFurnaceSupport {
 				CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
 						+ "Tick amount must be greater then 0!!");
 			} else {
-				GTCXTileMultiPrimitiveBlastFurnace.addRecipe(input, totalTicks, output);
+				GTCXTileMultiPrimitiveBlastFurnace.addRecipe(input, totalTicks, output[0].getUnlocalizedName() + "_ct", output);
 			}
 		}
 
