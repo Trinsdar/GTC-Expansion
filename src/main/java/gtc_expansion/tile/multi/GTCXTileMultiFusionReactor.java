@@ -636,6 +636,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, ItemStack output){
+        addRecipe(input1, input2, modifiers, startEu, output, output.getUnlocalizedName());
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, ItemStack output, String recipeId){
         List<IRecipeInput> inlist = new ArrayList<>();
         if (startEu > 161000000){
             GTCExpansion.logger.info("Recipe: " +  output.getUnlocalizedName() + " has too high of a start eu amount");
@@ -650,10 +654,14 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             }
         }
         mods.setInteger(START_EU, startEu);
-        RECIPE_LIST.addRecipe(inlist, new MachineOutput(mods, output), output.getUnlocalizedName(), 8192);
+        RECIPE_LIST.addRecipe(inlist, new MachineOutput(mods, output), recipeId, 8192);
     }
 
     public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, FluidStack output){
+        addRecipe(input1, input2, modifiers, startEu, output, output.getUnlocalizedName());
+    }
+
+    public static void addRecipe(IRecipeInput input1, IRecipeInput input2, IRecipeModifier[] modifiers, int startEu, FluidStack output, String recipeId){
         List<IRecipeInput> inlist = new ArrayList<>();
         List<FluidStack> outList = new ArrayList<>();
         if (startEu > 161000000){
