@@ -83,6 +83,7 @@ public class GTCXRecipeProcessing {
         if (GTCXValues.STEEL_MODE){
             TileEntityCompressor.addRecipe(GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1), GTMaterialGen.getIc2(Ic2Items.miningPipe, 10));
         }
+        TileEntityCompressor.addRecipe("pulpWood", 4,GTMaterialGen.get(GTCXItems.woodPlate));
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTItems.testTube), GTTileBaseMachine.input(GTMaterialGen.get(GTCXItems.oilberry)), GTMaterialGen.getTube(GTMaterial.Oil, 1));
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTCXItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 2)), GTCXItems.acidBattery.getFull());
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTCXItems.batteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 2)), GTCXItems.mercuryBattery.getFull());
