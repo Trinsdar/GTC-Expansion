@@ -132,11 +132,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.owner instanceof GTCXTileMultiFusionReactor && owner.getFacing().getAxis() != EnumFacing.Axis.Y) {
                 return owner.hasCapability(capability, input ? owner.getFacing().rotateY() : owner.getFacing().rotateYCCW());
             }
-            return owner.hasCapability(capability, facing);
-        } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY){
-            return false;
+            return owner.hasCapability(capability, input ? EnumFacing.UP : EnumFacing.DOWN);
         } else {
-            return super.hasCapability(capability, facing);
+            return super.hasCapability(capability, facing) || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
         }
     }
 
