@@ -30,6 +30,28 @@ public class GTCXHelperPipe {
         }
     }
 
+    public enum GTFluidPipeAmount {
+        S800(800),
+        S1600(1600),
+        S2400(2400),
+        S3200(3200),
+        S4800(4800),
+        S7200(7200),
+        S9600(9600),
+        S14400(14400),
+        S19200(19200);
+
+        int transfer;
+
+        GTFluidPipeAmount(int transfer){
+            this.transfer = transfer;
+        }
+
+        public int getTransfer() {
+            return transfer;
+        }
+    }
+
     public static class GTCXQuadWrapper{
         QuadList quadList;
         Vec3i vec;
