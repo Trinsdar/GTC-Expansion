@@ -111,7 +111,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
             for (int i = 0; i < length; ++i) {
                 EnumFacing dir = facings[i];
                 TileEntity tile = world.getTileEntity(this.getPos().offset(dir));
-                if ((tile != null && this.canConnect(tile, dir)) || this.anchors.contains(dir)) {
+                if ((tile != null && this.canConnect(tile, dir))) {
                     newList = newList.add(dir);
                 }
             }
