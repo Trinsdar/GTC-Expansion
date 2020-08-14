@@ -102,6 +102,11 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     }
 
     @Override
+    public boolean canSetFacing(EntityPlayer player, EnumFacing facing) {
+        return false;
+    }
+
+    @Override
     public void onBlockUpdate(Block block) {
         super.onBlockUpdate(block);
         if (!this.isRendering()) {

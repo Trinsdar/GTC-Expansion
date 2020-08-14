@@ -8,6 +8,7 @@ import gtc_expansion.data.GTCXItems;
 import gtc_expansion.GTCXOreDict;
 import gtc_expansion.GTCXWorldGenTwilightForest;
 import gtc_expansion.container.GTCXContainerFluidSmelter;
+import gtc_expansion.data.GTCXPipes;
 import gtc_expansion.entity.GTCXEntityElectricBoat;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.recipes.GTCXRecipe;
@@ -28,6 +29,7 @@ public class GTCXCommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
         GTCXFluids.registerFluids();
+        GTCXPipes.init();
         GTCXBlocks.registerBlocks();
         GTCXItems.registerItems();
         GTCXToolGen.initTools();
