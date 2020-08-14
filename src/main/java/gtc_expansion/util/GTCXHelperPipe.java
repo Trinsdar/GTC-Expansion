@@ -5,9 +5,9 @@ import net.minecraft.util.math.Vec3i;
 
 public class GTCXHelperPipe {
     public enum GTPipeModel {
-        SMALL("small_", new int[] { 6, 10 }),
+        SMALL("small_", new int[] { 5, 11 }),
         MED("", new int[] { 4, 12 }),
-        LARGE("large_", new int[] { 1, 15 });
+        LARGE("large_", new int[] { 2, 14 });
 
         String suffix;
         int[] sizes;
