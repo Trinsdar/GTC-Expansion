@@ -15,6 +15,6 @@ public class GTCXBlockPipeFluid extends GTCXBlockPipe {
 
     @Override
     public TileEntityBlock createNewTileEntity(World world, int i) {
-        return new GTCXTileBaseFluidPipe(transferRate);
+        return new GTCXTileBaseFluidPipe().setTransferRate(transferRate);
     }
 }

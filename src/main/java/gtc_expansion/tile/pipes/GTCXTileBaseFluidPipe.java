@@ -9,10 +9,15 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
     IC2Tank tank = new IC2Tank(1);
 
     int transferRate;
-    public GTCXTileBaseFluidPipe(int transferRate) {
+    public GTCXTileBaseFluidPipe() {
         super(0);
+        this.transferRate = 0;
+    }
+
+    public GTCXTileBaseFluidPipe setTransferRate(int transferRate){
         this.transferRate = transferRate;
         tank.setCapacity(transferRate);
+        return this;
     }
 
     @Override
