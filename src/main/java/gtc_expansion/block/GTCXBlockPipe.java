@@ -65,7 +65,8 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[side == EnumFacing.UP ? 8 : 7];
+        int open = type == GTCXHelperPipe.GTPipeModel.SMALL ? 8 : type == GTCXHelperPipe.GTPipeModel.MED ? 9 : 10;
+        return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[side == EnumFacing.UP ? open : 7];
     }
 
     @SideOnly(Side.CLIENT)
