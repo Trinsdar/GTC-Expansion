@@ -51,6 +51,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
+import gtc_expansion.tile.pipes.GTCXTileBaseFluidPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.wiring.GTCXTileAluminiumCable;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
@@ -229,6 +230,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileEnergyOutputHatch.GTCXTileFusionEnergyExtractor.class, "FusionEnergyExtractor");
         registerUtil(GTCXTileMultiFusionReactor.class, "BigFusionReactor");
         registerUtil(GTCXTileBaseItemPipe.class, "BaseItemPipe");
+        registerUtil(GTCXTileBaseFluidPipe.class, "BaseFluidPipe");
     }
 
     public static void registerUtil(Class tile, String name) {
