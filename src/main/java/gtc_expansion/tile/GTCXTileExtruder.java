@@ -217,13 +217,4 @@ public class GTCXTileExtruder extends GTTileBaseMachine {
     static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
         GTCXRecipeLists.EXTRUDER_RECIPE_LIST.addRecipe(input, output, recipeId, 16);
     }
-
-    @Override
-    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, List<ItemStack> inputs) {
-        IRecipeInput input1 = entry.getInputs().get(0);
-        IRecipeInput input2 = entry.getInputs().get(1);
-        ItemStack stack1 = this.getStackInSlot(0);
-        ItemStack stack2 = this.getStackInSlot(1);
-        return input1.matches(stack1) && input2.matches(stack2) && input1.getAmount() <= stack1.getCount() && input2.getAmount() <= stack2.getCount();
-    }
 }
