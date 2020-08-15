@@ -523,16 +523,20 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
         IRecipeInput hardenedClay = new RecipeInputCombined(1, new RecipeInputItemStack(GTMaterialGen.get(Blocks.HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE)), new RecipeInputItemStack(GTMaterialGen.get(Blocks.STAINED_HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE)));
         addRecipe(hardenedClay, GTMaterialGen.getFluidStack("water", 1000),12800, GTMaterialGen.getIc2(Ic2Items.clayDust, 2));
         addWaterRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 16), totalEu(204800), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 16));
-        addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial.Ruby, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetRed, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Chrome, 1));
+        addWaterRecipe("oreRuby", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial.Ruby, 2), GTCXMaterialGen.getSmallDust(GTCXMaterial.GarnetRed, 2), GTCXMaterialGen.getSmallDust(GTMaterial.Chrome, 2));
         addRecipe("oreRuby", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid), totalEu(12800), GTMaterialGen.getGem(GTMaterial.Ruby, 3), GTCXMaterialGen.getSmallDust(GTMaterial.Chrome, 1));
         addWaterRecipe("oreSapphire", 1, totalEu(12800), GTMaterialGen.getGem(GTMaterial.Sapphire, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Sapphire, 6), GTCXMaterialGen.getSmallDust(GTMaterial.Aluminium, 2));
         addRecipe("oreSapphire", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid), totalEu(12800), GTMaterialGen.getGem(GTMaterial.Sapphire, 3), GTCXMaterialGen.getSmallDust(GTMaterial.Aluminium, 1));
         addWaterRecipe("oreCoal", 1, totalEu(12800), GTMaterialGen.get(Items.COAL), Ic2Items.coalDust, GTCXMaterialGen.getSmallDust(GTMaterial.Thorium, 1));
         addWaterRecipe("oreLapis", 1, totalEu(12800), new ItemStack(Items.DYE, 12, 4), GTMaterialGen.getDust(GTMaterial.Lazurite, 3));
         addWaterRecipe("oreRedstone", 1, totalEu(12800), GTMaterialGen.get(Items.REDSTONE, 10), GTCXMaterialGen.getSmallDust(GTCXMaterial.Glowstone, 2));
-        addWaterRecipe("oreDiamond", 1, totalEu(12800), GTMaterialGen.get(Items.DIAMOND), GTCXMaterialGen.getSmallDust(GTCXMaterial.Diamond, 8), Ic2Items.hydratedCoalDust);
-        addWaterRecipe("oreEmerald", 1, totalEu(12800), GTMaterialGen.get(Items.EMERALD), GTCXMaterialGen.getSmallDust(GTMaterial.Emerald, 6), GTCXMaterialGen.getSmallDust(GTCXMaterial.Olivine, 2));
-        addWaterRecipe("oreOlivine", 1, totalEu(12800), GTMaterialGen.getGem(GTCXMaterial.Olivine, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Olivine, 6), GTCXMaterialGen.getSmallDust(GTMaterial.Emerald, 2));
+        addWaterRecipe("oreDiamond", 1, totalEu(12800), GTMaterialGen.get(Items.DIAMOND), GTCXMaterialGen.getSmallDust(GTCXMaterial.Diamond, 6), Ic2Items.hydratedCoalDust);
+        addRecipe("oreDiamond", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid), totalEu(12800), GTMaterialGen.get(Items.DIAMOND, 3));
+        addWaterRecipe("oreEmerald", 1, totalEu(12800), GTMaterialGen.get(Items.EMERALD), GTCXMaterialGen.getSmallDust(GTMaterial.Emerald, 6), GTCXMaterialGen.getSmallDust(GTMaterial.Aluminium, 2));
+        addRecipe("oreEmerald", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid), totalEu(12800), GTMaterialGen.get(Items.EMERALD, 3), GTCXMaterialGen.getSmallDust(GTMaterial.Aluminium, 1));
+        addWaterRecipe("oreOlivine", 1, totalEu(12800), GTMaterialGen.getGem(GTCXMaterial.Olivine, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Olivine, 6), GTCXMaterialGen.getSmallDust(GTCXMaterial.Pyrope, 2));
+        addRecipe("oreOlivine", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid), totalEu(12800), GTMaterialGen.getGem(GTCXMaterial.Olivine, 3), GTCXMaterialGen.getSmallDust(GTCXMaterial.Pyrope, 1));
+        addWaterRecipe("oreQuartz", 1, totalEu(12800), GTMaterialGen.get(Items.QUARTZ, 4), GTCXMaterialGen.getSmallDust(GTCXMaterial.Netherrack, 2));
         addWaterRecipe("oreSodalite", 1, totalEu(12800), GTMaterialGen.getDust(GTMaterial.Sodalite, 12), GTMaterialGen.getDust(GTMaterial.Aluminium, 3));
         addMercuryRecipe(GTMaterialGen.get(Blocks.NETHERRACK, 8), totalEu(102400), GTMaterialGen.get(Items.GOLD_NUGGET), GTMaterialGen.getIc2(Ic2Items.netherrackDust, 8));
     }

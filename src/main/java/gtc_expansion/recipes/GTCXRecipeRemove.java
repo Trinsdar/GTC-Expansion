@@ -11,6 +11,7 @@ import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
 import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
+import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -47,6 +48,13 @@ public class GTCXRecipeRemove {
 
         ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluid(GTMaterial.Methane));
         ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluid(GTMaterial.Hydrogen));
+        ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreLapis"));
+        ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreCoal"));
+        ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreDiamond"));
+        ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreEmerald"));
+        ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreQuartz"));
+        ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreRuby"));
+        ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreSapphire"));
     }
 
     public static void initCentrifugeRemoval(){
