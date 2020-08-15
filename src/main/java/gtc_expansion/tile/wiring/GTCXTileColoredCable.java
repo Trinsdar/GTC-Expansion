@@ -591,6 +591,7 @@ public abstract class GTCXTileColoredCable extends TileEntityBlock implements IE
 
     @Override
     public void getData(Map<String, Boolean> map) {
+        map.put("Material: "+ this.material.getDisplayName(), true);
         map.put("Color: " + this.getConductorColor().getName(), true);
         map.put("Pure Color Value:" + color, true);
     }

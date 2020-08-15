@@ -6,13 +6,10 @@ import gtc_expansion.block.GTCXBlockHatch;
 import gtc_expansion.block.GTCXBlockMisc;
 import gtc_expansion.block.GTCXBlockOre;
 import gtc_expansion.block.GTCXBlockOreBedrock;
-import gtc_expansion.block.GTCXBlockPipe;
-import gtc_expansion.block.GTCXBlockPipeItem;
 import gtc_expansion.block.GTCXBlockStorage;
 import gtc_expansion.block.GTCXBlockTile;
 import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.item.itemblock.GTCXColorItemBlock;
-import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.tile.GTCXTileAdvancedWorktable;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
@@ -55,7 +52,6 @@ import gtc_expansion.tile.pipes.GTCXTileBaseFluidPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.wiring.GTCXTileAluminiumCable;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
-import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
@@ -116,7 +112,7 @@ public class GTCXBlocks {
     public static final GTCXBlockWire electrumCable = registerBlock(new GTCXBlockWire("electrumcable", GTCXLang.ELECTRUM_CABLE, GTMaterial.Electrum));
     public static final GTCXBlockWire aluminiumCable = registerBlock(new GTCXBlockWire("aluminiumcable", GTCXLang.ALUMINIUM_CABLE, GTMaterial.Aluminium));
 
-    public static final GTCXBlockPipe brassPipe = registerBlock(new GTCXBlockPipeItem("brass_pipe", GTCXMaterial.Brass, GTCXHelperPipe.GTPipeModel.MED));
+    //public static final GTCXBlockPipe brassPipe = registerBlock(new GTCXBlockPipeItem("brass_pipe", GTCXMaterial.Brass, GTCXHelperPipe.GTPipeModel.MED));
 
     public static final GTCXBlockCasing casingStandard = registerBlock(new GTCXBlockCasing("standard", GTCXLang.CASING_STANDARD, 0,75F));
     public static final GTCXBlockCasing casingReinforced = registerBlock(new GTCXBlockCasing("reinforced", GTCXLang.CASING_REINFORCED, 1, 150.0F));

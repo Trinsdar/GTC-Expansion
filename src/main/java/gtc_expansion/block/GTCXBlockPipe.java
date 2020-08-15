@@ -8,28 +8,39 @@ import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseConnect;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.interfaces.IGTColorBlock;
+import gtclassic.api.interfaces.IGTItemContainerTile;
+import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.util.helpers.BlockStateContainerIC2;
+import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, IGTColorBlock {
     GTMaterial material;
@@ -103,13 +114,88 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
     }
 
     @Override
-    public Color getColor(IBlockState iBlockState, IBlockAccess iBlockAccess, BlockPos blockPos, Block block, int i) {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+                                ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        TileEntity tile = worldIn.getTileEntity(pos);
+        NBTTagCompound nbt = StackUtil.getNbtData(stack);
+        if (tile instanceof GTCXTileBasePipe){
+            GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
+            if (nbt.hasKey("color")) {
+                pipe.setTileColor(nbt.getInteger("color"));
+            } else {
+                pipe.setTileColor(material.getColor().getRGB());
+            }
+            pipe.setModel(this.type);
+            pipe.setMaterial(this.material);
+        }
+    }
+
+    @Override
+    public boolean recolorBlock(World world, BlockPos pos, EnumFacing side, EnumDyeColor color) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof GTCXTileBasePipe) {
+            GTCXTileBasePipe colorTile = (GTCXTileBasePipe) tile;
+            int color1 = color == EnumDyeColor.WHITE ? material.getColor().getRGB() : GTValues.getColorFromEnumDyeColor(color);
+            colorTile.setTileColor(color1);
+            IBlockState state = tile.getWorld().getBlockState(tile.getPos());
+            world.notifyBlockUpdate(pos, state, state, 2);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Color getColor(IBlockState iBlockState, IBlockAccess worldIn, BlockPos pos, Block block, int i) {
+        if (worldIn != null) {
+            TileEntity tile = worldIn.getTileEntity(pos);
+            if (tile instanceof IGTRecolorableStorageTile) {
+                IGTRecolorableStorageTile colorTile = (IGTRecolorableStorageTile) tile;
+                return colorTile.getTileColor();
+            }
+        }
         return material.getColor();
     }
 
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
+    }
+
+    @Override
+    public List<ItemStack> getWrenchDrops(World world, BlockPos pos, IBlockState state, TileEntity te, EntityPlayer player, int fortune) {
+        List<ItemStack> list = new ArrayList<>();
+        if (te instanceof IGTItemContainerTile){
+            list.addAll(((IGTItemContainerTile) te).getDrops());
+            return list;
+        }
+        return list;
+    }
+
+    @Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        List<ItemStack> list = new ArrayList<>();
+        TileEntity te = this.getLocalTile() == null ? world.getTileEntity(pos) : this.getLocalTile();
+        if (te instanceof IGTItemContainerTile){
+            list.addAll(((IGTItemContainerTile) te).getInventoryDrops());
+            return list;
+        }
+        return list;
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        state = this.getActualState(state, world, pos);
+        ItemStack stack = super.getPickBlock(state, target, world, pos, player);
+        NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof GTCXTileBasePipe){
+            GTCXTileBasePipe cable = (GTCXTileBasePipe) tile;
+            if (cable.isColored() && cable.color != material.getColor().getRGB()) {
+                nbt.setInteger("color", cable.color);
+            }
+        }
+        return stack;
     }
 
     @Override

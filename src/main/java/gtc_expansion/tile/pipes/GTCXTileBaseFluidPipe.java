@@ -21,7 +21,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
     }
 
     @Override
-    public boolean canConnect(TileEntity tile, EnumFacing facing) {
+    public boolean canConnectWithoutColor(TileEntity tile, EnumFacing facing) {
         return tile instanceof GTCXTileBaseFluidPipe || tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
     }
 }

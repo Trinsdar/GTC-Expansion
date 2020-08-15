@@ -1,23 +1,34 @@
 package gtc_expansion.tile.pipes;
 
+import gtc_expansion.data.GTCXPipes;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.util.CoverStorage;
+import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.api.interfaces.IGTDebuggableTile;
+import gtclassic.api.interfaces.IGTItemContainerTile;
+import gtclassic.api.interfaces.IGTRecolorableStorageTile;
+import gtclassic.api.material.GTMaterial;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
+import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTDebuggableTile {
+public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTDebuggableTile, IGTItemContainerTile, IGTRecolorableStorageTile {
     @NetworkField(index = 3)
     public RotationList connection;
     @NetworkField(
@@ -28,12 +39,28 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
             index = 5
     )
     public CoverStorage storage;
+    @NetworkField(index = 6)
+    public int color;
+    private int prevColor = 0;
+    private static String NBT_COLOR = "color";
+    private GTMaterial material;
+    private GTCXHelperPipe.GTPipeModel model;
     public GTCXTileBasePipe(int slots) {
         super(slots);
+        this.color = 16383998;
         this.storage = new CoverStorage(this);
         this.connection = RotationList.EMPTY;
         this.anchors = RotationList.EMPTY;
-        this.addNetworkFields("connection", "storage", "anchors");
+        this.material = GTCXMaterial.Bronze;
+        this.addNetworkFields("connection", "storage", "anchors", NBT_COLOR);
+    }
+
+    public void setMaterial(GTMaterial material) {
+        this.material = material;
+    }
+
+    public void setModel(GTCXHelperPipe.GTPipeModel model) {
+        this.model = model;
     }
 
     @Override
@@ -47,21 +74,30 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         super.readFromNBT(nbt);
         this.anchors = RotationList.ofNumber(nbt.getByte("Anchors"));
         this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
+        if (nbt.hasKey(NBT_COLOR)) {
+            this.color = nbt.getInteger(NBT_COLOR);
+        } else {
+            this.color = 16383998;
+        }
+        this.model = GTCXHelperPipe.GTPipeModel.values()[nbt.getInteger("model")];
 
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
+        nbt.setInteger(NBT_COLOR, this.color);
         nbt.setByte("Anchors", (byte)this.anchors.getCode());
         this.storage.writeToNBT(this.getTag(nbt, "Storage"));
+        nbt.setInteger("model", model.ordinal());
         return nbt;
     }
 
     @Override
     public void onNetworkUpdate(String field) {
         super.onNetworkUpdate(field);
-        if (orString(field,"anchors", "connection", "storage")) {
+        if (orString(field,"anchors", "connection", "storage", NBT_COLOR)) {
+            this.prevColor = color;
             this.world.markBlockRangeForRenderUpdate(this.getPos(), this.getPos());
         }
     }
@@ -127,10 +163,15 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         }
     }
 
-    public abstract boolean canConnect(TileEntity tile, EnumFacing facing);
+    public abstract boolean canConnectWithoutColor(TileEntity tile, EnumFacing facing);
 
-    public boolean canConnectOnClient(TileEntity tile, EnumFacing facing){
-        return canConnect(tile, facing) || this.anchors.contains(facing);
+    public boolean canConnect(TileEntity tile, EnumFacing facing){
+        boolean sharesColor = true;
+        if (tile instanceof GTCXTileBasePipe){
+            GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
+            sharesColor = !this.isColored() || this.color == pipe.color || !pipe.isColored();
+        }
+        return canConnectWithoutColor(tile, facing) && sharesColor;
     }
 
     public void addCover(EnumFacing facing, IBlockState coverState){
@@ -148,7 +189,60 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     }
 
     @Override
+    public void setTileColor(int color){
+        this.color = color;
+        if (color != this.prevColor) {
+            this.getNetwork().updateTileEntityField(this, NBT_COLOR);
+        }
+        this.prevColor = color;
+    }
+
+    @Override
+    public Color getTileColor() {
+        return new Color(this.color);
+    }
+
+    @Override
+    public boolean isColored() {
+        return this.color != 16383998;
+    }
+
+    @Override
+    public List<ItemStack> getDrops() {
+        List<ItemStack> list = new ArrayList<>();
+        ItemStack block = GTCXPipes.getPipe(material, model);
+        if (this.isColored() && this.color != material.getColor().getRGB()) {
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(block);
+            nbt.setInteger("color", this.color);
+        }
+        list.add(block);
+        list.addAll(this.getInventoryDrops());
+        return list;
+    }
+
+    @Override
+    public List<ItemStack> getInventoryDrops() {
+        List<ItemStack> list = new ArrayList<>();
+        for (EnumFacing facing : EnumFacing.values()){
+            ItemStack stack = storage.getCoverDrop(facing);
+            if (!stack.isEmpty()){
+                list.add(stack);
+            }
+        }
+        if (!getSlotStack().isEmpty()){
+            list.add(getSlotStack());
+        }
+        return list;
+    }
+
+    public ItemStack getSlotStack(){
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public void getData(Map<String, Boolean> map) {
+        //map.put("Model type: " + model.getPrefix(), true);
+        map.put("Material: " + material.getDisplayName(), true);
         for (EnumFacing facing : EnumFacing.VALUES){
             if (connection.contains(facing)){
                 map.put("Connections has facing " + facing.getName(), true);
