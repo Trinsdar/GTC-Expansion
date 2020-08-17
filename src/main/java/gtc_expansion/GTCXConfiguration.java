@@ -98,7 +98,7 @@ public class GTCXConfiguration {
         public int chromiteSize = 5;
         @Comment("Chance of Chromite veins to spawn")
         @RangeInt(min = 1, max = 32)
-        public int chromiteWeight = 2;
+        public int chromiteWeight = 4;
     }
 
     @Comment("General configuration")
