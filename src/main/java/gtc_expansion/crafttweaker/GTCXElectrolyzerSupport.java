@@ -88,7 +88,8 @@ public class GTCXElectrolyzerSupport {
         @Override
         public void apply() {
             if (totalEu > 0) {
-                GTCXTileElectrolyzer.addRecipe(input, GTCXTileElectrolyzer.totalEu(totalEu), output, fluidOutput);
+                String recipeId = fluidOutput.length == 0 ? output[0].getUnlocalizedName() : fluidOutput[0].getUnlocalizedName();
+                GTCXTileElectrolyzer.addRecipe(input, GTCXTileElectrolyzer.totalEu(totalEu), output, fluidOutput, recipeId + "_ct");
             } else {
                 CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
                         + "Eu amount must be greater then 0!!");
@@ -97,7 +98,7 @@ public class GTCXElectrolyzerSupport {
 
         @Override
         public String describe() {
-            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s, %s] to %s", this.input, this.totalEu, Arrays.deepToString(this.output), Arrays.deepToString(fluidOutput), GTCXRecipeLists.ELECTROLYZER_RECIPE_LIST);
+            return String.format(Locale.ENGLISH, "Add Recipe[%s, %s -> %s, %s] to %s", Arrays.deepToString(this.input), this.totalEu, Arrays.deepToString(this.output), Arrays.deepToString(fluidOutput), GTCXRecipeLists.ELECTROLYZER_RECIPE_LIST);
         }
     }
 }

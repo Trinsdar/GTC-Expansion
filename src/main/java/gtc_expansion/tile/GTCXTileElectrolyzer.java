@@ -85,7 +85,8 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     public IFilter filter = new MachineFilter(this);
     public static final int slotFuel = 15;
     public static final int SLOT_TANK = 14;
-    public static final String NBT_TANK = "inputTank";
+    public static final String NBT_TANK_IN = "inputTank";
+    public static final String NBT_TANK_OUT = "outputTank";
     public static final List<Fluid> validFluids = new ArrayList<>();
     protected static final int[] slotInputs = { 0, 1 };
     protected static final int[] slotOutputs = { 2, 3, 4, 5, 6, 7 };
@@ -106,7 +107,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         setFuelSlot(slotFuel);
         this.inputTank.addListener(this);
         this.outputTank.addListener(this);
-        this.addGuiFields(NBT_TANK, "outputTank1", "outputTank2", "outputTank3", "outputTank4", "outputTank5", "outputTank6", "outputTank");
+        this.addGuiFields(NBT_TANK_IN, NBT_TANK_OUT);
         maxEnergy = 10000;
     }
 
@@ -131,15 +132,15 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
-        this.inputTank.readFromNBT(nbt.getCompoundTag(NBT_TANK));
-        this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
+        this.inputTank.readFromNBT(nbt.getCompoundTag(NBT_TANK_IN));
+        this.outputTank.readFromNBT(nbt.getCompoundTag(NBT_TANK_OUT));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
-        this.inputTank.writeToNBT(this.getTag(nbt, NBT_TANK));
-        this.outputTank.writeToNBT(this.getTag(nbt,"outputTank"));
+        this.inputTank.writeToNBT(this.getTag(nbt, NBT_TANK_IN));
+        this.outputTank.writeToNBT(this.getTag(nbt,NBT_TANK_OUT));
         return nbt;
     }
 
@@ -151,7 +152,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
     @Override
     public void onTankChanged(IFluidTank tank) {
         this.setStackInSlot(SLOT_TANK, ItemDisplayIcon.createWithFluidStack(this.inputTank.getFluid()));
-        this.getNetwork().updateTileGuiField(this, NBT_TANK);
+        this.getNetwork().updateTileGuiField(this, NBT_TANK_IN);
         for (int i = 0; i < 6; i++) {
             if (i < outputTank.getTankProperties().length) {
                 this.setStackInSlot( 8 + i, ItemDisplayIcon.createWithFluidStack(this.outputTank.getTankProperties()[i].getContents()));
@@ -159,7 +160,7 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
                 this.setStackInSlot(8 + i, ItemStack.EMPTY);
             }
         }
-        this.getNetwork().updateTileGuiField(this, "outputTank");
+        this.getNetwork().updateTileGuiField(this, NBT_TANK_OUT);
         shouldCheckRecipe = true;
     }
 
