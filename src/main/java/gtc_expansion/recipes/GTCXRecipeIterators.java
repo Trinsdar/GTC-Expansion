@@ -316,8 +316,8 @@ public class GTCXRecipeIterators {
         if (!gemInput){
             if (GTCXConfiguration.general.enableCraftingTools){
                 recipes.addRecipe(GTCXToolGen.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
-                recipes.addRecipe(GTCXToolGen.getWrench(mat), "I I", "III", " I ", 'I', ingot);
             }
+            recipes.addRecipe(GTCXToolGen.getWrench(mat), "I I", "III", " I ", 'I', ingot);
             recipes.addRecipe(GTCXToolGen.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
             recipes.addRecipe(GTCXToolGen.getCrowbar(mat), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rod" + mat.getDisplayName());
         }
