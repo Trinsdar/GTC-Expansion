@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.Loader;
 public class GTCXRecipeRemove {
 
     public static void init(){
-        initCentrifugeRemoval();
+        //initCentrifugeRemoval();
         initIc2Removals();
         if (GTCXConfiguration.general.unfiredBricks){
             GTHelperStack.removeSmelting(new ItemStack(Items.BRICK));

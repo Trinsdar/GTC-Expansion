@@ -10,7 +10,6 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtclassic.api.crafttweaker.GTCraftTweakerActions;
-import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.recipe.IRecipeInput;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -28,35 +27,6 @@ public class GTCXElectrolyzerSupport {
     public static void addRecipe(IItemStack[] output, IIngredient[] input,
                                  @Optional(valueLong = 3200L) int totalEu) {
         GTCraftTweakerActions.apply(new IndustrialElectrolyzerRecipeAction(GTCraftTweakerActions.of(input), totalEu, CraftTweakerMC.getItemStacks(output)));
-    }
-
-    @ZenMethod
-    public static void addRecipe(IItemStack[] output, IIngredient[] input, ILiquidStack fluidInput, @Optional(valueLong = 3200L) int totalEu) {
-        if (input.length > 2){
-            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
-                    + "There can't be any more then 2 item Inputs!");
-        }
-        IRecipeInput[] total = new IRecipeInput[input.length + 1];
-        for (int i = 0; i < input.length; i++){
-            total[i] = GTCraftTweakerActions.of(input[i]);
-        }
-        total[input.length] = new RecipeInputFluid(CraftTweakerMC.getLiquidStack(fluidInput));
-        GTCraftTweakerActions.apply(new IndustrialElectrolyzerRecipeAction(total, totalEu, CraftTweakerMC.getItemStacks(output)));
-    }
-
-    @ZenMethod
-    public static void addRecipe(IItemStack[] output, ILiquidStack[] fluidOutput, IIngredient[] input, ILiquidStack fluidInput,
-                                 @Optional(valueLong = 3200L) int totalEu) {
-        if (input.length > 2){
-            CraftTweakerAPI.logError(CraftTweakerAPI.getScriptFileAndLine() + " > "
-                    + "There can't be any more then 2 item Inputs!");
-        }
-        IRecipeInput[] total = new IRecipeInput[input.length + 1];
-        for (int i = 0; i < input.length; i++){
-            total[i] = GTCraftTweakerActions.of(input[i]);
-        }
-        total[input.length] = new RecipeInputFluid(CraftTweakerMC.getLiquidStack(fluidInput));
-        GTCraftTweakerActions.apply(new IndustrialElectrolyzerRecipeAction(total, totalEu, CraftTweakerMC.getItemStacks(output), CraftTweakerMC.getLiquidStacks(fluidOutput)));
     }
 
     @ZenMethod

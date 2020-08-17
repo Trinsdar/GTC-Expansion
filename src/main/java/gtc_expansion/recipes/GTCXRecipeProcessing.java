@@ -100,32 +100,7 @@ public class GTCXRecipeProcessing {
     }
 
     public static void initCentrifugeRecipes(){
-        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.GOLDEN_APPLE, 1), 0, totalCentrifugeEu(50000), GTMaterialGen.get(Items.GOLD_INGOT, 6), GTMaterialGen.getTube(GTMaterial.Methane, 1));
-        GTTileCentrifuge.addRecipe(new ItemStack(Items.GOLDEN_APPLE, 1, 1), 0, totalCentrifugeEu(50000), GTMaterialGen.get(Items.GOLD_INGOT, 64), GTMaterialGen.getTube(GTMaterial.Methane, 2));
-        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.GOLDEN_CARROT, 1), 0, totalCentrifugeEu(50000), GTMaterialGen.get(Items.GOLD_NUGGET, 6), GTMaterialGen.getTube(GTMaterial.Methane, 1));
-        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Items.SPECKLED_MELON, 8), 0, totalCentrifugeEu(50000), GTMaterialGen.get(Items.GOLD_NUGGET, 6), GTMaterialGen.getTube(GTMaterial.Methane, 1));
-        GTTileCentrifuge.addRecipe("dustEndstone", 64, 2, totalCentrifugeEu(307200), GTMaterialGen.get(Blocks.SAND, 48), GTMaterialGen.getTube(GTMaterial.Helium3, 4), GTMaterialGen.getTube(GTMaterial.Helium, 4), GTMaterialGen.getDust(GTMaterial.Tungsten, 1));
-        GTTileCentrifuge.addRecipe("dustRedGarnet", 16, 0, totalCentrifugeEu(15000), GTMaterialGen.getDust(GTCXMaterial.Pyrope, 3), GTMaterialGen.getDust(GTCXMaterial.Almandine, 5), GTMaterialGen.getDust(GTCXMaterial.Spessartine, 8));
-        GTTileCentrifuge.addRecipe("dustYellowGarnet", 16, 0, totalCentrifugeEu(17500), GTMaterialGen.getDust(GTCXMaterial.Uvarovite, 3), GTMaterialGen.getDust(GTCXMaterial.Andradite, 5), GTMaterialGen.getDust(GTCXMaterial.Grossular, 8));
-        GTTileCentrifuge.addRecipe("dustDarkAshes", 2, 0, totalCentrifugeEu(1250), GTMaterialGen.getDust(GTCXMaterial.Ashes, 1), GTMaterialGen.getDust(GTCXMaterial.Slag, 1));
-        IRecipeInput ashes = new RecipeInputCombined(2, new RecipeInputOreDict("dustAshes", 2), new RecipeInputOreDict("dustAsh", 2));
-        GTTileCentrifuge.addRecipe(new IRecipeInput[]{ashes}, totalCentrifugeEu(1250), GTMaterialGen.getDust(GTMaterial.Carbon, 1));
-        GTTileCentrifuge.addRecipe("dustSlag", 16, 0, totalCentrifugeEu(4000), GTMaterialGen.get(Items.IRON_NUGGET, 3), GTMaterialGen.get(Items.GOLD_NUGGET, 1), GTMaterialGen.getDust(GTMaterial.Sulfur, 4), GTMaterialGen.getDust(GTMaterial.Phosphorus, 4));
-        GTTileCentrifuge.addRecipe("dustRedRock", 16, 0, totalCentrifugeEu(38400), GTMaterialGen.getDust(GTMaterial.Calcite, 8), GTMaterialGen.getDust(GTMaterial.Flint, 4), GTMaterialGen.getIc2(Ic2Items.clayDust, 4));
-        GTTileCentrifuge.addRecipe("dustMarble", 8, 0, totalCentrifugeEu(5275), GTMaterialGen.getDust(GTCXMaterial.Magnesium, 1), GTMaterialGen.getDust(GTMaterial.Calcite, 7));
-        GTTileCentrifuge.addRecipe("dustBasalt", 16, 0, totalCentrifugeEu(24000), GTMaterialGen.getDust(GTCXMaterial.Olivine, 1), GTMaterialGen.getDust(GTMaterial.Calcite, 3), GTMaterialGen.getDust(GTMaterial.Flint, 8), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 4));
-        GTTileCentrifuge.addRecipe("dustBrass", 4,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 3));
-        GTTileCentrifuge.addRecipe("dustInvar", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.ironDust, 2));
-        GTTileCentrifuge.addRecipe("dustConstantan", 3,0, totalCentrifugeEu(7500), GTMaterialGen.getDust(GTMaterial.Nickel, 1), GTMaterialGen.getIc2(Ic2Items.copperDust, 2));
-        GTTileCentrifuge.addRecipe("dustTetrahedrite", 8, 0, totalCentrifugeEu(58240), GTMaterialGen.getIc2(Ic2Items.copperDust, 3), GTMaterialGen.getDust(GTCXMaterial.Antimony, 1), GTMaterialGen.getDust(GTMaterial.Sulfur, 3));
-        GTTileCentrifuge.addRecipe("dustBatteryAlloy", 5, 0, totalCentrifugeEu(37800), GTMaterialGen.getDust(GTCXMaterial.Antimony, 1), GTMaterialGen.getDust(GTCXMaterial.Lead, 4));
-        GTTileCentrifuge.addRecipe("dustMagnalium", 3, 0, totalCentrifugeEu(9600), GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getDust(GTCXMaterial.Magnesium, 1));
-        GTTileCentrifuge.addRecipe("dustKanthal", 3, 0, totalCentrifugeEu(16640), GTMaterialGen.getDust(GTMaterial.Aluminium, 1), GTMaterialGen.getDust(GTMaterial.Chrome, 1), Ic2Items.ironDust.copy());
-        GTTileCentrifuge.addRecipe("dustTungstensteel", 2, 0, totalCentrifugeEu(30400), GTMaterialGen.getDust(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTMaterial.Tungsten, 1));
-        GTTileCentrifuge.addRecipe("dustNichrome", 5, 0, totalCentrifugeEu(35840), GTMaterialGen.getDust(GTMaterial.Nickel, 4), GTMaterialGen.getDust(GTMaterial.Chrome, 1));
-        GTTileCentrifuge.addRecipe("dustCinnabar", 4, 2, totalCentrifugeEu(58880), GTMaterialGen.getTube(GTMaterial.Mercury, 2), GTMaterialGen.getDust(GTMaterial.Sulfur, 2));
-        GTTileCentrifuge.addRecipe("dustIridium", 9, 0, totalCentrifugeEu(117760), GTMaterialGen.getDust(GTCXMaterial.Osmium, 1));
-        GTTileCentrifuge.addRecipe(GTMaterialGen.get(Blocks.SOUL_SAND, 16), 1, totalCentrifugeEu(12000), GTMaterialGen.get(Blocks.SAND), GTMaterialGen.getDust(GTCXMaterial.Saltpeter, 4), GTMaterialGen.getTube(GTMaterial.Oil, 1), Ic2Items.coalDust);
+
     }
 
     public static void removals() {

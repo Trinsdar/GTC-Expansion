@@ -7,10 +7,12 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileWiremill;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
+import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtc_expansion.util.GTCXIc2cECompat;
@@ -21,6 +23,7 @@ import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.common.GTConfig;
 import gtclassic.common.GTItems;
 import gtclassic.common.recipe.GTRecipe;
+import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
@@ -32,11 +35,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistry;
 
+import static gtc_expansion.data.GTCXValues.EMPTY;
 import static gtclassic.common.recipe.GTRecipeMods.input;
 import static gtclassic.common.recipe.GTRecipeMods.metal;
 
@@ -176,6 +181,31 @@ public class GTCXRecipeMods {
             GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.thermalcentrifuge_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "thermalcentrifuge"), "CLC", "SAS", "SHS", 'C', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coil"), 'L', Ic2Items.miningLaser, 'S', GTCXValues.MATERIAL_STEELS, 'A', GTValues.MACHINE_ADV, 'H', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "heatconductor"));
         }
         if (Loader.isModLoaded(GTValues.MOD_ID_THERMAL) && GTConfig.modcompat.compatThermal){
+            // Oil sand stuff
+            FluidStack oil = Loader.isModLoaded("thermalexpansion") ? GTMaterialGen.getFluidStack("crude_oil", 1000) : GTMaterialGen.getFluidStack(GTMaterial.Oil);
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_1");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_2");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_3");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_4");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_5");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_6");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.redstone");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.redstone_1");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.yellowDust");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.yellowDust_1");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.dustEnderPearl_1");
+            GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.dustEnderPearl_2");
+            GTCXTileCentrifuge.addRecipe("oreClathrateOilSand", 1, GTCXTileCentrifuge.totalEu(8000), EMPTY, oil);
+            GTCXTileCentrifuge.addRecipe("oreClathrateOilShale", 1, GTCXTileCentrifuge.totalEu(8000), EMPTY, oil);
+            GTCXTileCentrifuge.addRecipe(GTMaterialGen.getFluidStack("crude_oil", 3000), GTCXTileCentrifuge.totalEu(96000), EMPTY, GTMaterialGen.getFluidStack(GTMaterial.Fuel, 2000), GTMaterialGen.getFluidStack(GTMaterial.Lubricant));
+            // Thermal fluids and ores
+            GTCXTileCentrifuge.addRecipe("oreClathrateRedstone", 1, GTCXTileCentrifuge.totalEu(8000), EMPTY, GTMaterialGen.getFluidStack("redstone", 1000));
+            GTCXTileCentrifuge.addRecipe("oreClathrateGlowstone", 1, GTCXTileCentrifuge.totalEu(8000), EMPTY, GTMaterialGen.getFluidStack("glowstone", 1000));
+            GTCXTileCentrifuge.addRecipe("oreClathrateEnder", 1, GTCXTileCentrifuge.totalEu(8000), EMPTY, GTMaterialGen.getFluidStack("ender", 1000));
+            GTCXTileCentrifuge.addRecipe(GTMaterialGen.getFluidStack("redstone", 1000), GTCXTileCentrifuge.totalEu(8000), new ItemStack[]{GTMaterialGen.get(Items.REDSTONE, 8)});
+            GTCXTileCentrifuge.addRecipe(GTMaterialGen.getFluidStack("glowstone", 1000), GTCXTileCentrifuge.totalEu(8000), new ItemStack[]{GTMaterialGen.get(Items.GLOWSTONE_DUST, 3)});
+            GTCXTileCentrifuge.addRecipe(GTMaterialGen.getFluidStack("ender", 1000), GTCXTileCentrifuge.totalEu(8000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.EnderPearl, 3)});
             GTCXTileAlloySmelter.addRecipe("dustCopper", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass", 0, 2));
             GTCXTileAlloySmelter.addRecipe("dustTin", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass", 1, 2));
             GTCXTileAlloySmelter.addRecipe("dustSilver", 1, "blockGlassHardened", 2, GTMaterialGen.getModMetaItem(GTValues.MOD_ID_THERMAL, "glass", 2, 2));
@@ -246,6 +276,7 @@ public class GTCXRecipeMods {
             GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 0, 1), 0,GTCXTileElectrolyzer.totalEu(327680), new ItemStack[]{GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 10, 1)});
             GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 600, 1), 0,GTCXTileElectrolyzer.totalEu(327680), new ItemStack[]{GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 11, 1)});
             GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 1200, 1), 0,GTCXTileElectrolyzer.totalEu(327680), new ItemStack[]{GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 12, 1)});
+            GTCXTileMultiIndustrialGrinder.addWaterRecipe("oreCertusQuartz", 1, GTCXTileMultiIndustrialGrinder.totalEu(12800), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 0, 4), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 3, 1));
         }
     }
 

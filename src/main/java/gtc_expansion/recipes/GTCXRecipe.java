@@ -9,6 +9,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
@@ -74,6 +75,7 @@ public class GTCXRecipe {
 
     public static void init(){
         GTCXRecipeRemove.init();
+        GTCXTileCentrifuge.init();
         GTCXRecipeProcessing.init();
         GTCXTileElectrolyzer.init();
         GTCXTileMultiVacuumFreezer.init();
@@ -94,7 +96,6 @@ public class GTCXRecipe {
         GTCXTileLathe.init();
         GTCXTileDieselGenerator.init();
         GTCXTileGasTurbine.init();
-        GTCXRecipeMods.init();
         initUURecipes();
         initIc2();
         initOverrideGTClassic();
@@ -109,6 +110,7 @@ public class GTCXRecipe {
     }
 
     public static void postInit(){
+        GTCXRecipeMods.init();
         GTCXRecipeProcessing.removals();
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
@@ -663,7 +665,8 @@ public class GTCXRecipe {
                     GTBlocks.casingFusion);
         }
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileRockBreaker), "IDI", "CTC", "IMI", 'I', INVAR, 'C', CIRCUIT_BASIC, 'M', MACHINE_ADV, 'D', INPUT_DIAMOND_OR_TUNGSTEN, 'T', Ic2Items.electricDrill.copy());
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCentrifuge), "RCR", "MEM", "RCR", 'R', MATERIAL_STEELS_ALUMINIUM, 'C', CIRCUIT_ADVANCED, 'M', MACHINE_ADV, 'E', Ic2Items.extractor);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.centrifuge), "RCR", "MEM", "RCR", 'R', MATERIAL_STEELS_ALUMINIUM, 'C', CIRCUIT_ADVANCED, 'M', MACHINE_ADV, 'E', Ic2Items.extractor);
+        recipes.addShapelessRecipe(GTMaterialGen.get(GTCXBlocks.centrifuge), GTBlocks.tileCentrifuge);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBatteryLV), " C ", "TRT", "TMT", 'C', Ic2Items.copperCable, 'T', TIN, 'R', "blockRedstone", 'M', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileLamp, 2), "IPI", "PRP", "IPI", 'P', "paneGlass", 'I', MATERIAL_MACHINE, 'R', Blocks.REDSTONE_LAMP);
         overrideGTRecipe("shaped_item.gtclassic.heatstorage_helium_single_1470527211", GTMaterialGen.get(GTItems.heatStorageHelium1), " T ", "THT", " T ", 'T', TIN, 'H', GTMaterialGen.getTube(GTMaterial.Helium, 1));

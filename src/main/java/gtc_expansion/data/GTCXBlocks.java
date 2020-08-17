@@ -15,6 +15,7 @@ import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileCasing;
+import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileDustbin;
@@ -57,6 +58,7 @@ import gtclassic.api.interfaces.IGTColorBlock;
 import gtclassic.api.interfaces.IGTItemBlock;
 import gtclassic.api.item.GTItemBlock;
 import gtclassic.api.material.GTMaterial;
+import gtclassic.common.GTLang;
 import ic2.core.IC2;
 import ic2.core.item.block.ItemBlockRare;
 import net.minecraft.block.Block;
@@ -102,6 +104,8 @@ public class GTCXBlocks {
     public static final GTCXBlockTile thermalBoiler = registerBlock(new GTCXBlockTile("thermalboiler", GTCXLang.THERMAL_BOILER, 1));
     public static final GTCXBlockTile largeSteamTurbine = registerBlock(new GTCXBlockTile("largesteamturbine", GTCXLang.LARGE_STEAM_TURBINE, 1));
     public static final GTCXBlockTile largeGasTurbine = registerBlock(new GTCXBlockTile("largegasturbine", GTCXLang.LARGE_GAS_TURBINE, 1));
+    public static final GTCXBlockTile centrifuge = registerBlock(new GTCXBlockTile("industrialcentrifuge", GTLang.INDUSTRIAL_CENTRIFUGE, 1));
+
 
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
@@ -182,6 +186,7 @@ public class GTCXBlocks {
 
     public static void registerTiles() {
         registerUtil(GTCXTileElectrolyzer.class, "IndustrialElectrolyzer");
+        registerUtil(GTCXTileCentrifuge.class, "IndustrialCentrifuge2");
         registerUtil(GTCXTileAlloySmelter.class, "AlloySmelter");
         registerUtil(GTCXTileMultiIndustrialGrinder.class, "IndustrialGrinder");
         registerUtil(GTCXTileMultiIndustrialSawmill.class, "IndustrialSawmill");

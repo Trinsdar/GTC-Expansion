@@ -38,6 +38,7 @@ public class GTCXValues {
     public static final IRecipeInput TIER_2_ENERGY = combineRecipeObjects( Ic2Items.energyCrystal, GTItems.lithiumBattery);
     public static final String MACHINE_CHEAP = "machineBlockCheap";
     public static final String MACHINE_VERY_ADV = "machineBlockVeryAdvanced";
+    public static final ItemStack[] EMPTY = new ItemStack[0];
 
     public static final String INVAR = PRE + "Invar";
     public static final String LEAD = PRE + "Lead";

@@ -6,6 +6,7 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
@@ -172,6 +173,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         if (this == GTCXBlocks.gasTurbine){
             return new GTCXTileGasTurbine();
         }
+        if (this == GTCXBlocks.centrifuge){
+            return new GTCXTileCentrifuge();
+        }
         if (this == GTCXBlocks.stoneCompressor){
             return new GTCXTileStoneCompressor();
         }
@@ -295,7 +299,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
 
     @Override
     public void addReaderInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag iTooltipFlag) {
-        if (this.compare(stack, GTCXBlocks.alloySmelter) || this.compare(stack, GTCXBlocks.implosionCompressor) || this.compare(stack, GTCXBlocks.assemblingMachine) || this.compare(stack, GTCXBlocks.chemicalReactor) || this.compare(stack, GTCXBlocks.lathe) || this.compare(stack, GTCXBlocks.microwave) || this.compare(stack, GTCXBlocks.plateBender) || this.compare(stack, GTCXBlocks.plateCutter) || this.compare(stack, GTCXBlocks.wiremill)) {
+        if (this.compare(stack, GTCXBlocks.alloySmelter) || this.compare(stack, GTCXBlocks.implosionCompressor) || this.compare(stack, GTCXBlocks.assemblingMachine) || this.compare(stack, GTCXBlocks.chemicalReactor) || this.compare(stack, GTCXBlocks.lathe) || this.compare(stack, GTCXBlocks.microwave) || this.compare(stack, GTCXBlocks.plateBender) || this.compare(stack, GTCXBlocks.plateCutter) || this.compare(stack, GTCXBlocks.wiremill) || this.compare(stack, GTCXBlocks.centrifuge)) {
             tooltip.add(Ic2InfoLang.euReaderSinkInfo.getLocalizedFormatted(32));
         }
 

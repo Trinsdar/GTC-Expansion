@@ -2,6 +2,7 @@ package gtc_expansion.container;
 
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtclassic.api.gui.GTGuiCompDirectionalProgress;
+import gtclassic.api.gui.GTGuiCompMachinePower;
 import gtclassic.api.gui.GTGuiCompMultiTileStatus;
 import gtclassic.api.gui.GTSlotUpgrade;
 import ic2.core.inventory.container.ContainerTileComponent;
@@ -37,7 +38,7 @@ public class GTCXContainerDistillationTower extends ContainerTileComponent<GTCXT
         for (int i = 0; i < 2; ++i) {
             this.addSlotToContainer(new GTSlotUpgrade(tile, 10 + i, 152, 26 + i * 18));
         }
-        //this.addComponent(new GTGuiCompMachinePower(tile));
+        this.addComponent(new GTGuiCompMachinePower(tile, 61, 21, 72, 176));
         this.addPlayerInventory(player);
         this.addComponent(new GTGuiCompMultiTileStatus(tile,new Box2D(12, 6, 12, 63)));
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.UP));
