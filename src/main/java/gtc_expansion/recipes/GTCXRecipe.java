@@ -48,7 +48,6 @@ import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
-import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.item.recipe.upgrades.EnchantmentModifier;
 import ic2.core.platform.registry.Ic2Items;
@@ -102,7 +101,7 @@ public class GTCXRecipe {
         initIc2();
         initOverrideGTClassic();
         if (GTCXConfiguration.general.enableCraftingTools){
-            initOVerrideVanillaRecipes();
+            initOverrideVanillaRecipes();
         }
         initShapedItemRecipes();
         initShapedBlockRecipes();
@@ -275,7 +274,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTCXToolGen.getCrowbar(GTCXMaterial.Bronze), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rodBronze");
     }
 
-    public static void initOVerrideVanillaRecipes(){
+    public static void initOverrideVanillaRecipes(){
         ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
         registry.remove(new ResourceLocation("minecraft", "iron_bars"));
         registry.remove(new ResourceLocation("minecraft", "hopper"));
@@ -455,9 +454,9 @@ public class GTCXRecipe {
                     CIRCUIT_ADVANCED);
             recipes.overrideRecipe("shaped_tile.blockMacerator_2072794668", Ic2Items.macerator.copy(), "FDF", "DMD", "FCF", 'D', GEM_DIAMOND, 'F', MATERIAL_STEELS, 'M', MACHINE_BASIC, 'C',
                     CIRCUIT_ADVANCED);
-            recipes.addRecipe(Ic2Items.macerator.copy(), "FGF", "CMC", "FCF", 'G', GRINDER, 'F', MATERIAL_STEELS, 'M', MACHINE_BASIC, 'C',
-                    CIRCUIT_BASIC);
-            recipes.overrideRecipe("shaped_tile.blockrotary_-1598189826", Ic2Items.rotaryMacerator, "GGG", "GMG", "GAG", 'G', GRINDER, 'M', Ic2Items.macerator, 'A', MACHINE_ADV);
+            //recipes.addRecipe(Ic2Items.macerator.copy(), "FGF", "CMC", "FCF", 'G', GRINDER, 'F', MATERIAL_STEELS, 'M', MACHINE_BASIC, 'C',
+            //        CIRCUIT_BASIC);
+            recipes.overrideRecipe("shaped_tile.blockrotary_-1598189826", Ic2Items.rotaryMacerator, "SGS", "GMG", "SAS", 'G', GRINDER, 'M', Ic2Items.macerator, 'A', MACHINE_ADV, 'S', STAINLESS_STEEL);
             GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockrotary_-1360333248");
         }
         int recipeId = STEEL_MODE ? -1329500063 : 241486317;
