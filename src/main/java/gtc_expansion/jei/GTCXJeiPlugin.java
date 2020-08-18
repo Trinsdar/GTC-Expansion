@@ -15,7 +15,6 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTValues;
-import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.common.GTBlocks;
@@ -55,7 +54,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
-            if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
+            /*if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
                 for (GTMaterial mat : GTMaterial.values()){
                     if (mat.hasFlag(GTCXMaterial.crushedore)){
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getCrushedOre(mat, 1));
@@ -64,7 +63,7 @@ public class GTCXJeiPlugin implements IModPlugin {
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getPurifiedCrushedOre(mat, 1));
                     }
                 }
-            }
+            }*/
             if (!Loader.isModLoaded(GTValues.MOD_ID_TFOREST) || !GTConfig.modcompat.compatTwilightForest){
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.oreOlivineOverworld));
             }

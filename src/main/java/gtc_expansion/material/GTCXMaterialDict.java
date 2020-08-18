@@ -5,7 +5,6 @@ import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
-import gtclassic.common.GTConfig;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
@@ -38,13 +37,11 @@ public class GTCXMaterialDict {
             if (mat.hasFlag(GTCXMaterial.tinydust)){
                 OreDictionary.registerOre("dustTiny" + mat.getDisplayName(), GTCXMaterialGen.getTinyDust(mat, 1));
             }
-            if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-                if (mat.hasFlag(GTCXMaterial.crushedore)){
-                    OreDictionary.registerOre("crushed" + mat.getDisplayName(), GTCXMaterialGen.getCrushedOre(mat, 1));
-                }
-                if (mat.hasFlag(GTCXMaterial.crushedorePurified)){
-                    OreDictionary.registerOre("crushedPurified" + mat.getDisplayName(), GTCXMaterialGen.getPurifiedCrushedOre(mat, 1));
-                }
+            if (mat.hasFlag(GTCXMaterial.crushedore)){
+                OreDictionary.registerOre("crushed" + mat.getDisplayName(), GTCXMaterialGen.getCrushedOre(mat, 1));
+            }
+            if (mat.hasFlag(GTCXMaterial.crushedorePurified)){
+                OreDictionary.registerOre("crushedPurified" + mat.getDisplayName(), GTCXMaterialGen.getPurifiedCrushedOre(mat, 1));
             }
         }
         registerToolDicts(GTCXMaterial.Iron);

@@ -6,6 +6,7 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileBath;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
@@ -226,6 +227,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         }
         if (this == GTCXBlocks.stoneExtractor){
             return new GTCXTileStoneExtractor();
+        }
+        if (this == GTCXBlocks.bath){
+            return new GTCXTileBath();
         }
         return null;
     }

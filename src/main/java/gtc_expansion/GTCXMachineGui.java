@@ -135,4 +135,10 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXBathGui extends MachineGui{
+        public GTCXBathGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

@@ -35,6 +35,7 @@ public class GTCXLang {
     public static final LocaleComp STONE_COMPRESSOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.stonecompressor");
     public static final LocaleComp STONE_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.stoneextractor");
     public static final LocaleComp EXTRUDER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.extruder");
+    public static final LocaleComp BATH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.bath");
 
     public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
     public static final LocaleComp ELECTRIC_LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electriclocker");

@@ -266,10 +266,10 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             return null;
         }
         // Check if previous recipe is valid
-        ItemStack input = inventory.get(1);
-        FluidStack fluid = inputTank.getFluid();
+        List<ItemStack> inputs = getInputs();
+
         if (lastRecipe != null) {
-            lastRecipe = checkRecipe(lastRecipe, fluid, input.copy()) ? lastRecipe : null;
+            lastRecipe = checkRecipe(lastRecipe, StackUtil.copyList(inputs)) ? lastRecipe : null;
             if (lastRecipe == null) {
                 progress = 0;
             }
@@ -280,7 +280,7 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
 
                 @Override
                 public boolean test(MultiRecipe t) {
-                    return checkRecipe(t, fluid, input.copy());
+                    return checkRecipe(t, StackUtil.copyList(inputs));
                 }
             });
         }
@@ -349,34 +349,6 @@ public class GTCXTileMultiIndustrialGrinder extends GTTileMultiBaseMachine imple
             index++;
         }
         return recipeKeys.isEmpty();
-    }
-
-    public boolean checkRecipe(MultiRecipe entry, FluidStack input, ItemStack inputItem) {
-        IRecipeInput recipeInput = entry.getInput(0);
-        IRecipeInput recipeInput1 = entry.getInput(1);
-        FluidStack fluidInput = inputTank.getFluid();
-        boolean hasFluid = false;
-        boolean hasItem = false;
-        if (recipeInput instanceof RecipeInputFluid){
-            hasFluid = input != null && input.containsFluid(((RecipeInputFluid)recipeInput).fluid);
-        } else {
-            hasItem = !inputItem.isEmpty() && recipeInput.matches(inputItem);
-        }
-        if (recipeInput1 instanceof RecipeInputFluid){
-            if (hasFluid) {
-                hasFluid = false;
-            } else {
-                hasFluid = input != null && input.containsFluid(((RecipeInputFluid)recipeInput1).fluid);
-            }
-
-        } else {
-            if (hasItem){
-                hasItem = false;
-            } else {
-                hasItem = !inputItem.isEmpty() && recipeInput1.matches(inputItem);
-            }
-        }
-        return hasFluid && hasItem;
     }
 
     @Override
