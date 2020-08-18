@@ -180,6 +180,7 @@ public class GTCXRecipeMods {
         if (Loader.isModLoaded(GTValues.MOD_ID_THERMAL) && GTConfig.modcompat.compatThermal){
             // Oil sand stuff
             FluidStack oil = Loader.isModLoaded("thermalexpansion") ? GTMaterialGen.getFluidStack("crude_oil", 1000) : GTMaterialGen.getFluidStack(GTMaterial.Oil);
+            GTTileCentrifuge.RECIPE_LIST.startMassChange();
             GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube");
             GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_1");
             GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.test_tube_2");
@@ -193,6 +194,7 @@ public class GTCXRecipeMods {
             GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.yellowDust_1");
             GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.dustEnderPearl_1");
             GTTileCentrifuge.RECIPE_LIST.removeRecipe("item.gtclassic.dustEnderPearl_2");
+            GTTileCentrifuge.RECIPE_LIST.finishMassChange();
             GTCXTileCentrifuge.addRecipe("oreClathrateOilSand", 1, GTCXTileCentrifuge.totalEu(8000), EMPTY, oil);
             GTCXTileCentrifuge.addRecipe("oreClathrateOilShale", 1, GTCXTileCentrifuge.totalEu(8000), EMPTY, oil);
             GTCXTileCentrifuge.addRecipe(GTMaterialGen.getFluidStack("crude_oil", 3000), GTCXTileCentrifuge.totalEu(96000), EMPTY, GTMaterialGen.getFluidStack(GTMaterial.Fuel, 2000), GTMaterialGen.getFluidStack(GTMaterial.Lubricant));

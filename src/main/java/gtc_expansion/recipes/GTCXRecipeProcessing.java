@@ -59,6 +59,13 @@ public class GTCXRecipeProcessing {
     }
 
     public static void initIc2Recipes(){
+        TileEntityExtractor.addRecipe("oreDiamond", 1, GTMaterialGen.get(Items.DIAMOND, 2));
+        TileEntityExtractor.addRecipe("oreEmerald", 1, GTMaterialGen.get(Items.EMERALD, 2));
+        TileEntityExtractor.addRecipe("oreCoal", 1, GTMaterialGen.get(Items.COAL, 2));
+        TileEntityExtractor.addRecipe("oreQuartz", 1, GTMaterialGen.get(Items.QUARTZ, 2));
+        TileEntityExtractor.addRecipe("oreRuby", 1, GTMaterialGen.getGem(GTMaterial.Ruby, 2));
+        TileEntityExtractor.addRecipe("oreSapphire", 1, GTMaterialGen.getGem(GTMaterial.Sapphire, 2));
+        TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GTCXMaterial.Olivine, 2));
         TileEntityMacerator.addRecipe("oreRedstone", 1, GTMaterialGen.get(Items.REDSTONE, 8));
         if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
             GTRecipe.maceratorUtil("orePyrite", 1, GTMaterialGen.getDust(GTMaterial.Pyrite, 4));
