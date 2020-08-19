@@ -21,6 +21,7 @@ import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
+import ic2.core.block.base.util.output.MultiSlotOutput;
 import ic2.core.fluid.IC2Tank;
 import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
@@ -116,7 +117,7 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 	public void process(MultiRecipe recipe) {
 		MachineOutput output = recipe.getOutputs().copy();
 		for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
-			//outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
+			outputs.add(new MultiSlotOutput(stack, getOutputSlots()));
 		}
 		NBTTagCompound nbt = recipe.getOutputs().getMetadata();
 		boolean shiftContainers = nbt != null && nbt.getBoolean("move_container");
@@ -139,7 +140,7 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 						ItemStack container = input.getItem().getContainerItem(input);
 						if (!container.isEmpty()) {
 							container.setCount(count);
-							//outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+							outputs.add(new MultiSlotOutput(container, getOutputSlots()));
 						}
 					}
 					input.shrink(count);
@@ -153,7 +154,7 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 					ItemStack container = input.getItem().getContainerItem(input);
 					if (!container.isEmpty()) {
 						container.setCount(input.getCount());
-						//outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+						outputs.add(new MultiSlotOutput(container, getOutputSlots()));
 					}
 				}
 				count -= input.getCount();
