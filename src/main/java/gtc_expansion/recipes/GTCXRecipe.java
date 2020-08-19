@@ -37,6 +37,7 @@ import gtc_expansion.util.GTCXIc2cECompat;
 import gtc_expansion.util.GTCXRecipeInputIngredient;
 import gtclassic.GTMod;
 import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeCraftingHandler;
@@ -274,6 +275,10 @@ public class GTCXRecipe {
         recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Iron), "PPP", "PPP", " S ", 'P', "ingotIron", 'S', stick);
         recipes.addRecipe(GTCXToolGen.getCrowbar(GTCXMaterial.Iron), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rodIron");
         recipes.addRecipe(GTCXToolGen.getCrowbar(GTCXMaterial.Bronze), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rodBronze");
+        if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
+            recipes.addRecipe(GTCXToolGen.getBranchCutter(GTCXMaterial.Bronze), "PFP", "P P", "RRR", 'P', "plateBronze", 'F', "craftingToolFile", 'R', "rodBronze");
+            recipes.addRecipe(GTCXToolGen.getBranchCutter(GTCXMaterial.Iron), "PFP", "P P", "RRR", 'P', "plateIron", 'F', "craftingToolFile", 'R', "rodIron");
+        }
     }
 
     public static void initOverrideVanillaRecipes(){

@@ -555,6 +555,12 @@ item.gtc_expansion.iron_crowbar.name=Iron Crowbar
 item.gtc_expansion.steel_crowbar.name=Steel Crowbar
 item.gtc_expansion.tungstensteel_crowbar.name=Tungstensteel Crowbar
 
+#branch cutters
+item.gtc_expansion.bronze_branch_cutter.name=Bronze Branch Cutter
+item.gtc_expansion.iron_branch_cutter.name=Iron Branch Cutter
+item.gtc_expansion.steel_branch_cutter.name=Steel Branch Cutter
+item.gtc_expansion.tungstensteel_branch_cutter.name=Tungstensteel Branch Cutter
+
 #hammers
 item.gtc_expansion.bronze_hammer.name=Bronze Hammer
 item.gtc_expansion.iron_hammer.name=Iron Hammer

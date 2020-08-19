@@ -13,7 +13,6 @@ import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
-import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
@@ -320,6 +319,9 @@ public class GTCXRecipeIterators {
             recipes.addRecipe(GTCXToolGen.getWrench(mat), "I I", "III", " I ", 'I', ingot);
             recipes.addRecipe(GTCXToolGen.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
             recipes.addRecipe(GTCXToolGen.getCrowbar(mat), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rod" + mat.getDisplayName());
+            if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
+                recipes.addRecipe(GTCXToolGen.getBranchCutter(mat), "PFP", "P P", "RRR", 'P', plate, 'F', "craftingToolFile", 'R', "rod" + mat.getDisplayName());
+            }
         }
     }
 

@@ -1,12 +1,14 @@
 package gtc_expansion.item.tools;
 
 import gtc_expansion.material.GTCXMaterial;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
 import ic2.core.util.helpers.ToolHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.LinkedHashMap;
 
@@ -39,6 +41,9 @@ public class GTCXToolGen {
         itemMap.put(mat.getName() + "_file", new GTCXItemToolFile(mat, tmat));
         itemMap.put(mat.getName() + "_wrench", new GTCXItemToolWrench(mat, tmat));
         itemMap.put(mat.getName() + "_crowbar", new GTCXItemToolCrowbar(mat, tmat));
+        if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
+            itemMap.put(mat.getName() + "_branch_cutter", new GTCXItemToolBranchCutter(mat, tmat));
+        }
     }
 
     public static void createVanillaSet(GTMaterial mat, ToolMaterial tmat){
@@ -53,6 +58,9 @@ public class GTCXToolGen {
         itemMap.put(mat.getName() + "_file", new GTCXItemToolFile(mat, tmat));
         itemMap.put(mat.getName() + "_wrench", new GTCXItemToolWrench(mat, tmat));
         itemMap.put(mat.getName() + "_crowbar", new GTCXItemToolCrowbar(mat, tmat));
+        if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
+            itemMap.put(mat.getName() + "_branch_cutter", new GTCXItemToolBranchCutter(mat, tmat));
+        }
     }
 
     public static ItemStack getPickaxe(GTMaterial material){
@@ -85,5 +93,9 @@ public class GTCXToolGen {
 
     public static ItemStack getCrowbar(GTMaterial material){
         return new ItemStack(itemMap.get(material.getName() + "_crowbar"));
+    }
+
+    public static ItemStack getBranchCutter(GTMaterial material){
+        return new ItemStack(itemMap.get(material.getName() + "_branch_cutter"));
     }
 }
