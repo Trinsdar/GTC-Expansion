@@ -144,7 +144,7 @@ public class GTCXMaterial {
         materialHeatMap.put(GTMaterial.Iridium, 2719);
         GTMaterial.Lazurite.addFlags(smalldust);
         GTMaterial.Lithium.addFlags(smalldust);
-        GTMaterial.Nickel.addFlags(molten, smalldust, nugget, plate, stick, gear, tinydust);
+        GTMaterial.Nickel.addFlags(molten, smalldust, nugget, plate, stick, gear, tinydust, crushedore, crushedorePurified);
         materialHeatMap.put(GTMaterial.Nickel, 1728);
         GTMaterial.Phosphorus.addFlags(smalldust, tinydust);
         GTMaterial.Platinum.addFlags(molten, smalldust, nugget, plate, stick, gear, tinydust, crushedore, crushedorePurified);
@@ -159,7 +159,7 @@ public class GTCXMaterial {
         GTMaterial.Sulfur.addFlags(smalldust, tinydust);
         GTMaterial.Technetium.addFlags(smalldust, plate, stick, gear, nugget, molten);
         materialHeatMap.put(GTMaterial.Technetium, 2430);
-        GTMaterial.Thorium.addFlags(smalldust, nugget, molten);
+        GTMaterial.Thorium.addFlags(smalldust, nugget, molten, tinydust);
         materialHeatMap.put(GTMaterial.Thorium, 2115);
         GTMaterial.Titanium.addFlags(molten, smalldust, tinydust, nugget, plate, stick, gear, hull).setSmeltable(false);
         materialHeatMap.put(GTMaterial.Titanium, 1941);

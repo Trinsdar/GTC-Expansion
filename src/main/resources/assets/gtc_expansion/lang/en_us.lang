@@ -476,6 +476,14 @@ item.gtclassic.brokenturbinerotorOsmiridium.name=Broken Osmiridium Turbine Rotor
 
 
 #ic2c extras compat materials
+item.gtclassic.crushedoreIron.name=Crushed Iron Ore
+item.gtclassic.crushedoreGold.name=Crushed Gold Ore
+item.gtclassic.crushedoreCopper.name=Crushed Copper Ore
+item.gtclassic.crushedoreTin.name=Crushed Tin Ore
+item.gtclassic.crushedoreSilver.name=Crushed Silver Ore
+item.gtclassic.crushedoreLead.name=Crushed Lead Ore
+item.gtclassic.crushedoreUranium.name=Crushed Uranium Ore
+item.gtclassic.crushedoreNickel.name=Crushed Nickel Ore
 item.gtclassic.crushedoreTungsten.name=Crushed Tungsten Ore
 item.gtclassic.crushedoreBauxite.name=Crushed Bauxite Ore
 item.gtclassic.crushedoreGalena.name=Crushed Galena Ore
@@ -488,6 +496,14 @@ item.gtclassic.crushedoreTetrahedrite.name=Crushed Tetrahedrite Ore
 item.gtclassic.crushedoreChromite.name=Crushed Chromite Ore
 item.gtclassic.crushedoreCassiterite.name=Crushed Cassiterite Ore
 
+item.gtclassic.crushedorepurifiedIron.name=Purified Crushed Iron Ore
+item.gtclassic.crushedorepurifiedGold.name=Purified Crushed Gold Ore
+item.gtclassic.crushedorepurifiedCopper.name=Purified Crushed Copper Ore
+item.gtclassic.crushedorepurifiedTin.name=Purified Crushed Tin Ore
+item.gtclassic.crushedorepurifiedSilver.name=Purified Crushed Silver Ore
+item.gtclassic.crushedorepurifiedLead.name=Purified Crushed Lead Ore
+item.gtclassic.crushedorepurifiedUranium.name=Purified Crushed Uranium Ore
+item.gtclassic.crushedorepurifiedNickel.name=Purified Crushed Nickel Ore
 item.gtclassic.crushedorepurifiedTungsten.name=Purified Crushed Tungsten Ore
 item.gtclassic.crushedorepurifiedBauxite.name=Purified Crushed Bauxite Ore
 item.gtclassic.crushedorepurifiedGalena.name=Purified Crushed Galena Ore
@@ -515,6 +531,13 @@ item.gtclassic.dusttinyNickel.name=Tiny Nickel Dust
 item.gtclassic.dusttinyOsmium.name=Tiny Osmium Dust
 item.gtclassic.dusttinyChromite.name=Tiny Chromite Dust
 item.gtclassic.dusttinyChrome.name=Tiny Chrome Dust
+item.gtclassic.dusttinyIron.name=Tiny Iron Dust
+item.gtclassic.dusttinyGold.name=Tiny Gold Dust
+item.gtclassic.dusttinySilver.name=Tiny Silver Dust
+item.gtclassic.dusttinyLead.name=Tiny Lead Dust
+item.gtclassic.dusttinyCopper.name=Tiny Copper Dust
+item.gtclassic.dusttinyTin.name=Tiny Tin Dust
+item.gtclassic.dusttinyUranium.name=Tiny Uranium Dust
 
 #material tools
 #files

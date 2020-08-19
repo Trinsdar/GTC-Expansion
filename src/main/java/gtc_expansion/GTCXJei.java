@@ -23,5 +23,6 @@ public class GTCXJei {
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.PLATE_CUTTER_RECIPE_LIST, GTCXBlocks.plateCutter, GTCXMachineGui.GTCXPlateCutterGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.INDUSTRIAL_SAWMILL_RECIPE_LIST, GTCXBlocks.industrialSawmill, GTCXMachineGui.GTCXIndustrialSawmillGui.class, 58, 28, 20, 11));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.EXTRUDER_RECIPE_LIST, GTCXBlocks.extruder, GTCXMachineGui.GTCXExtruderGui.class, 78, 24, 20, 18));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.BATH_RECIPE_LIST, GTCXBlocks.bath, GTCXMachineGui.GTCXBathGui.class, 78, 24, 20, 18));
     }
 }

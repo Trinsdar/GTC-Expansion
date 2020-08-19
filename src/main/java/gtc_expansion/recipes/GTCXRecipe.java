@@ -9,6 +9,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileBath;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
@@ -81,6 +82,7 @@ public class GTCXRecipe {
         GTCXTileElectrolyzer.init();
         GTCXTileMultiVacuumFreezer.init();
         GTCXTileMultiIndustrialGrinder.init();
+        GTCXTileBath.init();
         GTCXTileMultiImplosionCompressor.init();
         GTCXTileMultiIndustrialBlastFurnace.init();
         GTCXTileMultiDistillationTower.init();
@@ -319,6 +321,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.wiremill), "PDP", "CMC", "PcP", 'P', BRASS, 'D', GEM_DIAMOND, 'C', CIRCUIT_BASIC, 'M', MACHINE_BASIC, 'c', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.lathe), "PCP", "GMG", "PmP", 'P', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'G', "gearSteel", 'M', GTCXItems.conveyorModule, 'm', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.microwave), "AAA", "L M", "AAA", 'A', ALUMINIUM, 'L', LEAD, 'M', Ic2Items.magnetizer);
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.bath), "SSS", "SWS", "SGS", 'S', MATERIAL_STEELS, 'W', wrench, 'G', "paneGlass");
         if (GTCXConfiguration.general.overrideIc2cSawmill){
             recipes.overrideRecipe("shaped_tile.blocksawmill_-1444206344", GTMaterialGen.get(GTCXBlocks.industrialSawmill), "PCP", "DDD", "CMC", 'P', Ic2Items.pump, 'C', CIRCUIT_ADVANCED, 'D', GTMaterialGen.get(GTCXItems.diamondSawblade), 'M', MACHINE_BASIC);
         } else {

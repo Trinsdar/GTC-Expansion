@@ -7,6 +7,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
+import gtc_expansion.tile.GTCXTileBath;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
@@ -22,7 +23,6 @@ import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.common.GTConfig;
 import gtclassic.common.GTItems;
-import gtclassic.common.recipe.GTRecipe;
 import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
@@ -36,7 +36,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static gtc_expansion.data.GTCXValues.EMPTY;
 import static gtclassic.common.recipe.GTRecipeMods.input;
@@ -139,37 +138,7 @@ public class GTCXRecipeMods {
         }
 
         if (GTConfig.modcompat.compatIc2Extras && Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
-            addCrushedOreRecipes(GTCXMaterial.Tetrahedrite, GTCXMaterialGen.getTinyDust(GTCXMaterial.Antimony, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.Zinc, 1));
-            addCrushedOreRecipes(GTCXMaterial.Galena, GTCXMaterialGen.getTinyDust(GTMaterial.Sulfur, 2), GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "silvertinydust"));
-            addCrushedOreRecipes(GTCXMaterial.Cinnabar, GTCXMaterialGen.getTinyDust(GTCXMaterial.Redstone, 1), GTCXMaterialGen.getTinyDust(GTMaterial.Sulfur, 1));
-            addCrushedOreRecipes(GTCXMaterial.Sphalerite, GTCXMaterialGen.getTinyDust(GTCXMaterial.Zinc, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.GarnetYellow, 1));
-            addCrushedOreRecipes(GTMaterial.Pyrite, GTCXMaterialGen.getTinyDust(GTMaterial.Sulfur, 1), GTCXMaterialGen.getTinyDust(GTMaterial.Phosphorus, 1));
-            addCrushedOreRecipes(GTMaterial.Bauxite, GTCXMaterialGen.getTinyDust(GTCXMaterial.Grossular, 1), GTCXMaterialGen.getTinyDust(GTMaterial.Titanium, 1));
-            addCrushedOreRecipes(GTMaterial.Platinum, GTCXMaterialGen.getTinyDust(GTMaterial.Sulfur, 2), GTCXMaterialGen.getTinyDust(GTMaterial.Nickel, 1));
-            addCrushedOreRecipes(GTMaterial.Tungsten, GTCXMaterialGen.getTinyDust(GTCXMaterial.Manganese, 1), GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "silvertinydust"));
-            addCrushedOreRecipes(GTMaterial.Iridium, GTCXMaterialGen.getTinyDust(GTMaterial.Platinum, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.Osmium, 1));
-            addCrushedOreRecipes(GTCXMaterial.Chromite, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "irontinydust"), GTCXMaterialGen.getTinyDust(GTMaterial.Chrome, 1));
-            addCrushedOreRecipes(GTCXMaterial.Cassiterite, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "tintinydust"), GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "tintinydust"));
-            GTRecipe.maceratorUtil("oreGalena", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Galena, 2));
-            GTRecipe.maceratorUtil("oreTetrahedrite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 2));
-            GTRecipe.maceratorUtil("oreCassiterite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cassiterite, 4));
-            GTRecipe.maceratorUtil("orePyrite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Pyrite, 4));
-            GTRecipe.maceratorUtil("oreCinnabar", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cinnabar, 3));
-            GTRecipe.maceratorUtil("oreSphalerite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Sphalerite, 2));
-            GTRecipe.maceratorUtil("orePlatinum", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Platinum, 2));
-            GTRecipe.maceratorUtil("oreTungstate", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Tungsten, 4));
-            GTRecipe.maceratorUtil("oreChromite", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Chromite, 2));
-            ClassicRecipes.macerator.removeRecipe(input("oreBauxite", 1));
-            TileEntityMacerator.addRecipe("oreBauxite", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Bauxite, 2));
-            ClassicRecipes.macerator.removeRecipe(input("oreIridium", 1));
-            TileEntityMacerator.addRecipe("oreIridium", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Iridium, 2));
             TileEntityMacerator.addRecipe(GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "iridiumshard"), GTCXMaterialGen.getTinyDust(GTMaterial.Iridium, 1));
-            GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
-            GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);
-            GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 1), GTMaterialGen.getIngot(GTMaterial.Platinum, 1), 1.0F);
-            GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTMaterial.Platinum, 1), GTMaterialGen.getIngot(GTMaterial.Platinum, 1), 1.0F);
-            GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Cassiterite, 1), Ic2Items.tinIngot, 0.5F);
-            GameRegistry.addSmelting(GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Cassiterite, 1), Ic2Items.tinIngot, 0.5F);
             GTRecipeCraftingHandler.removeRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shapeless_item.itemdustbronze_-1753288283");
             String circuit = "circuitBasic";
             int recipeId = GTCXValues.STEEL_MODE ? 42294514 : -997650306;
@@ -279,8 +248,14 @@ public class GTCXRecipeMods {
     }
 
     public static void addCrushedOreRecipes(GTMaterial main, ItemStack outputWashSide, ItemStack outputThermalSide){
-        GTCXIc2cECompat.addOreWashingMachineRecipe("crushed" + main.getDisplayName(), 1, GTCXMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "stonedust"));
-        GTCXIc2cECompat.addThermalCentrifugeRecipe("crushedPurified" + main.getDisplayName(), 1, 400, GTMaterialGen.getDust(main, 1), outputThermalSide);
+        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
+            GTCXIc2cECompat.addOreWashingMachineRecipe("crushed" + main.getDisplayName(), 1, GTCXMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getDust(GTCXMaterial.Stone, 1));
+            GTCXIc2cECompat.addThermalCentrifugeRecipe("crushedPurified" + main.getDisplayName(), 1, 400, GTMaterialGen.getDust(main, 1), outputThermalSide);
+        } else {
+            GTCXTileBath.addRecipe("crushed" + main.getDisplayName(), 1, GTMaterialGen.getFluidStack("water", 1000), 800, GTCXMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getDust(GTCXMaterial.Stone, 1));
+            GTCXTileCentrifuge.addRecipe("crushedPurified" + main.getDisplayName(), 1, GTCXTileCentrifuge.totalEu(1280), new ItemStack[]{ GTMaterialGen.getDust(main, 1), outputThermalSide });
+        }
+
         TileEntityMacerator.addRecipe("crushed" + main.getDisplayName(), 1, GTMaterialGen.getDust(main, 1));
         TileEntityMacerator.addRecipe("crushedPurified" + main.getDisplayName(), 1, GTMaterialGen.getDust(main, 1));
     }
