@@ -38,6 +38,8 @@ import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -358,23 +360,27 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 
 	public static void init() {
 		ItemStack stoneDust = GTMaterialGen.getDust(GTCXMaterial.Stone, 1);
-		addRecipe("crushedCopper", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Copper, 1), Ic2Items.goldDust.copy(), stoneDust);
-		addRecipe("crushedGalena", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Galena, 1), Ic2Items.silverDust.copy(), stoneDust);
-		addRecipe("crushedIridium", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Iridium, 1), GTMaterialGen.getDust(GTMaterial.Platinum, 1), stoneDust);
-		addRecipe("crushedSilver", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Silver, 1), Ic2Items.silverDust.copy(), stoneDust);
-		addRecipe("crushedTungsten", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Tungsten, 1), Ic2Items.silverDust.copy(), stoneDust);
-		addRecipe("crushedGold", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Gold, 1), Ic2Items.goldDust.copy(), stoneDust);
-		addRecipe("crushedPlatinum", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 1), GTMaterialGen.getDust(GTMaterial.Platinum, 1), stoneDust);
-		addRecipe("crushedLead", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Lead, 1), Ic2Items.silverDust.copy(), stoneDust);
-		addRecipe("crushedNickel", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Nickel, 1), GTMaterialGen.getDust(GTMaterial.Platinum, 1), stoneDust);
-		addRecipe("crushedCopper", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Copper, 1), Ic2Items.copperDust.copy(), stoneDust);
-		addRecipe("crushedPlatinum", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 1), GTMaterialGen.getDust(GTMaterial.Nickel, 1), stoneDust);
-		addRecipe("crushedIron", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Iron, 1), GTMaterialGen.getDust(GTMaterial.Nickel, 1), stoneDust);
-		addRecipe("crushedSphalerite", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Sphalerite, 1), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1), stoneDust);
-		addRecipe("crushedTetrahedrite", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTMaterialGen.getDust(GTCXMaterial.Tetrahedrite, 1), stoneDust);
-		addRecipe("crushedGold", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Gold, 1), Ic2Items.copperDust.copy(), stoneDust);
-		addRecipe("crushedNickel", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Nickel, 1), GTMaterialGen.getDust(GTMaterial.Nickel, 1), stoneDust);
-		addRecipe("crushedTin", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tin, 1), GTMaterialGen.getDust(GTCXMaterial.Zinc, 1), stoneDust);
+		addRecipe("crushedCopper", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 3), stoneDust);
+		addRecipe("crushedGalena", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Galena, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Silver, 3), stoneDust);
+		addRecipe("crushedIridium", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Iridium, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Platinum, 3), stoneDust);
+		addRecipe("crushedSilver", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Silver, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Silver, 3), stoneDust);
+		addRecipe("crushedTungsten", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Tungsten, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Silver, 3), stoneDust);
+		addRecipe("crushedGold", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Gold, 3), stoneDust);
+		addRecipe("crushedPlatinum", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Platinum, 3), stoneDust);
+		addRecipe("crushedLead", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Lead, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Silver, 3), stoneDust);
+		addRecipe("crushedNickel", 1, GTMaterialGen.getFluidStack(GTMaterial.Mercury), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Nickel, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Platinum, 3), stoneDust);
+		addRecipe("crushedCopper", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Copper, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Copper, 3), stoneDust);
+		addRecipe("crushedPlatinum", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Platinum, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 3), stoneDust);
+		addRecipe("crushedIron", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Iron, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 3), stoneDust);
+		addRecipe("crushedSphalerite", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Sphalerite, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Zinc, 3), stoneDust);
+		addRecipe("crushedTetrahedrite", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Tetrahedrite, 3), stoneDust);
+		addRecipe("crushedGold", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Gold, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Copper, 3), stoneDust);
+		addRecipe("crushedNickel", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Nickel, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 3), stoneDust);
+		addRecipe("crushedTin", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tin, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Zinc, 3), stoneDust);
+		addRecipe("pulpWood", 1, GTMaterialGen.getFluidStack("water", 100), 200, GTMaterialGen.get(Items.PAPER, 1));
+		addRecipe(GTMaterialGen.get(Blocks.REEDS), GTMaterialGen.getFluidStack("water", 100), 100, GTMaterialGen.get(Items.PAPER, 1));
+		addRecipe("dustCoal", 1, GTMaterialGen.getFluidStack("water", 125), 12, Ic2Items.hydratedCoalDust.copy());
+		addRecipe("dustCharcoal", 1, GTMaterialGen.getFluidStack("water", 125), 12, Ic2Items.hydratedCharCoalDust.copy());
 	}
 
 	public static IRecipeModifier[] totalTime(int total) {
