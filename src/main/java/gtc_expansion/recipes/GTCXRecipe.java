@@ -122,6 +122,7 @@ public class GTCXRecipe {
         GTCXTileStoneExtractor.init();
         GTCXTileMultiIndustrialSawmill.init();
         GTCXTileMultiFusionReactor.postInit();
+        initWoodRecipes();
     }
 
     public static void initShapedItemRecipes(){
@@ -296,6 +297,10 @@ public class GTCXRecipe {
         IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
         int recipeID = STEEL_MODE ? -305222786 : -156474894;
         GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", "shaped_tile.hopper_" + recipeID, GTMaterialGen.get(Blocks.HOPPER), "IWI", "ICI", " I ", 'I', material, 'W', wrench, 'C', CHEST_WOOD);
+    }
+
+    public static void initWoodRecipes(){
+        ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
         if (GTCXConfiguration.general.harderWood){
             registry.remove(new ResourceLocation("minecraft", "stick"));
             recipes.addRecipe(GTMaterialGen.get(Items.STICK, 2), "P", "P", 'P', "plankWood");
