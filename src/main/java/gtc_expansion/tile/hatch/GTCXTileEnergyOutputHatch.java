@@ -190,6 +190,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         Block block = fromCasing(casing);
         map.put("Casing: " + (block == Blocks.AIR ? "None" : block.getLocalizedName()), true);
         map.put("Config: "+ config, true);
+        map.put("Has owner? " + (owner != null), true);
     }
 
     public static Block fromCasing(int casing){

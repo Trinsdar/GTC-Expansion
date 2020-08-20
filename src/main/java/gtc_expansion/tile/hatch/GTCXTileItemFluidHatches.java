@@ -579,8 +579,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
 
         @Override
         public void getData(Map<String, Boolean> data){
-            data.put("Outputs Items: " + cycle.isItem(), false);
-            data.put("Outputs Fluids: " + cycle.isFluid(), false);
+            data.put(cycle.toString(), false);
             super.getData(data);
         }
     }
