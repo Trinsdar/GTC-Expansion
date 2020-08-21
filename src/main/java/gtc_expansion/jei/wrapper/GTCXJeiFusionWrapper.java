@@ -44,8 +44,8 @@ public class GTCXJeiFusionWrapper extends GTJeiMultiRecipeWrapper {
         }
         int rTime = getEntryTicks(multiRecipe.getOutputs());
         int generateEu = startEu == 40000000 ? rTime * 60000 : startEu == 60000000 ? rTime * 62000 : rTime * 12000;
-        font.drawString("Output: "
-                + NumberFormat.getNumberInstance(Locale.US).format(generateEu)
+        font.drawString("Gain: "
+                + NumberFormat.getNumberInstance(Locale.US).format(generateEu - getEntryTicks(multiRecipe.getOutputs()))
                 + " EU Out", 0, 90 + extraHeight, Color.black.getRGB());
         if (GTConfig.general.debugMode) {
             font.drawString("Recipe Id: " + multiRecipe.getRecipeID(), 0, 100 + extraHeight, Color.black.getRGB());
