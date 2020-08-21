@@ -26,6 +26,7 @@ public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem {
         setRegistryName(this.material.getName() + "_wrench");
         setUnlocalizedName(GTCExpansion.MODID + "." + this.material.getName() + "_wrench");
         setCreativeTab(GTMod.creativeTabGT);
+        this.setNoRepair();
     }
 
     @Override
