@@ -38,7 +38,6 @@ import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -378,7 +377,7 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 		addRecipe("crushedNickel", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTMaterial.Nickel, 1), GTCXMaterialGen.getSmallDust(GTMaterial.Nickel, 3), stoneDust);
 		addRecipe("crushedTin", 1, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate), 800, GTCXMaterialGen.getPurifiedCrushedOre(GTCXMaterial.Tin, 1), GTCXMaterialGen.getSmallDust(GTCXMaterial.Zinc, 3), stoneDust);
 		addRecipe("pulpWood", 1, GTMaterialGen.getFluidStack("water", 100), 200, GTMaterialGen.get(Items.PAPER, 1));
-		addRecipe(GTMaterialGen.get(Blocks.REEDS), GTMaterialGen.getFluidStack("water", 100), 100, GTMaterialGen.get(Items.PAPER, 1));
+		addRecipe(GTMaterialGen.get(Items.REEDS), GTMaterialGen.getFluidStack("water", 100), 100, GTMaterialGen.get(Items.PAPER, 1));
 		addRecipe("dustCoal", 1, GTMaterialGen.getFluidStack("water", 125), 12, Ic2Items.hydratedCoalDust.copy());
 		addRecipe("dustCharcoal", 1, GTMaterialGen.getFluidStack("water", 125), 12, Ic2Items.hydratedCharCoalDust.copy());
 	}
