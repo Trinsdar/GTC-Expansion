@@ -13,13 +13,11 @@ import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.platform.textures.obj.ICustomModeledBlock;
 import ic2.core.platform.textures.obj.ILayeredBlockModel;
-import ic2.core.util.helpers.BlockStateContainerIC2;
 import ic2.core.util.helpers.ConnectionState;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
@@ -75,7 +73,8 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing enumFacing) {
-        return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 16) + getIndexes(enumFacing, state)];
+        return this.getParticleTexture(state);
+        //return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 16) + getIndexes(enumFacing, state)];
     }
 
     public int getIndexes(EnumFacing textureFacing, IBlockState state) {
@@ -213,9 +212,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
         if (i == 0){
             return this.getTextureFromState(state, facing);
         }
-        if (i == 1 && facing == state.getValue(allFacings) && state.getValue(rotor) > 0 && (this == GTCXBlocks.casingStandard || this == GTCXBlocks.casingReinforced)){
+        /*if (i == 1 && facing == state.getValue(allFacings) && state.getValue(rotor) > 0 && (this == GTCXBlocks.casingStandard || this == GTCXBlocks.casingReinforced)){
             return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
-        }
+        }*/
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
     }
 
@@ -267,17 +266,17 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
         }
     }
 
-    @Override
+    /*@Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainerIC2(this, rotor, allFacings, active, config);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public IBlockState getDefaultBlockState() {
         return this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, NORTH).withProperty(config, 0);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public List<IBlockState> getValidStateList() {
         IBlockState def = this.getDefaultState();
         List<IBlockState> states = new ArrayList<>();
@@ -296,9 +295,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
         }
 
         return states;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         GTCXTileCasing block = (GTCXTileCasing)worldIn.getTileEntity(pos);
         if (block != null) {
@@ -316,7 +315,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ILayeredBlock
 
             return state.withProperty(active, false).withProperty(rotor, 0).withProperty(config, 0);
         }
-    }
+    }*/
 
     @Override
     public boolean hasFacing() {

@@ -11,10 +11,8 @@ import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.platform.textures.obj.ICustomModeledBlock;
 import ic2.core.platform.textures.obj.ILayeredBlockModel;
-import ic2.core.util.helpers.BlockStateContainerIC2;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,7 +28,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.minecraft.util.EnumFacing.*;
@@ -71,7 +68,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
 
     @Override
     public TextureAtlasSprite getLayerTexture(IBlockState state, EnumFacing facing, int i) {
-        int cas = state.getValue(casing);
+        //int cas = state.getValue(casing);
         if (i == 0){
             return this.getTextureFromState(state, facing);
         }
@@ -83,11 +80,11 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
 
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
-        int cas = state.getValue(casing);
+        /*int cas = state.getValue(casing);
         if (cas > 0){
             GTCXBlockCasing casing = fromCasing(cas);
             return casing.getTextureFromState(casing.getDefaultState().withProperty(config, state.getValue(config)), side);
-        }
+        }*/
         int index = side == DOWN ? 0 : side == UP ? 1 : 2;
         return Ic2Icons.getTextures("gtclassic_terrain")[index];
     }
@@ -102,8 +99,9 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
 
     @Override
     public TextureAtlasSprite getParticleTexture(IBlockState state) {
-        int cas = state.getValue(casing);
-        return cas > 0 ? Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + 7] : Ic2Icons.getTextures("gtclassic_terrain")[2];
+        return getTextureFromState(state, SOUTH);
+        //int cas = state.getValue(casing);
+        //return cas > 0 ? Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((cas - 1) * 16) + 7] : Ic2Icons.getTextures("gtclassic_terrain")[2];
     }
 
     @SideOnly(Side.CLIENT)
@@ -255,7 +253,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
         }
     }
 
-    @Override
+   /* @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainerIC2(this, casing, allFacings, active, config);
     }
@@ -302,5 +300,5 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ILayeredBlockModel
 
             return state.withProperty(active, false).withProperty(casing, 0).withProperty(config, 0);
         }
-    }
+    }*/
 }
