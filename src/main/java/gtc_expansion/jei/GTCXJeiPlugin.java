@@ -7,18 +7,22 @@ import gtc_expansion.data.GTCXItems;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.jei.category.GTCXJeiBurnableFluidCategory;
 import gtc_expansion.jei.category.GTCXJeiCustomCategory;
+import gtc_expansion.jei.category.GTCXJeiIntegratedCircuitCategory;
 import gtc_expansion.jei.wrapper.GTCXJeiBurnableFluidWrapper;
 import gtc_expansion.jei.wrapper.GTCXJeiCasterWrapper;
 import gtc_expansion.jei.wrapper.GTCXJeiFusionWrapper;
 import gtc_expansion.jei.wrapper.GTCXJeiHeatWrapper;
+import gtc_expansion.jei.wrapper.GTCXJeiIntegratedCircuitWrapper;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
+import gtc_expansion.recipes.GTCXRecipe;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.common.GTBlocks;
 import gtclassic.common.GTConfig;
+import gtclassic.common.gui.GTGuiMachine;
 import gtclassic.common.tile.multi.GTTileMultiFusionReactor;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.jeiIntigration.SubModul;
@@ -53,6 +57,11 @@ public class GTCXJeiPlugin implements IModPlugin {
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.centrifuge), "gt.centrifuge");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
+            registry.addRecipeClickArea(GTGuiMachine.GTIndustrialCentrifugeGui.class, 69, 26, 20, 18, "gt.centrifuge");
+            String recipeId = "gt.integratedcircuit";
+            registry.handleRecipes(GTCXJeiIntegratedCircuitWrapper.IntegratedCircuitRecipe.class, GTCXJeiIntegratedCircuitWrapper::new, recipeId);
+            registry.addRecipes(GTCXRecipe.integratedCircuitRecipes, recipeId);
+            registry.addRecipeCatalyst(new ItemStack(GTCXItems.integratedCircuit, 1), recipeId);
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
             /*if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
                 for (GTMaterial mat : GTMaterial.values()){
@@ -103,6 +112,7 @@ public class GTCXJeiPlugin implements IModPlugin {
         categoryUtil(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer);
         categoryUtil2(registry, GTCXRecipeLists.DIESEL_GEN_RECIPE_LIST, GTCXBlocks.dieselGenerator);
         categoryUtil2(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine);
+        registry.addRecipeCategories(new GTCXJeiIntegratedCircuitCategory(registry.getJeiHelpers().getGuiHelper()));
 
     }
 

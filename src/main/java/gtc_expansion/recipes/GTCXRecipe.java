@@ -5,6 +5,7 @@ import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.item.tools.GTCXToolGen;
+import gtc_expansion.jei.wrapper.GTCXJeiIntegratedCircuitWrapper;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
@@ -50,6 +51,8 @@ import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
+import ic2.core.item.recipe.entry.RecipeInputCombined;
+import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.item.recipe.upgrades.EnchantmentModifier;
 import ic2.core.platform.registry.Ic2Items;
@@ -74,6 +77,8 @@ import static gtclassic.api.recipe.GTRecipeCraftingHandler.combineRecipeObjects;
 
 public class GTCXRecipe {
     static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
+
+    public static List<GTCXJeiIntegratedCircuitWrapper.IntegratedCircuitRecipe> integratedCircuitRecipes = new ArrayList<>();
 
 
     public static void init(){
@@ -123,6 +128,18 @@ public class GTCXRecipe {
         GTCXTileMultiIndustrialSawmill.init();
         GTCXTileMultiFusionReactor.postInit();
         initWoodRecipes();
+        initIntegratedCircuit();
+    }
+
+    public static void initIntegratedCircuit(){
+        integratedCircuitRecipes.clear();
+        List<IRecipeInput> inputs = new ArrayList<>();
+        List<IRecipeInput> outputs = new ArrayList<>();
+        for (int i = 0; i < 8; i++){
+            inputs.add(new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, i)));
+            outputs.add(new RecipeInputItemStack(GTMaterialGen.get(GTCXItems.integratedCircuit, 1, i)));
+        }
+        integratedCircuitRecipes.add(new GTCXJeiIntegratedCircuitWrapper.IntegratedCircuitRecipe(new RecipeInputCombined(inputs), new RecipeInputCombined(outputs)));
     }
 
     public static void initShapedItemRecipes(){
