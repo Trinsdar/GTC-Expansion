@@ -1,6 +1,5 @@
 package gtc_expansion.tile.multi;
 
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerThermalBoiler;
 import gtc_expansion.container.GTCXContainerThermalBoilerHatch;
 import gtc_expansion.data.GTCXBlocks;
@@ -20,7 +19,6 @@ import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import ic2.api.classic.network.adv.NetworkField;
-import ic2.core.IC2;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
 import ic2.core.fluid.IC2Tank;
@@ -686,17 +684,11 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
 
     @Override
     public void setOutputModes(boolean second, OutputModes mode) {
-        GTCExpansion.logger.info("Setting mode");
-        GTCExpansion.logger.info("Is Client side? " + IC2.platform.isRendering());
-        GTCExpansion.logger.info("Previous Mode1: " + outputMode1.toString());
-        GTCExpansion.logger.info("Previous Mode2: " + outputMode2.toString());
         if (second) {
             this.outputMode2 = mode;
         } else {
             this.outputMode1 = mode;
         }
-        GTCExpansion.logger.info("New Mode1: " + outputMode1.toString());
-        GTCExpansion.logger.info("New Mode2: " + outputMode2.toString());
     }
 
     @Override

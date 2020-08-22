@@ -53,7 +53,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -73,7 +72,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     protected static final int[] slotInputs = { 1 };
     protected static final int[] slotOutputs = { 2, 3, 4 };
     protected static final int slotFuel = 5;
-    public static final List<Fluid> validFluids = new ArrayList<>();
+    public static final List<String> validFluids = new ArrayList<>();
     public IFilter filter = new MachineFilter(this);
     public static final IBlockState casingStandardState = GTCXBlocks.casingStandard.getDefaultState();
     public static final IBlockState casingReinforcedState = GTCXBlocks.casingReinforced.getDefaultState();
@@ -84,7 +83,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     private final IC2Tank inputTank = new IC2Tank(16000){
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
-            return super.canFillFluidType(fluid) && validFluids.contains(fluid.getFluid());
+            return super.canFillFluidType(fluid) && validFluids.contains(fluid.getFluid().getName());
         }
     };
 
@@ -362,17 +361,17 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
                 continue;
             }
             if (GTHelperStack.matchOreDict(stack, "logWood")){
-                addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
+                addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant.getName(), 1000), 4000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
                 addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 6000, entry.getOutput().getAllOutputs().get(0), GTMaterialGen.getDust(GTMaterial.Wood, 1));
             } else {
                 if (input.getInputs().get(0).getItem() != new ItemStack(Blocks.MELON_BLOCK).getItem()){
-                    addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000), 4000, entry.getOutput().getAllOutputs().get(0));
+                    addRecipe(input, GTMaterialGen.getFluidStack(GTMaterial.Lubricant.getName(), 1000), 4000, entry.getOutput().getAllOutputs().get(0));
                 }
                 addRecipe(input, GTMaterialGen.getFluidStack("water", 1000), 6000, entry.getOutput().getAllOutputs().get(0));
             }
         }
         addRecipe(input("logRubber", 1), GTMaterialGen.getFluidStack("water", 1000),6000, Ic2Items.stickyResin.copy(), GTMaterialGen.getDust(GTMaterial.Wood, 8), GTMaterialGen.get(Blocks.PLANKS, 9, 3));
-        addRecipe(input("logRubber", 1), GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 1000),4000, Ic2Items.stickyResin.copy(), GTMaterialGen.getDust(GTMaterial.Wood, 8), GTMaterialGen.get(Blocks.PLANKS, 9, 3));
+        addRecipe(input("logRubber", 1), GTMaterialGen.getFluidStack(GTMaterial.Lubricant.getName(), 1000),4000, Ic2Items.stickyResin.copy(), GTMaterialGen.getDust(GTMaterial.Wood, 8), GTMaterialGen.get(Blocks.PLANKS, 9, 3));
     }
 
     public static void addRecipe(String input, int amount, RecipeModifierHelpers.IRecipeModifier[] modifiers,
@@ -433,7 +432,7 @@ public class GTCXTileMultiIndustrialSawmill extends GTTileMultiBaseMachine imple
     static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeID) {
         for (IRecipeInput in : input){
             if (in instanceof RecipeInputFluid && !validFluids.contains(((RecipeInputFluid)in).fluid.getFluid())){
-                validFluids.add(((RecipeInputFluid)in).fluid.getFluid());
+                validFluids.add(((RecipeInputFluid)in).fluid.getFluid().getName());
             }
         }
         GTCXRecipeLists.INDUSTRIAL_SAWMILL_RECIPE_LIST.addRecipe(input, output, recipeID, defaultEu);
