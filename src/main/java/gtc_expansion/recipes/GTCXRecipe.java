@@ -337,12 +337,12 @@ public class GTCXRecipe {
                 registry.remove(recipe.getRegistryName());
                 recipes.addRecipe(StackUtil.copyWithSize(recipe.getRecipeOutput(), (recipe.getRecipeOutput().getCount() / 2)), "W", 'W', new GTCXRecipeInputIngredient(recipe.getIngredients().get(0)));
             }
-            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 0), "W", 'W', GTMaterialGen.get(Blocks.LOG, 0));
-            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 1), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1));
-            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 2), "W", 'W', GTMaterialGen.get(Blocks.LOG, 2));
-            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 3), "W", 'W', GTMaterialGen.get(Blocks.LOG, 3));
-            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 4), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 0));
-            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 5), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 0), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 0));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 1), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 1));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 2), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 2));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 3), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 3));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 4), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 0));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 5), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 1));
         }
     }
 
