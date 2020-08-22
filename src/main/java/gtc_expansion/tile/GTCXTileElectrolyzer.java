@@ -453,7 +453,6 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         addRecipe("dustCoal", 4, 0, totalEu(7500), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Carbon, 8)});
         addRecipe("dustRuby", 9, 0, totalEu(25000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getDust(GTMaterial.Chrome, 1)}, GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 3000));
         addRecipe("dustSapphire", 8, 0, totalEu(20000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Aluminium, 2)}, GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 3000));
-        addRecipe("dustGreenSapphire", 4, 0, totalEu(15000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Sapphire, 4)});
         addRecipe("dustEmerald", 29, 0, totalEu(30000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Aluminium, 2), GTMaterialGen.getDust(GTMaterial.Silicon, 6)}, GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 9000), GTMaterialGen.getFluidStack(GTMaterial.Beryllium, 3000));
         addRecipe("dustEnderPearl", 16, 0, totalEu(65000), empty, GTMaterialGen.getFluidStack(GTMaterial.Chlorine, 6000), GTMaterialGen.getFluidStack(GTMaterial.Nitrogen, 5000), GTMaterialGen.getFluidStack(GTMaterial.Beryllium), GTMaterialGen.getFluidStack(GTMaterial.Potassium, 4000));
         addRecipe("dustLazurite", 29, 0, totalEu(295000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Aluminium, 3), GTMaterialGen.getDust(GTMaterial.Silicon, 3)}, GTMaterialGen.getFluidStack(GTMaterial.Sodium, 4000), GTMaterialGen.getFluidStack(GTMaterial.Calcium, 4000));

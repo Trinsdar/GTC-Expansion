@@ -7,7 +7,6 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
-import gtc_expansion.tile.GTCXTileBath;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
@@ -16,7 +15,6 @@ import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
-import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -232,8 +230,13 @@ public class GTCXRecipeMods {
             GTCXTileWiremill.addRecipe("nuggetSteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts"));
             GTCXTileWiremill.addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("nuggetTungsten", "nuggetTitanium"), GTMaterialGen.getModItem("railcraft", "track_parts", 2));
             GTCXTileWiremill.addRecipe("nuggetTungstensteel", 1, GTMaterialGen.getModItem("railcraft", "track_parts", 3));
+            GTCXTileWiremill.addRecipe("blockCopper", 1, GTMaterialGen.getModMetaItem("railcraft", "charge", 4, 1));
             GTCXTileAssemblingMachine.addRecipe(GTMaterialGen.getModMetaItem("railcraft", "rail", 5, 1), GTMaterialGen.get(Blocks.RAIL, 16), 800, GTMaterialGen.getModItem("railcraft", "track_flex_electric", 16));
             GTCXTileAssemblingMachine.addRecipe(GTMaterialGen.getModMetaItem("railcraft", "rail", 5, 1), GTMaterialGen.getModItem("railcraft", "track_flex_high_speed", 16), 800, GTMaterialGen.getModItem("railcraft", "track_flex_hs_electric", 16));
+            GTCXTileAssemblingMachine.addRecipe("plateInvar", 3, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "charge", 6, 1));
+            GTCXTileAssemblingMachine.addRecipe("plateIron", 3, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "charge", 7, 1));
+            GTCXTileAssemblingMachine.addRecipe("plateZinc", 3, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "charge", 8, 1));
+            GTCXTileAssemblingMachine.addRecipe("plateSilver", 3, GTMaterialGen.get(GTCXItems.integratedCircuit, 1, 1), 400, GTMaterialGen.getModMetaItem("railcraft", "charge", 10, 1));
         }
         if (Loader.isModLoaded("traverse")){
             TileEntityMacerator.addRecipe(GTMaterialGen.getModItem("traverse", "red_rock"), GTMaterialGen.getDust(GTCXMaterial.RedRock, 1));
@@ -245,19 +248,6 @@ public class GTCXRecipeMods {
             GTCXTileElectrolyzer.addRecipe(GTMaterialGen.getModMetaItem("appliedenergistics2", "crystal_seed", 1200, 1), 0,GTCXTileElectrolyzer.totalEu(327680), new ItemStack[]{GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 12, 1)});
             GTCXTileMultiIndustrialGrinder.addWaterRecipe("oreCertusQuartz", 1, GTCXTileMultiIndustrialGrinder.totalEu(12800), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 0, 4), GTMaterialGen.getModMetaItem("appliedenergistics2", "material", 3, 1));
         }
-    }
-
-    public static void addCrushedOreRecipes(GTMaterial main, ItemStack outputWashSide, ItemStack outputThermalSide){
-        if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
-            GTCXIc2cECompat.addOreWashingMachineRecipe("crushed" + main.getDisplayName(), 1, GTCXMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getDust(GTCXMaterial.Stone, 1));
-            GTCXIc2cECompat.addThermalCentrifugeRecipe("crushedPurified" + main.getDisplayName(), 1, 400, GTMaterialGen.getDust(main, 1), outputThermalSide);
-        } else {
-            GTCXTileBath.addRecipe("crushed" + main.getDisplayName(), 1, GTMaterialGen.getFluidStack("water", 1000), 800, GTCXMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getDust(GTCXMaterial.Stone, 1));
-            GTCXTileCentrifuge.addRecipe("crushedPurified" + main.getDisplayName(), 1, GTCXTileCentrifuge.totalEu(1280), new ItemStack[]{ GTMaterialGen.getDust(main, 1), outputThermalSide });
-        }
-
-        TileEntityMacerator.addRecipe("crushed" + main.getDisplayName(), 1, GTMaterialGen.getDust(main, 1));
-        TileEntityMacerator.addRecipe("crushedPurified" + main.getDisplayName(), 1, GTMaterialGen.getDust(main, 1));
     }
 
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;

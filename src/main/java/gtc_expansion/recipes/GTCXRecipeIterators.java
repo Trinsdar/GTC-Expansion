@@ -99,7 +99,9 @@ public class GTCXRecipeIterators {
             int heat = GTCXMaterialGen.getMaterialHeatValue(mat);
             if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Copper) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Tin) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.RefinedIron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Silver) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Bronze)){
                 GTCXTileFluidSmelter.addRecipe("ingot" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
-                GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                if (!GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.RefinedIron)){
+                    GTCXTileFluidSmelter.addRecipe("dust" + orename, 1, heat, 12800, GTMaterialGen.getFluidStack(mat, 144));
+                }
                 if (GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Iron) || GTMaterialGen.isMaterialEqual(mat, GTCXMaterial.Gold)){
                     GTCXTileFluidSmelter.addRecipe("nugget" + orename, 1, heat, 1600, GTMaterialGen.getFluidStack(mat, 16));
                 }
