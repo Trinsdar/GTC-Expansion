@@ -1,5 +1,6 @@
 package gtc_expansion.recipes;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.data.GTCXBlocks;
@@ -70,6 +71,7 @@ import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import static gtc_expansion.data.GTCXValues.*;
 import static gtclassic.api.helpers.GTValues.*;
@@ -115,19 +117,21 @@ public class GTCXRecipe {
         initShapedBlockRecipes();
         initRemainingToolRecipes();
         initShapelessRecipes();
-        GTCXRecipeIterators.init();
+        Executors.newSingleThreadExecutor().execute(GTCXRecipeIterators::init);
     }
 
     public static void postInit(){
         GTCXRecipeMods.init();
-        GTCXRecipeProcessing.removals();
-        GTCXRecipeIterators.initAutoOredictMachineRecipes();
-        GTCXTileMicrowave.init();
-        GTCXTileStoneCompressor.init();
-        GTCXTileStoneExtractor.init();
-        GTCXTileMultiIndustrialSawmill.init();
-        GTCXTileMultiFusionReactor.postInit();
-        initWoodRecipes();
+        Executors.newSingleThreadExecutor().execute(() -> {
+            GTCXRecipeProcessing.removals();
+            GTCXRecipeIterators.initAutoOredictMachineRecipes();
+            GTCXTileMicrowave.init();
+            GTCXTileStoneCompressor.init();
+            GTCXTileStoneExtractor.init();
+            GTCXTileMultiIndustrialSawmill.init();
+            GTCXTileMultiFusionReactor.postInit();
+            initWoodRecipes();
+        });
         initIntegratedCircuit();
     }
 
