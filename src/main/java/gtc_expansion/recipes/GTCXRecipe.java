@@ -320,6 +320,12 @@ public class GTCXRecipe {
         ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
         if (GTCXConfiguration.general.harderWood){
             registry.remove(new ResourceLocation("minecraft", "stick"));
+            registry.remove(new ResourceLocation("minecraft", "oak_planks"));
+            registry.remove(new ResourceLocation("minecraft", "spruce_planks"));
+            registry.remove(new ResourceLocation("minecraft", "birch_planks"));
+            registry.remove(new ResourceLocation("minecraft", "jungle_planks"));
+            registry.remove(new ResourceLocation("minecraft", "acacia_planks"));
+            registry.remove(new ResourceLocation("minecraft", "dark_oak_planks"));
             recipes.addRecipe(GTMaterialGen.get(Items.STICK, 2), "P", "P", 'P', "plankWood");
             List<IRecipe> recipeList = new ArrayList<>();
             for (IRecipe recipe : ForgeRegistries.RECIPES){
@@ -331,6 +337,12 @@ public class GTCXRecipe {
                 registry.remove(recipe.getRegistryName());
                 recipes.addRecipe(StackUtil.copyWithSize(recipe.getRecipeOutput(), (recipe.getRecipeOutput().getCount() / 2)), "W", 'W', new GTCXRecipeInputIngredient(recipe.getIngredients().get(0)));
             }
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 0), "W", 'W', GTMaterialGen.get(Blocks.LOG, 0));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 1), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 2), "W", 'W', GTMaterialGen.get(Blocks.LOG, 2));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 3), "W", 'W', GTMaterialGen.get(Blocks.LOG, 3));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 4), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 0));
+            recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 5), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1));
         }
     }
 
