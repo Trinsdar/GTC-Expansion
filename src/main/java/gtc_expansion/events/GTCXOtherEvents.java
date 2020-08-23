@@ -21,7 +21,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -143,9 +142,6 @@ public class GTCXOtherEvents {
                 if (tile instanceof GTCXTileBasePipe) {
                     if (player.getHeldItemMainhand().getItem() instanceof GTCXItemToolWrench) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
-                        EnumFacing directionHovered = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
-                        GTCXRenderer.renderSide(player, pos, directionHovered, event.getPartialTicks(),  0.5F);
-                        if (directionHovered != null) GTCXRenderer.drawOutline(player, pos.offset(directionHovered, 1), event.getPartialTicks());
                     }
                 }
             }
