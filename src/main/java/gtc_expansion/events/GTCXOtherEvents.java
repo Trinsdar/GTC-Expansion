@@ -115,15 +115,16 @@ public class GTCXOtherEvents {
 
     @SubscribeEvent
     public void onEvent(PlayerInteractEvent event) {
-        if (event instanceof PlayerInteractEvent.RightClickItem | event instanceof  PlayerInteractEvent.RightClickBlock) {
+        if (event instanceof PlayerInteractEvent.RightClickItem) {
             ItemStack held = event.getEntityPlayer().getHeldItemMainhand();
             if (held.getItem() instanceof IGTOverlayWrench && !event.getEntityPlayer().isSneaking()) {
                 RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(event.getEntityPlayer());
                 if (event.getWorld().getTileEntity(lookingAt.getBlockPos()) instanceof GTCXTileBasePipe) {
                     if (((IGTOverlayWrench) held.getItem()).canBeUsed(held)) {
-                        ((IGTOverlayWrench) held.getItem()).damage(held);
-                        GTCXWrenchUtils.wrenchUse(event);
-                        event.setCanceled(true);
+                        if (GTCXWrenchUtils.wrenchUse(event)){
+                            ((IGTOverlayWrench) held.getItem()).damage(held, event.getEntityPlayer());
+                            event.setCanceled(true);
+                        }
                     }
                 }
             }

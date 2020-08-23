@@ -73,6 +73,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.anchors = RotationList.ofNumber(nbt.getByte("Anchors"));
+        this.connection = RotationList.ofNumber(nbt.getByte("Connection"));
         this.storage.readFromNBT(nbt.getCompoundTag("Storage"));
         if (nbt.hasKey(NBT_COLOR)) {
             this.color = nbt.getInteger(NBT_COLOR);
@@ -88,6 +89,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         super.writeToNBT(nbt);
         nbt.setInteger(NBT_COLOR, this.color);
         nbt.setByte("Anchors", (byte)this.anchors.getCode());
+        nbt.setByte("Connection", (byte)this.connection.getCode());
         this.storage.writeToNBT(this.getTag(nbt, "Storage"));
         nbt.setInteger("model", model.ordinal());
         return nbt;
@@ -166,6 +168,9 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     public abstract boolean canConnectWithoutColor(TileEntity tile, EnumFacing facing);
 
     public boolean canConnect(TileEntity tile, EnumFacing facing){
+        if (tile == null){
+            return false;
+        }
         boolean sharesColor = true;
         if (tile instanceof GTCXTileBasePipe){
             GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;

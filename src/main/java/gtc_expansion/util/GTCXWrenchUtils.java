@@ -521,11 +521,9 @@ public class GTCXWrenchUtils {
         return null;
     }
 
-    public static void wrenchUse(PlayerInteractEvent event) {
+    public static boolean wrenchUse(PlayerInteractEvent event) {
         EntityPlayer player = event.getEntityPlayer();
         World worldIn = event.getWorld();
-        IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
-        player.swingArm(EnumHand.MAIN_HAND);
         RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(player);
         if (lookingAt != null) {
             BlockPos pos = lookingAt.getBlockPos();
@@ -537,24 +535,33 @@ public class GTCXWrenchUtils {
                     EnumFacing opposite = sideToggled.getOpposite();
                     BlockPos offset = pos.offset(sideToggled);
                     TileEntity offsetTile = worldIn.getTileEntity(offset);
+                    boolean setConnection = false;
                     if (pipe.connection.contains(sideToggled)) {
                         pipe.removeConnection(sideToggled);
                         if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.contains(opposite)){
                             ((GTCXTileBasePipe)offsetTile).removeConnection(opposite);
                         }
+                        setConnection = true;
                     } else {
-                        if (pipe.canConnect(offsetTile, sideToggled)){
+                        if (offsetTile == null || pipe.canConnect(offsetTile, sideToggled)){
                             pipe.addConnection(sideToggled);
                             if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.notContains(opposite)){
                                 ((GTCXTileBasePipe)offsetTile).addConnection(opposite);
                             }
+                            setConnection = true;
                         }
 
                     }
+                    if (setConnection){
+                        IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
+                        player.swingArm(EnumHand.MAIN_HAND);
+                    }
                     worldIn.notifyBlockUpdate(pos, worldIn.getBlockState(pos), worldIn.getBlockState(pos), 3);
                     te.markDirty();
+                    return setConnection;
                 }
             }
         }
+        return false;
     }
 }

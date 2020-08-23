@@ -6,6 +6,7 @@ import gtc_expansion.model.GTCXModelPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import gtc_expansion.util.GTCXHelperPipe;
+import gtc_expansion.util.GTCXWrenchUtils;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseConnect;
 import gtclassic.api.helpers.GTValues;
@@ -128,6 +129,30 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             }
             pipe.setModel(this.type);
             pipe.setMaterial(this.material);
+            if (placer instanceof EntityPlayer){
+                for (EnumFacing facing : EnumFacing.values()){
+                    boolean lookingAt = false;
+
+                    RayTraceResult rt1 = GTCXWrenchUtils.getBlockLookingat1((EntityPlayer) placer, pos);
+                    RayTraceResult rt2 = GTCXWrenchUtils.getBlockLookingat2((EntityPlayer) placer, pos);
+
+
+                    if (rt1 != null) {
+                        if (GTCXWrenchUtils.arePosEqual(rt1.getBlockPos(), pos.offset(facing, 1))) lookingAt = true;
+                    }
+                    if (rt2 != null) {
+                        if (GTCXWrenchUtils.arePosEqual(rt2.getBlockPos(), pos.offset(facing, 1))) lookingAt = true;
+                    }
+
+                    if (lookingAt){
+                        TileEntity offset = worldIn.getTileEntity(pos.offset(facing));
+                        if (offset instanceof GTCXTileBasePipe && pipe.canConnect(offset, facing)){
+                            pipe.addConnection(facing);
+                            ((GTCXTileBasePipe)offset).addConnection(facing.getOpposite());
+                        }
+                    }
+                }
+            }
         }
     }
 
