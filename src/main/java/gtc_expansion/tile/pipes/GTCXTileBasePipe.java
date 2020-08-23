@@ -113,7 +113,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
 
     @Override
     public boolean canRemoveBlock(EntityPlayer player) {
-        return true;
+        return player.isSneaking();
     }
 
     @Override
@@ -146,7 +146,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     public void onBlockUpdate(Block block) {
         super.onBlockUpdate(block);
         if (!this.isRendering()) {
-            RotationList newList = RotationList.EMPTY;
+            /*RotationList newList = RotationList.EMPTY;
             EnumFacing[] facings = EnumFacing.VALUES;
             int length = facings.length;
             for (int i = 0; i < length; ++i) {
@@ -159,7 +159,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
             if (this.connection.getCode() != newList.getCode()) {
                 this.connection = newList;
                 this.getNetwork().updateTileEntityField(this, "connection");
-            }
+            }*/
         }
     }
 
@@ -179,6 +179,18 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         this.anchors = this.anchors.add(facing);
         updateConnections();
         this.getNetwork().updateTileEntityField(this, "storage");
+    }
+
+    public void addConnection(EnumFacing facing){
+        this.connection = connection.add(facing);
+        updateConnections();
+        this.getNetwork().updateTileEntityField(this, "connection");
+    }
+
+    public void removeConnection(EnumFacing facing){
+        this.connection = connection.remove(facing);
+        updateConnections();
+        this.getNetwork().updateTileEntityField(this, "connection");
     }
 
     public void removeCover(EnumFacing facing){
@@ -204,7 +216,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
 
     @Override
     public boolean isColored() {
-        return this.color != 16383998;
+        return this.color != 16383998 && this.color != material.getColor().getRGB();
     }
 
     @Override

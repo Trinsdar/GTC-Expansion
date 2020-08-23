@@ -37,6 +37,8 @@ public class GTCExpansion {
 	public static GTCExpansion instance;
 	public static Logger logger;
 
+	public int counter = 0;
+
 	static {
 		GTCXMaterial.initMaterials();
 	}
