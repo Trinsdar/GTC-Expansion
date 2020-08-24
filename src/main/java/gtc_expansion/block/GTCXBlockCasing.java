@@ -64,9 +64,6 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing enumFacing) {
-        if (enumFacing == state.getValue(allFacings) && state.getValue(rotor) > 0 && (this == GTCXBlocks.casingStandard || this == GTCXBlocks.casingReinforced)){
-            return  getTextureFromRotor(state.getValue(active), state.getValue(rotor));
-        }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
         //return Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 16) + getIndexes(enumFacing, state)];
     }
@@ -108,35 +105,14 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
         return new TextureAtlasSprite[0];
     }
 
-    public TextureAtlasSprite getTextureFromRotor(boolean active, int rotor){
-        String activeTexture = active ? "active_" : "";
-        String steam = this == GTCXBlocks.casingStandard ? "steam" : "gas";
-        String location = getLocation(rotor);
-        return Ic2Icons.getTextures(steam + "_turbine_front_" + activeTexture + location)[0];
-    }
-
-    public String getLocation(int rotor){
-        switch (rotor){
-            case 1: return  "top_left";
-            case 2: return  "top";
-            case 3: return  "top_right";
-            case 4: return  "left";
-            case 5: return  "right";
-            case 6: return  "bottom_left";
-            case 7: return  "bottom";
-            case 8: return  "bottom_right";
-            default: return "";
-        }
-    }
-
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainerIC2(this, rotor, allFacings, active);
+        return new BlockStateContainerIC2(this, allFacings, active);
     }
 
     @Override
     public IBlockState getDefaultBlockState() {
-        return this.getDefaultState().withProperty(rotor, 0).withProperty(active, false).withProperty(allFacings, NORTH);
+        return this.getDefaultState().withProperty(active, false).withProperty(allFacings, NORTH);
     }
 
     @Override
@@ -147,11 +123,9 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
         int facingsLength = facings.length;
 
         for(int i = 0; i < facingsLength; ++i) {
-            for (int j = 0; j < 9; j++){
-                EnumFacing side = facings[i];
-                states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(rotor, j));
-                states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(rotor, j));
-            }
+            EnumFacing side = facings[i];
+            states.add(def.withProperty(allFacings, side).withProperty(active, false));
+            states.add(def.withProperty(allFacings, side).withProperty(active, true));
         }
 
         return states;
@@ -167,13 +141,13 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
                 state = state.withProperty(allFacings, NORTH);
             }
 
-            return state.withProperty(active, block.getActive()).withProperty(rotor, block.getRotor());
+            return state.withProperty(active, block.getActive());
         } else {
             if (this.hasFacing()) {
                 state = state.withProperty(allFacings, NORTH);
             }
 
-            return state.withProperty(active, false).withProperty(rotor, 0);
+            return state.withProperty(active, false);
         }
     }
 
@@ -183,7 +157,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof GTCXTileCasing) {
                 GTCXTileCasing casing = (GTCXTileCasing)tile;
-                return new BlockStateContainerIC2.IC2BlockState(state, casing.getConfig());
+                return new BlockStateContainerIC2.IC2BlockState(state, new GTCXBlockCasing.IntWrapper(casing.getConfig(), casing.getRotor()));
             }
         } catch (Exception e) {
             GTCExpansion.logger.info("IC2BlockState Failed");
@@ -249,5 +223,22 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
             return super.canEntityDestroy(state, world, pos, entity);
         }
         return super.canEntityDestroy(state, world, pos, entity);
+    }
+
+    public static class IntWrapper{
+        int first;
+        int second;
+        public IntWrapper(int first, int second){
+            this.first = first;
+            this.second = second;
+        }
+
+        public int getFirst() {
+            return first;
+        }
+
+        public int getSecond() {
+            return second;
+        }
     }
 }

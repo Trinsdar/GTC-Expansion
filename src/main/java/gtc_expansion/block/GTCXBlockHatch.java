@@ -3,7 +3,7 @@ package gtc_expansion.block;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
-import gtc_expansion.model.GTCXModelCasing;
+import gtc_expansion.model.GTCXModelHatch;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
@@ -75,7 +75,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ICustomModeledBloc
     @SideOnly(Side.CLIENT)
     @Override
     public BaseModel getModelFromState(IBlockState state) {
-        return new GTCXModelCasing(this, state, state.getValue(casing) - 1);
+        return new GTCXModelHatch(this, state);
     }
 
     @Override
@@ -119,12 +119,12 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ICustomModeledBloc
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainerIC2(this, casing, allFacings, active);
+        return new BlockStateContainerIC2(this, allFacings, active);
     }
 
     @Override
     public IBlockState getDefaultBlockState() {
-        return this.getDefaultState().withProperty(casing, 0).withProperty(active, false).withProperty(allFacings, EnumFacing.NORTH);
+        return this.getDefaultState().withProperty(active, false).withProperty(allFacings, EnumFacing.NORTH);
     }
 
     @Override
@@ -135,11 +135,9 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ICustomModeledBloc
         int facingsLength = facings.length;
 
         for(int i = 0; i < facingsLength; ++i) {
-            for (int j = 0; j < 4; j++){
-                EnumFacing side = facings[i];
-                states.add(def.withProperty(allFacings, side).withProperty(active, false).withProperty(casing, j));
-                states.add(def.withProperty(allFacings, side).withProperty(active, true).withProperty(casing, j));
-            }
+            EnumFacing side = facings[i];
+            states.add(def.withProperty(allFacings, side).withProperty(active, false));
+            states.add(def.withProperty(allFacings, side).withProperty(active, true));
         }
 
         return states;
@@ -153,13 +151,13 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ICustomModeledBloc
                 state = state.withProperty(allFacings, block.getFacing());
             }
 
-            return state.withProperty(active, block.getActive()).withProperty(casing, block.getCasing());
+            return state.withProperty(active, block.getActive());
         } else {
             if (this.hasFacing()) {
                 state = state.withProperty(allFacings, EnumFacing.NORTH);
             }
 
-            return state.withProperty(active, false).withProperty(casing, 0);
+            return state.withProperty(active, false);
         }
     }
 
@@ -169,7 +167,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ICustomModeledBloc
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof IGTCasingBackgroundBlock) {
                 IGTCasingBackgroundBlock casing = (IGTCasingBackgroundBlock)tile;
-                return new BlockStateContainerIC2.IC2BlockState(state, casing.getConfig());
+                return new BlockStateContainerIC2.IC2BlockState(state, new GTCXBlockCasing.IntWrapper(casing.getConfig(), casing.getCasing()));
             }
         } catch (Exception e) {
             GTCExpansion.logger.info("IC2BlockState Failed");

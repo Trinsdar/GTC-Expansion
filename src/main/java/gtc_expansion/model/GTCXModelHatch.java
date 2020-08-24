@@ -30,31 +30,27 @@ import java.util.List;
 
 import static net.minecraft.util.EnumFacing.*;
 
-public class GTCXModelCasing extends BaseModel {
+public class GTCXModelHatch extends BaseModel {
 
     List<BakedQuad>[][][] quads;
-    List<BakedQuad>[][][] quadsActive;
     ITexturedBlock block;
     IBlockState meta;
-    int index;
 
-    public GTCXModelCasing(ITexturedBlock model, IBlockState state, int index) {
+    public GTCXModelHatch(ITexturedBlock model, IBlockState state) {
         super(Ic2Models.getBlockTransforms());
         this.block = model;
         this.meta = state;
-        this.index = index;
     }
 
     public void init() {
-        this.quads = this.createTripleList(9,7, 64);
-        this.quadsActive = this.createTripleList(9, 7, 64);
+        this.quads = this.createTripleList(4,7, 64);
         this.setParticalTexture(this.block.getParticleTexture(this.meta));
         boolean color = this.block instanceof IGTColorBlock;
         EnumFacing blockFacing = EnumFacing.NORTH;
         ModelRotation rotation = ModelRotation.X0_Y0;
         for (int i = 0; i < 2; ++i) {
             for (int j = 0; j < 64; j++){
-                for (int k = 0; k < 9; k++){
+                for (int k = 0; k < 4; k++){
                     AxisAlignedBB box = this.block.getRenderBoundingBox(this.meta);
                     ModelRotation sideRotation;
                     BlockPartFace face;
@@ -63,46 +59,23 @@ public class GTCXModelCasing extends BaseModel {
                         sideRotation = this.getRotation(blockFacing, facing, rotation);
                         face = this.createBlockFace(facing, i, color);
                         if (i == 0){
-                            sprite =  Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 16) + getIndexes(facing, j)];
+                            if (k == 0){
+                                int index = facing == DOWN ? 0 : facing == UP ? 1 : 2;
+                                sprite = Ic2Icons.getTextures("gtclassic_terrain")[index];
+                            } else {
+                                sprite =  Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[((k - 1) * 16) + getIndexes(facing, j)];
+                            }
                         } else {
-                            sprite = meta.getValue(GTCXBlockCasing.allFacings) == blockFacing && this.index < 2 && k > 0 ? this.getTextureFromRotor(meta.getValue(GTCXBlockCasing.active), k) : this.block.getTextureFromState(this.meta, facing);
+                            sprite = this.block.getTextureFromState(this.meta, facing);
                         }
 
                         if (sprite != null) {
-                            if (meta.getValue(GTCXBlockCasing.active)){
-                                this.quadsActive[k][facing.getIndex()][j].add(this.getBakery().makeBakedQuad(this.getMinBox(facing, box), this.getMaxBox(facing, box), face, sprite, facing, sideRotation, (BlockPartRotation) null, false, true));
-                            } else {
-                                this.quads[k][facing.getIndex()][j].add(this.getBakery().makeBakedQuad(this.getMinBox(facing, box), this.getMaxBox(facing, box), face, sprite, facing, sideRotation, (BlockPartRotation) null, false, true));
-                            }
+                            this.quads[k][facing.getIndex()][j].add(this.getBakery().makeBakedQuad(this.getMinBox(facing, box), this.getMaxBox(facing, box), face, sprite, facing, sideRotation, (BlockPartRotation) null, false, true));
                         }
                     }
                 }
-
             }
 
-        }
-    }
-
-    public TextureAtlasSprite getTextureFromRotor(boolean active, int rotor){
-        String activeTexture = active ? "active_" : "";
-        String steam = this.index == 0 ? "steam" : "gas";
-        String location = getLocation(rotor);
-        String finals = steam + "_turbine_front_" + activeTexture + location;
-        GTCExpansion.logger.info(finals);
-        return Ic2Icons.getTextures(finals)[0];
-    }
-
-    public String getLocation(int rotor){
-        switch (rotor){
-            case 1: return  "top_left";
-            case 2: return  "top";
-            case 3: return  "top_right";
-            case 4: return  "left";
-            case 5: return  "right";
-            case 6: return  "bottom_left";
-            case 7: return  "bottom";
-            case 8: return  "bottom_right";
-            default: return "";
         }
     }
 
@@ -117,13 +90,13 @@ public class GTCXModelCasing extends BaseModel {
         int index = connectionState.getIndex();
         int[] array;
         if (list.size() == 1){
-            positive = (textureFacing.getAxis() == EnumFacing.Axis.X) == positive;
-            array = textureFacing.getAxis() == EnumFacing.Axis.Y ? (!containsAxis(list, EnumFacing.Axis.X) && textureFacing != DOWN ? new int[]{13, 14, 15, 12} : new int[]{15, 14, 13 ,12}) : (!containsAxis(list, EnumFacing.Axis.Y) && !positive ? new int[]{15, 12, 13, 14} : new int[]{15, 14, 13, 12});
+            positive = (textureFacing.getAxis() == Axis.X) == positive;
+            array = textureFacing.getAxis() == Axis.Y ? (!containsAxis(list, Axis.X) && textureFacing != DOWN ? new int[]{13, 14, 15, 12} : new int[]{15, 14, 13 ,12}) : (!containsAxis(list, Axis.Y) && !positive ? new int[]{15, 12, 13, 14} : new int[]{15, 14, 13, 12});
             return array[index];
         }
         if (list.size() == 2){
             if (isOpposites(list)){
-                offset = (textureFacing.getAxis() == EnumFacing.Axis.Y && containsAxis(list, EnumFacing.Axis.Z)) || containsAxis(list, EnumFacing.Axis.Y) ? 1 : 0;
+                offset = (textureFacing.getAxis() == Axis.Y && containsAxis(list, Axis.Z)) || containsAxis(list, Axis.Y) ? 1 : 0;
                 return index + offset;
             }
 //            positive = (textureFacing.getAxis() == Axis.X) == positive;
@@ -149,7 +122,7 @@ public class GTCXModelCasing extends BaseModel {
         return list.contains(RotationList.VERTICAL) || list.contains(RotationList.X_AXIS) || list.contains(RotationList.Z_AXIS);
     }
 
-    protected boolean containsAxis(RotationList list, EnumFacing.Axis axis){
+    protected boolean containsAxis(RotationList list, Axis axis){
         switch (axis){
             case X: return list.contains(EAST) || list.contains(WEST);
             case Z: return list.contains(NORTH) || list.contains(SOUTH);
@@ -213,7 +186,7 @@ public class GTCXModelCasing extends BaseModel {
         if (facing.getAxis().isHorizontal() && side.getAxis().isVertical()) {
             return defaultRotation;
         } else {
-            return facing.getAxis().isVertical() && side.getAxis() == EnumFacing.Axis.X ? defaultRotation : ModelRotation.X0_Y0;
+            return facing.getAxis().isVertical() && side.getAxis() == Axis.X ? defaultRotation : ModelRotation.X0_Y0;
         }
     }
 
@@ -231,7 +204,7 @@ public class GTCXModelCasing extends BaseModel {
             i = wrapper.getFirst();
             j = wrapper.getSecond();
         }
-        return state != null && state.getValue(GTCXBlockCasing.active) ? this.quadsActive[j][side == null ? 6 : side.getIndex()][i] : this.quads[j][side == null ? 6 : side.getIndex()][i];
+        return this.quads[j][side == null ? 6 : side.getIndex()][i];
     }
 
     @Override

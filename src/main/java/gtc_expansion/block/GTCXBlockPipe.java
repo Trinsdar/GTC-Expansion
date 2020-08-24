@@ -2,6 +2,7 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.interfaces.IGTCoverBlock;
+import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.model.GTCXModelPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
@@ -36,8 +37,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -46,6 +49,7 @@ import java.util.List;
 public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, IGTColorBlock {
     GTMaterial material;
     GTCXHelperPipe.GTPipeModel type;
+    boolean item;
     public GTCXBlockPipe(String name, GTMaterial material, GTCXHelperPipe.GTPipeModel type){
         super();
         setUnlocalizedName(GTCExpansion.MODID + "." + name);
@@ -55,6 +59,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
         setCreativeTab(GTMod.creativeTabGT);
         this.material = material;
         this.type = type;
+        this.item = material.equals(GTCXMaterial.Brass);
     }
 
     @SideOnly(Side.CLIENT)
@@ -149,6 +154,8 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
                         if (offset instanceof GTCXTileBasePipe && pipe.canConnect(offset, facing)){
                             pipe.addConnection(facing);
                             ((GTCXTileBasePipe)offset).addConnection(facing.getOpposite());
+                        } else if (offset != null && ((item && offset.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) || (!item && offset.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing.getOpposite())))){
+                            pipe.addConnection(facing);
                         }
                     }
                 }

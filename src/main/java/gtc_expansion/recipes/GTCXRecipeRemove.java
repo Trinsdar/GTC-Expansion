@@ -55,6 +55,7 @@ public class GTCXRecipeRemove {
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreQuartz"));
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreRuby"));
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreSapphire"));
+        ClassicRecipes.macerator.removeRecipe(new RecipeInputOreDict("stoneMarble"));
     }
 
     public static void initCentrifugeRemoval(){

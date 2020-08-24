@@ -81,6 +81,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
             this.color = 16383998;
         }
         this.model = GTCXHelperPipe.GTPipeModel.values()[nbt.getInteger("model")];
+        this.material = this.getMaterialFromInt(nbt.getInteger("material"));
 
     }
 
@@ -92,7 +93,45 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         nbt.setByte("Connection", (byte)this.connection.getCode());
         this.storage.writeToNBT(this.getTag(nbt, "Storage"));
         nbt.setInteger("model", model.ordinal());
+        nbt.setInteger("material", this.getIntFromMaterial(this.material));
         return nbt;
+    }
+
+    private GTMaterial getMaterialFromInt(int material){
+        switch (material){
+            case 1: return GTCXMaterial.Steel;
+            case 2: return GTCXMaterial.StainlessSteel;
+            case 3: return GTCXMaterial.TungstenSteel;
+            case 4: return GTCXMaterial.Brass;
+            case 5: return GTMaterial.Electrum;
+            case 6: return GTMaterial.Platinum;
+            default: return GTCXMaterial.Bronze;
+        }
+    }
+
+    private int getIntFromMaterial(GTMaterial material){
+        if (material.equals(GTCXMaterial.Bronze)){
+            return 0;
+        }
+        if (material.equals(GTCXMaterial.Steel)){
+            return 1;
+        }
+        if (material.equals(GTCXMaterial.StainlessSteel)){
+            return 2;
+        }
+        if (material.equals(GTCXMaterial.TungstenSteel)){
+            return 3;
+        }
+        if (material.equals(GTCXMaterial.Brass)){
+            return 4;
+        }
+        if (material.equals(GTMaterial.Electrum)){
+            return 5;
+        }
+        if (material.equals(GTMaterial.Platinum)){
+            return 6;
+        }
+        return 0;
     }
 
     @Override
@@ -266,6 +305,18 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
             }
             if (anchors.contains(facing)){
                 map.put("Anchors has facing " + facing.getName(), true);
+            }
+        }
+    }
+
+    @Override
+    public void onBlockBreak() {
+        super.onBlockBreak();
+        for (EnumFacing facing : EnumFacing.values()){
+            BlockPos offset = this.getPos().offset(facing);
+            TileEntity offsetTile = this.getWorld().getTileEntity(offset);
+            if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.contains(facing.getOpposite())){
+                ((GTCXTileBasePipe)offsetTile).removeConnection(facing.getOpposite());
             }
         }
     }
