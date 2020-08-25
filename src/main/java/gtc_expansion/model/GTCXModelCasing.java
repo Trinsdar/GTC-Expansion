@@ -33,7 +33,6 @@ import static net.minecraft.util.EnumFacing.*;
 public class GTCXModelCasing extends BaseModel {
 
     List<BakedQuad>[][][] quads;
-    List<BakedQuad>[][][] quadsActive;
     ITexturedBlock block;
     IBlockState meta;
     int index;
@@ -47,7 +46,6 @@ public class GTCXModelCasing extends BaseModel {
 
     public void init() {
         this.quads = this.createTripleList(9,7, 64);
-        this.quadsActive = this.createTripleList(9, 7, 64);
         this.setParticalTexture(this.block.getParticleTexture(this.meta));
         boolean color = this.block instanceof IGTColorBlock;
         EnumFacing blockFacing = EnumFacing.NORTH;
@@ -65,19 +63,14 @@ public class GTCXModelCasing extends BaseModel {
                         if (i == 0){
                             sprite =  Ic2Icons.getTextures(GTCExpansion.MODID + "_connected_blocks")[(this.index * 16) + getIndexes(facing, j)];
                         } else {
-                            sprite = meta.getValue(GTCXBlockCasing.allFacings) == blockFacing && this.index < 2 && k > 0 ? this.getTextureFromRotor(meta.getValue(GTCXBlockCasing.active), k) : this.block.getTextureFromState(this.meta, facing);
+                            sprite = meta.getValue(GTCXBlockCasing.allFacings) == facing && this.index < 2 && k > 0 ? this.getTextureFromRotor(meta.getValue(GTCXBlockCasing.active), k) : this.block.getTextureFromState(this.meta, facing);
                         }
 
                         if (sprite != null) {
-                            if (meta.getValue(GTCXBlockCasing.active)){
-                                this.quadsActive[k][facing.getIndex()][j].add(this.getBakery().makeBakedQuad(this.getMinBox(facing, box), this.getMaxBox(facing, box), face, sprite, facing, sideRotation, (BlockPartRotation) null, false, true));
-                            } else {
-                                this.quads[k][facing.getIndex()][j].add(this.getBakery().makeBakedQuad(this.getMinBox(facing, box), this.getMaxBox(facing, box), face, sprite, facing, sideRotation, (BlockPartRotation) null, false, true));
-                            }
+                            this.quads[k][facing.getIndex()][j].add(this.getBakery().makeBakedQuad(this.getMinBox(facing, box), this.getMaxBox(facing, box), face, sprite, facing, sideRotation, (BlockPartRotation) null, false, true));
                         }
                     }
                 }
-
             }
 
         }
@@ -88,7 +81,6 @@ public class GTCXModelCasing extends BaseModel {
         String steam = this.index == 0 ? "steam" : "gas";
         String location = getLocation(rotor);
         String finals = steam + "_turbine_front_" + activeTexture + location;
-        GTCExpansion.logger.info(finals);
         return Ic2Icons.getTextures(finals)[0];
     }
 
@@ -222,8 +214,6 @@ public class GTCXModelCasing extends BaseModel {
         int i;
         int j;
         if (!(state instanceof BlockStateContainerIC2.IC2BlockState)) {
-            // if its in jei/creative tab it will default to the int passed below, 12 =
-            // (4+8) (north+south)
             i = 0;
             j = 0;
         } else {
@@ -231,7 +221,7 @@ public class GTCXModelCasing extends BaseModel {
             i = wrapper.getFirst();
             j = wrapper.getSecond();
         }
-        return state != null && state.getValue(GTCXBlockCasing.active) ? this.quadsActive[j][side == null ? 6 : side.getIndex()][i] : this.quads[j][side == null ? 6 : side.getIndex()][i];
+        return this.quads[j][side == null ? 6 : side.getIndex()][i];
     }
 
     @Override
