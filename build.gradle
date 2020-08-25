@@ -58,6 +58,10 @@ repositories{
         name = "jared"
         url = "https://maven.blamejared.com"
     }
+    maven { // CCL, CCC, NEI
+        name 'Chickenbones Repo'
+        url 'http://chickenbones.net/maven/'
+    }
     maven {
         name = "buildcraft"
         url = "http://www.mod-buildcraft.com/maven/"
@@ -79,6 +83,10 @@ dependencies {
     compile "curse.maven:baubles:2518667"
     compile "curse.maven:ic2-classic:2979877"
     compile "curse.maven:railcraft:2687757"
+    compile "curse.maven:better-pipes:3040960"
+    deobfCompile ("codechicken:CodeChickenLib:${mc_version}-3.2.2.353:universal") {
+        transitive = false
+    }
     deobfCompile(group: 'CraftTweaker2', name: 'ZenScript', version: craft_tweaker_version) {
         exclude group: 'org.ow2.asm'
         exclude group: 'com.google.code.gson'

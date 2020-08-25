@@ -1,5 +1,6 @@
 package gtc_expansion.item.tools;
 
+import flyingperson.BetterPipes.IBetterPipesWrench;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.interfaces.IGTOverlayWrench;
 import gtclassic.GTMod;
@@ -10,6 +11,7 @@ import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -17,7 +19,8 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTOverlayWrench {
+@Optional.Interface(iface = "flyingperson.BetterPipes.IBetterPipesWrench", modid = "betterpipes")
+public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTOverlayWrench, IBetterPipesWrench {
 
     GTMaterial material;
 
@@ -80,6 +83,11 @@ public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, 
     @Override
     public boolean canBeUsed(ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public boolean canBeUsed(ItemStack stack, EntityPlayer player) {
+        return canBeUsed(stack);
     }
 
     @Override

@@ -33,4 +33,8 @@ public class GTCXIc2cECompat {
     public static boolean isOverridingLossyWrench(){
         return Ic2cExtrasConfig.removeLossyWrenchMechanic;
     }
+
+    public static boolean isForcingLead(){
+        return Ic2cExtrasConfig.requiredLeadUses;
+    }
 }
