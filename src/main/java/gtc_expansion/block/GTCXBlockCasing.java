@@ -2,17 +2,20 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.model.GTCXModelCasing;
-import gtc_expansion.tile.GTCXTileCasing;
+import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeGasTurbine;
+import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
+import gtclassic.api.helpers.int3;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.platform.textures.obj.ICustomModeledBlock;
 import ic2.core.util.helpers.BlockStateContainerIC2;
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -22,7 +25,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.ItemStack;
@@ -46,7 +48,11 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
     public static PropertyInteger config = PropertyInteger.create("config", 0, 63);
     int index;
     public GTCXBlockCasing(String name, LocaleComp comp, int index, float resistance) {
-        super(Material.IRON, comp, 0);
+        this(name, comp, index, resistance, Material.IRON);
+    }
+
+    public GTCXBlockCasing(String name, LocaleComp comp, int index, float resistance, Material material) {
+        super(material, comp, 0);
         setRegistryName(name.toLowerCase());
         this.setCreativeTab(GTMod.creativeTabGT);
         this.setSoundType(SoundType.METAL);
@@ -54,6 +60,11 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
         this.setHardness(3.0F);
         this.setHarvestLevel("pickaxe", 2);
         this.index = index;
+    }
+
+    @Override
+    public GTCXBlockCasing setSoundType(SoundType sound) {
+        return (GTCXBlockCasing) super.setSoundType(sound);
     }
 
     @Override
@@ -87,7 +98,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
     @SideOnly(Side.CLIENT)
     @Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT_MIPPED;
+        return this == GTCXBlocks.pureGlass ? BlockRenderLayer.CUTOUT : BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @Override
@@ -97,7 +108,7 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
 
     @Override
     public TileEntityBlock createNewTileEntity(World world, int i) {
-        return new GTCXTileCasing();
+        return null;
     }
 
     @Override
@@ -133,38 +144,107 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
 
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        GTCXTileCasing block = (GTCXTileCasing)worldIn.getTileEntity(pos);
-        if (block != null) {
-            if (this.hasFacing()) {
-                state = state.withProperty(allFacings, block.getFacing());
-            } else {
-                state = state.withProperty(allFacings, NORTH);
-            }
-
-            return state.withProperty(active, block.getActive());
-        } else {
-            if (this.hasFacing()) {
-                state = state.withProperty(allFacings, NORTH);
-            }
-
-            return state.withProperty(active, false);
-        }
+        return state;
     }
 
     @Override
     public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
         try {
-            TileEntity tile = world.getTileEntity(pos);
-            if (tile instanceof GTCXTileCasing) {
-                GTCXTileCasing casing = (GTCXTileCasing)tile;
-                return new BlockStateContainerIC2.IC2BlockState(state, new GTCXBlockCasing.IntWrapper(casing.getConfig(), casing.getRotor()));
+            int config = 0;
+            for (EnumFacing facing : EnumFacing.values()){
+                boolean hasBlock = world.getBlockState(pos.offset(facing)).getBlock() == this || isHatchWithCasing(pos.offset(facing), world);
+                if (hasBlock){
+                    config += 1 << facing.getIndex();
+                }
             }
+            int rotor = this.getRotors(state, world, pos);
+            return new BlockStateContainerIC2.IC2BlockState(state, new GTCXBlockCasing.IntWrapper(config, rotor));
         } catch (Exception e) {
             GTCExpansion.logger.info("IC2BlockState Failed");
             e.printStackTrace();
         }
 
         return super.getExtendedState(state, world, pos);
+    }
+
+    public boolean isHatchWithCasing(BlockPos pos, IBlockAccess world){
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IGTCasingBackgroundBlock){
+            return GTCXTileEnergyOutputHatch.fromCasing(((IGTCasingBackgroundBlock)tile).getCasing()) == this;
+        }
+        return false;
+    }
+
+    public int getRotors(IBlockState state, IBlockAccess world, BlockPos pos){
+        EnumFacing facing = state.getValue(allFacings);
+        int rotor = 0;
+        if (this == GTCXBlocks.casingStandard && facing.getHorizontalIndex() != -1){
+            int3 original = new int3(pos, facing);
+            int3 dir = new int3(pos, facing);
+            if (world.getTileEntity(dir.up(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 8;
+            } else if (world.getTileEntity(dir.set(original).up(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 7;
+            } else if (world.getTileEntity(dir.set(original).up(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 6;
+            } else if (world.getTileEntity(dir.set(original).left(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 5;
+            } else if (world.getTileEntity(dir.set(original).right(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 4;
+            } else if (world.getTileEntity(dir.set(original).down(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 3;
+            } else if (world.getTileEntity(dir.set(original).down(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 2;
+            } else if (world.getTileEntity(dir.set(original).down(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeSteamTurbine){
+                rotor = 1;
+            } else {
+                rotor = 0;
+            }
+        }
+        if (this == GTCXBlocks.casingReinforced && facing.getHorizontalIndex() != -1){
+            int3 original = new int3(pos, facing);
+            int3 dir = new int3(pos, facing);
+            if (world.getTileEntity(dir.up(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 8;
+            } else if (world.getTileEntity(dir.set(original).up(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 7;
+            } else if (world.getTileEntity(dir.set(original).up(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 6;
+            } else if (world.getTileEntity(dir.set(original).left(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 5;
+            } else if (world.getTileEntity(dir.set(original).right(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 4;
+            } else if (world.getTileEntity(dir.set(original).down(1).left(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 3;
+            } else if (world.getTileEntity(dir.set(original).down(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 2;
+            } else if (world.getTileEntity(dir.set(original).down(1).right(1).asBlockPos()) instanceof GTCXTileMultiLargeGasTurbine){
+                rotor = 1;
+            } else {
+                rotor = 0;
+            }
+        }
+        return rotor;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return this != GTCXBlocks.pureGlass;
+    }
+
+    @Override
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        return this != GTCXBlocks.pureGlass;
+    }
+
+    @Override
+    public boolean causesSuffocation(IBlockState state) {
+        return this != GTCXBlocks.pureGlass;
+    }
+
+    @Override
+    public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return this != GTCXBlocks.pureGlass;
     }
 
     @Override
@@ -182,36 +262,6 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
         List<ItemStack> list = new ArrayList();
         list.add(new ItemStack(this));
         return list;
-    }
-
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof GTCXTileCasing){
-            ((GTCXTileCasing)tile).setNeighborMap(this);
-            if (this == GTCXBlocks.casingStandard){
-                ((GTCXTileCasing)tile).setRotor(this);
-            }
-        }
-    }
-
-    @Override
-    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
-        super.onNeighborChange(world, pos, neighbor);
-        TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof GTCXTileCasing){
-            ((GTCXTileCasing)tile).setNeighborMap(this);
-        }
-    }
-
-    @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-        TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof GTCXTileCasing){
-            ((GTCXTileCasing)tile).setNeighborMap(this);
-        }
     }
 
     @Override

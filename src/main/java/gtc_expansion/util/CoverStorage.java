@@ -1,5 +1,6 @@
 package gtc_expansion.util;
 
+import gtc_expansion.logic.GTCXBaseCoverLogic;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import ic2.api.classic.event.RetextureEventClassic;
 import ic2.api.classic.network.INetworkFieldData;
@@ -15,8 +16,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class CoverStorage implements INetworkFieldData {
     TextureCopyEntry[] entries;
+    Map<EnumFacing, GTCXBaseCoverLogic> coverLogicMap = new LinkedHashMap<>();
     GTCXTileBasePipe owner;
     public CoverStorage(GTCXTileBasePipe owner){
         this.owner = owner;

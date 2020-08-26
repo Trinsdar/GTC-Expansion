@@ -88,6 +88,7 @@ tile.gtc_expansion.fire_clay_block.name=Fire Clay
 tile.gtc_expansion.fire_brick_block.name=Fire Bricks
 tile.gtc_expansion.iridium_tungstensteel_block.name=Iridium Reinforced Tungstensteel Block
 tile.gtc_expansion.tungstensteel_reinforced_stone.name=Tungstensteel Reinforced Stone
+tile.gtc_expansion.pure_glass.name=Pure Glass
 tile.gtc_expansion.electrumcable.name=Electrum Cable
 tile.gtc_expansion.electrumcableinsulated1.name=Insulated Electrum Cable
 tile.gtc_expansion.electrumcableinsulated2.name=2xInsulated Electrum Cable
@@ -211,6 +212,7 @@ item.gtclassic.dustsmallNeodymium.name=Small Neodymium Dust
 item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 item.gtclassic.dustsmallTechnetium.name=Small Technetium Dust
 item.gtclassic.dustsmallChromite.name=Small Chromite Dust
+item.gtclassic.dustsmallSiliconDioxide.name=Small Silicon Dioxide Dust
 
 #dust
 item.gtclassic.dustKanthal.name=Kanthal Dust
@@ -266,6 +268,7 @@ item.gtclassic.dustNichrome.name=Nichrome Dust
 item.gtclassic.dustUvarovite.name=Uvarovite Dust
 item.gtclassic.dustChromite.name=Chromite Dust
 item.gtclassic.dustCassiterite.name=Cassiterite Dust
+item.gtclassic.dustSiliconDioxide.name=Silicon Dioxide Dust
 
 #gems
 item.gtclassic.gemGreenSapphire.name=Green Sapphire

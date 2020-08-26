@@ -245,6 +245,7 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 
 		/* Silicon **/
 		addRecipe(new IRecipeInput[]{input("dustSilicon", 1)}, 1000, COST_MED, GTMaterialGen.getIngot(GTMaterial.Silicon, 1));
+		addRecipe(new IRecipeInput[]{input("dustSiliconDioxide", 1)}, 2000, COST_MED, GTMaterialGen.get(GTCXBlocks.pureGlass, 1));
 	}
 
 	public static int getRequiredHeat(MachineOutput output) {

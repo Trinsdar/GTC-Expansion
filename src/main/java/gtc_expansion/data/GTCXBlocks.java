@@ -135,6 +135,7 @@ public class GTCXBlocks {
     public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", GTCXLang.FIRE_BRICK_BLOCK, "pickaxe", 1, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
     public static final GTCXBlockCasing iridiumTungstensteelBlock = registerBlock(new GTCXBlockCasing("iridium_tungstensteel_block", GTCXLang.IRIDIUM_TUNGSTENSTEEL_BLOCK, 4, 2000.0F).setHardness(50.0F));
     public static final GTCXBlockCasing tungstensteelReinforcedStone = registerBlock(new GTCXBlockCasing("tungstensteel_reinforced_stone", GTCXLang.TUNGSTENSTEEL_REINFORCED_STONE, 3, 300F).setHardness(25F));
+    public static final GTCXBlockCasing pureGlass = registerBlock(new GTCXBlockCasing("pure_glass", GTCXLang.PURE_GLASS, 5, 1F, Material.GLASS).setSoundType(SoundType.GLASS).setHardness(0.5F));
 
     public static final GTCXBlockOre orePyrite = registerBlock(new GTCXBlockOre("pyrite", 16, 2.0F, 1));
     public static final GTCXBlockOre oreCinnabar = registerBlock(new GTCXBlockOre("cinnabar", 17, 3.0F, 2));

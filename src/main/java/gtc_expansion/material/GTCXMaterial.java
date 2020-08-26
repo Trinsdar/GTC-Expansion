@@ -107,6 +107,7 @@ public class GTCXMaterial {
     public static final GTMaterial Redstone = new GTMaterial("Redstone", 200, 0, 0, smalldust, tinydust);
     public static final GTMaterial RefinedIron = setHeat(new GTMaterial("RefinedIron", 1, 220, 235, 235, stick, plate, gear, hull, molten), 2011);
     public static final GTMaterial Saltpeter = new GTMaterial("Saltpeter", 230, 230, 230, dustAll);
+    public static final GTMaterial SiliconDioxide = new GTMaterial("SiliconDioxide", 250, 250, 250, dustAll);
     public static final GTMaterial Silver = setHeat(new GTMaterial("Silver", 215, 225, 230, molten, smalldust, nugget, plate, stick, gear, crushedore, crushedorePurified, tinydust), 1234);
     public static final GTMaterial Slag = new GTMaterial("Slag", 64, 48, 0, dustAll);
     public static final GTMaterial SodiumPersulfate = new GTMaterial("SodiumPersulfate", 0, 102, 70, fluid);

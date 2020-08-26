@@ -45,5 +45,6 @@ public class GTCXOreDict {
         OreDictionary.registerOre("energyCrystal", new ItemStack(GTCXItems.largeSodiumBattery, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("plateWood", GTCXItems.woodPlate);
         OreDictionary.registerOre("plankWood", GTCXItems.woodPlate);
+        OreDictionary.registerOre("blockGlass", GTCXBlocks.pureGlass);
     }
 }

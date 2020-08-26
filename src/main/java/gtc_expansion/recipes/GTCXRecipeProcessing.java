@@ -85,6 +85,7 @@ public class GTCXRecipeProcessing {
         //TileEntityMacerator.addRecipe(GTRecipeCraftingHandler.combineRecipeObjects(GTMaterialGen.get(GTCXItems.mold), GTMaterialGen.get(GTCXItems.moldBlock), GTMaterialGen.get(GTCXItems.moldCasing), GTMaterialGen.get(GTCXItems.moldCell), GTMaterialGen.get(GTCXItems.moldGear), GTMaterialGen.get(GTCXItems.moldIngot), GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.get(GTCXItems.moldNugget), GTMaterialGen.get(GTCXItems.moldPlate), GTMaterialGen.get(GTCXItems.moldRod), GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.get(GTCXItems.moldWire)), GTMaterialGen.getDust(GTCXMaterial.Steel, 4));
         GTRecipe.maceratorUtil("oreSodalite", 1, GTMaterialGen.getDust(GTMaterial.Sodalite, 12));
         GTRecipe.maceratorUtil("gemDiamond", 1, GTMaterialGen.getDust(GTCXMaterial.Diamond, 1));
+        GTRecipe.maceratorUtil("blockGlass", 1, GTMaterialGen.getDust(GTCXMaterial.SiliconDioxide, 1));
         if (GTCXConfiguration.general.usePlates && (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras)){
             TileEntityCompressor.addRecipe("plateCopper", 8, Ic2Items.denseCopperPlate);
         }

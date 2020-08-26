@@ -190,7 +190,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     @Override
     public void onBlockBreak() {
-        removeRing(new int3(getPos(), getFacing()));
         if (controlHatch != null){
             controlHatch.setOwner(null);
         }
@@ -603,17 +602,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return inputs >= 1;
     }
 
-    public void removeRing(int3 dir){
-        removeStandardCasingWithSpecial(dir.up(1));
-        removeStandardCasingWithSpecial(dir.right(1));
-        removeStandardCasingWithSpecial(dir.down(1));
-        removeStandardCasingWithSpecial(dir.down(1));
-        removeStandardCasingWithSpecial(dir.left(1));
-        removeStandardCasingWithSpecial(dir.left(1));
-        removeStandardCasingWithSpecial(dir.up(1));
-        removeStandardCasingWithSpecial(dir.up(1));
-    }
-
     public void addRing(){
         int3 dir = new int3(this.pos, this.getFacing());
         setStandardCasingWithSpecial(dir.up(1), 2);
@@ -652,16 +640,6 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 GTCXTileCasing  casing = (GTCXTileCasing) tile;
                 casing.setFacing(this.getFacing());
                 casing.setRotor(position);
-            }
-        }
-    }
-
-    public void removeStandardCasingWithSpecial(int3 pos) {
-        IBlockState state = world.getBlockState(pos.asBlockPos());
-        if (state == standardCasingState){
-            TileEntity tile = world.getTileEntity(pos.asBlockPos());
-            if (tile instanceof GTCXTileCasing){
-                ((GTCXTileCasing) tile).setRotor(0);
             }
         }
     }
@@ -844,7 +822,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     @Override
     public boolean emitsEnergyTo(IEnergyAcceptor iEnergyAcceptor, EnumFacing enumFacing) {
-        return false;
+        return true;
     }
 
     @Override
