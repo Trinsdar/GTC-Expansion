@@ -1,5 +1,6 @@
 package gtc_expansion.tile.multi;
 
+import gtc_expansion.block.GTCXBlockCasing;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbine;
 import gtc_expansion.container.GTCXContainerLargeSteamTurbineHatch;
 import gtc_expansion.data.GTCXBlocks;
@@ -621,12 +622,8 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public boolean isStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            TileEntity tile = world.getTileEntity(pos.asBlockPos());
-            if (tile instanceof GTCXTileCasing){
-                GTCXTileCasing  casing = (GTCXTileCasing) tile;
-                casing.setFacing(this.getFacing());
-                casing.setRotor(position);
-            }
+            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()));
+            this.getNetwork().updateTileEntityField(this, "facing");
             return true;
         }
         return false;
@@ -635,12 +632,8 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public void setStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            TileEntity tile = world.getTileEntity(pos.asBlockPos());
-            if (tile instanceof GTCXTileCasing){
-                GTCXTileCasing  casing = (GTCXTileCasing) tile;
-                casing.setFacing(this.getFacing());
-                casing.setRotor(position);
-            }
+            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()));
+            this.getNetwork().updateTileEntityField(this, "facing");
         }
     }
 
