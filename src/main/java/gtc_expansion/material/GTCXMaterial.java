@@ -155,7 +155,7 @@ public class GTCXMaterial {
         GTMaterial.Pyrite.addFlags(crushedAll);
         GTMaterial.Ruby.addFlags(smalldust);
         GTMaterial.Sapphire.addFlags(smalldust);
-        GTMaterial.Silicon.addFlags(fluid, smalldust, nugget, plate);
+        GTMaterial.Silicon.addFlags(smalldust, nugget, plate);
         GTMaterial.Sodalite.addFlags(smalldust);
         GTMaterial.Sulfur.addFlags(smalldust, tinydust);
         GTMaterial.Technetium.addFlags(smalldust, plate, stick, gear, nugget, molten);
