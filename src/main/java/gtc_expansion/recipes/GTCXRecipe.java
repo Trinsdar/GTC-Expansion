@@ -530,7 +530,7 @@ public class GTCXRecipe {
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockgenerator_234578637");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.blockgenerator_183901657");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.itemglasscable_-410929364");
-        recipes.overrideRecipe("shaped_item.itemglasscable_-542195504", GTMaterialGen.getIc2(Ic2Items.glassFiberCable, 4), "GGG", "RDR", "GGG", 'G', GTCXBlocks.pureGlass, 'R', "dustRedstone", 'D', "gemDiamond");
+        recipes.overrideRecipe("shaped_item.itemglasscable_-542195504", GTMaterialGen.getIc2(Ic2Items.glassFiberCable, 4), "GGG", "RDR", "GGG", 'G', GTCXBlocks.pureGlass, 'R', PRE + "Silver", 'D', GTRecipeCraftingHandler.combineRecipeObjects("gemRuby", "gemSapphire"));
         ItemStack battery = Ic2Items.battery;
         String circuit = CIRCUIT_BASIC;
         String machineBlock = MACHINE_BASIC;
