@@ -622,7 +622,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public boolean isStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()));
+            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()), 2);
             this.getNetwork().updateTileEntityField(this, "facing");
             return true;
         }
@@ -632,7 +632,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     public void setStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
         if (state == standardCasingState){
-            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()));
+            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()), 2);
             this.getNetwork().updateTileEntityField(this, "facing");
         }
     }
