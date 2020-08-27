@@ -1,5 +1,6 @@
 package gtc_expansion.item;
 
+import ic2.api.item.IBoxable;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -13,7 +14,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GTCXItemMatchBox extends GTCXItemDamageable {
+public class GTCXItemMatchBox extends GTCXItemDamageable implements IBoxable {
 
     public GTCXItemMatchBox() {
         super("match_box", 2, 3, 64);
@@ -58,5 +59,10 @@ public class GTCXItemMatchBox extends GTCXItemDamageable {
                 return EnumActionResult.SUCCESS;
             }
         }
+    }
+
+    @Override
+    public boolean canBeStoredInToolbox(ItemStack itemStack) {
+        return true;
     }
 }

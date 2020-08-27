@@ -3,6 +3,7 @@ package gtc_expansion.item;
 import gtc_expansion.tile.wiring.GTCXTileColoredCable;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTItems;
+import ic2.api.item.IBoxable;
 import ic2.core.IC2;
 import ic2.core.block.wiring.tile.TileEntityCable;
 import ic2.core.block.wiring.tile.TileEntityMultipartLuminator;
@@ -18,7 +19,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GTCXItemHardeningSpray extends GTCXItemDamageable {
+public class GTCXItemHardeningSpray extends GTCXItemDamageable implements IBoxable {
 
     public GTCXItemHardeningSpray() {
         super("hardening_spray", 0, 3, 256);
@@ -38,6 +39,10 @@ public class GTCXItemHardeningSpray extends GTCXItemDamageable {
         boolean setFoam = false;
         if (state == Ic2States.constructionFoam){
             world.setBlockState(pos, Ic2States.cfWallWhite);
+            setFoam = true;
+        }
+        if (state == Ic2States.constructionFoamReinforced){
+            world.setBlockState(pos, Ic2States.reinforcedStone);
             setFoam = true;
         }
         if (tile instanceof TileEntityCable){
@@ -70,5 +75,10 @@ public class GTCXItemHardeningSpray extends GTCXItemDamageable {
             return EnumActionResult.SUCCESS;
         }
         return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
+    }
+
+    @Override
+    public boolean canBeStoredInToolbox(ItemStack itemStack) {
+        return true;
     }
 }
