@@ -4,6 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerCentrifuge;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
@@ -436,7 +437,7 @@ public class GTCXTileCentrifuge extends GTTileBaseMachine implements ITankListen
 		GTTileCentrifuge.RECIPE_LIST.startMassChange();
 		List<MultiRecipe> copy = new ArrayList<>(GTTileCentrifuge.RECIPE_LIST.getRecipeList());
 		for (MultiRecipe recipe : copy){
-			if (!recipe.getRecipeID().equals("item.gtclassic.dustUranium")){
+			if (!recipe.getRecipeID().equals("item.gtclassic.dustUranium") && !GTHelperStack.matchOreDict(recipe.getInput(0).getInputs().get(0), "dustUranium")){
 				GTTileCentrifuge.RECIPE_LIST.removeRecipe(recipe.getRecipeID());
 			}
 		}
