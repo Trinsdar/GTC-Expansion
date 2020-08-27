@@ -64,7 +64,7 @@ public class GTCXRecipeIterators {
             createTinyDustRecipe(mat);
             createDustbinTinyDustRecipe(mat);
         }
-        fluidCasterBlacklist.add("silicon");
+        fluidCasterBlacklist.add(GTMaterial.Beryllium.getDisplayName());
         final ItemStack dustGlowstone = new ItemStack(Items.GLOWSTONE_DUST);
         final ItemStack dustGunpowder = new ItemStack(Items.GUNPOWDER);
         final ItemStack dustRedstone = new ItemStack(Items.REDSTONE);

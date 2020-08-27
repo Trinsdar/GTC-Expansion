@@ -527,6 +527,7 @@ public class GTCXTileCentrifuge extends GTTileBaseMachine implements ITankListen
 		addRecipe("dustCinnabar", 4, totalEu(58880), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Sulfur, 2)}, GTMaterialGen.getFluidStack(GTMaterial.Mercury, 2000));
 		addRecipe("dustIridium", 9, totalEu(117760), new ItemStack[]{GTMaterialGen.getDust(GTCXMaterial.Osmium, 1)});
 		addRecipe(GTMaterialGen.get(Blocks.SOUL_SAND, 16), totalEu(12000), new ItemStack[]{GTMaterialGen.get(Blocks.SAND), GTMaterialGen.getDust(GTCXMaterial.Saltpeter, 4), Ic2Items.coalDust}, GTMaterialGen.getFluidStack(GTMaterial.Oil));
+		addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Beryllium), totalEu(1000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Beryllium, 1)});
 	}
 
 	public static void addCustomRecipe(ItemStack stack, FluidStack fluid, IRecipeModifier[] modifiers,
