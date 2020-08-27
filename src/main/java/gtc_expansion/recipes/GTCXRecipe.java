@@ -66,6 +66,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.ArrayList;
@@ -585,7 +586,7 @@ public class GTCXRecipe {
         recipeId = STEEL_MODE ? 1723493281 : -137638623;
         recipes.overrideRecipe("shaped_item.itemtoolhoe_" + recipeId, Ic2Items.electricHoe, "SS ", " C ", " B ", 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.itemtreetapelectric_-1455688385", Ic2Items.electricTreeTap, " B ", "SCS", "T  ", 'T', Ic2Items.treeTap, 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
-        recipes.overrideRecipe("shaped_item.electricsprayer_-335930196", Ic2Items.electricCfSprayer, "sS ", "SC ", "  B", 's', Ic2Items.cfSprayer, 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
+        recipes.overrideRecipe("shaped_item.electricsprayer_-335930196", Ic2Items.electricCfSprayer, "sS ", "SC ", "  B", 's', GTMaterialGen.get(Ic2Items.cfSprayer.getItem(), 1, OreDictionary.WILDCARD_VALUE), 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.itemnanosaber_644260803", Ic2Items.nanoSaber, "PI ", "PI ", "CEC", 'P', PLATINUM, 'I', Ic2Items.iridiumPlate, 'C', Ic2Items.carbonPlate, 'E', Ic2Items.energyCrystal);
         nbt = new NBTTagCompound();
         nbt.setBoolean("losslessMode", true);
@@ -616,6 +617,9 @@ public class GTCXRecipe {
         } else {
             recipeId = STEEL_MODE ? 1913907474 : 1986006418;
             recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", 'R', "rodRefinedIron");
+        }
+        if (STEEL_MODE){
+            recipes.overrideRecipe("shaped_tile.blockironscaffold_1329688411", GTMaterialGen.getIc2(Ic2Items.ironScaffold), "III", " F ", "F F", 'I', "ingotRefinedIron", 'F', Ic2Items.ironFence);
         }
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.upgradekit.mfs_-1749227982");
         recipes.overrideRecipe("shaped_item.reactorcoolantsimple_-484238369", Ic2Items.reactorCoolantCellSimple, " T ", "TWT", " T ", 'T', TIN, 'W', GTMaterialGen.getFluidStack("water", 1000));
