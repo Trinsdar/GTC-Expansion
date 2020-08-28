@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -113,8 +114,14 @@ public class GTCXOtherEvents {
     }
 
     @SubscribeEvent
-    public void onEvent(PlayerInteractEvent event) {
-        if (event instanceof PlayerInteractEvent.RightClickItem) {
+    public void onEvent(LivingEntityUseItemEvent event) {
+        if (event.getItem().getItem() instanceof IGTOverlayWrench) event.setCanceled(true);
+    }
+
+
+    @SubscribeEvent
+    public void onPlayerInteractEvent(PlayerInteractEvent event) {
+        if (event instanceof PlayerInteractEvent.RightClickItem || event instanceof PlayerInteractEvent.RightClickBlock) {
             ItemStack held = event.getEntityPlayer().getHeldItemMainhand();
             if (held.getItem() instanceof IGTOverlayWrench && !event.getEntityPlayer().isSneaking()) {
                 RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(event.getEntityPlayer());

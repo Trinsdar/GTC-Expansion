@@ -7,6 +7,7 @@ import gtc_expansion.model.GTCXModelPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import gtc_expansion.util.GTCXHelperPipe;
+import gtc_expansion.util.GTCXMaterialWrench;
 import gtc_expansion.util.GTCXWrenchUtils;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseConnect;
@@ -22,6 +23,7 @@ import ic2.core.util.helpers.BlockStateContainerIC2;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -47,11 +49,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, IGTColorBlock {
+    public static final Material PIPE = new GTCXMaterialWrench(true);
     GTMaterial material;
     GTCXHelperPipe.GTPipeModel type;
     boolean item;
     public GTCXBlockPipe(String name, GTMaterial material, GTCXHelperPipe.GTPipeModel type){
-        super();
+        super(PIPE);
         setUnlocalizedName(GTCExpansion.MODID + "." + name);
         setRegistryName(name);
         this.setHardness(2.0F);
