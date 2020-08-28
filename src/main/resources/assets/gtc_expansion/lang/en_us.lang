@@ -376,6 +376,8 @@ item.gtclassic.plateConstantan.name=Constantan Plate
 item.gtclassic.plateNichrome.name=Nichrome Plate
 item.gtclassic.plateStainlessSteel.name=Stainless Steel Plate
 item.gtclassic.plateTechnetium.name=Technetium Plate
+item.gtclassic.platePlutonium239.name=Plutonium-239 Plate
+item.gtclassic.plateBeryllium.name=Beryllium Plate
 
 #gear
 item.gtclassic.gearAntimony.name=Antimony Gear

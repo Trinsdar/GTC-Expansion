@@ -129,6 +129,7 @@ public class GTCXMaterial {
         materialHeatMap.put(GTMaterial.Aluminium, 933);
         GTMaterial.Bauxite.addFlags(smalldust, crushedore, crushedorePurified);
         GTMaterial.Basalt.addFlags(smalldust);
+        GTMaterial.Beryllium.addFlags(plate);
         GTMaterial.Calcite.addFlags(smalldust);
         GTMaterial.Carbon.addFlags(smalldust, turbineBlade, brokenTurbineRotor);
         GTMaterial.Chrome.addFlags(metalFull).addFlags(tinydust).setSmeltable(false);
@@ -168,6 +169,7 @@ public class GTCXMaterial {
         materialHeatMap.put(GTMaterial.Tungsten, 3695);
         GTMaterial.Uranium.addFlags(smalldust, molten, crushedore, crushedorePurified, tinydust);
         materialHeatMap.put(GTMaterial.Uranium, 1405);
+        GTMaterial.Plutonium239.addFlags(plate);
         GTMaterial.Wood.addFlags(smalldust);
 
         GTMaterialGen.addItemFlag(smalldust);
