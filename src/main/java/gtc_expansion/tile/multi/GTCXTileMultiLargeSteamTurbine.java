@@ -25,7 +25,6 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyTile;
-import ic2.api.energy.tile.IMetaDelegate;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.core.block.base.tile.TileEntityMachine;
@@ -58,7 +57,7 @@ import java.util.Map;
 
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTEnergySource, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile, IGTDebuggableTile, IMetaDelegate, ITankListener {
+public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTEnergySource, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile, IGTDebuggableTile/*, IMetaDelegate*/, ITankListener {
     public boolean lastState;
     public boolean firstCheck = true;
     List<IEnergyTile> lastPositions = null;
@@ -828,7 +827,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return this.maxEnergy;
     }
 
-    @Override
+    //@Override
     public List<IEnergyTile> getSubTiles() {
         if (lastPositions == null){
             lastPositions = new ArrayList<>();

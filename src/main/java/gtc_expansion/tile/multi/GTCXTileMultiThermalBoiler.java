@@ -212,6 +212,12 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         TileEntity oTile = world.getTileEntity(output1);
         boolean canWork = canWork() && tile instanceof GTCXTileInputHatch && tile2 instanceof GTCXTileInputHatch && oTile instanceof GTCXTileOutputHatch;
         if (canWork){
+            if (outputHatch1 != null){
+                this.outputMode1 = outputHatch1.getCycle();
+            }
+            if (outputHatch2 != null){
+                this.outputMode2 = outputHatch2.getCycle();
+            }
             if (inputTank1.getFluid() != null && inputTank2.getFluid() != null && inputTank1.getFluidAmount() > 0 && inputTank2.getFluidAmount() > 0 && !disabled){
                 boolean lava = false;
                 boolean water = false;
