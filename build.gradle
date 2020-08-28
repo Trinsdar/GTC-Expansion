@@ -2,13 +2,9 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath "com.wynprice.cursemaven:CurseMaven:2.1.0"
     }
 }
 apply plugin: "com.wynprice.cursemaven"
@@ -62,6 +58,10 @@ repositories{
         name 'Chickenbones Repo'
         url 'http://chickenbones.net/maven/'
     }
+    maven { // CoFH
+        name 'Covers Maven'
+        url 'http://maven.covers1624.net/'
+    }
     maven {
         name = "buildcraft"
         url = "http://www.mod-buildcraft.com/maven/"
@@ -69,6 +69,9 @@ repositories{
     maven {
         name = "ic2"
         url = "http://maven.ic2.player.to/"
+    }
+    maven {
+        url = "https://www.cursemaven.com"
     }
     maven { //Backup
         url "https://modmaven.k-4u.nl"
@@ -86,6 +89,9 @@ dependencies {
     compile "curse.maven:better-pipes:3040960"
     deobfCompile ("codechicken:CodeChickenLib:${mc_version}-3.2.2.353:universal") {
         transitive = false
+    }
+    deobfProvided ("cofh:CoFHCore:${mc_version}-${cofhcore_version}:universal") {
+        exclude group: 'mezz.jei'
     }
     deobfCompile(group: 'CraftTweaker2', name: 'ZenScript', version: craft_tweaker_version) {
         exclude group: 'org.ow2.asm'
