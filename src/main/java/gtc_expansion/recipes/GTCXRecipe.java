@@ -1,5 +1,6 @@
 package gtc_expansion.recipes;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.data.GTCXBlocks;
@@ -320,6 +321,7 @@ public class GTCXRecipe {
     public static void initWoodRecipes(){
         ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
         if (GTCXConfiguration.general.harderWood){
+            GTCExpansion.logger.info("Initializing wood overrides");
             registry.remove(new ResourceLocation("minecraft", "stick"));
             registry.remove(new ResourceLocation("minecraft", "oak_planks"));
             registry.remove(new ResourceLocation("minecraft", "spruce_planks"));

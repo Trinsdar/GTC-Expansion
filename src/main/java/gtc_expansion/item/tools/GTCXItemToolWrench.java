@@ -1,28 +1,40 @@
 package gtc_expansion.item.tools;
 
+import cofh.api.item.IToolHammer;
 import flyingperson.BetterPipes.IBetterPipesWrench;
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.block.GTCXBlockPipe;
 import gtc_expansion.interfaces.IGTOverlayWrench;
+import gtc_expansion.util.GTCXBetterPipesCompat;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
 import gtclassic.api.material.GTMaterial;
+import ic2.core.IC2;
 import ic2.core.item.tool.ItemToolWrench;
 import ic2.core.platform.textures.Ic2Icons;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
 @Optional.Interface(iface = "flyingperson.BetterPipes.IBetterPipesWrench", modid = "betterpipes")
-public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTOverlayWrench, IBetterPipesWrench {
+@Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "cofhcore", striprefs = true)
+public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTOverlayWrench, IBetterPipesWrench, IToolHammer {
 
     GTMaterial material;
+    float efficiency;
 
     public GTCXItemToolWrench(GTMaterial mat, ToolMaterial tmat) {
         this.maxStackSize = 1;
@@ -31,7 +43,30 @@ public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, 
         setRegistryName(this.material.getName() + "_wrench");
         setUnlocalizedName(GTCExpansion.MODID + "." + this.material.getName() + "_wrench");
         setCreativeTab(GTMod.creativeTabGT);
+        this.setHarvestLevel("wrench", tmat.getHarvestLevel());
+        this.efficiency = tmat.getEfficiency();
         this.setNoRepair();
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
+        if (state.getBlock() instanceof GTCXBlockPipe || (Loader.isModLoaded("betterpipes") && GTCXBetterPipesCompat.isAcceptableBlock(state))) {
+            return this.efficiency;
+        }
+        return super.getDestroySpeed(stack, state);
+    }
+
+    /**
+     * Called when a Block is destroyed using this Item. Return true to trigger the "Use Item" statistic.
+     */
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
+    {
+        if (!worldIn.isRemote && state.getBlock() instanceof GTCXBlockPipe)
+        {
+            stack.damageItem(1, entityLiving);
+        }
+
+        return state.getBlock() instanceof GTCXBlockPipe;
     }
 
     @Override
@@ -87,11 +122,45 @@ public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, 
 
     @Override
     public boolean canBeUsed(ItemStack stack, EntityPlayer player) {
-        return canBeUsed(stack);
+        return canBeUsed(stack) && !IC2.keyboard.isAltKeyDown(player) && !player.isSneaking();
     }
 
     @Override
     public void damage(ItemStack stack, EntityPlayer player) {
         stack.damageItem(1, player);
+    }
+
+    @Override
+    public boolean isUsable(ItemStack item, EntityLivingBase user, BlockPos pos) {
+        if (user instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer) user;
+            return IC2.keyboard.isAltKeyDown(player) || IC2.keyboard.isSneakKeyDown(player) || !Loader.isModLoaded("betterpipes");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isUsable(ItemStack item, EntityLivingBase user, Entity entity) {
+        if (user instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer) user;
+            return IC2.keyboard.isAltKeyDown(player) || IC2.keyboard.isSneakKeyDown(player) || !Loader.isModLoaded("betterpipes");
+        }
+        return false;
+    }
+
+    @Override
+    public void toolUsed(ItemStack item, EntityLivingBase user, BlockPos pos) {
+        if (user instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer) user;
+            this.damage(item, player);
+        }
+    }
+
+    @Override
+    public void toolUsed(ItemStack item, EntityLivingBase user, Entity entity) {
+        if (user instanceof EntityPlayer){
+            EntityPlayer player = (EntityPlayer) user;
+            this.damage(item, player);
+        }
     }
 }

@@ -54,12 +54,18 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
         super();
         setUnlocalizedName(GTCExpansion.MODID + "." + name);
         setRegistryName(name);
-        this.setHardness(-1.0F);
+        this.setHardness(2.0F);
         this.setSoundType(SoundType.METAL);
         setCreativeTab(GTMod.creativeTabGT);
         this.material = material;
         this.type = type;
         this.item = material.equals(GTCXMaterial.Brass);
+        this.setHarvestLevel("wrench", 1);
+    }
+
+    @Override
+    public boolean isToolEffective(String type, IBlockState state) {
+        return type.equals("wrench");
     }
 
     @SideOnly(Side.CLIENT)
@@ -209,7 +215,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
         List<ItemStack> list = new ArrayList<>();
         TileEntity te = this.getLocalTile() == null ? world.getTileEntity(pos) : this.getLocalTile();
         if (te instanceof IGTItemContainerTile){
-            list.addAll(((IGTItemContainerTile) te).getInventoryDrops());
+            list.addAll(((IGTItemContainerTile) te).getDrops());
             return list;
         }
         return list;
