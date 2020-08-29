@@ -227,6 +227,11 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
         return rotor;
     }
 
+    /*@Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return this != GTCXBlocks.pureGlass;
+    }*/
+
     @Override
     public boolean isFullCube(IBlockState state) {
         return this != GTCXBlocks.pureGlass;

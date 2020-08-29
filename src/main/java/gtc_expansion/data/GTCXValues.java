@@ -112,6 +112,49 @@ public class GTCXValues {
         };
     }
 
+    public static ICraftingRecipeList.IRecipeModifier foamTransfer(ItemStack input){
+        return new ICraftingRecipeList.IRecipeModifier() {
+
+            final String id = "StoredFoam";
+            boolean tag = false;
+            int damage;
+
+            @Override
+            public void clear() {
+                tag = false;
+            }
+
+            @Override
+            public boolean isStackValid(ItemStack provided) {
+                if (StackUtil.isStackEqual(input, provided, false, false, false, true)){
+                    damage = provided.getMaxDamage() - provided.getItemDamage();
+                    tag = true;
+                }
+
+                return true;
+            }
+
+            @Override
+            public ItemStack getOutput(ItemStack output, boolean forDisplay) {
+                if (forDisplay) {
+                    StackUtil.addToolTip(output, "Stored Foam gets transfered");
+                } else {
+                    if (tag){
+                        NBTTagCompound nbt = StackUtil.getOrCreateNbtData(output);
+                        nbt.setInteger(id, damage);
+                    }
+                }
+
+                return output;
+            }
+
+            @Override
+            public boolean isOutput(ItemStack possibleOutput) {
+                return false;
+            }
+        };
+    }
+
     public static ICraftingRecipeList.IRecipeModifier insulationSetting(ItemStack input, int fromInsulation, int toInsulation){
         return new ICraftingRecipeList.IRecipeModifier() {
 

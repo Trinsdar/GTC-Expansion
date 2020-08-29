@@ -8,6 +8,7 @@ import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTFluidMachineOutput;
+import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.api.recipe.GTRecipeMachineHandler;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
@@ -445,7 +446,6 @@ public class GTCXTileCentrifuge extends GTTileBaseMachine implements ITankListen
 		GTTileCentrifuge.RECIPE_LIST.finishMassChange();
 
 		addCustomRecipe(GTMaterialGen.getIc2(Ic2Items.emptyCell, 2), GTMaterialGen.getFluidStack(GTMaterial.Oxygen), totalEu(5000), new ItemStack[]{GTMaterialGen.getIc2(Ic2Items.airCell, 2)});
-		addRecipe(GTMaterialGen.getIc2(Ic2Items.hydratedCoalDust, 8), totalEu(22500), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Carbon, 14), GTMaterialGen.getDust(GTMaterial.Thorium, 1)});
 		addRecipe("logRubber", 16, totalEu(25000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Carbon, 8), GTMaterialGen.getIc2(Ic2Items.stickyResin, 8), GTMaterialGen.getIc2(Ic2Items.plantBall, 6)}, GTMaterialGen.getFluidStack(GTMaterial.Methane, 4000));
 		addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Hydrogen, 4000), totalEu(6000), EMPTY, GTMaterialGen.getFluidStack(GTMaterial.Deuterium));
 		addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Deuterium, 4000), totalEu(6000), EMPTY, GTMaterialGen.getFluidStack(GTMaterial.Tritium));
@@ -527,6 +527,8 @@ public class GTCXTileCentrifuge extends GTTileBaseMachine implements ITankListen
 		addRecipe("dustNichrome", 5, totalEu(35840), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Nickel, 4), GTMaterialGen.getDust(GTMaterial.Chrome, 1)});
 		addRecipe("dustCinnabar", 4, totalEu(58880), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Sulfur, 2)}, GTMaterialGen.getFluidStack(GTMaterial.Mercury, 2000));
 		addRecipe("dustIridium", 9, totalEu(117760), new ItemStack[]{GTMaterialGen.getDust(GTCXMaterial.Osmium, 1)});
+		addRecipe(GTMaterialGen.getIc2(Ic2Items.reactorReEnrichedUraniumRod, 3), totalEu(88000), new ItemStack[]{GTRecipeCraftingHandler.getEmptyRod(3), GTMaterialGen.getDust(GTMaterial.Thorium, 2), GTMaterialGen.getDust(GTMaterial.Plutonium239, 1)});
+		addRecipe("dustPlutonium239", 12, totalEu(100000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Technetium, 1)});
 		addRecipe(GTMaterialGen.get(Blocks.SOUL_SAND, 16), totalEu(12000), new ItemStack[]{GTMaterialGen.get(Blocks.SAND), GTMaterialGen.getDust(GTCXMaterial.Saltpeter, 4), Ic2Items.coalDust}, GTMaterialGen.getFluidStack(GTMaterial.Oil));
 		addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Beryllium), totalEu(1000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Beryllium, 1)});
 	}

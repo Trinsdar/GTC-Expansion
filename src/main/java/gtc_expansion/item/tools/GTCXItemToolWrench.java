@@ -1,7 +1,6 @@
 package gtc_expansion.item.tools;
 
 import cofh.api.item.IToolHammer;
-import flyingperson.BetterPipes.IBetterPipesWrench;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.block.GTCXBlockPipe;
 import gtc_expansion.interfaces.IGTOverlayWrench;
@@ -29,9 +28,9 @@ import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
-@Optional.Interface(iface = "flyingperson.BetterPipes.IBetterPipesWrench", modid = "betterpipes")
+//@Optional.Interface(iface = "flyingperson.BetterPipes.IBetterPipesWrench", modid = "betterpipes")
 @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "cofhcore", striprefs = true)
-public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTOverlayWrench, IBetterPipesWrench, IToolHammer {
+public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTOverlayWrench/*, IBetterPipesWrench*/, IToolHammer {
 
     GTMaterial material;
     float efficiency;
@@ -120,7 +119,7 @@ public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, 
         return true;
     }
 
-    @Override
+    //@Override
     public boolean canBeUsed(ItemStack stack, EntityPlayer player) {
         return canBeUsed(stack) && !IC2.keyboard.isAltKeyDown(player) && !player.isSneaking();
     }

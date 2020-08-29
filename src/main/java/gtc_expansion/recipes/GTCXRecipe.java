@@ -67,7 +67,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.ArrayList;
@@ -588,7 +587,7 @@ public class GTCXRecipe {
         recipeId = STEEL_MODE ? 1723493281 : -137638623;
         recipes.overrideRecipe("shaped_item.itemtoolhoe_" + recipeId, Ic2Items.electricHoe, "SS ", " C ", " B ", 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.itemtreetapelectric_-1455688385", Ic2Items.electricTreeTap, " B ", "SCS", "T  ", 'T', Ic2Items.treeTap, 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
-        recipes.overrideRecipe("shaped_item.electricsprayer_-335930196", Ic2Items.electricCfSprayer, "sS ", "SC ", "  B", 's', GTMaterialGen.get(Ic2Items.cfSprayer.getItem(), 1, OreDictionary.WILDCARD_VALUE), 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
+        recipes.overrideRecipe("shaped_item.electricsprayer_-335930196", Ic2Items.electricCfSprayer, "sS ", "SC ", "  B", foamTransfer(StackUtil.copyWithWildCard(Ic2Items.cfSprayer)), 's', StackUtil.copyWithWildCard(Ic2Items.cfSprayer), 'S', MATERIAL_STEELS, 'C', circuit, 'B', battery);
         recipes.overrideRecipe("shaped_item.itemnanosaber_644260803", Ic2Items.nanoSaber, "PI ", "PI ", "CEC", 'P', PLATINUM, 'I', Ic2Items.iridiumPlate, 'C', Ic2Items.carbonPlate, 'E', Ic2Items.energyCrystal);
         nbt = new NBTTagCompound();
         nbt.setBoolean("losslessMode", true);
@@ -620,9 +619,8 @@ public class GTCXRecipe {
             recipeId = STEEL_MODE ? 1913907474 : 1986006418;
             recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", 'R', "rodRefinedIron");
         }
-        if (STEEL_MODE){
-            recipes.overrideRecipe("shaped_tile.blockironscaffold_1329688411", GTMaterialGen.getIc2(Ic2Items.ironScaffold), "III", " F ", "F F", 'I', "ingotRefinedIron", 'F', Ic2Items.ironFence);
-        }
+        recipeId = STEEL_MODE ? 1329688411 : -1509341361;
+        recipes.overrideRecipe("shaped_tile.blockironscaffold_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironScaffold, 32), "III", " F ", "F F", 'I', "ingotRefinedIron", 'F', "rodIron");
         recipes.overrideRecipe("shaped_item.reactorReflectorThick_-1313142365", Ic2Items.reactorReflectorThick.copy(), " P ", "PBP", " P ", 'P', Ic2Items.reactorReflector, 'B', PRE + "Beryllium");
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.upgradekit.mfs_-1749227982");
         recipes.overrideRecipe("shaped_item.reactorcoolantsimple_-484238369", Ic2Items.reactorCoolantCellSimple, " T ", "TWT", " T ", 'T', TIN, 'W', GTMaterialGen.getFluidStack("water", 1000));
@@ -671,7 +669,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTesseractMaster),"TCT", "CEC", "TcT", 'T', TITANIUM, 'C', CIRCUIT_MASTER, 'E', Blocks.ENDER_CHEST, 'c', GTBlocks.tileComputer);
 		recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDragonEggEnergySiphon, 1), "CTC", "PSP", "CBC", 'C', CIRCUIT_MASTER, 'S', GTBlocks.tileSupercondensator, 'B', PRE + "Plutonium239", 'P', PLATE_IRIDIUM_ALLOY, 'T', Ic2Items.teslaCoil.copy());
 		recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileMagicEnergyConverter, 1), "CTC", "IBI", "CLC", 'C', CIRCUIT_ADVANCED, 'B', PRE + "Plutonium239", 'L', Ic2Items.lapotronCrystal.copy(), 'I', PLATINUM, 'T', Ic2Items.teleporter.copy());
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileMagicEnergyConverter, 1), "CSC", "IBI", "CMC", 'C', CIRCUIT_ADVANCED, 'B', PRE + "Beryllium", 'M', GTBlocks.tileMagicEnergyAbsorber, 'I', Ic2Items.iridiumPlate.copy(), 'S', "craftingSuperconductor");
+        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileMagicEnergyAbsorber, 1), "CSC", "IBI", "CMC", 'C', CIRCUIT_ADVANCED, 'B', PRE + "Beryllium", 'M', GTBlocks.tileMagicEnergyConverter, 'I', Ic2Items.iridiumPlate.copy(), 'S', "craftingSuperconductor");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTesseractSlave),"TCT", "CEC", "TcT", 'T', TITANIUM, 'C', "circuitElite", 'E', Blocks.ENDER_CHEST, 'c', Ic2Items.advMachine);
         IRecipeInput rod = combineRecipeObjects( "rodTitanium", "rodTungstensteel");
         IRecipeInput plate = combineRecipeObjects( TITANIUM, TUNGSTEN_STEEL);

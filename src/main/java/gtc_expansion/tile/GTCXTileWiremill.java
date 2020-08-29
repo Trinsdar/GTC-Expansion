@@ -6,7 +6,6 @@ import gtc_expansion.container.GTCXContainerWiremill;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
-import gtc_expansion.data.GTCXValues;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterialGen;
@@ -152,8 +151,7 @@ public class GTCXTileWiremill extends GTTileBaseMachine {
         addRecipe("dustCharcoal", 8, Ic2Items.carbonFiber);
         addRecipe("dustCarbon", 8, Ic2Items.carbonFiber);
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTConfig.modcompat.compatIc2Extras){
-            String steel = GTCXValues.STEEL_MODE ? "Steel" : "RefinedIron";
-            addRecipe("casing" + steel, 2, GTMaterialGen.getIc2(Ic2Items.ironFence, 3));
+            addRecipe("casingRefinedIron", 2, GTMaterialGen.getIc2(Ic2Items.ironFence, 3));
         }
     }
 
