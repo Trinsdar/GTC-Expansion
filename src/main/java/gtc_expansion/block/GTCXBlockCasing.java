@@ -227,18 +227,22 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
         return rotor;
     }
 
-    /*@Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return this != GTCXBlocks.pureGlass;
-    }*/
-
     @Override
-    public boolean isFullCube(IBlockState state) {
+    public boolean isOpaqueCube(IBlockState state) {
         return this != GTCXBlocks.pureGlass;
     }
 
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        if (this != GTCXBlocks.pureGlass) {
+            return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+        }
+        IBlockState other = blockAccess.getBlockState(pos.offset(side));
+        return other.getBlock() != this;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
         return this != GTCXBlocks.pureGlass;
     }
 
@@ -248,8 +252,8 @@ public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModele
     }
 
     @Override
-    public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return this != GTCXBlocks.pureGlass;
+    public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return this != GTCXBlocks.pureGlass ? 255 : 0;
     }
 
     @Override
