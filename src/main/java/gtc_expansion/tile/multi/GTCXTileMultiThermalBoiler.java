@@ -551,7 +551,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
             return false;
         }
         hasBothOutputs = outputs > 1;
-        return inputs >= 2 && outputs >= 1;
+        return inputs >= 2 && outputs >= 2;
     }
 
     public boolean isReinforcedCasing(int3 pos) {

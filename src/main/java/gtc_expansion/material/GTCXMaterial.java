@@ -80,6 +80,7 @@ public class GTCXMaterial {
     public static final GTMaterial Granite = new GTMaterial("Granite", 165, 89, 39, dustAll);
     public static final GTMaterial Grossular = new GTMaterial("Grossular", 200, 100, 0, dust, smalldust, tinydust);
     public static final GTMaterial Gunpowder = new GTMaterial("Gunpowder", 128, 128, 128, smalldust);
+    public static final GTMaterial HotCoolant = new GTMaterial("HotCoolant", 233, 40, 40, fluid);
     public static final GTMaterial Iron = setHeat(new GTMaterial(26,"Iron", 1, 184, 184, 184, molten, smalldust, plate, stick, gear, crushedorePurified, crushedore, tinydust), 1811);
     public static final GTMaterial Kanthal = new GTMaterial("Kanthal", 219, 191, 111, false, dust, smalldust, nugget, ingot, plate, hotIngot);
     public static final GTMaterial Lead = setHeat(new GTMaterial(82,"Lead", 140, 100, 140, molten, smalldust, dust, nugget, ingot, plate, stick, gear, blockMetal, tinydust, crushedore, crushedorePurified), 600);

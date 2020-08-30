@@ -36,7 +36,6 @@ import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
-import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import ic2.core.platform.lang.components.base.LocaleComp;
@@ -461,8 +460,8 @@ public class GTCXTileElectrolyzer extends GTTileBaseMachine implements ITankList
         addRecipe("dustSodalite", 11, 0, totalEu(115000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Aluminium, 3), GTMaterialGen.getDust(GTMaterial.Silicon, 3)}, GTMaterialGen.getFluidStack(GTMaterial.Chlorine), GTMaterialGen.getFluidStack(GTMaterial.Sodium, 4000));
         addRecipe("dustBauxite", 24, 0, totalEu(250000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Aluminium, 16), GTMaterialGen.getDust(GTMaterial.Titanium, 1)}, GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 6000), GTMaterialGen.getFluidStack(GTMaterial.Hydrogen, 10000));
         addRecipe(GTMaterialGen.get(Items.BLAZE_POWDER, 8), 0, totalEu(15000), new ItemStack[]{GTMaterialGen.getIc2(Ic2Items.coalDust, 2), GTMaterialGen.get(Items.GUNPOWDER, 1)});
-        IRecipeInput sand = new RecipeInputCombined(32, new RecipeInputItemStack(GTMaterialGen.get(Blocks.SAND, 32, 0)), new RecipeInputItemStack(GTMaterialGen.get(Blocks.SAND, 32, 1)));
-        addRecipe(new IRecipeInput[] { sand }, totalEu(50000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Silicon, 1)}, new FluidStack[]{GTMaterialGen.getFluidStack(GTMaterial.Oxygen)});
+        addRecipe(GTMaterialGen.get(Blocks.SAND, 32, 0), 0, totalEu(50000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Silicon, 1)}, GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 2000));
+        addRecipe(GTMaterialGen.get(Blocks.SAND, 32, 1), 0, totalEu(50000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Silicon, 1), Ic2Items.clayDust.copy()}, GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 1000));
         addRecipe("dustFlint", 8, 0, totalEu(5000), new ItemStack[]{GTMaterialGen.getDust(GTMaterial.Silicon, 1)}, GTMaterialGen.getFluidStack(GTMaterial.Oxygen));
 
         /** Recipes from GT2 **/
