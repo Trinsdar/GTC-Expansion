@@ -3,6 +3,7 @@ package gtc_expansion.item;
 import gtc_expansion.GTCExpansion;
 import gtclassic.GTMod;
 import ic2.api.item.ElectricItem;
+import ic2.api.item.IBoxable;
 import ic2.api.item.IElectricItem;
 import ic2.core.IC2;
 import ic2.core.item.base.ItemIC2;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, IAdvancedTexturedItem {
+public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, IAdvancedTexturedItem, IBoxable {
     private ModelResourceLocation[] locations;
     int maxCharge;
     int tier;
@@ -195,5 +196,10 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
         int meta = item.getItemDamage();
         int id2 = meta == 0 ? id + 1 : id;
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_items")[id2];
+    }
+
+    @Override
+    public boolean canBeStoredInToolbox(ItemStack itemStack) {
+        return true;
     }
 }

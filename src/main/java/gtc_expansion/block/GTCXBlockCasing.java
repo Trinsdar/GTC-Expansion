@@ -18,7 +18,6 @@ import ic2.core.platform.textures.obj.ICustomModeledBlock;
 import ic2.core.util.helpers.BlockStateContainerIC2;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -44,8 +43,6 @@ import static net.minecraft.util.EnumFacing.NORTH;
 import static net.minecraft.util.EnumFacing.VALUES;
 
 public class GTCXBlockCasing extends GTBlockBaseMachine implements ICustomModeledBlock {
-    public static PropertyInteger rotor = PropertyInteger.create("rotor", 0, 8);
-    public static PropertyInteger config = PropertyInteger.create("config", 0, 63);
     int index;
     public GTCXBlockCasing(String name, LocaleComp comp, int index, float resistance) {
         this(name, comp, index, resistance, Material.IRON);

@@ -9,7 +9,6 @@ import gtc_expansion.interfaces.IGTEnergySource;
 import gtc_expansion.interfaces.IGTMultiTileProduction;
 import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.item.GTCXItemTurbineRotor;
-import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch.GTCXTileDynamoHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
@@ -57,7 +56,7 @@ import java.util.Map;
 
 import static gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes.ITEM_AND_FLUID;
 
-public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTEnergySource, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile, IGTDebuggableTile/*, IMetaDelegate*/, ITankListener {
+public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements ITickable, IHasGui, IGTEnergySource, IGTMultiTileStatus, IGTMultiTileProduction, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTOwnerTile, IGTDebuggableTile, ITankListener {
     public boolean lastState;
     public boolean firstCheck = true;
     List<IEnergyTile> lastPositions = null;
@@ -119,19 +118,11 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         super.onLoaded();
         if (this.isSimulating()) {
             this.tickOffset = world.rand.nextInt(128);
-            if (!this.addedToEnergyNet) {
-                MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-                this.addedToEnergyNet = true;
-            }
         }
     }
 
     @Override
     public void onUnloaded() {
-        if (this.addedToEnergyNet && this.isSimulating()) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-            this.addedToEnergyNet = false;
-        }
         super.onUnloaded();
     }
 
@@ -270,6 +261,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         TileEntity dTile2 = world.getTileEntity(dynamo);
         boolean canWork = canWork() && tile instanceof GTCXTileInputHatch && dTile2 instanceof GTCXTileDynamoHatch;
         if (canWork && isTurbineRotor(this.getStackInSlot(0))){
+            if (this.outputHatch != null){
+                this.outputMode = outputHatch.getCycle();
+            }
             production = (int)(800 * getRotorEfficiency(this.getStackInSlot(0)));
             int fluidAmount = 1600;
             FluidStack compare = GTMaterialGen.getFluidStack("steam", fluidAmount);
@@ -424,12 +418,9 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     }
 
     public void setCasingActive(int3 dir, boolean active){
-        TileEntity tile = world.getTileEntity(dir.asBlockPos());
-        if (tile instanceof GTCXTileCasing){
-            GTCXTileCasing casing = (GTCXTileCasing) tile;
-            if (casing.getActive() != active){
-                casing.setActive(active);
-            }
+        IBlockState state = world.getBlockState(dir.asBlockPos());
+        if (state.getBlock() == standardCasingState.getBlock()){
+            world.setBlockState(dir.asBlockPos(), state.withProperty(GTCXBlockCasing.active, active));
         }
     }
 
@@ -620,9 +611,8 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public boolean isStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
-        if (state == standardCasingState){
-            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()), 2);
-            this.getNetwork().updateTileEntityField(this, "facing");
+        if (state.getBlock() == standardCasingState.getBlock()){
+            this.setStandardCasingWithSpecial(pos, position);
             return true;
         }
         return false;
@@ -630,8 +620,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
 
     public void setStandardCasingWithSpecial(int3 pos, int position) {
         IBlockState state = world.getBlockState(pos.asBlockPos());
-        if (state == standardCasingState){
-            world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()), 2);
+        if (state.getBlock() == standardCasingState.getBlock()){
+            if (this.isSimulating()){
+                world.setBlockState(pos.asBlockPos(), state.withProperty(GTCXBlockCasing.allFacings, this.getFacing()));
+            }
             this.getNetwork().updateTileEntityField(this, "facing");
         }
     }
@@ -827,7 +819,7 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
         return this.maxEnergy;
     }
 
-    //@Override
+
     public List<IEnergyTile> getSubTiles() {
         if (lastPositions == null){
             lastPositions = new ArrayList<>();

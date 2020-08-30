@@ -29,7 +29,6 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyTile;
-import ic2.api.energy.tile.IMetaDelegate;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.network.INetworkTileEntityEventListener;
 import ic2.api.recipe.IRecipeInput;
@@ -63,7 +62,7 @@ import java.util.function.Predicate;
 
 import static gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine.outputHatchState;
 
-public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickable, IHasGui, ITankListener, IGTMultiTileStatus, IGTMultiTileProduction, IGTOwnerTile, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTEnergySource, IMetaDelegate {
+public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements ITickable, IHasGui, ITankListener, IGTMultiTileStatus, IGTMultiTileProduction, IGTOwnerTile, INetworkClientTileEntityEventListener, INetworkTileEntityEventListener, IGTEnergySource {
     public boolean lastState;
     public boolean firstCheck = true;
     public boolean addedToEnergyNet = false;
@@ -129,19 +128,11 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         super.onLoaded();
         if (this.isSimulating()) {
             this.tickOffset = world.rand.nextInt(128);
-            if (!this.addedToEnergyNet) {
-                MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-                this.addedToEnergyNet = true;
-            }
         }
     }
 
     @Override
     public void onUnloaded() {
-        if (this.addedToEnergyNet && this.isSimulating()) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-            this.addedToEnergyNet = false;
-        }
         super.onUnloaded();
     }
 
@@ -297,6 +288,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             if (this.shouldCheckRecipe) {
                 this.lastRecipe = this.getRecipe();
                 this.shouldCheckRecipe = false;
+            }
+            if (this.outputHatch != null){
+                this.outputMode = outputHatch.getCycle();
             }
             boolean operate = !disabled && this.lastRecipe != null && this.lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE;
             if (operate){
@@ -731,14 +725,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     }
 
     public void removeRing(int3 dir){
-        removeStandardCasingWithSpecial(dir.up(1));
-        removeStandardCasingWithSpecial(dir.right(1));
-        removeStandardCasingWithSpecial(dir.down(1));
-        removeStandardCasingWithSpecial(dir.down(1));
-        removeStandardCasingWithSpecial(dir.left(1));
-        removeStandardCasingWithSpecial(dir.left(1));
-        removeStandardCasingWithSpecial(dir.up(1));
-        removeStandardCasingWithSpecial(dir.up(1));
         TileEntity tile = world.getTileEntity(input1);
         if (tile instanceof GTCXTileInputHatch && ((GTCXTileInputHatch)tile).getOwner() == this){
             ((GTCXTileInputHatch)tile).setOwner(null);
@@ -772,7 +758,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             if (tile instanceof GTCXTileCasing){
                 GTCXTileCasing  casing = (GTCXTileCasing) tile;
                 casing.setFacing(this.getFacing());
-                casing.setRotor(position);
             }
             return true;
         }
@@ -786,17 +771,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             if (tile instanceof GTCXTileCasing){
                 GTCXTileCasing  casing = (GTCXTileCasing) tile;
                 casing.setFacing(this.getFacing());
-                casing.setRotor(position);
-            }
-        }
-    }
-
-    public void removeStandardCasingWithSpecial(int3 pos) {
-        IBlockState state = world.getBlockState(pos.asBlockPos());
-        if (state == reinforcedCasingState){
-            TileEntity tile = world.getTileEntity(pos.asBlockPos());
-            if (tile instanceof GTCXTileCasing){
-                ((GTCXTileCasing) tile).setRotor(0);
             }
         }
     }
@@ -970,7 +944,6 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         return false;
     }
 
-    @Override
     public List<IEnergyTile> getSubTiles() {
         if (lastPositions == null){
             lastPositions = new ArrayList<>();
