@@ -113,7 +113,8 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof GTCXTileBasePipe) {
                 GTCXTileBasePipe pipe = (GTCXTileBasePipe)tile;
-                return new BlockStateContainerIC2.IC2BlockState(state, new GTCXHelperPipe.GTCXQuadWrapper(pipe.storage.getQuads(), pipe.getConnections()));
+
+                return new GTCXBlockState(state, pipe.storage.getQuads(), pipe.getConnections());
             }
         } catch (Exception e) {
             GTCExpansion.logger.info("IC2BlockState Failed");
@@ -309,6 +310,26 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
                 }
             }
             return new AxisAlignedBB(minX, minY, minZ, maxX, maxY, maxZ);
+        }
+    }
+
+    public static class GTCXBlockState extends BlockStateContainerIC2.IC2BlockState{
+        public Object data2;
+        public GTCXBlockState(IBlockState state, Object toInject1, Object toInject2) {
+            super(state, toInject1);
+            this.data2 = toInject2;
+        }
+
+        public <T> T getData2() {
+            return (T) this.data2;
+        }
+
+        public <T> T getData2(Class<T> clz) {
+            return (T) this.data2;
+        }
+
+        public int getAsInteger() {
+            return !(this.data instanceof Integer) ? 0 : (Integer)this.data2;
         }
     }
 }

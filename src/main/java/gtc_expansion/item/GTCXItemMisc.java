@@ -61,14 +61,15 @@ public class GTCXItemMisc extends Item implements IStaticTexturedItem {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (this == GTCXItems.conveyorModule){
+        if (this == GTCXItems.conveyorModule || this == GTCXItems.pumpModule || this == GTCXItems.itemTransportValve || this == GTCXItems.drain){
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof GTCXTileBasePipe){
                 ItemStack stack = player.getHeldItem(hand);
                 GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
                 EnumFacing enumFacing = player.isSneaking() ? facing.getOpposite() : facing;
+                int meta = this == GTCXItems.conveyorModule ? 1 : this == GTCXItems.drain ? 2 : this == GTCXItems.itemTransportValve ? 3 : 4;
                 if (!pipe.anchors.contains(enumFacing)){
-                    pipe.addCover(enumFacing, GTCXBlocks.dummyCover.getStateFromMeta(1));
+                    pipe.addCover(enumFacing, GTCXBlocks.dummyCover.getStateFromMeta(meta));
                     stack.shrink(1);
                     if (worldIn.isRemote){
                         IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);

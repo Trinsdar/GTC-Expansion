@@ -53,6 +53,8 @@ public class GTCXItems {
     public static final GTCXItemMisc match = createItem(new GTCXItemMatch());
     public static final GTCXItemMisc woodPlate = createItem(new GTCXItemMisc("wood_plate", 10, 0));
     public static final GTCXItemMatchBox matchBox = createItem(new GTCXItemMatchBox());
+    public static final GTCXItemMisc itemTransportValve = createItem(new GTCXItemMisc("item_transport_valve", 3, 3));
+    public static final GTCXItemMisc drain = createItem(new GTCXItemMisc("drain", 4, 3));
     public static final GTCXItemMiscSpriteless magicDye = createItem(new GTCXItemMiscSpriteless("magic_dye"));
     public static final GTCXItemMisc mold = createItem(new GTCXItemMisc("mold", 0, 2));
     public static final GTCXItemMold moldPlate = createItem(new GTCXItemMold("plate", 1, 2));

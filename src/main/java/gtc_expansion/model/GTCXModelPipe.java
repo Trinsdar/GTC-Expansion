@@ -1,12 +1,12 @@
 package gtc_expansion.model;
 
-import gtc_expansion.util.GTCXHelperPipe;
+import gtc_expansion.block.GTCXBlockPipe.GTCXBlockState;
 import gtclassic.api.block.GTBlockBaseConnect;
 import ic2.core.RotationList;
+import ic2.core.block.base.util.texture.TextureCopyStorage;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.Ic2Models;
 import ic2.core.platform.textures.models.BaseModel;
-import ic2.core.util.helpers.BlockStateContainerIC2.IC2BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockFaceUV;
@@ -105,20 +105,19 @@ public class GTCXModelPipe extends BaseModel {
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         if (side == null) {
-            if (!(state instanceof IC2BlockState)) {
+            if (!(state instanceof GTCXBlockState)) {
                 // if its in jei/creative tab it will default to the int passed below, 12 =
                 // (4+8) (north+south)
                 return this.quads[12];
             } else {
-                GTCXHelperPipe.GTCXQuadWrapper wrapper = ((IC2BlockState)state).getData();
-                Vec3i vec = wrapper.getVec();
-                //Vec3i vec = ((IC2BlockState)state).getData();
+                TextureCopyStorage.QuadList quadList = ((GTCXBlockState)state).getData();
+                Vec3i vec = ((GTCXBlockState)state).getData2();
                 if (vec.getY() > 0) {
                     List<BakedQuad> list = this.comboQuads.get(vec.getZ());
                     if (list == null) {
                         list = new ArrayList(this.quads[vec.getX()]);
                         list.addAll(this.anchorQuads[vec.getY()]);
-                        list.addAll(wrapper.getQuadList().getQuads());
+                        list.addAll(quadList.getQuads());
                         this.comboQuads.put(vec.getZ(), list);
                     }
                     return list;
