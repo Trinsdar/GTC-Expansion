@@ -6,7 +6,7 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTEnergySource;
 import gtc_expansion.interfaces.IGTOwnerTile;
-import gtc_expansion.item.tools.GTCXItemToolHammer;
+import gtc_expansion.item.tools.GTCXItemToolScrewdriver;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;
 import ic2.api.classic.energy.tile.IEnergySourceInfo;
@@ -308,14 +308,16 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         }
 
         public void cycleTier(EntityPlayer player){
-            if (tier == 4){
-                tier = 5;
-                output = 8192;
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_1);
-            } else {
-                tier = 4;
-                output = 2048;
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_0);
+            if (this.isSimulating()) {
+                if (tier == 4){
+                    tier = 5;
+                    output = 8192;
+                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_1);
+                } else {
+                    tier = 4;
+                    output = 2048;
+                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_0);
+                }
             }
         }
 
@@ -327,7 +329,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         @Override
         public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
             ItemStack stack = entityPlayer.getHeldItem(enumHand);
-            if (stack.getItem() instanceof GTCXItemToolHammer){
+            if (stack.getItem() instanceof GTCXItemToolScrewdriver){
                 this.cycleTier(entityPlayer);
                 stack.damageItem(1, entityPlayer);
                 return true;

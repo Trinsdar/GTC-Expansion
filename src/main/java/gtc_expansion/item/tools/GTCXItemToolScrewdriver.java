@@ -94,6 +94,10 @@ public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        return RotationHelper.rotateBlock(world, pos, side) ? EnumActionResult.SUCCESS: EnumActionResult.PASS;
+        if (RotationHelper.rotateBlock(world, pos, side)){
+            stack.damageItem(1, player);
+            return EnumActionResult.SUCCESS;
+        }
+        return EnumActionResult.PASS;
     }
 }

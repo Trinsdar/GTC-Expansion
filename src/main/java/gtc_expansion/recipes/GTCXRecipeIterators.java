@@ -321,6 +321,7 @@ public class GTCXRecipeIterators {
             recipes.addRecipe(GTCXToolGen.getWrench(mat), "I I", "III", " I ", 'I', ingot);
             recipes.addRecipe(GTCXToolGen.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
             recipes.addRecipe(GTCXToolGen.getCrowbar(mat), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rod" + mat.getDisplayName());
+            recipes.addRecipe(GTCXToolGen.getScrewdriver(mat), "R  ", " R ", "  S", 'R', "rod" + mat.getDisplayName(), 'S', stick);
             if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
                 recipes.addRecipe(GTCXToolGen.getBranchCutter(mat), "PFP", "P P", "RRR", 'P', plate, 'F', "craftingToolFile", 'R', "rod" + mat.getDisplayName());
             }

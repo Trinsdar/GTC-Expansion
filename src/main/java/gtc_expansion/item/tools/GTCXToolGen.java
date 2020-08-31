@@ -41,6 +41,7 @@ public class GTCXToolGen {
         itemMap.put(mat.getName() + "_file", new GTCXItemToolFile(mat, tmat));
         itemMap.put(mat.getName() + "_wrench", new GTCXItemToolWrench(mat, tmat));
         itemMap.put(mat.getName() + "_crowbar", new GTCXItemToolCrowbar(mat, tmat));
+        itemMap.put(mat.getName() + "_screwdriver", new GTCXItemToolScrewdriver(mat, tmat));
         if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
             itemMap.put(mat.getName() + "_branch_cutter", new GTCXItemToolBranchCutter(mat, tmat));
         }
@@ -58,6 +59,7 @@ public class GTCXToolGen {
         itemMap.put(mat.getName() + "_file", new GTCXItemToolFile(mat, tmat));
         itemMap.put(mat.getName() + "_wrench", new GTCXItemToolWrench(mat, tmat));
         itemMap.put(mat.getName() + "_crowbar", new GTCXItemToolCrowbar(mat, tmat));
+        itemMap.put(mat.getName() + "_screwdriver", new GTCXItemToolScrewdriver(mat, tmat));
         if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
             itemMap.put(mat.getName() + "_branch_cutter", new GTCXItemToolBranchCutter(mat, tmat));
         }
@@ -93,6 +95,10 @@ public class GTCXToolGen {
 
     public static ItemStack getCrowbar(GTMaterial material){
         return new ItemStack(itemMap.get(material.getName() + "_crowbar"));
+    }
+
+    public static ItemStack getScrewdriver(GTMaterial material){
+        return new ItemStack(itemMap.get(material.getName() + "_screwdriver"));
     }
 
     public static ItemStack getBranchCutter(GTMaterial material){

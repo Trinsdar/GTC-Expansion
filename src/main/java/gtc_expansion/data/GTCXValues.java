@@ -2,6 +2,7 @@ package gtc_expansion.data;
 
 import gtc_expansion.GTCXConfiguration;
 import gtclassic.api.helpers.GTValues;
+import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTItems;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
 import ic2.api.recipe.IRecipeInput;
@@ -36,6 +37,7 @@ public class GTCXValues {
     public static final IRecipeInput REINFORCED_GLASS = combineRecipeObjects( Ic2Items.reinforcedGlass, Ic2Items.reinforcedGlassClear);
     public static final IRecipeInput GRINDER = combineRecipeObjects( GTCXItems.diamondGrinder, GTCXItems.wolframiumGrinder);
     public static final IRecipeInput TIER_2_ENERGY = combineRecipeObjects( Ic2Items.energyCrystal, GTItems.lithiumBattery);
+    public static final IRecipeInput PUMP = combineRecipeObjects(Ic2Items.pump.copy(), GTMaterialGen.get(GTCXItems.pumpModule));
     public static final String MACHINE_CHEAP = "machineBlockCheap";
     public static final String MACHINE_VERY_ADV = "machineBlockVeryAdvanced";
     public static final ItemStack[] EMPTY = new ItemStack[0];
