@@ -8,6 +8,7 @@ import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.GTValues;
 import ic2.core.IC2;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 @Mod(modid = GTCExpansion.MODID, name = GTCExpansion.MODNAME, version = GTCExpansion.MODVERSION, dependencies = GTCExpansion.DEPENDS, useMetadata = true)
@@ -38,6 +40,8 @@ public class GTCExpansion {
 	public static Logger logger;
 
 	public int counter = 0;
+
+	public ArrayList<BlockPos> wrenchMap = new ArrayList<>();
 
 	static {
 		GTCXMaterial.initMaterials();

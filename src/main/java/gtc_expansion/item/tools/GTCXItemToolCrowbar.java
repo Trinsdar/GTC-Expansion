@@ -3,6 +3,7 @@ package gtc_expansion.item.tools;
 import com.google.common.collect.Sets;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
+import gtc_expansion.util.GTCXWrenchUtils;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
 import gtclassic.api.material.GTMaterial;
@@ -27,6 +28,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
@@ -65,12 +67,14 @@ public class GTCXItemToolCrowbar extends ItemTool implements IStaticTexturedItem
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof GTCXTileBasePipe){
+        RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(player);
+        if (tile instanceof GTCXTileBasePipe && lookingAt != null){
             GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
-            if (pipe.anchors.contains(facing)){
-                ItemStack stack = pipe.storage.getCoverDrop(facing);
+            EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
+            if (sideToggled != null && pipe.anchors.contains(sideToggled)){
+                ItemStack stack = pipe.storage.getCoverDrop(sideToggled);
                 if (!stack.isEmpty()){
-                    pipe.removeCover(facing);
+                    pipe.removeCover(sideToggled);
                     if (!player.addItemStackToInventory(stack)){
                         player.dropItem(stack, true);
                     }
