@@ -101,6 +101,10 @@ public class CoverStorage implements INetworkFieldData {
         }
     }
 
+    public TextureCopyEntry[] getEntries() {
+        return entries;
+    }
+
     /*@SideOnly(Side.CLIENT)
     public static class QuadList {
         List<BakedQuad>[] quads = createList();

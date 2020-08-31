@@ -307,6 +307,11 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
                 map.put("Anchors has facing " + facing.getName(), true);
             }
         }
+        for(int i = 0; i < 6; ++i) {
+            if (storage.getEntries()[i].getModelState() != null && storage.getEntries()[i].getRenderState() != null){
+                map.put("Cover at facing " + EnumFacing.getFront(i) + ": " + storage.getCoverDrop(EnumFacing.getFront(i)).getDisplayName(), true);
+            }
+        }
     }
 
     @Override

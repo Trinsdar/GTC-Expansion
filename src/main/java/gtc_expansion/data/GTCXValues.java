@@ -112,6 +112,32 @@ public class GTCXValues {
         };
     }
 
+    public static ICraftingRecipeList.IRecipeModifier gtcxTooltip(){
+        return new ICraftingRecipeList.IRecipeModifier() {
+            @Override
+            public void clear() {
+            }
+
+            @Override
+            public boolean isStackValid(ItemStack provided) {
+                return true;
+            }
+
+            @Override
+            public ItemStack getOutput(ItemStack output, boolean forDisplay) {
+                if (forDisplay) {
+                    StackUtil.addToolTip(output, "Recipe overridden by GTC Expansion");
+                }
+                return output;
+            }
+
+            @Override
+            public boolean isOutput(ItemStack possibleOutput) {
+                return false;
+            }
+        };
+    }
+
     public static ICraftingRecipeList.IRecipeModifier foamTransfer(ItemStack input){
         return new ICraftingRecipeList.IRecipeModifier() {
 

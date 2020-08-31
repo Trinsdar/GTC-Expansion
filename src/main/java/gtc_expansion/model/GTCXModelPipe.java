@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +32,6 @@ import java.util.Map;
 public class GTCXModelPipe extends BaseModel {
     List<BakedQuad>[] quads; // All possible connection configurations
     List<BakedQuad>[] anchorQuads = this.createList(64); // All possible anchor configurations
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    Map<Integer, List<BakedQuad>> comboQuads = new HashMap();// A sum of the above quad lists
     IBlockState state;
     // functions
     int[] sizes; // This is an int array to draw the size of the cable, [0, 16] would be a full
@@ -113,13 +110,10 @@ public class GTCXModelPipe extends BaseModel {
                 TextureCopyStorage.QuadList quadList = ((GTCXBlockState)state).getData();
                 Vec3i vec = ((GTCXBlockState)state).getData2();
                 if (vec.getY() > 0) {
-                    List<BakedQuad> list = this.comboQuads.get(vec.getZ());
-                    if (list == null) {
-                        list = new ArrayList(this.quads[vec.getX()]);
-                        list.addAll(this.anchorQuads[vec.getY()]);
-                        list.addAll(quadList.getQuads());
-                        this.comboQuads.put(vec.getZ(), list);
-                    }
+                    List<BakedQuad> list;
+                    list = new ArrayList(this.quads[vec.getX()]);
+                    list.addAll(this.anchorQuads[vec.getY()]);
+                    list.addAll(quadList.getQuads());
                     return list;
                 } else {
                     return this.quads[vec.getX()];
