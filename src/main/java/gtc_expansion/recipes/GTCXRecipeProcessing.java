@@ -78,6 +78,7 @@ public class GTCXRecipeProcessing {
         if (OreDictionary.doesOreNameExist("stoneMarble")){
             GTRecipe.maceratorUtil("stoneMarble", 1, GTMaterialGen.getDust(GTCXMaterial.Marble, 1));
         }
+        TileEntityCompressor.addRecipe("dustIridium", 1, Ic2Items.iridiumOre.copy());
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Constantan, 3));
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Kanthal, 4));
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.nichromeHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Nichrome, 4));

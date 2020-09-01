@@ -33,6 +33,12 @@ public class CoverStorage implements INetworkFieldData {
         this.entries = TextureCopyEntry.createArray(6);
     }
 
+    public void onTick(){
+        for (GTCXBaseCoverLogic logic : coverLogicMap.values()){
+            logic.onTick();
+        }
+    }
+
     public void readFromNBT(NBTTagCompound nbt) {
         this.entries = TextureCopyEntry.createArray(6);
         NBTTagList list = nbt.getTagList("Data", 10);
@@ -48,7 +54,7 @@ public class CoverStorage implements INetworkFieldData {
         NBTTagList logic = nbt.getTagList("Logic", 10);
         for (int i = 0; i < 6; i++){
             NBTTagCompound data = logic.getCompoundTagAt(i);
-            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(data.getByte("Type")));
+            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(data.getInteger("Type")));
             this.coverLogicMap.get(EnumFacing.getFront(i)).readFromNBT(data);
         }
     }
@@ -65,9 +71,9 @@ public class CoverStorage implements INetworkFieldData {
         NBTTagList logic = new NBTTagList();
         for (int i = 0; i < 6; i++){
             NBTTagCompound data = new NBTTagCompound();
+            data.setInteger("Type", intFromLogic(coverLogicMap.get(EnumFacing.getFront(i))));
             this.coverLogicMap.get(EnumFacing.getFront(i)).writeToNBT(data);
-            data.setByte("Type", (byte)intFromLogic(coverLogicMap.get(EnumFacing.getFront(i))));
-            list.appendTag(data);
+            logic.appendTag(data);
         }
         nbt.setTag("Logic", logic);
     }
@@ -163,30 +169,4 @@ public class CoverStorage implements INetworkFieldData {
         }
         return 0;
     }
-
-    /*@SideOnly(Side.CLIENT)
-    public static class QuadList {
-        List<BakedQuad>[] quads = createList();
-
-        public QuadList() {
-        }
-
-        public void addQuads(List<BakedQuad> list, EnumFacing facing) {
-            this.quads[facing.getIndex()].addAll(list);
-        }
-
-        public List<BakedQuad> getQuads(EnumFacing facing) {
-            return this.quads[facing.getIndex()];
-        }
-
-        protected List<BakedQuad>[] createList() {
-            List<BakedQuad>[] quads = new List[6];
-
-            for(int i = 0; i < 6; ++i) {
-                quads[i] = new ArrayList<>();
-            }
-
-            return quads;
-        }
-    }*/
 }

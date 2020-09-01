@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTDebuggableTile, IGTItemContainerTile, IGTRecolorableStorageTile {
+public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTDebuggableTile, IGTItemContainerTile, IGTRecolorableStorageTile, ITickable {
     @NetworkField(index = 3)
     public RotationList connection;
     @NetworkField(
@@ -61,6 +62,11 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
 
     public void setModel(GTCXHelperPipe.GTPipeModel model) {
         this.model = model;
+    }
+
+    @Override
+    public void update() {
+        this.storage.onTick();
     }
 
     @Override
