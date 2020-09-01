@@ -1,6 +1,11 @@
 package gtc_expansion.util;
 
 import gtc_expansion.logic.GTCXBaseCoverLogic;
+import gtc_expansion.logic.GTCXConveyorModuleLogic;
+import gtc_expansion.logic.GTCXDrainModuleLogic;
+import gtc_expansion.logic.GTCXItemValveModuleLogic;
+import gtc_expansion.logic.GTCXNullLogic;
+import gtc_expansion.logic.GTCXPumpModuleLogic;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import ic2.api.classic.event.RetextureEventClassic;
 import ic2.api.classic.network.INetworkFieldData;
@@ -39,7 +44,13 @@ public class CoverStorage implements INetworkFieldData {
                 this.entries[slot].readFromNBT(data);
             }
         }
-
+        coverLogicMap = new LinkedHashMap<>();
+        NBTTagList logic = nbt.getTagList("Logic", 10);
+        for (int i = 0; i < 6; i++){
+            NBTTagCompound data = logic.getCompoundTagAt(i);
+            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(data.getByte("Type")));
+            this.coverLogicMap.get(EnumFacing.getFront(i)).readFromNBT(data);
+        }
     }
 
     public void writeToNBT(NBTTagCompound nbt) {
@@ -50,8 +61,15 @@ public class CoverStorage implements INetworkFieldData {
             data.setByte("Slot", (byte)i);
             list.appendTag(data);
         }
-
         nbt.setTag("Data", list);
+        NBTTagList logic = new NBTTagList();
+        for (int i = 0; i < 6; i++){
+            NBTTagCompound data = new NBTTagCompound();
+            this.coverLogicMap.get(EnumFacing.getFront(i)).writeToNBT(data);
+            data.setByte("Type", (byte)intFromLogic(coverLogicMap.get(EnumFacing.getFront(i))));
+            list.appendTag(data);
+        }
+        nbt.setTag("Logic", logic);
     }
 
     @SideOnly(Side.CLIENT)
@@ -69,10 +87,12 @@ public class CoverStorage implements INetworkFieldData {
 
     public void setCover(IBlockState cover, EnumFacing facing){
         entries[facing.getIndex()].set(cover, cover, new int[]{-1}, new RetextureEventClassic.Rotation[]{RetextureEventClassic.Rotation.Rotation0}, facing);
+        coverLogicMap.put(facing, this.logicFromInt(cover.getBlock().getMetaFromState(cover)));
     }
 
     public void removeCover(EnumFacing facing){
         entries[facing.getIndex()].clear();
+        coverLogicMap.put(facing, this.logicFromInt(0));
     }
 
     public ItemStack getCoverDrop(EnumFacing facing){
@@ -91,6 +111,11 @@ public class CoverStorage implements INetworkFieldData {
             int slot = buffer.readByte();
             this.entries[slot].read(buffer);
         }
+        coverLogicMap = new LinkedHashMap<>();
+        for (int i = 0; i < 6; i++){
+            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(buffer.readInt()));
+            this.coverLogicMap.get(EnumFacing.getFront(i)).read(buffer);
+        }
     }
 
     @Override
@@ -99,10 +124,44 @@ public class CoverStorage implements INetworkFieldData {
             buffer.writeByte((byte)i);
             this.entries[i].write(buffer);
         }
+        for (int i = 0; i < 6; i++){
+            buffer.writeInt(intFromLogic(coverLogicMap.get(EnumFacing.getFront(i))));
+            this.coverLogicMap.get(EnumFacing.getFront(i)).write(buffer);
+        }
     }
 
     public TextureCopyEntry[] getEntries() {
         return entries;
+    }
+
+    public Map<EnumFacing, GTCXBaseCoverLogic> getCoverLogicMap() {
+        return coverLogicMap;
+    }
+
+    protected GTCXBaseCoverLogic logicFromInt(int value){
+        switch (value){
+            case 1: return new GTCXConveyorModuleLogic(owner);
+            case 2: return new GTCXDrainModuleLogic(owner);
+            case 3: return new GTCXItemValveModuleLogic(owner);
+            case 4: return new GTCXPumpModuleLogic(owner);
+            default: return new GTCXNullLogic(owner);
+        }
+    }
+
+    protected int intFromLogic(GTCXBaseCoverLogic logic){
+        if (logic instanceof GTCXConveyorModuleLogic){
+            return 1;
+        }
+        if (logic instanceof GTCXDrainModuleLogic){
+            return 2;
+        }
+        if (logic instanceof GTCXItemValveModuleLogic){
+            return 3;
+        }
+        if (logic instanceof GTCXPumpModuleLogic){
+            return 4;
+        }
+        return 0;
     }
 
     /*@SideOnly(Side.CLIENT)

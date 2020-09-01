@@ -2,6 +2,8 @@ package gtc_expansion.item.tools;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.tile.pipes.GTCXTileBasePipe;
+import gtc_expansion.util.GTCXWrenchUtils;
 import gtc_expansion.util.RotationHelper;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
@@ -14,10 +16,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -99,5 +103,19 @@ public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem
             return EnumActionResult.SUCCESS;
         }
         return EnumActionResult.PASS;
+    }
+
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileEntity tile = worldIn.getTileEntity(pos);
+        RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(player);
+        if (tile instanceof GTCXTileBasePipe && lookingAt != null){
+            GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
+            EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
+            if (sideToggled != null && pipe.anchors.contains(sideToggled)){
+                pipe.storage.getCoverLogicMap().get(sideToggled).cycleMode(player);
+            }
+        }
+        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
 }
