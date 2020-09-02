@@ -26,6 +26,7 @@ public class GTCXBlockDummyCover extends BlockMultiID {
         super(Material.IRON);
         this.setRegistryName("dummy_cover");
         this.setUnlocalizedName(GTCExpansion.MODID + ".dummy_cover");
+        this.setCreativeTab(null);
     }
 
     @Override

@@ -3,6 +3,7 @@ package gtc_expansion.events;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.interfaces.IGTOverlayWrench;
 import gtc_expansion.interfaces.IGTTextureStorageTile;
+import gtc_expansion.item.GTCXItemCover;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.tools.GTCXItemToolCrowbar;
 import gtc_expansion.item.tools.GTCXItemToolScrewdriver;
@@ -160,7 +161,7 @@ public class GTCXOtherEvents {
                     ItemStack stack = player.getHeldItemMainhand();
                     if (stack.getItem() instanceof IGTOverlayWrench) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
-                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof GTCXItemToolScrewdriver) {
+                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof GTCXItemToolScrewdriver || stack.getItem() instanceof GTCXItemCover) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).anchors);
                     }
                 }

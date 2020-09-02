@@ -6,21 +6,20 @@ import gtc_expansion.GTCXJei;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.entity.GTCXEntityElectricBoat;
 import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.render.GTCXGuiFirstLoad;
 import gtclassic.api.material.GTMaterialItem;
-import gtclassic.common.GTItems;
 import ic2.core.entity.render.RenderOldClassicBoat;
 import ic2.core.platform.textures.Ic2Icons;
-import ic2.core.util.misc.StackUtil;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -76,20 +75,14 @@ public class GTCXClientProxy extends GTCXCommonProxy {
             event.getToolTip().add(name);
             event.getToolTip().add(I18n.format("tooltip.gtc_expansion.broken_turbine_rotor"));
             event.getToolTip().addAll(copy);
-        } else if (stack.getItem() == GTItems.orbDataStorage){
-            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
-            if (nbt.hasKey("Fluid")){
-                FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("Fluid"));
-                if (fluidStack != null){
-                    List<String> tooltips = new ArrayList<>(event.getToolTip());
-                    String name = tooltips.get(0);
-                    List<String> copy = tooltips.subList(2, event.getToolTip().size());
-                    event.getToolTip().clear();
-                    event.getToolTip().add(name);
-                    event.getToolTip().add(fluidStack.amount + "mB of "+ fluidStack.getLocalizedName());
-                    event.getToolTip().addAll(copy);
-                }
-            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onGuiOpen(GuiOpenEvent event) {
+        if(GTCExpansion.firstLoad && event.getGui() instanceof GuiMainMenu) {
+            GTCExpansion.firstLoad = false;
+            event.setGui(new GTCXGuiFirstLoad(event.getGui()));
         }
     }
 }

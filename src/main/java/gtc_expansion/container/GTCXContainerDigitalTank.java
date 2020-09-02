@@ -1,6 +1,7 @@
 package gtc_expansion.container;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.gui.GTCXGuiCompDigitalTank;
 import gtc_expansion.tile.GTCXTileDigitalTank;
 import gtclassic.api.gui.GTGuiCompFluidTank;
@@ -62,7 +63,7 @@ public class GTCXContainerDigitalTank extends ContainerTileComponent<GTCXTileDig
 
 		@Override
 		public boolean matches(ItemStack itemStack) {
-			if (StackUtil.isStackEqual(itemStack, GTMaterialGen.get(GTItems.orbDataStorage)) || GTHelperStack.isEqual(itemStack, GTMaterialGen.get(GTItems.orbData))) {
+			if (StackUtil.isStackEqual(itemStack, GTMaterialGen.get(GTCXItems.dataOrbStorage)) || GTHelperStack.isEqual(itemStack, GTMaterialGen.get(GTItems.orbData))) {
 				return inverse;
 			}
 			return !inverse;

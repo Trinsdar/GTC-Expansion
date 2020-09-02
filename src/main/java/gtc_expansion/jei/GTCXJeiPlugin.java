@@ -73,6 +73,8 @@ public class GTCXJeiPlugin implements IModPlugin {
                     }
                 }
             }*/
+            blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.dataOrbStorage));
+            blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.dummyCover));
             if (!Loader.isModLoaded(GTValues.MOD_ID_TFOREST) || !GTConfig.modcompat.compatTwilightForest){
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.oreOlivineOverworld));
             }

@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -43,6 +44,8 @@ public class GTCExpansion {
 
 	public ArrayList<BlockPos> wrenchMap = new ArrayList<>();
 
+	public static boolean firstLoad = false;
+
 	static {
 		GTCXMaterial.initMaterials();
 	}
@@ -60,6 +63,16 @@ public class GTCExpansion {
 		proxy.preInit(event);
 		Calendar calendar = Calendar.getInstance();
 		aprilFirst = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
+		File directory = event.getModConfigurationDirectory();
+		File dat = new File(directory.getPath(),"ic2/first_load.dat");
+		if (!dat.exists()){
+			firstLoad = true;
+			try {
+				dat.createNewFile();
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static ResourceLocation getAprilFirstSound(ResourceLocation original){

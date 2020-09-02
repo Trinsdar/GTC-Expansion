@@ -1,6 +1,7 @@
 package gtc_expansion.tile;
 
 import gtc_expansion.container.GTCXContainerDigitalTank;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperStack;
@@ -122,7 +123,7 @@ public class GTCXTileDigitalTank extends TileEntityMachine implements IHasGui, I
 			IC2.platform.messagePlayer(player, "No Data Orb present!");
 			return;
 		}
-		if (StackUtil.isStackEqual(dataSlot(), GTMaterialGen.get(GTItems.orbDataStorage), false, true)) {
+		if (StackUtil.isStackEqual(dataSlot(), GTMaterialGen.get(GTCXItems.dataOrbStorage), false, true)) {
 			if (dataSlot().getCount() > 1) {
 				IC2.platform.messagePlayer(player, "Read Failed: Too many orbs");
 				return;
@@ -161,7 +162,7 @@ public class GTCXTileDigitalTank extends TileEntityMachine implements IHasGui, I
 				IC2.platform.messagePlayer(player, "Write Failed: too many orbs");
 				return;
 			}
-			dataSlot(GTMaterialGen.get(GTItems.orbDataStorage));
+			dataSlot(GTMaterialGen.get(GTCXItems.dataOrbStorage));
 			NBTTagCompound nbt = StackUtil.getOrCreateNbtData(dataSlot());
 			NBTTagCompound data = new NBTTagCompound();
 			this.tank.getFluid().writeToNBT(data);

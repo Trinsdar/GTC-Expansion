@@ -2,19 +2,21 @@ package gtc_expansion.data;
 
 import gtc_expansion.item.GTCXItemBatteryReusable;
 import gtc_expansion.item.GTCXItemBatterySingleUse;
+import gtc_expansion.item.GTCXItemCover;
 import gtc_expansion.item.GTCXItemDamageable;
+import gtc_expansion.item.GTCXItemDataOrbStorage;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.GTCXItemFood;
 import gtc_expansion.item.GTCXItemHardeningSpray;
 import gtc_expansion.item.GTCXItemInsulationCutter;
 import gtc_expansion.item.GTCXItemIntegratedCircuit;
 import gtc_expansion.item.GTCXItemMatch;
+import gtc_expansion.item.GTCXItemMatchBox;
 import gtc_expansion.item.GTCXItemMisc;
 import gtc_expansion.item.GTCXItemMiscSpriteless;
 import gtc_expansion.item.GTCXItemMold;
 import gtc_expansion.item.GTCXItemSteelJackHammer;
 import gtc_expansion.item.GTCXItemTurbineRotor;
-import gtc_expansion.item.GTCXItemMatchBox;
 import gtc_expansion.material.GTCXMaterial;
 import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
@@ -32,8 +34,8 @@ public class GTCXItems {
 
     public static final GTCXItemMisc iridiumAlloyIngot = createItem(new GTCXItemMisc("iridium_alloy_ingot", 0, 0));
     public static final GTCXItemMisc computerMonitor = createItem(new GTCXItemMisc("computer_monitor", 1, 0));
-    public static final GTCXItemMisc conveyorModule = createItem(new GTCXItemMisc("conveyor_module",2, 0));
-    public static final GTCXItemMisc pumpModule = createItem(new GTCXItemMisc("pump_module",3, 0));
+    public static final GTCXItemMisc conveyorModule = createItem(new GTCXItemCover("conveyor_module",2, 0));
+    public static final GTCXItemMisc pumpModule = createItem(new GTCXItemCover("pump_module",3, 0));
     public static final GTCXItemMisc diamondGrinder = createItem(new GTCXItemMisc("diamond_grinder", 4, 0));
     public static final GTCXItemMisc wolframiumGrinder = createItem(new GTCXItemMisc("wolframium_grinder", 5, 0));
     public static final GTCXItemMisc diamondSawblade = createItem(new GTCXItemMisc("diamond_sawblade", 14, 1));
@@ -53,9 +55,10 @@ public class GTCXItems {
     public static final GTCXItemMisc match = createItem(new GTCXItemMatch());
     public static final GTCXItemMisc woodPlate = createItem(new GTCXItemMisc("wood_plate", 10, 0));
     public static final GTCXItemMatchBox matchBox = createItem(new GTCXItemMatchBox());
-    public static final GTCXItemMisc itemTransportValve = createItem(new GTCXItemMisc("item_transport_valve", 3, 3));
-    public static final GTCXItemMisc drain = createItem(new GTCXItemMisc("drain", 4, 3));
+    public static final GTCXItemMisc itemTransportValve = createItem(new GTCXItemCover("item_transport_valve", 3, 3));
+    public static final GTCXItemMisc drain = createItem(new GTCXItemCover("drain", 4, 3));
     public static final GTCXItemMiscSpriteless magicDye = createItem(new GTCXItemMiscSpriteless("magic_dye"));
+    public static final GTCXItemMisc dataOrbStorage = createItem(new GTCXItemDataOrbStorage());
     public static final GTCXItemMisc mold = createItem(new GTCXItemMisc("mold", 0, 2));
     public static final GTCXItemMold moldPlate = createItem(new GTCXItemMold("plate", 1, 2));
     public static final GTCXItemMold moldRod = createItem(new GTCXItemMold("rod", 2, 2));

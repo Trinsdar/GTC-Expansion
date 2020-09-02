@@ -307,6 +307,7 @@ public class GTCXRecipe {
         registry.remove(new ResourceLocation("minecraft", "iron_bars"));
         registry.remove(new ResourceLocation("minecraft", "hopper"));
         registry.remove(new ResourceLocation("quark", "hopper"));
+        registry.remove(new ResourceLocation("minecraft", "flint_and_steel"));
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.hopper_-82413824");
         if (GTCXConfiguration.general.enableCraftingTools){
             recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), " W ", "RRR", "RRR", 'R', "rodIron", 'W', "craftingToolWrench");
@@ -317,6 +318,7 @@ public class GTCXRecipe {
         IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
         int recipeID = STEEL_MODE ? -305222786 : -156474894;
         GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", "shaped_tile.hopper_" + recipeID, GTMaterialGen.get(Blocks.HOPPER), "IWI", "ICI", " I ", 'I', material, 'W', wrench, 'C', CHEST_WOOD);
+        recipes.addShapelessRecipe(GTMaterialGen.get(Items.FLINT_AND_STEEL), "ingotSteel", Items.FLINT);
     }
 
     public static void initWoodRecipes(){
@@ -406,6 +408,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.outputHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', "chest", 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dynamoHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.transformerHV, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.machineControlHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.redstoneSUpgrade, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.digitalTank), "SSS", "SDS", "SCS", 'S', STAINLESS_STEEL, 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor);
         ItemStack cable = GTMaterialGen.get(GTCXBlocks.electrumCable);
         IRecipeInput rubber = combineRecipeObjects("itemRubber", "craftingToolDuctTape");
         recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ELECTRUM);

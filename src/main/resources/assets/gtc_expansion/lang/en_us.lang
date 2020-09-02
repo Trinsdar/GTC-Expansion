@@ -658,6 +658,7 @@ item.gtc_expansion.cutter.name=Insulation Cutter
 item.gtc_expansion.hardening_spray.name=Hardening Spray
 item.gtc_expansion.item_transport_valve.name=Item Transport Valve
 item.gtc_expansion.drain.name=Drain
+item.gtc_expansion.data_orb_storage.name=Data Orb
 
 item.gtc_expansion.bronze_turbine_rotor.name=Bronze Turbine Rotor
 item.gtc_expansion.steel_turbine_rotor.name=Steel Turbine Rotor
@@ -857,5 +858,10 @@ message.gtc_expansion.dynamo_hatch_mode0.name=Tier set to tier 4
 message.gtc_expansion.dynamo_hatch_mode1.name=Tier set to tier 5
 
 button.gtc_expansion.digitaltank=Upload to Tank
+button.gtc_expansion.backToMainMenu=Back to Main Menu
+
+title.gtc_expansion.first_load=Notice from GTC Expansion
+
+info.gtc_expansion.first_load0=Hi
 
 miscInfo.gtc_expansion.pressShift.name=Press%1$s Shift%2$s for Structure Information
