@@ -57,6 +57,7 @@ tile.gtc_expansion.alloysmelter.name=Alloy Smelter
 tile.gtc_expansion.assemblingmachine.name=Assembling Machine
 tile.gtc_expansion.bath.name=Bath
 tile.gtc_expansion.chemicalreactor.name=Chemical Reactor
+tile.gtc_expansion.digitaltank.name=Digital Tank
 tile.gtc_expansion.distillationtower.name=Distillation Tower
 tile.gtc_expansion.alloyfurnace.name=Alloy Furnace
 tile.gtc_expansion.primitiveblastfurnace.name=Primitive Blast Furnace
@@ -806,6 +807,7 @@ tooltip.gtc_expansion.locker0=For storing a set of armor
 tooltip.gtc_expansion.electriclocker0=For storing a set of armor and charging it
 tooltip.gtc_expansion.dustbin0=For compacting all your small and tiny dusts.
 tooltip.gtc_expansion.trash_bin0=For all your trash needs.
+tooltip.gtc_expansion.digitaltank0=With a capacity of 256000 Liters!
 
 #multiblock tooltips
 tooltip.gtc_expansion.thermalboilermultiblock0=Size(LxWxH): 3x3x3 (Hollow), Controller (Front Centered)
@@ -853,5 +855,7 @@ message.gtc_expansion.cover_mode4.name=Import allow Output (conditional)
 message.gtc_expansion.cover_mode5.name=Import allow Output (invert conditional)
 message.gtc_expansion.dynamo_hatch_mode0.name=Tier set to tier 4
 message.gtc_expansion.dynamo_hatch_mode1.name=Tier set to tier 5
+
+button.gtc_expansion.digitaltank=Upload to Tank
 
 miscInfo.gtc_expansion.pressShift.name=Press%1$s Shift%2$s for Structure Information
