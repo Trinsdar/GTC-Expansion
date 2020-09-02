@@ -19,6 +19,7 @@ import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
+import gtc_expansion.tile.GTCXTileDigitalTank;
 import gtc_expansion.tile.GTCXTileDustbin;
 import gtc_expansion.tile.GTCXTileElectricLocker;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
@@ -107,6 +108,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile largeGasTurbine = registerBlock(new GTCXBlockTile("largegasturbine", GTCXLang.LARGE_GAS_TURBINE, 1));
     public static final GTCXBlockTile centrifuge = registerBlock(new GTCXBlockTile("industrialcentrifuge", GTLang.INDUSTRIAL_CENTRIFUGE, 1));
     public static final GTCXBlockTile bath = registerBlock(new GTCXBlockTile("bath", GTCXLang.BATH, 2));
+    public static final GTCXBlockTile digitalTank = registerBlock(new GTCXBlockTile("digitaltank", GTCXLang.DIGITAL_TANK, 1));
 
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
@@ -235,6 +237,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileMultiFusionReactor.class, "BigFusionReactor");
         registerUtil(GTCXTileBaseItemPipe.class, "BaseItemPipe");
         registerUtil(GTCXTileBaseFluidPipe.class, "BaseFluidPipe");
+        registerUtil(GTCXTileDigitalTank.class, "DigitalTank");
     }
 
     public static void registerUtil(Class tile, String name) {

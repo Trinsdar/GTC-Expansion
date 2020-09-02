@@ -28,13 +28,29 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
         if (this.facing == EnumFacing.UP && this.pipe instanceof GTCXTileBaseFluidPipe){
             GTCXTileBaseFluidPipe fluidPipe = (GTCXTileBaseFluidPipe) pipe;
             IC2Tank tank = fluidPipe.getTank();
+            if (leftOver > 0){
+                if (tank.getCapacity() - tank.getFluidAmount() >= leftOver){
+                    tank.fill(water, true);
+                    leftOver = 0;
+                } else {
+                    int room = tank.getCapacity() - tank.getFluidAmount();
+                    leftOver -= room;
+                    tank.fill(GTMaterialGen.getFluidStack("water", room), true);
+                }
+                return;
+            }
             if (tank.getFluid() == null || tank.getFluid().isFluidEqual(water)){
                 if (fluidPipe.getWorld().getBlockState(fluidPipe.getPos().offset(this.facing)).getBlock() == Blocks.WATER){
                     if (!BiomeDictionary.hasType(fluidPipe.getWorld().getBiome(fluidPipe.getPos()), BiomeDictionary.Type.OCEAN)){
                         fluidPipe.getWorld().setBlockToAir(fluidPipe.getPos().up());
                     }
                     if (tank.getCapacity() - tank.getFluidAmount() >= 1000){
-
+                        tank.fill(water, true);
+                        leftOver = 0;
+                    } else {
+                        int room = tank.getCapacity() - tank.getFluidAmount();
+                        leftOver = 1000 - room;
+                        tank.fill(GTMaterialGen.getFluidStack("water", room), true);
                     }
 
                 }

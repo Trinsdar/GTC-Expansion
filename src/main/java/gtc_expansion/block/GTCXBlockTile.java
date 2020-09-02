@@ -10,6 +10,7 @@ import gtc_expansion.tile.GTCXTileBath;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
+import gtc_expansion.tile.GTCXTileDigitalTank;
 import gtc_expansion.tile.GTCXTileElectrolyzer;
 import gtc_expansion.tile.GTCXTileExtruder;
 import gtc_expansion.tile.GTCXTileFluidCaster;
@@ -230,6 +231,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         }
         if (this == GTCXBlocks.bath){
             return new GTCXTileBath();
+        }
+        if (this == GTCXBlocks.digitalTank){
+            return new GTCXTileDigitalTank();
         }
         return null;
     }

@@ -89,6 +89,7 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.industrialSawmill, s("industrial_side"), s("industrial_front"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_1"), s("industrial_sawmill_side_1"), s("industrial_side"), s("industrial_front_active"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_1"), s("industrial_sawmill_side_1"));
         setTexture(GTCXBlocks.centrifuge, s(0), s(10), s(12), s(12), s(12), s(12), s(0), s(11), s(13), s(13), s(13), s(13));
         setTexture(GTCXBlocks.bath, s(0), s(1), s("machine_back"), s( "bath_front"), s("machine_side_gauge"), s("machine_side_gauge"), s(0), s(1), s("machine_back"), s( "bath_front_active"), s("machine_side_gauge_green"), s("machine_side_gauge_green"));
+        setTexture(GTCXBlocks.digitalTank, s(96), s(97), s(98), s(64), s(98), s(98));
     }
 
     private static ResourceLocation location(String name) {

@@ -115,6 +115,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
     @Override
     public void getData(Map<String, Boolean> map) {
         super.getData(map);
+        map.put("Tank capacity: " + tank.getCapacity(), true);
         map.put("Fluid in Tank: " + (this.tank.getFluid() != null ? (this.tank.getFluidAmount() + " mb of " + this.tank.getFluid().getLocalizedName()) : "Empty"), false);
     }
 
@@ -132,6 +133,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         mLastReceivedFrom = nbt.getByte("mLastReceivedFrom");
+        this.tank.setCapacity(nbt.getInteger("TankCapacity"));
         this.tank.readFromNBT(nbt.getCompoundTag("tank"));
     }
 
@@ -139,6 +141,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setByte("mLastReceivedFrom", mLastReceivedFrom);
+        nbt.setInteger("TankCapacity", tank.getCapacity());
         this.tank.writeToNBT(this.getTag(nbt, "tank"));
         return nbt;
     }

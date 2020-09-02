@@ -90,4 +90,6 @@ public class GTCXLang {
     public static final LocaleComp MESSAGE_COVER_MODE_5 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode5.name");
 
     public static final LocaleComp PRESS_SHIFT = new ColoredLocalComp("miscInfo.gtc_expansion.pressShift.name", TextFormatting.AQUA);
+
+    public static final String BUTTON_DIGITALTANK_UPLOAD = "button.gtc_expansion.digitaltank";
 }

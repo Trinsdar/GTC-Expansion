@@ -2,7 +2,9 @@ package gtc_expansion.tile;
 
 import gtc_expansion.container.GTCXContainerDigitalTank;
 import gtc_expansion.data.GTCXLang;
+import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTItems;
 import ic2.api.classic.network.adv.NetworkField;
@@ -17,14 +19,18 @@ import ic2.core.inventory.gui.GuiComponentContainer;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -32,7 +38,10 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class GTCXTileDigitalTank extends TileEntityMachine implements IHasGui, INetworkClientTileEntityEventListener, ITankListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GTCXTileDigitalTank extends TileEntityMachine implements IHasGui, INetworkClientTileEntityEventListener, ITankListener, ITickable, IGTItemContainerTile, IClickable {
 
 	@NetworkField(index = 3)
 	IC2Tank tank = new IC2Tank(256000);
@@ -202,6 +211,46 @@ public class GTCXTileDigitalTank extends TileEntityMachine implements IHasGui, I
 
 	@Override
 	public void onTankChanged(IFluidTank iFluidTank) {
+		this.getNetwork().updateTileGuiField(this, "tank");
+		this.setStackInSlot(2, ItemDisplayIcon.createWithFluidStack(this.tank.getFluid()));
+	}
+
+	@Override
+	public List<ItemStack> getDrops() {
+		return getInventoryDrops();
+	}
+
+	@Override
+	public List<ItemStack> getInventoryDrops() {
+		List<ItemStack> list = new ArrayList<>();
+		list.add(this.getStackInSlot(0));
+		list.add(this.getStackInSlot(1));
+		list.add(dataSlot());
+		return list;
+	}
+
+	@Override
+	public void update() {
+		GTHelperFluid.doFluidContainerThings(this, this.tank, 0, 1);
+	}
+
+	@Override
+	public boolean hasRightClick() {
+		return true;
+	}
+
+	@Override
+	public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
+		return GTHelperFluid.doClickableFluidContainerThings(player, hand, world, pos, this.tank);
+	}
+
+	@Override
+	public boolean hasLeftClick() {
+		return false;
+	}
+
+	@Override
+	public void onLeftClick(EntityPlayer entityPlayer, Side side) {
 
 	}
 }

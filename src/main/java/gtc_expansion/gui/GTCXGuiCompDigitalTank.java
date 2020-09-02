@@ -1,5 +1,6 @@
 package gtc_expansion.gui;
 
+import gtc_expansion.data.GTCXLang;
 import gtclassic.api.gui.GTGuiButton;
 import gtclassic.api.helpers.GTHelperMath;
 import gtclassic.common.GTLang;
@@ -53,7 +54,7 @@ public class GTCXGuiCompDigitalTank extends GuiComponent {
     public void onToolTipCollecting(GuiIC2 gui, int mouseX, int mouseY, List<String> tooltips) {
         if (this.isMouseOver(mouseX, mouseY)) {
             if (mouseX < 25) {
-                tooltips.add(I18n.format(GTLang.BUTTON_DIGITALCHEST_UPLOAD));
+                tooltips.add(I18n.format(GTCXLang.BUTTON_DIGITALTANK_UPLOAD));
             }
             if (GTHelperMath.within(mouseX, 25, 42)) {
                 tooltips.add(I18n.format(GTLang.BUTTON_DIGITALCHEST_DOWNLOAD));
