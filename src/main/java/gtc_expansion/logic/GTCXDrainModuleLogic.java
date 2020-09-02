@@ -45,7 +45,9 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
 
     @Override
     public boolean cycleMode(EntityPlayer player) {
-        mode = mode.cycle(player);
+        if (this.pipe.isSimulating()){
+            mode = mode.cycle(player);
+        }
         return true;
     }
 

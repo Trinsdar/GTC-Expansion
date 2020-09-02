@@ -81,11 +81,14 @@ dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
     deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
-    deobfCompile "curse.maven:ic2c-extras:3033496"
+    deobfProvided "curse.maven:ic2c-extras:3033496"
+    runtime "curse.maven:ic2c-extras:3033496"
     compile "curse.maven:baubles:2518667"
     compile "curse.maven:ic2-classic:2979877"
-    compile "curse.maven:railcraft:2687757"
-    compile "curse.maven:better-pipes:3040960"
+    compileOnly "curse.maven:railcraft:2687757"
+    compileOnly "curse.maven:better-pipes:3045025"
+    runtime "curse.maven:railcraft:2687757"
+    runtime "curse.maven:better-pipes:3045025"
     deobfCompile ("codechicken:CodeChickenLib:${mc_version}-3.2.2.353:universal") {
         transitive = false
     }

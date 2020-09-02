@@ -31,6 +31,9 @@ public class CoverStorage implements INetworkFieldData {
     public CoverStorage(GTCXTileBasePipe owner){
         this.owner = owner;
         this.entries = TextureCopyEntry.createArray(6);
+        for (int i = 0; i < 6; i++){
+            coverLogicMap.put(EnumFacing.getFront(i), new GTCXNullLogic(owner, EnumFacing.getFront(i)));
+        }
     }
 
     public void onTick(){
