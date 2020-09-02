@@ -8,7 +8,10 @@ import gtc_expansion.util.RotationHelper;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
 import gtclassic.api.material.GTMaterial;
+import ic2.api.classic.audio.PositionSpec;
 import ic2.api.item.IBoxable;
+import ic2.core.IC2;
+import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.ILayeredItemModel;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
@@ -113,7 +116,13 @@ public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem
             GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
             EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
             if (sideToggled != null && pipe.anchors.contains(sideToggled)){
-                pipe.storage.getCoverLogicMap().get(sideToggled).cycleMode(player);
+                if (pipe.storage.getCoverLogicMap().get(sideToggled).cycleMode(player)){
+                    if (!player.isCreative()) {
+                        player.getHeldItem(hand).damageItem(1, player);
+                    }
+                    player.swingArm(hand);
+                    IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
+                }
             }
         }
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);

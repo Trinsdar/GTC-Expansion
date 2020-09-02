@@ -845,6 +845,12 @@ message.gtc_expansion.hatch_mode0.name=Outputs Items
 message.gtc_expansion.hatch_mode1.name=Outputs Fluids
 message.gtc_expansion.hatch_mode2.name=Outputs Nothing
 message.gtc_expansion.hatch_mode3.name=Outputs Items and Fluids
+message.gtc_expansion.cover_mode0.name=Import
+message.gtc_expansion.cover_mode1.name=Import (conditional)
+message.gtc_expansion.cover_mode2.name=Import (invert conditional)
+message.gtc_expansion.cover_mode3.name=Import allow Output
+message.gtc_expansion.cover_mode4.name=Import allow Output (conditional)
+message.gtc_expansion.cover_mode5.name=Import allow Output (invert conditional)
 message.gtc_expansion.dynamo_hatch_mode0.name=Tier set to tier 4
 message.gtc_expansion.dynamo_hatch_mode1.name=Tier set to tier 5
 

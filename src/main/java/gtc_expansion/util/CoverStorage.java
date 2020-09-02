@@ -54,7 +54,7 @@ public class CoverStorage implements INetworkFieldData {
         NBTTagList logic = nbt.getTagList("Logic", 10);
         for (int i = 0; i < 6; i++){
             NBTTagCompound data = logic.getCompoundTagAt(i);
-            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(data.getInteger("Type")));
+            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(data.getInteger("Type"), EnumFacing.getFront(i)));
             this.coverLogicMap.get(EnumFacing.getFront(i)).readFromNBT(data);
         }
     }
@@ -93,12 +93,12 @@ public class CoverStorage implements INetworkFieldData {
 
     public void setCover(IBlockState cover, EnumFacing facing){
         entries[facing.getIndex()].set(cover, cover, new int[]{-1}, new RetextureEventClassic.Rotation[]{RetextureEventClassic.Rotation.Rotation0}, facing);
-        coverLogicMap.put(facing, this.logicFromInt(cover.getBlock().getMetaFromState(cover)));
+        coverLogicMap.put(facing, this.logicFromInt(cover.getBlock().getMetaFromState(cover), facing));
     }
 
     public void removeCover(EnumFacing facing){
         entries[facing.getIndex()].clear();
-        coverLogicMap.put(facing, this.logicFromInt(0));
+        coverLogicMap.put(facing, this.logicFromInt(0, facing));
     }
 
     public ItemStack getCoverDrop(EnumFacing facing){
@@ -119,7 +119,7 @@ public class CoverStorage implements INetworkFieldData {
         }
         coverLogicMap = new LinkedHashMap<>();
         for (int i = 0; i < 6; i++){
-            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(buffer.readInt()));
+            this.coverLogicMap.put(EnumFacing.getFront(i), logicFromInt(buffer.readInt(), EnumFacing.getFront(i)));
             this.coverLogicMap.get(EnumFacing.getFront(i)).read(buffer);
         }
     }
@@ -144,13 +144,13 @@ public class CoverStorage implements INetworkFieldData {
         return coverLogicMap;
     }
 
-    protected GTCXBaseCoverLogic logicFromInt(int value){
+    protected GTCXBaseCoverLogic logicFromInt(int value, EnumFacing facing){
         switch (value){
-            case 1: return new GTCXConveyorModuleLogic(owner);
-            case 2: return new GTCXDrainModuleLogic(owner);
-            case 3: return new GTCXItemValveModuleLogic(owner);
-            case 4: return new GTCXPumpModuleLogic(owner);
-            default: return new GTCXNullLogic(owner);
+            case 1: return new GTCXConveyorModuleLogic(owner, facing);
+            case 2: return new GTCXDrainModuleLogic(owner, facing);
+            case 3: return new GTCXItemValveModuleLogic(owner, facing);
+            case 4: return new GTCXPumpModuleLogic(owner, facing);
+            default: return new GTCXNullLogic(owner, facing);
         }
     }
 

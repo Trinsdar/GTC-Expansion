@@ -36,6 +36,7 @@ public class GTCXLang {
     public static final LocaleComp STONE_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.stoneextractor");
     public static final LocaleComp EXTRUDER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.extruder");
     public static final LocaleComp BATH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.bath");
+    public static final LocaleComp DIGITAL_TANK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.digitaltank");
 
     public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
     public static final LocaleComp ELECTRIC_LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electriclocker");
@@ -81,6 +82,12 @@ public class GTCXLang {
     public static final LocaleComp MESSAGE_HATCH_MODE_3 = new LocaleItemInfoComp("message.gtc_expansion.hatch_mode3.name");
     public static final LocaleComp MESSAGE_DYNAMO_HATCH_MODE_0 = new LocaleItemInfoComp("message.gtc_expansion.dynamo_hatch_mode0.name");
     public static final LocaleComp MESSAGE_DYNAMO_HATCH_MODE_1 = new LocaleItemInfoComp("message.gtc_expansion.dynamo_hatch_mode1.name");
+    public static final LocaleComp MESSAGE_COVER_MODE_0 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode0.name");
+    public static final LocaleComp MESSAGE_COVER_MODE_1 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode1.name");
+    public static final LocaleComp MESSAGE_COVER_MODE_2 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode2.name");
+    public static final LocaleComp MESSAGE_COVER_MODE_3 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode3.name");
+    public static final LocaleComp MESSAGE_COVER_MODE_4 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode4.name");
+    public static final LocaleComp MESSAGE_COVER_MODE_5 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode5.name");
 
     public static final LocaleComp PRESS_SHIFT = new ColoredLocalComp("miscInfo.gtc_expansion.pressShift.name", TextFormatting.AQUA);
 }

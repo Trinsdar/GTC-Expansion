@@ -9,6 +9,7 @@ import gtc_expansion.interfaces.IGTOwnerTile;
 import gtc_expansion.item.tools.GTCXItemToolScrewdriver;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;
+import ic2.api.classic.audio.PositionSpec;
 import ic2.api.classic.energy.tile.IEnergySourceInfo;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.tile.machine.IEUStorage;
@@ -24,6 +25,7 @@ import ic2.core.block.base.util.info.EnergyInfo;
 import ic2.core.block.base.util.info.TierInfo;
 import ic2.core.block.base.util.info.misc.IEmitterTile;
 import ic2.core.platform.lang.components.base.LocaleComp;
+import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.obj.IClickable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -332,6 +334,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
             if (stack.getItem() instanceof GTCXItemToolScrewdriver){
                 this.cycleTier(entityPlayer);
                 stack.damageItem(1, entityPlayer);
+                IC2.audioManager.playOnce(entityPlayer, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                 return true;
             }
             return false;

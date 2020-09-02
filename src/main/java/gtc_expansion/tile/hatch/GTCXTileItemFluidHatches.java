@@ -14,6 +14,7 @@ import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTUtility;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
+import ic2.api.classic.audio.PositionSpec;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.IC2;
 import ic2.core.RotationList;
@@ -27,6 +28,7 @@ import ic2.core.inventory.management.SlotType;
 import ic2.core.inventory.transport.IItemTransporter;
 import ic2.core.inventory.transport.TransporterManager;
 import ic2.core.item.misc.ItemDisplayIcon;
+import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.Block;
@@ -572,6 +574,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             if (stack.getItem() instanceof GTCXItemToolScrewdriver){
                 this.cycleModes(entityPlayer);
                 stack.damageItem(1, entityPlayer);
+                IC2.audioManager.playOnce(entityPlayer, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                 return true;
             }
             return super.onRightClick(entityPlayer, enumHand, enumFacing, side);

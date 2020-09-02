@@ -15,10 +15,10 @@ public class GTCXConfiguration {
         public boolean pyriteGenerate = true;
         @Comment("Max size of Pyrite veins")
         @RangeInt(min = 1, max = 64)
-        public int pyriteSize = 32;
+        public int pyriteSize = 28;
         @Comment("Chance of Pyrite veins to spawn")
         @RangeInt(min = 1, max = 32)
-        public int pyriteWeight = 6;
+        public int pyriteWeight = 5;
         @Comment("Generate Cinnabar ore in the nether")
         public boolean cinnabarGenerate = true;
         @Comment("Max size of Cinnabar veins")
@@ -31,10 +31,10 @@ public class GTCXConfiguration {
         public boolean sphaleriteGenerate = true;
         @Comment("Max size of Sphalerite veins")
         @RangeInt(min = 1, max = 64)
-        public int sphaleriteSize = 32;
+        public int sphaleriteSize = 28;
         @Comment("Chance of Sphalerite veins to spawn")
         @RangeInt(min = 1, max = 32)
-        public int sphaleriteWeight = 6;
+        public int sphaleriteWeight = 5;
         @Comment("Generate Galena ore in the overworld")
         public boolean galenaGenerate = true;
         @Comment("Max size of Galena veins")
