@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -41,7 +42,7 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
             }
             if (tank.getFluid() == null || tank.getFluid().isFluidEqual(water)){
                 if (fluidPipe.getWorld().getBlockState(fluidPipe.getPos().offset(this.facing)).getBlock() == Blocks.WATER){
-                    if (!BiomeDictionary.hasType(fluidPipe.getWorld().getBiome(fluidPipe.getPos()), BiomeDictionary.Type.OCEAN)){
+                    if (!BiomeDictionary.hasType(fluidPipe.getWorld().getBiome(fluidPipe.getPos()), BiomeDictionary.Type.OCEAN) && BiomeDictionary.hasType(fluidPipe.getWorld().getBiome(fluidPipe.getPos()), BiomeDictionary.Type.RIVER)){
                         fluidPipe.getWorld().setBlockToAir(fluidPipe.getPos().up());
                     }
                     if (tank.getCapacity() - tank.getFluidAmount() >= 1000){
@@ -52,7 +53,21 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
                         leftOver = 1000 - room;
                         tank.fill(GTMaterialGen.getFluidStack("water", room), true);
                     }
-
+                } else if (fluidPipe.getWorld().isRaining()){
+                    Biome biome = pipe.getWorld().getBiome(pipe.getPos());
+                    int fluidFill = (int)((biome.getRainfall() *10000) * (pipe.getWorld().isThundering()?2:1));
+                    if (fluidFill <= 0){
+                        leftOver = 0;
+                        return;
+                    }
+                    if (tank.getCapacity() - tank.getFluidAmount() >= fluidFill){
+                        tank.fill(water, true);
+                        leftOver = 0;
+                    } else {
+                        int room = tank.getCapacity() - tank.getFluidAmount();
+                        leftOver = fluidFill - room;
+                        tank.fill(GTMaterialGen.getFluidStack("water", room), true);
+                    }
                 }
             }
 

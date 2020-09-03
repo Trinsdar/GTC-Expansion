@@ -118,7 +118,7 @@ public class GTCXIcons {
     }
 
     public static void collectCoverSprites(){
-        String[] covers = { "", "conveyor", "drain", "itemvalve", "valve"};
+        String[] covers = { "", "conveyor", "drain", "itemvalve", "valve", "shutter", "redstone_controller"};
         for (String cover : covers){
             String under = cover.isEmpty() ? "" : "_";
             Ic2Icons.addSprite(new Sprites.SpriteData("cover" + under + cover, "gtc_expansion:textures/sprites/tiles/covers/"  + "cover" + under + cover + ".png", new Sprites.SpriteInfo(1, 1)));

@@ -34,8 +34,8 @@ public class GTCXItems {
 
     public static final GTCXItemMisc iridiumAlloyIngot = createItem(new GTCXItemMisc("iridium_alloy_ingot", 0, 0));
     public static final GTCXItemMisc computerMonitor = createItem(new GTCXItemMisc("computer_monitor", 1, 0));
-    public static final GTCXItemMisc conveyorModule = createItem(new GTCXItemCover("conveyor_module",2, 0));
-    public static final GTCXItemMisc pumpModule = createItem(new GTCXItemCover("pump_module",3, 0));
+    public static final GTCXItemMisc conveyorModule = createItem(new GTCXItemCover("conveyor_module",2, 0, 1));
+    public static final GTCXItemMisc pumpModule = createItem(new GTCXItemCover("pump_module",3, 0, 4));
     public static final GTCXItemMisc diamondGrinder = createItem(new GTCXItemMisc("diamond_grinder", 4, 0));
     public static final GTCXItemMisc wolframiumGrinder = createItem(new GTCXItemMisc("wolframium_grinder", 5, 0));
     public static final GTCXItemMisc diamondSawblade = createItem(new GTCXItemMisc("diamond_sawblade", 14, 1));
@@ -55,8 +55,10 @@ public class GTCXItems {
     public static final GTCXItemMisc match = createItem(new GTCXItemMatch());
     public static final GTCXItemMisc woodPlate = createItem(new GTCXItemMisc("wood_plate", 10, 0));
     public static final GTCXItemMatchBox matchBox = createItem(new GTCXItemMatchBox());
-    public static final GTCXItemMisc itemTransportValve = createItem(new GTCXItemCover("item_transport_valve", 3, 3));
-    public static final GTCXItemMisc drain = createItem(new GTCXItemCover("drain", 4, 3));
+    public static final GTCXItemMisc itemTransportValve = createItem(new GTCXItemCover("item_transport_valve", 3, 3, 3));
+    public static final GTCXItemMisc drain = createItem(new GTCXItemCover("drain", 4, 3, 2));
+    public static final GTCXItemMisc shutter = createItem(new GTCXItemCover("shutter", 6, 3, 5));
+    public static final GTCXItemMisc redstoneController = createItem(new GTCXItemCover("redstone_controller", 5, 3, 6));
     public static final GTCXItemMiscSpriteless magicDye = createItem(new GTCXItemMiscSpriteless("magic_dye"));
     public static final GTCXItemMisc dataOrbStorage = createItem(new GTCXItemDataOrbStorage());
     public static final GTCXItemMisc mold = createItem(new GTCXItemMisc("mold", 0, 2));
