@@ -1,6 +1,7 @@
 package gtc_expansion.tile.pipes;
 
 import gtc_expansion.data.GTCXPipes;
+import gtc_expansion.events.GTCXServerTickEvent;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.util.CoverStorage;
 import gtc_expansion.util.GTCXHelperPipe;
@@ -69,10 +70,26 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         this.storage.onTick();
     }
 
+    public void onTick(){
+
+    }
+
     @Override
     public void onLoaded() {
         super.onLoaded();
         updateConnections();
+        if (even()){
+            GTCXServerTickEvent.SERVER_TICK_PRE.add(this);
+        } else {
+            GTCXServerTickEvent.SERVER_TICK_PR2.add(this);
+        }
+    }
+
+    @Override
+    public void onUnloaded() {
+        super.onUnloaded();
+        GTCXServerTickEvent.SERVER_TICK_PRE.remove(this);
+        GTCXServerTickEvent.SERVER_TICK_PR2.remove(this);
     }
 
     @Override
@@ -208,6 +225,17 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
                 this.getNetwork().updateTileEntityField(this, "connection");
             }*/
         }
+    }
+
+    public boolean even() {
+        int[] coords = {this.pos.getX(), this.pos.getY(), this.pos.getZ()};
+        int i = 0;
+        for (int coord : coords) {
+            if (coord % 2 == 0) {
+                i++;
+            }
+        }
+        return i % 2 == 0;
     }
 
     public abstract boolean canConnectWithoutColor(TileEntity tile, EnumFacing facing);

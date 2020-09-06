@@ -2,14 +2,17 @@ package gtc_expansion.tile.pipes;
 
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.fluid.IC2Tank;
-import net.minecraft.block.BlockCauldron;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Tuple;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
@@ -18,7 +21,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
 
     EnumFacing receivedFrom = null;
 
-    int transferRate;
+    int transferRate, transferredAmount = 0;
     public GTCXTileBaseFluidPipe() {
         super(0);
         this.transferRate = 0;
@@ -28,58 +31,35 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
     @Override
     public void update() {
         super.update();
-        if (this.isSimulating()) {
-
-            int pipes = 0;
-            int others;
-            for (EnumFacing facing : connection) {
-                if (anchors.notContains(facing) || storage.getCoverLogicMap().get(facing).allowsInput()) {
-                    TileEntity tile = world.getTileEntity(this.getPos().offset(facing));
-                    if (tile instanceof GTCXTileBaseFluidPipe) {
-                        pipes++;
-                    }
-                }
-            }
-        }
     }
 
-    public void distribute(DelegatorTileEntity<IFluidHandler>[] aAdjacentTanks) {
-        ArrayListNoNulls<DelegatorTileEntity<IFluidHandler>> tAdjacentTanks = new ArrayListNoNulls<>(), tAdjacentPipes = new ArrayListNoNulls<>();
-        DelegatorTileEntity<IFluidHandler> tTank;
+    @Override
+    public void onTick() {
+        super.onTick();
+        distribute();
+    }
+
+    public void distribute() {
+        transferredAmount = 0;
+        List<Tuple<Tuple<IFluidHandler, TileEntity>, EnumFacing>> tAdjacentTanks = new ArrayList<>(), tAdjacentPipes = new ArrayList<>();
+        IFluidHandler tTank;
         int amount = tank.getFluidAmount();
         if (amount <= 0) return;
         byte tPipeCount = 1;
 
-        for (byte side : ALL_SIDES_VALID) {
-            if (aAdjacentTanks[side] != null && !FACE_CONNECTED[side][mLastReceivedFrom] && (!hasCovers() || mCovers.mBehaviours[side] == null || !mCovers.mBehaviours[side].interceptFluidDrain(side, mCovers, side, tank.get()))) {
-                tTank = aAdjacentTanks[side];
-                if (tTank.mTileEntity == null) {
-                    if (tTank.getBlock() instanceof BlockCauldron && tank.amount() >= 334 && FL.water(tank.get())) {
-                        switch(tTank.getMetaData()) {
-                            case 0:
-                                if (tank.drainAll(1000)) {tTank.setMetaData(3); break;}
-                                if (tank.drainAll( 667)) {tTank.setMetaData(2); break;}
-                                if (tank.drainAll( 334)) {tTank.setMetaData(1); break;}
-                                break;
-                            case 1:
-                                if (tank.drainAll( 667)) {tTank.setMetaData(3); break;}
-                                if (tank.drainAll( 334)) {tTank.setMetaData(2); break;}
-                                break;
-                            case 2:
-                                if (tank.drainAll( 334)) {tTank.setMetaData(3); break;}
-                                break;
-                        }
+        for (EnumFacing side : connection){
+            if (anchors.notContains(side) || storage.getCoverLogicMap().get(side).allowsPipeOutput()) {
+                TileEntity tile = world.getTileEntity(this.getPos().offset(side));
+                if (tile instanceof GTCXTileBaseFluidPipe) {
+                    IC2Tank target = ((GTCXTileBaseFluidPipe)tile).getTank();
+                    if (target.getFluid() == null || (target.getFluid().isFluidEqual(this.tank.getFluid()) && target.getFluidAmount() < tank.getFluidAmount())){
+                        amount += target.getFluidAmount();
+                        tPipeCount++;
+                        tAdjacentTanks.add(new Tuple<>(new Tuple<>(target, tile), side.getOpposite()));
                     }
-                } else {
-                    if (tTank.mTileEntity instanceof MultiTileEntityPipeFluid) {
-                        FluidTankGT tTarget = (FluidTankGT)((MultiTileEntityPipeFluid)tTank.mTileEntity).getFluidTankFillable2(tTank.mSideOfTileEntity, tank.get());
-                        if (tTarget != null && tTarget.amount() < tank.amount()) {
-                            amount += tTarget.amount();
-                            tPipeCount++;
-                            tAdjacentTanks.add(tTank);
-                        }
-                    } else if (FL.fill_(tTank, tank.get(), F) > 0) {
-                        tAdjacentTanks.add(tTank);
+                } else if (tile != null && tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite())){
+                    if (tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).fill(tank.getFluid(), false) > 0){
+                        tAdjacentTanks.add(new Tuple<>(new Tuple<>(tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()), tile), side.getOpposite()));
                     }
                 }
             }
@@ -92,39 +72,60 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
             amount++;
         }
 
-        if (amount > 0) for (int i = tAdjacentTanks.size(); i > 0 && tank.amount() > 0;) {
-            tTank = tAdjacentTanks.get(--i);
-            if (tTank.mTileEntity instanceof MultiTileEntityPipeFluid) {
-                tAdjacentTanks.remove(i);
-                if (!((MultiTileEntityPipeFluid)tTank.mTileEntity).hasCovers() || ((MultiTileEntityPipeFluid)tTank.mTileEntity).mCovers.mBehaviours[tTank.mSideOfTileEntity] == null || !((MultiTileEntityPipeFluid)tTank.mTileEntity).mCovers.mBehaviours[tTank.mSideOfTileEntity].interceptFluidFill(tTank.mSideOfTileEntity, ((MultiTileEntityPipeFluid)tTank.mTileEntity).mCovers, tTank.mSideOfTileEntity, tank.get())) {
-                    tAdjacentPipes.add(tTank);
-                    FluidTankGT tTarget = (FluidTankGT)((MultiTileEntityPipeFluid)tTank.mTileEntity).getFluidTankFillable2(tTank.mSideOfTileEntity, tank.get());
-                    if (tTarget != null) {
-                        mTransferredAmount += tank.remove(FL.fill_(tTank, tank.get(amount-tTarget.amount()), T));
+        if (amount > 0) {
+            for (int i = tAdjacentTanks.size(); i > 0 && tank.getFluidAmount() > 0;) {
+                Tuple<Tuple<IFluidHandler, TileEntity>, EnumFacing> tuple = tAdjacentTanks.get(--i);
+                tTank = tuple.getFirst().getFirst();
+                if (tuple.getFirst().getSecond() instanceof GTCXTileBaseFluidPipe) {
+                    tAdjacentTanks.remove(i);
+                    if (!((GTCXTileBaseFluidPipe)tuple.getFirst().getSecond()).storage.getCoverLogicMap().get(tuple.getSecond()).allowsPipeInput()){
+                        continue;
+                    }
+                    tAdjacentPipes.add(new Tuple<>(new Tuple<>(tTank, tuple.getFirst().getSecond()), tuple.getSecond()));
+                    IC2Tank target = ((GTCXTileBaseFluidPipe)tuple.getFirst().getSecond()).getTank();
+
+                    if (target.getFluid() == null || target.getFluid().isFluidEqual(tank.getFluid())) {
+                        FluidStack fluid = tank.drain(target.fill(tank.getFluid(), true), true);
+                        if (fluid != null){
+                            transferredAmount += fluid.amount;
+                        }
                     }
                 }
             }
         }
 
         if (!tAdjacentTanks.isEmpty()) {
-            amount = tank.amount() / tAdjacentTanks.size();
+            amount = tank.getFluidAmount() / tAdjacentTanks.size();
             if (amount <= 0) {
-                while (tank.amount() > 0 && !tAdjacentTanks.isEmpty()) {
-                    tAdjacentTanks.remove(tTank = tAdjacentTanks.get(rng(tAdjacentTanks.size())));
-                    mTransferredAmount += tank.remove(FL.fill_(tTank, tank.get(1), T));
+                while (tank.getFluidAmount() > 0 && !tAdjacentTanks.isEmpty()) {
+                    int i = random.nextInt(tAdjacentTanks.size());
+                    tTank = tAdjacentTanks.get(i).getFirst().getFirst();
+                    tAdjacentTanks.remove(tAdjacentTanks.get(i));
+                    FluidStack fluid = tank.drain(tTank.fill(tank.getFluid(), true), true);
+                    if (fluid != null){
+                        transferredAmount += fluid.amount;
+                    }
                 }
             } else {
-                for (DelegatorTileEntity<IFluidHandler> tTank2 : tAdjacentTanks) {
-                    mTransferredAmount += tank.remove(FL.fill_(tTank2, tank.get(amount), T));
+                for (Tuple<Tuple<IFluidHandler, TileEntity>, EnumFacing> tuple : tAdjacentTanks) {
+                    IFluidHandler tTank2 = tuple.getFirst().getFirst();
+                    FluidStack fluid = tank.drain(tTank2.fill(tank.getFluid(), true), true);
+                    if (fluid != null){
+                        transferredAmount += fluid.amount;
+                    }
                 }
             }
         }
 
-        if (!tAdjacentPipes.isEmpty() && tank.amount() > mCapacity / 2) {
-            amount = (tank.amount() - mCapacity / 2) / tAdjacentPipes.size();
+        if (!tAdjacentPipes.isEmpty() && tank.getFluidAmount() > tank.getCapacity() / 2) {
+            amount = (tank.getFluidAmount() - tank.getCapacity() / 2) / tAdjacentPipes.size();
             if (amount > 0) {
-                for (DelegatorTileEntity<IFluidHandler> tPipe : tAdjacentPipes) {
-                    mTransferredAmount += tank.remove(FL.fill_(tPipe, tank.get(amount), T));
+                for (Tuple<Tuple<IFluidHandler, TileEntity>, EnumFacing> tuple : tAdjacentPipes) {
+                    IFluidHandler tPipe = tuple.getFirst().getFirst();
+                    FluidStack fluid = tank.drain(tPipe.fill(tank.getFluid(), true), true);
+                    if (fluid != null){
+                        transferredAmount += fluid.amount;
+                    }
                 }
             }
         }

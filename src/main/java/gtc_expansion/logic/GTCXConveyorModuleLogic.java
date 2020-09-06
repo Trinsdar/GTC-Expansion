@@ -41,7 +41,7 @@ public class GTCXConveyorModuleLogic extends GTCXBaseCoverLogic {
     }
 
     @Override
-    public boolean allowsInput(){
+    public boolean allowsPipeOutput(){
         return mode.ordinal() > 2;
     }
 

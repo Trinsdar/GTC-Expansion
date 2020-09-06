@@ -32,7 +32,11 @@ public abstract class GTCXBaseCoverLogic {
     public void write(IOutputBuffer buffer) {
     }
 
-    public boolean allowsInput(){
+    public boolean allowsPipeOutput(){
         return false;
+    }
+
+    public boolean allowsPipeInput(){
+        return true;
     }
 }

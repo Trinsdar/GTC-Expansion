@@ -172,12 +172,12 @@ public class GTCXBlocks {
     }
 
     static <T extends Block> T registerBlock(T block) {
-        toRegister.add(block);
-        return block;
+        //toRegister.add(block);
+        return createBlock(block);
     }
 
-    public static void createBlock(Block block) {
-        IC2.getInstance().createBlock(block, getItemBlock(block));
+    public static <T extends Block> T createBlock(T block) {
+        return (T) IC2.getInstance().createBlock(block, getItemBlock(block));
     }
 
     static Class<? extends ItemBlockRare> getItemBlock(Block block) {

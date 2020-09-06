@@ -52,7 +52,7 @@ public class GTCXPumpModuleLogic extends GTCXBaseCoverLogic {
     }
 
     @Override
-    public boolean allowsInput(){
+    public boolean allowsPipeOutput(){
         return mode.ordinal() > 2;
     }
 
