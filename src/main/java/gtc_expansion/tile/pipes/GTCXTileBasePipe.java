@@ -67,11 +67,11 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
 
     @Override
     public void update() {
-        this.storage.onTick();
+
     }
 
     public void onTick(){
-
+        this.storage.onTick();
     }
 
     @Override
