@@ -313,6 +313,15 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
         }
     }
 
+    @Override
+    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity instanceof GTCXTileBasePipe){
+            return ((GTCXTileBasePipe)tileEntity).anchors.contains(side);
+        }
+        return super.isSideSolid(base_state, world, pos, side);
+    }
+
     public static class GTCXBlockState extends BlockStateContainerIC2.IC2BlockState{
         public Object data2;
         public GTCXBlockState(IBlockState state, Object toInject1, Object toInject2) {

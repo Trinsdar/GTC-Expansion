@@ -43,6 +43,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     public CoverStorage storage;
     @NetworkField(index = 6)
     public int color;
+    public boolean redstonePowered = false;
     private int prevColor = 0;
     private static String NBT_COLOR = "color";
     private GTMaterial material;
@@ -63,6 +64,10 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
 
     public void setModel(GTCXHelperPipe.GTPipeModel model) {
         this.model = model;
+    }
+
+    public void setRedstonePowered(boolean redstonePowered) {
+        this.redstonePowered = redstonePowered;
     }
 
     @Override
@@ -105,6 +110,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         }
         this.model = GTCXHelperPipe.GTPipeModel.values()[nbt.getInteger("model")];
         this.material = this.getMaterialFromInt(nbt.getInteger("material"));
+        this.redstonePowered = nbt.getBoolean("redstonePowered");
 
     }
 
@@ -117,6 +123,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         this.storage.writeToNBT(this.getTag(nbt, "Storage"));
         nbt.setInteger("model", model.ordinal());
         nbt.setInteger("material", this.getIntFromMaterial(this.material));
+        nbt.setBoolean("redstonePowered", redstonePowered);
         return nbt;
     }
 
