@@ -26,7 +26,9 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
 
     @Override
     public void onTick() {
-        if (this.facing == EnumFacing.UP && this.pipe instanceof GTCXTileBaseFluidPipe){
+        boolean redstone = pipe.isRedstonePowered();
+        boolean proceed = this.mode == Modes.IMPORT || (this.mode == Modes.IMPORT_CONDITIONAL && redstone) || (this.mode == Modes.IMPORT_INVERSE_CONDITIONAL && !redstone);
+        if (this.facing == EnumFacing.UP && this.pipe instanceof GTCXTileBaseFluidPipe && proceed){
             GTCXTileBaseFluidPipe fluidPipe = (GTCXTileBaseFluidPipe) pipe;
             IC2Tank tank = fluidPipe.getTank();
             if (leftOver > 0){

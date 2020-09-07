@@ -6,6 +6,8 @@ import gtc_expansion.logic.GTCXDrainModuleLogic;
 import gtc_expansion.logic.GTCXItemValveModuleLogic;
 import gtc_expansion.logic.GTCXNullLogic;
 import gtc_expansion.logic.GTCXPumpModuleLogic;
+import gtc_expansion.logic.GTCXRedstoneControllerLogic;
+import gtc_expansion.logic.GTCXShutterLogic;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import ic2.api.classic.event.RetextureEventClassic;
 import ic2.api.classic.network.INetworkFieldData;
@@ -38,7 +40,9 @@ public class CoverStorage implements INetworkFieldData {
 
     public void onTick(){
         for (GTCXBaseCoverLogic logic : coverLogicMap.values()){
-            logic.onTick();
+            if (!(logic instanceof GTCXNullLogic)) {
+                logic.onTick();
+            }
         }
     }
 
@@ -153,6 +157,8 @@ public class CoverStorage implements INetworkFieldData {
             case 2: return new GTCXDrainModuleLogic(owner, facing);
             case 3: return new GTCXItemValveModuleLogic(owner, facing);
             case 4: return new GTCXPumpModuleLogic(owner, facing);
+            case 5: return new GTCXShutterLogic(owner, facing);
+            case 6: return new GTCXRedstoneControllerLogic(owner, facing);
             default: return new GTCXNullLogic(owner, facing);
         }
     }
@@ -169,6 +175,12 @@ public class CoverStorage implements INetworkFieldData {
         }
         if (logic instanceof GTCXPumpModuleLogic){
             return 4;
+        }
+        if (logic instanceof GTCXShutterLogic){
+            return 5;
+        }
+        if (logic instanceof GTCXRedstoneControllerLogic){
+            return 6;
         }
         return 0;
     }

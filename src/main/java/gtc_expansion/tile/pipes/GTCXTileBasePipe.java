@@ -71,6 +71,11 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     }
 
     @Override
+    public boolean isRedstonePowered() {
+        return redstonePowered;
+    }
+
+    @Override
     public void update() {
 
     }

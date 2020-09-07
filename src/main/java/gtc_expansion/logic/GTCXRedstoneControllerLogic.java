@@ -21,7 +21,9 @@ public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
         if (this.mode != Modes.NO_WORK){
             boolean redstone = newLevel > 0;
             boolean invert = (this.mode == Modes.INVERT) != redstone;
-            this.pipe.setRedstonePowered(invert);
+            if (pipe.isRedstonePowered() != invert){
+                this.pipe.setRedstonePowered(invert);
+            }
         }
     }
 
@@ -57,13 +59,13 @@ public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
         NO_WORK;
         Modes cycle(EntityPlayer player){
             if (this == NORMAL){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_1);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_1);
                 return INVERT;
             } else if (this == INVERT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_2);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_2);
                 return NO_WORK;
             } else {
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_0);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_0);
                 return NORMAL;
             }
         }

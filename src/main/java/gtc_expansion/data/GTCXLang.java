@@ -88,6 +88,14 @@ public class GTCXLang {
     public static final LocaleComp MESSAGE_COVER_MODE_3 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode3.name");
     public static final LocaleComp MESSAGE_COVER_MODE_4 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode4.name");
     public static final LocaleComp MESSAGE_COVER_MODE_5 = new LocaleItemInfoComp("message.gtc_expansion.cover_mode5.name");
+    public static final LocaleComp MESSAGE_COVER_REDSTONE_MODE_0 = new LocaleItemInfoComp("message.gtc_expansion.cover_redstone_mode0.name");
+    public static final LocaleComp MESSAGE_COVER_REDSTONE_MODE_1 = new LocaleItemInfoComp("message.gtc_expansion.cover_redstone_mode1.name");
+    public static final LocaleComp MESSAGE_COVER_REDSTONE_MODE_2 = new LocaleItemInfoComp("message.gtc_expansion.cover_redstone_mode2.name");
+    public static final LocaleComp MESSAGE_COVER_SHUTTER_MODE_0 = new LocaleItemInfoComp("message.gtc_expansion.cover_shutter_mode0.name");
+    public static final LocaleComp MESSAGE_COVER_SHUTTER_MODE_1 = new LocaleItemInfoComp("message.gtc_expansion.cover_shutter_mode1.name");
+    public static final LocaleComp MESSAGE_COVER_SHUTTER_MODE_2 = new LocaleItemInfoComp("message.gtc_expansion.cover_shutter_mode2.name");
+    public static final LocaleComp MESSAGE_COVER_SHUTTER_MODE_3 = new LocaleItemInfoComp("message.gtc_expansion.cover_shutter_mode3.name");
+
 
     public static final LocaleComp PRESS_SHIFT = new ColoredLocalComp("miscInfo.gtc_expansion.pressShift.name", TextFormatting.AQUA);
 

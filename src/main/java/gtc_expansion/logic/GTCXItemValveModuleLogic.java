@@ -24,23 +24,27 @@ public class GTCXItemValveModuleLogic extends GTCXBaseCoverLogic {
 
     @Override
     public void onTick() {
-        if (this.pipe instanceof GTCXTileBaseFluidPipe){
-            GTCXTileBaseFluidPipe fluidPipe = (GTCXTileBaseFluidPipe) pipe;
-            TileEntity tile = fluidPipe.getWorld().getTileEntity(fluidPipe.getPos().offset(this.facing));
-            if (pipe.connection.contains(this.facing) && tile != null && !(tile instanceof GTCXTileBaseFluidPipe) & tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite())){
-                FluidStack pipeFluid = fluidPipe.getTank().getFluid();
-                IFluidHandler tileFluid = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite());
-                if (tileFluid != null){
-                    FluidStack drainSimulate = tileFluid.drain(fluidPipe.getTank().getCapacity(), false);
-                    if (drainSimulate != null){
-                        if (pipeFluid == null || (pipeFluid.isFluidEqual(drainSimulate) && fluidPipe.getTank().getFluidAmount() < fluidPipe.getTank().getCapacity())){
-                            tileFluid.drain(new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true), true);
+        boolean redstone = pipe.isRedstonePowered();
+        boolean proceed = this.mode == Modes.IMPORT || this.mode == Modes.IMPORT_EXPORT || ((this.mode == Modes.IMPORT_CONDITIONAL || this.mode == Modes.IMPORT_EXPORT_CONDITIONAL) && redstone) || ((this.mode == Modes.IMPORT_INVERSE_CONDITIONAL || this.mode == Modes.IMPORT_EXPORT_INVERSE_CONDITIONAL) && !redstone);
+        if (proceed) {
+            if (this.pipe instanceof GTCXTileBaseFluidPipe){
+                GTCXTileBaseFluidPipe fluidPipe = (GTCXTileBaseFluidPipe) pipe;
+                TileEntity tile = fluidPipe.getWorld().getTileEntity(fluidPipe.getPos().offset(this.facing));
+                if (pipe.connection.contains(this.facing) && tile != null && !(tile instanceof GTCXTileBaseFluidPipe) & tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite())){
+                    FluidStack pipeFluid = fluidPipe.getTank().getFluid();
+                    IFluidHandler tileFluid = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite());
+                    if (tileFluid != null){
+                        FluidStack drainSimulate = tileFluid.drain(fluidPipe.getTank().getCapacity(), false);
+                        if (drainSimulate != null){
+                            if (pipeFluid == null || (pipeFluid.isFluidEqual(drainSimulate) && fluidPipe.getTank().getFluidAmount() < fluidPipe.getTank().getCapacity())){
+                                tileFluid.drain(new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true), true);
+                            }
                         }
                     }
                 }
+            } else if (this.pipe instanceof GTCXTileBaseItemPipe){
+                // empty method for now
             }
-        } else if (this.pipe instanceof GTCXTileBaseItemPipe){
-            // empty method for now
         }
     }
 

@@ -25,6 +25,9 @@ public class GTCXRecipeRemove {
         if (GTCXConfiguration.general.unfiredBricks){
             GTHelperStack.removeSmelting(new ItemStack(Items.BRICK));
         }
+        if (GTCXConfiguration.general.forcePreElectricMachines){
+            GTHelperStack.removeSmelting(Ic2Items.rubber);
+        }
         removeFurnaceRecipes();
     }
 

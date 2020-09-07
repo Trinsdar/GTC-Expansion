@@ -124,6 +124,8 @@ public class GTCXConfiguration {
         public boolean harderWood = false;
         @Comment("Makes regular and advanced circuits take plates in place of refined iron ingot and red alloy in place of redstone and also uninsulated copper cables.")
         public boolean harderCircuits = true;
+        @Comment("Forces progression through steam machines so you need at least a couple before electric.")
+        public boolean forcePreElectricMachines = true;
         @Comment({
                 "Enables crafting tools, which are used in things like machine block recipes and tool recipes.",
                 "Does not disable hammers completely, only uses of them in recipes that do not make plates.",

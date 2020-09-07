@@ -636,9 +636,9 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.itemthermometer_1507613392", Ic2Items.thermometer, " GT", "GMG", "GG ", 'G', "blockGlass", 'T', TIN, 'M', GTMaterialGen.getFluidStack(GTMaterial.Mercury, 1000));
         if (GTCXConfiguration.general.harderCircuits){
             recipeId = STEEL_MODE ? 1921363733 : 1058514721;
-            recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
+            recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.insulatedCopperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
             recipeId = STEEL_MODE ? -1911001323 : 1521116961;
-            recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CRC", "CEC", "CRC", 'C', Ic2Items.copperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
+            recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CRC", "CEC", "CRC", 'C', Ic2Items.insulatedCopperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-1948043137", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RGR", "LCL", "RGR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', INPUT_LAPIS_ANY);
             recipes.overrideRecipe("shaped_item.itemPartCircuitAdv_-205948801", GTMaterialGen.getIc2(Ic2Items.advancedCircuit, 1), "RLR", "GCG", "RLR", 'R', "plateRedAlloy", 'G', DUST_GLOWSTONE, 'C', CIRCUIT_BASIC, 'L', INPUT_LAPIS_ANY);
         } else {

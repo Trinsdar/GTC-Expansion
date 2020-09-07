@@ -856,6 +856,13 @@ message.gtc_expansion.cover_mode2.name=Import (invert conditional)
 message.gtc_expansion.cover_mode3.name=Import allow Output
 message.gtc_expansion.cover_mode4.name=Import allow Output (conditional)
 message.gtc_expansion.cover_mode5.name=Import allow Output (invert conditional)
+message.gtc_expansion.cover_redstone_mode0.name=Normal
+message.gtc_expansion.cover_redstone_mode1.name=Invert
+message.gtc_expansion.cover_redstone_mode2.name=No Work at all
+message.gtc_expansion.cover_shutter_mode0.name=Open if work enabled
+message.gtc_expansion.cover_shutter_mode1.name=Open if work disabled
+message.gtc_expansion.cover_shutter_mode2.name=Only Output allowed
+message.gtc_expansion.cover_shutter_mode3.name=Only Input allowed
 message.gtc_expansion.dynamo_hatch_mode0.name=Tier set to tier 4
 message.gtc_expansion.dynamo_hatch_mode1.name=Tier set to tier 5
 

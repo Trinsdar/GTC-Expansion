@@ -24,8 +24,10 @@ public class GTCXPumpModuleLogic extends GTCXBaseCoverLogic {
     public void onTick() {
         if (this.pipe instanceof GTCXTileBaseFluidPipe){
             GTCXTileBaseFluidPipe fluidPipe = (GTCXTileBaseFluidPipe) pipe;
+            boolean redstone = pipe.isRedstonePowered();
+            boolean proceed = this.mode == Modes.IMPORT || this.mode == Modes.IMPORT_EXPORT || ((this.mode == Modes.IMPORT_CONDITIONAL || this.mode == Modes.IMPORT_EXPORT_CONDITIONAL) && redstone) || ((this.mode == Modes.IMPORT_INVERSE_CONDITIONAL || this.mode == Modes.IMPORT_EXPORT_INVERSE_CONDITIONAL) && !redstone);
             TileEntity tile = fluidPipe.getWorld().getTileEntity(fluidPipe.getPos().offset(this.facing));
-            if (pipe.connection.contains(this.facing) && tile != null && !(tile instanceof GTCXTileBaseFluidPipe) & tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite())){
+            if (pipe.connection.contains(this.facing) && tile != null && !(tile instanceof GTCXTileBaseFluidPipe) & tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite()) && proceed){
                 FluidStack pipeFluid = fluidPipe.getTank().getFluid();
                 IFluidHandler tileFluid = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite());
                 if (tileFluid != null){
