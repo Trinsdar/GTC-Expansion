@@ -80,7 +80,6 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
             amount /= pipeCount;
             amount++;
         }
-        GTCExpansion.logger.info("Amount: " + amount);
 
         if (amount > 0) {
             for (int i = adjacentTanks.size(); i > 0 && tank.getFluidAmount() > 0;) {

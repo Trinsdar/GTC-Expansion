@@ -2,6 +2,8 @@ package gtc_expansion.recipes;
 
 import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.data.GTCXItems;
+import gtc_expansion.data.GTCXPipes;
+import gtc_expansion.data.GTCXValues;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
@@ -13,6 +15,7 @@ import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
+import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
@@ -90,6 +93,10 @@ public class GTCXRecipeIterators {
         createFullToolRecipes(GTCXMaterial.TungstenSteel, false);
         createFullToolRecipes(GTMaterial.Ruby, true);
         createFullToolRecipes(GTMaterial.Sapphire, true);
+        createPipeRecipes(GTCXMaterial.Bronze, true);
+        createPipeRecipes(GTCXMaterial.Steel, true);
+        //createPipeRecipes(GTCXMaterial.StainlessSteel, true);
+        //createPipeRecipes(GTCXMaterial.TungstenSteel, true);
     }
 
     public static void createFluidCastingRecipes(GTMaterial mat){
@@ -143,6 +150,28 @@ public class GTCXRecipeIterators {
             }
 
         }
+    }
+
+    public static void createPipeRecipes(GTMaterial mat, boolean fluid){
+        String plate = GTCXValues.PRE + mat.getDisplayName();
+        if (GTCXConfiguration.general.enableCraftingTools){
+            if (fluid){
+                recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL, 6), "PWP", "P P", "PHP", 'P', plate, 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
+            }
+            recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED, 2), "PPP", "W H", "PPP", 'P', plate, 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
+            recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE, 1), "PHP", "P P", "PWP", 'P', plate, 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
+        }
+        if (fluid) {
+            GTCXTileExtruder.addRecipe("ingot" + mat.getDisplayName(), 1, GTMaterialGen.get(GTCXItems.moldSmallPipe), 1920, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL));
+            GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL));
+        }
+        GTCXTileExtruder.addRecipe("ingot" + mat.getDisplayName(), 3, GTMaterialGen.get(GTCXItems.moldMediumPipe), 5760, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED));
+        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED));
+        GTCXTileExtruder.addRecipe("ingot" + mat.getDisplayName(), 6, GTMaterialGen.get(GTCXItems.moldLargePipe), 11520, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE));
+        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE));
+        GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL), GTCXMaterialGen.getMaterialHeatValue(mat), 12800, GTMaterialGen.getFluidStack(mat, 144));
+        GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED), GTCXMaterialGen.getMaterialHeatValue(mat), 38400, GTMaterialGen.getFluidStack(mat, 432));
+        GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE), GTCXMaterialGen.getMaterialHeatValue(mat), 76800, GTMaterialGen.getFluidStack(mat, 864));
     }
 
     public static void createTinyDustRecipe(GTMaterial mat) {

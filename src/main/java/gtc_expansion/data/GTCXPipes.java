@@ -18,6 +18,9 @@ public class GTCXPipes {
 
     public static void init(){
         createFluidPipes(GTCXMaterial.Bronze, 100);
+        createFluidPipes(GTCXMaterial.Steel, 200);
+        //createFluidPipes(GTCXMaterial.StainlessSteel, 300);
+        //createFluidPipes(GTCXMaterial.TungstenSteel, 400);
         createItemPipes(GTCXMaterial.Brass);
         for (Block block : blockMap.values()){
             GTCXBlocks.createBlock(block);

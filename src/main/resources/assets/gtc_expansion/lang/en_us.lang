@@ -20,17 +20,20 @@ tile.gtclassic.blockGreenSapphire.name=Block of Green Sapphire
 tile.gtclassic.blockOlivine.name=Block of Olivine
 
 #pipes
-tile.gtclassic.brassitempipe.name=Brass Item Pipe
-tile.gtclassic.brassitempipelarge.name=Large Brass Item Pipe
-tile.gtclassic.steelfluidpipesmall.name=Small Steel Fluid Pipe
-tile.gtclassic.steelfluidpipe.name=Steel Fluid Pipe
-tile.gtclassic.steelfluidpipelarge.name=Large Steel Fluid Pipe
-tile.gtclassic.stainlesssteelfluidpipesmall.name=Small Stainless Steel Fluid Pipe
-tile.gtclassic.stainlesssteelfluidpipe.name=Stainless Steel Fluid Pipe
-tile.gtclassic.stainlesssteelfluidpipelarge.name=Large Stainless Steel Fluid Pipe
-tile.gtclassic.tungstensteelfluidpipesmall.name=Small Tungstensteel Fluid Pipe
-tile.gtclassic.tungstensteelfluidpipe.name=Tungstensteel Fluid Pipe
-tile.gtclassic.tungstensteelfluidpipelarge.name=Large Tungstensteel Fluid Pipe
+tile.gtc_expansion.brass_pipe.name=Brass Item Pipe
+tile.gtc_expansion.large_brass_pipe.name=Large Brass Item Pipe
+tile.gtc_expansion.small_bronze_pipe.name=Small Bronze Fluid Pipe
+tile.gtc_expansion.bronze_pipe.name=Bronze Fluid Pipe
+tile.gtc_expansion.large_bronze_pipe.name=Large Bronze Fluid Pipe
+tile.gtc_expansion.small_steel_pipe.name=Small Steel Fluid Pipe
+tile.gtc_expansion.steel_pipe.name=Steel Fluid Pipe
+tile.gtc_expansion.large_steel_pipe.name=Large Steel Fluid Pipe
+tile.gtc_expansion.small_stainlesssteel_pipe.name=Small Stainless Steel Fluid Pipe
+tile.gtc_expansion.stainlesssteel_pipe.name=Stainless Steel Fluid Pipe
+tile.gtc_expansion.large_stainlesssteel_pipe.name=Large Stainless Steel Fluid Pipe
+tile.gtc_expansion.small_tungstensteel_pipe.name=Small Tungstensteel Fluid Pipe
+tile.gtc_expansion.tungstensteel_pipe.name=Tungstensteel Fluid Pipe
+tile.gtc_expansion.large_tungstensteel_pipe.name=Large Tungstensteel Fluid Pipe
 
 
 tile.gtc_expansion.orepyrite.name=Pyrite Ore
@@ -811,6 +814,8 @@ tooltip.gtc_expansion.electriclocker0=For storing a set of armor and charging it
 tooltip.gtc_expansion.dustbin0=For compacting all your small and tiny dusts.
 tooltip.gtc_expansion.trash_bin0=For all your trash needs.
 tooltip.gtc_expansion.digitaltank0=With a capacity of 256000 Liters!
+tooltip.gtc_expansion.fluid_pipe0=Bandwith: %1$s mb/t
+tooltip.gtc_expansion.fluid_pipe1=Capacity: %1$s mb
 
 #multiblock tooltips
 tooltip.gtc_expansion.thermalboilermultiblock0=Size(LxWxH): 3x3x3 (Hollow), Controller (Front Centered)
@@ -841,6 +846,8 @@ tooltip.gtc_expansion.oilberry=Can be eaten, but I wouldn't recommend it.
 tooltip.gtc_expansion.magicDye=Only for crafting, has no function.
 tooltip.gtc_expansion.crowbar=To remove Covers from Pipes
 tooltip.gtc_expansion.broken_turbine_rotor=Craft with 4 turbine blades to repair
+
+
 
 tooltip.gtc_expansion.diamondChainsawShearToggle.name=Enable/Disable Shearing
 

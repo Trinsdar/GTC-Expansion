@@ -2,6 +2,7 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.interfaces.IGTCoverBlock;
+import gtc_expansion.item.itemblock.GTCXItemBlockPipe;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.model.GTCXModelPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
@@ -13,10 +14,12 @@ import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseConnect;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.interfaces.IGTColorBlock;
+import gtclassic.api.interfaces.IGTItemBlock;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
 import ic2.core.block.base.tile.TileEntityBlock;
+import ic2.core.item.block.ItemBlockRare;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.models.BaseModel;
 import ic2.core.util.helpers.BlockStateContainerIC2;
@@ -48,7 +51,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, IGTColorBlock {
+public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, IGTColorBlock, IGTItemBlock {
     public static final Material PIPE = new GTCXMaterialWrench(true);
     GTMaterial material;
     GTCXHelperPipe.GTPipeModel type;
@@ -320,6 +323,11 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             return ((GTCXTileBasePipe)tileEntity).anchors.contains(side);
         }
         return super.isSideSolid(base_state, world, pos, side);
+    }
+
+    @Override
+    public Class<? extends ItemBlockRare> getCustomItemBlock() {
+        return GTCXItemBlockPipe.class;
     }
 
     public static class GTCXBlockState extends BlockStateContainerIC2.IC2BlockState{
