@@ -31,7 +31,6 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -152,7 +151,7 @@ public class GTCXOtherEvents {
     @SideOnly(Side.CLIENT)
     public void onRenderWorldLastEvent(RenderWorldLastEvent event) {
         EntityPlayerSP player = Minecraft.getMinecraft().player;
-        if (player != null && Loader.isModLoaded("codechickenlib")) {
+        if (player != null) {
             RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(player);
             if (lookingAt != null) {
                 BlockPos pos = lookingAt.getBlockPos();

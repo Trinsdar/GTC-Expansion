@@ -1,6 +1,5 @@
 package gtc_expansion.render;
 
-import codechicken.lib.vec.Rotation;
 import gtc_expansion.GTCExpansion;
 import ic2.core.RotationList;
 import net.minecraft.block.Block;
@@ -14,8 +13,72 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+import javax.vecmath.Vector3d;
+
 @SideOnly(Side.CLIENT)
 public class GTCXRenderer {
+
+    public static Transformation[] sideRotations = new Transformation[]{//
+            new Transformation(new Matrix4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {
+                @Override
+                public void glApply() {
+
+                }
+
+                @Override
+                public void apply(Vector3d v) {
+
+                }
+            },
+            new Transformation(new Matrix4(1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)) {
+                @Override
+                public void apply(Vector3d vec) {
+                    vec.y = -vec.y;
+                    vec.z = -vec.z;
+                }
+
+            },
+            new Transformation(new Matrix4(1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1)) {
+                @Override
+                public void apply(Vector3d vec) {
+                    double d1 = vec.y;
+                    double d2 = vec.z;
+                    vec.y = -d2;
+                    vec.z = d1;
+                }
+
+            },
+            new Transformation(new Matrix4(1, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1)) {
+                @Override
+                public void apply(Vector3d vec) {
+                    double d1 = vec.y;
+                    double d2 = vec.z;
+                    vec.y = d2;
+                    vec.z = -d1;
+                }
+
+            },
+            new Transformation(new Matrix4(0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)) {
+                @Override
+                public void apply(Vector3d vec) {
+                    double d0 = vec.x;
+                    double d1 = vec.y;
+                    vec.x = d1;
+                    vec.y = -d0;
+                }
+
+            },
+            new Transformation(new Matrix4(0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)) {
+                @Override
+                public void apply(Vector3d vec) {
+                    double d0 = vec.x;
+                    double d1 = vec.y;
+                    vec.x = -d1;
+                    vec.y = d0;
+                }
+
+            }
+    };
 
     public static void renderOverlay(EntityPlayer aPlayer, BlockPos pos, EnumFacing aSide, float aPartialTicks, RotationList connections)
     {
@@ -27,7 +90,7 @@ public class GTCXRenderer {
         GL11.glPushMatrix();
         GL11.glTranslated(-(aPlayer.lastTickPosX + (aPlayer.posX - aPlayer.lastTickPosX) * aPartialTicks), -(aPlayer.lastTickPosY + (aPlayer.posY - aPlayer.lastTickPosY) * aPartialTicks), -(aPlayer.lastTickPosZ + (aPlayer.posZ - aPlayer.lastTickPosZ) * aPartialTicks));
         GL11.glTranslated(aX + 0.5, aY + 0.5, aZ + 0.5);
-        Rotation.sideRotations[aSide.getIndex()].glApply();
+        sideRotations[aSide.getIndex()].glApply();
         GL11.glTranslated(0, -0.5025, 0);
         GL11.glLineWidth(2.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -392,7 +455,7 @@ public class GTCXRenderer {
         GL11.glPushMatrix();
         GL11.glTranslated(-(aPlayer.lastTickPosX + (aPlayer.posX - aPlayer.lastTickPosX) * aPartialTicks), -(aPlayer.lastTickPosY + (aPlayer.posY - aPlayer.lastTickPosY) * aPartialTicks), -(aPlayer.lastTickPosZ + (aPlayer.posZ - aPlayer.lastTickPosZ) * aPartialTicks));
         GL11.glTranslated(aX + 0.5, aY + 0.5, aZ + 0.5);
-        Rotation.sideRotations[aSide.getIndex()].glApply();
+        sideRotations[aSide.getIndex()].glApply();
         GL11.glTranslated(0, -0.5025, 0);
         GL11.glLineWidth(2.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
