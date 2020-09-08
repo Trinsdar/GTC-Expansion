@@ -1,6 +1,5 @@
 package gtc_expansion.tile.pipes;
 
-import gtc_expansion.GTCExpansion;
 import gtclassic.common.tile.GTTileTranslocatorFluid;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.fluid.IC2Tank;
@@ -176,7 +175,10 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return super.hasCapability(capability, facing) || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null){
+            return connection.contains(facing);
+        }
+        return super.hasCapability(capability, facing);
     }
 
     @Override
