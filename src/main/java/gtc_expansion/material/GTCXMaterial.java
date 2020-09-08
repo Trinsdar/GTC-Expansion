@@ -170,7 +170,6 @@ public class GTCXMaterial {
         materialHeatMap.put(GTMaterial.Tungsten, 3695);
         GTMaterial.Uranium.addFlags(smalldust, molten, crushedore, crushedorePurified, tinydust);
         materialHeatMap.put(GTMaterial.Uranium, 1405);
-        GTMaterial.Plutonium239.addFlags(plate);
         GTMaterial.Wood.addFlags(smalldust);
 
         GTMaterialGen.addItemFlag(smalldust);

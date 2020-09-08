@@ -32,7 +32,6 @@ public class GTCXRadiationEvent {
         addRadiation(GTMaterialGen.getMaterialBlock(GTMaterial.Plutonium, 1));
         addRadiation(GTCXMaterialGen.getNugget(GTMaterial.Plutonium, 1));
         addRadiation(GTCXMaterialGen.getPlate(GTMaterial.Plutonium,1));
-        addRadiation(GTCXMaterialGen.getPlate(GTMaterial.Plutonium239,1));
     }
 
     @SubscribeEvent
