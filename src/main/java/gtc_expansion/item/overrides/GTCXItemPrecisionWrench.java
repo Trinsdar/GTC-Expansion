@@ -1,6 +1,5 @@
 package gtc_expansion.item.overrides;
 
-import flyingperson.BetterPipes.IBetterPipesWrench;
 import gtc_expansion.block.GTCXBlockPipe;
 import gtc_expansion.interfaces.IGTOverlayWrench;
 import gtc_expansion.util.GTCXBetterPipesCompat;
@@ -13,11 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Optional;
 import org.jetbrains.annotations.Nullable;
 
-@Optional.Interface(iface = "flyingperson.BetterPipes.IBetterPipesWrench", modid = "betterpipes")
-public class GTCXItemPrecisionWrench extends ItemElectricToolPrecisionWrench implements IGTOverlayWrench, IBetterPipesWrench {
+public class GTCXItemPrecisionWrench extends ItemElectricToolPrecisionWrench implements IGTOverlayWrench {
     public GTCXItemPrecisionWrench(){
         this.setHarvestLevel("wrench", 1);
     }
@@ -51,7 +48,6 @@ public class GTCXItemPrecisionWrench extends ItemElectricToolPrecisionWrench imp
         return state.getBlock() instanceof GTCXBlockPipe;
     }
 
-    @Override
     public boolean canBeUsed(ItemStack stack, EntityPlayer player) {
         return !player.isSneaking() && ElectricItem.manager.canUse(stack, 100);
     }

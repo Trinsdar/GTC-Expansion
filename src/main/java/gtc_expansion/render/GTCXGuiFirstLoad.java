@@ -41,9 +41,7 @@ public class GTCXGuiFirstLoad extends GuiScreen {
         int x = width / 2;
         int y = height / 6;
         for(int i = 0; i < 10; i++) {
-            String s = I18n.format("quark.config.firstloadinfo" + i);
-            if(i == 5)
-                s = (TextFormatting.RED.toString() + TextFormatting.UNDERLINE.toString() + s);
+            String s = I18n.format("info.gtc_expansion.first_load" + i);
 
             drawCenteredString(fontRenderer, s, x, y, 0xFFFFFF);
 

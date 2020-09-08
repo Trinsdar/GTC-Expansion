@@ -878,6 +878,6 @@ button.gtc_expansion.backToMainMenu=Back to Main Menu
 
 title.gtc_expansion.first_load=Notice from GTC Expansion
 
-info.gtc_expansion.first_load0=Hi
+#info.gtc_expansion.first_load0
 
 miscInfo.gtc_expansion.pressShift.name=Press%1$s Shift%2$s for Structure Information
