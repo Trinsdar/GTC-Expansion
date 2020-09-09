@@ -7,7 +7,8 @@ public class GTCXHelperPipe {
     public enum GTPipeModel {
         SMALL("small_", new int[] { 5, 11 }),
         MED("", new int[] { 4, 12 }),
-        LARGE("large_", new int[] { 2, 14 });
+        LARGE("large_", new int[] { 2, 14 }),
+        QUAD("quad_", new int[]{0, 16});
 
         String suffix;
         int[] sizes;

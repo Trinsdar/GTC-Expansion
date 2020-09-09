@@ -46,7 +46,11 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
         receivedFrom = 0;
     }
 
-    public void distribute() {
+    public void distribute(){
+        this.distribute(this.tank);
+    }
+
+    public void distribute(IC2Tank tank) {
         transferredAmount = 0;
         List<Tuple<Tuple<IFluidHandler, TileEntity>, EnumFacing>> adjacentTanks = new ArrayList<>(), adjacentPipes = new ArrayList<>();
         IFluidHandler tTank;
@@ -58,8 +62,8 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
             if ((anchors.notContains(side) || storage.getCoverLogicMap().get(side).allowsPipeOutput()) && !FACE_CONNECTED[side.getIndex()][receivedFrom]) {
                 TileEntity tile = world.getTileEntity(this.getPos().offset(side));
                 if (tile instanceof GTCXTileBaseFluidPipe) {
-                    IC2Tank target = ((GTCXTileBaseFluidPipe)tile).getTank();
-                    if ((target.getFluid() != null && target.getFluid().isFluidEqual(this.tank.getFluid()) && target.getFluidAmount() < tank.getFluidAmount()) || target.getFluid() == null){
+                    IC2Tank target = ((GTCXTileBaseFluidPipe)tile).getFluidTankFillable2(tank.getFluid());
+                    if (target != null && target.getFluidAmount() < tank.getFluidAmount()){
                         amount += target.getFluidAmount();
                         pipeCount++;
                         adjacentTanks.add(new Tuple<>(new Tuple<>(new FacingFillWrapper(side.getOpposite(), (GTCXTileBaseFluidPipe)tile), tile), side.getOpposite()));
@@ -90,10 +94,10 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
                         continue;
                     }
                     adjacentPipes.add(new Tuple<>(new Tuple<>(tTank, tuple.getFirst().getSecond()), tuple.getSecond()));
-                    IC2Tank target = ((GTCXTileBaseFluidPipe)tuple.getFirst().getSecond()).getTank();
+                    IC2Tank target = ((GTCXTileBaseFluidPipe)tuple.getFirst().getSecond()).getFluidTankFillable2(tank.getFluid());
 
-                    if (target.getFluid() == null || target.getFluid().isFluidEqual(tank.getFluid())) {
-                        FluidStack fluid = tank.drain(tTank.fill(get(amount - target.getFluidAmount()), true), true);
+                    if (target != null) {
+                        FluidStack fluid = tank.drain(tTank.fill(get(tank,amount - target.getFluidAmount()), true), true);
                         if (fluid != null){
                             transferredAmount += fluid.amount;
                         }
@@ -109,7 +113,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
                     int i = random.nextInt(adjacentTanks.size());
                     tTank = adjacentTanks.get(i).getFirst().getFirst();
                     adjacentTanks.remove(adjacentTanks.get(i));
-                    FluidStack fluid = tank.drain(tTank.fill(get(1), true), true);
+                    FluidStack fluid = tank.drain(tTank.fill(get(tank,1), true), true);
                     if (fluid != null){
                         transferredAmount += fluid.amount;
                     }
@@ -117,7 +121,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
             } else {
                 for (Tuple<Tuple<IFluidHandler, TileEntity>, EnumFacing> tuple : adjacentTanks) {
                     IFluidHandler tTank2 = tuple.getFirst().getFirst();
-                    FluidStack fluid = tank.drain(tTank2.fill(get(amount), true), true);
+                    FluidStack fluid = tank.drain(tTank2.fill(get(tank, amount), true), true);
                     if (fluid != null){
                         transferredAmount += fluid.amount;
                     }
@@ -130,7 +134,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
             if (amount > 0) {
                 for (Tuple<Tuple<IFluidHandler, TileEntity>, EnumFacing> tuple : adjacentPipes) {
                     IFluidHandler tPipe = tuple.getFirst().getFirst();
-                    FluidStack fluid = tank.drain(tPipe.fill(get(amount), true), true);
+                    FluidStack fluid = tank.drain(tPipe.fill(get(tank, amount), true), true);
                     if (fluid != null){
                         transferredAmount += fluid.amount;
                     }
@@ -139,9 +143,9 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
         }
     }
 
-    private FluidStack get(int amount){
-        if (this.tank.getFluid() != null && amount > 0){
-            return new FluidStack(this.tank.getFluid().getFluid(), (Math.min(this.tank.getFluidAmount(), amount)));
+    protected FluidStack get(IC2Tank tank, int amount){
+        if (tank.getFluid() != null && amount > 0){
+            return new FluidStack(tank.getFluid().getFluid(), (Math.min(tank.getFluidAmount(), amount)));
         }
         return null;
     }
@@ -178,7 +182,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null){
             return connection.contains(facing);
         }
-        return super.hasCapability(capability, facing);
+        return super.hasCapability(capability, facing) || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
     }
 
     @Override
@@ -209,6 +213,13 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
         nbt.setInteger("receivedFrom", this.receivedFrom);
         nbt.setInteger("transferRate", this.transferRate);
         return nbt;
+    }
+
+    protected IC2Tank getFluidTankFillable2(FluidStack fluidStack) {
+        if (fluidStack == null) return null;
+        if (this.tank.getFluid() != null && this.tank.getFluid().isFluidEqual(fluidStack)) return this.tank;
+        if (this.tank.getFluid() == null) return this.tank;
+        return null;
     }
 
     public static class FacingFillWrapper implements IFluidHandler{

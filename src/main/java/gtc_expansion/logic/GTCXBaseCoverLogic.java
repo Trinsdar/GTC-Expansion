@@ -1,13 +1,14 @@
 package gtc_expansion.logic;
 
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
+import ic2.api.classic.network.INetworkFieldData;
 import ic2.api.classic.network.adv.IInputBuffer;
 import ic2.api.classic.network.adv.IOutputBuffer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
-public abstract class GTCXBaseCoverLogic {
+public abstract class GTCXBaseCoverLogic implements INetworkFieldData {
     protected GTCXTileBasePipe pipe;
     protected EnumFacing facing;
     public GTCXBaseCoverLogic(GTCXTileBasePipe pipe, EnumFacing facing){
@@ -25,10 +26,12 @@ public abstract class GTCXBaseCoverLogic {
     }
 
 
+    @Override
     public void read(IInputBuffer buffer) {
     }
 
 
+    @Override
     public void write(IOutputBuffer buffer) {
     }
 

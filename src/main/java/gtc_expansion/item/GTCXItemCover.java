@@ -50,7 +50,7 @@ public class GTCXItemCover extends GTCXItemMisc {
                     if (worldIn.isRemote){
                         IC2.audioManager.playOnce(playerIn, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                     }
-                    return new ActionResult<>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
+                    return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
                 }
             }
         }
