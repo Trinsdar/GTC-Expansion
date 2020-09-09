@@ -52,15 +52,17 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import static gtc_expansion.util.GTCXHelperPipe.GTPipeModel.*;
+
 public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, IGTColorBlock, IGTItemBlock {
     public static final Material PIPE = new GTCXMaterialWrench(true);
     GTMaterial material;
     GTCXHelperPipe.GTPipeModel type;
     boolean item;
-    public GTCXBlockPipe(String name, GTMaterial material, GTCXHelperPipe.GTPipeModel type){
+    public GTCXBlockPipe(GTMaterial material, GTCXHelperPipe.GTPipeModel type){
         super(PIPE);
-        setUnlocalizedName(GTCExpansion.MODID + "." + name);
-        setRegistryName(name);
+        setUnlocalizedName(GTCExpansion.MODID + "." + type.getSuffix() + material.getName() + "_pipe");
+        setRegistryName(type.getSuffix() + material.getName() + "_pipe");
         this.setHardness(2.0F);
         this.setSoundType(SoundType.METAL);
         setCreativeTab(GTMod.creativeTabGT);
@@ -95,7 +97,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
     @SideOnly(Side.CLIENT)
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
-        int open = type == GTCXHelperPipe.GTPipeModel.SMALL ? 8 : type == GTCXHelperPipe.GTPipeModel.MED ? 9 : type == GTCXHelperPipe.GTPipeModel.LARGE ? 10 : 12;
+        int open = type == SMALL ? 8 : type == MED ? 9 : type == LARGE ? 10 : type == HUGE ? 11 : 12;
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[side == EnumFacing.UP ? open : 7];
     }
 
@@ -108,7 +110,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
     @SideOnly(Side.CLIENT)
     @Override
     public BaseModel getModelFromState(IBlockState iBlockState) {
-        if (type == GTCXHelperPipe.GTPipeModel.QUAD){
+        if (type == QUAD || type == HUGE){
             return new GTCXModelPipeFullBlock(iBlockState, type.getSizes());
         }
         return new GTCXModelPipe(iBlockState, type.getSizes());
@@ -120,7 +122,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof GTCXTileBasePipe) {
                 GTCXTileBasePipe pipe = (GTCXTileBasePipe)tile;
-                if (this.type == GTCXHelperPipe.GTPipeModel.QUAD){
+                if (this.type == QUAD || type == HUGE){
                     return new GTCXBlockState(state, pipe.storage.getQuadList(), pipe.getConnections());
                 }
                 return new GTCXBlockState(state, pipe.storage.getQuads(), pipe.getConnections());
@@ -210,6 +212,10 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
 
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if (tileEntity instanceof GTCXTileBasePipe){
+            return ((GTCXTileBasePipe)tileEntity).anchors.contains(face) || this.type == QUAD ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+        }
         return BlockFaceShape.UNDEFINED;
     }
 
@@ -324,11 +330,26 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
 
     @Override
     public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        if (type == HUGE || type == QUAD){
+            return true;
+        }
         TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity instanceof GTCXTileBasePipe){
             return ((GTCXTileBasePipe)tileEntity).anchors.contains(side);
         }
         return super.isSideSolid(base_state, world, pos, side);
+    }
+
+    public boolean isOpaqueCube(IBlockState state) {
+        return type == QUAD || type == HUGE;
+    }
+
+    public boolean isBlockNormalCube(IBlockState state) {
+        return type == QUAD || type == HUGE;
+    }
+
+    public boolean isFullCube(IBlockState state) {
+        return type == QUAD || type == HUGE;
     }
 
     @Override

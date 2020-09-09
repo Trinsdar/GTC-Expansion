@@ -74,6 +74,7 @@ public class GTCXItems {
     public static final GTCXItemMold moldBlock = createItem(new GTCXItemMold("block", 10, 2));
     public static final GTCXItemMold moldGear = createItem(new GTCXItemMold("gear", 11, 2));
     public static final GTCXItemMold moldNugget = createItem(new GTCXItemMold("nugget", 12, 2));
+    public static final GTCXItemMold moldHugePipe = createItem(new GTCXItemMold("huge_pipe", 13, 2));
 
     public static final GTCXItemInsulationCutter cutter = createItem(new GTCXItemInsulationCutter());
 

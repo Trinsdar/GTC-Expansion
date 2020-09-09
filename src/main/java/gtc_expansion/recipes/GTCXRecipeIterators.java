@@ -20,6 +20,7 @@ import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.crafting.ICraftingRecipeList;
@@ -95,8 +96,8 @@ public class GTCXRecipeIterators {
         createFullToolRecipes(GTMaterial.Sapphire, true);
         createPipeRecipes(GTCXMaterial.Bronze, true);
         createPipeRecipes(GTCXMaterial.Steel, true);
-        //createPipeRecipes(GTCXMaterial.StainlessSteel, true);
-        //createPipeRecipes(GTCXMaterial.TungstenSteel, true);
+        createPipeRecipes(GTCXMaterial.StainlessSteel, true);
+        createPipeRecipes(GTCXMaterial.TungstenSteel, true);
     }
 
     public static void createFluidCastingRecipes(GTMaterial mat){
@@ -160,6 +161,7 @@ public class GTCXRecipeIterators {
             }
             recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED, 2), "PPP", "W H", "PPP", 'P', plate, 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
             recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE, 1), "PHP", "P P", "PWP", 'P', plate, 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
+            recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.HUGE, 1), "PPP", "H W", "PPP", 'P', GTTileBaseMachine.input(plate, 2), 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
         }
         if (fluid) {
             GTCXTileExtruder.addRecipe("ingot" + mat.getDisplayName(), 1, GTMaterialGen.get(GTCXItems.moldSmallPipe), 1920, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL));
@@ -169,9 +171,12 @@ public class GTCXRecipeIterators {
         GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldMediumPipe), GTMaterialGen.getFluidStack(mat, 432), false, 38400, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED));
         GTCXTileExtruder.addRecipe("ingot" + mat.getDisplayName(), 6, GTMaterialGen.get(GTCXItems.moldLargePipe), 11520, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE));
         GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), GTMaterialGen.getFluidStack(mat, 864), false, 76800, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE));
+        GTCXTileExtruder.addRecipe("ingot" + mat.getDisplayName(), 12, GTMaterialGen.get(GTCXItems.moldHugePipe), 23040, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.HUGE));
+        GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldHugePipe), GTMaterialGen.getFluidStack(mat, 1728), false, 153600, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.HUGE));
         GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL), GTCXMaterialGen.getMaterialHeatValue(mat), 12800, GTMaterialGen.getFluidStack(mat, 144));
         GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED), GTCXMaterialGen.getMaterialHeatValue(mat), 38400, GTMaterialGen.getFluidStack(mat, 432));
         GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE), GTCXMaterialGen.getMaterialHeatValue(mat), 76800, GTMaterialGen.getFluidStack(mat, 864));
+        GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.HUGE), GTCXMaterialGen.getMaterialHeatValue(mat), 153600, GTMaterialGen.getFluidStack(mat, 1728));
     }
 
     public static void createTinyDustRecipe(GTMaterial mat) {

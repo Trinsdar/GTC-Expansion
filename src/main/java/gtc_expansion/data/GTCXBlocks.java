@@ -53,6 +53,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtc_expansion.tile.pipes.GTCXTileBaseFluidPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
+import gtc_expansion.tile.pipes.GTCXTileQuadFluidPipe;
 import gtc_expansion.tile.wiring.GTCXTileAluminiumCable;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
 import gtclassic.GTMod;
@@ -237,6 +238,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileMultiFusionReactor.class, "BigFusionReactor");
         registerUtil(GTCXTileBaseItemPipe.class, "BaseItemPipe");
         registerUtil(GTCXTileBaseFluidPipe.class, "BaseFluidPipe");
+        registerUtil(GTCXTileQuadFluidPipe.class, "QuadFluidPipe");
         registerUtil(GTCXTileDigitalTank.class, "DigitalTank");
     }
 

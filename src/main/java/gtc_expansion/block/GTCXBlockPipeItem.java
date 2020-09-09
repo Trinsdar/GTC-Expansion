@@ -7,8 +7,8 @@ import ic2.core.block.base.tile.TileEntityBlock;
 import net.minecraft.world.World;
 
 public class GTCXBlockPipeItem extends GTCXBlockPipe {
-    public GTCXBlockPipeItem(String name, GTMaterial material, GTCXHelperPipe.GTPipeModel type) {
-        super(name, material, type);
+    public GTCXBlockPipeItem(GTMaterial material, GTCXHelperPipe.GTPipeModel type) {
+        super(material, type);
     }
 
     @Override

@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 public class GTCXItemMatch extends GTCXItemMisc {
 
     public GTCXItemMatch() {
-        super("match", 14, 2);
+        super("match", 15, 2);
     }
 
     @Override
