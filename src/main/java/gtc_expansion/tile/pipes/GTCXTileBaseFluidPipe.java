@@ -207,7 +207,9 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.tank.readFromNBT(nbt.getCompoundTag("tank"));
-        this.tank.setCapacity(nbt.getInteger("TankCapacity"));
+        if (nbt.hasKey("TankCapacity") && nbt.getInteger("TankCapacity") > 0) {
+            this.tank.setCapacity(nbt.getInteger("TankCapacity"));
+        }
         this.receivedFrom = nbt.getInteger("receivedFrom");
         this.transferRate = nbt.getInteger("transferRate");
     }
