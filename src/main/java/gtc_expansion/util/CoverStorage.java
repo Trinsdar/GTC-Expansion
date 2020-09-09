@@ -99,6 +99,17 @@ public class CoverStorage implements INetworkFieldData {
     }
 
     @SideOnly(Side.CLIENT)
+    public QuadList[] getQuadList() {
+        QuadList[] list = new QuadList[6];
+
+        for(int i = 0; i < 6; ++i) {
+            list[i] = this.getQuads(EnumFacing.getFront(i));
+        }
+
+        return list;
+    }
+
+    @SideOnly(Side.CLIENT)
     public QuadList getQuads(EnumFacing facing) {
         QuadList list = new QuadList();
 

@@ -31,6 +31,7 @@ public class GTCXPipes {
         blockMap.put("small_" + material.getName() + "_pipe", new GTCXBlockPipeFluid("small_" + material.getName() + "_pipe", material, GTCXHelperPipe.GTPipeModel.SMALL, baseTransfer));
         blockMap.put(material.getName() + "_pipe", new GTCXBlockPipeFluid(material.getName() + "_pipe", material, GTCXHelperPipe.GTPipeModel.MED, baseTransfer * 3));
         blockMap.put("large_" + material.getName() + "_pipe", new GTCXBlockPipeFluid("large_" + material.getName() + "_pipe", material, GTCXHelperPipe.GTPipeModel.LARGE, (baseTransfer * 3) * 2));
+        blockMap.put("quad_" + material.getName() + "_pipe", new GTCXBlockPipeFluid("quad_" + material.getName() + "_pipe", material, GTCXHelperPipe.GTPipeModel.QUAD, baseTransfer * 3));
     }
 
     public static void createItemPipes(GTMaterial material){

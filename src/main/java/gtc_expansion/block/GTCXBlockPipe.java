@@ -5,7 +5,7 @@ import gtc_expansion.interfaces.IGTCoverBlock;
 import gtc_expansion.item.itemblock.GTCXItemBlockPipe;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.model.GTCXModelPipe;
-import gtc_expansion.model.GTCXModelPipeQuad;
+import gtc_expansion.model.GTCXModelPipeFullBlock;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import gtc_expansion.util.GTCXHelperPipe;
@@ -109,7 +109,7 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
     @Override
     public BaseModel getModelFromState(IBlockState iBlockState) {
         if (type == GTCXHelperPipe.GTPipeModel.QUAD){
-            return new GTCXModelPipeQuad(iBlockState, type.getSizes());
+            return new GTCXModelPipeFullBlock(iBlockState, type.getSizes());
         }
         return new GTCXModelPipe(iBlockState, type.getSizes());
     }
@@ -120,7 +120,9 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof GTCXTileBasePipe) {
                 GTCXTileBasePipe pipe = (GTCXTileBasePipe)tile;
-
+                if (this.type == GTCXHelperPipe.GTPipeModel.QUAD){
+                    return new GTCXBlockState(state, pipe.storage.getQuadList(), pipe.getConnections());
+                }
                 return new GTCXBlockState(state, pipe.storage.getQuads(), pipe.getConnections());
             }
         } catch (Exception e) {

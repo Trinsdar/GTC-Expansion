@@ -4,7 +4,6 @@ import gtc_expansion.block.GTCXBlockPipe.GTCXBlockState;
 import gtclassic.api.block.GTBlockBaseConnect;
 import ic2.core.RotationList;
 import ic2.core.block.base.util.texture.TextureCopyStorage;
-import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.Ic2Models;
 import ic2.core.platform.textures.models.BaseModel;
 import net.minecraft.block.state.IBlockState;
@@ -29,15 +28,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class GTCXModelPipeQuad extends BaseModel {
-    List<BakedQuad>[] quads; // All possible connection configurations
+public class GTCXModelPipeFullBlock extends BaseModel {
+    List<BakedQuad>[][] quads; // All possible connection configurations
     IBlockState state;
     // functions
     int[] sizes; // This is an int array to draw the size of the cable, [0, 16] would be a full
     // block, [4, 12] would be half a block.
-    final TextureAtlasSprite anchorBackTexture = Ic2Icons.getTextures("gtclassic_terrain")[1];
-    final TextureAtlasSprite anchorSideTexture = Ic2Icons.getTextures("gtc_expansion_blocks")[15];
-    public GTCXModelPipeQuad(IBlockState block, int[] sizes) {
+    public GTCXModelPipeFullBlock(IBlockState block, int[] sizes) {
         super(Ic2Models.getBlockTransforms());
         this.state = block;
         this.sizes = sizes;
@@ -48,7 +45,7 @@ public class GTCXModelPipeQuad extends BaseModel {
     public void init() {
         GTBlockBaseConnect wire = (GTBlockBaseConnect) this.state.getBlock();
         //IGTCoverBlock pipe = (IGTCoverBlock) this.state.getBlock();
-        quads = this.createList(64);
+        quads = this.createDoubleList(64, 7);
         this.setParticalTexture(wire.getParticleTexture(this.state));
         int min = this.sizes[0];// low size
         int max = this.sizes[1];// high size
@@ -64,29 +61,31 @@ public class GTCXModelPipeQuad extends BaseModel {
 
         for (int j = 0; j < 64; ++j) {
             RotationList rotation = RotationList.ofNumber(j);
-            List<BakedQuad> quadList = this.quads[j];
+            List<BakedQuad>[] quadList = this.quads[j];
             Iterator rotations = rotation.iterator();
             EnumFacing side;
             while (rotations.hasNext()) {
                 side = (EnumFacing) rotations.next();
-                quadList.addAll(sideQuads.get(side));
+                quadList[side.getIndex()].addAll(sideQuads.get(side));
+                quadList[6].addAll(sideQuads.get(side));
             }
             rotations = rotation.invert().iterator();
             while (rotations.hasNext()) {
                 side = (EnumFacing) rotations.next();
                 BakedQuad quad = coreQuads.get(side);
-                if (rotation.size() >= 2){
+                if (rotation.size() >= 1){
                     quad = coreQuadsSided.get(side);
                 }
-                if (rotation.size() == 1){
+                /*if (rotation.size() == 1){
                     for (EnumFacing facing : EnumFacing.VALUES){
                         if (rotation.contains(facing) && side != facing.getOpposite()){
                             quad = coreQuadsSided.get(side);
                             break;
                         }
                     }
-                }
-                quadList.add(quad);
+                }*/
+                quadList[side.getIndex()].add(quad);
+                quadList[6].add(quad);
             }
         }
     }
@@ -99,20 +98,22 @@ public class GTCXModelPipeQuad extends BaseModel {
             if (!(state instanceof GTCXBlockState)) {
                 // if its in jei/creative tab it will default to the int passed below, 12 =
                 // (4+8) (north+south)
-                return this.quads[12];
+                return this.quads[12][6];
             } else {
-                TextureCopyStorage.QuadList quadList = ((GTCXBlockState)state).getData();
-                Vec3i vec = ((GTCXBlockState)state).getData2();
-                if (vec.getY() > 0) {
-                    List<BakedQuad> list;
-                    list = new ArrayList(this.quads[vec.getX()]);
-                    list.addAll(quadList.getQuads());
-                    return list;
-                } else {
-                    return this.quads[vec.getX()];
-                }
+                return this.getEmptyList();
             }
         } else {
+            if (state instanceof GTCXBlockState){
+                TextureCopyStorage.QuadList[] quadList = ((GTCXBlockState)state).getData();
+                Vec3i vec = ((GTCXBlockState)state).getData2();
+                if (vec.getY() > 0) {
+                    List<BakedQuad> covers = new ArrayList<>(quadList[side.getIndex()].getQuads());
+                    List<BakedQuad> list = new ArrayList(this.quads[vec.getX()][side.getIndex()]);
+                    return covers.isEmpty() ? list : covers;
+                } else {
+                    return this.quads[vec.getX()][side.getIndex()];
+                }
+            }
             return this.getEmptyList();
         }
     }
@@ -144,10 +145,8 @@ public class GTCXModelPipeQuad extends BaseModel {
         BlockPartFace face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[] { (float) min,
                 (float) min, (float) max, (float) max }, 0));
         Map<EnumFacing, BakedQuad> quads = new EnumMap(EnumFacing.class);
-        EnumFacing[] var8 = EnumFacing.VALUES;
-        int var9 = var8.length;
-        for (int var10 = 0; var10 < var9; ++var10) {
-            EnumFacing side = var8[var10];
+        EnumFacing[] facings = EnumFacing.VALUES;
+        for (EnumFacing side : facings) {
             TextureAtlasSprite sprite = wire.getTextureFromState(this.state, (hasSide ? EnumFacing.NORTH : EnumFacing.UP));
             quads.put(side, this.getBakery().makeBakedQuad(minF, maxF, face, sprite, side, ModelRotation.X0_Y0, null, true, true));
         }
@@ -159,20 +158,12 @@ public class GTCXModelPipeQuad extends BaseModel {
     private List<BakedQuad> generateQuadsForSide(GTBlockBaseConnect wire, EnumFacing facing, int min, int max) {
         List<BakedQuad> quads = new ArrayList();
         Pair<Vector3f, Vector3f> position = this.getPosForSide(facing, min, max, 0);
-        EnumFacing[] facings = EnumFacing.VALUES;
-        int facingLength = facings.length;
-        for (int i = 0; i < facingLength; ++i) {
-            EnumFacing side = facings[i];
-            if (side == facing) {
-                int rotation = (side == EnumFacing.NORTH && facing.getHorizontalIndex() != -1) || (side == EnumFacing.WEST && facing == EnumFacing.NORTH) || (side == EnumFacing.EAST && facing == EnumFacing.SOUTH) || (side == EnumFacing.DOWN && facing.getAxis() == EnumFacing.Axis.Z) ? 180 : 0;
-                BlockPartFace face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[]{(float) min,
-                        (float) min, (float) max, (float) max}, rotation));
-                // If you would like a different texture for connected sides, change the sprite
-                // var to what you want
-                TextureAtlasSprite sprite = wire.getTextureFromState(this.state, EnumFacing.UP);
-                quads.add(this.getBakery().makeBakedQuad(position.getKey(), position.getValue(), face, sprite, side, ModelRotation.X0_Y0, null, true, true));
-            }
-        }
+        BlockPartFace face = new BlockPartFace(null, 0, "", new BlockFaceUV(new float[]{(float) min,
+                (float) min, (float) max, (float) max}, 0));
+        // If you would like a different texture for connected sides, change the sprite
+        // var to what you want
+        TextureAtlasSprite sprite = wire.getTextureFromState(this.state, EnumFacing.UP);
+        quads.add(this.getBakery().makeBakedQuad(position.getKey(), position.getValue(), face, sprite, facing, ModelRotation.X0_Y0, null, true, true));
         return quads;
     }
 
