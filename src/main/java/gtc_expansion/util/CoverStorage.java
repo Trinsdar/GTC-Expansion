@@ -98,6 +98,19 @@ public class CoverStorage implements INetworkFieldData {
         return list;
     }
 
+    @SideOnly(Side.CLIENT)
+    public QuadList getQuads(EnumFacing facing) {
+        QuadList list = new QuadList();
+
+        if (facing == null){
+            return this.getQuads();
+        }
+        if (this.entries[facing.getIndex()].getModelState() != null && this.entries[facing.getIndex()].getRenderState() != null){
+            list.addQuads(this.entries[facing.getIndex()].getQuads());
+        }
+        return list;
+    }
+
     public void setCover(IBlockState cover, EnumFacing facing){
         entries[facing.getIndex()].set(cover, cover, new int[]{-1}, new RetextureEventClassic.Rotation[]{RetextureEventClassic.Rotation.Rotation0}, facing);
         coverLogicMap.put(facing, this.logicFromInt(cover.getBlock().getMetaFromState(cover), facing));
