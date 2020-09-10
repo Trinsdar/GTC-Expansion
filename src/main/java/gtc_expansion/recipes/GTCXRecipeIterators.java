@@ -20,6 +20,7 @@ import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeCraftingHandler;
 import gtclassic.api.tile.GTTileBaseMachine;
 import gtclassic.common.GTConfig;
 import ic2.api.classic.recipe.ClassicRecipes;
@@ -163,6 +164,7 @@ public class GTCXRecipeIterators {
             recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE, 1), "PHP", "P P", "PWP", 'P', plate, 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
             recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.HUGE, 1), "PPP", "H W", "PPP", 'P', GTTileBaseMachine.input(plate, 2), 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
         }
+        recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.QUAD), "PP", "PP", 'P', GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED));
         if (fluid) {
             GTCXTileExtruder.addRecipe("ingot" + mat.getDisplayName(), 1, GTMaterialGen.get(GTCXItems.moldSmallPipe), 1920, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL));
             GTCXTileFluidCaster.addRecipe(GTMaterialGen.get(GTCXItems.moldSmallPipe), GTMaterialGen.getFluidStack(mat, 144), false, 12800, GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL));
@@ -176,7 +178,7 @@ public class GTCXRecipeIterators {
         GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL), GTCXMaterialGen.getMaterialHeatValue(mat), 12800, GTMaterialGen.getFluidStack(mat, 144));
         GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.MED), GTCXMaterialGen.getMaterialHeatValue(mat), 38400, GTMaterialGen.getFluidStack(mat, 432));
         GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.LARGE), GTCXMaterialGen.getMaterialHeatValue(mat), 76800, GTMaterialGen.getFluidStack(mat, 864));
-        GTCXTileFluidSmelter.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.HUGE), GTCXMaterialGen.getMaterialHeatValue(mat), 153600, GTMaterialGen.getFluidStack(mat, 1728));
+        GTCXTileFluidSmelter.addRecipe(GTRecipeCraftingHandler.combineRecipeObjects(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.HUGE), GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.QUAD)), GTCXMaterialGen.getMaterialHeatValue(mat), 153600, GTMaterialGen.getFluidStack(mat, 1728));
     }
 
     public static void createTinyDustRecipe(GTMaterial mat) {

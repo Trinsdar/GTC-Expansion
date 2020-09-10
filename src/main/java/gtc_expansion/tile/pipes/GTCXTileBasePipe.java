@@ -269,6 +269,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         this.anchors = this.anchors.add(facing);
         updateConnections();
         this.getNetwork().updateTileEntityField(this, "storage");
+        this.getNetwork().updateTileEntityField(this, "anchors");
     }
 
     public void addConnection(EnumFacing facing){
@@ -288,6 +289,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         this.anchors = anchors.remove(facing);
         updateConnections();
         this.getNetwork().updateTileEntityField(this, "storage");
+        this.getNetwork().updateTileEntityField(this, "anchors");
     }
 
     @Override
