@@ -8,6 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
+import java.util.Map;
+
 public abstract class GTCXBaseCoverLogic implements INetworkFieldData {
     protected GTCXTileBasePipe pipe;
     protected EnumFacing facing;
@@ -41,5 +43,9 @@ public abstract class GTCXBaseCoverLogic implements INetworkFieldData {
 
     public boolean allowsPipeInput(){
         return true;
+    }
+
+    public void getData(Map<String, Boolean> map){
+
     }
 }

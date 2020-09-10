@@ -9,6 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
+import java.util.Map;
+
 public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
     Modes mode = Modes.NORMAL;
     public GTCXRedstoneControllerLogic(GTCXTileBasePipe pipe, EnumFacing facing) {
@@ -53,6 +55,11 @@ public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
         return true;
     }
 
+    @Override
+    public void getData(Map<String, Boolean> map){
+        map.put(this.mode.toString(), true);
+    }
+
     public enum Modes{
         NORMAL,
         INVERT,
@@ -64,6 +71,19 @@ public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
             } else if (this == INVERT){
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_2);
                 return NO_WORK;
+            } else {
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_0);
+                return NORMAL;
+            }
+        }
+
+        Modes cycleBack(EntityPlayer player){
+            if (this == NORMAL){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_2);
+                return NO_WORK;
+            } else if (this == NO_WORK){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_1);
+                return INVERT;
             } else {
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_REDSTONE_MODE_0);
                 return NORMAL;

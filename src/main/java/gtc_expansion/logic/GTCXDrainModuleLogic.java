@@ -16,6 +16,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.Map;
+
 public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
     Modes mode = Modes.IMPORT;
     int leftOver = 0;
@@ -79,7 +81,7 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
     @Override
     public boolean cycleMode(EntityPlayer player) {
         if (this.pipe.isSimulating()){
-            mode = mode.cycle(player);
+            mode = player.isSneaking() ? mode.cycleBack(player) : mode.cycle(player);
         }
         return true;
     }
@@ -108,20 +110,38 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
         buffer.writeInt(mode.ordinal());
     }
 
+    @Override
+    public void getData(Map<String, Boolean> map){
+        map.put(this.mode.toString(), true);
+    }
+
     public enum Modes{
         IMPORT,
         IMPORT_CONDITIONAL,
         IMPORT_INVERSE_CONDITIONAL;
         Modes cycle(EntityPlayer player){
             if (this == IMPORT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_HATCH_MODE_0);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_1);
                 return IMPORT_CONDITIONAL;
             } else if (this == IMPORT_CONDITIONAL){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_HATCH_MODE_1);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_2);
                 return IMPORT_INVERSE_CONDITIONAL;
             } else {
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_HATCH_MODE_3);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_0);
                 return IMPORT;
+            }
+        }
+
+        Modes cycleBack(EntityPlayer player){
+            if (this == IMPORT){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_2);
+                return IMPORT_INVERSE_CONDITIONAL;
+            } else if (this == IMPORT_CONDITIONAL){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_0);
+                return IMPORT;
+            } else {
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_1);
+                return IMPORT_CONDITIONAL;
             }
         }
     }

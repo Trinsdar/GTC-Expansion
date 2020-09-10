@@ -15,6 +15,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
+import java.util.Map;
+
 public class GTCXPumpModuleLogic extends GTCXBaseCoverLogic {
     Modes mode = Modes.IMPORT;
     public GTCXPumpModuleLogic(GTCXTileBasePipe pipe, EnumFacing facing) {
@@ -69,9 +71,14 @@ public class GTCXPumpModuleLogic extends GTCXBaseCoverLogic {
     @Override
     public boolean cycleMode(EntityPlayer player) {
         if (this.pipe.isSimulating()){
-            mode = mode.cycle(player);
+            mode = player.isSneaking() ? mode.cycleBack(player) : mode.cycle(player);
         }
         return true;
+    }
+
+    @Override
+    public void getData(Map<String, Boolean> map){
+        map.put(this.mode.toString(), true);
     }
 
     @Override
@@ -102,6 +109,28 @@ public class GTCXPumpModuleLogic extends GTCXBaseCoverLogic {
             } else if (this == IMPORT_EXPORT_CONDITIONAL){
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_5);
                 return IMPORT_EXPORT_INVERSE_CONDITIONAL;
+            } else {
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_0);
+                return IMPORT;
+            }
+        }
+
+        Modes cycleBack(EntityPlayer player){
+            if (this == IMPORT){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_5);
+                return IMPORT_EXPORT_INVERSE_CONDITIONAL;
+            } else if (this == IMPORT_EXPORT_INVERSE_CONDITIONAL){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_4);
+                return IMPORT_EXPORT_CONDITIONAL;
+            } else if (this == IMPORT_EXPORT_CONDITIONAL){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_3);
+                return IMPORT_EXPORT;
+            } else if (this == IMPORT_EXPORT){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_2);
+                return IMPORT_INVERSE_CONDITIONAL;
+            } else if (this == IMPORT_INVERSE_CONDITIONAL){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_1);
+                return IMPORT_CONDITIONAL;
             } else {
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_0);
                 return IMPORT;

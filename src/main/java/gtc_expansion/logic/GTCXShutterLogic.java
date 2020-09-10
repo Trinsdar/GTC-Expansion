@@ -10,6 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
+import java.util.Map;
+
 public class GTCXShutterLogic extends GTCXBaseCoverLogic {
     Modes mode = Modes.OPEN_ENABLED;
     public GTCXShutterLogic(GTCXTileBasePipe pipe, EnumFacing facing) {
@@ -84,6 +86,11 @@ public class GTCXShutterLogic extends GTCXBaseCoverLogic {
         return true;
     }
 
+    @Override
+    public void getData(Map<String, Boolean> map){
+        map.put(this.mode.toString(), true);
+    }
+
     public enum Modes{
         OPEN_ENABLED,
         OPEN_DISABLED,
@@ -99,6 +106,22 @@ public class GTCXShutterLogic extends GTCXBaseCoverLogic {
             } else if (this == OUTPUT_ONLY){
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_SHUTTER_MODE_3);
                 return INPUT_ONLY;
+            } else {
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_SHUTTER_MODE_0);
+                return OPEN_ENABLED;
+            }
+        }
+
+        Modes cycleBack(EntityPlayer player){
+            if (this == OPEN_ENABLED){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_SHUTTER_MODE_3);
+                return INPUT_ONLY;
+            } else if (this == INPUT_ONLY){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_SHUTTER_MODE_2);
+                return OUTPUT_ONLY;
+            } else if (this == OUTPUT_ONLY){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_SHUTTER_MODE_1);
+                return OPEN_DISABLED;
             } else {
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_SHUTTER_MODE_0);
                 return OPEN_ENABLED;

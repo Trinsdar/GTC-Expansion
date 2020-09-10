@@ -346,20 +346,17 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
     @Override
     public void getData(Map<String, Boolean> map) {
         //map.put("Model type: " + model.getPrefix(), true);
-        map.put("Material: " + material.getDisplayName(), true);
+        //map.put("Material: " + material.getDisplayName(), true);
         for (EnumFacing facing : EnumFacing.VALUES){
             if (connection.contains(facing)){
                 map.put("Connections has facing " + facing.getName(), true);
-            }
-            if (anchors.contains(facing)){
-                map.put("Anchors has facing " + facing.getName(), true);
             }
         }
         for(int i = 0; i < 6; ++i) {
             if (storage.getEntries()[i].getModelState() != null && storage.getEntries()[i].getRenderState() != null){
                 map.put("Cover at facing " + EnumFacing.getFront(i) + ": " + storage.getCoverDrop(EnumFacing.getFront(i)).getDisplayName(), true);
+                storage.getCoverLogicMap().get(EnumFacing.getFront(i)).getData(map);
             }
-            map.put("Cover Logic: " + storage.getCoverLogicMap().get(EnumFacing.getFront(i)).toString(), true);
         }
     }
 
