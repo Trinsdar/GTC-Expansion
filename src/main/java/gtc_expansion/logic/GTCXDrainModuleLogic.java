@@ -30,7 +30,7 @@ public class GTCXDrainModuleLogic extends GTCXBaseCoverLogic {
         boolean proceed = this.mode == Modes.IMPORT || (this.mode == Modes.IMPORT_CONDITIONAL && redstone) || (this.mode == Modes.IMPORT_INVERSE_CONDITIONAL && !redstone);
         if (this.facing == EnumFacing.UP && this.pipe instanceof GTCXTileBaseFluidPipe && proceed){
             GTCXTileBaseFluidPipe fluidPipe = (GTCXTileBaseFluidPipe) pipe;
-            IC2Tank tank = fluidPipe.getTank();
+            IC2Tank tank = fluidPipe.getFluidTankFillable2(water);
             if (leftOver > 0){
                 if (tank.getCapacity() - tank.getFluidAmount() >= leftOver){
                     tank.fill(water, true);

@@ -223,7 +223,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
         return nbt;
     }
 
-    protected IC2Tank getFluidTankFillable2(FluidStack fluidStack) {
+    public IC2Tank getFluidTankFillable2(FluidStack fluidStack) {
         if (fluidStack == null) return null;
         for (IC2Tank tank : this.getTanks()){
             if (tank.getFluid() != null && tank.getFluid().isFluidEqual(fluidStack)) return tank;

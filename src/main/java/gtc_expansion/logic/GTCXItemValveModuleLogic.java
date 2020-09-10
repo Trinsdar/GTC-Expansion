@@ -7,6 +7,7 @@ import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import ic2.api.classic.network.adv.IInputBuffer;
 import ic2.api.classic.network.adv.IOutputBuffer;
 import ic2.core.IC2;
+import ic2.core.fluid.IC2Tank;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -31,13 +32,16 @@ public class GTCXItemValveModuleLogic extends GTCXBaseCoverLogic {
                 GTCXTileBaseFluidPipe fluidPipe = (GTCXTileBaseFluidPipe) pipe;
                 TileEntity tile = fluidPipe.getWorld().getTileEntity(fluidPipe.getPos().offset(this.facing));
                 if (pipe.connection.contains(this.facing) && tile != null && !(tile instanceof GTCXTileBaseFluidPipe) & tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite())){
-                    FluidStack pipeFluid = fluidPipe.getTank().getFluid();
                     IFluidHandler tileFluid = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite());
                     if (tileFluid != null){
                         FluidStack drainSimulate = tileFluid.drain(fluidPipe.getTank().getCapacity(), false);
                         if (drainSimulate != null){
-                            if (pipeFluid == null || (pipeFluid.isFluidEqual(drainSimulate) && fluidPipe.getTank().getFluidAmount() < fluidPipe.getTank().getCapacity())){
-                                tileFluid.drain(new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true), true);
+                            IC2Tank tank = fluidPipe.getFluidTankFillable2(drainSimulate);
+                            if (tank != null){
+                                FluidStack pipeFluid = tank.getFluid();
+                                if (pipeFluid == null || (pipeFluid.isFluidEqual(drainSimulate) && tank.getFluidAmount() < tank.getCapacity())){
+                                    tileFluid.drain(new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true), true);
+                                }
                             }
                         }
                     }
