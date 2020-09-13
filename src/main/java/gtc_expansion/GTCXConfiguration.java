@@ -136,6 +136,8 @@ public class GTCXConfiguration {
                 "Note: if ic2c extras is loaded, this will have no effect, as all items in this system will be added to ic2c extra's instead."
         })
         public boolean enableRadiation = true;
+        @Comment("Enables crushed ores like from gt407 and later.")
+        public boolean crushedOres = true;
     }
 
     @Comment("Mod Compatability")

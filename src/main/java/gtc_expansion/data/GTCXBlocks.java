@@ -54,6 +54,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtc_expansion.tile.pipes.GTCXTileBaseFluidPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileQuadFluidPipe;
+import gtc_expansion.tile.steam.GTCXTileSteamCompressor;
 import gtc_expansion.tile.wiring.GTCXTileAluminiumCable;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
 import gtclassic.GTMod;
@@ -103,6 +104,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile gasTurbine = registerBlock(new GTCXBlockTile("gasturbine", GTCXLang.GAS_TURBINE, 1));
     public static final GTCXBlockTile stoneCompressor = registerBlock(new GTCXBlockTile("stonecompressor", GTCXLang.STONE_COMPRESSOR, 1));
     public static final GTCXBlockTile stoneExtractor = registerBlock(new GTCXBlockTile("stoneextractor", GTCXLang.STONE_EXTRACTOR, 1));
+    public static final GTCXBlockTile steamCompressor = registerBlock(new GTCXBlockTile("steamcompressor", GTCXLang.STONE_COMPRESSOR, 1));
     public static final GTCXBlockTile fusionComputer = registerBlock(new GTCXBlockTile("fusioncomputor", GTCXLang.FUSION_COMPUTER, 2));
     public static final GTCXBlockTile thermalBoiler = registerBlock(new GTCXBlockTile("thermalboiler", GTCXLang.THERMAL_BOILER, 1));
     public static final GTCXBlockTile largeSteamTurbine = registerBlock(new GTCXBlockTile("largesteamturbine", GTCXLang.LARGE_STEAM_TURBINE, 1));
@@ -223,6 +225,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileDustbin.class, "Dustbin");
         registerUtil(GTCXTileTrashBin.class, "TrashBin");
         registerUtil(GTCXTileStoneCompressor.class, "StoneCompressor");
+        registerUtil(GTCXTileSteamCompressor.class, "SteamCompressor");
         registerUtil(GTCXTileStoneExtractor.class, "StoneExtractor");
         registerUtil(GTCXTileElectrumCable.class, "ElectrumCable");
         registerUtil(GTCXTileAluminiumCable.class, "AluminiumCable");

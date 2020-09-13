@@ -543,7 +543,7 @@ public class GTCXWrenchUtils {
                         }
                         setConnection = true;
                     } else {
-                        if (offsetTile == null || pipe.canConnect(offsetTile, sideToggled)){
+                        if (worldIn.isAirBlock(offset) || pipe.canConnect(offsetTile, sideToggled)){
                             pipe.addConnection(sideToggled);
                             if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.notContains(opposite)){
                                 ((GTCXTileBasePipe)offsetTile).addConnection(opposite);

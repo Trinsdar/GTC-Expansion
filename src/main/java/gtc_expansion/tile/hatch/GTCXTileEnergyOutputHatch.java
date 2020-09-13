@@ -310,16 +310,14 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         }
 
         public void cycleTier(EntityPlayer player){
-            if (this.isSimulating()) {
-                if (tier == 4){
-                    tier = 5;
-                    output = 8192;
-                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_1);
-                } else {
-                    tier = 4;
-                    output = 2048;
-                    IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_0);
-                }
+            if (tier == 4){
+                tier = 5;
+                output = 8192;
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_1);
+            } else {
+                tier = 4;
+                output = 2048;
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_DYNAMO_HATCH_MODE_0);
             }
         }
 
@@ -331,7 +329,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         @Override
         public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
             ItemStack stack = entityPlayer.getHeldItem(enumHand);
-            if (stack.getItem() instanceof GTCXItemToolScrewdriver){
+            if (stack.getItem() instanceof GTCXItemToolScrewdriver && side.isServer()){
                 this.cycleTier(entityPlayer);
                 stack.damageItem(1, entityPlayer);
                 IC2.audioManager.playOnce(entityPlayer, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);

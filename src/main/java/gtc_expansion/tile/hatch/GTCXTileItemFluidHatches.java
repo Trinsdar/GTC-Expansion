@@ -510,11 +510,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         }
 
         public void cycleModes(EntityPlayer player){
-            if (this.isSimulating()){
-                this.cycle = cycle.cycle(player);
-                if (this.owner != null){
-                    this.owner.setOutputModes(second, cycle);
-                }
+            this.cycle = cycle.cycle(player);
+            if (this.owner != null){
+                this.owner.setOutputModes(second, cycle);
             }
         }
 
@@ -571,7 +569,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         @Override
         public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
             ItemStack stack = entityPlayer.getHeldItem(enumHand);
-            if (stack.getItem() instanceof GTCXItemToolScrewdriver){
+            if (stack.getItem() instanceof GTCXItemToolScrewdriver && side.isServer()){
                 this.cycleModes(entityPlayer);
                 stack.damageItem(1, entityPlayer);
                 IC2.audioManager.playOnce(entityPlayer, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);

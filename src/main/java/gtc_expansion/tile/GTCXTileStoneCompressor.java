@@ -42,7 +42,7 @@ import java.util.Random;
 
 public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IGTItemContainerTile, IGTDisplayTickTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/stonecompressor.png");
-    private static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.stonecompressor", 0);
+    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.stonecompressor", 0);
     protected static final int[] slotInputs = { 0 };
     public static final int slotOutput = 1;
     public static final int slotFuel = 2;

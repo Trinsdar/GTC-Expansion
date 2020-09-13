@@ -2,6 +2,8 @@ package gtc_expansion.tile.pipes;
 
 import gtc_expansion.data.GTCXPipes;
 import gtc_expansion.events.GTCXServerTickEvent;
+import gtc_expansion.logic.GTCXBaseCoverLogic;
+import gtc_expansion.logic.GTCXRedstoneControllerLogic;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.util.CoverStorage;
 import gtc_expansion.util.GTCXHelperPipe;
@@ -21,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTDebuggableTile, IGTItemContainerTile, IGTRecolorableStorageTile, ITickable {
+public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTDebuggableTile, IGTItemContainerTile, IGTRecolorableStorageTile {
     @NetworkField(index = 3)
     public RotationList connection;
     @NetworkField(
@@ -75,13 +76,21 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         return redstonePowered;
     }
 
-    @Override
-    public void update() {
-
-    }
-
     public void onTick(){
         this.storage.onTick();
+        this.setRedstonePowered(false);
+        int poweredAmount = 0;
+        int redstoneLogicAmount = 0;
+        for (GTCXBaseCoverLogic logic : storage.getCoverLogicMap().values()){
+            if (logic instanceof GTCXRedstoneControllerLogic){
+                GTCXRedstoneControllerLogic redstoneControllerLogic = (GTCXRedstoneControllerLogic) logic;
+                redstoneLogicAmount++;
+                if (redstoneControllerLogic.isPowered()) {
+                    poweredAmount++;
+                }
+            }
+        }
+        this.setRedstonePowered(poweredAmount > 0 && poweredAmount == redstoneLogicAmount);
     }
 
     @Override

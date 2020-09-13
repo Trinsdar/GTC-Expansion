@@ -18,6 +18,7 @@ import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipe;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTValues;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.common.GTBlocks;
@@ -63,7 +64,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             registry.addRecipes(GTCXRecipe.integratedCircuitRecipes, recipeId);
             registry.addRecipeCatalyst(new ItemStack(GTCXItems.integratedCircuit, 1), recipeId);
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
-            /*if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
+            if (!GTCXConfiguration.general.crushedOres){
                 for (GTMaterial mat : GTMaterial.values()){
                     if (mat.hasFlag(GTCXMaterial.crushedore)){
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getCrushedOre(mat, 1));
@@ -72,7 +73,7 @@ public class GTCXJeiPlugin implements IModPlugin {
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getPurifiedCrushedOre(mat, 1));
                     }
                 }
-            }*/
+            }
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.dataOrbStorage));
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.dummyCover));
             if (!Loader.isModLoaded(GTValues.MOD_ID_TFOREST) || !GTConfig.modcompat.compatTwilightForest){

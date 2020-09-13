@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
     Modes mode = Modes.NORMAL;
+    boolean powered = false;
     public GTCXRedstoneControllerLogic(GTCXTileBasePipe pipe, EnumFacing facing) {
         super(pipe, facing);
     }
@@ -23,35 +24,45 @@ public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
         if (this.mode != Modes.NO_WORK){
             boolean redstone = newLevel > 0;
             boolean invert = (this.mode == Modes.INVERT) != redstone;
-            if (pipe.isRedstonePowered() != invert){
-                this.pipe.setRedstonePowered(invert);
+            if (powered != invert){
+                this.powered = invert;
             }
         }
+    }
+
+    public boolean isPowered() {
+        return powered;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         mode = Modes.values()[nbt.getInteger("mode")];
+        powered = nbt.getBoolean("powered");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         nbt.setInteger("mode", mode.ordinal());
+        nbt.setBoolean("powered", powered);
     }
 
     @Override
     public void read(IInputBuffer buffer) {
         mode = Modes.values()[buffer.readInt()];
+        powered = buffer.readBoolean();
     }
 
     @Override
     public void write(IOutputBuffer buffer) {
         buffer.writeInt(mode.ordinal());
+        buffer.writeBoolean(powered);
     }
 
     @Override
     public boolean cycleMode(EntityPlayer player) {
-        this.mode = mode.cycle(player);
+        if (this.pipe.isSimulating()){
+            mode = player.isSneaking() ? mode.cycleBack(player) : mode.cycle(player);
+        }
         return true;
     }
 

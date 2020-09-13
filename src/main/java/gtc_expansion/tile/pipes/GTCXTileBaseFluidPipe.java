@@ -1,11 +1,15 @@
 package gtc_expansion.tile.pipes;
 
+import gtc_expansion.logic.GTCXFluidFilterLogic;
 import gtclassic.common.tile.GTTileTranslocatorFluid;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.fluid.IC2Tank;
+import ic2.core.util.obj.IClickable;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
@@ -13,6 +17,7 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.fml.relauncher.Side;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -23,7 +28,7 @@ import java.util.Map;
 import static gtc_expansion.data.GTCXValues.FACE_CONNECTED;
 import static gtc_expansion.data.GTCXValues.SBIT;
 
-public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
+public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe implements IClickable {
     @NetworkField(index = 7)
     IC2Tank tank = new PipeTank(1);
 
@@ -234,6 +239,29 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
         return null;
     }
 
+    @Override
+    public boolean hasRightClick() {
+        return true;
+    }
+
+    @Override
+    public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
+        if (enumFacing != null && storage.getCoverLogicMap().get(enumFacing) instanceof GTCXFluidFilterLogic){
+            return ((GTCXFluidFilterLogic)storage.getCoverLogicMap().get(enumFacing)).onRightClick(entityPlayer, enumHand, enumFacing, side);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hasLeftClick() {
+        return false;
+    }
+
+    @Override
+    public void onLeftClick(EntityPlayer entityPlayer, Side side) {
+
+    }
+
     public static class FacingFillWrapper implements IFluidHandler{
         EnumFacing facing;
         IC2Tank tank;
@@ -255,12 +283,18 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe {
 
         @Override
         public int fill(FluidStack resource, boolean doFill) {
-            if (doFill) {
-                pipe.receivedFrom |= SBIT[this.facing.getIndex()];
-            }
             IC2Tank tank = pipe.getFluidTankFillable2(resource);
             if (tank == null){
                 return 0;
+            }
+            if (pipe.storage.getCoverLogicMap().get(this.facing) instanceof GTCXFluidFilterLogic){
+                GTCXFluidFilterLogic filter = (GTCXFluidFilterLogic) pipe.storage.getCoverLogicMap().get(this.facing);
+                if (!filter.matches(resource)){
+                    return 0;
+                }
+            }
+            if (doFill) {
+                pipe.receivedFrom |= SBIT[this.facing.getIndex()];
             }
             return tank.fill(resource, doFill);
         }

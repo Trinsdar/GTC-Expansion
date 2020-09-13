@@ -29,6 +29,7 @@ public class GTCXIcons {
         makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
         collectBasicTileSprites();
+        collectBasicBronzeTileSprites();
         collectCoverSprites();
         collectTurbineSprites(true);
         collectTurbineSprites(false);
@@ -90,6 +91,7 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.centrifuge, s(0), s(10), s(12), s(12), s(12), s(12), s(0), s(11), s(13), s(13), s(13), s(13));
         setTexture(GTCXBlocks.bath, s(0), s(1), s("machine_back"), s( "bath_front"), s("machine_side_gauge"), s("machine_side_gauge"), s(0), s(1), s("machine_back"), s( "bath_front_active"), s("machine_side_gauge_green"), s("machine_side_gauge_green"));
         setTexture(GTCXBlocks.digitalTank, s(96), s(97), s(98), s(64), s(98), s(98));
+        //setTexture(GTCXBlocks.steamCompressor);
     }
 
     private static ResourceLocation location(String name) {
@@ -106,12 +108,25 @@ public class GTCXIcons {
         String[] strings = GTCXBlocks.textureTileBasic;
         int length = strings.length;
 
-        for(int i = 0; i < length; ++i) {
-            String string = strings[i];
-            if (GTConfig.general.debugMode){
+        for (String string : strings) {
+            if (GTConfig.general.debugMode) {
                 GTCExpansion.logger.info("Attempting to get sprite data for: " + string);
             }
             Ic2Icons.addSprite(new Sprites.SpriteData(string, "gtc_expansion:textures/sprites/tiles/" + string + ".png", new Sprites.SpriteInfo(1, 1)));
+            Ic2Icons.addTextureEntry(new Sprites.TextureEntry(string, 0, 0, 1, 1));
+        }
+
+    }
+
+    public static void collectBasicBronzeTileSprites() {
+        String[] strings = new String[]{"bronze_boiler_front", "bronze_boiler_front_active", "bronze_boiler_side", "bronze_boiler_top", "bronze_bottom", "bronze_bottom_pipe", "bronze_brick_bottom", "bronze_side", "bronze_side_alloysmelter", "bronze_side_alloysmelter_active", "bronze_side_alloysmelter_side", "bronze_side_compressor", "bronze_side_compressor_active", "bronze_side_extractor", "bronze_side_extractor_active", "bronze_side_furnace", "bronze_side_furnace_active", "bronze_side_furnace_side", "bronze_side_hammer", "bronze_side_hammer_active", "bronze_side_macerator", "bronze_side_macerator_active", "bronze_side_pipe", "bronze_top", "bronze_top_macerator", "bronze_top_macerator_active"};
+        int length = strings.length;
+
+        for (String string : strings) {
+            if (GTConfig.general.debugMode) {
+                GTCExpansion.logger.info("Attempting to get sprite data for: " + string);
+            }
+            Ic2Icons.addSprite(new Sprites.SpriteData(string, "gtc_expansion:textures/sprites/tiles/bronze/" + string + ".png", new Sprites.SpriteInfo(1, 1)));
             Ic2Icons.addTextureEntry(new Sprites.TextureEntry(string, 0, 0, 1, 1));
         }
 

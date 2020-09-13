@@ -20,7 +20,6 @@ import net.minecraftforge.fml.common.Loader;
 public class GTCXRecipeRemove {
 
     public static void init(){
-        //initCentrifugeRemoval();
         initIc2Removals();
         if (GTCXConfiguration.general.unfiredBricks){
             GTHelperStack.removeSmelting(new ItemStack(Items.BRICK));
@@ -59,33 +58,6 @@ public class GTCXRecipeRemove {
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreRuby"));
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreSapphire"));
         ClassicRecipes.macerator.removeRecipe(new RecipeInputOreDict("stoneMarble"));
-    }
-
-    public static void initCentrifugeRemoval(){
-        GTTileCentrifuge.RECIPE_LIST.startMassChange();
-        removeCentrifugeRecipe("item.gtclassic.test_tube");
-        removeCentrifugeRecipe("item.gtclassic.test_tube_1");
-        removeCentrifugeRecipe("item.itemCellEmpty");
-        removeCentrifugeRecipe("item.itemCellEmpty_1");
-        removeCentrifugeRecipe("item.gtclassic.dustCarbon");
-        removeCentrifugeRecipe("item.gtclassic.dustAluminium");
-        removeCentrifugeRecipe("item.gtclassic.dustAluminium_1");
-        removeCentrifugeRecipe("item.itemDustIron");
-        removeCentrifugeRecipe("item.itemDustIron_1");
-        removeCentrifugeRecipe("item.gtclassic.test_tube_8");
-        removeCentrifugeRecipe("item.gtclassic.test_tube_9");
-        removeCentrifugeRecipe("item.gtclassic.test_tube_10");
-        removeCentrifugeRecipe("item.gtclassic.test_tube_11");
-        removeCentrifugeRecipe("item.gtclassic.test_tube_12");
-        removeCentrifugeRecipe("item.gtclassic.test_tube_13");
-        removeCentrifugeRecipe("item.itemDustCoal");
-        removeCentrifugeRecipe("item.gtclassic.dustSilicon");
-        removeCentrifugeRecipe("item.gtclassic.dustSilicon_1");
-        removeCentrifugeRecipe("item.gtclassic.dustSilicon_2");
-        removeCentrifugeRecipe("item.gtclassic.dustSilicon_3");
-        removeCentrifugeRecipe("item.gtclassic.dustLithium");
-        removeCentrifugeRecipe("tile.sand.default_4");
-        GTTileCentrifuge.RECIPE_LIST.finishMassChange();
     }
 
     public static void removeFurnaceRecipes(){
