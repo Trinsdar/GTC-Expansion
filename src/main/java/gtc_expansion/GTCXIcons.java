@@ -91,7 +91,7 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.centrifuge, s(0), s(10), s(12), s(12), s(12), s(12), s(0), s(11), s(13), s(13), s(13), s(13));
         setTexture(GTCXBlocks.bath, s(0), s(1), s("machine_back"), s( "bath_front"), s("machine_side_gauge"), s("machine_side_gauge"), s(0), s(1), s("machine_back"), s( "bath_front_active"), s("machine_side_gauge_green"), s("machine_side_gauge_green"));
         setTexture(GTCXBlocks.digitalTank, s(96), s(97), s(98), s(64), s(98), s(98));
-        //setTexture(GTCXBlocks.steamCompressor);
+        setTexture(GTCXBlocks.steamCompressor, s("bronze_bottom"), s("bronze_top"), s("bronze_side_pipe"), s("bronze_compressor_front"), s("bronze_side"), s("bronze_side"), s("bronze_bottom"), s("bronze_top"), s("bronze_side_pipe"), s("bronze_compressor_front_active"), s("bronze_side"), s("bronze_side"));
     }
 
     private static ResourceLocation location(String name) {
@@ -119,7 +119,7 @@ public class GTCXIcons {
     }
 
     public static void collectBasicBronzeTileSprites() {
-        String[] strings = new String[]{"bronze_boiler_front", "bronze_boiler_front_active", "bronze_boiler_side", "bronze_boiler_top", "bronze_bottom", "bronze_bottom_pipe", "bronze_brick_bottom", "bronze_side", "bronze_side_alloysmelter", "bronze_side_alloysmelter_active", "bronze_side_alloysmelter_side", "bronze_side_compressor", "bronze_side_compressor_active", "bronze_side_extractor", "bronze_side_extractor_active", "bronze_side_furnace", "bronze_side_furnace_active", "bronze_side_furnace_side", "bronze_side_hammer", "bronze_side_hammer_active", "bronze_side_macerator", "bronze_side_macerator_active", "bronze_side_pipe", "bronze_top", "bronze_top_macerator", "bronze_top_macerator_active"};
+        String[] strings = new String[]{"bronze_boiler_front", "bronze_boiler_front_active", "bronze_boiler_side", "bronze_boiler_top", "bronze_bottom", "bronze_bottom_pipe", "bronze_brick_bottom", "bronze_side", "bronze_alloysmelter_front", "bronze_alloysmelter_front_active", "bronze_alloysmelter_side", "bronze_compressor_front", "bronze_compressor_front_active", "bronze_extractor_front", "bronze_extractor_front_active", "bronze_furnace_front", "bronze_furnace_front_active", "bronze_furnace_side", "bronze_hammer_front", "bronze_hammer_front_active", "bronze_macerator_front", "bronze_macerator_front_active", "bronze_side_pipe", "bronze_top", "bronze_macerator_top", "bronze_macerator_top_active"};
         int length = strings.length;
 
         for (String string : strings) {

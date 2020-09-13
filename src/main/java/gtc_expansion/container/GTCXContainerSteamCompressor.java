@@ -5,7 +5,6 @@ import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;
 import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotOutput;
-import ic2.core.platform.registry.Ic2GuiComp;
 import ic2.core.util.math.Box2D;
 import ic2.core.util.math.Vec2i;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +23,7 @@ public class GTCXContainerSteamCompressor extends ContainerTileComponent<GTCXTil
         this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 109, 35));
         this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 127, 35));
         this.addPlayerInventory(player);
-        this.addComponent(new MachineProgressComp(tile, Ic2GuiComp.machineProgressBox, Ic2GuiComp.machineProgressPos));
+        this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }
 
     @Override

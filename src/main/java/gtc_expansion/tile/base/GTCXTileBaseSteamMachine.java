@@ -1,5 +1,6 @@
 package gtc_expansion.tile.base;
 
+import gtc_expansion.GTCExpansion;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.audio.PositionSpec;
@@ -146,6 +147,7 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
                 } else {
                     getNetwork().initiateTileEntityEvent(this, 2, false);
                 }
+                this.setActive(false);
             }
             if (progress != 0) {
                 progress = 0;
@@ -390,6 +392,7 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
 
                 if (spawn) {
                     world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0.0D, 0.0D, 0.0D);
+                    GTCExpansion.logger.info("Spawned Particle");
                 }
             }
         }

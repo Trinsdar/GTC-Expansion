@@ -652,7 +652,9 @@ public class GTCXTileCentrifuge extends GTTileBaseMachine implements ITankListen
 
 	@Override
 	public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
-		return GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, this.inputTank) || doClickableFluidContainerFillThings(player, hand, this.getWorld(), this.getPos(), this.outputTank);
+		boolean worked = GTHelperFluid.doClickableFluidContainerEmptyThings(player, hand, world, pos, this.inputTank) || doClickableFluidContainerFillThings(player, hand, this.getWorld(), this.getPos(), this.outputTank);
+		if (worked) this.shouldCheckRecipe = true;
+		return worked;
 	}
 
 	public static boolean doClickableFluidContainerFillThings(EntityPlayer player, EnumHand hand, World world, BlockPos pos, LayeredFluidTank tank) {
