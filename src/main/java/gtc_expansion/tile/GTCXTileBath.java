@@ -8,6 +8,7 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipeLists;
+import gtc_expansion.util.GTCXPassiveMachineFilter;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -67,6 +68,7 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 	public static final String NBT_TANK = "tank";
 	public static final int SLOT_TANK = 12;
 	public static final List<Fluid> VALID_FLUIDS = new ArrayList<>();
+	public IFilter filter = new GTCXPassiveMachineFilter(this);
 	@NetworkField(index = 13)
 	private IC2Tank tank = new IC2Tank(16000){
 		@Override

@@ -1,10 +1,16 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.tile.GTCXTileBrick;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBase;
+import gtclassic.api.interfaces.IGTBurnableBlock;
+import ic2.core.IC2;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
+import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,18 +18,22 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GTCXBlockMisc extends GTBlockBase {
+public class GTCXBlockMisc extends GTBlockBase implements IGTBurnableBlock, ITileEntityProvider {
 
     String name;
     int id;
@@ -77,5 +87,28 @@ public class GTCXBlockMisc extends GTBlockBase {
     @Override
     public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, EntityLiving.SpawnPlacementType type) {
         return false;
+    }
+
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileEntity te = worldIn.getTileEntity(pos);
+        if (playerIn.isSneaking()) {
+            return false;
+        } else {
+            return te instanceof GTCXTileBrick && ((GTCXTileBrick)te).getOwner() != null && (IC2.platform.isRendering() || IC2.platform.launchGui(playerIn, ((GTCXTileBrick)te).getOwner(), hand));
+        }
+    }
+
+    @Override
+    public int getBlockBurnTime(Block block) {
+        return this == GTCXBlocks.coalCokeBlock ? 32000 : 0;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        if (this == GTCXBlocks.fireBrickBlock){
+            return new GTCXTileBrick();
+        }
+        return null;
     }
 }

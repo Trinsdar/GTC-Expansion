@@ -141,4 +141,10 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXCokeOvenGui extends MachineGui{
+        public GTCXCokeOvenGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

@@ -200,6 +200,8 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 				input("dustCoal", 2) }, 1000, COST_MED, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
 		addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
 				input("dustCarbon", 1) }, 1000, COST_MED, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
+		addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
+				input("dustCoke", 1) }, 1000, COST_MED, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1));
 		/* Titanium **/
 		addRecipe(new IRecipeInput[] {
 				input("dustTitanium", 1) }, 1500, COST_HIGH, GTMaterialGen.getIngot(GTMaterial.Titanium, 1));

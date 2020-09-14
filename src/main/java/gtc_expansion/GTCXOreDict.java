@@ -30,6 +30,7 @@ public class GTCXOreDict {
         OreDictionary.registerOre("craftingDiamondGrinder", GTCXItems.diamondGrinder);
         OreDictionary.registerOre("craftingTungstenGrinder", GTCXItems.wolframiumGrinder);
         OreDictionary.registerOre("craftingToolWireCutter", new ItemStack(GTCXItems.cutter, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("blockCoke", GTCXBlocks.coalCokeBlock);
 
         // Registering Aluminium for idiots
         GTMaterial aluminium = GTMaterial.Aluminium;
@@ -46,5 +47,6 @@ public class GTCXOreDict {
         OreDictionary.registerOre("plateWood", GTCXItems.woodPlate);
         OreDictionary.registerOre("plankWood", GTCXItems.woodPlate);
         OreDictionary.registerOre("blockGlass", GTCXBlocks.pureGlass);
+        OreDictionary.registerOre("fuelCoke", GTCXItems.coalCoke);
     }
 }

@@ -1,12 +1,14 @@
 package gtc_expansion.tile.multi;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerPrimitiveBlastFurnace;
+import gtc_expansion.data.GTCXBlocks;
+import gtc_expansion.data.GTCXLang;
+import gtc_expansion.interfaces.IGTCapabilityTile;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
-import gtc_expansion.data.GTCXLang;
+import gtc_expansion.tile.GTCXTileBrick;
 import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDisplayTickTile;
@@ -52,7 +54,7 @@ import java.util.Random;
 
 import static gtclassic.api.tile.GTTileBaseMachine.input;
 
-public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine implements IGTMultiTileStatus, IGTItemContainerTile, IGTDisplayTickTile {
+public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine implements IGTMultiTileStatus, IGTItemContainerTile, IGTDisplayTickTile, IGTCapabilityTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/primitiveblastfurnace.png");
     public boolean lastState;
     public boolean firstCheck = true;
@@ -169,6 +171,8 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
                 input("dustCoal", 2) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 2));
         addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
                 input("dustCarbon", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 1));
+        addRecipe(new IRecipeInput[] { input("ingotRefinedIron", 1),
+                input("dustCoke", 1) }, 1600, GTMaterialGen.getIngot(GTCXMaterial.Steel, 1), GTMaterialGen.getDust(GTCXMaterial.DarkAshes, 1));
     }
 
     public static RecipeModifierHelpers.IRecipeModifier[] totalTime(int total) {
@@ -207,12 +211,12 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
             lastState = checkStructure();
             firstCheck = false;
             this.getNetwork().updateTileGuiField(this, "lastState");
-            if (lastCheck != this.lastState) {
+            /*if (lastCheck != this.lastState) {
                 MultiBlockHelper.INSTANCE.removeCore(this.getWorld(), this.getPos());
                 if (this.lastState) {
                     MultiBlockHelper.INSTANCE.addCore(this.getWorld(), this.getPos(), new ArrayList<>(this.provideStructure().keySet()));
                 }
-            }
+            }*/
         }
         return lastState;
     }
@@ -221,6 +225,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
     @Override
     public void onLoaded() {
         super.onLoaded();
+        this.firstCheck = true;
         if (this.isSimulating()) {
             this.tickOffset = world.rand.nextInt(128);
         }
@@ -379,7 +384,33 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
     }
 
     public boolean isBrick(int3 pos) {
-        return world.getBlockState(pos.asBlockPos()) == brickState;
+        if (world.getBlockState(pos.asBlockPos()) == brickState){
+            TileEntity tile = world.getTileEntity(pos.asBlockPos());
+            if (tile instanceof GTCXTileBrick){
+                GTCXTileBrick brick = (GTCXTileBrick) tile;
+                if (brick.getOwner() == null || brick.getOwner() != this){
+                    brick.setOwner(this);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBlockBreak() {
+        super.onBlockBreak();
+        for (BlockPos pos : this.provideStructure().keySet()) {
+            this.removeAllBricks(pos);
+        }
+    }
+
+    public void removeAllBricks(BlockPos pos){
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof GTCXTileBrick){
+            GTCXTileBrick brick = (GTCXTileBrick) tile;
+            brick.setOwner(null);
+        }
     }
 
     @Override
