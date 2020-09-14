@@ -37,6 +37,7 @@ public class GTCXLang {
     public static final LocaleComp EXTRUDER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.extruder");
     public static final LocaleComp BATH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.bath");
     public static final LocaleComp DIGITAL_TANK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.digitaltank");
+    public static final LocaleComp COKE_OVEN = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.cokeoven");
 
     public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
     public static final LocaleComp ELECTRIC_LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electriclocker");
@@ -71,6 +72,7 @@ public class GTCXLang {
     public static final LocaleComp TUNGSTENSTEEL_REINFORCED_STONE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.tungstensteel_reinforced_stone");
     public static final LocaleComp PURE_GLASS = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.pure_glass");
     public static final LocaleComp FIRE_BRICK_BLOCK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.fire_brick_block");
+    public static final LocaleComp COAL_COKE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.blockCoalCoke");
 
     public static final LocaleComp MESSAGE_DIAMOND_CHAINSAW_NORMAL = new LocaleItemInfoComp("message.gtc_expansion.diamondChainsawNormal.name");
     public static final LocaleComp MESSAGE_DIAMOND_CHAINSAW_NO_SHEAR = new LocaleItemInfoComp("message.gtc_expansion.diamondChainsawNoShear.name");

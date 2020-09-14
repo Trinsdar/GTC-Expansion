@@ -54,6 +54,7 @@ public class GTCXItems {
     public static final GTCXItemFood oilberry = createItem(new GTCXItemFood("oilberry", 4, 0.25F, 8, 1));
     public static final GTCXItemMisc match = createItem(new GTCXItemMatch());
     public static final GTCXItemMisc woodPlate = createItem(new GTCXItemMisc("wood_plate", 10, 0));
+    public static final GTCXItemMisc coalCoke = createItem(new GTCXItemMisc("coal_coke", 8, 3));
     public static final GTCXItemMatchBox matchBox = createItem(new GTCXItemMatchBox());
     public static final GTCXItemMisc itemTransportValve = createItem(new GTCXItemCover("item_transport_valve", 3, 3, 3));
     public static final GTCXItemMisc drain = createItem(new GTCXItemCover("drain", 4, 3, 2));

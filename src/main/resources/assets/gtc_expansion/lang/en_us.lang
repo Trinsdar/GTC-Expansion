@@ -57,6 +57,8 @@ tile.gtc_expansion.oretetrahedrite.name=Tetrahedrite Ore
 tile.gtc_expansion.oregalena.name=Galena Ore
 tile.gtc_expansion.orechromite.name=Chromite Ore
 
+tile.gtc_expansion.blockCoalCoke.name=Block of Coal Coke
+
 
 tile.gtc_expansion.industrialblastfurnace.name=Industrial Blast Furnace
 tile.gtc_expansion.industrialelectrolyzer.name=Industrial Electrolyzer
@@ -67,6 +69,7 @@ tile.gtc_expansion.vacuumfreezer.name=Vacuum Freezer
 tile.gtc_expansion.alloysmelter.name=Alloy Smelter
 tile.gtc_expansion.assemblingmachine.name=Assembling Machine
 tile.gtc_expansion.bath.name=Bath
+tile.gtc_expansion.cokeoven.name=Coke Oven
 tile.gtc_expansion.chemicalreactor.name=Chemical Reactor
 tile.gtc_expansion.digitaltank.name=Digital Tank
 tile.gtc_expansion.distillationtower.name=Distillation Tower
@@ -225,6 +228,7 @@ item.gtclassic.dustsmallUvarovite.name=Small Uvarovite Dust
 item.gtclassic.dustsmallTechnetium.name=Small Technetium Dust
 item.gtclassic.dustsmallChromite.name=Small Chromite Dust
 item.gtclassic.dustsmallSiliconDioxide.name=Small Silicon Dioxide Dust
+item.gtclassic.dustsmallCoke.name=Small Coal Coke Dust
 
 #dust
 item.gtclassic.dustKanthal.name=Kanthal Dust
@@ -281,6 +285,7 @@ item.gtclassic.dustUvarovite.name=Uvarovite Dust
 item.gtclassic.dustChromite.name=Chromite Dust
 item.gtclassic.dustCassiterite.name=Cassiterite Dust
 item.gtclassic.dustSiliconDioxide.name=Silicon Dioxide Dust
+item.gtclassic.dustCoke.name=Coal Coke Dust
 
 #gems
 item.gtclassic.gemGreenSapphire.name=Green Sapphire
@@ -643,6 +648,7 @@ item.gtc_expansion.fire_clay_ball.name=Fire Clay
 item.gtc_expansion.unfired_fire_brick.name=Unfired Fire Brick
 item.gtc_expansion.fire_brick.name=Fire Brick
 item.gtc_expansion.unfired_brick.name=Unfired Brick
+item.gtc_expansion.coal_coke.name=Coal Coke
 item.gtc_expansion.machine_parts.name=Machine Parts
 item.gtc_expansion.advanced_circuit_parts.name=Advanced Circuit Parts
 item.gtc_expansion.basic_circuit_board.name=Basic Circuit Board
@@ -719,6 +725,7 @@ fluid.biofuel=Biofuel
 fluid.coalfuel=Coalfuel
 fluid.carbondioxide=Carbon Dioxide
 fluid.hotcoolant=Heatant
+fluid.creosote=Creosote Oil
 #molten fluids
 fluid.antimony=Molten Antimony
 fluid.iron=Molten Iron
@@ -884,6 +891,7 @@ message.gtc_expansion.dynamo_hatch_mode1.name=Tier set to tier 5
 
 button.gtc_expansion.digitaltank=Upload to Tank
 button.gtc_expansion.backToMainMenu=Back to Main Menu
+button.gtc_expansion.nosteam=Not Enough Steam
 
 title.gtc_expansion.first_load=Notice from GTC Expansion
 

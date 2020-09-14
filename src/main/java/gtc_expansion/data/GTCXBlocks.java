@@ -15,6 +15,7 @@ import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileBath;
+import gtc_expansion.tile.GTCXTileBrick;
 import gtc_expansion.tile.GTCXTileCasing;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
@@ -40,6 +41,7 @@ import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
+import gtc_expansion.tile.multi.GTCXTileMultiCokeOven;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
@@ -112,6 +114,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile centrifuge = registerBlock(new GTCXBlockTile("industrialcentrifuge", GTLang.INDUSTRIAL_CENTRIFUGE, 1));
     public static final GTCXBlockTile bath = registerBlock(new GTCXBlockTile("bath", GTCXLang.BATH, 2));
     public static final GTCXBlockTile digitalTank = registerBlock(new GTCXBlockTile("digitaltank", GTCXLang.DIGITAL_TANK, 1));
+    public static final GTCXBlockTile cokeOven  = registerBlock(new GTCXBlockTile("cokeoven", GTCXLang.COKE_OVEN));
 
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
@@ -141,6 +144,7 @@ public class GTCXBlocks {
     public static final GTCXBlockCasing iridiumTungstensteelBlock = registerBlock(new GTCXBlockCasing("iridium_tungstensteel_block", GTCXLang.IRIDIUM_TUNGSTENSTEEL_BLOCK, 4, 2000.0F).setHardness(50.0F));
     public static final GTCXBlockCasing tungstensteelReinforcedStone = registerBlock(new GTCXBlockCasing("tungstensteel_reinforced_stone", GTCXLang.TUNGSTENSTEEL_REINFORCED_STONE, 3, 300F).setHardness(25F));
     public static final GTCXBlockCasing pureGlass = registerBlock(new GTCXBlockCasing("pure_glass", GTCXLang.PURE_GLASS, 5, 1F, Material.GLASS).setSoundType(SoundType.GLASS).setHardness(0.5F));
+    public static final GTCXBlockMisc coalCokeBlock = registerBlock(new GTCXBlockMisc("block_coal_coke", GTCXLang.COAL_COKE, "pickaxe", 27, 5.0F, 15.0F, 1, Material.ROCK, SoundType.STONE));
 
     public static final GTCXBlockOre orePyrite = registerBlock(new GTCXBlockOre("pyrite", 16, 2.0F, 1));
     public static final GTCXBlockOre oreCinnabar = registerBlock(new GTCXBlockOre("cinnabar", 17, 3.0F, 2));
@@ -167,7 +171,7 @@ public class GTCXBlocks {
 
     public static final GTCXBlockDummyCover dummyCover = registerBlock(new GTCXBlockDummyCover());
 
-    public static final String[] textureTileBasic = new String[]{"advanced_worktable_bottom", "advanced_worktable_side", "advanced_worktable_top", "advanced_worktable_top_active", "alloy_furnace_front", "alloy_furnace_front_active", "alloy_furnace_side", "alloy_smelter_front", "alloy_smelter_front_active", "assembling_machine_top", "bath_front", "bath_front_active", "chemical_reactor_side", "chemical_reactor_side_active", "diesel_generator_top", "diesel_generator_top_active", "distillation_tower_side", "dustbin_bottom", "dustbin_front", "dustbin_top", "dynamo_hatch_front_overlay", "electric_locker_front", "electrolyzer_side", "electrolyzer_side_active", "extruder_front", "extruder_front_active2", "fluid_caster_front", "fluid_caster_front_active", "fluid_smelter_front", "fluid_smelter_front_active", "gas_turbine_top", "gas_turbine_top_active", "implosion_compressor_side_1", "implosion_compressor_side_2", "industrial_blast_furnace_side", "industrial_front", "industrial_front_active", "industrial_grinder_side", "industrial_sawmill_side_1", "industrial_sawmill_side_2", "industrial_side", "input_hatch_front_overlay", "lathe_front", "lathe_front_active", "locker_front", "machine_back", "machine_control_hatch_overlay", "machine_side_gauge", "machine_side_gauge_red", "machine_side_gauge_green", "microwave_front", "microwave_front_active", "output_hatch_front_overlay", "plate_bender_front", "plate_bender_front_active", "plate_cutter_front", "plate_cutter_front_active", "primitive_blast_furnace_front", "primitive_blast_furnace_front_active", "stone_compressor_front", "stone_compressor_front_active", "stone_compressor_top", "stone_extractor_front", "stone_extractor_front_active", "stone_extractor_side", "stone_extractor_side_active", "thermal_boiler_front", "thermal_boiler_front_active", "trash_bin_side", "vacuum_freezer_side", "wiremill_top", "wiremill_top_active"};
+    public static final String[] textureTileBasic = new String[]{"advanced_worktable_bottom", "advanced_worktable_side", "advanced_worktable_top", "advanced_worktable_top_active", "alloy_furnace_front", "alloy_furnace_front_active", "alloy_furnace_side", "alloy_smelter_front", "alloy_smelter_front_active", "assembling_machine_top", "bath_front", "bath_front_active", "chemical_reactor_side", "chemical_reactor_side_active", "coke_oven_front", "coke_oven_front_active", "diesel_generator_top", "diesel_generator_top_active", "distillation_tower_side", "dustbin_bottom", "dustbin_front", "dustbin_top", "dynamo_hatch_front_overlay", "electric_locker_front", "electrolyzer_side", "electrolyzer_side_active", "extruder_front", "extruder_front_active2", "fluid_caster_front", "fluid_caster_front_active", "fluid_smelter_front", "fluid_smelter_front_active", "gas_turbine_top", "gas_turbine_top_active", "implosion_compressor_side_1", "implosion_compressor_side_2", "industrial_blast_furnace_side", "industrial_front", "industrial_front_active", "industrial_grinder_side", "industrial_sawmill_side_1", "industrial_sawmill_side_2", "industrial_side", "input_hatch_front_overlay", "lathe_front", "lathe_front_active", "locker_front", "machine_back", "machine_control_hatch_overlay", "machine_side_gauge", "machine_side_gauge_red", "machine_side_gauge_green", "microwave_front", "microwave_front_active", "output_hatch_front_overlay", "plate_bender_front", "plate_bender_front_active", "plate_cutter_front", "plate_cutter_front_active", "primitive_blast_furnace_front", "primitive_blast_furnace_front_active", "stone_compressor_front", "stone_compressor_front_active", "stone_compressor_top", "stone_extractor_front", "stone_extractor_front_active", "stone_extractor_side", "stone_extractor_side_active", "thermal_boiler_front", "thermal_boiler_front_active", "trash_bin_side", "vacuum_freezer_side", "wiremill_top", "wiremill_top_active"};
     public static void registerBlocks() {
         for(Block block : toRegister){
             createBlock(block);
@@ -206,6 +210,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileMultiDistillationTower.class, "DistillationTower");
         registerUtil(GTCXTileMultiPrimitiveBlastFurnace.class, "PrimitiveBlastFurnace");
         registerUtil(GTCXTileMultiIndustrialBlastFurnace.class, "IndustrialBlastFurnace");
+        registerUtil(GTCXTileMultiCokeOven.class, "CokeOven");
         registerUtil(GTCXTileFluidCaster.class, "FluidCaster");
         registerUtil(GTCXTileFluidSmelter.class, "FluidSmelter");
         registerUtil(GTCXTilePlateBender.class, "PlateBender");
@@ -243,6 +248,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileBaseFluidPipe.class, "BaseFluidPipe");
         registerUtil(GTCXTileQuadFluidPipe.class, "QuadFluidPipe");
         registerUtil(GTCXTileDigitalTank.class, "DigitalTank");
+        registerUtil(GTCXTileBrick.class, "Brick");
     }
 
     public static void registerUtil(Class tile, String name) {

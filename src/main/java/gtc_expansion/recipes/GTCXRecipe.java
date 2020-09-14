@@ -27,6 +27,7 @@ import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
 import gtc_expansion.tile.GTCXTileStoneExtractor;
 import gtc_expansion.tile.GTCXTileWiremill;
+import gtc_expansion.tile.multi.GTCXTileMultiCokeOven;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
@@ -106,6 +107,7 @@ public class GTCXRecipe {
         GTCXTileLathe.init();
         GTCXTileDieselGenerator.init();
         GTCXTileGasTurbine.init();
+        GTCXTileMultiCokeOven.init();
         initUURecipes();
         initIc2();
         initOverrideGTClassic();
@@ -187,6 +189,7 @@ public class GTCXRecipe {
         addRotorRecipe(GTMaterialGen.get(GTCXItems.carbonTurbineRotor) , GTMaterial.Carbon, Ic2Items.carbonPlate);
         addRotorRecipe(GTMaterialGen.get(GTCXItems.osmiumTurbineRotor) , GTCXMaterial.Osmium, "blockOsmiumGT");
         addRotorRecipe(GTMaterialGen.get(GTCXItems.osmiridiumTurbineRotor) , GTCXMaterial.Osmiridium, "blockOsmiridium");
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.coalCokeBlock), "CCC", "CCC", "CCC", 'C', "fuelCoke");
     }
 
     public static void addRotorRecipe(ItemStack rotor, GTMaterial material, Object center){
@@ -409,6 +412,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dynamoHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.transformerHV, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.machineControlHatch), "SSS", "GHG", "SCS", 'S', STAINLESS_STEEL, 'C', Ic2Items.redstoneSUpgrade, 'G', combineRecipeObjects("gearSteel", "gearStainlessSteel"), 'H', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.digitalTank), "SSS", "SDS", "SCS", 'S', STAINLESS_STEEL, 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor);
+        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.cokeOven), "FFF", "FCF", "FFF", 'F', GTCXBlocks.fireBrickBlock, 'C', GTBlocks.tileCharcoalPit);
         ItemStack cable = GTMaterialGen.get(GTCXBlocks.electrumCable);
         IRecipeInput rubber = combineRecipeObjects("itemRubber", "craftingToolDuctTape");
         recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ELECTRUM);
@@ -450,6 +454,7 @@ public class GTCXRecipe {
         IRecipeInput ashes = combineRecipeObjects( "dustAshes", "dustAsh");
         recipes.addShapelessRecipe(new ItemStack(Items.IRON_INGOT, 1), "ingotRefinedIron", ashes);
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.magicDye), "dyeCyan", "dyeMagenta", "dyeYellow", "dyeBlack");
+        recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.coalCoke, 9), "blockCoke");
     }
 
     public static void initUranaiumRodOverrides(){

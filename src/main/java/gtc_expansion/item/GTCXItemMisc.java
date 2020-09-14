@@ -1,11 +1,13 @@
 package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.data.GTCXItems;
 import gtclassic.GTMod;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -56,5 +58,10 @@ public class GTCXItemMisc extends Item implements IStaticTexturedItem {
     @SideOnly(Side.CLIENT)
     public TextureAtlasSprite getTexture(int i) {
         return Ic2Icons.getTextures(sprite)[(this.y * 16) + this.x];
+    }
+
+    @Override
+    public int getItemBurnTime(ItemStack itemStack) {
+        return this == GTCXItems.coalCoke ? 3200 : super.getItemBurnTime(itemStack);
     }
 }

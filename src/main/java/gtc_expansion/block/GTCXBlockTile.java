@@ -27,6 +27,7 @@ import gtc_expansion.tile.hatch.GTCXTileEnergyOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileFusionEnergyInjector;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
+import gtc_expansion.tile.multi.GTCXTileMultiCokeOven;
 import gtc_expansion.tile.multi.GTCXTileMultiDistillationTower;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiImplosionCompressor;
@@ -239,6 +240,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         if (this == GTCXBlocks.digitalTank){
             return new GTCXTileDigitalTank();
         }
+        if (this == GTCXBlocks.cokeOven){
+            return new GTCXTileMultiCokeOven();
+        }
         return null;
     }
 
@@ -252,7 +256,7 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
     public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         List<ItemStack> list = new ArrayList<>();
         TileEntity te = this.getLocalTile() == null ? world.getTileEntity(pos) : this.getLocalTile();
-        if (this == GTCXBlocks.primitiveBlastFurnace || this == GTCXBlocks.alloyFurnace){
+        if (this == GTCXBlocks.primitiveBlastFurnace || this == GTCXBlocks.alloyFurnace || this == GTCXBlocks.cokeOven){
             if (te instanceof IGTItemContainerTile){
                 list.addAll(((IGTItemContainerTile) te).getDrops());
             }

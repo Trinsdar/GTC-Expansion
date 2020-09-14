@@ -26,4 +26,5 @@ public class GTCXRecipeLists {
     public static final GTRecipeMultiInputList DIESEL_GEN_RECIPE_LIST = new GTRecipeMultiInputList("gt.dieselgenerator");
     public static final GTRecipeMultiInputList GAS_TURBINE_RECIPE_LIST = new GTRecipeMultiInputList("gt.gasturbine");
     public static final GTRecipeMultiInputList BATH_RECIPE_LIST = new GTRecipeMultiInputList("gt.bath");
+    public static final GTRecipeMultiInputList COKE_OVEN_RECIPE_LIST = new GTRecipeMultiInputList("gt.cokeoven");
 }

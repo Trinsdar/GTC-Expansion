@@ -1,9 +1,11 @@
 package gtc_expansion.material;
 
 import gtc_expansion.GTCExpansion;
+import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -64,8 +66,10 @@ public class GTCXMaterial {
     public static final GTMaterial Clay = new GTMaterial("Clay", 200, 200, 220, smalldust);
     public static final GTMaterial Coal = new GTMaterial("Coal", 70, 70, 70, smalldust);
     public static final GTMaterial CoalFuel = new GTMaterial("CoalFuel", 0, 0, 0, fluid);
+    public static final GTMaterial Coke = new GTMaterial("Coke", 140, 140, 170, dust, smalldust);
     public static final GTMaterial Constantan = setHeat(new GTMaterial("Constantan", 2, 227, 150, 128, dust, ingot, blockMetal, molten, smalldust, nugget, plate, stick),1542);
     public static final GTMaterial Copper = setHeat(new GTMaterial(29,"Copper", 180, 113, 61, molten, smalldust, nugget, plate, stick, gear, crushedore, crushedorePurified, tinydust),1357);
+    public static final GTMaterial Creosote = new GTMaterial("Creosote", 128, 64, 0, GTMaterialFlag.NULL);
     public static final GTMaterial DarkAshes = new GTMaterial("DarkAshes", 50, 50, 50, dustAll);
     public static final GTMaterial Diamond = new GTMaterial("Diamond", 51, 235, 203, dustAll);
     public static final GTMaterial Diesel = new GTMaterial("Diesel", 255, 255, 0, fluid);
@@ -171,6 +175,10 @@ public class GTCXMaterial {
         GTMaterial.Uranium.addFlags(smalldust, molten, crushedore, crushedorePurified, tinydust);
         materialHeatMap.put(GTMaterial.Uranium, 1405);
         GTMaterial.Wood.addFlags(smalldust);
+
+        if (!Loader.isModLoaded(GTValues.MOD_ID_IE) && !Loader.isModLoaded(GTValues.MOD_ID_RC)){
+            Creosote.addFlags(fluid);
+        }
 
         GTMaterialGen.addItemFlag(smalldust);
         GTMaterialGen.addItemFlag(tinydust);

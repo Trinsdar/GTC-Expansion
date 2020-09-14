@@ -67,15 +67,10 @@ public class GTCXRecipeProcessing {
         TileEntityExtractor.addRecipe("oreSapphire", 1, GTMaterialGen.getGem(GTMaterial.Sapphire, 2));
         TileEntityExtractor.addRecipe("oreOlivine", 1, GTMaterialGen.getGem(GTCXMaterial.Olivine, 2));
         TileEntityMacerator.addRecipe("oreRedstone", 1, GTMaterialGen.get(Items.REDSTONE, 8));
-        if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) || !GTConfig.modcompat.compatIc2Extras){
-            GTRecipe.maceratorUtil("orePyrite", 1, GTMaterialGen.getDust(GTMaterial.Pyrite, 4));
-            GTRecipe.maceratorUtil("oreCinnabar", 1, GTMaterialGen.getDust(GTCXMaterial.Cinnabar, 3));
-            GTRecipe.maceratorUtil("oreSphalerite", 1, GTMaterialGen.getDust(GTCXMaterial.Sphalerite, 2));
-            GTRecipe.maceratorUtil("oreTungstate", 1, GTMaterialGen.getDust(GTMaterial.Tungsten, 4));
-        }
         if (OreDictionary.doesOreNameExist("stoneMarble")){
             GTRecipe.maceratorUtil("stoneMarble", 1, GTMaterialGen.getDust(GTCXMaterial.Marble, 1));
         }
+        GTRecipe.maceratorUtil("fuelCoke", 1, GTMaterialGen.getDust(GTCXMaterial.Coke, 1));
         TileEntityCompressor.addRecipe("dustIridium", 1, Ic2Items.iridiumOre.copy());
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Constantan, 3));
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.kanthalHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Kanthal, 4));
