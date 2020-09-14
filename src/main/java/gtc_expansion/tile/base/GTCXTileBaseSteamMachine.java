@@ -23,7 +23,9 @@ import ic2.core.inventory.base.IHasGui;
 import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.transport.wrapper.RangedInventoryWrapper;
+import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -38,6 +40,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import java.util.ArrayList;
@@ -48,7 +51,7 @@ import java.util.function.Predicate;
 
 import static gtclassic.api.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
 
-public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine implements ITickable, IProgressMachine, IHasGui, INetworkTileEntityEventListener {
+public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine implements ITickable, ITankListener, IProgressMachine, IHasGui, INetworkTileEntityEventListener {
 
 
     @NetworkField(index = 3)
@@ -80,6 +83,7 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
         this.maxProgress = maxProgress;
         this.steamPerTick = steamPerTick;
         this.steam.setCanDrain(false);
+        this.steam.addListener(this);
         shouldCheckRecipe = true;
         addNetworkFields("soundLevel", "steam");
         addGuiFields("recipeOperation", "progress", "steam", "maxProgress");
@@ -106,6 +110,11 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
     }
 
     @Override
+    public void onTankChanged(IFluidTank iFluidTank) {
+        this.getNetwork().updateTileGuiField(this, "steam");
+    }
+
+    @Override
     public void onBlockUpdate(Block block) {
         super.onBlockUpdate(block);
         this.backObstructed = !world.isAirBlock(this.pos.offset(this.getFacing().getOpposite()));
@@ -121,7 +130,7 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
         }
         boolean canWork = this.canWork() && !noRoom;
         boolean operate = (canWork && lastRecipe != null && lastRecipe != GTRecipeMultiInputList.INVALID_RECIPE);
-        if (operate && this.steam.getFluidAmount() > this.steamPerTick && !backObstructed) {
+        if (operate && this.steam.getFluidAmount() >= this.steamPerTick && !backObstructed) {
             if (!getActive()) {
                 getNetwork().initiateTileEntityEvent(this, 0, false);
             }
@@ -131,9 +140,6 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
             if (progress >= recipeOperation) {
                 process(lastRecipe);
                 getNetwork().initiateTileEntityEvent(this, 3, false);
-                if (this.isRendering()){
-                    spawnBackSteam();
-                }
                 for (EntityPlayer player : world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(this.pos.offset(this.getFacing().getOpposite())))){
                     player.attackEntityFrom(DamageSource.GENERIC, 1);
                 }
@@ -444,7 +450,7 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
     public abstract ResourceLocation getStartSoundFile();
 
     public ResourceLocation getInterruptSoundFile() {
-        return null;
+        return Ic2Sounds.interruptingSound;
     }
 
     @Override
@@ -474,9 +480,20 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
                 IC2.audioManager.playOnce(this, PositionSpec.Center, SoundEvents.BLOCK_FIRE_EXTINGUISH.getSoundName(), false, IC2.audioManager.defaultVolume
                         * this.soundLevel);
             }
+            if (this.isRendering()){
+                spawnBackSteam();
+            }
         } else if (event == 2 && this.audioSource != null) {
             this.audioSource.stop();
         }
+    }
+
+    public int getSteamPerTick() {
+        return steamPerTick;
+    }
+
+    public IC2Tank getSteam() {
+        return steam;
     }
 
     public void readFromNBT(NBTTagCompound nbt) {

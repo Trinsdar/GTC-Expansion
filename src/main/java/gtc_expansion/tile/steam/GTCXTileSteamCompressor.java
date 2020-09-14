@@ -18,12 +18,12 @@ public class GTCXTileSteamCompressor extends GTCXTileBaseSteamMachine {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/bronzecompressor.png");
     public IFilter filter = new GTCXSteamMachineFilter(this);
     public GTCXTileSteamCompressor() {
-        super(4, 100, 2);
+        super(2, 800, 4);
     }
 
     @Override
     public int[] getInputSlots() {
-        return new int[]{0, 1};
+        return new int[]{0};
     }
 
     @Override
@@ -33,12 +33,12 @@ public class GTCXTileSteamCompressor extends GTCXTileBaseSteamMachine {
 
     @Override
     public boolean isRecipeSlot(int slot) {
-        return slot < 2;
+        return slot == 1;
     }
 
     @Override
     public int[] getOutputSlots() {
-        return new int[]{2, 3};
+        return new int[]{1};
     }
 
     @Override

@@ -1,6 +1,7 @@
 package gtc_expansion.tile.pipes;
 
 import gtc_expansion.logic.GTCXFluidFilterLogic;
+import gtc_expansion.logic.GTCXShutterLogic;
 import gtclassic.common.tile.GTTileTranslocatorFluid;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.fluid.IC2Tank;
@@ -290,6 +291,13 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe implements IClickabl
             if (pipe.storage.getCoverLogicMap().get(this.facing) instanceof GTCXFluidFilterLogic){
                 GTCXFluidFilterLogic filter = (GTCXFluidFilterLogic) pipe.storage.getCoverLogicMap().get(this.facing);
                 if (!filter.matches(resource)){
+                    return 0;
+                }
+            }
+
+            if (pipe.storage.getCoverLogicMap().get(this.facing) instanceof GTCXShutterLogic){
+                GTCXShutterLogic filter = (GTCXShutterLogic) pipe.storage.getCoverLogicMap().get(this.facing);
+                if (!filter.allowsPipeInput()){
                     return 0;
                 }
             }

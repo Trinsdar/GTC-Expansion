@@ -1,5 +1,6 @@
 package gtc_expansion.container;
 
+import gtc_expansion.gui.GTCXGuiCompMachineSteam;
 import gtc_expansion.tile.steam.GTCXTileSteamCompressor;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.components.base.MachineProgressComp;
@@ -18,11 +19,10 @@ public class GTCXContainerSteamCompressor extends ContainerTileComponent<GTCXTil
 
     public GTCXContainerSteamCompressor(InventoryPlayer player, GTCXTileSteamCompressor tile) {
         super(tile);
-        this.addSlotToContainer(new SlotCustom(tile, 0, 37, 35, tile.filter));// input slot
-        this.addSlotToContainer(new SlotCustom(tile, 1, 55, 35, tile.filter));// input slot
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 2, 109, 35));
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 3, 127, 35));
+        this.addSlotToContainer(new SlotCustom(tile, 0, 55, 35, tile.filter));// input slot
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 1, 109, 35));
         this.addPlayerInventory(player);
+        this.addComponent(new GTCXGuiCompMachineSteam(tile));
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
     }
 
