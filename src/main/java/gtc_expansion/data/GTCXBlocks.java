@@ -114,7 +114,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile centrifuge = registerBlock(new GTCXBlockTile("industrialcentrifuge", GTLang.INDUSTRIAL_CENTRIFUGE, 1));
     public static final GTCXBlockTile bath = registerBlock(new GTCXBlockTile("bath", GTCXLang.BATH, 2));
     public static final GTCXBlockTile digitalTank = registerBlock(new GTCXBlockTile("digitaltank", GTCXLang.DIGITAL_TANK, 1));
-    public static final GTCXBlockTile cokeOven  = registerBlock(new GTCXBlockTile("cokeoven", GTCXLang.COKE_OVEN));
+    public static final GTCXBlockTile cokeOven  = registerBlock(new GTCXBlockTile("cokeoven", GTCXLang.COKE_OVEN, Material.ROCK, 3));
 
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));

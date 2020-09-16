@@ -65,7 +65,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
     protected static final int[] slotInputs = { 0, 1, 2, 3 };
     public static final int[] slotOutputs = {4, 5, 6, 7};
     public static final int slotFuel = 8;
-    public IFilter filter = new GTIFilters.FuelMachineFilter(this);
+    public IFilter filter;
 
     public GTCXTileMultiPrimitiveBlastFurnace() {
         super(9, 100, 1);
@@ -74,6 +74,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
 
     @Override
     protected void addSlots(InventoryHandler handler) {
+        this.filter = new GTIFilters.FuelMachineFilter(this);
         handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
         handler.registerDefaultSlotAccess(AccessRule.Both, getFuelSlot());
         handler.registerDefaultSlotAccess(AccessRule.Import, getInputSlots());

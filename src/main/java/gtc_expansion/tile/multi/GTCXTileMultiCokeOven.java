@@ -12,6 +12,7 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.GTCXTileBrick;
 import gtc_expansion.util.GTCXPassiveMachineFilter;
 import gtc_expansion.util.MultiBlockHelper;
+import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
@@ -35,6 +36,7 @@ import ic2.core.inventory.management.SlotType;
 import ic2.core.item.misc.ItemDisplayIcon;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.state.IBlockState;
@@ -46,12 +48,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,10 +67,10 @@ import java.util.function.Predicate;
 
 import static gtclassic.api.tile.GTTileBaseMachine.MOVE_CONTAINER_TAG;
 
-public class GTCXTileMultiCokeOven extends GTTileBasePassiveMachine implements ITankListener, IGTMultiTileStatus, IGTCapabilityTile, IGTItemContainerTile {
+public class GTCXTileMultiCokeOven extends GTTileBasePassiveMachine implements ITankListener, IGTMultiTileStatus, IGTCapabilityTile, IGTItemContainerTile, IClickable {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/cokeoven.png");
     IC2Tank tank = new IC2Tank(16000);
-    public IFilter filter = new GTCXPassiveMachineFilter(this);
+    public IFilter filter;
     public boolean lastState;
     public boolean firstCheck = true;
     private int tickOffset = 0;
@@ -74,10 +78,12 @@ public class GTCXTileMultiCokeOven extends GTTileBasePassiveMachine implements I
     public GTCXTileMultiCokeOven() {
         super(3, 100);
         this.tank.addListener(this);
+        this.addGuiFields("lastState");
     }
 
     @Override
     protected void addSlots(InventoryHandler handler) {
+        filter = new GTCXPassiveMachineFilter(this);
         handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
         handler.registerDefaultSlotAccess(AccessRule.Import, 0);
         handler.registerDefaultSlotAccess(AccessRule.Export, 1);
@@ -603,5 +609,25 @@ public class GTCXTileMultiCokeOven extends GTTileBasePassiveMachine implements I
             }
         }
         return list;
+    }
+
+    @Override
+    public boolean hasRightClick() {
+        return true;
+    }
+
+    @Override
+    public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
+        return GTHelperFluid.doClickableFluidContainerThings(entityPlayer, enumHand, world, pos, this.tank);
+    }
+
+    @Override
+    public boolean hasLeftClick() {
+        return false;
+    }
+
+    @Override
+    public void onLeftClick(EntityPlayer entityPlayer, Side side) {
+
     }
 }

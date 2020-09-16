@@ -9,6 +9,7 @@ import gtclassic.api.interfaces.IGTBurnableBlock;
 import ic2.core.IC2;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
+import ic2.core.util.obj.IClickable;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -27,6 +28,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
@@ -91,6 +93,15 @@ public class GTCXBlockMisc extends GTBlockBase implements IGTBurnableBlock, ITil
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         TileEntity te = worldIn.getTileEntity(pos);
+        if (te instanceof GTCXTileBrick) {
+            GTCXTileBrick brick = (GTCXTileBrick)te;
+            if (brick.getOwner() instanceof IClickable){
+                IClickable click = (IClickable) brick.getOwner();
+                if (click.hasRightClick() && click.onRightClick(playerIn, hand, facing, FMLCommonHandler.instance().getEffectiveSide())) {
+                    return true;
+                }
+            }
+        }
         if (playerIn.isSneaking()) {
             return false;
         } else {
