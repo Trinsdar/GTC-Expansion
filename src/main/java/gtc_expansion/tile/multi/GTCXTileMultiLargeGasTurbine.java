@@ -25,8 +25,6 @@ import gtclassic.api.recipe.GTRecipeMultiInputList.MultiRecipe;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
 import ic2.api.classic.recipe.machine.MachineOutput;
-import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.network.INetworkClientTileEntityEventListener;
@@ -50,7 +48,6 @@ import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -258,14 +255,14 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
             boolean lastCheck = lastState;
             lastState = checkStructure();
             firstCheck = false;
-            if(lastCheck != lastState){
+            /*if(lastCheck != lastState){
                 if(addedToEnergyNet) {
                     MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
                 }
                 lastPositions = null;
                 MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
                 addedToEnergyNet = true;
-            }
+            }*/
             this.getNetwork().updateTileGuiField(this, "lastState");
         }
         return this.lastState;

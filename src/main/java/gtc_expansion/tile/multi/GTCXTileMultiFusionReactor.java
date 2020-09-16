@@ -536,7 +536,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
                 }
                 this.getNetwork().updateTileGuiField(this, "lastState");
             }
-            superCall = superCall && lastState;
+            superCall = lastState;
         }
         return superCall;
     }
@@ -1364,9 +1364,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         if (lastPositions == null){
             lastPositions = new ArrayList<>();
             lastPositions.add(this);
-            if (energyOutputHatch != null){
+            /*if (energyOutputHatch != null){
                 lastPositions.add(energyOutputHatch);
-            }
+            }*/
             for (BlockPos pos : energyInputList){
                 TileEntity tile = world.getTileEntity(pos);
                 if (tile instanceof GTCXTileFusionEnergyInjector){
