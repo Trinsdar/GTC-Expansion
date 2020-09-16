@@ -1,5 +1,6 @@
 package gtc_expansion.tile;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerDigitalTank;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.data.GTCXLang;
@@ -128,10 +129,6 @@ public class GTCXTileDigitalTank extends TileEntityMachine implements IHasGui, I
 				IC2.platform.messagePlayer(player, "Read Failed: Too many orbs");
 				return;
 			}
-			if (tank.getFluid() != null){
-				IC2.platform.messagePlayer(player, "Read Failed: Tank is not empty");
-				return;
-			}
 			NBTTagCompound nbt = StackUtil.getNbtData(dataSlot());
 			if (!nbt.hasKey("Fluid")) {
 				IC2.platform.messagePlayer(player, "Read Failed: No data to read");
@@ -139,11 +136,26 @@ public class GTCXTileDigitalTank extends TileEntityMachine implements IHasGui, I
 			}
 			NBTTagCompound data = nbt.getCompoundTag("Fluid");
 			FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(data);
+			if (tank.getFluid() != null && !tank.getFluid().isFluidEqual(fluidStack)){
+				IC2.platform.messagePlayer(player, "Read Failed: Tank is not empty");
+				return;
+			}
 			if (fluidStack == null){
 				IC2.platform.messagePlayer(player, "Read Failed: Fluid contained is null");
 				return;
 			}
-			this.tank.fill(fluidStack, true);
+			int room = this.tank.getCapacity() - this.tank.getFluidAmount();
+			if (fluidStack.amount > room){
+				GTCExpansion.logger.info(room);
+				int fill = this.tank.fill(new FluidStack(fluidStack.getFluid(), room), true);
+				fluidStack.amount -= fill;
+				fluidStack.writeToNBT(data);
+				nbt.setTag("Fluid", data);
+				return;
+			} else {
+				this.tank.fill(fluidStack, true);
+			}
+
 			dataSlot(GTMaterialGen.get(GTItems.orbData));
 		}
 	}
