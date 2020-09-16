@@ -126,6 +126,7 @@ public class GTCXRecipe {
         GTCXRecipeProcessing.removals();
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
+        GTCXRecipeRemove.postInit();
         GTCXTileStoneCompressor.init();
         GTCXTileStoneExtractor.init();
         GTCXTileMultiIndustrialSawmill.init();

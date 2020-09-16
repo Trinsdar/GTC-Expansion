@@ -7,6 +7,7 @@ import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseBurnableFluidGenerator;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperStack;
+import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import ic2.api.classic.recipe.crafting.RecipeInputFluid;
@@ -108,13 +109,22 @@ public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator 
     }
 
     public static void init(){
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Diesel), 2670, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Gasoline), 2670, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Naphtha), 2670, 12);
-        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroDiesel), 4170, 24);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Diesel), 10667, 12);
+        addRecipe(GTMaterialGen.getFluid(GTMaterial.Fuel), 10667, 12);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Gasoline), 10667, 12);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Naphtha), 10667, 12);
+        addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroDiesel), 16000, 24);
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.NitroCoalFuel), 4000, 12);
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.BioFuel), 500, 12);
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.CoalFuel), 1340, 12);
+        addModFluidRecipe("bio.ethanol", 10667, 12);
+    }
+
+    public static void addModFluidRecipe(String fluidName, int ticks, int euPerTick) {
+        try {
+            Fluid fluid = GTMaterialGen.getFluidStack(fluidName, 1000).getFluid();
+            addRecipe(fluid, ticks, euPerTick, fluid.getUnlocalizedName());
+        } catch (Exception ignored){}
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {

@@ -50,6 +50,7 @@ public class GTCXRecipeRemove {
 
         ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluid(GTMaterial.Methane));
         ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluid(GTMaterial.Hydrogen));
+        ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluid(GTMaterial.Fuel));
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreLapis"));
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreCoal"));
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreDiamond"));
@@ -58,6 +59,18 @@ public class GTCXRecipeRemove {
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreRuby"));
         ClassicRecipes.extractor.removeRecipe(new RecipeInputOreDict("oreSapphire"));
         ClassicRecipes.macerator.removeRecipe(new RecipeInputOreDict("stoneMarble"));
+    }
+
+    public static void postInit(){
+        removeModFluidLiquidGenRecipe("bio.ethanol");
+    }
+
+    public static void removeModFluidLiquidGenRecipe(String fluidName){
+        try {
+            ClassicRecipes.fluidGenerator.getBurnMap().remove(GTMaterialGen.getFluidStack(fluidName, 1000).getFluid());
+        } catch (Exception ignored){
+            ignored.printStackTrace();
+        }
     }
 
     public static void removeFurnaceRecipes(){
