@@ -1,5 +1,7 @@
 package gtc_expansion;
 
+import gtc_expansion.block.GTCXBlockLVMachine;
+import gtc_expansion.item.overrides.GTCXItemBlockMachineLV;
 import gtc_expansion.item.overrides.GTCXItemDrill;
 import gtc_expansion.item.overrides.GTCXItemElectricWrench;
 import gtc_expansion.item.overrides.GTCXItemPrecisionWrench;
@@ -27,6 +29,7 @@ public class GTCXPlugin extends PluginBase {
         //map.put(getID(Ic2ItemLang.boatItem), new ModulLoader.ItemOverride(new GTCXItemElectricBoat()));
         map.put(getID(Ic2ItemLang.wrenchElectric), new ModulLoader.ItemOverride(new GTCXItemElectricWrench()));
         map.put(getID(Ic2ItemLang.wrenchPresision), new ModulLoader.ItemOverride(new GTCXItemPrecisionWrench()));
+        map.put("blockMachineLV", new ModulLoader.BlockOverride(new GTCXBlockLVMachine(), GTCXItemBlockMachineLV.class));
     }
 
     private static String getID(LocaleComp comp) {

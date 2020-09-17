@@ -38,6 +38,7 @@ public class GTCXLang {
     public static final LocaleComp BATH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.bath");
     public static final LocaleComp DIGITAL_TANK = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.digitaltank");
     public static final LocaleComp COKE_OVEN = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.cokeoven");
+    public static final LocaleComp SCANNER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.blockScanner");
 
     public static final LocaleComp LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.locker");
     public static final LocaleComp ELECTRIC_LOCKER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.electriclocker");

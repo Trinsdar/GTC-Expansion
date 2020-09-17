@@ -53,6 +53,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
+import gtc_expansion.tile.overrides.GTCXTileScanner;
 import gtc_expansion.tile.pipes.GTCXTileBaseFluidPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileQuadFluidPipe;
@@ -249,6 +250,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileQuadFluidPipe.class, "QuadFluidPipe");
         registerUtil(GTCXTileDigitalTank.class, "DigitalTank");
         registerUtil(GTCXTileBrick.class, "Brick");
+        registerUtil(GTCXTileScanner.class, "Scanner");
     }
 
     public static void registerUtil(Class tile, String name) {
