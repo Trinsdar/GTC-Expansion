@@ -65,7 +65,7 @@ public class GTCXBlockDummyCover extends BlockMultiID {
 
     @Override
     public List<Integer> getValidMetas() {
-        return Arrays.asList(0, 1, 2, 3, 4, 5, 6);
+        return Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7);
     }
 
     @Override
@@ -86,6 +86,7 @@ public class GTCXBlockDummyCover extends BlockMultiID {
             case 4: return "_valve";
             case 5: return "_shutter";
             case 6: return "_redstone_controller";
+            case 7: return "_filter";
             default: return "";
         }
     }
@@ -116,6 +117,8 @@ public class GTCXBlockDummyCover extends BlockMultiID {
                 return GTCXItems.shutter;
             case 6:
                 return GTCXItems.redstoneController;
+            case 7:
+                return GTCXItems.fluidFilter;
         }
         return super.getItemDropped(state, rand, fortune);
     }

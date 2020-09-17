@@ -60,6 +60,7 @@ public class GTCXItems {
     public static final GTCXItemMisc drain = createItem(new GTCXItemCover("drain", 4, 3, 2));
     public static final GTCXItemMisc shutter = createItem(new GTCXItemCover("shutter", 6, 3, 5));
     public static final GTCXItemMisc redstoneController = createItem(new GTCXItemCover("redstone_controller", 5, 3, 6));
+    public static final GTCXItemMisc fluidFilter = createItem(new GTCXItemCover("fluid_filter", 6, 3, 7));
     public static final GTCXItemMiscSpriteless magicDye = createItem(new GTCXItemMiscSpriteless("magic_dye"));
     public static final GTCXItemMisc dataOrbStorage = createItem(new GTCXItemDataOrbStorage());
     public static final GTCXItemMisc mold = createItem(new GTCXItemMisc("mold", 0, 2));

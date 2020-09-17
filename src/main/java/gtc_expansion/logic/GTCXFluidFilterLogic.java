@@ -49,7 +49,9 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         nbt.setInteger("mode", mode.ordinal());
-        nbt.setTag("Filter", this.filter.writeToNBT(new NBTTagCompound()));
+        if (this.filter != null){
+            nbt.setTag("Filter", this.filter.writeToNBT(new NBTTagCompound()));
+        }
     }
 
     @Override
@@ -61,7 +63,9 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
     @Override
     public void write(IOutputBuffer buffer) {
         buffer.writeInt(mode.ordinal());
-        buffer.writeNBTData(this.filter.writeToNBT(new NBTTagCompound()));
+        if (this.filter != null){
+            buffer.writeNBTData(this.filter.writeToNBT(new NBTTagCompound()));
+        }
     }
 
     @Override

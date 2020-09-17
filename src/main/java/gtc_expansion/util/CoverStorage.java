@@ -3,6 +3,7 @@ package gtc_expansion.util;
 import gtc_expansion.logic.GTCXBaseCoverLogic;
 import gtc_expansion.logic.GTCXConveyorModuleLogic;
 import gtc_expansion.logic.GTCXDrainModuleLogic;
+import gtc_expansion.logic.GTCXFluidFilterLogic;
 import gtc_expansion.logic.GTCXItemValveModuleLogic;
 import gtc_expansion.logic.GTCXNullLogic;
 import gtc_expansion.logic.GTCXPumpModuleLogic;
@@ -183,6 +184,7 @@ public class CoverStorage implements INetworkFieldData {
             case 4: return new GTCXPumpModuleLogic(owner, facing);
             case 5: return new GTCXShutterLogic(owner, facing);
             case 6: return new GTCXRedstoneControllerLogic(owner, facing);
+            case 7: return new GTCXFluidFilterLogic(owner, facing);
             default: return new GTCXNullLogic(owner, facing);
         }
     }
@@ -205,6 +207,9 @@ public class CoverStorage implements INetworkFieldData {
         }
         if (logic instanceof GTCXRedstoneControllerLogic){
             return 6;
+        }
+        if (logic instanceof GTCXFluidFilterLogic){
+            return 7;
         }
         return 0;
     }
