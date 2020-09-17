@@ -15,7 +15,7 @@ public class GTCXConfiguration {
         public boolean pyriteGenerate = true;
         @Comment("Max size of Pyrite veins")
         @RangeInt(min = 1, max = 64)
-        public int pyriteSize = 28;
+        public int pyriteSize = 16;
         @Comment("Chance of Pyrite veins to spawn")
         @RangeInt(min = 1, max = 32)
         public int pyriteWeight = 5;
@@ -31,7 +31,7 @@ public class GTCXConfiguration {
         public boolean sphaleriteGenerate = true;
         @Comment("Max size of Sphalerite veins")
         @RangeInt(min = 1, max = 64)
-        public int sphaleriteSize = 28;
+        public int sphaleriteSize = 16;
         @Comment("Chance of Sphalerite veins to spawn")
         @RangeInt(min = 1, max = 32)
         public int sphaleriteWeight = 5;
@@ -99,6 +99,14 @@ public class GTCXConfiguration {
         @Comment("Chance of Chromite veins to spawn")
         @RangeInt(min = 1, max = 32)
         public int chromiteWeight = 4;
+        @Comment("Generate Extra Emerald ore in the overworld in extreme hills")
+        public boolean emeraldGenerate = true;
+        @Comment("Max size of Emerald veins")
+        @RangeInt(min = 1, max = 32)
+        public int emeraldSize = 6;
+        @Comment("Chance of Emerald veins to spawn")
+        @RangeInt(min = 1, max = 32)
+        public int emeraldWeight = 4;
     }
 
     @Comment("General configuration")

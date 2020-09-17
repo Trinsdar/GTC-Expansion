@@ -29,6 +29,9 @@ public class GTCXWorldGen implements IWorldGenerator {
         }
         if (world.provider.getDimensionType().equals(DimensionType.OVERWORLD)){
             GTOreGenerator.generateBasicVein(GTCXBlocks.oreGalena, GTCXConfiguration.generation.galenaGenerate, GTCXConfiguration.generation.galenaSize, GTCXConfiguration.generation.galenaWeight, 0, 64, Blocks.STONE, world, random, chunkX, chunkZ);
+            if (BiomeDictionary.hasType(biomegenbase, Type.MOUNTAIN)){
+                GTOreGenerator.generateBasicVein(Blocks.EMERALD_ORE, GTCXConfiguration.generation.emeraldGenerate, GTCXConfiguration.generation.emeraldSize, GTCXConfiguration.generation.emeraldWeight, 0, 32, Blocks.STONE, world, random, chunkX, chunkZ);
+            }
             if ((BiomeDictionary.hasType(biomegenbase, Type.COLD) || BiomeDictionary.hasType(biomegenbase, Type.CONIFEROUS) || BiomeDictionary.hasType(biomegenbase, Type.MOUNTAIN) || BiomeDictionary.hasType(biomegenbase, Type.MUSHROOM) && !BiomeDictionary.hasType(biomegenbase, Type.JUNGLE))){
                 GTOreGenerator.generateBasicVein(GTCXBlocks.oreCassiterite, GTCXConfiguration.generation.cassiteriteGenerate, GTCXConfiguration.generation.cassiteriteSize, GTCXConfiguration.generation.cassiteriteWeight, 30, 80, Blocks.STONE, world, random, chunkX, chunkZ);
             }
