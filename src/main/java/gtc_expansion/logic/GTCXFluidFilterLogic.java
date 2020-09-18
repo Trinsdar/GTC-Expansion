@@ -77,13 +77,14 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
     }
 
     public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
-        if (side.isServer()){
-            ItemStack stack = entityPlayer.getHeldItem(enumHand);
-            FluidStack fluid = FluidUtil.getFluidContained(stack);
-            if (fluid != null){
+        ItemStack stack = entityPlayer.getHeldItem(enumHand);
+        FluidStack fluid = FluidUtil.getFluidContained(stack);
+        if (fluid != null){
+            if (side.isServer()){
                 this.filter = fluid;
-                return true;
+                IC2.platform.messagePlayer(entityPlayer, "Filter set to " + fluid.getLocalizedName());
             }
+            return true;
         }
         return false;
     }

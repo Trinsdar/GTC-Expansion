@@ -1,5 +1,6 @@
 package gtc_expansion.tile.pipes;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.logic.GTCXFluidFilterLogic;
 import gtc_expansion.logic.GTCXShutterLogic;
 import gtclassic.common.tile.GTTileTranslocatorFluid;
@@ -68,6 +69,10 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe implements IClickabl
             if ((anchors.notContains(side) || storage.getCoverLogicMap().get(side).allowsPipeOutput()) && !FACE_CONNECTED[side.getIndex()][receivedFrom]) {
                 TileEntity tile = world.getTileEntity(this.getPos().offset(side));
                 if (tile instanceof GTCXTileBaseFluidPipe) {
+                    GTCXTileBaseFluidPipe pipe = (GTCXTileBaseFluidPipe) tile;
+                    if (pipe.storage.getCoverLogicMap().get(side.getOpposite()) instanceof GTCXFluidFilterLogic && !((GTCXFluidFilterLogic)pipe.storage.getCoverLogicMap().get(side.getOpposite())).matches(tank.getFluid())){
+                        continue;
+                    }
                     IC2Tank target = ((GTCXTileBaseFluidPipe)tile).getFluidTankFillable2(tank.getFluid());
                     if (target != null && target.getFluidAmount() < tank.getFluidAmount()){
                         amount += target.getFluidAmount();
@@ -248,7 +253,8 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe implements IClickabl
     @Override
     public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
         if (enumFacing != null && storage.getCoverLogicMap().get(enumFacing) instanceof GTCXFluidFilterLogic){
-            return ((GTCXFluidFilterLogic)storage.getCoverLogicMap().get(enumFacing)).onRightClick(entityPlayer, enumHand, enumFacing, side);
+            boolean click = ((GTCXFluidFilterLogic)storage.getCoverLogicMap().get(enumFacing)).onRightClick(entityPlayer, enumHand, enumFacing, side);
+            return click;
         }
         return false;
     }

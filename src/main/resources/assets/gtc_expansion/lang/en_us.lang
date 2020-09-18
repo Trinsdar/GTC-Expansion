@@ -677,6 +677,7 @@ item.gtc_expansion.hardening_spray.name=Hardening Spray
 item.gtc_expansion.item_transport_valve.name=Item Transport Valve
 item.gtc_expansion.drain.name=Drain
 item.gtc_expansion.shutter.name=Shutter
+item.gtc_expansion.fluid_filter.name=Fluid Filter
 item.gtc_expansion.redstone_controller.name=Redstone Pipe Controller
 item.gtc_expansion.data_orb_storage.name=Data Orb
 
