@@ -1,17 +1,13 @@
 package gtc_expansion.item.tools;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.interfaces.IGTScrewdriver;
 import gtc_expansion.material.GTCXMaterial;
-import gtc_expansion.tile.pipes.GTCXTileBasePipe;
-import gtc_expansion.util.GTCXWrenchUtils;
 import gtc_expansion.util.RotationHelper;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
 import gtclassic.api.material.GTMaterial;
-import ic2.api.classic.audio.PositionSpec;
 import ic2.api.item.IBoxable;
-import ic2.core.IC2;
-import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.platform.textures.obj.ILayeredItemModel;
 import ic2.core.platform.textures.obj.IStaticTexturedItem;
@@ -19,12 +15,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,7 +27,7 @@ import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
-public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem, IGTColorItem, ILayeredItemModel, IBoxable {
+public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem, IGTColorItem, ILayeredItemModel, IBoxable, IGTScrewdriver {
 
     GTMaterial material;
 
@@ -110,7 +104,7 @@ public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        TileEntity tile = worldIn.getTileEntity(pos);
+        /*TileEntity tile = worldIn.getTileEntity(pos);
         RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(player);
         if (tile instanceof GTCXTileBasePipe && lookingAt != null){
             GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
@@ -124,7 +118,17 @@ public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem
                     IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                 }
             }
-        }
+        }*/
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    }
+
+    @Override
+    public boolean canBeUsed(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public void damage(ItemStack stack, EntityPlayer player) {
+        stack.damageItem(1, player);
     }
 }

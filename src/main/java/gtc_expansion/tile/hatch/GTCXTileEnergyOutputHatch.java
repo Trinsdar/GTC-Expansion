@@ -6,7 +6,7 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTEnergySource;
 import gtc_expansion.interfaces.IGTOwnerTile;
-import gtc_expansion.item.tools.GTCXItemToolScrewdriver;
+import gtc_expansion.interfaces.IGTScrewdriver;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.common.GTLang;
 import ic2.api.classic.audio.PositionSpec;
@@ -329,9 +329,9 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
         @Override
         public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
             ItemStack stack = entityPlayer.getHeldItem(enumHand);
-            if (stack.getItem() instanceof GTCXItemToolScrewdriver && side.isServer()){
+            if (stack.getItem() instanceof IGTScrewdriver && side.isServer()){
                 this.cycleTier(entityPlayer);
-                stack.damageItem(1, entityPlayer);
+                ((IGTScrewdriver)stack.getItem()).damage(stack, entityPlayer);
                 IC2.audioManager.playOnce(entityPlayer, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                 return true;
             }

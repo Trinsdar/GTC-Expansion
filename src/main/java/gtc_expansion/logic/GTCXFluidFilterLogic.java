@@ -103,30 +103,32 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
         INVERT_EXPORT;
         Modes cycle(EntityPlayer player){
             if (this == NORMAL){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_1);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_1);
                 return INVERT;
             } else if (this == INVERT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_2);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_2);
                 return NORMAL_EXPORT;
             } else if (this == NORMAL_EXPORT){
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_3);
                 return INVERT_EXPORT;
             } else {
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_0);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_0);
                 return NORMAL;
             }
         }
 
         Modes cycleBack(EntityPlayer player){
             if (this == NORMAL){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_2);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_3);
                 return INVERT_EXPORT;
             } else if (this == INVERT_EXPORT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_0);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_2);
                 return NORMAL_EXPORT;
             } else if (this == NORMAL_EXPORT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_MODE_1);
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_1);
                 return INVERT;
             } else {
+                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_1);
                 return NORMAL;
             }
         }

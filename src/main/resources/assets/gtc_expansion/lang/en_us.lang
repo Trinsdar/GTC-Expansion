@@ -680,6 +680,7 @@ item.gtc_expansion.shutter.name=Shutter
 item.gtc_expansion.fluid_filter.name=Fluid Filter
 item.gtc_expansion.redstone_controller.name=Redstone Pipe Controller
 item.gtc_expansion.data_orb_storage.name=Data Orb
+item.gtc_expansion.electric_screwdriver.name=Electric Screwdriver
 
 item.gtc_expansion.bronze_turbine_rotor.name=Bronze Turbine Rotor
 item.gtc_expansion.steel_turbine_rotor.name=Steel Turbine Rotor
@@ -893,6 +894,10 @@ message.gtc_expansion.cover_shutter_mode0.name=Open if work enabled
 message.gtc_expansion.cover_shutter_mode1.name=Open if work disabled
 message.gtc_expansion.cover_shutter_mode2.name=Only Output allowed
 message.gtc_expansion.cover_shutter_mode3.name=Only Input allowed
+message.gtc_expansion.cover_filter_mode0.name=Allow Input, no output
+message.gtc_expansion.cover_filter_mode1.name=Deny input, no output
+message.gtc_expansion.cover_filter_mode2.name=Allow Input, permit any output
+message.gtc_expansion.cover_filter_mode3.name=Deny input, permit any output
 message.gtc_expansion.dynamo_hatch_mode0.name=Tier set to tier 4
 message.gtc_expansion.dynamo_hatch_mode1.name=Tier set to tier 5
 

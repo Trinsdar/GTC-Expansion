@@ -2,11 +2,11 @@ package gtc_expansion.events;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.interfaces.IGTOverlayWrench;
+import gtc_expansion.interfaces.IGTScrewdriver;
 import gtc_expansion.interfaces.IGTTextureStorageTile;
 import gtc_expansion.item.GTCXItemCover;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.tools.GTCXItemToolCrowbar;
-import gtc_expansion.item.tools.GTCXItemToolScrewdriver;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.render.GTCXRenderer;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
@@ -14,8 +14,11 @@ import gtc_expansion.tile.wiring.GTCXTileColoredCable;
 import gtc_expansion.util.GTCXWrenchUtils;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTBlocks;
+import ic2.api.classic.audio.PositionSpec;
 import ic2.api.classic.event.FoamEvent;
 import ic2.api.classic.event.RetextureEventClassic;
+import ic2.core.IC2;
+import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -24,6 +27,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -132,14 +137,36 @@ public class GTCXOtherEvents {
     public void onPlayerInteractEvent(PlayerInteractEvent event) {
         if (!(event instanceof PlayerInteractEvent.LeftClickEmpty | event instanceof  PlayerInteractEvent.LeftClickBlock)) {
             ItemStack held = event.getEntityPlayer().getHeldItemMainhand();
-            if (held.getItem() instanceof IGTOverlayWrench && !event.getEntityPlayer().isSneaking()) {
-                RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(event.getEntityPlayer());
-                if (lookingAt != null && event.getWorld().getTileEntity(lookingAt.getBlockPos()) instanceof GTCXTileBasePipe) {
-                    if (((IGTOverlayWrench) held.getItem()).canBeUsed(held)) {
-                        if (event.isCancelable()) event.setCanceled(true);
-                        if (GTCXWrenchUtils.wrenchUse(event) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
-                            GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
-                            ((IGTOverlayWrench) held.getItem()).damage(held, event.getEntityPlayer());
+            RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(event.getEntityPlayer());
+            EntityPlayer player = event.getEntityPlayer();
+            if (lookingAt != null){
+                TileEntity tile = event.getWorld().getTileEntity(lookingAt.getBlockPos());
+                if (tile instanceof GTCXTileBasePipe) {
+                    if (held.getItem() instanceof IGTOverlayWrench && !player.isSneaking()) {
+                        if (((IGTOverlayWrench) held.getItem()).canBeUsed(held)) {
+                            if (event.isCancelable()) event.setCanceled(true);
+                            if (GTCXWrenchUtils.wrenchUse(event) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
+                                GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
+                                ((IGTOverlayWrench) held.getItem()).damage(held, player);
+                            }
+                        }
+                    } else if (held.getItem() instanceof IGTScrewdriver){
+                        GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
+                        EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
+                        if (sideToggled != null && pipe.anchors.contains(sideToggled)){
+                            if (((IGTScrewdriver)held.getItem()).canBeUsed(held)){
+                                if (event.isCancelable()) event.setCanceled(true);
+                                if (!GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
+                                    GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
+                                    if (pipe.storage.getCoverLogicMap().get(sideToggled).cycleMode(player)){
+                                        if (!player.isCreative()) {
+                                            ((IGTScrewdriver) held.getItem()).damage(held, player);
+                                        }
+                                        player.swingArm(EnumHand.MAIN_HAND);
+                                        IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -160,7 +187,7 @@ public class GTCXOtherEvents {
                     ItemStack stack = player.getHeldItemMainhand();
                     if (stack.getItem() instanceof IGTOverlayWrench) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
-                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof GTCXItemToolScrewdriver || stack.getItem() instanceof GTCXItemCover) {
+                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof IGTScrewdriver || stack.getItem() instanceof GTCXItemCover) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).anchors);
                     }
                 }

@@ -98,6 +98,10 @@ public class GTCXLang {
     public static final LocaleComp MESSAGE_COVER_SHUTTER_MODE_1 = new LocaleItemInfoComp("message.gtc_expansion.cover_shutter_mode1.name");
     public static final LocaleComp MESSAGE_COVER_SHUTTER_MODE_2 = new LocaleItemInfoComp("message.gtc_expansion.cover_shutter_mode2.name");
     public static final LocaleComp MESSAGE_COVER_SHUTTER_MODE_3 = new LocaleItemInfoComp("message.gtc_expansion.cover_shutter_mode3.name");
+    public static final LocaleComp MESSAGE_COVER_FILTER_MODE_0 = new LocaleItemInfoComp("message.gtc_expansion.cover_filter_mode0.name");
+    public static final LocaleComp MESSAGE_COVER_FILTER_MODE_1 = new LocaleItemInfoComp("message.gtc_expansion.cover_filter_mode1.name");
+    public static final LocaleComp MESSAGE_COVER_FILTER_MODE_2 = new LocaleItemInfoComp("message.gtc_expansion.cover_filter_mode2.name");
+    public static final LocaleComp MESSAGE_COVER_FILTER_MODE_3 = new LocaleItemInfoComp("message.gtc_expansion.cover_filter_mode3.name");
 
 
     public static final LocaleComp PRESS_SHIFT = new ColoredLocalComp("miscInfo.gtc_expansion.pressShift.name", TextFormatting.AQUA);

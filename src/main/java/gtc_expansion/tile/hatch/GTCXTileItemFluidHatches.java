@@ -6,7 +6,7 @@ import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXLang;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.interfaces.IGTOwnerTile;
-import gtc_expansion.item.tools.GTCXItemToolScrewdriver;
+import gtc_expansion.interfaces.IGTScrewdriver;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.util.GTCXTank;
@@ -569,9 +569,9 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
         @Override
         public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
             ItemStack stack = entityPlayer.getHeldItem(enumHand);
-            if (stack.getItem() instanceof GTCXItemToolScrewdriver && side.isServer()){
+            if (stack.getItem() instanceof IGTScrewdriver && side.isServer()){
                 this.cycleModes(entityPlayer);
-                stack.damageItem(1, entityPlayer);
+                ((IGTScrewdriver)stack.getItem()).damage(stack, entityPlayer);
                 IC2.audioManager.playOnce(entityPlayer, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                 return true;
             }

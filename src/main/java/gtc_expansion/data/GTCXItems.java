@@ -6,6 +6,7 @@ import gtc_expansion.item.GTCXItemCover;
 import gtc_expansion.item.GTCXItemDamageable;
 import gtc_expansion.item.GTCXItemDataOrbStorage;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
+import gtc_expansion.item.GTCXItemElectricScrewdriver;
 import gtc_expansion.item.GTCXItemFood;
 import gtc_expansion.item.GTCXItemHardeningSpray;
 import gtc_expansion.item.GTCXItemInsulationCutter;
@@ -79,6 +80,8 @@ public class GTCXItems {
     public static final GTCXItemMold moldHugePipe = createItem(new GTCXItemMold("huge_pipe", 13, 2));
 
     public static final GTCXItemInsulationCutter cutter = createItem(new GTCXItemInsulationCutter());
+
+    public static final GTCXItemElectricScrewdriver screwdriver = createItem(new GTCXItemElectricScrewdriver());
 
     public static final GTCXItemMisc batteryHull = createItem(new GTCXItemMisc("battery_hull", 0, 5));
     public static final GTCXItemMisc largeBatteryHull = createItem(new GTCXItemMisc("large_battery_hull", 1, 5));

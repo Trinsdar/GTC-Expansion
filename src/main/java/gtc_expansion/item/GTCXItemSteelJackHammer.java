@@ -90,7 +90,7 @@ public class GTCXItemSteelJackHammer extends ItemElectricTool implements IMining
                 return 1.0F;
             }
         } else {
-            return 0.05F;
+            return 0.0F;
         }
     }
 
