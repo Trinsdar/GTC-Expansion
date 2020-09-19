@@ -81,7 +81,7 @@ public class GTCXItems {
 
     public static final GTCXItemInsulationCutter cutter = createItem(new GTCXItemInsulationCutter());
 
-    public static final GTCXItemElectricScrewdriver screwdriver = createItem(new GTCXItemElectricScrewdriver());
+    public static final GTCXItemElectricScrewdriver electricScrewdriver = createItem(new GTCXItemElectricScrewdriver());
 
     public static final GTCXItemMisc batteryHull = createItem(new GTCXItemMisc("battery_hull", 0, 5));
     public static final GTCXItemMisc largeBatteryHull = createItem(new GTCXItemMisc("large_battery_hull", 1, 5));

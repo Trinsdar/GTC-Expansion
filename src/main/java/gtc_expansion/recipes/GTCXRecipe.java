@@ -190,6 +190,7 @@ public class GTCXRecipe {
         addRotorRecipe(GTMaterialGen.get(GTCXItems.carbonTurbineRotor) , GTMaterial.Carbon, Ic2Items.carbonPlate);
         addRotorRecipe(GTMaterialGen.get(GTCXItems.osmiumTurbineRotor) , GTCXMaterial.Osmium, "blockOsmiumGT");
         addRotorRecipe(GTMaterialGen.get(GTCXItems.osmiridiumTurbineRotor) , GTCXMaterial.Osmiridium, "blockOsmiridium");
+        recipes.addRecipe(GTMaterialGen.get(GTCXItems.electricScrewdriver), "R  ", " RC", "  B", 'R', "rodStainlessSteel", 'C', CIRCUIT_BASIC, 'B', Ic2Items.battery);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.coalCokeBlock), "CCC", "CCC", "CCC", 'C', "fuelCoke");
     }
 
