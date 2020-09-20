@@ -1,6 +1,7 @@
 package gtc_expansion.events;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.data.GTCXItems;
 import gtc_expansion.interfaces.IGTOverlayWrench;
 import gtc_expansion.interfaces.IGTScrewdriver;
 import gtc_expansion.interfaces.IGTTextureStorageTile;
@@ -36,6 +37,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -187,7 +189,7 @@ public class GTCXOtherEvents {
                     ItemStack stack = player.getHeldItemMainhand();
                     if (stack.getItem() instanceof IGTOverlayWrench) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
-                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof IGTScrewdriver || stack.getItem() instanceof GTCXItemCover) {
+                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof IGTScrewdriver || stack.getItem() instanceof GTCXItemCover || FluidUtil.getFluidContained(stack) != null || stack.getItem() == GTCXItems.dataOrbStorage) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).anchors);
                     }
                 }

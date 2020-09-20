@@ -11,11 +11,13 @@ import gtclassic.api.material.GTMaterial;
 import ic2.core.IC2;
 import ic2.core.item.tool.ItemToolWrench;
 import ic2.core.platform.textures.Ic2Icons;
+import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -52,6 +54,11 @@ public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, 
             return this.efficiency;
         }
         return super.getDestroySpeed(stack, state);
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockState blockIn, ItemStack stack) {
+        return super.canHarvestBlock(blockIn, stack) || blockIn.getBlock() instanceof BlockHopper || blockIn.getBlock() == Blocks.FURNACE;
     }
 
     /**

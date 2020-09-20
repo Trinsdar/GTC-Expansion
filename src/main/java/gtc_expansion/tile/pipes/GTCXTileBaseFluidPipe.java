@@ -1,8 +1,8 @@
 package gtc_expansion.tile.pipes;
 
-import gtc_expansion.GTCExpansion;
 import gtc_expansion.logic.GTCXFluidFilterLogic;
 import gtc_expansion.logic.GTCXShutterLogic;
+import gtc_expansion.util.GTCXWrenchUtils;
 import gtclassic.common.tile.GTTileTranslocatorFluid;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.fluid.IC2Tank;
@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Tuple;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -67,6 +68,9 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe implements IClickabl
 
         for (EnumFacing side : connection){
             if ((anchors.notContains(side) || storage.getCoverLogicMap().get(side).allowsPipeOutput()) && !FACE_CONNECTED[side.getIndex()][receivedFrom]) {
+                if (storage.getCoverLogicMap().get(side) instanceof GTCXFluidFilterLogic && !((GTCXFluidFilterLogic)storage.getCoverLogicMap().get(side)).allowsPipeOutput(tank.getFluid())){
+                    continue;
+                }
                 TileEntity tile = world.getTileEntity(this.getPos().offset(side));
                 if (tile instanceof GTCXTileBaseFluidPipe) {
                     GTCXTileBaseFluidPipe pipe = (GTCXTileBaseFluidPipe) tile;
@@ -252,9 +256,19 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe implements IClickabl
 
     @Override
     public boolean onRightClick(EntityPlayer entityPlayer, EnumHand enumHand, EnumFacing enumFacing, Side side) {
-        if (enumFacing != null && storage.getCoverLogicMap().get(enumFacing) instanceof GTCXFluidFilterLogic){
-            boolean click = ((GTCXFluidFilterLogic)storage.getCoverLogicMap().get(enumFacing)).onRightClick(entityPlayer, enumHand, enumFacing, side);
-            return click;
+        if (enumFacing != null){
+            RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(entityPlayer);
+            if (lookingAt != null){
+                EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
+                if (sideToggled != null && this.anchors.contains(sideToggled)){
+                    if (storage.getCoverLogicMap().get(sideToggled) instanceof GTCXFluidFilterLogic){
+                        boolean click = ((GTCXFluidFilterLogic)storage.getCoverLogicMap().get(sideToggled)).onRightClick(entityPlayer, enumHand, sideToggled, side);
+                        return click;
+                    }
+
+                }
+            }
+
         }
         return false;
     }

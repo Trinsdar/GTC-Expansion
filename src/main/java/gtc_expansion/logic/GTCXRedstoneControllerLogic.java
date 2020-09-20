@@ -67,6 +67,11 @@ public class GTCXRedstoneControllerLogic extends GTCXBaseCoverLogic {
     }
 
     @Override
+    public boolean allowsPipeOutput(){
+        return true;
+    }
+
+    @Override
     public void getData(Map<String, Boolean> map){
         map.put(this.mode.toString(), true);
     }
