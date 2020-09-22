@@ -35,16 +35,17 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
     }
 
     public boolean matches(FluidStack compare){
-        boolean invert = this.mode == Modes.INVERT || this.mode == Modes.INVERT_EXPORT;
+        boolean invert = this.mode == Modes.INVERT;
         if (compare == null || this.filter == null){
-            return true;
+            return false;
         }
         return invert != compare.isFluidEqual(this.filter);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
-        mode = Modes.values()[nbt.getInteger("mode")];
+        int index = nbt.getInteger("mode");
+        mode = Modes.values()[index < 2 ? index : 0];
         this.filter = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("Filter"));
     }
 
@@ -58,7 +59,8 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
 
     @Override
     public void read(IInputBuffer buffer) {
-        mode = Modes.values()[buffer.readInt()];
+        int index = buffer.readInt();
+        mode = Modes.values()[index < 2 ? index : 0];
         this.filter = FluidStack.loadFluidStackFromNBT(buffer.readNBTData());
     }
 
@@ -73,7 +75,7 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
     @Override
     public boolean cycleMode(EntityPlayer player) {
         if (this.pipe.isSimulating()){
-            mode = player.isSneaking() ? mode.cycleBack(player) : mode.cycle(player);
+            mode = mode.cycle(player);
         }
         return true;
     }
@@ -119,7 +121,7 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
         if (this.mode.ordinal() < 2){
             boolean invert = this.mode == Modes.INVERT;
             if (compare == null || this.filter == null){
-                return true;
+                return false;
             }
             return invert != compare.isFluidEqual(this.filter);
         }
@@ -128,37 +130,13 @@ public class GTCXFluidFilterLogic extends GTCXBaseCoverLogic {
 
     public enum Modes{
         NORMAL,
-        INVERT,
-        NORMAL_EXPORT,
-        INVERT_EXPORT;
+        INVERT;
         Modes cycle(EntityPlayer player){
             if (this == NORMAL){
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_1);
                 return INVERT;
-            } else if (this == INVERT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_2);
-                return NORMAL_EXPORT;
-            } else if (this == NORMAL_EXPORT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_3);
-                return INVERT_EXPORT;
             } else {
                 IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_0);
-                return NORMAL;
-            }
-        }
-
-        Modes cycleBack(EntityPlayer player){
-            if (this == NORMAL){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_3);
-                return INVERT_EXPORT;
-            } else if (this == INVERT_EXPORT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_2);
-                return NORMAL_EXPORT;
-            } else if (this == NORMAL_EXPORT){
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_1);
-                return INVERT;
-            } else {
-                IC2.platform.messagePlayer(player, GTCXLang.MESSAGE_COVER_FILTER_MODE_1);
                 return NORMAL;
             }
         }
