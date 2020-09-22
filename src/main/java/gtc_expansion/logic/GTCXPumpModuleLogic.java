@@ -33,13 +33,15 @@ public class GTCXPumpModuleLogic extends GTCXBaseCoverLogic {
             if (pipe.connection.contains(this.facing) && tile != null && !(tile instanceof GTCXTileBaseFluidPipe) & tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite()) && proceed){
                 IFluidHandler tileFluid = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite());
                 if (tileFluid != null){
-                    FluidStack drainSimulate = tileFluid.drain(fluidPipe.getTank().getCapacity(), false);
-                    if (drainSimulate != null){
-                        IC2Tank tank = fluidPipe.getFluidTankFillable2(drainSimulate);
-                        if (tank != null){
-                            FluidStack pipeFluid = tank.getFluid();
-                            if (pipeFluid == null || (pipeFluid.isFluidEqual(drainSimulate) && tank.getFluidAmount() < tank.getCapacity())){
-                                tileFluid.drain(new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true), true);
+                    for (int i = 0; i < fluidPipe.getTanks().length; i++){
+                        FluidStack drainSimulate = tileFluid.drain(fluidPipe.getTank().getCapacity(), false);
+                        if (drainSimulate != null){
+                            IC2Tank tank = fluidPipe.getFluidTankFillable2(drainSimulate);
+                            if (tank != null){
+                                FluidStack pipeFluid = tank.getFluid();
+                                if (pipeFluid == null || (pipeFluid.isFluidEqual(drainSimulate) && tank.getFluidAmount() < tank.getCapacity())){
+                                    tileFluid.drain(new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true), true);
+                                }
                             }
                         }
                     }
