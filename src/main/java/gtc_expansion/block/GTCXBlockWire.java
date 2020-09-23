@@ -75,7 +75,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainerIC2(this, active, INSULATION, FOAMED);
+        return new BlockStateContainerIC2(this, INSULATION, FOAMED);
     }
 
     @Override
@@ -166,15 +166,15 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         if (tile instanceof GTCXTileColoredCable) {
             GTCXTileColoredCable cable = (GTCXTileColoredCable)tile;
             int i = cable.insulation > 3 ? 3 : cable.insulation;
-            return state.withProperty(INSULATION, i).withProperty(active, cable.getActive()).withProperty(FOAMED, (int)cable.foamed);
+            return state.withProperty(INSULATION, i).withProperty(FOAMED, (int)cable.foamed);
         } else {
-            return super.getActualState(state, worldIn, pos);
+            return state.withProperty(INSULATION, 0).withProperty(FOAMED, 0);
         }
     }
 
     @Override
     public IBlockState getDefaultBlockState() {
-        IBlockState state = this.getDefaultState().withProperty(active, false).withProperty(INSULATION, 0).withProperty(FOAMED, 0);
+        IBlockState state = this.getDefaultState().withProperty(INSULATION, 0).withProperty(FOAMED, 0);
 
         return state;
     }
@@ -185,8 +185,7 @@ public class GTCXBlockWire extends GTBlockBaseConnect implements IGTColorBlock, 
         List<IBlockState> states = new ArrayList<>();
         for (int i = 0; i < 4; i++){
             for (int j = 0; j < 3; j++){
-                states.add(def.withProperty(active, false).withProperty(INSULATION, i).withProperty(FOAMED, j));
-                states.add(def.withProperty(active, true).withProperty(INSULATION, i).withProperty(FOAMED, j));
+                states.add(def.withProperty(INSULATION, i).withProperty(FOAMED, j));
             }
         }
 
