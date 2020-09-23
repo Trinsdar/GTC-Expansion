@@ -29,6 +29,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -133,6 +134,49 @@ public class GTCXBlockPipe extends GTBlockBaseConnect implements IGTCoverBlock, 
         }
 
         return super.getExtendedState(state, world, pos);
+    }
+
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return state;
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainerIC2(this);
+    }
+
+    @Override
+    public IBlockState getDefaultBlockState() {
+        return this.getDefaultState();
+    }
+
+    @Override
+    public List<IBlockState> getValidStates() {
+        return this.getBlockState().getValidStates();
+    }
+
+    @Override
+    public List<IBlockState> getValidStateList() {
+        IBlockState def = this.getDefaultState();
+        List<IBlockState> states = new ArrayList();
+        states.add(def);
+        return states;
+    }
+
+    @Override
+    public EnumFacing getRotation(IBlockState state) {
+        return EnumFacing.NORTH;
+    }
+
+    @Override
+    public boolean hasFacing() {
+        return false;
+    }
+
+    @Override
+    public List<IBlockState> getValidModelStates() {
+        return this.getBlockState().getValidStates();
     }
 
     @Override
