@@ -1,5 +1,6 @@
 package gtc_expansion.block;
 
+import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXIcons;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXLang;
@@ -7,6 +8,7 @@ import gtc_expansion.tile.GTCXTileAlloyFurnace;
 import gtc_expansion.tile.GTCXTileAlloySmelter;
 import gtc_expansion.tile.GTCXTileAssemblingMachine;
 import gtc_expansion.tile.GTCXTileBath;
+import gtc_expansion.tile.GTCXTileBrick;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileChemicalReactor;
 import gtc_expansion.tile.GTCXTileDieselGenerator;
@@ -44,11 +46,14 @@ import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTReaderInfoBlock;
+import gtclassic.api.material.GTMaterialGen;
 import ic2.core.IC2;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
+import ic2.core.platform.textures.Ic2Icons;
 import ic2.core.util.misc.StackUtil;
+import ic2.core.util.obj.IClickable;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -62,9 +67,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -97,12 +104,20 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         setRegistryName(this.name.toLowerCase());
         setCreativeTab(GTMod.creativeTabGT);
         this.setSoundType(SoundType.STONE);
-        this.setHardness(4.0F);
+        if (name.equals("fire_brick_block")){
+            this.setHardness(2.0F);
+        } else {
+            this.setHardness(4.0F);
+        }
+        this.setResistance(10.0F);
     }
 
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
+        if (this == GTCXBlocks.fireBrickBlock){
+            tooltip.add(I18n.format("Mobs cannot spawn on this block"));
+        }
         if (this == GTCXBlocks.thermalBoiler || this == GTCXBlocks.largeGasTurbine || this == GTCXBlocks.largeSteamTurbine){
             if (GuiScreen.isShiftKeyDown()){
                 tooltip.add(I18n.format(this.getUnlocalizedName().replace("tile", "tooltip") + "multiblock0"));
@@ -243,6 +258,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         if (this == GTCXBlocks.cokeOven){
             return new GTCXTileMultiCokeOven();
         }
+        if (this == GTCXBlocks.fireBrickBlock){
+            return new GTCXTileBrick();
+        }
         return null;
     }
 
@@ -260,6 +278,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
             if (te instanceof IGTItemContainerTile){
                 list.addAll(((IGTItemContainerTile) te).getDrops());
             }
+            return list;
+        } else if (this == GTCXBlocks.fireBrickBlock){
+            list.add(GTMaterialGen.get(this));
             return list;
         } else {
             return super.getDrops(world, pos, state, fortune);
@@ -333,7 +354,53 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         }
     }
 
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (this == GTCXBlocks.fireBrickBlock){
+            TileEntity te = worldIn.getTileEntity(pos);
+            if (te instanceof GTCXTileBrick) {
+                GTCXTileBrick brick = (GTCXTileBrick)te;
+                if (brick.getOwner() instanceof IClickable){
+                    IClickable click = (IClickable) brick.getOwner();
+                    if (click.hasRightClick() && click.onRightClick(playerIn, hand, facing, FMLCommonHandler.instance().getEffectiveSide())) {
+                        return true;
+                    }
+                }
+            }
+            if (playerIn.isSneaking()) {
+                return false;
+            } else {
+                return te instanceof GTCXTileBrick && ((GTCXTileBrick)te).getOwner() != null && (IC2.platform.isRendering() || IC2.platform.launchGui(playerIn, ((GTCXTileBrick)te).getOwner(), hand));
+            }
+        } else {
+            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public TextureAtlasSprite getTextureFromState(IBlockState iBlockState, EnumFacing enumFacing) {
+        if (this == GTCXBlocks.fireBrickBlock){
+            return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[1];
+        }
+        return super.getTextureFromState(iBlockState, enumFacing);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public TextureAtlasSprite getParticleTexture(IBlockState state) {
+        if (this == GTCXBlocks.fireBrickBlock){
+            return this.getTextureFromState(state, EnumFacing.SOUTH);
+        }
+        return super.getParticleTexture(state);
+    }
+
     public boolean compare(ItemStack stack, Block block) {
         return StackUtil.isStackEqual(stack, new ItemStack(block));
+    }
+
+    @Override
+    public boolean hasFacing() {
+        return super.hasFacing() && this != GTCXBlocks.fireBrickBlock;
     }
 }

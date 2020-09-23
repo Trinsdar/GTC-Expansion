@@ -2,14 +2,11 @@ package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXBlocks;
-import gtc_expansion.tile.GTCXTileBrick;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBase;
 import gtclassic.api.interfaces.IGTBurnableBlock;
-import ic2.core.IC2;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.textures.Ic2Icons;
-import ic2.core.util.obj.IClickable;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -19,16 +16,13 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.Nullable;
@@ -91,13 +85,27 @@ public class GTCXBlockMisc extends GTBlockBase implements IGTBurnableBlock, ITil
         return false;
     }
 
+    /*@Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         TileEntity te = worldIn.getTileEntity(pos);
+        GTCExpansion.logger.info("Side: " + FMLCommonHandler.instance().getEffectiveSide());
+        GTCExpansion.logger.info("Hand "+ hand.name());
+        if (hand == EnumHand.OFF_HAND){
+            return false;
+        }
+        try {
+            throw new IllegalStateException("Test");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         if (te instanceof GTCXTileBrick) {
             GTCXTileBrick brick = (GTCXTileBrick)te;
+            GTCExpansion.logger.info("Tile brick");
             if (brick.getOwner() instanceof IClickable){
+                GTCExpansion.logger.info("Owner clickable");
                 IClickable click = (IClickable) brick.getOwner();
                 if (click.hasRightClick() && click.onRightClick(playerIn, hand, facing, FMLCommonHandler.instance().getEffectiveSide())) {
+                    GTCExpansion.logger.info("Fluid filled");
                     return true;
                 }
             }
@@ -105,9 +113,10 @@ public class GTCXBlockMisc extends GTBlockBase implements IGTBurnableBlock, ITil
         if (playerIn.isSneaking()) {
             return false;
         } else {
+            GTCExpansion.logger.info("Gui opened");
             return te instanceof GTCXTileBrick && ((GTCXTileBrick)te).getOwner() != null && (IC2.platform.isRendering() || IC2.platform.launchGui(playerIn, ((GTCXTileBrick)te).getOwner(), hand));
         }
-    }
+    }*/
 
     @Override
     public int getBlockBurnTime(Block block) {
@@ -117,9 +126,6 @@ public class GTCXBlockMisc extends GTBlockBase implements IGTBurnableBlock, ITil
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        if (this == GTCXBlocks.fireBrickBlock){
-            return new GTCXTileBrick();
-        }
         return null;
     }
 }

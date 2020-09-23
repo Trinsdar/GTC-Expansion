@@ -71,10 +71,10 @@ repositories{
     }
     maven {
         url = "https://www.cursemaven.com"
-    }
+    }/*
     maven { //Backup
         url "https://modmaven.k-4u.nl"
-    }
+    }*/
 }
 
 dependencies {

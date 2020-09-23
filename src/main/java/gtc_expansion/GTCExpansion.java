@@ -5,7 +5,6 @@ import gtc_expansion.events.GTCXRadiationEvent;
 import gtc_expansion.events.GTCXServerTickEvent;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.proxy.GTCXCommonProxy;
-import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.GTValues;
 import ic2.core.IC2;
 import net.minecraft.util.ResourceLocation;
@@ -85,7 +84,7 @@ public class GTCExpansion {
 		proxy.init(e);
 		MinecraftForge.EVENT_BUS.register(new GTCXOtherEvents());
 		MinecraftForge.EVENT_BUS.register(new GTCXServerTickEvent());
-		MultiBlockHelper.INSTANCE.init();
+		//MultiBlockHelper.INSTANCE.init();
 		GTCXRadiationEvent.init();
 		if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS) && GTCXConfiguration.general.enableRadiation){
 			MinecraftForge.EVENT_BUS.register(new GTCXRadiationEvent());

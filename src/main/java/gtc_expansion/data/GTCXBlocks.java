@@ -141,7 +141,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile fusionEnergyInjector = registerBlock(new GTCXBlockTile("fusionenergyinjector", GTCXLang.FUSION_ENERGY_INJECTOR, 2));
     public static final GTCXBlockTile fusionEnergyExtractor = registerBlock(new GTCXBlockTile("fusionenergyextractor", GTCXLang.FUSION_ENERGY_EXTRACTOR, 1));
 
-    public static final GTCXBlockMisc fireBrickBlock = registerBlock(new GTCXBlockMisc("fire_brick_block", GTCXLang.FIRE_BRICK_BLOCK, "pickaxe", 1, 2.0F, 10.0F, 1, Material.ROCK, SoundType.STONE));
+    public static final GTCXBlockTile fireBrickBlock = registerBlock(new GTCXBlockTile("fire_brick_block", GTCXLang.FIRE_BRICK_BLOCK, Material.ROCK));
     public static final GTCXBlockCasing iridiumTungstensteelBlock = registerBlock(new GTCXBlockCasing("iridium_tungstensteel_block", GTCXLang.IRIDIUM_TUNGSTENSTEEL_BLOCK, 4, 2000.0F).setHardness(50.0F));
     public static final GTCXBlockCasing tungstensteelReinforcedStone = registerBlock(new GTCXBlockCasing("tungstensteel_reinforced_stone", GTCXLang.TUNGSTENSTEEL_REINFORCED_STONE, 3, 300F).setHardness(25F));
     public static final GTCXBlockCasing pureGlass = registerBlock(new GTCXBlockCasing("pure_glass", GTCXLang.PURE_GLASS, 5, 1F, Material.GLASS).setSoundType(SoundType.GLASS).setHardness(0.5F));
