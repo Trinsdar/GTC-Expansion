@@ -6,6 +6,7 @@ import gtc_expansion.util.GTCXTank;
 import gtclassic.api.gui.GTGuiCompFluidTank;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
+import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotDisplay;
 import ic2.core.inventory.slots.SlotOutput;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,8 +21,9 @@ public class GTCXContainerLargeGasTurbineHatch extends ContainerTileComponent<GT
 
     public GTCXContainerLargeGasTurbineHatch(InventoryPlayer player, GTCXTileMultiLargeGasTurbine tile, boolean second, boolean input) {
         super(tile);
-        this.addSlotToContainer(new SlotDisplay(tile, 4, 80, 17));
-        this.addSlotToContainer(new SlotOutput(player.player, tile, 4, 80, 53));
+        int index = input ? second ? 1 : 0 : 2;
+        this.addSlotToContainer(new SlotCustom(tile, 4 + (2 * index), 80, 17, null));
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 5 + (2 * index), 80, 53));
         int display = input ? second ? 2 : 1 : 3;
         this.addSlotToContainer(new SlotDisplay(tile, display, 59, 42));
         GTCXTank tank = input ? second ? tile.getInputTank2() : tile.getInputTank1() : tile.getOutputTank();

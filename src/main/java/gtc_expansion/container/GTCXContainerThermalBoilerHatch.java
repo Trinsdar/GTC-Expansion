@@ -6,6 +6,7 @@ import gtc_expansion.util.GTCXTank;
 import gtclassic.api.gui.GTGuiCompFluidTank;
 import ic2.core.inventory.container.ContainerTileComponent;
 import ic2.core.inventory.gui.GuiIC2;
+import ic2.core.inventory.slots.SlotCustom;
 import ic2.core.inventory.slots.SlotDisplay;
 import ic2.core.inventory.slots.SlotOutput;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,9 +21,10 @@ public class GTCXContainerThermalBoilerHatch extends ContainerTileComponent<GTCX
 
     public GTCXContainerThermalBoilerHatch(InventoryPlayer player, GTCXTileMultiThermalBoiler tile, boolean second, boolean input) {
         super(tile);
-        this.addSlotToContainer(new SlotDisplay(tile, 7, 80, 17));
-        this.addSlotToContainer(new SlotOutput(player.player, tile, !input ? second ? 2 : 1 : 7, 80, 53));
-        int display = input ? (second ? 4 : 3) : (second ? 6 : 5);
+        int index = input ? second ? 3 : 2 : (second ? 1 : 0);
+        this.addSlotToContainer(new SlotCustom(tile, 1 + (2 * index), 80, 17, null));
+        this.addSlotToContainer(new SlotOutput(player.player, tile, 2 + (2 * index), 80, 53));
+        int display = input ? (second ? 10 : 9) : (second ? 12 : 11);
         this.addSlotToContainer(new SlotDisplay(tile, display, 59, 42));
         GTCXTank tank = input ? (second ? tile.getInputTank2() : tile.getInputTank1()) : (second ? tile.getOutputTank2() : tile.getOutputTank1());
         this.addComponent(new GTGuiCompFluidTank(tank));

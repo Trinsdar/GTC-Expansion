@@ -13,6 +13,7 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch.OutputModes;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtc_expansion.util.GTCXTank;
+import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
@@ -77,12 +78,18 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     @NetworkField(index = 6)
     private GTCXTank outputTank2 = new GTCXTank(32000);
     private int tickOffset = 0;
-    private static int slotOutput1 = 1;
-    private static int slotOutput2 = 2;
-    private static int slotDisplayIn1 = 3;
-    private static int slotDisplayIn2 = 4;
-    private static int slotDisplayOut1 = 5;
-    private static int slotDisplayOut2 = 6;
+    public static int slotFakeIn1 = 1;
+    private static int slotOutput1 = 2;
+    public static int slotFakeIn2 = 3;
+    private static int slotOutput2 = 4;
+    public static int slotFakeIn3 = 5;
+    public static int slotFakeOut1 = 6;
+    public static int slotFakeIn4 = 7;
+    public static int slotFakeOut2 = 8;
+    private static int slotDisplayIn1 = 9;
+    private static int slotDisplayIn2 = 10;
+    private static int slotDisplayOut1 = 11;
+    private static int slotDisplayOut2 = 12;
     public static int slotNothing = 7;
     int ticker = 0;
     int obsidianTicker = 0;
@@ -96,7 +103,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     protected InventoryHandler secondHandler = new InventoryHandler(this);
 
     public GTCXTileMultiThermalBoiler() {
-        super(8);
+        super(13);
         this.addGuiFields("lastState", "inputTank1", "inputTank2", "outputTank1", "outputTank2");
         this.addNetworkFields("inputTank1", "inputTank2", "outputTank1", "outputTank2");
         outputMode1 = ITEM_AND_FLUID;
@@ -207,6 +214,10 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
 
     @Override
     public void update() {
+        GTHelperFluid.doFluidContainerThings(this, this.inputTank1, slotFakeIn3, slotFakeOut1);
+        GTHelperFluid.doFluidContainerThings(this, this.inputTank2, slotFakeIn4, slotFakeOut2);
+        GTHelperFluid.doFluidContainerThings(this, this.outputTank1, slotFakeIn1, slotOutput1);
+        GTHelperFluid.doFluidContainerThings(this, this.outputTank2, slotFakeIn2, slotOutput2);
         TileEntity tile = world.getTileEntity(input1);
         TileEntity tile2 = world.getTileEntity(input2);
         TileEntity oTile = world.getTileEntity(output1);

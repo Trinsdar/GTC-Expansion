@@ -13,6 +13,7 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialExtractor;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialInjector;
 import gtc_expansion.util.GTCXTank;
+import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialElement;
@@ -95,10 +96,15 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     private GTCXTank inputTank2 = new GTCXTank(32000);
     @NetworkField(index = 15)
     private GTCXTank outputTank = new GTCXTank(32000);
-    private static int slotDisplayIn1 = 3;
-    private static int slotDisplayIn2 = 4;
-    private static int slotDisplayOut = 5;
-    public static int slotNothing = 6;
+    private static int slotInput1 = 0;
+    private static int slotFakeOutput1 = 1;
+    private static int slotInput2 = 2;
+    private static int slotFakeOutput2 = 3;
+    private static int slotFakeInput = 4;
+    private static int slotOutput = 5;
+    private static int slotDisplayIn1 = 6;
+    private static int slotDisplayIn2 = 7;
+    private static int slotDisplayOut = 8;
     public int maxProducedEnergy = 1000000000;
     @NetworkField(
             index = 16
@@ -115,7 +121,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     private GTCXTileFusionEnergyExtractor energyOutputHatch = null;
 
     public GTCXTileMultiFusionReactor() {
-        super(7, 0, 8192, 8192);
+        super(9, 0, 8192, 8192);
         this.maxEnergy = 1000000;
         input1 = this.getPos();
         input2 = this.getPos();
@@ -133,11 +139,11 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         int slot = handler == secondHandler ? 1 : 0;
         handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
         handler.registerDefaultSlotAccess(AccessRule.Import, slot);
-        handler.registerDefaultSlotAccess(AccessRule.Export, 2);
+        handler.registerDefaultSlotAccess(AccessRule.Export, slotOutput);
         handler.registerDefaultSlotsForSide(RotationList.UP, slot);
-        handler.registerDefaultSlotsForSide(RotationList.DOWN, 2);
+        handler.registerDefaultSlotsForSide(RotationList.DOWN, slotOutput);
         handler.registerSlotType(SlotType.Input, slot);
-        handler.registerSlotType(SlotType.Output, 2);
+        handler.registerSlotType(SlotType.Output, slotOutput);
     }
 
     @Override
@@ -262,6 +268,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public void update() {
+        GTHelperFluid.doFluidContainerThings(this, this.inputTank1, slotInput1, slotFakeOutput1);
+        GTHelperFluid.doFluidContainerThings(this, this.inputTank2, slotInput2, slotFakeOutput2);
+        GTHelperFluid.doFluidContainerThings(this, this.outputTank, slotFakeInput, slotOutput);
         TileEntity input1 = world.getTileEntity(this.input1);
         TileEntity input2 = world.getTileEntity(this.input2);
         TileEntity output = world.getTileEntity(this.output);

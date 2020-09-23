@@ -17,6 +17,7 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileInputHatch;
 import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileOutputHatch;
 import gtc_expansion.tile.hatch.GTCXTileMachineControlHatch;
 import gtc_expansion.util.GTCXTank;
+import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
 import gtclassic.api.material.GTMaterialGen;
@@ -86,7 +87,12 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     private static int slotDisplayIn1 = 1;
     private static int slotDisplayIn2 = 2;
     private static int slotDisplayOut = 3;
-    public static int slotNothing = 4;
+    public static int slotIn1 = 4;
+    public static int slotOut1 = 5;
+    public static int slotIn2 = 6;
+    public static int slotOut2 = 7;
+    public static int slotIn3 = 8;
+    public static int slotOut3 = 9;
     public int maxEnergy = 100000;
     @NetworkField(
             index = 6
@@ -106,7 +112,7 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     public static final IBlockState machineControlHatchState = GTCXBlocks.machineControlHatch.getDefaultState();
 
     public GTCXTileMultiLargeGasTurbine() {
-        super(5);
+        super(10);
         this.addGuiFields("lastState", "production", "inputTank1", "inputTank2", "outputTank");
         this.addNetworkFields("energy", "inputTank1", "inputTank2", "outputTank");
         this.inputTank1.addListener(this);
@@ -278,6 +284,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         if (ticker < 80){
             ticker++;
         }
+        GTHelperFluid.doFluidContainerThings(this, this.inputTank1, slotIn1, slotOut1);
+        GTHelperFluid.doFluidContainerThings(this, this.inputTank2, slotIn2, slotOut2);
+        GTHelperFluid.doFluidContainerThings(this, this.outputTank, slotIn3, slotOut3);
         TileEntity tile = world.getTileEntity(input1);
         TileEntity dTile2 = world.getTileEntity(dynamo);
         boolean canWork = canWork() && tile instanceof GTCXTileInputHatch && dTile2 instanceof GTCXTileDynamoHatch;
