@@ -13,9 +13,11 @@ import gtc_expansion.tile.GTCXTileExtruder;
 import gtc_expansion.tile.GTCXTileFluidCaster;
 import gtc_expansion.tile.GTCXTileFluidSmelter;
 import gtc_expansion.tile.GTCXTileLathe;
+import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
 import gtc_expansion.util.GTCXHelperPipe;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
@@ -420,6 +422,13 @@ public class GTCXRecipeIterators {
             NonNullList<ItemStack> listNuggets;
             NonNullList<ItemStack> listDusts;
             if (id.startsWith("ingot")){
+                if (GTCXConfiguration.general.ingotsRequireBlastFurnace){
+                    if (or(id, "ingotSteel", "ingotAluminium", "ingotAluminum", "ingotSilicon", "ingotThorium", "ingotIridium", "ingotOsmium", "ingotStainlessSteel", "ingotTungsten", "ingotChrome", "ingotTitanium")){
+                        for (ItemStack stack : OreDictionary.getOres(id, false)){
+                            GTHelperStack.removeSmelting(stack);
+                        }
+                    }
+                }
                 String oreName = id.substring(5);
                 boolean moltenExist = FluidRegistry.isFluidRegistered(oreName.toLowerCase());
                 String plate = "plate" + oreName;
@@ -494,8 +503,12 @@ public class GTCXRecipeIterators {
                     }
                 }
             }
+            if (id.startsWith("crushed")){
+                GTCXTileMicrowave.explodeList.addAll(OreDictionary.getOres(id, false));
+            }
             if (id.startsWith("dust") && !id.startsWith("dustSmall") && !id.startsWith("dustTiny")){
                 String oreName = id.substring(4);
+                GTCXTileMicrowave.explodeList.addAll(OreDictionary.getOres(id, false));
                 String smallDust = "dustSmall" + oreName;
                 String tinyDust = "dustTiny" + oreName;
                 if (!dustBlacklist.contains(oreName) && OreDictionary.doesOreNameExist(smallDust)){
@@ -513,5 +526,14 @@ public class GTCXRecipeIterators {
                 }
             }
         }
+    }
+
+    public static boolean or(String compare, String... values){
+        for (String string : values){
+            if (string.equals(compare)){
+                return true;
+            }
+        }
+        return false;
     }
 }
