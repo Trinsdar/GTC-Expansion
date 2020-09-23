@@ -34,7 +34,6 @@ import ic2.core.util.obj.ITankListener;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -553,10 +552,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                 return false;
             }
         }
-        if (world.getBlockState(dir.left(1).asBlockPos()) != Blocks.AIR.getDefaultState()){
+        if (!world.isAirBlock(dir.left(1).asBlockPos())){
             return false;
         }
-        if (world.getBlockState(dir.back(1).asBlockPos()) != Blocks.AIR.getDefaultState()){
+        if (!world.isAirBlock(dir.back(1).asBlockPos())){
             return false;
         }
         if (!isDynamoHatch(dir.back(1))){

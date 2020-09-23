@@ -555,7 +555,7 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
         if (!isHatch(dir.left(1))){
             return false;
         }
-        if (world.getBlockState(dir.down(1).asBlockPos()) != Blocks.AIR.getDefaultState()){
+        if (!world.isAirBlock(dir.down(1).asBlockPos())){
             return false;
         }
         if (!isHatch(dir.down(1))){

@@ -331,7 +331,7 @@ public class GTCXTileMultiPrimitiveBlastFurnace extends GTTileBaseFuelMachine im
             return false;
         }
         for (int i = 0; i < 3; i++) {
-            if (world.getBlockState(dir.down(1).asBlockPos()) != Blocks.AIR.getDefaultState()) {
+            if (!world.isAirBlock(dir.down(1).asBlockPos())) {
                 return false;
             }
         }

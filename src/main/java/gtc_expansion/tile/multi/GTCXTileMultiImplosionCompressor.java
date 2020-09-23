@@ -389,7 +389,7 @@ public class GTCXTileMultiImplosionCompressor extends GTTileMultiBaseMachine {
         if (!(isReinforcedCasing(dir.right(1)))) {
             return false;
         }
-        if (world.getBlockState(dir.forward(1).asBlockPos()) != airState) {
+        if (!world.isAirBlock(dir.forward(1).asBlockPos())) {
             return false;
         }
         //Bottom Layer

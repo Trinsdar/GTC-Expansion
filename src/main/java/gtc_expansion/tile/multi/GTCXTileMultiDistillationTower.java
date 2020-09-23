@@ -730,7 +730,7 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
     }
 
     public boolean isAir(int3 pos) {
-        return world.getBlockState(pos.asBlockPos()) == airState;
+        return world.isAirBlock(pos.asBlockPos());
     }
 
     @Override

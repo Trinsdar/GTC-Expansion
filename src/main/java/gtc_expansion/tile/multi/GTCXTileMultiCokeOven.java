@@ -501,7 +501,7 @@ public class GTCXTileMultiCokeOven extends GTTileBasePassiveMachine implements I
         if (!isBrick(dir.right(1))) {// right
             return false;
         }
-        if (world.getBlockState(dir.down(1).asBlockPos()) != Blocks.AIR.getDefaultState()) {
+        if (!world.isAirBlock(dir.down(1).asBlockPos())) {
             return false;
         }
         if (!(isBrick(dir.down(1)))) {

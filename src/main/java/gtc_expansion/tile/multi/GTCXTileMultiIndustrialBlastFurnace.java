@@ -398,7 +398,7 @@ public class GTCXTileMultiIndustrialBlastFurnace extends GTTileMultiBaseMachine 
 			this.getNetwork().updateTileGuiField(this, "currentHeat");
 			return true;
 		}
-		return world.getBlockState(pos.asBlockPos()) == Blocks.AIR.getDefaultState() || world.getBlockState(pos.asBlockPos()) == Blocks.FLOWING_LAVA.getDefaultState();
+		return world.isAirBlock(pos.asBlockPos()) || world.getBlockState(pos.asBlockPos()) == Blocks.FLOWING_LAVA.getDefaultState();
 	}
 
 	public boolean isCasing(int3 pos) {
