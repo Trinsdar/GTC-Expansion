@@ -123,7 +123,6 @@ public class GTCXRecipe {
 
     public static void postInit(){
         GTCXRecipeMods.init();
-        GTCXRecipeProcessing.removals();
         GTCXRecipeIterators.initAutoOredictMachineRecipes();
         GTCXTileMicrowave.init();
         GTCXRecipeRemove.postInit();
@@ -679,10 +678,8 @@ public class GTCXRecipe {
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileComputer), "CMO", "MAM", "OMC", 'C', CIRCUIT_MASTER, 'M', GTCXItems.computerMonitor, 'O', CIRCUIT_ULTIMATE, 'A', MACHINE_ADV);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.casingFusion), "CSC", "NMN", "CRC", 'C', CIRCUIT_MASTER, 'S', CRAFTING_SUPERCONDUCTOR, 'N', GTCXItems.nichromeHeatingCoil, 'M',
                 MACHINE_ELITE, 'R', Ic2Items.reactorReflectorIridium);
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTesseractMaster),"TCT", "CEC", "TcT", 'T', TITANIUM, 'C', CIRCUIT_MASTER, 'E', Blocks.ENDER_CHEST, 'c', GTBlocks.tileComputer);
 		recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDragonEggEnergySiphon, 1), "CTC", "PSP", "CBC", 'C', CIRCUIT_MASTER, 'S', GTBlocks.tileSupercondensator, 'B', BATTERY_ULTIMATE, 'P', PLATE_IRIDIUM_ALLOY, 'T', Ic2Items.teslaCoil.copy());
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileMagicEnergyConverter, 1), "CTC", "IBI", "CLC", 'C', GTValues.CIRCUIT_ADVANCED, 'B', Blocks.BEACON, 'L', Ic2Items.lapotronCrystal.copy(), 'I', GTRecipeCraftingHandler.combineRecipeObjects(PLATINUM, PRE + "Draconium", PRE + "Knightmetal", PRE + "Thaumium", PRE + "Manasteel"), 'T', Ic2Items.teleporter.copy());
-        recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileMagicEnergyAbsorber, 1), "CTC", "PSP", "CBC", 'C', CIRCUIT_MASTER, 'S', Blocks.BEACON, 'B', GTBlocks.tileMagicEnergyConverter, 'P', PLATE_IRIDIUM_ALLOY, 'T', CRAFTING_SUPERCONDUCTOR);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileTesseractSlave),"TCT", "CEC", "TcT", 'T', TITANIUM, 'C', "circuitElite", 'E', Blocks.ENDER_CHEST, 'c', Ic2Items.advMachine);
         IRecipeInput rod = combineRecipeObjects( "rodTitanium", "rodTungstensteel");
         IRecipeInput plate = combineRecipeObjects( TITANIUM, TUNGSTEN_STEEL);
