@@ -37,6 +37,7 @@ public class GTCXOreDict {
         OreDictionary.registerOre("plateAluminum", (GTCXMaterialGen.getPlate(aluminium, 1)));
         OreDictionary.registerOre("rodAluminum", (GTCXMaterialGen.getRod(aluminium, 1)));
         OreDictionary.registerOre("gearAluminum", (GTCXMaterialGen.getGear(aluminium, 1)));
+        OreDictionary.registerOre("dustSmallAluminum", (GTCXMaterialGen.getSmallDust(aluminium, 1)));
         OreDictionary.registerOre("batteryRegular", new ItemStack(GTItems.lithiumBattery, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("batteryRegular", new ItemStack(GTCXItems.sodiumBattery, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("energyCrystal", new ItemStack(GTItems.lithiumBattery, 1, OreDictionary.WILDCARD_VALUE));
