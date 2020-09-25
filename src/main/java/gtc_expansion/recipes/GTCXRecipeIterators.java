@@ -99,6 +99,7 @@ public class GTCXRecipeIterators {
         createFullToolRecipes(GTMaterial.Sapphire, true);
         createPipeRecipes(GTCXMaterial.Bronze, true);
         createPipeRecipes(GTCXMaterial.Steel, true);
+        createPipeRecipes(GTMaterial.Invar, true);
         createPipeRecipes(GTCXMaterial.StainlessSteel, true);
         createPipeRecipes(GTCXMaterial.TungstenSteel, true);
     }

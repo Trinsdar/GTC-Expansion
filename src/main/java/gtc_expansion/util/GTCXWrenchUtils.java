@@ -17,7 +17,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -521,47 +520,38 @@ public class GTCXWrenchUtils {
         return null;
     }
 
-    public static boolean wrenchUse(PlayerInteractEvent event) {
-        EntityPlayer player = event.getEntityPlayer();
-        World worldIn = event.getWorld();
-        RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(player);
-        if (lookingAt != null) {
-            BlockPos pos = lookingAt.getBlockPos();
-            TileEntity te = worldIn.getTileEntity(pos);
-            if (te instanceof GTCXTileBasePipe) {
-                GTCXTileBasePipe pipe = (GTCXTileBasePipe)te;
-                if (!player.isSneaking()) {
-                    EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
-                    EnumFacing opposite = sideToggled.getOpposite();
-                    BlockPos offset = pos.offset(sideToggled);
-                    TileEntity offsetTile = worldIn.getTileEntity(offset);
-                    boolean setConnection = false;
-                    if (pipe.connection.contains(sideToggled)) {
-                        pipe.removeConnection(sideToggled);
-                        if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.contains(opposite)){
-                            ((GTCXTileBasePipe)offsetTile).removeConnection(opposite);
-                        }
-                        setConnection = true;
-                    } else {
-                        if (worldIn.isAirBlock(offset) || pipe.canConnect(offsetTile, sideToggled)){
-                            pipe.addConnection(sideToggled);
-                            if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.notContains(opposite)){
-                                ((GTCXTileBasePipe)offsetTile).addConnection(opposite);
-                            }
-                            setConnection = true;
-                        }
-
-                    }
-                    if (setConnection){
-                        IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
-                        player.swingArm(EnumHand.MAIN_HAND);
-                    }
-                    worldIn.notifyBlockUpdate(pos, worldIn.getBlockState(pos), worldIn.getBlockState(pos), 3);
-                    te.markDirty();
-                    return setConnection;
+    public static boolean wrenchUse(RayTraceResult lookingAt, GTCXTileBasePipe pipe, EntityPlayer player, World worldIn, boolean offhand) {
+        BlockPos pos = lookingAt.getBlockPos();
+        boolean setConnection = false;
+        if (!player.isSneaking()) {
+            EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
+            EnumFacing opposite = sideToggled.getOpposite();
+            BlockPos offset = pos.offset(sideToggled);
+            TileEntity offsetTile = worldIn.getTileEntity(offset);
+            if (pipe.connection.contains(sideToggled)) {
+                pipe.removeConnection(sideToggled);
+                if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.contains(opposite)){
+                    ((GTCXTileBasePipe)offsetTile).removeConnection(opposite);
                 }
+                setConnection = true;
+            } else {
+                if (worldIn.isAirBlock(offset) || pipe.canConnect(offsetTile, sideToggled)){
+                    pipe.addConnection(sideToggled);
+                    if (offsetTile instanceof GTCXTileBasePipe && ((GTCXTileBasePipe)offsetTile).connection.notContains(opposite)){
+                        ((GTCXTileBasePipe)offsetTile).addConnection(opposite);
+                    }
+                    setConnection = true;
+                }
+
             }
+            if (setConnection){
+                IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
+                player.swingArm(offhand ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND);
+            }
+            worldIn.notifyBlockUpdate(pos, worldIn.getBlockState(pos), worldIn.getBlockState(pos), 3);
+            pipe.markDirty();
+
         }
-        return false;
+        return setConnection;
     }
 }

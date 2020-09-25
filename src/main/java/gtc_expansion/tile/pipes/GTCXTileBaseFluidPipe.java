@@ -305,7 +305,7 @@ public class GTCXTileBaseFluidPipe extends GTCXTileBasePipe implements IClickabl
         @Override
         public int fill(FluidStack resource, boolean doFill) {
             IC2Tank tank = pipe.getFluidTankFillable2(resource);
-            if (tank == null){
+            if (tank == null || pipe.connection.notContains(this.facing)){
                 return 0;
             }
             if (pipe.storage.getCoverLogicMap().get(this.facing) instanceof GTCXFluidFilterLogic){
