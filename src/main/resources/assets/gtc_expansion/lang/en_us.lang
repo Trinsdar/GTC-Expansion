@@ -925,3 +925,14 @@ title.gtc_expansion.first_load=Notice from GTC Expansion
 #info.gtc_expansion.first_load0
 
 miscInfo.gtc_expansion.pressShift.name=Press%1$s Shift%2$s for Structure Information
+
+info.gtc_expansion.first_load0=Hi there! You have loaded up gtcx, and so therefore
+info.gtc_expansion.first_load1=I must warn you: I change a lot of stuff in gtc,
+info.gtc_expansion.first_load2=even replacing the gtc centrifuge and fusion
+info.gtc_expansion.first_load3=reactor with my own versions, so therefore if you
+info.gtc_expansion.first_load4=find any recipes with bugs or those 2 machines,
+info.gtc_expansion.first_load5=please report them to me first, so I can determine
+info.gtc_expansion.first_load6=whether it's a gtcx bug or it's a gtc bug.
+
+info.gtc_expansion.first_load7=Thanks for your patience, this panel won't appear again,
+info.gtc_expansion.first_load8=unless you remove the generated file in config/ic2

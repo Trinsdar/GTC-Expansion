@@ -40,15 +40,16 @@ public class GTCXGuiFirstLoad extends GuiScreen {
 
         int x = width / 2;
         int y = height / 6;
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 9; i++) {
             String s = I18n.format("info.gtc_expansion.first_load" + i);
 
             drawCenteredString(fontRenderer, s, x, y, 0xFFFFFF);
 
             y += 10;
-            if(i == 2 || i == 4)
+            if(i == 6 || i == 8)
                 y += 8;
         }
+        drawCenteredString(fontRenderer, "Trinsdar", x, y, 0xFFFFFF);
     }
 
     @Override
