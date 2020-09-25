@@ -856,6 +856,13 @@ tooltip.gtc_expansion.largegasturbinemultiblock1=1x-2x Input Hatch (Side Centere
 tooltip.gtc_expansion.largegasturbinemultiblock2=1x Dynamo Hatch (Back Centered)
 tooltip.gtc_expansion.largegasturbinemultiblock3=1x Output Hatch (Side Centered, COMPLETELY OPTIONAL)
 tooltip.gtc_expansion.largegasturbinemultiblock4=Reinforced Machine Casings for the rest (24 at least!)
+tooltip.gtc_expansion.fusioncomputermultiblock0=Advanced Machine Casings around fusion coil blocks (120 at least!)
+tooltip.gtc_expansion.fusioncomputermultiblock1=32 Fusion coils (see gui for location)
+tooltip.gtc_expansion.fusioncomputermultiblock2=2x Fusion Material injector (See gui for location)
+tooltip.gtc_expansion.fusioncomputermultiblock3=1x Fusion Material extractor (See gui for location)
+tooltip.gtc_expansion.fusioncomputermultiblock4=1x Fusion Energy extractor (See gui for location)
+tooltip.gtc_expansion.fusioncomputermultiblock5=4x - 16x Fusion Energy injector (See gui for location)
+
 
 
 
