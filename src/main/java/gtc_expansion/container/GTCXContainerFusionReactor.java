@@ -1,5 +1,7 @@
 package gtc_expansion.container;
 
+import gtc_expansion.gui.GTCXGuiCompFusionButtons;
+import gtc_expansion.gui.GTCXGuiCompFusionOverlay;
 import gtc_expansion.gui.GTCXGuiCompMultiblockStatusString;
 import gtc_expansion.tile.multi.GTCXTileMultiFusionReactor;
 import gtclassic.api.gui.GTGuiCompEnergyStorageBar;
@@ -26,6 +28,8 @@ public class GTCXContainerFusionReactor extends ContainerTileComponent<GTCXTileM
         this.addComponent(new MachineProgressComp(tile, machineProgressBox, machineProgressPos));
         this.addComponent(new GTGuiCompEnergyStorageBar(tile, machineChargeBox, machineChargePos));
         this.addComponent(new GTCXGuiCompMultiblockStatusString(tile, statusBox));
+        this.addComponent(new GTCXGuiCompFusionButtons(tile));
+        this.addComponent(new GTCXGuiCompFusionOverlay(tile));
     }
 
     @SideOnly(Side.CLIENT)

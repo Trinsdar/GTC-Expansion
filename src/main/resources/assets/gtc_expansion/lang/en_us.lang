@@ -916,6 +916,9 @@ message.gtc_expansion.dynamo_hatch_mode1.name=Tier set to tier 5
 button.gtc_expansion.digitaltank=Upload to Tank
 button.gtc_expansion.backToMainMenu=Back to Main Menu
 button.gtc_expansion.nosteam=Not Enough Steam
+button.gtc_expansion.full=Full structure
+button.gtc_expansion.middle=Middle layer of structure
+button.gtc_expansion.topbottom=Top and Bottom layers of structure
 
 title.gtc_expansion.first_load=Notice from GTC Expansion
 

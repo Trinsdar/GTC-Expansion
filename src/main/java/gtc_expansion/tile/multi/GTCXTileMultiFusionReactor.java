@@ -35,6 +35,7 @@ import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.energy.tile.IMetaDelegate;
+import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.RotationList;
 import ic2.core.block.base.util.output.MultiSlotOutput;
@@ -75,7 +76,7 @@ import java.util.function.Predicate;
 
 import static gtclassic.common.tile.multi.GTTileMultiFusionReactor.RECIPE_LIST;
 
-public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implements IGTOwnerTile, IGTEnergySource, IMetaDelegate, ITankListener {
+public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implements IGTOwnerTile, IGTEnergySource, IMetaDelegate, ITankListener, INetworkClientTileEntityEventListener {
     static final IBlockState COIL_STATE = GTBlocks.casingFusion.getDefaultState();
     static final IBlockState CASING_STATE = GTCXBlocks.casingAdvanced.getDefaultState();
     static final IBlockState MATERIAL_INJECTOR_STATE = GTCXBlocks.fusionMaterialInjector.getDefaultState();
@@ -119,6 +120,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     private GTCXTileFusionMaterialInjector inputHatch2 = null;
     private GTCXTileFusionMaterialExtractor outputHatch = null;
     private GTCXTileFusionEnergyExtractor energyOutputHatch = null;
+    private int guiOverlay = 0;
 
     public GTCXTileMultiFusionReactor() {
         super(9, 0, 8192, 8192);
@@ -132,6 +134,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.outputTank.addListener(this);
         this.addSlots(secondHandler);
         secondHandler.validateSlots();
+        this.addGuiFields("guiOverlay");
     }
 
     @Override
@@ -171,6 +174,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer player) {
         return GTCXFusionComputerGui.class;
+    }
+
+    public int getGuiOverlay() {
+        return guiOverlay;
     }
 
     @Override
@@ -563,6 +570,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.energyOutput = readBlockPosFromNBT(nbt, "energyOutput");
         this.usedStartEnergy = nbt.getBoolean("usedStartEnergy");
         this.producedEnergy = nbt.getInteger("producedEnergy");
+        this.guiOverlay = nbt.getInteger("guiOverlay");
     }
 
     @Override
@@ -574,6 +582,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         writeBlockPosToNBT(nbt, "energyOutput", energyOutput);
         nbt.setBoolean("usedStartEnergy", usedStartEnergy);
         nbt.setInteger("producedEnergy", producedEnergy);
+        nbt.setInteger("guiOverlay", guiOverlay);
         return nbt;
     }
 
@@ -1384,5 +1393,13 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             }
         }
         return lastPositions;
+    }
+
+    @Override
+    public void onNetworkEvent(EntityPlayer entityPlayer, int i) {
+        if (i < 3 && i >= 0 && this.guiOverlay != i){
+            this.guiOverlay = i;
+            this.getNetwork().updateTileGuiField(this, "guiOverlay");
+        }
     }
 }
