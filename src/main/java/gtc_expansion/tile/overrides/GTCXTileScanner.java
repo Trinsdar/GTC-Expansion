@@ -8,8 +8,10 @@ import gtc_expansion.container.GTCXContainerScanner;
 import gtc_expansion.data.GTCXLang;
 import ic2.api.classic.item.IMachineUpgradeItem;
 import ic2.api.crops.ICropSeed;
+import ic2.api.energy.EnergyNet;
 import ic2.core.RotationList;
 import ic2.core.block.machine.low.TileEntityCropAnalyzer;
+import ic2.core.inventory.base.IHasInventory;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.ArrayFilter;
 import ic2.core.inventory.filters.BasicItemFilter;
@@ -19,6 +21,7 @@ import ic2.core.inventory.filters.MachineFilter;
 import ic2.core.inventory.management.AccessRule;
 import ic2.core.inventory.management.InventoryHandler;
 import ic2.core.inventory.management.SlotType;
+import ic2.core.inventory.transport.wrapper.RangedInventoryWrapper;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.registry.Ic2Items;
 import ic2.core.util.misc.StackUtil;
@@ -131,7 +134,13 @@ public class GTCXTileScanner extends TileEntityCropAnalyzer {
     }
 
     @Override
+    public IHasInventory getInputInventory() {
+        return (new RangedInventoryWrapper(this, 0)).setFilters(this.filter);
+    }
+
+    @Override
     public void update() {
+        this.updateNeighbors();
         if (this.inventory.get(2).isEmpty()) {
             ItemStack stack = this.inventory.get(1);
             if (stack.getItem() instanceof ICropSeed) {
@@ -200,5 +209,53 @@ public class GTCXTileScanner extends TileEntityCropAnalyzer {
             this.progress = 0;
             this.getNetwork().updateTileGuiField(this, "progress");
         }
+        for(int i = 0; i < 4; ++i) {
+            ItemStack item = this.inventory.get(i + this.inventory.size() - 4);
+            if (item.getItem() instanceof IMachineUpgradeItem) {
+                ((IMachineUpgradeItem)item.getItem()).onTick(item, this);
+            }
+        }
+
+        this.updateComparators();
+    }
+
+    @Override
+    public void setOverclockerRates() {
+        int extraEnergyDemand = 0;
+        double energyDemandMultiplier = 1.0D;
+        int extraEnergyStorage = 0;
+        double energyStorageMultiplier = 1.0D;
+        int extraTier = 0;
+
+        for(int i = 0; i < 4; ++i) {
+            ItemStack item = (ItemStack)this.inventory.get(i + this.inventory.size() - 4);
+            if (item != null && item.getItem() instanceof IMachineUpgradeItem) {
+                IMachineUpgradeItem upgrade = (IMachineUpgradeItem)item.getItem();
+                upgrade.onInstalling(item, this);
+                extraEnergyDemand += upgrade.getExtraEnergyDemand(item, this) * item.getCount();
+                energyDemandMultiplier *= Math.pow(upgrade.getEnergyDemandMultiplier(item, this), (double)item.getCount());
+                extraEnergyStorage += upgrade.getExtraEnergyStorage(item, this) * item.getCount();
+                energyStorageMultiplier *= Math.pow(upgrade.getEnergyStorageMultiplier(item, this), (double)item.getCount());
+                extraTier += upgrade.getExtraTier(item, this) * item.getCount();
+            }
+        }
+
+        this.energyUsage = applyModifier(1, extraEnergyDemand, energyDemandMultiplier);
+        this.setMaxEnergy(applyModifier(10000, extraEnergyStorage, energyStorageMultiplier));
+        this.tier = 1 + extraTier;
+        if (this.tier > 13) {
+            this.tier = 13;
+        }
+
+        this.maxInput = (int) EnergyNet.instance.getPowerFromTier(this.tier);
+        if (this.energyUsage < 1) {
+            this.energyUsage = 1;
+        }
+
+    }
+
+    static int applyModifier(int base, int extra, double multiplier) {
+        long ret = Math.round((double)(base + extra) * multiplier);
+        return ret > 2147483647L ? 2147483647 : (int)ret;
     }
 }

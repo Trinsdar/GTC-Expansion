@@ -15,7 +15,6 @@ import gtc_expansion.tile.wiring.GTCXTileColoredCable;
 import gtc_expansion.util.GTCXWrenchUtils;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTBlocks;
-import gtclassic.common.GTConfig;
 import ic2.api.classic.audio.PositionSpec;
 import ic2.api.classic.event.FoamEvent;
 import ic2.api.classic.event.RetextureEventClassic;
@@ -34,8 +33,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -43,7 +40,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -52,13 +48,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class GTCXOtherEvents {
-    @SubscribeEvent
-    public void onPlayerLogin(PlayerLoggedInEvent event) {
-        if (GTConfig.general.enableGTCXWarning){
-            GTConfig.general.enableGTCXWarning = false;
-            ConfigManager.sync("gtclassic", Config.Type.INSTANCE);
-        }
-    }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onHarvestDropsEvent(BlockEvent.HarvestDropsEvent event) {
