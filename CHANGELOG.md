@@ -1,5 +1,89 @@
 # Changelog
 
+# 0.2
+ - Greatly reduced the ram requirements of gtcx, there still might be more improvements to do yet.
+ - Improved server performance of a couple tiles
+ - Added wood plate
+ - Overrode centrifuge, you have to pick up existing ones and put it in the crafting grid to get the new one
+ - Added certus quartz recipe to industrial grinder
+ - Added new electric rail recipes for rc compat
+ - Added bath
+ - Added branch cutters - only available when forestry is loaded, basically version of the grafter but with a lot more durability
+ - Added integrated circuit jei support
+ - Added pure glass block
+ - Added fluid pipes - may be unforseen bugs yet, but so far not many bugs. They are a bit like gt6 fluid pipes
+ - Added covers
+ - Added digital tank
+ - Added screwdriver
+ - Added new config for forcing pre electric machines, currently it just removes the sticky resin smelting recipe
+ - Added coke oven, coal coke, and creosote
+ - Added crushed ore config
+ - Added small aluminium dust to dustSmallAluminum oredict
+ - Added multiblock tooltips to fusion controller
+ - Possibly fixed diesel gen generation issues
+ - Reverted end game stuff like personal force field requiring osmium
+ - Refactored hatch multiblocks, the haches now get the fluids and items from the multiblocks themselves, they are not just accessors and setters
+ - Hatches now only get a casing texture if there are either 4 of the same casing adjacent or 3 of the same casing and one hatch adjacent - will make future casing support much easier
+ - Made my wrenches no longer take massive amounts of damage when preventing loss
+ - Changed regular reactor plating recipe to use lead plate instead of dense copper plate
+ - Ruby grinder water recipe now makes 2 small chrome dust instead of 1
+ - Diamond grinding recipe now makes 6 instead of 8 small diamond dusts as byproduct
+ - Olivine now outputs pyrope instead of emerald as the secondary output, and emerald now does aluminium instead of olivine
+ - Added diamond, olivine, and emerald acid recipes to grinder that give 3
+ - Added nether quartz grinder recipe that outputs 4 nether quartz and 2 small netherrack dust
+ - Nerfed all ore extracting recipes to 2 from 3
+ - Fixed crop textures
+ - Refactored a bunch of ct stuff
+ - Changed tetrahedrite ore texture
+ - Extruder no longer requires the mold in the mold slot
+ - Updated chromite ore texture, it's now a bit lighter
+ - Doubled default chromite weight - recommend you regenerate your config
+ - Disabled precision wrench recipe if ic2c extras is loaded with the wrench override config true
+ - Made my wrench always enabled even with the crafting tools disabled, it's just not used in recipes when said config is disabled
+ - Removed macerator recipe that uses the grinder heads
+ - Changed rotary macerator recipe to use stainless steel plates instead of grinder heads in the corners
+ - Crushed ore processing is no longer dependent on ic2c extras
+ - Fusion reactor now shows gain instead of total output, doesn't account for start eu though
+ - Added a little more debug info for dynamo hatch
+ - Fixed wrench duplication
+ - Fixed wood recipes
+ - Added railcraft electrode and coil recipes
+ - Fixed sawmill lubricant issue
+ - Removed a logger
+ - Marble now macerates to marble dust
+ - Fixed reactor chamber override with ic2c extras
+ - Removed tiles from casings, means that the rotor textures will be broken for now till I figure out how to do it properly without using a tile
+ - Nerfed glass fibre cables recipe
+ - Removed silicon fluid
+ - Converted all berylium fluid outputting recipes to outputting the item
+ - Added assembling machine recipe for iron fence
+ - Fixed electric sprayer recipe only taking full cf sprayer and made the recipe transfer foam from cf sprayer
+ - Made iron scaffold recipe always use iron and made it use rods instead of fences
+ - Made hardening spray work with turning foamed iron scaffold to reinforced stone
+ - Made it possible to put hardening spray and matchbox in tool box
+ - Made my wrenches have a faster mining speed
+ - Thick reflector now takes beryllium plates instead of ingots
+ - Changed casing to iron fence recipe in wiremill to always do iron
+ - Made output hatch and dynamo hatch change modes with screwdriver
+ - thermal boiler now has to have 2 output hatches
+ - Fixed dynamo hatch mode info not being localized and running twice
+ - Added iridium dust to ic2 iridium ore item compressing recipes
+ - Made circuit crafting recipe take insulated cable - assembling recipe still uses uninsulated version
+ - Reduced air electrolyzing power usage by a factor of ten
+ - Made pbf able to output and input any items from the brick
+ - Made ic2 crop scanner accept forestry bees, saplings, ect.
+ - Boosted eu production from some fluids in the diesel gen, moved fuel and forestry ethanol from liquid fuel gen to diesel gen
+ - Made digital tanks merge same fluid from a fluid orb into it's tank, even leaving any remaining fluid it can't accept in the orb
+ - Added extra emerald ore gen to extreme hills
+ - Made wrench able to harvest hoppers and furnaces
+ - Removed unnecessary blockstate properties from pipes and cables, may improve ram usage a little more
+ - Changed all air checks in multiblock checks to proper air checks instead of air state checks, should now work with other blocks that register as air
+ - Lightened dark blue elements of the fusion reactor gui a little
+ - Made dark blue text in fusion gui light blue instead
+ - Added buttons to fusion reactor gui that show the layers of the fusion structure
+ - Added new greeting panel when you first load the game, came about because of some drama between me and e the author of gtc
+
+
 # 0.1.2
  - Added thermal boiler
  - Added input, output, machine control, and dynamo hatches
