@@ -1,7 +1,7 @@
 package gtc_expansion.item.overrides;
 
 import gtc_expansion.block.GTCXBlockPipe;
-import gtc_expansion.interfaces.IGTOverlayWrench;
+import gtc_expansion.interfaces.IGTWrench;
 import gtc_expansion.util.GTCXBetterPipesCompat;
 import ic2.api.item.ElectricItem;
 import ic2.core.item.tool.electric.ItemElectricToolPrecisionWrench;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import org.jetbrains.annotations.Nullable;
 
-public class GTCXItemPrecisionWrench extends ItemElectricToolPrecisionWrench implements IGTOverlayWrench {
+public class GTCXItemPrecisionWrench extends ItemElectricToolPrecisionWrench implements IGTWrench {
     public GTCXItemPrecisionWrench(){
         this.setHarvestLevel("wrench", 1);
     }

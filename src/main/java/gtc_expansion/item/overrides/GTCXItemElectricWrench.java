@@ -1,7 +1,7 @@
 package gtc_expansion.item.overrides;
 
 import gtc_expansion.block.GTCXBlockPipe;
-import gtc_expansion.interfaces.IGTOverlayWrench;
+import gtc_expansion.interfaces.IGTWrench;
 import gtc_expansion.util.GTCXBetterPipesCompat;
 import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTValues;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public class GTCXItemElectricWrench extends ItemElectricToolWrench implements IGTOverlayWrench {
+public class GTCXItemElectricWrench extends ItemElectricToolWrench implements IGTWrench {
     boolean overrideLossChance = false;
     public GTCXItemElectricWrench(){
         this.setHarvestLevel("wrench", 1);

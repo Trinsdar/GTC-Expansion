@@ -12,6 +12,7 @@ import ic2.core.util.misc.StackUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Loader;
 
 import static gtclassic.api.recipe.GTRecipeCraftingHandler.combineRecipeObjects;
 
@@ -37,7 +38,9 @@ public class GTCXValues {
     public static final IRecipeInput REINFORCED_GLASS = combineRecipeObjects( Ic2Items.reinforcedGlass, Ic2Items.reinforcedGlassClear);
     public static final IRecipeInput GRINDER = combineRecipeObjects( GTCXItems.diamondGrinder, GTCXItems.wolframiumGrinder);
     public static final IRecipeInput TIER_2_ENERGY = combineRecipeObjects( Ic2Items.energyCrystal, GTItems.lithiumBattery);
-    public static final IRecipeInput PUMP = combineRecipeObjects(Ic2Items.pump.copy(), GTMaterialGen.get(GTCXItems.pumpModule));
+    public static final IRecipeInput PUMP = combineRecipeObjects(
+            Loader.isModLoaded("buildcraftfactory") ?
+                    new Object[]{Ic2Items.pump.copy(), GTMaterialGen.get(GTCXItems.pumpModule), GTMaterialGen.getModBlock("buildcraftfactory", "pump")} : new Object[]{Ic2Items.pump.copy(), GTMaterialGen.get(GTCXItems.pumpModule)});
     public static final String MACHINE_CHEAP = "machineBlockCheap";
     public static final String MACHINE_VERY_ADV = "machineBlockVeryAdvanced";
     public static final ItemStack[] EMPTY = new ItemStack[0];

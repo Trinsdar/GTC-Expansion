@@ -123,7 +123,7 @@ public class GTCXItemToolScrewdriver extends Item implements IStaticTexturedItem
     }
 
     @Override
-    public boolean canBeUsed(ItemStack stack) {
+    public boolean canScrewdriverBeUsed(ItemStack stack) {
         return true;
     }
 

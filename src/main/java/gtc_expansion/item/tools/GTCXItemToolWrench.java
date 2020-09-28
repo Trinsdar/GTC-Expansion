@@ -3,7 +3,7 @@ package gtc_expansion.item.tools;
 import cofh.api.item.IToolHammer;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.block.GTCXBlockPipe;
-import gtc_expansion.interfaces.IGTOverlayWrench;
+import gtc_expansion.interfaces.IGTWrench;
 import gtc_expansion.util.GTCXBetterPipesCompat;
 import gtclassic.GTMod;
 import gtclassic.api.interfaces.IGTColorItem;
@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Optional.Interface(iface = "cofh.api.item.IToolHammer", modid = "cofhcore", striprefs = true)
-public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTOverlayWrench, IToolHammer {
+public class GTCXItemToolWrench extends ItemToolWrench implements IGTColorItem, IGTWrench, IToolHammer {
 
     GTMaterial material;
     float efficiency;

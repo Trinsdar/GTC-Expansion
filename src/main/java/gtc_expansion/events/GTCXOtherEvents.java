@@ -2,7 +2,7 @@ package gtc_expansion.events;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXItems;
-import gtc_expansion.interfaces.IGTOverlayWrench;
+import gtc_expansion.interfaces.IGTWrench;
 import gtc_expansion.interfaces.IGTScrewdriver;
 import gtc_expansion.interfaces.IGTTextureStorageTile;
 import gtc_expansion.item.GTCXItemCover;
@@ -130,7 +130,7 @@ public class GTCXOtherEvents {
 
     @SubscribeEvent
     public void onEvent(LivingEntityUseItemEvent event) {
-        if (event.getItem().getItem() instanceof IGTOverlayWrench) event.setCanceled(true);
+        if (event.getItem().getItem() instanceof IGTWrench) event.setCanceled(true);
     }
 
 
@@ -144,19 +144,19 @@ public class GTCXOtherEvents {
             if (lookingAt != null){
                 TileEntity tile = event.getWorld().getTileEntity(lookingAt.getBlockPos());
                 if (tile instanceof GTCXTileBasePipe) {
-                    if (held.getItem() instanceof IGTOverlayWrench && !player.isSneaking()) {
-                        if (((IGTOverlayWrench) held.getItem()).canBeUsed(held)) {
+                    if (held.getItem() instanceof IGTWrench && !player.isSneaking()) {
+                        if (((IGTWrench) held.getItem()).canBeUsed(held)) {
                             if (event.isCancelable()) event.setCanceled(true);
                             if (GTCXWrenchUtils.wrenchUse(lookingAt, (GTCXTileBasePipe)tile, player, event.getWorld(), false) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
                                 GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
-                                ((IGTOverlayWrench) held.getItem()).damage(held, player);
+                                ((IGTWrench) held.getItem()).damage(held, player);
                             }
                         }
                     } else if (held.getItem() instanceof IGTScrewdriver){
                         GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
                         EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
                         if (sideToggled != null && pipe.anchors.contains(sideToggled)){
-                            if (((IGTScrewdriver)held.getItem()).canBeUsed(held)){
+                            if (((IGTScrewdriver)held.getItem()).canScrewdriverBeUsed(held)){
                                 if (event.isCancelable()) event.setCanceled(true);
                                 if (!GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
                                     GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
@@ -170,12 +170,12 @@ public class GTCXOtherEvents {
                                 }
                             }
                         }
-                    } else if (offHeld.getItem() instanceof IGTOverlayWrench && !player.isSneaking()) {
-                        if (((IGTOverlayWrench) offHeld.getItem()).canBeUsed(offHeld)) {
+                    } else if (offHeld.getItem() instanceof IGTWrench && !player.isSneaking()) {
+                        if (((IGTWrench) offHeld.getItem()).canBeUsed(offHeld)) {
                             if (event.isCancelable()) event.setCanceled(true);
                             if (GTCXWrenchUtils.wrenchUse(lookingAt, (GTCXTileBasePipe)tile, player, event.getWorld(), true) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
                                 GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
-                                ((IGTOverlayWrench) offHeld.getItem()).damage(offHeld, player);
+                                ((IGTWrench) offHeld.getItem()).damage(offHeld, player);
                             }
                         }
                     }
@@ -196,11 +196,11 @@ public class GTCXOtherEvents {
                 if (tile instanceof GTCXTileBasePipe) {
                     ItemStack stack = player.getHeldItemMainhand();
                     ItemStack offHeld = player.getHeldItemOffhand();
-                    if (stack.getItem() instanceof IGTOverlayWrench) {
+                    if (stack.getItem() instanceof IGTWrench) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
                     }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof IGTScrewdriver || stack.getItem() instanceof GTCXItemCover || FluidUtil.getFluidContained(stack) != null || stack.getItem() == GTCXItems.dataOrbStorage) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).anchors);
-                    } else if (offHeld.getItem() instanceof IGTOverlayWrench) {
+                    } else if (offHeld.getItem() instanceof IGTWrench) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
                     }
                 }

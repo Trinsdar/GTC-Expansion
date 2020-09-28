@@ -43,12 +43,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import static gtclassic.api.recipe.GTRecipeCraftingHandler.combineRecipeObjects;
 
 public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/assemblingmachine.png");
@@ -152,7 +155,8 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe("plateElectrum", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.advancedCircuitBoard));
         addRecipe("plateElectrum", 4, "plateSilicon", 1, 12800, GTMaterialGen.get(GTCXItems.advancedCircuitBoard, 2));
         addRecipe("plateAluminium", 2, Ic2Items.electricCircuit, 12800, GTMaterialGen.get(GTCXItems.machineParts, 3));
-        addRecipe(GTCXValues.MATERIAL_MACHINE, input(Ic2Items.pump), 12800, GTMaterialGen.get(GTCXItems.pumpModule));
+        IRecipeInput pump = Loader.isModLoaded("buildcraftfactory") ? combineRecipeObjects(Ic2Items.pump.copy(), GTMaterialGen.getModBlock("buildcraftfactory", "pump")) : input(Ic2Items.pump.copy());
+        addRecipe(GTCXValues.MATERIAL_MACHINE, pump, 12800, GTMaterialGen.get(GTCXItems.pumpModule));
         if (GTCXConfiguration.general.harderCircuits){
             addRecipe(GTRecipeCraftingHandler.combineRecipeObjects("plateSteel", "plateAluminium", "plateSilver"), input("plateRedAlloy", 2), 800, GTMaterialGen.get(GTCXItems.basicCircuitBoard));
         }

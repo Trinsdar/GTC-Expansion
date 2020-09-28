@@ -26,7 +26,7 @@ public class GTCXItemElectricScrewdriver extends GTCXItemMisc implements IBoxabl
     }
 
     @Override
-    public boolean canBeUsed(ItemStack stack) {
+    public boolean canScrewdriverBeUsed(ItemStack stack) {
         return ElectricItem.manager.canUse(stack, 100);
     }
 
