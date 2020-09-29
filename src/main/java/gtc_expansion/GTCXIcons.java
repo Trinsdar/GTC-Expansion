@@ -154,7 +154,7 @@ public class GTCXIcons {
     		for (int x = 0; x < subArray.length; x++) {
     			String string = subArray[x];
     			String active = steam + "_turbine_front_active_" + string;
-    			addCustomTexture(active, 3 + x, 8 + y + yOffset, location(active));
+    			addCustomTexture(GTCExpansion.MODID + "_tiles", 3 + x, 8 + y + yOffset, location(active));
     			
     		}
     		
