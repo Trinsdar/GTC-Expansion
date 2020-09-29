@@ -28,72 +28,74 @@ public class GTCXIcons {
         makeSprite("materials", 16, 4);
         makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
+        makeSprite("tiles", 16, 16);
         collectBasicTileSprites();
         collectBasicBronzeTileSprites();
         collectCoverSprites();
         collectTurbineSprites(true);
         collectTurbineSprites(false);
         if (GTConfig.general.animatedTextures){
-            addCustomTexture("industrial_front_active", 0, 0, location("bf_front"));
-            addCustomTexture("diesel_generator_top_active", 0, 0, location("diesel_generator_top"));
-            addCustomTexture("gas_turbine_top_active", 0, 0, location("gas_turbine_top"));
+            addCustomTexture(GTCExpansion.MODID + "_tiles", 0, 2, location("bf_front"));
+            addCustomTexture(GTCExpansion.MODID + "_tiles", 12, 0, location("diesel_generator_top"));
+            addCustomTexture(GTCExpansion.MODID + "_tiles", 11, 1, location("gas_turbine_top"));
+            addCustomTexture(GTCExpansion.MODID + "_tiles", 5, 1, location("fluid_caster_front_active"));
         }
         if (GTConfig.general.debugMode){
             GTCExpansion.logger.info("All GregTech Classic Expansion textures generated without error");
         }
-        setTexture(GTCXBlocks.advancedWorktable, s("advanced_worktable_bottom"), s("advanced_worktable_top"), s("advanced_worktable_side"), s("advanced_worktable_side"), s("advanced_worktable_side"), s("advanced_worktable_side"), s("advanced_worktable_bottom"), s("advanced_worktable_top_active"), s("advanced_worktable_side"), s("advanced_worktable_side"), s("advanced_worktable_side"), s("advanced_worktable_side"));
-        GTCXIconInfo t1 = s("alloy_furnace_side");
-        setTexture(GTCXBlocks.alloyFurnace, t1, t1, t1, s("alloy_furnace_front"), t1, t1, t1, t1, t1, s("alloy_furnace_front_active"), t1, t1);
-        t1 = s("machine_back");
-        setTexture(GTCXBlocks.alloySmelter, s(0), s(1), t1, s("alloy_smelter_front"), s(2), s(2), s(0), s(1), t1, s("alloy_smelter_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.fluidSmelter, s(0), s(1), t1, s("fluid_smelter_front"), s(2), s(2), s(0), s(1), t1, s("fluid_smelter_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.fluidCaster, s(0), s(1), t1, s("fluid_caster_front"), s(2), s(2), s(0), s(1), t1, s("fluid_caster_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.assemblingMachine, s(0), s("assembling_machine_top"), t1, s(22), s(2), s(2), s(0), s("assembling_machine_top"), t1, s(23), s(2), s(2));
-        setTexture(GTCXBlocks.chemicalReactor, s(0), s(1), s("chemical_reactor_side"), s("chemical_reactor_side"), s("chemical_reactor_side"), s("chemical_reactor_side"), s(0), s(1), s("chemical_reactor_side_active"), s("chemical_reactor_side_active"), s("chemical_reactor_side_active"), s("chemical_reactor_side_active"));
-        setTexture(GTCXBlocks.dieselGenerator, s(0), s("diesel_generator_top"), t1, t1, t1, t1, s(0), s("diesel_generator_top_active"), t1, t1, t1, t1);
-        t1 = s("distillation_tower_side");
-        GTCXIconInfo iS = s("industrial_side"), iF = s("industrial_front"), iFA = s("industrial_front_active");
+        setTexture(GTCXBlocks.advancedWorktable, s(0,0), s(2, 0), s(1,0), s(1,0), s(1,0), s(1,0), s(0,0), s(3,0), s(1,0), s(1,0), s(1,0), s(1,0));
+        GTCXIconInfo t1 = s(9,5);
+        setTexture(GTCXBlocks.alloyFurnace, t1, t1, t1, s(7,5), t1, t1, t1, t1, t1, s(8,5), t1, t1);
+        t1 = s(98);
+        setTexture(GTCXBlocks.alloySmelter, s(0), s(1), t1, s(4,0), s(2), s(2), s(0), s(1), t1, s(5,0), s(2), s(2));
+        setTexture(GTCXBlocks.fluidSmelter, s(0), s(1), t1, s(8,1), s(2), s(2), s(0), s(1), t1, s(9,1), s(2), s(2));
+        setTexture(GTCXBlocks.fluidCaster, s(0), s(1), t1, s(7,1), s(2), s(2), s(0), s(1), t1, s(8,1), s(2), s(2));
+        setTexture(GTCXBlocks.assemblingMachine, s(0), s(6,0), t1, s(22), s(2), s(2), s(0), s(6,0), t1, s(23), s(2), s(2));
+        setTexture(GTCXBlocks.chemicalReactor, s(0), s(1), s(9,0), s(9,0), s(9,0), s(9,0), s(0), s(1), s(10,0), s(10,0), s(10,0), s(10,0));
+        setTexture(GTCXBlocks.dieselGenerator, s(0), s(11,0), t1, t1, t1, t1, s(0), s(12,0), t1, t1, t1, t1);
+        t1 = s(13,0);
+        GTCXIconInfo iS = s(4,2), iF = s(15,1), iFA = s(0,2);
         setTexture(GTCXBlocks.distillationTower, t1, t1, iS, iF, t1, t1, t1, t1, iS, iFA, t1, t1);
-        setTexture(GTCXBlocks.dustBin, s("dustbin_bottom"), s("dustbin_top"), s(2), s("dustbin_front"), s(2), s(2));
-        setTexture(GTCXBlocks.electricLocker, s(0), s(1), s(2), s("electric_locker_front"), s(2), s(2));
-        setTexture(GTCXBlocks.gasTurbine, s(0), s("gas_turbine_top"), s(2), s(2), s(2), s(2), s(0), s("gas_turbine_top_active"), s(2), s(2), s(2), s(2));
-        t1 = s("implosion_compressor_side_1"); GTCXIconInfo t2 = s("implosion_compressor_side_2");
+        setTexture(GTCXBlocks.dustBin, s(14,0), s(0,1), s(2), s(15,0), s(2), s(2));
+        setTexture(GTCXBlocks.electricLocker, s(0), s(1), s(2), s(1,1), s(2), s(2));
+        setTexture(GTCXBlocks.gasTurbine, s(0), s(10,1), s(2), s(2), s(2), s(2), s(0), s(11,1), s(2), s(2), s(2), s(2));
+        t1 = s(12,1); GTCXIconInfo t2 = s(13,1);
         setTexture(GTCXBlocks.implosionCompressor, iS, iF, t1, t1, t2, t2, iS, iFA, t1, t1, t2, t2);
-        t1 = s("industrial_blast_furnace_side");
+        t1 = s(14,1);
         setTexture(GTCXBlocks.industrialBlastFurnace, t1, t1, iS, iF, t1, t1, t1, t1, iS, iFA, t1, t1);
-        setTexture(GTCXBlocks.electrolyzer, s(0), s(1), s("electrolyzer_side"), s("electrolyzer_side"), s("electrolyzer_side"), s("electrolyzer_side"), s(0), s(1), s("electrolyzer_side_active"), s("electrolyzer_side_active"), s("electrolyzer_side_active"), s("electrolyzer_side_active"));
-        t1 = s("industrial_grinder_side");
+        setTexture(GTCXBlocks.electrolyzer, s(0), s(1), s(2,1), s(2,1), s(2,1), s(2,1), s(0), s(1), s(3,1), s(3,1), s(3,1), s(3,1));
+        t1 = s(1,2);
         setTexture(GTCXBlocks.industrialGrinder, t1, t1, iS, iF, t1, t1, t1, t1, iS, iFA, t1, t1);
-        t1 = s("machine_back");
-        setTexture(GTCXBlocks.lathe, s(0), s(1), t1, s("lathe_front"), s(2), s(2), s(0), s(1), t1, s("lathe_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.locker, s(0), s(1), s(2), s("locker_front"), s(2), s(2));
-        setTexture(GTCXBlocks.microwave, s(0), s(1), t1, s("microwave_front"), s(2), s(2), s(0), s(1), t1, s("microwave_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.plateBender, s(0), s(1), t1, s("plate_bender_front"), s(2), s(2), s(0), s(1), t1, s("plate_bender_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.plateCutter, s(0), s(1), t1, s("plate_cutter_front"), s(2), s(2), s(0), s(1), t1, s("plate_cutter_front_active"), s(2), s(2));
+        t1 = s(98);
+        setTexture(GTCXBlocks.lathe, s(0), s(1), t1, s(5,2), s(2), s(2), s(0), s(1), t1, s(6,2), s(2), s(2));
+        setTexture(GTCXBlocks.locker, s(0), s(1), s(2), s(7,2), s(2), s(2));
+        setTexture(GTCXBlocks.microwave, s(0), s(1), t1, s(12,2), s(2), s(2), s(0), s(1), t1, s(13,2), s(2), s(2));
+        setTexture(GTCXBlocks.plateBender, s(0), s(1), t1, s(14,2), s(2), s(2), s(0), s(1), t1, s(15,2), s(2), s(2));
+        setTexture(GTCXBlocks.plateCutter, s(0), s(1), t1, s(0,3), s(2), s(2), s(0), s(1), t1, s(1,3), s(2), s(2));
         t2 = s(GTCExpansion.MODID + "_blocks", 1);
-        setTexture(GTCXBlocks.primitiveBlastFurnace, t2, t2, t2, s("primitive_blast_furnace_front"), t2, t2, t2, t2, t2, s("primitive_blast_furnace_front_active"), t2, t2);
+        setTexture(GTCXBlocks.primitiveBlastFurnace, t2, t2, t2, s(12,5), t2, t2, t2, t2, t2, s(13,5), t2, t2);
         t2 = s("vacuum_freezer_side");
-        setTexture(GTCXBlocks.stoneCompressor, s("bmach_lv", 15), s("stone_compressor_top"), s("bmach_lv", 47), s("stone_compressor_front"), s("bmach_lv", 47), s("bmach_lv", 47), s("bmach_lv", 15), s("stone_compressor_top"), s("bmach_lv", 47), s("stone_compressor_front_active"), s("bmach_lv", 47), s("bmach_lv", 47));
-        setTexture(GTCXBlocks.stoneExtractor, s("bmach_lv", 15), s("stone_compressor_top"), s("stone_extractor_side"), s("stone_extractor_front"), s("stone_extractor_side"), s("stone_extractor_side"), s("bmach_lv", 15), s("stone_compressor_top"), s("stone_extractor_side_active"), s("stone_extractor_front_active"), s("stone_extractor_side_active"), s("stone_extractor_side_active"));
+        setTexture(GTCXBlocks.stoneCompressor, s("bmach_lv", 15), s(2,5), s("bmach_lv", 47), s(0,5), s("bmach_lv", 47), s("bmach_lv", 47), s("bmach_lv", 15), s(2,5), s("bmach_lv", 47), s(1,5), s("bmach_lv", 47), s("bmach_lv", 47));
+        setTexture(GTCXBlocks.stoneExtractor, s("bmach_lv", 15), s(2,5), s(5,5), s(3,5), s(5,5), s(5,5), s("bmach_lv", 15), s(2,5), s(6,5), s(4,5), s(6,5), s(6,5));
         setTexture(GTCXBlocks.vacuumFreezer, iS, iF, t2, t2, t2, t2, iS, iFA, t2, t2, t2, t2);
-        setTexture(GTCXBlocks.wiremill, s(0), s("wiremill_top"), t1, s(22), s(2), s(2), s(0), s("wiremill_top_active"), t1, s(23), s(2), s(2));
+        setTexture(GTCXBlocks.wiremill, s(0), s(6,3), t1, s(22), s(2), s(2), s(0), s(7,3), t1, s(23), s(2), s(2));
         setTexture(GTCXBlocks.fusionMaterialInjector, s(42), s(42), s(42), s(39), s(42), s(42));
         setTexture(GTCXBlocks.fusionEnergyInjector, s(42), s(42), s(42), s(42), s(42), s(42));
         setTexture(GTCXBlocks.fusionMaterialExtractor, s(39), s(39), s(39), s(42), s(39), s(39));
         setTexture(GTCXBlocks.fusionEnergyExtractor, s(39), s(39), s(39), s(41), s(39), s(39));
-        setTexture(GTCXBlocks.thermalBoiler, s(0), s(1), s(2), s("thermal_boiler_front"), s(2), s(2), s(0), s(1), s(2), s("thermal_boiler_front_active"), s(2), s(2));
-        setTexture(GTCXBlocks.largeSteamTurbine, s(0), s(1), s(2), s("steam_turbine_front_center"), s(2), s(2), s(0), s(1), s(2), s("steam_turbine_front_active_center"), s(2), s(2));
-        setTexture(GTCXBlocks.largeGasTurbine, s(0), s(1), s(2), s("gas_turbine_front_center"), s(2), s(2), s(0), s(1), s(2), s("gas_turbine_front_active_center"), s(2), s(2));
+        setTexture(GTCXBlocks.thermalBoiler, s(0), s(1), s(2), s(2,3), s(2), s(2), s(0), s(1), s(2), s(3,3), s(2), s(2));
+        setTexture(GTCXBlocks.largeSteamTurbine, s(0), s(1), s(2), s(1,12), s(2), s(2), s(0), s(1), s(2), s(4,12), s(2), s(2));
+        setTexture(GTCXBlocks.largeGasTurbine, s(0), s(1), s(2), s(1,9), s(2), s(2), s(0), s(1), s(2), s(4,9), s(2), s(2));
         setTexture(GTCXBlocks.fusionComputer, s(42), s(42), s(42), s(47), s(42), s(42), s(43), s(43), s(43), s(47), s(43), s(43));
-        setTexture(GTCXBlocks.trashBin, s(0), s(97), s("trash_bin_side"), s("trash_bin_side"), s("trash_bin_side"), s("trash_bin_side"));
-        setTexture(GTCXBlocks.extruder, s(0), s(21), s("machine_back"), s("extruder_front"), s("machine_side_gauge"), s("machine_side_gauge"), s(0), s(22), s("machine_back"), s("extruder_front_active2"), s("machine_side_gauge_red"), s("machine_side_gauge_red"));
-        setTexture(GTCXBlocks.industrialSawmill, s("industrial_side"), s("industrial_front"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_1"), s("industrial_sawmill_side_1"), s("industrial_side"), s("industrial_front_active"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_2"), s("industrial_sawmill_side_1"), s("industrial_sawmill_side_1"));
+        setTexture(GTCXBlocks.trashBin, s(0), s(97), s(4,3), s(4,3), s(4,3), s(4,3));
+        setTexture(GTCXBlocks.extruder, s(0), s(21), s(98), s(4,1), s(9,2), s(9,2), s(0), s(22), s(98), s(5,1), s(11,2), s(11,2));
+        setTexture(GTCXBlocks.industrialSawmill, s(4,2), s(15,1), s(3,2), s(3,2), s(2,2), s(2,2), s(4,2), s(0,2), s(3,2), s(3,2), s(2,2), s(2,2));
         setTexture(GTCXBlocks.centrifuge, s(0), s(10), s(12), s(12), s(12), s(12), s(0), s(11), s(13), s(13), s(13), s(13));
-        setTexture(GTCXBlocks.bath, s(0), s(1), s("machine_back"), s( "bath_front"), s("machine_side_gauge"), s("machine_side_gauge"), s(0), s(1), s("machine_back"), s( "bath_front_active"), s("machine_side_gauge_green"), s("machine_side_gauge_green"));
+        setTexture(GTCXBlocks.bath, s(0), s(1), s(98), s(7,0), s(9,2), s(9,2), s(0), s(1), s(98), s(8,0), s(10,2), s(10,2));
         setTexture(GTCXBlocks.digitalTank, s(96), s(97), s(98), s(64), s(98), s(98));
         t2 = s(GTCExpansion.MODID + "_blocks", 1);
-        setTexture(GTCXBlocks.cokeOven, t2, t2, t2, s("coke_oven_front"), t2, t2, t2, t2, t2, s("coke_oven_front_active"), t2, t2);
-        setTexture(GTCXBlocks.steamCompressor, s("bronze_bottom"), s("bronze_compressor_top"), s("bronze_side_pipe"), s("bronze_compressor_front"), s("bronze_side"), s("bronze_side"), s("bronze_bottom"), s("bronze_compressor_top"), s("bronze_side_pipe"), s("bronze_compressor_front_active"), s("bronze_side"), s("bronze_side"));
+        setTexture(GTCXBlocks.cokeOven, t2, t2, t2, s(10,5), t2, t2, t2, t2, t2, s(11,5), t2, t2);
+        setTexture(GTCXBlocks.steamCompressor, s(7,6), s(12,6), s(9,7), s(10,6), s(8,7), s(8,7), s(7,6), s(12,6), s(9,7), s(11,6), s(8,7), s(8,7));
     }
 
     private static ResourceLocation location(String name) {
@@ -220,6 +222,10 @@ public class GTCXIcons {
 
     public static GTCXIconInfo s(int spriteId){
         return new GTCXIconInfo(spriteId);
+    }
+
+    public static GTCXIconInfo s(int x, int y){
+        return new GTCXIconInfo(GTCExpansion.MODID + "_tiles", x + (16 * y));
     }
 
     public static GTCXIconInfo s(String spriteName, int spriteId){
