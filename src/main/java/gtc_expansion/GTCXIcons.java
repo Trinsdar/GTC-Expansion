@@ -146,22 +146,19 @@ public class GTCXIcons {
     }
 
     public static void collectTurbineSprites(boolean isSteam){
-        String[] positions = {"bottom", "bottom_left", "bottom_right", "left", "center", "right", "top", "top_left", "top_right"};
-        String steam = isSteam ? "steam" : "gas";
-        for (String string : positions){
-            String active = steam + "_turbine_front_active_" + string;
-            String nonActive = steam + "_turbine_front_" + string;
-            if (GTConfig.general.debugMode){
-                GTCExpansion.logger.info("Attempting to get sprite data for: " + active);
-                GTCExpansion.logger.info("Attempting to get sprite data for: " + nonActive);
-
-            }
-            Ic2Icons.addSprite(new Sprites.SpriteData(nonActive, "gtc_expansion:textures/sprites/tiles/" + steam + "_turbine/" + nonActive + ".png", new Sprites.SpriteInfo(1, 1)));
-            Ic2Icons.addTextureEntry(new Sprites.TextureEntry(nonActive, 0, 0, 1, 1));
-            Ic2Icons.addSprite(new Sprites.SpriteData(active, "gtc_expansion:textures/sprites/tiles/" + steam + "_turbine/" + active + ".png", new Sprites.SpriteInfo(1, 1)));
-            Ic2Icons.addTextureEntry(new Sprites.TextureEntry(active, 0, 0, 1, 1));
-            addCustomTexture(active, 0, 0, location(active));
-        }
+    	String[][] array = {{"top_left", "top", "top_right"}, {"left", "center", "right"}, {"bottom_left", "bottom", "bottom_right"}};
+    	int yOffset = isSteam ? 3 : 0;
+    	String steam = isSteam ? "steam" : "gas";
+    	for (int y = 0; y < array.length; y++) {
+    		String[] subArray = array[y];
+    		for (int x = 0; x < subArray.length; x++) {
+    			String string = subArray[x];
+    			String active = steam + "_turbine_front_active_" + string;
+    			addCustomTexture(active, 3 + x, 8 + y + yOffset, location(active));
+    			
+    		}
+    		
+    	}
     }
 
     /**
