@@ -681,9 +681,10 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
                     }
                     outputHatch = (GTCXTileOutputHatch) tile;
                     outputHatch.setOwner(this);
-                    hasOutput = true;
+
                 }
             }
+            outputs++;
             return true;
         }
         return world.getBlockState(pos.asBlockPos()) == standardCasingState;

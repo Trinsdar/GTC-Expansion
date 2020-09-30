@@ -829,9 +829,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
                     }
                     outputHatch = (GTCXTileOutputHatch) tile;
                     outputHatch.setOwner(this);
-                    hasOutput = true;
                 }
             }
+            outputs++;
             return true;
         }
         return world.getBlockState(pos.asBlockPos()) == reinforcedCasingState;
