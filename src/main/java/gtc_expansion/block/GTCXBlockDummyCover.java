@@ -1,6 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXIcons;
 import gtc_expansion.data.GTCXItems;
 import ic2.core.block.base.BlockMultiID;
 import ic2.core.block.base.tile.TileEntityBlock;
@@ -75,7 +76,7 @@ public class GTCXBlockDummyCover extends BlockMultiID {
 
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, int meta, int extraMeta, EnumFacing side) {
-        return Ic2Icons.getTextures("cover" + getCoverTexture(meta))[0];
+        return GTCXIcons.s(meta, 14).getSprite();
     }
 
     public String getCoverTexture(int meta){

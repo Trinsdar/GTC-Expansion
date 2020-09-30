@@ -1,6 +1,7 @@
 package gtc_expansion.block;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXIcons;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.interfaces.IGTCasingBackgroundBlock;
 import gtc_expansion.model.GTCXModelHatch;
@@ -52,7 +53,7 @@ public class GTCXBlockHatch  extends GTCXBlockTile implements ICustomModeledBloc
     @Override
     public TextureAtlasSprite getTextureFromState(IBlockState state, EnumFacing side) {
         if (side == state.getValue(allFacings)){
-            return this == GTCXBlocks.dynamoHatch ? Ic2Icons.getTextures("dynamo_hatch_front_overlay")[0] : this == GTCXBlocks.inputHatch ? Ic2Icons.getTextures("input_hatch_front_overlay")[0] : this == GTCXBlocks.machineControlHatch ? Ic2Icons.getTextures("machine_control_hatch_overlay")[0] : Ic2Icons.getTextures("output_hatch_front_overlay")[0];
+            return this == GTCXBlocks.dynamoHatch ? GTCXIcons.s(8, 3).getSprite() : this == GTCXBlocks.inputHatch ? GTCXIcons.s(9, 3).getSprite() : this == GTCXBlocks.machineControlHatch ? GTCXIcons.s(8, 2).getSprite() : GTCXIcons.s(10, 3).getSprite();
         }
         return Ic2Icons.getTextures(GTCExpansion.MODID + "_blocks")[26];
     }

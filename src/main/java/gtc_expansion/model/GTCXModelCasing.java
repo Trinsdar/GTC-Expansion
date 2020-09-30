@@ -1,6 +1,7 @@
 package gtc_expansion.model;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.GTCXIcons;
 import gtc_expansion.block.GTCXBlockCasing;
 import gtclassic.api.interfaces.IGTColorBlock;
 import ic2.core.RotationList;
@@ -77,24 +78,42 @@ public class GTCXModelCasing extends BaseModel {
     }
 
     public TextureAtlasSprite getTextureFromRotor(boolean active, int rotor){
-        String activeTexture = active ? "active_" : "";
-        String steam = this.index == 0 ? "steam" : "gas";
-        String location = getLocation(rotor);
-        String finals = steam + "_turbine_front_" + activeTexture + location;
-        return Ic2Icons.getTextures(finals)[0];
+        int xOffset = active ? 3 : 0;
+        int yOffset = this.index == 0 ? 3 : 0;
+        return GTCXIcons.s(getX(rotor) + xOffset, 8 + yOffset + getY(rotor)).getSprite();
     }
 
-    public String getLocation(int rotor){
+    public int getX(int rotor){
         switch (rotor){
-            case 1: return  "top_left";
-            case 2: return  "top";
-            case 3: return  "top_right";
-            case 4: return  "left";
-            case 5: return  "right";
-            case 6: return  "bottom_left";
-            case 7: return  "bottom";
-            case 8: return  "bottom_right";
-            default: return "";
+            case 1:
+            case 6:
+            case 4:
+                return  0;
+            case 2:
+            case 7:
+                return  1;
+            case 3:
+            case 8:
+            case 5:
+                return  2;
+            default: return -1;
+        }
+    }
+
+    public int getY(int rotor){
+        switch (rotor){
+            case 1:
+            case 3:
+            case 2:
+                return  0;
+            case 4:
+            case 5:
+                return  1;
+            case 6:
+            case 8:
+            case 7:
+                return  2;
+            default: return -1;
         }
     }
 

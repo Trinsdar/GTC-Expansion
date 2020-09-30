@@ -29,16 +29,16 @@ public class GTCXIcons {
         makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
         makeSprite("tiles", 16, 16);
-        collectBasicTileSprites();
-        collectBasicBronzeTileSprites();
-        collectCoverSprites();
-        collectTurbineSprites(true);
-        collectTurbineSprites(false);
+        //collectBasicTileSprites();
+        //collectBasicBronzeTileSprites();
+        //collectCoverSprites();
         if (GTConfig.general.animatedTextures){
             addCustomTexture(GTCExpansion.MODID + "_tiles", 0, 2, location("bf_front"));
             addCustomTexture(GTCExpansion.MODID + "_tiles", 12, 0, location("diesel_generator_top"));
             addCustomTexture(GTCExpansion.MODID + "_tiles", 11, 1, location("gas_turbine_top"));
             addCustomTexture(GTCExpansion.MODID + "_tiles", 5, 1, location("fluid_caster_front_active"));
+            collectTurbineSprites(true);
+            collectTurbineSprites(false);
         }
         if (GTConfig.general.debugMode){
             GTCExpansion.logger.info("All GregTech Classic Expansion textures generated without error");
@@ -74,7 +74,7 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.plateCutter, s(0), s(1), t1, s(0,3), s(2), s(2), s(0), s(1), t1, s(1,3), s(2), s(2));
         t2 = s(GTCExpansion.MODID + "_blocks", 1);
         setTexture(GTCXBlocks.primitiveBlastFurnace, t2, t2, t2, s(12,5), t2, t2, t2, t2, t2, s(13,5), t2, t2);
-        t2 = s("vacuum_freezer_side");
+        t2 = s(5,3);
         setTexture(GTCXBlocks.stoneCompressor, s("bmach_lv", 15), s(2,5), s("bmach_lv", 47), s(0,5), s("bmach_lv", 47), s("bmach_lv", 47), s("bmach_lv", 15), s(2,5), s("bmach_lv", 47), s(1,5), s("bmach_lv", 47), s("bmach_lv", 47));
         setTexture(GTCXBlocks.stoneExtractor, s("bmach_lv", 15), s(2,5), s(5,5), s(3,5), s(5,5), s(5,5), s("bmach_lv", 15), s(2,5), s(6,5), s(4,5), s(6,5), s(6,5));
         setTexture(GTCXBlocks.vacuumFreezer, iS, iF, t2, t2, t2, t2, iS, iFA, t2, t2, t2, t2);
