@@ -36,7 +36,7 @@ public class GTCXIcons {
             addCustomTexture(GTCExpansion.MODID + "_tiles", 0, 2, location("bf_front"));
             addCustomTexture(GTCExpansion.MODID + "_tiles", 12, 0, location("diesel_generator_top"));
             addCustomTexture(GTCExpansion.MODID + "_tiles", 11, 1, location("gas_turbine_top"));
-            addCustomTexture(GTCExpansion.MODID + "_tiles", 5, 1, location("fluid_caster_front_active"));
+            addCustomTexture(GTCExpansion.MODID + "_tiles", 7, 1, location("fluid_caster_front_active"));
             collectTurbineSprites(true);
             collectTurbineSprites(false);
         }
@@ -49,7 +49,7 @@ public class GTCXIcons {
         t1 = s(98);
         setTexture(GTCXBlocks.alloySmelter, s(0), s(1), t1, s(4,0), s(2), s(2), s(0), s(1), t1, s(5,0), s(2), s(2));
         setTexture(GTCXBlocks.fluidSmelter, s(0), s(1), t1, s(8,1), s(2), s(2), s(0), s(1), t1, s(9,1), s(2), s(2));
-        setTexture(GTCXBlocks.fluidCaster, s(0), s(1), t1, s(7,1), s(2), s(2), s(0), s(1), t1, s(8,1), s(2), s(2));
+        setTexture(GTCXBlocks.fluidCaster, s(0), s(1), t1, s(6,1), s(2), s(2), s(0), s(1), t1, s(7,1), s(2), s(2));
         setTexture(GTCXBlocks.assemblingMachine, s(0), s(6,0), t1, s(22), s(2), s(2), s(0), s(6,0), t1, s(23), s(2), s(2));
         setTexture(GTCXBlocks.chemicalReactor, s(0), s(1), s(9,0), s(9,0), s(9,0), s(9,0), s(0), s(1), s(10,0), s(10,0), s(10,0), s(10,0));
         setTexture(GTCXBlocks.dieselGenerator, s(0), s(11,0), t1, t1, t1, t1, s(0), s(12,0), t1, t1, t1, t1);

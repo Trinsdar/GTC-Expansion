@@ -94,6 +94,7 @@ dependencies {
     compile "curse.maven:gtclassic:3059975"
     compileOnly "curse.maven:railcraft:2687757"
     compileOnly "curse.maven:better-pipes:3050661"
+    compileOnly "curse.maven:twilight-forest:3051450"
     runtime "curse.maven:railcraft:2687757"
     runtime "curse.maven:better-pipes:3050661"
     deobfProvided ("cofh:CoFHCore:${mc_version}-${cofhcore_version}:universal") {
