@@ -144,39 +144,33 @@ public class GTCXOtherEvents {
             if (lookingAt != null){
                 TileEntity tile = event.getWorld().getTileEntity(lookingAt.getBlockPos());
                 if (tile instanceof GTCXTileBasePipe) {
-                    if (held.getItem() instanceof IGTWrench && !player.isSneaking()) {
-                        if (((IGTWrench) held.getItem()).canBeUsed(held)) {
-                            if (event.isCancelable()) event.setCanceled(true);
-                            if (GTCXWrenchUtils.wrenchUse(lookingAt, (GTCXTileBasePipe)tile, player, event.getWorld(), false) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
-                                GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
-                                ((IGTWrench) held.getItem()).damage(held, player);
-                            }
+                    if (held.getItem() instanceof IGTWrench && !player.isSneaking() && ((IGTWrench) held.getItem()).canBeUsed(held)) {
+                        if (event.isCancelable()) event.setCanceled(true);
+                        if (GTCXWrenchUtils.wrenchUse(lookingAt, (GTCXTileBasePipe)tile, player, event.getWorld(), false) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
+                            GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
+                            ((IGTWrench) held.getItem()).damage(held, player);
                         }
-                    } else if (held.getItem() instanceof IGTScrewdriver){
+                    } else if ((held.getItem() instanceof IGTScrewdriver && ((IGTScrewdriver) held.getItem()).canScrewdriverBeUsed(held))){
                         GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
                         EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
                         if (sideToggled != null && pipe.anchors.contains(sideToggled)){
-                            if (((IGTScrewdriver)held.getItem()).canScrewdriverBeUsed(held)){
-                                if (event.isCancelable()) event.setCanceled(true);
-                                if (!GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
-                                    GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
-                                    if (pipe.storage.getCoverLogicMap().get(sideToggled).cycleMode(player)){
-                                        if (!player.isCreative()) {
-                                            ((IGTScrewdriver) held.getItem()).damage(held, player);
-                                        }
-                                        player.swingArm(EnumHand.MAIN_HAND);
-                                        IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
+                            if (event.isCancelable()) event.setCanceled(true);
+                            if (!GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
+                                GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
+                                if (pipe.storage.getCoverLogicMap().get(sideToggled).cycleMode(player)){
+                                    if (!player.isCreative()) {
+                                        ((IGTScrewdriver) held.getItem()).damage(held, player);
                                     }
+                                    player.swingArm(EnumHand.MAIN_HAND);
+                                    IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                                 }
                             }
                         }
-                    } else if (offHeld.getItem() instanceof IGTWrench && !player.isSneaking()) {
-                        if (((IGTWrench) offHeld.getItem()).canBeUsed(offHeld)) {
-                            if (event.isCancelable()) event.setCanceled(true);
-                            if (GTCXWrenchUtils.wrenchUse(lookingAt, (GTCXTileBasePipe)tile, player, event.getWorld(), true) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
-                                GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
-                                ((IGTWrench) offHeld.getItem()).damage(offHeld, player);
-                            }
+                    } else if (offHeld.getItem() instanceof IGTWrench && !player.isSneaking() && ((IGTWrench) offHeld.getItem()).canBeUsed(offHeld)) {
+                        if (event.isCancelable()) event.setCanceled(true);
+                        if (GTCXWrenchUtils.wrenchUse(lookingAt, (GTCXTileBasePipe)tile, player, event.getWorld(), true) && !GTCExpansion.instance.wrenchMap.contains(lookingAt.getBlockPos())){
+                            GTCExpansion.instance.wrenchMap.add(lookingAt.getBlockPos());
+                            ((IGTWrench) offHeld.getItem()).damage(offHeld, player);
                         }
                     }
                 }
@@ -196,11 +190,11 @@ public class GTCXOtherEvents {
                 if (tile instanceof GTCXTileBasePipe) {
                     ItemStack stack = player.getHeldItemMainhand();
                     ItemStack offHeld = player.getHeldItemOffhand();
-                    if (stack.getItem() instanceof IGTWrench) {
+                    if (stack.getItem() instanceof IGTWrench && ((IGTWrench) stack.getItem()).canBeUsed(stack)) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
-                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || stack.getItem() instanceof IGTScrewdriver || stack.getItem() instanceof GTCXItemCover || FluidUtil.getFluidContained(stack) != null || stack.getItem() == GTCXItems.dataOrbStorage) {
+                    }else if (stack.getItem() instanceof GTCXItemToolCrowbar || (stack.getItem() instanceof IGTScrewdriver && ((IGTScrewdriver) stack.getItem()).canScrewdriverBeUsed(stack)) || stack.getItem() instanceof GTCXItemCover || FluidUtil.getFluidContained(stack) != null || stack.getItem() == GTCXItems.dataOrbStorage) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).anchors);
-                    } else if (offHeld.getItem() instanceof IGTWrench) {
+                    } else if (offHeld.getItem() instanceof IGTWrench && ((IGTWrench) offHeld.getItem()).canBeUsed(offHeld)) {
                         GTCXRenderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ((GTCXTileBasePipe)tile).connection);
                     }
                 }
