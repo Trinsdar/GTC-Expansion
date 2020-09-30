@@ -29,9 +29,6 @@ public class GTCXIcons {
         makeSprite("items", 16, 6);
         makeSprite("crops", 7, 1);
         makeSprite("tiles", 16, 16);
-        //collectBasicTileSprites();
-        //collectBasicBronzeTileSprites();
-        //collectCoverSprites();
         if (GTConfig.general.animatedTextures){
             addCustomTexture(GTCExpansion.MODID + "_tiles", 0, 2, location("bf_front"));
             addCustomTexture(GTCExpansion.MODID + "_tiles", 12, 0, location("diesel_generator_top"));

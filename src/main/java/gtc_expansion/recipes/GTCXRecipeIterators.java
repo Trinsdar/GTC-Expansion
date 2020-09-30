@@ -48,6 +48,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static gtc_expansion.recipes.GTCXRecipe.input;
+
 public class GTCXRecipeIterators {
     public static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
     public static final List<String> plateBenderBlacklist = new ArrayList<>();
@@ -201,7 +203,7 @@ public class GTCXRecipeIterators {
     public static void createTurbineBlade(GTMaterial mat) {
         String plate = "plate" + mat.getDisplayName();
         if ((mat.hasFlag(GTCXMaterial.plate) || mat.equals(GTMaterial.Carbon)) && mat.hasFlag(GTCXMaterial.turbineBlade)) {
-            IRecipeInput plateInput = mat.equals(GTMaterial.Carbon) ? GTCXRecipe.input(Ic2Items.carbonPlate) : GTCXRecipe.input(plate);
+            IRecipeInput plateInput = mat.equals(GTMaterial.Carbon) ? input(Ic2Items.carbonPlate) : input(plate);
             recipes.addRecipe(GTMaterialGen.getStack(mat, GTCXMaterial.turbineBlade, 1), " H ", "PPP", " F ", 'H', "craftingToolForgeHammer", 'P', plateInput, 'F', "craftingToolFile");
         }
     }
@@ -357,7 +359,8 @@ public class GTCXRecipeIterators {
             if (GTCXConfiguration.general.enableCraftingTools){
                 recipes.addRecipe(GTCXToolGen.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
             }
-            recipes.addRecipe(GTCXToolGen.getWrench(mat), "I I", "III", " I ", 'I', ingot);
+            IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
+            recipes.addRecipe(GTCXToolGen.getWrench(mat), "IHI", "III", " I ", 'I', plate, 'H', hammer);
             recipes.addRecipe(GTCXToolGen.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
             recipes.addRecipe(GTCXToolGen.getCrowbar(mat), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rod" + mat.getDisplayName());
             recipes.addRecipe(GTCXToolGen.getScrewdriver(mat), "R  ", " R ", "  S", 'R', "rod" + mat.getDisplayName(), 'S', stick);
