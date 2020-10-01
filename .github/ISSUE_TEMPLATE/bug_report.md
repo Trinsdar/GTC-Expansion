@@ -5,7 +5,7 @@ labels:
 
 ---
 
-<!-- Please do not erase all this. If erased you will get 1 warning to remake the issue before I close and ignore it.-->
+<!-- Please do not erase all this unless you can give me the issue in terms I can understand. If you don't I won't be able to fix it.-->
 
 **Description of the Bug**
 <!--A clear and concise description of what the bug is.-->
