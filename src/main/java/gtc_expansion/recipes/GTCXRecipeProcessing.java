@@ -59,6 +59,7 @@ public class GTCXRecipeProcessing {
     }
 
     public static void initIc2Recipes(){
+        ClassicRecipes.earthExtractor.registerValue(5.85f, GTMaterialGen.getDust(GTCXMaterial.Stone, 1));
         TileEntityExtractor.addRecipe("oreDiamond", 1, GTMaterialGen.get(Items.DIAMOND, 2));
         TileEntityExtractor.addRecipe("oreEmerald", 1, GTMaterialGen.get(Items.EMERALD, 2));
         TileEntityExtractor.addRecipe("oreCoal", 1, GTMaterialGen.get(Items.COAL, 2));
