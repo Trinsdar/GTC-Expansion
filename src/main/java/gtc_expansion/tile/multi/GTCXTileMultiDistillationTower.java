@@ -61,6 +61,7 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nullable;
@@ -441,6 +442,9 @@ public class GTCXTileMultiDistillationTower extends GTTileMultiBaseMachine imple
         addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.OilCrude, 8000), 256000, GTMaterialGen.getFluidStack(GTCXMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Naphtha, 4000), GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 2000));
         addRecipe(GTMaterialGen.getFluidStack(GTMaterial.Oil, 8000), 256000, GTMaterialGen.getFluidStack(GTCXMaterial.Diesel, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl, 500), GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Naphtha, 4000), GTMaterialGen.getFluidStack(GTMaterial.Lubricant, 2000));
         addRecipe(GTMaterialGen.getFluidStack(GTCXMaterial.Naphtha, 4000), 64000, new FluidStack[]{GTMaterialGen.getFluidStack(GTCXMaterial.Gasoline, 4000), GTMaterialGen.getFluidStack(GTCXMaterial.Propane, 4000), GTMaterialGen.getFluidStack(GTMaterial.Methane,3500), GTMaterialGen.getFluidStack(GTMaterial.Fuel, 4000)}, GTMaterialGen.getDust(GTMaterial.Carbon, 1));
+        if (Loader.isModLoaded("forestry")){
+            addRecipe(GTMaterialGen.getFluidStack("biomass", 3000), 32000, new FluidStack[]{GTMaterialGen.getFluidStack("bio.ethanol", 1000), GTMaterialGen.getFluidStack("water", 1000)}, Ic2Items.fertilizer.copy());
+        }
     }
 
     public static void addRecipe(FluidStack input, int totalEu, FluidStack[] outputFluid, ItemStack... outputItem){
