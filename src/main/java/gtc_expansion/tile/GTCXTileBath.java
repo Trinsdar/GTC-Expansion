@@ -40,6 +40,7 @@ import ic2.core.util.obj.IClickable;
 import ic2.core.util.obj.ITankListener;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,6 +53,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -134,35 +136,41 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 				fluidExtracted = true;
 				continue;
 			}
-			ItemStack input = inventory.get(1);
-			if (key.matches(input)) {
-				if (input.getCount() >= count) {
+			for (Iterator<ItemStack> inputIter = inputs.iterator(); inputIter.hasNext();) {
+				ItemStack input = inputIter.next();
+				if (key.matches(input)) {
+					if (input.getCount() >= count) {
+						if (input.getItem().hasContainerItem(input)) {
+							if (!shiftContainers) {
+								continue;
+							}
+							ItemStack container = input.getItem().getContainerItem(input);
+							if (!container.isEmpty()) {
+								container.setCount(count);
+								outputs.add(new MultiSlotOutput(container, getOutputSlots()));
+							}
+						}
+						input.shrink(count);
+						count = 0;
+						if (input.isEmpty()) {
+							inputIter.remove();
+						}
+						break;
+					}
 					if (input.getItem().hasContainerItem(input)) {
 						if (!shiftContainers) {
 							continue;
 						}
 						ItemStack container = input.getItem().getContainerItem(input);
 						if (!container.isEmpty()) {
-							container.setCount(count);
+							container.setCount(input.getCount());
 							outputs.add(new MultiSlotOutput(container, getOutputSlots()));
 						}
 					}
-					input.shrink(count);
-					count = 0;
-					continue;
+					count -= input.getCount();
+					input.setCount(0);
+					inputIter.remove();
 				}
-				if (input.getItem().hasContainerItem(input)) {
-					if (!shiftContainers) {
-						continue;
-					}
-					ItemStack container = input.getItem().getContainerItem(input);
-					if (!container.isEmpty()) {
-						container.setCount(input.getCount());
-						outputs.add(new MultiSlotOutput(container, getOutputSlots()));
-					}
-				}
-				count -= input.getCount();
-				input.setCount(0);
 			}
 		}
 		addToInventory();
@@ -385,6 +393,7 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 		addRecipe(GTMaterialGen.get(Items.REEDS), GTMaterialGen.getFluidStack("water", 100), 100, GTMaterialGen.get(Items.PAPER, 1));
 		addRecipe("dustCoal", 1, GTMaterialGen.getFluidStack("water", 125), 12, Ic2Items.hydratedCoalDust.copy());
 		addRecipe("dustCharcoal", 1, GTMaterialGen.getFluidStack("water", 125), 12, Ic2Items.hydratedCharCoalDust.copy());
+		addRecipe(GTMaterialGen.get(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE), GTMaterialGen.getFluidStack(GTMaterial.Chlorine, 125), 12, GTMaterialGen.get(Blocks.WOOL, 1, 0));
 	}
 
 	public static IRecipeModifier[] totalTime(int total) {
@@ -439,6 +448,8 @@ public class GTCXTileBath extends GTTileBasePassiveMachine implements ITankListe
 
 	@Override
 	public boolean onRightClick(EntityPlayer player, EnumHand hand, EnumFacing enumFacing, Side side) {
-		return GTHelperFluid.doClickableFluidContainerThings(player, hand, world, pos, this.tank);
+		boolean fill = GTHelperFluid.doClickableFluidContainerThings(player, hand, world, pos, this.tank);
+		if (fill) this.shouldCheckRecipe = true;
+		return fill;
 	}
 }
