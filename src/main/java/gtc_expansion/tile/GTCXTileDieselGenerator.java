@@ -5,6 +5,7 @@ import gtc_expansion.data.GTCXLang;
 import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseBurnableFluidGenerator;
+import gtclassic.api.fluid.GTFluidHandler;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterial;
@@ -124,15 +125,24 @@ public class GTCXTileDieselGenerator extends GTCXTileBaseBurnableFluidGenerator 
         try {
             Fluid fluid = GTMaterialGen.getFluidStack(fluidName, 1000).getFluid();
             addRecipe(fluid, ticks, euPerTick, fluid.getUnlocalizedName());
+            if (!GTFluidHandler.getBurnableToolTipList().contains(fluidName)) {
+                GTFluidHandler.addBurnableToolTip(fluidName);
+            }
         } catch (Exception ignored){}
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {
         addRecipe(fluid, ticks, euPerTick, fluid.getUnlocalizedName());
+        if (!GTFluidHandler.getBurnableToolTipList().contains(fluid.getName())) {
+            GTFluidHandler.addBurnableToolTip(fluid);
+        }
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick, String recipeId) {
         addRecipe(new RecipeInputFluid(new FluidStack(fluid, 1000)), ticks, euPerTick, recipeId);
+        if (!GTFluidHandler.getBurnableToolTipList().contains(fluid.getName())) {
+            GTFluidHandler.addBurnableToolTip(fluid);
+        }
     }
 
     private static void addRecipe(IRecipeInput input, int ticks, int euPerTick, String recipeID) {

@@ -5,6 +5,7 @@ import gtc_expansion.material.GTCXMaterial;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseBurnableFluidGenerator;
 import gtc_expansion.data.GTCXLang;
+import gtclassic.api.fluid.GTFluidHandler;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -48,6 +49,9 @@ public class GTCXTileGasTurbine extends GTCXTileBaseBurnableFluidGenerator {
         addRecipe(GTMaterialGen.getFluid(GTMaterial.Hydrogen), 940, 16);
         addRecipe(GTMaterialGen.getFluid(GTMaterial.Methane), 2815, 16);
         addRecipe(GTMaterialGen.getFluid(GTCXMaterial.Propane), 2815, 16);
+        GTFluidHandler.addBurnableToolTip(GTMaterialGen.getFluid(GTMaterial.Hydrogen));
+        GTFluidHandler.addBurnableToolTip(GTMaterialGen.getFluid(GTMaterial.Methane));
+        GTFluidHandler.addBurnableToolTip(GTMaterialGen.getFluid(GTCXMaterial.Propane));
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {
