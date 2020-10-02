@@ -160,8 +160,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTItems.lithiumBatpack), "BCB", " A ", 'B', GTCXItems.largeLithiumBattery, 'C', CIRCUIT_ADVANCED, 'A', ALUMINIUM);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.batteryHull), "C", "B", "B", 'C', Ic2Items.copperCable, 'B', "plateBatteryAlloy");
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.largeBatteryHull), "C C", "BBB", "BBB", 'C', Ic2Items.goldCable, 'B', "plateBatteryAlloy");
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.acidBattery), " C ", "LAL", "LAL", 'C', Ic2Items.copperCable, 'L', LEAD, 'A', GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 1));
-        recipes.addRecipe(GTMaterialGen.get(GTCXItems.mercuryBattery), " C ", "LAL", "LAL", 'C', Ic2Items.copperCable, 'L', LEAD, 'A', GTMaterialGen.getTube(GTMaterial.Mercury, 1));
+        recipes.addRecipe(GTCXItems.acidBattery.getFull(), " C ", "LAL", "LAL", 'C', Ic2Items.copperCable, 'L', LEAD, 'A', GTMaterialGen.getTube(GTCXMaterial.SulfuricAcid, 1));
+        recipes.addRecipe(GTCXItems.mercuryBattery.getFull(), " C ", "LAL", "LAL", 'C', Ic2Items.copperCable, 'L', LEAD, 'A', GTMaterialGen.getTube(GTMaterial.Mercury, 1));
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.sodiumBattery), " C ", "LAL", "LAL", 'C', Ic2Items.goldCable, 'L', ALUMINIUM, 'A', GTMaterialGen.getTube(GTMaterial.Sodium, 1));
         if (GTCXConfiguration.general.enableCraftingTools){
             recipes.addRecipe(GTMaterialGen.get(GTCXItems.mold), "HF", "SS", "SS", 'H', "craftingToolForgeHammer", 'F', "craftingToolFile", 'S', STEEL);

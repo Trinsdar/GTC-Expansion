@@ -5,8 +5,11 @@ import gtclassic.GTMod;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IBoxable;
 import ic2.api.item.IElectricItem;
+import ic2.api.item.IElectricItemManager;
+import ic2.api.item.ISpecialElectricItem;
 import ic2.core.IC2;
 import ic2.core.item.base.ItemIC2;
+import ic2.core.item.manager.ElectricItemManager;
 import ic2.core.platform.lang.storage.Ic2InfoLang;
 import ic2.core.platform.registry.Ic2Lang;
 import ic2.core.platform.textures.Ic2Icons;
@@ -17,6 +20,7 @@ import ic2.core.util.obj.ToolTipType;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,11 +35,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, IAdvancedTexturedItem, IBoxable {
+public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, IAdvancedTexturedItem, IBoxable, IElectricItem, ISpecialElectricItem {
     private ModelResourceLocation[] locations;
+    private static IElectricItemManager manager = new CustomManager();
     int maxCharge;
     int tier;
     int id;
@@ -52,7 +58,7 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
 
     @Override
     public List<Integer> getValidVariants() {
-        return new ArrayList();
+        return Arrays.asList(0, 1, 2, 3, 4);
     }
 
     @Override
@@ -77,12 +83,12 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
 
     private float getChargeLeft(ItemStack stack){
         NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
-        return nbt.getFloat("charge");
+        return nbt.getInteger("charge");
     }
 
     private void setChargeLeft(ItemStack stack, int amount){
         NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
-        nbt.setFloat("charge", amount);
+        nbt.setInteger("charge", amount);
     }
 
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
@@ -121,7 +127,7 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
 
             for(int i = 0; i < 9 && left > 0; ++i) {
                 ItemStack otherItem = playerIn.inventory.getStackInSlot(i);
-                if (otherItem.getItem() instanceof IElectricItem) {
+                if (otherItem.getItem() instanceof IElectricItem && !(otherItem.getItem() instanceof GTCXItemBatterySingleUse)) {
                     if (stack.getCount() == 1){
                         setChargeLeft(stack, (int)((double)left - ElectricItem.manager.charge(otherItem, left, tier, true, false)));
                         left = (int)getChargeLeft(stack);
@@ -141,7 +147,7 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
     @Override
     public void onSortedItemToolTip(ItemStack stack, EntityPlayer player, boolean debugTooltip, List<String> tooltip, Map<ToolTipType, List<String>> sortedTooltip) {
         super.onSortedItemToolTip(stack, player, debugTooltip, tooltip, sortedTooltip);
-        tooltip.add((int)getChargeLeft(stack) + "/" + maxCharge + " EU");
+        //tooltip.add((int)getChargeLeft(stack) + "/" + maxCharge + " EU");
         if (getChargeLeft(stack) == 0){
             tooltip.add("Empty. You should recycle it properly.");
         }
@@ -201,5 +207,78 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
     @Override
     public boolean canBeStoredInToolbox(ItemStack itemStack) {
         return true;
+    }
+
+    @Override
+    public IElectricItemManager getManager(ItemStack itemStack) {
+        return manager;
+    }
+
+    @Override
+    public boolean canProvideEnergy(ItemStack itemStack) {
+        return itemStack.getCount() == 1;
+    }
+
+    @Override
+    public double getMaxCharge(ItemStack itemStack) {
+        return this.maxCharge;
+    }
+
+    @Override
+    public int getTier(ItemStack itemStack) {
+        return this.tier;
+    }
+
+    @Override
+    public double getTransferLimit(ItemStack itemStack) {
+        return 100 * this.tier;
+    }
+
+    public static class CustomManager implements IElectricItemManager{
+        @Override
+        public double charge(ItemStack itemStack, double v, int i, boolean b, boolean b1) {
+            return 0;
+        }
+
+        @Override
+        public double discharge(ItemStack itemStack, double v, int i, boolean b, boolean b1, boolean b2) {
+            return ElectricItem.rawManager.discharge(itemStack, v, i, b, b1, b2);
+        }
+
+        @Override
+        public double getCharge(ItemStack itemStack) {
+            NBTTagCompound nbt = StackUtil.getOrCreateNbtData(itemStack);
+            return nbt.getInteger("charge");
+        }
+
+        @Override
+        public double getMaxCharge(ItemStack itemStack) {
+            return ElectricItem.rawManager.getMaxCharge(itemStack);
+        }
+
+        @Override
+        public boolean canUse(ItemStack itemStack, double v) {
+            return ElectricItem.rawManager.canUse(itemStack, v);
+        }
+
+        @Override
+        public boolean use(ItemStack itemStack, double v, EntityLivingBase entityLivingBase) {
+            return ElectricItem.rawManager.use(itemStack, v, entityLivingBase);
+        }
+
+        @Override
+        public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entityLivingBase) {
+
+        }
+
+        @Override
+        public String getToolTip(ItemStack itemStack) {
+            return (int)this.getCharge(itemStack) + "/" + (int)this.getMaxCharge(itemStack) + " EU";
+        }
+
+        @Override
+        public int getTier(ItemStack itemStack) {
+            return ElectricItem.rawManager.getTier(itemStack);
+        }
     }
 }
