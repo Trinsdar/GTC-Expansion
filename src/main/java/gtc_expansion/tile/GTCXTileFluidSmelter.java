@@ -220,6 +220,9 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
                 this.getNetwork().updateTileGuiField(this, "heat");
             }
 
+            if (!this.isActive){
+                this.setActive(true);
+            }
             this.useEnergy(1);
         } else if (this.heat > 0) {
             this.heat -= Math.min(this.heat, 4);
@@ -227,6 +230,9 @@ public class GTCXTileFluidSmelter extends GTTileBaseMachine implements ITankList
                 reachedMaxHeat = false;
             }
             this.getNetwork().updateTileGuiField(this, "heat");
+            if (this.isActive){
+                this.setActive(false);
+            }
         }
         GTUtility.exportFluidFromMachineToSide(this, outputTank, right(), 1000);
     }
