@@ -97,7 +97,7 @@ public class GTCXTileCentrifuge extends GTTileBaseMachine implements ITankListen
 	};
 	@NetworkField(index = 14)
 	private final LayeredFluidTank outputTank = new LayeredFluidTank(96000);
-	public IFilter filter = new MachineFilter(this);
+	public IFilter filter;
 	public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/industrialcentrifuge.png");
 	private static final int EU_TICK = 16;
 	protected static final ItemStack BLOCK_RED_SAND = new ItemStack(Blocks.SAND, 32, 1);
@@ -113,6 +113,7 @@ public class GTCXTileCentrifuge extends GTTileBaseMachine implements ITankListen
 
 	@Override
 	protected void addSlots(InventoryHandler handler) {
+		this.filter = new MachineFilter(this);
 		handler.registerDefaultSideAccess(AccessRule.Both, RotationList.ALL);
 		handler.registerDefaultSlotAccess(AccessRule.Both, SLOT_FUEL);
 		handler.registerDefaultSlotAccess(AccessRule.Import, SLOT_INPUTS);
