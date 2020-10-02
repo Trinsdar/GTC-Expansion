@@ -15,6 +15,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiIndustrialBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiIndustrialGrinder;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
+import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
@@ -29,9 +30,11 @@ import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.item.recipe.entry.RecipeInputCombined;
 import ic2.core.item.recipe.entry.RecipeInputItemStack;
 import ic2.core.platform.registry.Ic2Items;
+import ic2.core.util.misc.StackUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
 
@@ -143,6 +146,16 @@ public class GTCXRecipeMods {
             GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.orewashingplant_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "orewashingplant"), "PPP", "BMB", "cCc", 'P', GTCXValues.MATERIAL_STEELS, 'B', Items.BUCKET, 'M', GTValues.MACHINE_BASIC, 'c', Ic2Items.carbonMesh, 'C', circuit);
             recipeId = GTCXValues.STEEL_MODE ? 47090041 : -929770887;
             GTRecipeCraftingHandler.overrideGTRecipe(GTValues.MOD_ID_IC2_EXTRAS, "shaped_tile.thermalcentrifuge_" + recipeId, GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "thermalcentrifuge"), "CLC", "SAS", "SHS", 'C', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "coil"), 'L', Ic2Items.miningLaser, 'S', GTCXValues.MATERIAL_STEELS, 'A', GTValues.MACHINE_ADV, 'H', GTMaterialGen.getModItem(GTValues.MOD_ID_IC2_EXTRAS, "heatconductor"));
+            ItemStack fullCan = GTMaterialGen.get(GTItems.sprayCan);
+            NBTTagCompound nbt = StackUtil.getNbtData(fullCan);
+            nbt.setInteger("color", 15);
+            GTCXIc2cECompat.addFluidCanningMachineFillingRecipe(input(GTMaterialGen.get(GTItems.sprayCanEmpty)), GTMaterialGen.getFluidStack(GTMaterial.MagicDye, 1000), fullCan);
+            GTCXIc2cECompat.addFluidCanningMachineFillingRecipe(input(GTMaterialGen.get(GTCXItems.batteryHull)), GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid, 2000), GTCXItems.acidBattery.getFull());
+            GTCXIc2cECompat.addFluidCanningMachineFillingRecipe(input(GTMaterialGen.get(GTCXItems.batteryHull)), GTMaterialGen.getFluidStack(GTMaterial.Mercury, 2000), GTCXItems.mercuryBattery.getFull());
+            GTCXIc2cECompat.addFluidCanningMachineFillingRecipe(input(GTMaterialGen.get(GTCXItems.batteryHull)), GTMaterialGen.getFluidStack(GTMaterial.Sodium, 2000), GTMaterialGen.get(GTCXItems.sodiumBattery));
+            GTCXIc2cECompat.addFluidCanningMachineFillingRecipe(input(GTMaterialGen.get(GTCXItems.largeBatteryHull)), GTMaterialGen.getFluidStack(GTCXMaterial.SulfuricAcid, 6000), GTCXItems.largeAcidBattery.getFull());
+            GTCXIc2cECompat.addFluidCanningMachineFillingRecipe(input(GTMaterialGen.get(GTCXItems.largeBatteryHull)), GTMaterialGen.getFluidStack(GTMaterial.Mercury, 6000), GTCXItems.largeMercuryBattery.getFull());
+            GTCXIc2cECompat.addFluidCanningMachineFillingRecipe(input(GTMaterialGen.get(GTCXItems.largeBatteryHull)), GTMaterialGen.getFluidStack(GTMaterial.Sodium, 6000), GTMaterialGen.get(GTCXItems.largeSodiumBattery));
         }
         if (Loader.isModLoaded(GTValues.MOD_ID_THERMAL) && GTConfig.modcompat.compatThermal){
             // Oil sand stuff

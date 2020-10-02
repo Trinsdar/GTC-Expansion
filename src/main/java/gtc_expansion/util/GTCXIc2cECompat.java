@@ -1,10 +1,13 @@
 package gtc_expansion.util;
 
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.item.recipe.entry.RecipeInputOreDict;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 import trinsdar.ic2c_extras.Ic2cExtrasConfig;
 import trinsdar.ic2c_extras.events.RadiationEvent;
 import trinsdar.ic2c_extras.recipes.Ic2cExtrasRecipes;
+import trinsdar.ic2c_extras.tileentity.TileEntityFluidCanningMachine;
 import trinsdar.ic2c_extras.tileentity.TileEntityOreWashingPlant;
 import trinsdar.ic2c_extras.tileentity.TileEntityThermalCentrifuge;
 
@@ -16,6 +19,10 @@ public class GTCXIc2cECompat {
 
     public static void addThermalCentrifugeRecipe(String input, int count, int heat, ItemStack... output){
         TileEntityThermalCentrifuge.addRecipe(new RecipeInputOreDict(input, count), heat, output);
+    }
+
+    public static void addFluidCanningMachineFillingRecipe(IRecipeInput input, FluidStack fluidInput, ItemStack output){
+        TileEntityFluidCanningMachine.addFillingRecipe(input, fluidInput, output);
     }
 
     public static void removeOreWashingRecipe(String input){
