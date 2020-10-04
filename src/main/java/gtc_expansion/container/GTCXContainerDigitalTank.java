@@ -8,7 +8,9 @@ import gtclassic.api.gui.GTGuiCompFluidTank;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.common.GTItems;
+import gtclassic.common.util.GTIFilters;
 import ic2.core.inventory.container.ContainerTileComponent;
+import ic2.core.inventory.filters.ArrayFilter;
 import ic2.core.inventory.filters.IFilter;
 import ic2.core.inventory.gui.GuiIC2;
 import ic2.core.inventory.slots.SlotCustom;
@@ -19,6 +21,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class GTCXContainerDigitalTank extends ContainerTileComponent<GTCXTileDigitalTank> {
 
@@ -26,7 +30,7 @@ public class GTCXContainerDigitalTank extends ContainerTileComponent<GTCXTileDig
 
 	public GTCXContainerDigitalTank(InventoryPlayer player, GTCXTileDigitalTank tile) {
 		super(tile);
-		this.addSlotToContainer(new SlotCustom(tile, 0, 80, 17, new DataOrbBlacklist(false)));
+		this.addSlotToContainer(new SlotCustom(tile, 0, 80, 17, new ArrayFilter(new DataOrbBlacklist(false), new GTIFilters.FluidItemFilter())));
 		this.addSlotToContainer(new SlotOutput(player.player, tile, 1, 80, 53));
 		this.addSlotToContainer(new SlotDisplay(tile, 2, 59, 42));
 		this.addSlotToContainer(new SlotCustom(tile, 3, 61, 64, new DataOrbBlacklist(true)));
