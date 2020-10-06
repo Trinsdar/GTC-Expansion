@@ -32,6 +32,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class GTCXItemBatterySingleUse extends ItemIC2 implements ITexturedItem, 
 
     public ItemStack getEmpty(){
         ItemStack stack = new ItemStack(this, 1, 0);
-        setChargeLeft(stack, 0);
+        ElectricItem.manager.discharge(stack, Integer.MAX_VALUE, 3, true, false, false);
         return stack;
     }
 
