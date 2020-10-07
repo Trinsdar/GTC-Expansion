@@ -195,6 +195,7 @@ public class GTCXTileAssemblingMachine extends GTTileBaseMachine {
         addRecipe(new RecipeInputCombined(2, input(GTCXValues.REFINED_IRON, 2), input(GTCXValues.PRE + "Aluminium", 2), input(GTCXValues.PRE + "Aluminum", 2)), input(GTMaterialGen.get(Items.IRON_DOOR)), 12800, GTMaterialGen.get(GTCXItems.shutter, 2));
         addRecipe(GTCXValues.MATERIAL_MACHINE, input(GTMaterialGen.get(Blocks.LEVER)), 12800, GTMaterialGen.get(GTCXItems.redstoneController));
         addRecipe(GTMaterialGen.get(GTCXItems.shutter), GTValues.CIRCUIT_ADVANCED, 2, 12000, GTMaterialGen.get(GTCXItems.fluidFilter));
+        addRecipe(GTCXValues.PRE + "Iron", 5, "chestWood", 1, 1600, GTMaterialGen.get(Blocks.HOPPER));
     }
 
     public static void addRecipe(String input1, int amount1, int totalEu, ItemStack output) {

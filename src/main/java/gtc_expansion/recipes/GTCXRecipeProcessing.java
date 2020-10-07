@@ -9,6 +9,7 @@ import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.tile.GTCXTileBath;
 import gtc_expansion.tile.GTCXTileCentrifuge;
 import gtc_expansion.tile.GTCXTileMicrowave;
+import gtc_expansion.util.GTCXBatteryInput;
 import gtc_expansion.util.GTCXIc2cECompat;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.helpers.GTValues;
@@ -98,8 +99,8 @@ public class GTCXRecipeProcessing {
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTCXItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Mercury, 6)), GTCXItems.largeMercuryBattery.getFull());
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTCXItems.largeBatteryHull), GTTileBaseMachine.input("dustLithium", 6), GTMaterialGen.get(GTCXItems.largeLithiumBattery));
         ClassicRecipes.canningMachine.registerCannerItem(GTMaterialGen.get(GTCXItems.largeBatteryHull), GTTileBaseMachine.input(GTMaterialGen.getTube(GTMaterial.Sodium, 6)), GTMaterialGen.get(GTCXItems.largeSodiumBattery));
-        TileEntityExtractor.addRecipe(GTCXItems.acidBattery.getEmpty(), GTMaterialGen.get(GTCXItems.batteryHull));
-        TileEntityExtractor.addRecipe(GTCXItems.mercuryBattery.getEmpty(), GTMaterialGen.get(GTCXItems.batteryHull));
+        TileEntityExtractor.addRecipe(new GTCXBatteryInput(GTCXItems.acidBattery.getEmpty()), GTMaterialGen.get(GTCXItems.batteryHull));
+        TileEntityExtractor.addRecipe(new GTCXBatteryInput(GTCXItems.mercuryBattery.getEmpty()), GTMaterialGen.get(GTCXItems.batteryHull));
         TileEntityExtractor.addRecipe(GTCXItems.largeAcidBattery.getEmpty(), GTMaterialGen.get(GTCXItems.largeBatteryHull));
         TileEntityExtractor.addRecipe(GTCXItems.largeMercuryBattery.getEmpty(), GTMaterialGen.get(GTCXItems.largeBatteryHull));
     }
