@@ -4,6 +4,7 @@ import gtc_expansion.events.GTCXOtherEvents;
 import gtc_expansion.events.GTCXRadiationEvent;
 import gtc_expansion.events.GTCXServerTickEvent;
 import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.oneprobe.GTCXOneProbePlugin;
 import gtc_expansion.proxy.GTCXCommonProxy;
 import gtclassic.api.helpers.GTValues;
 import ic2.core.IC2;
@@ -61,6 +62,7 @@ public class GTCExpansion {
 	public synchronized void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 		proxy.preInit(event);
+		GTCXOneProbePlugin.init();
 		Calendar calendar = Calendar.getInstance();
 		aprilFirst = (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1);
 		File directory = event.getModConfigurationDirectory();
