@@ -13,6 +13,7 @@ import gtc_expansion.tile.GTCXTileBrick;
 import gtc_expansion.util.GTCXPassiveMachineFilter;
 import gtc_expansion.util.MultiBlockHelper;
 import gtclassic.api.helpers.GTHelperFluid;
+import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.helpers.int3;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTMultiTileStatus;
@@ -317,8 +318,7 @@ public class GTCXTileMultiCokeOven extends GTTileBasePassiveMachine implements I
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound 
-                                        nbt) {
+    public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.lastState = nbt.getBoolean("lastState");
         this.tank.readFromNBT(nbt.getCompoundTag("tank"));
@@ -330,6 +330,11 @@ public class GTCXTileMultiCokeOven extends GTTileBasePassiveMachine implements I
         nbt.setBoolean("lastState", lastState);
         this.tank.writeToNBT(this.getTag(nbt, "tank"));
         return nbt;
+    }
+
+    @Override
+    public boolean isValidInput(ItemStack par1) {
+        return super.isValidInput(par1) || GTHelperStack.matchOreDict(par1, "logWood");
     }
 
     public static void init(){
