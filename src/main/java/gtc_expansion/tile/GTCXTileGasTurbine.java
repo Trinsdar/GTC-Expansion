@@ -52,6 +52,17 @@ public class GTCXTileGasTurbine extends GTCXTileBaseBurnableFluidGenerator {
         GTFluidHandler.addBurnableToolTip(GTMaterialGen.getFluid(GTMaterial.Hydrogen));
         GTFluidHandler.addBurnableToolTip(GTMaterialGen.getFluid(GTMaterial.Methane));
         GTFluidHandler.addBurnableToolTip(GTMaterialGen.getFluid(GTCXMaterial.Propane));
+        addModFluidRecipe("biogas", 2000, 16);
+    }
+
+    public static void addModFluidRecipe(String fluidName, int ticks, int euPerTick) {
+        try {
+            Fluid fluid = GTMaterialGen.getFluidStack(fluidName, 1000).getFluid();
+            addRecipe(fluid, ticks, euPerTick, fluid.getUnlocalizedName());
+            if (!GTFluidHandler.getBurnableToolTipList().contains(fluidName)) {
+                GTFluidHandler.addBurnableToolTip(fluidName);
+            }
+        } catch (Exception ignored){}
     }
 
     public static void addRecipe(Fluid fluid, int ticks, int euPerTick) {
