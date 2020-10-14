@@ -10,12 +10,14 @@ import ic2.core.IC2;
 import ic2.core.item.tool.electric.ItemElectricToolWrench;
 import ic2.core.util.obj.ToolTipType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
@@ -27,6 +29,7 @@ import java.util.Map;
 public class GTCXItemElectricWrench extends ItemElectricToolWrench implements IGTWrench {
     boolean overrideLossChance = false;
     public GTCXItemElectricWrench(){
+        super();
         this.setHarvestLevel("wrench", 1);
         if (Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)){
             this.overrideLossChance = GTCXIc2cECompat.isOverridingLossyWrench();
@@ -69,6 +72,18 @@ public class GTCXItemElectricWrench extends ItemElectricToolWrench implements IG
     @Override
     public boolean canBeUsed(ItemStack stack) {
         return ElectricItem.manager.canUse(stack, 50);
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (this.isInCreativeTab(tab)) {
+            ItemStack empty = new ItemStack(this, 1, 0);
+            ItemStack full = new ItemStack(this, 1, 0);
+            ElectricItem.manager.discharge(empty, 2.147483647E9D, 2147483647, true, false, false);
+            ElectricItem.manager.charge(full, 2.147483647E9D, 2147483647, true, false);
+            items.add(empty);
+            items.add(full);
+        }
     }
 
     @Override

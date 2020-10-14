@@ -2,17 +2,25 @@ package gtc_expansion.item;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.interfaces.IGTScrewdriver;
+import gtc_expansion.util.RotationHelper;
 import ic2.api.classic.item.IDamagelessElectricItem;
 import ic2.api.classic.item.IElectricTool;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IBoxable;
 import ic2.core.platform.textures.Ic2Icons;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -97,5 +105,27 @@ public class GTCXItemElectricScrewdriver extends GTCXItemMisc implements IBoxabl
 
     public boolean showDurabilityBar(ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (this.isInCreativeTab(tab)) {
+            ItemStack empty = new ItemStack(this, 1, 0);
+            ItemStack full = new ItemStack(this, 1, 0);
+            ElectricItem.manager.discharge(empty, 2.147483647E9D, 2147483647, true, false, false);
+            ElectricItem.manager.charge(full, 2.147483647E9D, 2147483647, true, false);
+            items.add(empty);
+            items.add(full);
+        }
+    }
+
+    @Override
+    public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+        if (RotationHelper.rotateBlock(world, pos, side)){
+            stack.damageItem(1, player);
+            return EnumActionResult.SUCCESS;
+        }
+        return EnumActionResult.PASS;
     }
 }

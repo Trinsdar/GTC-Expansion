@@ -6,9 +6,11 @@ import gtc_expansion.util.GTCXBetterPipesCompat;
 import ic2.api.item.ElectricItem;
 import ic2.core.item.tool.electric.ItemElectricToolPrecisionWrench;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
@@ -16,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class GTCXItemPrecisionWrench extends ItemElectricToolPrecisionWrench implements IGTWrench {
     public GTCXItemPrecisionWrench(){
+        super();
         this.setHarvestLevel("wrench", 1);
     }
 
@@ -50,6 +53,18 @@ public class GTCXItemPrecisionWrench extends ItemElectricToolPrecisionWrench imp
 
     public boolean canBeUsed(ItemStack stack, EntityPlayer player) {
         return !player.isSneaking() && ElectricItem.manager.canUse(stack, 100);
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (this.isInCreativeTab(tab)) {
+            ItemStack empty = new ItemStack(this, 1, 0);
+            ItemStack full = new ItemStack(this, 1, 0);
+            ElectricItem.manager.discharge(empty, 2.147483647E9D, 2147483647, true, false, false);
+            ElectricItem.manager.charge(full, 2.147483647E9D, 2147483647, true, false);
+            items.add(empty);
+            items.add(full);
+        }
     }
 
     @Override
