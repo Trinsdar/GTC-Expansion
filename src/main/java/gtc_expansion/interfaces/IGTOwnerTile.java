@@ -18,6 +18,10 @@ public interface IGTOwnerTile {
 
     ItemStack getStackInSlot(int slot);
 
+    int getOutputSlot(GTCXTileItemFluidHatches hatch);
+
+    int getInputSlot(GTCXTileItemFluidHatches hatch);
+
     boolean hasCapability(Capability<?> capability, EnumFacing facing);
 
     <T> T getCapability(Capability<T> capability, EnumFacing facing, GTCXTileItemFluidHatches hatch);

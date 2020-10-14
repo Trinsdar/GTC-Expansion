@@ -700,6 +700,18 @@ public class GTCXTileMultiThermalBoiler extends TileEntityMachine implements ITi
     }
 
     @Override
+    public int getOutputSlot(GTCXTileItemFluidHatches hatch) {
+        int index = hatch.isInput() ? (hatch.isSecond() ? 3 : 2) : (hatch.isSecond() ? 1 : 0);
+        return 2 + (2 * index);
+    }
+
+    @Override
+    public int getInputSlot(GTCXTileItemFluidHatches hatch) {
+        int index = hatch.isInput() ? (hatch.isSecond() ? 3 : 2) : (hatch.isSecond() ? 1 : 0);
+        return 1 + (2 * index);
+    }
+
+    @Override
     public void setOutputModes(boolean second, OutputModes mode) {
         if (second) {
             this.outputMode2 = mode;

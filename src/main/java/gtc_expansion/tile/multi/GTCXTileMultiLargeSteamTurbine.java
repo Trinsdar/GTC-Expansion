@@ -746,6 +746,18 @@ public class GTCXTileMultiLargeSteamTurbine extends TileEntityMachine implements
     }
 
     @Override
+    public int getOutputSlot(GTCXTileItemFluidHatches hatch) {
+        int index = hatch.isInput() ? hatch.isSecond() ? 1 : 0 : 2;
+        return 5 + (2 * index);
+    }
+
+    @Override
+    public int getInputSlot(GTCXTileItemFluidHatches hatch) {
+        int index = hatch.isInput() ? hatch.isSecond() ? 1 : 0 : 2;
+        return 4 + (2 * index);
+    }
+
+    @Override
     public GTCXTank getTank(GTCXTileItemFluidHatches hatch) {
         return hatch.isInput() ? hatch.isSecond() ? this.inputTank2 : this.inputTank1 : this.outputTank;
     }

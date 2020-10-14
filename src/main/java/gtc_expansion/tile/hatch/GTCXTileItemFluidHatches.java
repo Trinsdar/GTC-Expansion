@@ -187,23 +187,13 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
     @Override
     public List<ItemStack> getInventoryDrops() {
         List<ItemStack> list = new ArrayList<>();
-        if (this.owner != null && (owner instanceof GTCXTileMultiThermalBoiler || owner instanceof GTCXTileMultiFusionReactor)){
-            int slot;
-            if (owner instanceof GTCXTileMultiFusionReactor){
-                if (input){
-                    slot = second ? 1 : 0;
-                } else {
-                    slot = 2;
-                }
-                list.add(owner.getStackInSlot(slot).copy());
-                owner.setStackInSlot(slot, ItemStack.EMPTY);
-            } else {
-                if (!input){
-                    slot = second ? 2 : 1;
-                    list.add(owner.getStackInSlot(slot).copy());
-                    owner.setStackInSlot(slot, ItemStack.EMPTY);
-                }
-            }
+        if (this.owner != null){
+            int slot = owner.getInputSlot(this);
+            list.add(owner.getStackInSlot(slot).copy());
+            owner.setStackInSlot(slot, ItemStack.EMPTY);
+            slot = owner.getOutputSlot(this);
+            list.add(owner.getStackInSlot(slot).copy());
+            owner.setStackInSlot(slot, ItemStack.EMPTY);
         }
         list.add(this.getStackInSlot(slotInput));
         list.add(this.getStackInSlot(slotOutput));
@@ -469,15 +459,7 @@ public abstract class GTCXTileItemFluidHatches extends TileEntityMachine impleme
             }
             if (cycle.isItem()){
                 if (this.owner != null && (owner instanceof GTCXTileMultiThermalBoiler || owner instanceof GTCXTileMultiFusionReactor)){
-                    int slot;
-                    if (owner instanceof GTCXTileMultiFusionReactor){
-                        slot = 2;
-                    } else {
-                        slot = second ? 2 : 1;
-                    }
-                    if (owner.getStackInSlot(slot).isEmpty()){
-                        return;
-                    }
+                    int slot = owner.getOutputSlot(this);
                     exportFromMachineToSide((TileEntityMachine) owner, this.getPos(), this.getFacing(), slot);
                 } else {
                     if (!this.getStackInSlot(slotOutput).isEmpty()){

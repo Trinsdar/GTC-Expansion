@@ -183,6 +183,18 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
     }
 
     @Override
+    public int getOutputSlot(GTCXTileItemFluidHatches hatch) {
+        int index = hatch.isInput() ? hatch.isSecond() ? 1 : 0 : 2;
+        return 5 + (2 * index);
+    }
+
+    @Override
+    public int getInputSlot(GTCXTileItemFluidHatches hatch) {
+        int index = hatch.isInput() ? hatch.isSecond() ? 1 : 0 : 2;
+        return 4 + (2 * index);
+    }
+
+    @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         return super.hasCapability(capability, facing) || (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && facing != null);
     }

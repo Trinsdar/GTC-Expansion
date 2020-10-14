@@ -1316,6 +1316,16 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
     }
 
     @Override
+    public int getOutputSlot(GTCXTileItemFluidHatches hatch) {
+        return hatch.isInput() ? (hatch.isSecond() ? slotFakeOutput2 : slotFakeOutput1) : slotOutput;
+    }
+
+    @Override
+    public int getInputSlot(GTCXTileItemFluidHatches hatch) {
+        return hatch.isInput() ? (hatch.isSecond() ? slotInput2 : slotInput1) : slotFakeInput;
+    }
+
+    @Override
     public GTCXTank getTank(GTCXTileItemFluidHatches hatch) {
         return hatch.isInput() ? hatch.isSecond() ? this.inputTank2 : this.inputTank1 : this.outputTank;
     }
