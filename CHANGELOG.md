@@ -1,5 +1,30 @@
 # Changelog
 
+# 0.2.1 (not released)
+ - Moved tile texture into just a single large sprite sheet, should hopefully reduce ram usage a little
+ - made recipes using ic2 pump also use bc pump if bc is loaded
+ - renamed wrench interface, renamed method in scrwdriver interface. this means that gravisuit classic 1.0.8.3 will not load with this, you will need 1.0.8.4
+ - made fluid caster have a new animated texture
+ - changed wrench recipes to use plates and a hammer, they wil observe the plate and crafting tool config options
+ - added iron bar recipe to assembling machine
+ - fixed large turbines not outputting fluid
+ - added stone dust to rare earth extractor
+ - made fluid smelter active when powered with redstone
+ - made my single use batteries able to be used in discharging slots
+ - fixed my single use battery recipes give the full batteries
+ - added some of my canning machine recipes to ic2c extras fluid canning machine
+ - added burnable tooltips for diesel gen and gas turbine
+ - added biomass distilling recipe
+ - fixed bath dupe bug
+ - changed required circuit mode for nichrome from 0 to 2
+ - filtered digital tank input slot
+ - added hopper assembling recipe
+ - added new one probe info that tells you that wrenches are needed for machines
+ - temp fix to allow wood into the coke oven
+ - fixed auto output of hatches
+ - fixed invar pipes not saving their material to world nbt on unload, causing them to become bronze fluid pipes
+ - made electric screwdriver able to rotate blocks
+
 # 0.2
  - Greatly reduced the ram requirements of gtcx, there still might be more improvements to do yet.
  - Improved server performance of a couple tiles
