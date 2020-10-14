@@ -11,6 +11,7 @@ import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.interfaces.IGTRecolorableStorageTile;
 import gtclassic.api.material.GTMaterial;
+import gtclassic.api.material.GTMaterialGen;
 import ic2.api.classic.network.adv.NetworkField;
 import ic2.core.RotationList;
 import ic2.core.block.base.tile.TileEntityMachine;
@@ -149,6 +150,7 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
             case 4: return GTCXMaterial.Brass;
             case 5: return GTMaterial.Electrum;
             case 6: return GTMaterial.Platinum;
+            case 7: return GTMaterial.Invar;
             default: return GTCXMaterial.Bronze;
         }
     }
@@ -174,6 +176,9 @@ public abstract class GTCXTileBasePipe extends TileEntityMachine implements IGTD
         }
         if (material.equals(GTMaterial.Platinum)){
             return 6;
+        }
+        if (material.equals(GTMaterial.Invar)){
+            return 7;
         }
         return 0;
     }
