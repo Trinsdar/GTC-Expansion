@@ -111,7 +111,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             index = 16
     )
     public int producedEnergy;
-    public boolean lastState;
+    //public boolean lastState;
     public boolean firstCheck = true;
     List<IEnergyTile> lastPositions = null;
     protected InventoryHandler secondHandler = new InventoryHandler(this);
@@ -538,9 +538,8 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         boolean superCall = !this.redstoneSensitive || this.isRedstonePowered();
         if (superCall){
             if (this.world.getTotalWorldTime() % (128 + this.tickOffset) == 0 || this.firstCheck) {
-                this.lastState = this.checkStructure();
                 boolean lastCheck = lastState;
-                lastState = checkStructure();
+                lastState = this.checkStructure();
                 firstCheck = false;
                 if(lastCheck != lastState){
                     if(addedToEnergyNet) {
@@ -1344,6 +1343,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public void invalidateStructure() {
+        if(addedToEnergyNet) {
+            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+            addedToEnergyNet = false;
+        }
         this.firstCheck = true;
     }
 
