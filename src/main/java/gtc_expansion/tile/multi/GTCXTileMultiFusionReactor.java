@@ -15,6 +15,7 @@ import gtc_expansion.tile.hatch.GTCXTileItemFluidHatches.GTCXTileFusionMaterialI
 import gtc_expansion.util.GTCXTank;
 import gtclassic.api.helpers.GTHelperFluid;
 import gtclassic.api.helpers.int3;
+import gtclassic.api.interfaces.IGTDebuggableTile;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialElement;
 import gtclassic.api.material.GTMaterialGen;
@@ -71,12 +72,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
 import static gtclassic.common.tile.multi.GTTileMultiFusionReactor.RECIPE_LIST;
 
-public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implements IGTOwnerTile, IGTEnergySource, IMetaDelegate, ITankListener, INetworkClientTileEntityEventListener {
+public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implements IGTOwnerTile, IGTEnergySource, IMetaDelegate, ITankListener, INetworkClientTileEntityEventListener, IGTDebuggableTile {
     static final IBlockState COIL_STATE = GTBlocks.casingFusion.getDefaultState();
     static final IBlockState CASING_STATE = GTCXBlocks.casingAdvanced.getDefaultState();
     static final IBlockState MATERIAL_INJECTOR_STATE = GTCXBlocks.fusionMaterialInjector.getDefaultState();
@@ -134,7 +136,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.outputTank.addListener(this);
         this.addSlots(secondHandler);
         secondHandler.validateSlots();
-        this.addGuiFields("guiOverlay");
+        this.addGuiFields("guiOverlay", "inputTank1", "inputTank2", "outputTank");
     }
 
     @Override
@@ -540,6 +542,14 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             if (this.world.getTotalWorldTime() % (128 + this.tickOffset) == 0 || this.firstCheck) {
                 boolean lastCheck = lastState;
                 lastState = this.checkStructure();
+                int newMaxEu = (energyInputList.size() * 10000000) + 1000000;
+                if (energyInputList.size() > 0 && this.maxEnergy != newMaxEu){
+                    this.maxEnergy = newMaxEu;
+                    this.getNetwork().updateTileGuiField(this,"maxEnergy");
+                } else if (energyInputList.size() == 0 && this.maxEnergy != 1000000){
+                    this.maxEnergy = 1000000;
+                    this.getNetwork().updateTileGuiField(this,"maxEnergy");
+                }
                 firstCheck = false;
                 if(lastCheck != lastState){
                     if(addedToEnergyNet) {
@@ -1414,5 +1424,10 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             this.guiOverlay = i;
             this.getNetwork().updateTileGuiField(this, "guiOverlay");
         }
+    }
+
+    @Override
+    public void getData(Map<String, Boolean> map) {
+        map.put("Produced Energy: " + this.producedEnergy, true);
     }
 }

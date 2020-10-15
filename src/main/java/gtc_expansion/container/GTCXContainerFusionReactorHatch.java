@@ -24,7 +24,7 @@ public class GTCXContainerFusionReactorHatch extends ContainerTileComponent<GTCX
         int index = input ? second ? 1 : 0 : 2;
         this.addSlotToContainer(new SlotCustom(tile, index * 2, 80, 17, null));
         this.addSlotToContainer(new SlotOutput(player.player, tile, 1 + (index * 2), 80, 53));
-        int display = input ? second ? 8 : 6 : 7;
+        int display = input ? second ? 7 : 6 : 8;
         this.addSlotToContainer(new SlotDisplay(tile, display, 59, 42));
         GTCXTank tank = input ? second ? tile.getInputTank2() : tile.getInputTank1() : tile.getOutputTank();
         this.addComponent(new GTGuiCompFluidTank(tank));

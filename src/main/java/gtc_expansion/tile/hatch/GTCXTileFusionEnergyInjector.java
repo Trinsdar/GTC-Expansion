@@ -24,11 +24,11 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
     }
 
     public void setAccept(GTCXTileMultiFusionReactor accept){
-        if (accept == null){
+        /*if (accept == null){
             this.accept.addMaxEnergy(-10000000);
         } else {
             accept.addMaxEnergy(10000000);
-        }
+        }*/
         this.accept = accept;
         this.updateNeighbors(true);
     }
@@ -59,12 +59,6 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
 
     public void onLoaded() {
         super.onLoaded();
-        if (this.isSimulating()) {
-            if (!this.addedToEnergyNet) {
-                MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-                this.addedToEnergyNet = true;
-            }
-        }
     }
 
     public void updateNeighbors(boolean needSelf) {
@@ -86,17 +80,12 @@ public class GTCXTileFusionEnergyInjector extends TileEntityBlock implements IEn
     }
 
     public void onUnloaded() {
-        if (this.addedToEnergyNet && this.isSimulating()) {
-            MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-            this.addedToEnergyNet = false;
-        }
-
         super.onUnloaded();
     }
 
     public void onBlockRemoved(){
         if (accept != null){
-            this.accept.addMaxEnergy(-10000000);
+            //this.accept.addMaxEnergy(-10000000);
             accept.invalidateStructure();
         }
     }
