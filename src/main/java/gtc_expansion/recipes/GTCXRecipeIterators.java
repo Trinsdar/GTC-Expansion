@@ -358,6 +358,7 @@ public class GTCXRecipeIterators {
         if (!gemInput){
             if (GTCXConfiguration.general.enableCraftingTools){
                 recipes.addRecipe(GTCXToolGen.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
+                recipes.addRecipe(GTCXToolGen.getSaw(mat), "SSS", "PPS", "FH ", 'S', stick, 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer");
             }
             IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
             recipes.addRecipe(GTCXToolGen.getWrench(mat), "IHI", "III", " I ", 'I', plate, 'H', hammer);

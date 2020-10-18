@@ -50,7 +50,7 @@ public class GTCXMaterialDict {
         registerToolDictsWithAxe(GTCXMaterial.TungstenSteel);
         registerAxeDict(GTMaterial.Ruby);
         registerAxeDict(GTMaterial.Sapphire);
-        OreDictionary.registerOre("toolAxe", new ItemStack(GTCXToolGen.getAxe(GTMaterial.Flint).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        registerAxeDict(GTMaterial.Flint);
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Brass, 1));
         OreDictionary.registerOre("machineBlockCheap", Ic2Items.machine);
@@ -89,12 +89,14 @@ public class GTCXMaterialDict {
         OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GTCXToolGen.getHammer(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolFile", new ItemStack(GTCXToolGen.getFile(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolWrench", new ItemStack(GTCXToolGen.getWrench(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("craftingToolSaw", new ItemStack(GTCXToolGen.getSaw(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
     }
 
     public static void registerToolDictsWithAxe(GTMaterial mat){
         OreDictionary.registerOre("craftingToolForgeHammer", new ItemStack(GTCXToolGen.getHammer(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolFile", new ItemStack(GTCXToolGen.getFile(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("craftingToolWrench", new ItemStack(GTCXToolGen.getWrench(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("craftingToolSaw", new ItemStack(GTCXToolGen.getSaw(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("toolAxe", new ItemStack(GTCXToolGen.getAxe(mat).getItem(), 1, OreDictionary.WILDCARD_VALUE));
     }
 

@@ -572,11 +572,14 @@ item.gtclassic.dusttinyUranium.name=Tiny Uranium Dust
 #files
 item.gtc_expansion.bronze_file.name=Bronze File
 item.gtc_expansion.iron_file.name=Iron File
-item.gtc_expansion.diamond_file.name=Diamond File
 item.gtc_expansion.steel_file.name=Steel File
 item.gtc_expansion.tungstensteel_file.name=Tungstensteel File
-item.gtc_expansion.ruby_file.name=Ruby File
-item.gtc_expansion.sapphire_file.name=Sapphire File
+
+#saws
+item.gtc_expansion.bronze_saw.name=Bronze Saw
+item.gtc_expansion.iron_saw.name=Iron Saw
+item.gtc_expansion.steel_saw.name=Steel Saw
+item.gtc_expansion.tungstensteel_saw.name=Tungstensteel Saw
 
 #crowbars
 item.gtc_expansion.bronze_crowbar.name=Bronze Crowbar

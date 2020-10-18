@@ -294,6 +294,8 @@ public class GTCXRecipe {
         if (GTCXConfiguration.general.enableCraftingTools){
             recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Bronze), "P", "P", "S", 'P', "plateBronze", 'S', stick);
             recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Iron), "P", "P", "S", 'P', "plateIron", 'S', stick);
+            recipes.addRecipe(GTCXToolGen.getSaw(GTCXMaterial.Bronze), "SSS", "PPS", "FH ", 'S', stick, 'P', "plateBronze", 'F', "craftingToolFile", 'H', "craftingToolForgeHammer");
+            recipes.addRecipe(GTCXToolGen.getSaw(GTCXMaterial.Iron), "SSS", "PPS", "FH ", 'S', stick, 'P', "plateIron", 'F', "craftingToolFile", 'H', "craftingToolForgeHammer");
         }
         recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Bronze), "PPP", "PPP", " S ", 'P', "ingotBronze", 'S', stick);
         recipes.addRecipe(GTCXToolGen.getHammer(GTCXMaterial.Iron), "PPP", "PPP", " S ", 'P', "ingotIron", 'S', stick);
@@ -338,15 +340,27 @@ public class GTCXRecipe {
             registry.remove(new ResourceLocation("minecraft", "acacia_planks"));
             registry.remove(new ResourceLocation("minecraft", "dark_oak_planks"));
             recipes.addRecipe(GTMaterialGen.get(Items.STICK, 2), "P", "P", 'P', "plankWood");
+            if (GTCXConfiguration.general.enableCraftingTools){
+                recipes.addRecipe(GTMaterialGen.get(Items.STICK, 4), "S", "P", "P", 'S', "craftingToolSaw", 'P', "plankWood");
+            }
             List<IRecipe> recipeList = new ArrayList<>();
+
             for (IRecipe recipe : ForgeRegistries.RECIPES){
-                if (GTHelperStack.matchOreDict(recipe.getRecipeOutput(), "plankWood") && recipe.getIngredients().size() == 1 && GTHelperStack.matchOreDict(recipe.getIngredients().get(0).getMatchingStacks()[0], "logWood")){
-                    recipeList.add(recipe);
+                if (GTHelperStack.matchOreDict(recipe.getRecipeOutput(), "plankWood") && recipe.getIngredients().size() == 1){
+                    for (ItemStack stack : recipe.getIngredients().get(0).getMatchingStacks()){
+                        if (GTHelperStack.matchOreDict(stack, "logWood")){
+                            recipeList.add(recipe);
+                            break;
+                        }
+                    }
                 }
             }
             for (IRecipe recipe : recipeList){
                 registry.remove(recipe.getRegistryName());
                 recipes.addRecipe(StackUtil.copyWithSize(recipe.getRecipeOutput(), (recipe.getRecipeOutput().getCount() / 2)), "W", 'W', new GTCXRecipeInputIngredient(recipe.getIngredients().get(0)));
+                if (GTCXConfiguration.general.enableCraftingTools){
+                    recipes.addRecipe(StackUtil.copyWithSize(recipe.getRecipeOutput(), (recipe.getRecipeOutput().getCount())), "S", "W", 'S', "craftingToolSaw", 'W', new GTCXRecipeInputIngredient(recipe.getIngredients().get(0)));
+                }
             }
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 0), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 0));
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 1), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 1));
@@ -354,6 +368,14 @@ public class GTCXRecipe {
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 3), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 3));
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 4), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 0));
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 5), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 1));
+            if (GTCXConfiguration.general.enableCraftingTools){
+                recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 0), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG, 1, 0));
+                recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 1), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG, 1, 1));
+                recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 2), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG, 1, 2));
+                recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 3), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG, 1, 3));
+                recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 4), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 0));
+                recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 5), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 1));
+            }
         }
     }
 
