@@ -150,6 +150,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         this.input2 = readBlockPosFromNBT(nbt, "input2");
         this.dynamo = readBlockPosFromNBT(nbt, "dynamo");
         this.production = nbt.getInteger("production");
+        this.inputTank1.readFromNBT(nbt.getCompoundTag("inputTank1"));
+        this.inputTank2.readFromNBT(nbt.getCompoundTag("inputTank2"));
+        this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
     }
 
     @Override
@@ -163,6 +166,9 @@ public class GTCXTileMultiLargeGasTurbine extends TileEntityMachine implements I
         writeBlockPosToNBT(nbt, "input2", input2);
         writeBlockPosToNBT(nbt, "dynamo", dynamo);
         nbt.setInteger("production", production);
+        this.inputTank1.writeToNBT(this.getTag(nbt, "inputTank1"));
+        this.inputTank2.writeToNBT(this.getTag(nbt, "inputTank2"));
+        this.outputTank.writeToNBT(this.getTag(nbt, "outputTank"));
         return nbt;
     }
 

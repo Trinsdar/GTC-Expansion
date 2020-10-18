@@ -580,6 +580,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         this.usedStartEnergy = nbt.getBoolean("usedStartEnergy");
         this.producedEnergy = nbt.getInteger("producedEnergy");
         this.guiOverlay = nbt.getInteger("guiOverlay");
+        this.inputTank1.readFromNBT(nbt.getCompoundTag("inputTank1"));
+        this.inputTank2.readFromNBT(nbt.getCompoundTag("inputTank2"));
+        this.outputTank.readFromNBT(nbt.getCompoundTag("outputTank"));
     }
 
     @Override
@@ -592,6 +595,9 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
         nbt.setBoolean("usedStartEnergy", usedStartEnergy);
         nbt.setInteger("producedEnergy", producedEnergy);
         nbt.setInteger("guiOverlay", guiOverlay);
+        this.inputTank1.writeToNBT(this.getTag(nbt, "inputTank1"));
+        this.inputTank2.writeToNBT(this.getTag(nbt, "inputTank2"));
+        this.outputTank.writeToNBT(this.getTag(nbt, "outputTank"));
         return nbt;
     }
 
