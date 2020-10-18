@@ -24,6 +24,12 @@
  - fixed auto output of hatches
  - fixed invar pipes not saving their material to world nbt on unload, causing them to become bronze fluid pipes
  - made electric screwdriver able to rotate blocks
+ - fixed fusion reactor not saying the structure is valid when it is valid
+ - fixed the fusion reactor continously increasing the max eu when a fusion energy injecor is removed and placed back down(hopefully)
+ - hopefully fixed a rare crash I found when picking up a fusion energy injector
+ - fixed second fusion material injector and fusion material extractor tank display slot being switched with each other, such that the output displays the second input and visa versa
+ - fixed fusion reactor and large gas turbine not saving contents of tanks
+ - added saw - currently just used to make vanilla amounts of planks and sticks, will add mod compat later
 
 # 0.2
  - Greatly reduced the ram requirements of gtcx, there still might be more improvements to do yet.
