@@ -184,7 +184,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public int[] getInputSlots() {
-        return new int[] {0, 1};
+        return new int[] {slotInput1, slotInput2};
     }
 
     @Override
@@ -194,12 +194,12 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
 
     @Override
     public boolean isRecipeSlot(int slot) {
-        return false;
+        return slot == slotInput1 || slot == slotInput2;
     }
 
     @Override
     public int[] getOutputSlots() {
-        return new int[]{ 2 };
+        return new int[]{ slotOutput };
     }
 
     @Override
@@ -450,7 +450,7 @@ public class GTCXTileMultiFusionReactor extends GTTileMultiBaseMachine implement
             }
         } else {
             for (ItemStack stack : output.getRecipeOutput(getWorld().rand, getTileData())) {
-                outputs.add(new MultiSlotOutput(stack, 1));
+                outputs.add(new MultiSlotOutput(stack, slotOutput));
                 onRecipeComplete();
             }
         }

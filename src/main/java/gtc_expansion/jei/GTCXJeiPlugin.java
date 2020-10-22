@@ -25,17 +25,30 @@ import gtclassic.common.GTBlocks;
 import gtclassic.common.GTConfig;
 import gtclassic.common.gui.GTGuiMachine;
 import gtclassic.common.tile.multi.GTTileMultiFusionReactor;
+import ic2.api.classic.recipe.ClassicRecipes;
+import ic2.api.classic.recipe.machine.IMachineRecipeList;
 import ic2.core.platform.registry.Ic2Items;
+import ic2.core.platform.registry.Ic2Resources;
 import ic2.jeiIntigration.SubModul;
+import ic2.jeiIntigration.core.JeiPlugin;
+import ic2.jeiIntigration.core.machine.basic.MachineRecipe;
+import ic2.jeiIntigration.core.machine.basic.MachineRecipeCategory;
+import ic2.jeiIntigration.core.machine.basic.MachineRecipeWrapper;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
+import trinsdar.ic2c_extras.jei.JeiSimpleMachineCategory;
+import trinsdar.ic2c_extras.jei.JeiSimpleMachineWrapper;
+import trinsdar.ic2c_extras.util.Registry;
 
 import javax.annotation.Nonnull;
 
@@ -58,6 +71,11 @@ public class GTCXJeiPlugin implements IModPlugin {
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.centrifuge), "gt.centrifuge");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
             registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
+            //electric furnace
+            registry.handleRecipes(IMachineRecipeList.RecipeEntry.class, MachineRecipeWrapper::new, "electricFurnace");
+            registry.addRecipes(ClassicRecipes.furnace.getRecipeMap(), "electricFurnace");
+            registry.addRecipeCatalyst(Ic2Items.electroFurnace, "electricFurnace");
+            registry.addRecipeCatalyst(Ic2Items.inductionFurnace, "electricFurnace");
             registry.addRecipeClickArea(GTGuiMachine.GTIndustrialCentrifugeGui.class, 69, 26, 20, 18, "gt.centrifuge");
             String recipeId = "gt.integratedcircuit";
             registry.handleRecipes(GTCXJeiIntegratedCircuitWrapper.IntegratedCircuitRecipe.class, GTCXJeiIntegratedCircuitWrapper::new, recipeId);
@@ -109,6 +127,7 @@ public class GTCXJeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
+        registry.addRecipeCategories(new MachineRecipeCategory(registry.getJeiHelpers().getGuiHelper(), "electricFurnace", Ic2Items.electroFurnace, Ic2Resources.electricFurnace));
         categoryUtil(registry, GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.industrialBlastFurnace);
         categoryUtil(registry, GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST, GTCXBlocks.fluidSmelter);
         categoryUtil(registry, GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster);
