@@ -1,5 +1,7 @@
 package gtc_expansion.material;
 
+import gtc_expansion.GTCXConfiguration;
+import gtc_expansion.data.GTCXValues;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
@@ -53,7 +55,14 @@ public class GTCXMaterialDict {
         registerAxeDict(GTMaterial.Flint);
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Brass, 1));
-        OreDictionary.registerOre("machineBlockCheap", Ic2Items.machine);
+        if (!GTCXConfiguration.general.forceSteelCasings || GTCXConfiguration.general.gt2Mode){
+            if (GTCXValues.STEEL_MODE){
+                OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.RefinedIron, 1));
+            }
+            OreDictionary.registerOre("machineBlockBasic", Ic2Items.machine);
+        } else {
+            OreDictionary.registerOre("machineBlockCheap", Ic2Items.machine);
+        }
         OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.Steel, 1));
         OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTMaterial.Aluminium, 1));
         OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.StainlessSteel, 1));

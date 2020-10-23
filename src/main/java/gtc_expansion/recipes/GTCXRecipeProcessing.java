@@ -115,7 +115,7 @@ public class GTCXRecipeProcessing {
         GTRecipe.maceratorUtil("orePlatinum", 1, getCrushedOrDust(GTMaterial.Platinum, 2));
         GTRecipe.maceratorUtil("oreTungstate", 1, getCrushedOrDust(GTMaterial.Tungsten, 4));
         GTRecipe.maceratorUtil("oreChromite", 1, getCrushedOrDust(GTCXMaterial.Chromite, 2));
-        if (GTCXConfiguration.general.crushedOres){
+        if (GTCXConfiguration.general.crushedOres && !GTCXConfiguration.general.gt2Mode){
             addCrushedOreRecipes(GTCXMaterial.Tetrahedrite, GTCXMaterialGen.getTinyDust(GTCXMaterial.Antimony, 1), GTCXMaterialGen.getTinyDust(GTCXMaterial.Zinc, 1));
             addCrushedOreRecipes(GTCXMaterial.Galena, GTCXMaterialGen.getTinyDust(GTMaterial.Sulfur, 2), GTCXMaterialGen.getTinyDust(GTCXMaterial.Silver, 1));
             addCrushedOreRecipes(GTCXMaterial.Cinnabar, GTCXMaterialGen.getTinyDust(GTCXMaterial.Redstone, 1), GTCXMaterialGen.getTinyDust(GTMaterial.Sulfur, 1));
@@ -202,7 +202,7 @@ public class GTCXRecipeProcessing {
     }
 
     public static ItemStack getPurifiedOrDust(GTMaterial material, int amount){
-        if (GTCXConfiguration.general.crushedOres){
+        if (GTCXConfiguration.general.crushedOres && !GTCXConfiguration.general.gt2Mode){
             return GTCXMaterialGen.getPurifiedCrushedOre(material, amount);
         } else {
             return GTCXRecipeIterators.getDust(material, amount);
@@ -210,7 +210,7 @@ public class GTCXRecipeProcessing {
     }
 
     public static ItemStack getCrushedOrDust(GTMaterial material, int amount){
-        if (GTCXConfiguration.general.crushedOres){
+        if (GTCXConfiguration.general.crushedOres && !GTCXConfiguration.general.gt2Mode){
             return GTCXMaterialGen.getCrushedOre(material, amount);
         } else {
             return GTCXRecipeIterators.getDust(material, amount);

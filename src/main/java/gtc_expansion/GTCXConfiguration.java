@@ -146,6 +146,13 @@ public class GTCXConfiguration {
         public boolean enableRadiation = true;
         @Comment("Enables crushed ores like from gt407 and later.")
         public boolean crushedOres = true;
+        @Comment({
+                "Enables recipes and stuff being like gregtech 2 instead of gregtech 4.",
+                "Recommend not enabling this if you want stuff like crushed ores or harder circuits"
+        })
+        public boolean gt2Mode = false;
+        @Comment("Forces Steel machine hulls regardless of the ic2c steel config.")
+        public boolean forceSteelCasings = true;
     }
 
     @Comment("Mod Compatability")

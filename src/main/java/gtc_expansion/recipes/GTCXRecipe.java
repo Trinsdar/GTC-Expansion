@@ -5,6 +5,7 @@ import gtc_expansion.GTCXConfiguration;
 import gtc_expansion.block.GTCXBlockWire;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
+import gtc_expansion.data.GTCXValues;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.jei.wrapper.GTCXJeiIntegratedCircuitWrapper;
 import gtc_expansion.material.GTCXMaterial;
@@ -111,9 +112,7 @@ public class GTCXRecipe {
         initUURecipes();
         initIc2();
         initOverrideGTClassic();
-        if (GTCXConfiguration.general.enableCraftingTools){
-            initOverrideVanillaRecipes();
-        }
+        initOverrideVanillaRecipes();
         initShapedItemRecipes();
         initShapedBlockRecipes();
         initRemainingToolRecipes();
@@ -179,8 +178,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.moldLargePipe), "M  ", "   ", "  W", 'W', "craftingToolWireCutter", 'M', GTCXItems.mold);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.moldBlock), "M W", 'W', "craftingToolWireCutter", 'M', GTCXItems.mold);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.moldGear), "W", " ", "M", 'W', "craftingToolWireCutter", 'M', GTCXItems.mold);
-        IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
-        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
+        IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolForgeHammer") : null;
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolWrench") : null;
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.integratedCircuit), "PHP", "RRR", "PWP", 'P', combineRecipeObjects(REFINED_IRON, PRE + "Iron", STEEL), 'H', hammer, 'R', combineRecipeObjects("rodRefinedIron", "rodIron", "rodSteel"), 'W', wrench);
         addRotorRecipe(GTMaterialGen.get(GTCXItems.bronzeTurbineRotor) , GTCXMaterial.Bronze, "blockBronze");
         addRotorRecipe(GTMaterialGen.get(GTCXItems.steelTurbineRotor) , GTCXMaterial.Steel, "blockSteel");
@@ -210,6 +209,7 @@ public class GTCXRecipe {
             GTTileUUMAssembler.addUUMAssemblerValue(3, GTMaterialGen.getDust(GTCXMaterial.Zinc, 10));
             GTTileUUMAssembler.addUUMAssemblerValue(3, GTMaterialGen.getDust(GTMaterial.Nickel, 10));
             GTTileUUMAssembler.addUUMAssemblerValue(7, GTCXMaterialGen.getSmallDust(GTCXMaterial.Osmium, 1));
+            GTTileUUMAssembler.addUUMAssemblerValue(1, Ic2Items.uuMatter.copy());
         }
         if (GTCXConfiguration.general.removeCraftingUURecipes){
             GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.stonebrick_-602048670");
@@ -288,10 +288,10 @@ public class GTCXRecipe {
                 Items.FLINT, 'S', stick);
         recipes.addRecipe(GTCXToolGen.getSword(GTMaterial.Flint), "F", "F", "S", new EnchantmentModifier(GTCXToolGen.getSword(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
                 Items.FLINT, 'S', stick);
-        IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
+        IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolForgeHammer") : null;
         recipes.overrideRecipe("shaped_item.itemtoolwrench_-354759652", GTCXToolGen.getWrench(GTCXMaterial.Bronze), "IHI", "III", " I ", 'I', "plateBronze", 'H', hammer);
         recipes.addRecipe(GTCXToolGen.getWrench(GTCXMaterial.Iron), "IHI", "III", " I ", 'I', "plateIron", 'H', hammer);
-        if (GTCXConfiguration.general.enableCraftingTools){
+        if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
             recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Bronze), "P", "P", "S", 'P', "plateBronze", 'S', stick);
             recipes.addRecipe(GTCXToolGen.getFile(GTCXMaterial.Iron), "P", "P", "S", 'P', "plateIron", 'S', stick);
             recipes.addRecipe(GTCXToolGen.getSaw(GTCXMaterial.Bronze), "SSS", "PPS", "FH ", 'S', stick, 'P', "plateBronze", 'F', "craftingToolFile", 'H', "craftingToolForgeHammer");
@@ -303,9 +303,10 @@ public class GTCXRecipe {
         recipes.addRecipe(GTCXToolGen.getCrowbar(GTCXMaterial.Bronze), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rodBronze");
         recipes.addRecipe(GTCXToolGen.getScrewdriver(GTCXMaterial.Iron), "R  ", " R ", "  S", 'S', "stickWood", 'R', "rodIron");
         recipes.addRecipe(GTCXToolGen.getScrewdriver(GTCXMaterial.Bronze), "R  ", " R ", "  S", 'S', "stickWood", 'R', "rodBronze");
+        IRecipeInput file = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolFile") : null;
         if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
-            recipes.addRecipe(GTCXToolGen.getBranchCutter(GTCXMaterial.Bronze), "PFP", "P P", "RRR", 'P', "plateBronze", 'F', "craftingToolFile", 'R', "rodBronze");
-            recipes.addRecipe(GTCXToolGen.getBranchCutter(GTCXMaterial.Iron), "PFP", "P P", "RRR", 'P', "plateIron", 'F', "craftingToolFile", 'R', "rodIron");
+            recipes.addRecipe(GTCXToolGen.getBranchCutter(GTCXMaterial.Bronze), "PFP", "P P", "RRR", 'P', "plateBronze", 'F', file, 'R', "rodBronze");
+            recipes.addRecipe(GTCXToolGen.getBranchCutter(GTCXMaterial.Iron), "PFP", "P P", "RRR", 'P', "plateIron", 'F', file, 'R', "rodIron");
         }
     }
 
@@ -316,13 +317,13 @@ public class GTCXRecipe {
         registry.remove(new ResourceLocation("quark", "hopper"));
         registry.remove(new ResourceLocation("minecraft", "flint_and_steel"));
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_tile.hopper_-82413824");
-        if (GTCXConfiguration.general.enableCraftingTools){
+        if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
             recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), " W ", "RRR", "RRR", 'R', "rodIron", 'W', "craftingToolWrench");
         } else {
             recipes.addRecipe(GTMaterialGen.get(Blocks.IRON_BARS, 8), "RRR", "RRR", 'R', "rodIron");
         }
         IRecipeInput material = combineRecipeObjects(BRONZE, ALUMINIUM, ELECTRUM, PLATINUM, PRE + "Nickel", REFINED_IRON, PRE + "Silver", PRE + "Iron");
-        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolWrench") : null;
         int recipeID = STEEL_MODE ? -305222786 : -156474894;
         GTRecipeCraftingHandler.overrideGTRecipe("gtclassic", "shaped_tile.hopper_" + recipeID, GTMaterialGen.get(Blocks.HOPPER), "IWI", "ICI", " I ", 'I', material, 'W', wrench, 'C', CHEST_WOOD);
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.FLINT_AND_STEEL), "ingotSteel", Items.FLINT);
@@ -340,7 +341,7 @@ public class GTCXRecipe {
             registry.remove(new ResourceLocation("minecraft", "acacia_planks"));
             registry.remove(new ResourceLocation("minecraft", "dark_oak_planks"));
             recipes.addRecipe(GTMaterialGen.get(Items.STICK, 2), "P", "P", 'P', "plankWood");
-            if (GTCXConfiguration.general.enableCraftingTools){
+            if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
                 recipes.addRecipe(GTMaterialGen.get(Items.STICK, 4), "S", "P", "P", 'S', "craftingToolSaw", 'P', "plankWood");
             }
             List<IRecipe> recipeList = new ArrayList<>();
@@ -358,7 +359,7 @@ public class GTCXRecipe {
             for (IRecipe recipe : recipeList){
                 registry.remove(recipe.getRegistryName());
                 recipes.addRecipe(StackUtil.copyWithSize(recipe.getRecipeOutput(), (recipe.getRecipeOutput().getCount() / 2)), "W", 'W', new GTCXRecipeInputIngredient(recipe.getIngredients().get(0)));
-                if (GTCXConfiguration.general.enableCraftingTools){
+                if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
                     recipes.addRecipe(StackUtil.copyWithSize(recipe.getRecipeOutput(), (recipe.getRecipeOutput().getCount())), "S", "W", 'S', "craftingToolSaw", 'W', new GTCXRecipeInputIngredient(recipe.getIngredients().get(0)));
                 }
             }
@@ -368,7 +369,7 @@ public class GTCXRecipe {
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 3), "W", 'W', GTMaterialGen.get(Blocks.LOG, 1, 3));
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 4), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 0));
             recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 2, 5), "W", 'W', GTMaterialGen.get(Blocks.LOG2, 1, 1));
-            if (GTCXConfiguration.general.enableCraftingTools){
+            if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
                 recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 0), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG, 1, 0));
                 recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 1), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG, 1, 1));
                 recipes.addRecipe(GTMaterialGen.get(Blocks.PLANKS, 4, 2), "S", "W", 'S', "craftingToolSaw", 'W', GTMaterialGen.get(Blocks.LOG, 1, 2));
@@ -393,7 +394,7 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.wiremill), "PDP", "CMC", "PcP", 'P', BRASS, 'D', GEM_DIAMOND, 'C', CIRCUIT_BASIC, 'M', MACHINE_BASIC, 'c', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.lathe), "PCP", "GMG", "PmP", 'P', MATERIAL_STEELS, 'C', CIRCUIT_ADVANCED, 'G', "gearSteel", 'M', GTCXItems.conveyorModule, 'm', MACHINE_BASIC);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.microwave), "AAA", "L M", "AAA", 'A', ALUMINIUM, 'L', LEAD, 'M', Ic2Items.magnetizer);
-        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolWrench") : null;
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.bath), "SSS", "SWS", "SGS", 'S', STAINLESS_STEEL, 'W', MACHINE_BASIC, 'G', "paneGlass");
         if (GTCXConfiguration.general.overrideIc2cSawmill){
             recipes.overrideRecipe("shaped_tile.blocksawmill_-1444206344", GTMaterialGen.get(GTCXBlocks.industrialSawmill), "PCP", "DDD", "CMC", 'P', PUMP, 'C', CIRCUIT_ADVANCED, 'D', GTMaterialGen.get(GTCXItems.diamondSawblade), 'M', MACHINE_BASIC);
@@ -644,16 +645,18 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.reactorventspread_2144532227", Ic2Items.reactorVentSpread, "ITI", "TRT", "ITI", 'I', Blocks.IRON_BARS, 'T', TIN, 'R', Ic2Items.reactorVent);
         recipes.overrideRecipe("shaped_item.reactorventgold_2067100004", Ic2Items.reactorVentGold, "G", "R", "G", 'G', PRE + "Gold", 'R', Ic2Items.reactorVentCore);
         recipes.overrideShapelessRecipe("shapeless_item.itemreactorplating_1093967048", Ic2Items.reactorPlating, LEAD, Ic2Items.advancedAlloy);
-        if (GTCXConfiguration.general.enableCraftingTools){
+        recipes.overrideRecipe("shaped_item.upgradekit.mfs_1186329581", Ic2Items.mfsuUpgradeKid, "BMB", "BBB", " B ", 'B', "ingotBronze", 'M', Ic2Items.mfsu);
+        if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
             recipeId = STEEL_MODE ? 1913907474 : 1986006418;
             recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", " W ", 'R', "rodIron", 'W', "craftingToolWrench");
-            recipeId = STEEL_MODE ? 480320652 : 527557260;
-            recipes.overrideRecipe("shaped_tile.blockmachine_" + recipeId, Ic2Items.machine, "PPP", "PWP", "PPP", 'P', REFINED_IRON, 'W', "craftingToolWrench");
-            recipes.overrideRecipe("shaped_item.upgradekit.mfs_1186329581", Ic2Items.mfsuUpgradeKid, "BMB", "BBB", " B ", 'B', "ingotBronze", 'M', Ic2Items.mfsu);
         } else {
             recipeId = STEEL_MODE ? 1913907474 : 1986006418;
             recipes.overrideRecipe("shaped_tile.blockfenceiron_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironFence, 6), "RRR", "RRR", 'R', "rodRefinedIron");
         }
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolWrench") : null;
+        recipeId = STEEL_MODE ? 480320652 : 527557260;
+        String ingot = GTCXConfiguration.general.forceSteelCasings && !GTCXConfiguration.general.gt2Mode ? REFINED_IRON : MATERIAL_REFINED_IRON;
+        recipes.overrideRecipe("shaped_tile.blockmachine_" + recipeId, Ic2Items.machine, "PPP", "PWP", "PPP", 'P', ingot, 'W', wrench);
         recipeId = STEEL_MODE ? 1329688411 : -1509341361;
         recipes.overrideRecipe("shaped_tile.blockironscaffold_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironScaffold, 32), "III", " F ", "F F", 'I', "ingotRefinedIron", 'F', "rodIron");
         recipes.overrideRecipe("shaped_item.reactorReflectorThick_-1313142365", Ic2Items.reactorReflectorThick.copy(), " P ", "PBP", " P ", 'P', Ic2Items.reactorReflector, 'B', PRE + "Beryllium");
@@ -663,7 +666,7 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.reactorcoolanttriple_-606011908", Ic2Items.reactorCoolantCellTriple, "TTT", "WWW", "TTT", 'T', input(TIN, 2), 'W', GTMaterialGen.getIc2(Ic2Items.waterCell, 2));
         recipes.overrideRecipe("shaped_item.reactorcoolantsix_-1912497898", Ic2Items.reactorCoolantCellSix, "TWT", "TCT", "TWT", 'T', TIN, 'W', Ic2Items.reactorCoolantCellTriple, 'C', Ic2Items.denseCopperPlate);
         recipes.overrideRecipe("shaped_item.itemthermometer_1507613392", Ic2Items.thermometer, " GT", "GMG", "GG ", 'G', "blockGlass", 'T', TIN, 'M', GTMaterialGen.getFluidStack(GTMaterial.Mercury, 1000));
-        if (GTCXConfiguration.general.harderCircuits){
+        if (GTCXConfiguration.general.harderCircuits && !GTCXConfiguration.general.gt2Mode){
             recipeId = STEEL_MODE ? 1921363733 : 1058514721;
             recipes.overrideRecipe("shaped_item.itempartcircuit_" + recipeId, Ic2Items.electricCircuit, "CCC", "RER", "CCC", 'C', Ic2Items.insulatedCopperCable, 'R', "plateRedAlloy", 'E', PLATE_ELECTRIC);
             recipeId = STEEL_MODE ? -1911001323 : 1521116961;
@@ -732,8 +735,8 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileBufferFluid), "EWE", "CBC", "EbE", 'E', ELECTRUM, 'W', Ic2Items.insulatedCopperCable, 'C', CIRCUIT_ADVANCED, 'B', MACHINE_CHEAP, 'b', Items.BUCKET);
         IRecipeInput aluiron = combineRecipeObjects( REFINED_IRON, ALUMINIUM);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileCabinet), "III", "CIC", "III", 'I', aluiron, 'C', CHEST_WOOD);
-        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? combineRecipeObjects( "craftingToolMonkeyWrench", "craftingToolWrench") : new RecipeInputOreDict("rodRefinedIron");
-        rod = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("rodRefinedIron") : null;
+        IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? combineRecipeObjects( "craftingToolMonkeyWrench", "craftingToolWrench") : new RecipeInputOreDict("rodRefinedIron");
+        rod = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? new RecipeInputOreDict("rodRefinedIron") : null;
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDrum), "PWP", "PMP", "PRP", 'P', REFINED_IRON, 'W', wrench, 'M', rod, 'R', "rodRefinedIron");
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileWorktable), "ICI", "IMI", "IcI", 'I', aluiron, 'C', "workbench", 'c', CHEST_WOOD, 'M', MACHINE_CHEAP);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileAutocrafter), "EBE", "CcC", "EME", 'E', ELECTRUM, 'B', Ic2Items.battery, 'C', CIRCUIT_ADVANCED, 'c', "workbench", 'M', MACHINE_ADV);

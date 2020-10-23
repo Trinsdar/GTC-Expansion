@@ -161,7 +161,7 @@ public class GTCXRecipeIterators {
 
     public static void createPipeRecipes(GTMaterial mat, boolean fluid){
         String plate = GTCXValues.PRE + mat.getDisplayName();
-        if (GTCXConfiguration.general.enableCraftingTools){
+        if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
             if (fluid){
                 recipes.addRecipe(GTCXPipes.getPipe(mat, GTCXHelperPipe.GTPipeModel.SMALL, 6), "PWP", "P P", "PHP", 'P', plate, 'W', "craftingToolWrench", 'H', "craftingToolForgeHammer");
             }
@@ -279,7 +279,7 @@ public class GTCXRecipeIterators {
         String rod = "rod" + mat.getDisplayName() + gt;
         if (mat.hasFlag(GTCXMaterial.stick)) {
             // Rod crafting recipe
-            if (GTCXConfiguration.general.enableCraftingTools){
+            if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
                 recipes.addRecipe(GTCXMaterialGen.getRod(mat, 2), "XF", 'F',
                         "craftingToolFile", 'X', ingot);
             } else {
@@ -303,7 +303,7 @@ public class GTCXRecipeIterators {
         String rod = "rod" + mat.getDisplayName() + gt;
         if (mat.hasFlag(GTCXMaterial.gear)) {
             // Rod crafting recipe
-            IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("craftingToolWrench") : null;
+            IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? new RecipeInputOreDict("craftingToolWrench") : null;
             recipes.addRecipe(GTCXMaterialGen.getGear(mat, 1), "RIR", "IWI", "RIR", 'R', rod,
                     'W', wrench, 'I', plate);
             gearBlacklist.add(ingot);
@@ -320,11 +320,14 @@ public class GTCXRecipeIterators {
         String plate = "plate" + mat.getDisplayName();
         boolean refinedIron = true;
         if (mat.equals(GTCXMaterial.RefinedIron)){
-            refinedIron = false;
+            refinedIron = (!GTCXConfiguration.general.forceSteelCasings || GTCXConfiguration.general.gt2Mode) && GTCXValues.STEEL_MODE;
+        }
+        if (mat.equals(GTCXMaterial.Steel) && !GTCXConfiguration.general.forceSteelCasings || GTCXConfiguration.general.gt2Mode){
+            refinedIron = !GTCXValues.STEEL_MODE;
         }
         if (mat.hasFlag(GTCXMaterial.hull) && mat.hasFlag(GTCXMaterial.plate) && refinedIron) {
             // Hull crafting recipe
-            IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? new RecipeInputOreDict("craftingToolWrench") : null;
+            IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? new RecipeInputOreDict("craftingToolWrench") : null;
             String material = GTCXConfiguration.general.usePlates ? plate : ingot;
             recipes.addRecipe(GTCXMaterialGen.getHull(mat, 1), "PPP", "PWP", "PPP", 'P', material, 'W', wrench);
             //Ingots from hulls
@@ -344,7 +347,7 @@ public class GTCXRecipeIterators {
             plate = gem;
         }
         String stick = mat.equals(GTCXMaterial.TungstenSteel) ? "rodSteel" : mat.equals(GTCXMaterial.Steel) ? "rodIron" : "stickWood";
-        if (GTCXConfiguration.general.enableCraftingTools){
+        if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
             recipes.addRecipe(GTCXToolGen.getPickaxe(mat), "PII", "FSH", " S ", 'P', plate, 'I', ingot, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
             recipes.addRecipe(GTCXToolGen.getAxe(mat), "PIH", "PS ", "FS ", 'P', plate, 'I', ingot, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
             recipes.addRecipe(GTCXToolGen.getShovel(mat), "FPH", " S ", " S ", 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer", 'S', stick);
@@ -356,17 +359,18 @@ public class GTCXRecipeIterators {
             recipes.addRecipe(GTCXToolGen.getSword(mat), "P", "P", "S", 'P', plate, 'S', stick);
         }
         if (!gemInput){
-            if (GTCXConfiguration.general.enableCraftingTools){
+            if (GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode){
                 recipes.addRecipe(GTCXToolGen.getFile(mat), "P", "P", "S", 'P', plate, 'S', stick);
                 recipes.addRecipe(GTCXToolGen.getSaw(mat), "SSS", "PPS", "FH ", 'S', stick, 'P', plate, 'F', "craftingToolFile", 'H', "craftingToolForgeHammer");
             }
-            IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
+            IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolForgeHammer") : null;
             recipes.addRecipe(GTCXToolGen.getWrench(mat), "IHI", "III", " I ", 'I', plate, 'H', hammer);
             recipes.addRecipe(GTCXToolGen.getHammer(mat), "III", "III", " S ", 'I', ingot, 'S', stick);
             recipes.addRecipe(GTCXToolGen.getCrowbar(mat), " BR", "BRB", "RB ", 'B', "dyeBlue", 'R', "rod" + mat.getDisplayName());
             recipes.addRecipe(GTCXToolGen.getScrewdriver(mat), "R  ", " R ", "  S", 'R', "rod" + mat.getDisplayName(), 'S', stick);
+            IRecipeInput file = GTCXConfiguration.general.enableCraftingTools && !GTCXConfiguration.general.gt2Mode ? input("craftingToolFile") : null;
             if (Loader.isModLoaded(GTValues.MOD_ID_FORESTRY)){
-                recipes.addRecipe(GTCXToolGen.getBranchCutter(mat), "PFP", "P P", "RRR", 'P', plate, 'F', "craftingToolFile", 'R', "rod" + mat.getDisplayName());
+                recipes.addRecipe(GTCXToolGen.getBranchCutter(mat), "PFP", "P P", "RRR", 'P', plate, 'F', file, 'R', "rod" + mat.getDisplayName());
             }
         }
     }

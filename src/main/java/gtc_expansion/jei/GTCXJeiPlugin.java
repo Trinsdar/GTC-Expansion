@@ -82,7 +82,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             registry.addRecipes(GTCXRecipe.integratedCircuitRecipes, recipeId);
             registry.addRecipeCatalyst(new ItemStack(GTCXItems.integratedCircuit, 1), recipeId);
             IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
-            if (!GTCXConfiguration.general.crushedOres){
+            if (!GTCXConfiguration.general.crushedOres || GTCXConfiguration.general.gt2Mode){
                 for (GTMaterial mat : GTMaterial.values()){
                     if (mat.hasFlag(GTCXMaterial.crushedore)){
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getCrushedOre(mat, 1));
@@ -101,23 +101,21 @@ public class GTCXJeiPlugin implements IModPlugin {
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.unfiredBrick));
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.unfiredFireBrick));
             }
-            if (GTCXConfiguration.general.enableCraftingTools){
-                blacklist.addIngredientToBlacklist(Ic2Items.wrench);
-            }
+            blacklist.addIngredientToBlacklist(Ic2Items.wrench);
             if (GTCXConfiguration.general.overrideIc2cSawmill){
                 blacklist.addIngredientToBlacklist(Ic2Items.sawMill);
             }
             blacklist.addIngredientToBlacklist(GTCXMaterialGen.getHull(GTCXMaterial.RefinedIron, 1));
             blacklist.addIngredientToBlacklist(Ic2Items.cutter);
-            if (!GTCXConfiguration.general.enableCraftingTools){
-                blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.Bronze));
-                blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.Iron));
-                blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.Steel));
-                blacklist.addIngredientToBlacklist(GTCXToolGen.getWrench(GTCXMaterial.TungstenSteel));
+            if (!GTCXConfiguration.general.enableCraftingTools || GTCXConfiguration.general.gt2Mode){
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.Bronze));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.Iron));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.Steel));
                 blacklist.addIngredientToBlacklist(GTCXToolGen.getFile(GTCXMaterial.TungstenSteel));
+                blacklist.addIngredientToBlacklist(GTCXToolGen.getSaw(GTCXMaterial.Bronze));
+                blacklist.addIngredientToBlacklist(GTCXToolGen.getSaw(GTCXMaterial.Iron));
+                blacklist.addIngredientToBlacklist(GTCXToolGen.getSaw(GTCXMaterial.Steel));
+                blacklist.addIngredientToBlacklist(GTCXToolGen.getSaw(GTCXMaterial.TungstenSteel));
             }
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTBlocks.tileFusionReactor));
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTBlocks.tileCentrifuge));
