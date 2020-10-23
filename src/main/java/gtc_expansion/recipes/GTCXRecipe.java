@@ -114,6 +114,7 @@ public class GTCXRecipe {
         initOverrideGTClassic();
         initOverrideVanillaRecipes();
         initShapedItemRecipes();
+        initPreElectric();
         initShapedBlockRecipes();
         initRemainingToolRecipes();
         initShapelessRecipes();
@@ -133,7 +134,7 @@ public class GTCXRecipe {
         initIntegratedCircuit();
     }
 
-    public static void initIntegratedCircuit(){
+    static void initIntegratedCircuit(){
         integratedCircuitRecipes.clear();
         List<IRecipeInput> inputs = new ArrayList<>();
         List<IRecipeInput> outputs = new ArrayList<>();
@@ -144,7 +145,7 @@ public class GTCXRecipe {
         integratedCircuitRecipes.add(new GTCXJeiIntegratedCircuitWrapper.IntegratedCircuitRecipe(new RecipeInputCombined(inputs), new RecipeInputCombined(outputs)));
     }
 
-    public static void initShapedItemRecipes(){
+    static void initShapedItemRecipes(){
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.computerMonitor), "IGI", "RPB", "IgI", 'I', ALUMINIUM, 'G', "dyeGreen", 'R', "dyeRed", 'P', "paneGlass", 'B', "dyeBlue", 'g', DUST_GLOWSTONE);
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.conveyorModule), "GGG", "AAA", "CBC", 'G', BLOCK_GLASS, 'A', MATERIAL_MACHINE, 'C', CIRCUIT_BASIC, 'B', Ic2Items.battery.copy());
         recipes.addRecipe(GTMaterialGen.get(GTCXItems.diamondGrinder, 2), "DSD", "SdS", "DSD", 'D', "dustDiamond", 'S', STEEL, 'd', GEM_DIAMOND);
@@ -197,7 +198,7 @@ public class GTCXRecipe {
         recipes.addRecipe(rotor, " B ", "BbB", " B ", 'B', GTMaterialGen.getStack(material, GTCXMaterial.turbineBlade, 1), 'b', GTMaterialGen.getStack(material, GTCXMaterial.brokenTurbineRotor, 1));
     }
 
-    public static void initUURecipes(){
+    static void initUURecipes(){
         if (GTConfig.general.gregtechUURecipes){
             if (!GTCXConfiguration.general.removeCraftingUURecipes){
                 recipes.addRecipe(GTMaterialGen.getGem(GTCXMaterial.Olivine, 1), "UU ", "UUU", "UU ", 'U', Ic2Items.uuMatter, true);
@@ -278,7 +279,7 @@ public class GTCXRecipe {
         }
     }
 
-    public static void initRemainingToolRecipes(){
+    static void initRemainingToolRecipes(){
         String stick = "stickWood";
         recipes.addRecipe(GTCXToolGen.getPickaxe(GTMaterial.Flint), "FFF", " S ", " S ", new EnchantmentModifier(GTCXToolGen.getPickaxe(GTMaterial.Flint), Enchantments.FIRE_ASPECT).setUsesInput(), 'F',
                 Items.FLINT, 'S', stick);
@@ -310,7 +311,7 @@ public class GTCXRecipe {
         }
     }
 
-    public static void initOverrideVanillaRecipes(){
+    static void initOverrideVanillaRecipes(){
         ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
         registry.remove(new ResourceLocation("minecraft", "iron_bars"));
         registry.remove(new ResourceLocation("minecraft", "hopper"));
@@ -329,7 +330,7 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.FLINT_AND_STEEL), "ingotSteel", Items.FLINT);
     }
 
-    public static void initWoodRecipes(){
+    static void initWoodRecipes(){
         ForgeRegistry registry = (ForgeRegistry) ForgeRegistries.RECIPES;
         if (GTCXConfiguration.general.harderWood){
             GTCExpansion.logger.info("Initializing wood overrides");
@@ -380,7 +381,7 @@ public class GTCXRecipe {
         }
     }
 
-    public static void initShapedBlockRecipes(){
+    static void initShapedBlockRecipes(){
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.assemblingMachine), "CPC", "SMS", "CSC", 'C', CIRCUIT_BASIC, 'P', Blocks.PISTON, 'S', MATERIAL_STEELS, 'M', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.chemicalReactor), "PMP", "CcC", "PEP", 'P', MATERIAL_INVAR_ALUMINIUM, 'M', Ic2Items.magnetizer, 'C', CIRCUIT_ADVANCED, 'c', Ic2Items.compressor, 'E', Ic2Items.extractor);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.distillationTower), "CEC", "PAP", "eEe", 'C', GTBlocks.tileCentrifuge, 'E', "circuitMaster", 'P', PUMP, 'A', "machineBlockHighlyAdvanced", 'e', GTCXBlocks.electrolyzer);
@@ -426,8 +427,6 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.advancedWorktable), "EOE", "EWE", "ECE", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'E', ELECTRUM, 'O', TIER_2_ENERGY, 'W', GTBlocks.tileWorktable, 'C', CIRCUIT_ADVANCED);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.dustBin), "IHI", "IWI", "IHI", colorTransfer(GTMaterialGen.get(GTBlocks.tileWorktable)), 'I', MATERIAL_REFINED_IRON, 'H', Blocks.HOPPER, 'W', GTBlocks.tileWorktable);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.trashBin), "I I", "ILI", "III", 'I', MATERIAL_REFINED_IRON, 'L', GTMaterialGen.getFluidStack("lava", 1000));
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
-        recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneExtractor), " H ", "TFT", "TPT", 'T', Ic2Items.treeTap, 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialInjector), "PcP", "CAC", "PCP", 'P', PUMP, 'c', CHEST_WOOD, 'C', CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionMaterialExtractor), "PCP", "CAC", "PcP", 'P', PUMP, 'c', CHEST_WOOD, 'C', CIRCUIT_MASTER, 'A', GTBlocks.casingHighlyAdvanced);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.fusionEnergyInjector), "SCS", "CsC", "SCS", 'S', GTItems.superConductor, 'C', CIRCUIT_MASTER, 's', GTBlocks.tileSupercondensator);
@@ -461,13 +460,25 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 2, 3), cableWithInsulationTag(cable.copy(), 2), rubber);
     }
 
+    static void initPreElectric(){
+        if (!GTCXConfiguration.general.gt2Mode){
+            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
+            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneExtractor), " H ", "TFT", "TPT", 'T', Ic2Items.treeTap, 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
+            recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneCompressor, 'C',
+                    CIRCUIT_BASIC);
+            recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneExtractor, 'C',
+                    CIRCUIT_BASIC);
+        }
+
+    }
+
     public static ItemStack cableWithInsulationTag(ItemStack stack, int insulation){
         NBTTagCompound nbt = StackUtil.getOrCreateNbtData(stack);
         nbt.setInteger(GTCXBlockWire.NBT_INSULATION, insulation);
         return stack;
     }
 
-    public static void initShapelessRecipes(){
+    static void initShapelessRecipes(){
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.GUNPOWDER, 3), "dustCoal", "dustSulfur", "dustSaltpeter", "dustSaltpeter");
         recipes.addShapelessRecipe(GTMaterialGen.get(Items.GUNPOWDER, 2), "dustCharcoal", "dustSulfur", "dustSaltpeter", "dustSaltpeter");
         recipes.addShapelessRecipe(GTMaterialGen.getIc2(Ic2Items.fertilizer, 3), Ic2Items.fertilizer, "dustSulfur", GTMaterialGen.getTube(GTMaterial.Calcium, 1));
@@ -482,7 +493,7 @@ public class GTCXRecipe {
         recipes.addShapelessRecipe(GTMaterialGen.get(GTCXItems.coalCoke, 9), "blockCoke");
     }
 
-    public static void initUranaiumRodOverrides(){
+    static void initUranaiumRodOverrides(){
         overrideGTRecipe("shaped_item.gtclassic.rod_thorium_double_-1641330943", GTMaterialGen.get(GTItems.rodThorium2), "RCR", gtcxTooltip(),
         'R', GTItems.rodThorium1, 'C', COPPER);
         overrideGTRecipe("shaped_item.gtclassic.rod_thorium_quad_1590232849", GTMaterialGen.get(GTItems.rodThorium4), " R ","CCC", gtcxTooltip(), " R ", 'R', GTItems.rodThorium2, 'C', COPPER);
@@ -510,12 +521,8 @@ public class GTCXRecipe {
         recipes.overrideRecipe("shaped_item.reactoruraniumcharcoalquad_-1967517384", Ic2Items.reactorCharcoalUraniumRodQuad, "RCR", "CCC", "RCR", 'R', Ic2Items.reactorCharcoalUraniumRodSingle, 'C', COPPER);
     }
 
-    public static void initIc2(){
+    static void initIc2(){
         initUranaiumRodOverrides();
-        recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneCompressor, 'C',
-                CIRCUIT_BASIC);
-        recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneExtractor, 'C',
-                CIRCUIT_BASIC);
         ItemStack cable = GTMaterialGen.get(GTCXBlocks.aluminiumCable, 1);
         recipes.addRecipe(Ic2Items.detectorCable.copy(), " C ", "RcR", " R ",  hasEnoughInsulation(cable.copy(), 3), 'C', CIRCUIT_BASIC, 'R', "dustRedstone", 'c', cableWithInsulationTag(cable.copy(), 3));
         recipes.addRecipe(Ic2Items.splitterCable.copy(), " R ", "cLc", " R ",  hasEnoughInsulation(cable.copy(), 3), 'L', Blocks.LEVER, 'R', "dustRedstone", 'c', cableWithInsulationTag(cable.copy(), 3));
@@ -697,7 +704,7 @@ public class GTCXRecipe {
 
     }
 
-    public static void initOverrideGTClassic(){
+    static void initOverrideGTClassic(){
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileQuantumChest), "DCD", "HTH", "DdD", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor, 'H', MACHINE_ELITE, 'T', Ic2Items.teleporter, 'd', GTBlocks.tileDigitalChest);
         recipes.addRecipe(GTMaterialGen.get(GTBlocks.tileDigitalChest), "III", "SDS", "ICI", 'I', PLATINUM, 'S', "circuitElite", 'D', GTItems.orbData, 'C', GTCXItems.computerMonitor);
         recipes.addRecipe( GTMaterialGen.get(GTBlocks.tileQuantumTank), "CIC", "IQI", "CIC", 'I', PLATINUM, 'C', CIRCUIT_MASTER, 'Q', GTBlocks.tileQuantumChest);

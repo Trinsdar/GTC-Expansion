@@ -21,12 +21,6 @@ public class GTCXRecipeRemove {
 
     public static void init(){
         initIc2Removals();
-        if (GTCXConfiguration.general.unfiredBricks){
-            GTHelperStack.removeSmelting(new ItemStack(Items.BRICK));
-        }
-        if (GTCXConfiguration.general.forcePreElectricMachines){
-            GTHelperStack.removeSmelting(Ic2Items.rubber);
-        }
         removeFurnaceRecipes();
     }
 
@@ -74,9 +68,14 @@ public class GTCXRecipeRemove {
     }
 
     public static void removeFurnaceRecipes(){
+        if (GTCXConfiguration.general.unfiredBricks){
+            GTHelperStack.removeSmelting(new ItemStack(Items.BRICK));
+        }
+        if (GTCXConfiguration.general.forcePreElectricMachines && !GTCXConfiguration.general.gt2Mode){
+            GTHelperStack.removeSmelting(Ic2Items.rubber);
+        }
         if (GTCXConfiguration.general.removeVanillaCharcoalRecipe) {
             GTHelperStack.removeSmelting(new ItemStack(Items.COAL, 1, 1));
-
         }
     }
 

@@ -69,13 +69,16 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil4(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer, GTCXMachineGui.GTCXFusionComputerGui.class, 155, 5, 16, 16);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.centrifuge), "gt.centrifuge");
-            registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
-            registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
+            if (!GTCXConfiguration.general.gt2Mode){
+                registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
+                registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
+            }
             //electric furnace
             registry.handleRecipes(IMachineRecipeList.RecipeEntry.class, MachineRecipeWrapper::new, "electricFurnace");
             registry.addRecipes(ClassicRecipes.furnace.getRecipeMap(), "electricFurnace");
             registry.addRecipeCatalyst(Ic2Items.electroFurnace, "electricFurnace");
             registry.addRecipeCatalyst(Ic2Items.inductionFurnace, "electricFurnace");
+
             registry.addRecipeClickArea(GTGuiMachine.GTIndustrialCentrifugeGui.class, 69, 26, 20, 18, "gt.centrifuge");
             String recipeId = "gt.integratedcircuit";
             registry.handleRecipes(GTCXJeiIntegratedCircuitWrapper.IntegratedCircuitRecipe.class, GTCXJeiIntegratedCircuitWrapper::new, recipeId);
@@ -91,6 +94,10 @@ public class GTCXJeiPlugin implements IModPlugin {
                         blacklist.addIngredientToBlacklist(GTCXMaterialGen.getPurifiedCrushedOre(mat, 1));
                     }
                 }
+            }
+            if (GTCXConfiguration.general.gt2Mode){
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.stoneCompressor));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.stoneExtractor));
             }
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.dataOrbStorage));
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.dummyCover));
