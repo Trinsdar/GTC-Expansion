@@ -143,7 +143,7 @@ public abstract class GTCXTileEnergyOutputHatch extends TileEntityMachine implem
 
     @Override
     public double getOfferedEnergy() {
-        return this.owner == null || this.owner.getStoredEnergy() < this.output ? 0.0f : this.output;
+        return this.owner == null  ? 0.0f : Math.min(this.getStoredEU(), this.output);
     }
 
     @Override
