@@ -55,6 +55,15 @@ public class GTCXLang {
     public static final LocaleComp ALUMINIUM_CABLE_INSULATED_2 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.aluminiumcableinsulated2");
     public static final LocaleComp ALUMINIUM_CABLE_INSULATED_4 = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.aluminiumcableinsulated3");
 
+    public static final LocaleComp SMALL_COAL_BOILER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.small_coal_boiler");
+    public static final LocaleComp SIMPLE_SOLAR_BOILER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.simple_solar_boiler");
+    public static final LocaleComp STEAM_COMPRESSOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.steam_compressor");
+    public static final LocaleComp STEAM_EXTRACTOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.steam_extractor");
+    public static final LocaleComp STEAM_MACERATOR = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.steam_macerator");
+    public static final LocaleComp STEAM_FURNACE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.steam_furnace");
+    public static final LocaleComp STEAM_FORGE_HAMMER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.steam_forge_hammer");
+    public static final LocaleComp STEAM_ALLOY_SMELTER = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.steam_alloy_smelter");
+
     public static final LocaleComp BRASS_PIPE = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.brass_pipe");
 
     public static final LocaleComp INPUT_HATCH = new LangComponentHolder.LocaleBlockComp("tile.gtc_expansion.inputhatch");

@@ -93,6 +93,7 @@ public class GTCXIcons {
         t2 = s(GTCExpansion.MODID + "_blocks", 1);
         setTexture(GTCXBlocks.cokeOven, t2, t2, t2, s(10,5), t2, t2, t2, t2, t2, s(11,5), t2, t2);
         setTexture(GTCXBlocks.steamCompressor, s(7,6), s(12,6), s(9,7), s(10,6), s(8,7), s(8,7), s(7,6), s(12,6), s(9,7), s(11,6), s(8,7), s(8,7));
+        setTexture(GTCXBlocks.coalBoiler, s(9, 6), s(6, 6), s(5,6), s(3,6), s(5,6), s(5,6), s(9, 6), s(6, 6), s(5,6), s(4,6), s(5,6), s(5,6));
     }
 
     private static ResourceLocation location(String name) {

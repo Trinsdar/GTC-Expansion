@@ -57,6 +57,7 @@ import gtc_expansion.tile.overrides.GTCXTileScanner;
 import gtc_expansion.tile.pipes.GTCXTileBaseFluidPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileQuadFluidPipe;
+import gtc_expansion.tile.steam.GTCXTileCoalBoiler;
 import gtc_expansion.tile.steam.GTCXTileSteamCompressor;
 import gtc_expansion.tile.wiring.GTCXTileAluminiumCable;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
@@ -107,7 +108,7 @@ public class GTCXBlocks {
     public static final GTCXBlockTile gasTurbine = registerBlock(new GTCXBlockTile("gasturbine", GTCXLang.GAS_TURBINE, 1));
     public static final GTCXBlockTile stoneCompressor = registerBlock(new GTCXBlockTile("stonecompressor", GTCXLang.STONE_COMPRESSOR, 1));
     public static final GTCXBlockTile stoneExtractor = registerBlock(new GTCXBlockTile("stoneextractor", GTCXLang.STONE_EXTRACTOR, 1));
-    public static final GTCXBlockTile steamCompressor = registerBlock(new GTCXBlockTile("steamcompressor", GTCXLang.STONE_COMPRESSOR, 1));
+    public static final GTCXBlockTile steamCompressor = registerBlock(new GTCXBlockTile("steamcompressor", GTCXLang.STEAM_COMPRESSOR, 1));
     public static final GTCXBlockTile fusionComputer = registerBlock(new GTCXBlockTile("fusioncomputor", GTCXLang.FUSION_COMPUTER, 2));
     public static final GTCXBlockTile thermalBoiler = registerBlock(new GTCXBlockTile("thermalboiler", GTCXLang.THERMAL_BOILER, 1));
     public static final GTCXBlockTile largeSteamTurbine = registerBlock(new GTCXBlockTile("largesteamturbine", GTCXLang.LARGE_STEAM_TURBINE, 1));
@@ -115,7 +116,9 @@ public class GTCXBlocks {
     public static final GTCXBlockTile centrifuge = registerBlock(new GTCXBlockTile("industrialcentrifuge", GTLang.INDUSTRIAL_CENTRIFUGE, 1));
     public static final GTCXBlockTile bath = registerBlock(new GTCXBlockTile("bath", GTCXLang.BATH, 2));
     public static final GTCXBlockTile digitalTank = registerBlock(new GTCXBlockTile("digitaltank", GTCXLang.DIGITAL_TANK, 1));
-    public static final GTCXBlockTile cokeOven  = registerBlock(new GTCXBlockTile("cokeoven", GTCXLang.COKE_OVEN, Material.ROCK, 3));
+    public static final GTCXBlockTile cokeOven = registerBlock(new GTCXBlockTile("cokeoven", GTCXLang.COKE_OVEN, Material.ROCK, 3));
+
+    public static final GTCXBlockTile coalBoiler = registerBlock(new GTCXBlockTile("coalboiler", GTCXLang.SMALL_COAL_BOILER));
 
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
@@ -251,6 +254,7 @@ public class GTCXBlocks {
         registerUtil(GTCXTileDigitalTank.class, "DigitalTank");
         registerUtil(GTCXTileBrick.class, "Brick");
         registerUtil(GTCXTileScanner.class, "Scanner");
+        registerUtil(GTCXTileCoalBoiler.class, "CoalBoiler");
     }
 
     public static void registerUtil(Class tile, String name) {

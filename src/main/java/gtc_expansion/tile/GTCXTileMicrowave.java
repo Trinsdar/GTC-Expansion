@@ -94,13 +94,16 @@ public class GTCXTileMicrowave extends GTTileBaseMachine {
 
     @Override
     public void update() {
-        if (this.hasEnergy(10) ){
+        if (this.hasEnergy(10)){
             if (inventory.get(slotInput).getItem() instanceof ItemEgg){
                 world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, true);
+                this.world.setBlockToAir(this.getPos());
             }
             for (ItemStack stack : explodeList){
                 if (GTHelperStack.isEqual(stack, inventory.get(slotInput))){
                     world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, true);
+                    this.world.setBlockToAir(this.getPos());
+                    break;
                 }
             }
         }

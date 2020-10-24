@@ -81,7 +81,7 @@ public class GTCXShutterLogic extends GTCXBaseCoverLogic {
     @Override
     public boolean cycleMode(EntityPlayer player) {
         if (this.pipe.isSimulating()){
-            mode = mode.cycle(player);
+            mode = player.isSneaking() ? mode.cycleBack(player) : mode.cycle(player);
         }
         return true;
     }

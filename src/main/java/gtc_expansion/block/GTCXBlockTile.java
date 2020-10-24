@@ -41,6 +41,7 @@ import gtc_expansion.tile.multi.GTCXTileMultiLargeSteamTurbine;
 import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
+import gtc_expansion.tile.steam.GTCXTileCoalBoiler;
 import gtc_expansion.tile.steam.GTCXTileSteamCompressor;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
@@ -263,6 +264,9 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         }
         if (this == GTCXBlocks.fireBrickBlock){
             return new GTCXTileBrick();
+        }
+        if (this == GTCXBlocks.coalBoiler){
+            return new GTCXTileCoalBoiler();
         }
         return null;
     }
