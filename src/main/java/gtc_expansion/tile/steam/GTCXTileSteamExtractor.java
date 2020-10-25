@@ -2,7 +2,9 @@ package gtc_expansion.tile.steam;
 
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerSteamCompressor;
+import gtc_expansion.container.GTCXContainerSteamExtractor;
 import gtc_expansion.tile.GTCXTileStoneCompressor;
+import gtc_expansion.tile.GTCXTileStoneExtractor;
 import gtc_expansion.tile.base.GTCXTileBaseSteamMachine;
 import gtc_expansion.util.GTCXSteamMachineFilter;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -14,10 +16,10 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class GTCXTileSteamCompressor extends GTCXTileBaseSteamMachine {
-    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/bronzecompressor.png");
+public class GTCXTileSteamExtractor extends GTCXTileBaseSteamMachine {
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/bronzeextractor.png");
     public IFilter filter = new GTCXSteamMachineFilter(this);
-    public GTCXTileSteamCompressor() {
+    public GTCXTileSteamExtractor() {
         super(2, 800, 4);
     }
 
@@ -43,22 +45,22 @@ public class GTCXTileSteamCompressor extends GTCXTileBaseSteamMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GTCXTileStoneCompressor.RECIPE_LIST;
+        return GTCXTileStoneExtractor.RECIPE_LIST;
     }
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.compressorOp;
+        return Ic2Sounds.extractorOp;
     }
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
-        return new GTCXContainerSteamCompressor(entityPlayer.inventory, this);
+        return new GTCXContainerSteamExtractor(entityPlayer.inventory, this);
     }
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer entityPlayer) {
-        return MachineGui.CompressorGui.class;
+        return MachineGui.ExtractorGui.class;
     }
 
     public ResourceLocation getGuiLocation(){

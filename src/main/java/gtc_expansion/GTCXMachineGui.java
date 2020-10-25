@@ -147,4 +147,10 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXForgeHammerGui extends MachineGui{
+        public GTCXForgeHammerGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

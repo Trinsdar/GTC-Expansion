@@ -113,10 +113,12 @@ public class GTCXTileCoalBoiler extends TileEntityMachine implements IFuelMachin
         GTHelperFluid.doFluidContainerThings(this, water, 0, 1);
         if (this.heat <= 20) {
             this.heat = 20;
+            this.getNetwork().updateTileGuiField(this, "heat");
             this.lossTimer = 0;
         }
         if (++this.lossTimer > 45) {
             this.heat -= 1;
+            this.getNetwork().updateTileGuiField(this, "heat");
             this.lossTimer = 0;
         }
         for (EnumFacing facing : RotationList.DOWN.invert()){

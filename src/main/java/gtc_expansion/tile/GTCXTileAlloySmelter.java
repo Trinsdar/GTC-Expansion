@@ -49,7 +49,7 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
     public static final int slotFuel = 3;
     protected static final int[] slotInputs = { slotInput0, slotInput1 };
     public IFilter filter = new MachineFilter(this);
-    private static final int defaultEu = 4;
+    private static final int defaultEu = 16;
 
     public GTCXTileAlloySmelter() {
         super(4, 4, defaultEu, 100, 32);
@@ -206,6 +206,6 @@ public class GTCXTileAlloySmelter extends GTTileBaseMachine {
     }
 
     static void addRecipe(List<IRecipeInput> input, MachineOutput output, String recipeId) {
-        GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, recipeId, 4);
+        GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST.addRecipe(input, output, recipeId, 16);
     }
 }

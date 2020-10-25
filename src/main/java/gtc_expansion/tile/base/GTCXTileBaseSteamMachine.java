@@ -476,7 +476,6 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
             }
         } else if (event == 3){
             if (this.audioSource != null) {
-                this.audioSource.stop();
                 IC2.audioManager.playOnce(this, PositionSpec.Center, SoundEvents.BLOCK_FIRE_EXTINGUISH.getSoundName(), false, IC2.audioManager.defaultVolume
                         * this.soundLevel);
             }

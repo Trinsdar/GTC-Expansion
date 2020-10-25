@@ -1,8 +1,9 @@
 package gtc_expansion.tile.steam;
 
 import gtc_expansion.GTCExpansion;
-import gtc_expansion.container.GTCXContainerSteamCompressor;
-import gtc_expansion.tile.GTCXTileStoneCompressor;
+import gtc_expansion.container.GTCXContainerSteamExtractor;
+import gtc_expansion.container.GTCXContainerSteamFurnace;
+import gtc_expansion.tile.GTCXTileStoneExtractor;
 import gtc_expansion.tile.base.GTCXTileBaseSteamMachine;
 import gtc_expansion.util.GTCXSteamMachineFilter;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -14,11 +15,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class GTCXTileSteamCompressor extends GTCXTileBaseSteamMachine {
-    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/bronzecompressor.png");
+public class GTCXTileSteamFurnace extends GTCXTileBaseSteamMachine {
+    public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/bronzefurnace.png");
     public IFilter filter = new GTCXSteamMachineFilter(this);
-    public GTCXTileSteamCompressor() {
-        super(2, 800, 4);
+    public GTCXTileSteamFurnace() {
+        super(2, 260, 6);
     }
 
     @Override
@@ -43,22 +44,22 @@ public class GTCXTileSteamCompressor extends GTCXTileBaseSteamMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GTCXTileStoneCompressor.RECIPE_LIST;
+        return GTCXTileStoneExtractor.RECIPE_LIST;
     }
 
     @Override
     public ResourceLocation getStartSoundFile() {
-        return Ic2Sounds.compressorOp;
+        return Ic2Sounds.electricFurnaceLoop;
     }
 
     @Override
     public ContainerIC2 getGuiContainer(EntityPlayer entityPlayer) {
-        return new GTCXContainerSteamCompressor(entityPlayer.inventory, this);
+        return new GTCXContainerSteamFurnace(entityPlayer.inventory, this);
     }
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer entityPlayer) {
-        return MachineGui.CompressorGui.class;
+        return MachineGui.FurnaceGui.class;
     }
 
     public ResourceLocation getGuiLocation(){

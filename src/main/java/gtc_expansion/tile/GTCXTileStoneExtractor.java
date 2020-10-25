@@ -43,7 +43,7 @@ import java.util.Random;
 
 public class GTCXTileStoneExtractor extends GTTileBaseFuelMachine implements IGTItemContainerTile, IGTDisplayTickTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/stoneextractor.png");
-    private static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.stoneextractor", 0);
+    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.stoneextractor", 0);
     protected static final int[] slotInputs = { 0 };
     public static final int slotOutput = 1;
     public static final int slotFuel = 2;

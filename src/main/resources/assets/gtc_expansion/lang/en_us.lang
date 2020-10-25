@@ -127,6 +127,14 @@ tile.gtc_expansion.fusion_material_extractor.name=Fusion Material Extractor
 tile.gtc_expansion.fusion_energy_injector.name=Fusion Energy Injector
 tile.gtc_expansion.fusion_energy_extractor.name=Fusion Energy Extractor
 tile.gtc_expansion.blockScanner.name=Scanner
+tile.gtc_expansion.small_coal_boiler.name=Small Coal Boiler
+tile.gtc_expansion.simple_solar_boiler.name=Simple Solar Boiler
+tile.gtc_expansion.steam_compressor.name=Steam Compressor
+tile.gtc_expansion.steam_extractor.name=Steam Extractor
+tile.gtc_expansion.steam_macerator.name=Steam Macerator
+tile.gtc_expansion.steam_furnace.name=Steam Furnace
+tile.gtc_expansion.steam_forge_hammer.name=Steam Forge Hammer
+tile.gtc_expansion.steam_alloy_smelter.name=Steam Alloy Smelter
 
 #crops
 ic2.crop.Olivia.name=Olivia
@@ -849,6 +857,14 @@ tooltip.gtc_expansion.digitaltank0=With a capacity of 256000 Liters!
 tooltip.gtc_expansion.fluid_pipe0=Bandwith: %1$s mb/t
 tooltip.gtc_expansion.fluid_pipe1=Capacity: %1$s mb
 tooltip.gtc_expansion.blockScanner0=Changed by GTC Expansion to also support forestry bees, saplings, ect.
+tooltip.gtc_expansion.small_coal_boiler0=An early way to get Steam Power
+tooltip.gtc_expansion.simple_solar_boiler0=Simple Solar Boiler
+tooltip.gtc_expansion.steam_compressor0=Steam powered Compressor
+tooltip.gtc_expansion.steam_extractor0=Steam powered Extractor
+tooltip.gtc_expansion.steam_macerator0=Grinds up Ores
+tooltip.gtc_expansion.steam_furnace0=Just a Steam powered Furnace
+tooltip.gtc_expansion.steam_forge_hammer0=Hammers Ingots into Plates
+tooltip.gtc_expansion.steam_alloy_smelter0=Steam powered combination Smelter
 
 #multiblock tooltips
 tooltip.gtc_expansion.thermalboilermultiblock0=Size(LxWxH): 3x3x3 (Hollow), Controller (Front Centered)
