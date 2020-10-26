@@ -58,7 +58,12 @@ import gtc_expansion.tile.pipes.GTCXTileBaseFluidPipe;
 import gtc_expansion.tile.pipes.GTCXTileBaseItemPipe;
 import gtc_expansion.tile.pipes.GTCXTileQuadFluidPipe;
 import gtc_expansion.tile.steam.GTCXTileCoalBoiler;
+import gtc_expansion.tile.steam.GTCXTileSteamAlloySmelter;
 import gtc_expansion.tile.steam.GTCXTileSteamCompressor;
+import gtc_expansion.tile.steam.GTCXTileSteamExtractor;
+import gtc_expansion.tile.steam.GTCXTileSteamForgeHammer;
+import gtc_expansion.tile.steam.GTCXTileSteamFurnace;
+import gtc_expansion.tile.steam.GTCXTileSteamMacerator;
 import gtc_expansion.tile.wiring.GTCXTileAluminiumCable;
 import gtc_expansion.tile.wiring.GTCXTileElectrumCable;
 import gtclassic.GTMod;
@@ -119,6 +124,11 @@ public class GTCXBlocks {
 
     public static final GTCXBlockTile coalBoiler = registerBlock(new GTCXBlockTile("coalboiler", GTCXLang.SMALL_COAL_BOILER, 1));
     public static final GTCXBlockTile steamCompressor = registerBlock(new GTCXBlockTile("steamcompressor", GTCXLang.STEAM_COMPRESSOR, 1));
+    public static final GTCXBlockTile steamExtractor = registerBlock(new GTCXBlockTile("steamextractor", GTCXLang.STEAM_EXTRACTOR, 1));
+    public static final GTCXBlockTile steamMacerator = registerBlock(new GTCXBlockTile("steammacerator", GTCXLang.STEAM_MACERATOR, 1));
+    public static final GTCXBlockTile steamFurnace = registerBlock(new GTCXBlockTile("steamfurnace", GTCXLang.STEAM_FURNACE, 1));
+    public static final GTCXBlockTile steamForgeHammer = registerBlock(new GTCXBlockTile("steamforgehammer", GTCXLang.STEAM_FORGE_HAMMER, 1));
+    public static final GTCXBlockTile steamAlloySmelter = registerBlock(new GTCXBlockTile("steamalloysmelter", GTCXLang.STEAM_ALLOY_SMELTER, 1));
 
     public static final GTCXBlockStorage locker = registerBlock(new GTCXBlockStorage("locker", GTCXLang.LOCKER,1));
     public static final GTCXBlockStorage electricLocker = registerBlock(new GTCXBlockStorage("electriclocker", GTCXLang.ELECTRIC_LOCKER, 1));
@@ -234,7 +244,6 @@ public class GTCXBlocks {
         registerUtil(GTCXTileDustbin.class, "Dustbin");
         registerUtil(GTCXTileTrashBin.class, "TrashBin");
         registerUtil(GTCXTileStoneCompressor.class, "StoneCompressor");
-        registerUtil(GTCXTileSteamCompressor.class, "SteamCompressor");
         registerUtil(GTCXTileStoneExtractor.class, "StoneExtractor");
         registerUtil(GTCXTileElectrumCable.class, "ElectrumCable");
         registerUtil(GTCXTileAluminiumCable.class, "AluminiumCable");
@@ -255,6 +264,12 @@ public class GTCXBlocks {
         registerUtil(GTCXTileBrick.class, "Brick");
         registerUtil(GTCXTileScanner.class, "Scanner");
         registerUtil(GTCXTileCoalBoiler.class, "CoalBoiler");
+        registerUtil(GTCXTileSteamCompressor.class, "SteamCompressor");
+        registerUtil(GTCXTileSteamExtractor.class, "SteamExtractor");
+        registerUtil(GTCXTileSteamMacerator.class, "SteamMacerator");
+        registerUtil(GTCXTileSteamFurnace.class, "SteamFurnace");
+        registerUtil(GTCXTileSteamForgeHammer.class, "SteamForgeHammer");
+        registerUtil(GTCXTileSteamAlloySmelter.class, "SteamAlloySmelter");
     }
 
     public static void registerUtil(Class tile, String name) {

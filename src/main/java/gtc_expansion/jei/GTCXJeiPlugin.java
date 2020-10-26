@@ -68,10 +68,15 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil3(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine, GTCXMachineGui.GTCXGasTurbineGui.class, 78, 35, 16, 17);
             wrapperUtil4(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer, GTCXMachineGui.GTCXFusionComputerGui.class, 155, 5, 16, 16);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
+            registry.addRecipeClickArea(GTCXMachineGui.GTCXSteamAlloySmelterGui.class, 80, 34, 20, 18, "gt.alloysmelter");
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.centrifuge), "gt.centrifuge");
             if (!GTCXConfiguration.general.gt2Mode){
                 registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "compressor");
                 registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.stoneExtractor), "extractor");
+                registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.steamCompressor), "compressor");
+                registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.steamExtractor), "extractor");
+                registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.steamMacerator), "macerator");
+                registry.addRecipeCatalyst(GTMaterialGen.get(GTCXBlocks.steamFurnace), "minecraft.smelting");
             }
             //electric furnace
             registry.handleRecipes(IMachineRecipeList.RecipeEntry.class, MachineRecipeWrapper::new, "electricFurnace");

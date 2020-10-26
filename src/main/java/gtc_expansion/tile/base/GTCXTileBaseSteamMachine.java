@@ -343,7 +343,7 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
         double progMod = nbt.hasKey("RecipeTimeModifier") ? nbt.getDouble("RecipeTimeModifier") : 1F;
         int newProgress = TileEntityBasicElectricMachine.applyModifier(maxProgress, nbt.getInteger("RecipeTime"), progMod);
         if (newProgress != recipeOperation) {
-            recipeOperation = newProgress;
+            recipeOperation = newProgress * 2;
             if (recipeOperation < 1) {
                 recipeOperation = 1;
             }

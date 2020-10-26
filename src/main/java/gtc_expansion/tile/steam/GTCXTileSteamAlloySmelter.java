@@ -3,14 +3,12 @@ package gtc_expansion.tile.steam;
 import gtc_expansion.GTCExpansion;
 import gtc_expansion.GTCXMachineGui;
 import gtc_expansion.container.GTCXContainerSteamAlloySmelter;
-import gtc_expansion.container.GTCXContainerSteamExtractor;
-import gtc_expansion.tile.GTCXTileStoneExtractor;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.tile.base.GTCXTileBaseSteamMachine;
 import gtc_expansion.util.GTCXSteamMachineFilter;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.IFilter;
-import ic2.core.inventory.gui.custom.MachineGui;
 import ic2.core.platform.registry.Ic2Sounds;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +18,7 @@ public class GTCXTileSteamAlloySmelter extends GTCXTileBaseSteamMachine {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/bronzealloysmelter.png");
     public IFilter filter = new GTCXSteamMachineFilter(this);
     public GTCXTileSteamAlloySmelter() {
-        super(3, 6400, 32);
+        super(3, 100, 32);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class GTCXTileSteamAlloySmelter extends GTCXTileBaseSteamMachine {
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return GTCXTileStoneExtractor.RECIPE_LIST;
+        return GTCXRecipeLists.ALLOY_SMELTER_RECIPE_LIST;
     }
 
     @Override
@@ -60,7 +58,7 @@ public class GTCXTileSteamAlloySmelter extends GTCXTileBaseSteamMachine {
 
     @Override
     public Class<? extends GuiScreen> getGuiClass(EntityPlayer entityPlayer) {
-        return GTCXMachineGui.GTCXAlloySmelterGui.class;
+        return GTCXMachineGui.GTCXSteamAlloySmelterGui.class;
     }
 
     public ResourceLocation getGuiLocation(){

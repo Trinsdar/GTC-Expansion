@@ -116,7 +116,10 @@ public class GTCXConfiguration {
     public static class General{
         @Comment("Enables quite a few of GT recipes using plates instead of ingots.")
         public boolean usePlates = true;
-        @Comment("Enables plates taking 2 ingots instead of 1 ingot in the crafting table recipes.")
+        @Comment({
+                "Enables plates taking 2 ingots instead of 1 ingot in the crafting table recipes",
+                "and 2 plates taking 3 ingots in the forge hammer machine."
+        })
         public boolean harderPlates = false;
         @Comment("Enables regular and fire bricks taking unfired bricks in the furnace recipe.")
         public boolean unfiredBricks = false;
@@ -153,6 +156,8 @@ public class GTCXConfiguration {
         public boolean gt2Mode = false;
         @Comment("Forces Steel machine hulls regardless of the ic2c steel config.")
         public boolean forceSteelCasings = true;
+        @Comment("Forces cable recipes to take plates and wire cutters.")
+        public boolean plateCableRecipes = true;
     }
 
     @Comment("Mod Compatability")

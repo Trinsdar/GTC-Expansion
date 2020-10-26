@@ -153,4 +153,10 @@ public class GTCXMachineGui {
             super(container);
         }
     }
+
+    public static class GTCXSteamAlloySmelterGui extends MachineGui{
+        public GTCXSteamAlloySmelterGui(ContainerComponent container) {
+            super(container);
+        }
+    }
 }

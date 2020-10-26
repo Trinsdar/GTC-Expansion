@@ -42,7 +42,12 @@ import gtc_expansion.tile.multi.GTCXTileMultiPrimitiveBlastFurnace;
 import gtc_expansion.tile.multi.GTCXTileMultiThermalBoiler;
 import gtc_expansion.tile.multi.GTCXTileMultiVacuumFreezer;
 import gtc_expansion.tile.steam.GTCXTileCoalBoiler;
+import gtc_expansion.tile.steam.GTCXTileSteamAlloySmelter;
 import gtc_expansion.tile.steam.GTCXTileSteamCompressor;
+import gtc_expansion.tile.steam.GTCXTileSteamExtractor;
+import gtc_expansion.tile.steam.GTCXTileSteamForgeHammer;
+import gtc_expansion.tile.steam.GTCXTileSteamFurnace;
+import gtc_expansion.tile.steam.GTCXTileSteamMacerator;
 import gtclassic.GTMod;
 import gtclassic.api.block.GTBlockBaseMachine;
 import gtclassic.api.interfaces.IGTItemContainerTile;
@@ -267,6 +272,21 @@ public class GTCXBlockTile extends GTBlockBaseMachine implements IGTReaderInfoBl
         }
         if (this == GTCXBlocks.coalBoiler){
             return new GTCXTileCoalBoiler();
+        }
+        if (this == GTCXBlocks.steamMacerator){
+            return new GTCXTileSteamMacerator();
+        }
+        if (this == GTCXBlocks.steamExtractor){
+            return new GTCXTileSteamExtractor();
+        }
+        if (this == GTCXBlocks.steamFurnace){
+            return new GTCXTileSteamFurnace();
+        }
+        if (this == GTCXBlocks.steamForgeHammer){
+            return new GTCXTileSteamForgeHammer();
+        }
+        if (this == GTCXBlocks.steamAlloySmelter){
+            return new GTCXTileSteamAlloySmelter();
         }
         return null;
     }

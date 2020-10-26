@@ -4,6 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.container.GTCXContainerStoneExtractor;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXLang;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.interfaces.IGTDisplayTickTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
@@ -43,7 +44,6 @@ import java.util.Random;
 
 public class GTCXTileStoneExtractor extends GTTileBaseFuelMachine implements IGTItemContainerTile, IGTDisplayTickTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/stoneextractor.png");
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.stoneextractor", 0);
     protected static final int[] slotInputs = { 0 };
     public static final int slotOutput = 1;
     public static final int slotFuel = 2;
@@ -102,7 +102,7 @@ public class GTCXTileStoneExtractor extends GTTileBaseFuelMachine implements IGT
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GTCXRecipeLists.EXTRACTOR_RECIPE_LIST;
     }
 
     @Override
@@ -190,17 +190,4 @@ public class GTCXTileStoneExtractor extends GTTileBaseFuelMachine implements IGT
         }
     }
 
-    public static void init(){
-        for (IMachineRecipeList.RecipeEntry entry : ClassicRecipes.extractor.getRecipeMap()){
-            if (!GTHelperStack.oreDictStartsWith(entry.getInput().getInputs().get(0), "ore")){
-                addRecipe(entry.getInput(), entry.getOutput());
-            }
-        }
-    }
-
-    static void addRecipe(IRecipeInput input, MachineOutput output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(input);
-        RECIPE_LIST.addRecipe(inputs, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
-    }
 }

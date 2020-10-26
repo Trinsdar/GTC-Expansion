@@ -27,4 +27,9 @@ public class GTCXRecipeLists {
     public static final GTRecipeMultiInputList GAS_TURBINE_RECIPE_LIST = new GTRecipeMultiInputList("gt.gasturbine");
     public static final GTRecipeMultiInputList BATH_RECIPE_LIST = new GTRecipeMultiInputList("gt.bath");
     public static final GTRecipeMultiInputList COKE_OVEN_RECIPE_LIST = new GTRecipeMultiInputList("gt.cokeoven");
+    public static final GTRecipeMultiInputList MACERATOR_RECIPE_LIST = new GTRecipeMultiInputList("gt.macerator");
+    public static final GTRecipeMultiInputList FURNACE_RECIPE_LIST = new GTRecipeMultiInputList("gt.furnace");
+    public static final GTRecipeMultiInputList COMPRESSOR_RECIPE_LIST = new GTRecipeMultiInputList("gt.stonecompressor", 0);
+    public static final GTRecipeMultiInputList EXTRACTOR_RECIPE_LIST = new GTRecipeMultiInputList("gt.stoneextractor", 0);
+    public static final GTRecipeMultiInputList FORGE_HAMMER_RECIPE_LIST = new GTRecipeMultiInputList("gt.forgehammer");
 }

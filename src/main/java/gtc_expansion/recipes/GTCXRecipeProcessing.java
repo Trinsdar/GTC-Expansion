@@ -153,8 +153,10 @@ public class GTCXRecipeProcessing {
             GTRecipe.maceratorUtil("oreTin", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tin, 2));
             ClassicRecipes.macerator.removeRecipe(input("oreSilver", 1));
             GTRecipe.maceratorUtil("oreSilver", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Silver, 2));
-            ClassicRecipes.macerator.removeRecipe(input("oreLead", 1));
-            GTRecipe.maceratorUtil("oreLead", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Lead, 2));
+            if (OreDictionary.doesOreNameExist("oreLead")){
+                ClassicRecipes.macerator.removeRecipe(input("oreLead", 1));
+                GTRecipe.maceratorUtil("oreLead", 1, GTCXMaterialGen.getCrushedOre(GTCXMaterial.Lead, 2));
+            }
             ClassicRecipes.macerator.removeRecipe(input("oreUranium", 1));
             GTRecipe.maceratorUtil("oreUranium", 1, GTCXMaterialGen.getCrushedOre(GTMaterial.Uranium, 2));
             GameRegistry.addSmelting(GTCXMaterialGen.getCrushedOre(GTCXMaterial.Tetrahedrite, 1), GTCXMaterialGen.getNugget(GTCXMaterial.Copper, 6), 0.5F);

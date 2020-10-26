@@ -25,5 +25,6 @@ public class GTCXJei {
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.EXTRUDER_RECIPE_LIST, GTCXBlocks.extruder, GTCXMachineGui.GTCXExtruderGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.BATH_RECIPE_LIST, GTCXBlocks.bath, GTCXMachineGui.GTCXBathGui.class, 78, 24, 20, 18));
         GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.COKE_OVEN_RECIPE_LIST, GTCXBlocks.cokeOven, GTCXMachineGui.GTCXCokeOvenGui.class, 78, 24, 20, 18));
+        GTJeiHandler.addEntry(new GTJeiEntry(GTCXRecipeLists.FORGE_HAMMER_RECIPE_LIST, GTCXBlocks.steamForgeHammer, GTCXMachineGui.GTCXForgeHammerGui.class, 80, 34, 20, 18));
     }
 }

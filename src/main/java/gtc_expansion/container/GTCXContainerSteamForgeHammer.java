@@ -24,7 +24,7 @@ public class GTCXContainerSteamForgeHammer extends ContainerTileComponent<GTCXTi
         this.addSlotToContainer(new SlotCustom(tile, 0, 55, 35, tile.filter));// input slot
         this.addSlotToContainer(new SlotOutput(player.player, tile, 1, 109, 35));
         this.addPlayerInventory(player);
-        this.addComponent(new GTCXGuiCompMachineSteam(tile));
+        this.addComponent(new GTCXGuiCompMachineSteam(tile, 80, 58));
         this.addComponent(new GTGuiCompDirectionalProgress(tile, machineProgressBox, machineProgressPos, GTGuiCompDirectionalProgress.Direction.UP));
     }
 

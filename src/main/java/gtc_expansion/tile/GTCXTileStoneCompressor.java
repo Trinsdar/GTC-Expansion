@@ -4,6 +4,7 @@ import gtc_expansion.GTCExpansion;
 import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.container.GTCXContainerStoneCompressor;
 import gtc_expansion.data.GTCXLang;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.interfaces.IGTDisplayTickTile;
 import gtclassic.api.interfaces.IGTItemContainerTile;
 import gtclassic.api.material.GTMaterialGen;
@@ -42,7 +43,6 @@ import java.util.Random;
 
 public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IGTItemContainerTile, IGTDisplayTickTile {
     public static final ResourceLocation GUI_LOCATION = new ResourceLocation(GTCExpansion.MODID, "textures/gui/stonecompressor.png");
-    public static final GTRecipeMultiInputList RECIPE_LIST = new GTRecipeMultiInputList("gt.stonecompressor", 0);
     protected static final int[] slotInputs = { 0 };
     public static final int slotOutput = 1;
     public static final int slotFuel = 2;
@@ -101,7 +101,7 @@ public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IG
 
     @Override
     public GTRecipeMultiInputList getRecipeList() {
-        return RECIPE_LIST;
+        return GTCXRecipeLists.COMPRESSOR_RECIPE_LIST;
     }
 
     @Override
@@ -187,17 +187,5 @@ public class GTCXTileStoneCompressor extends GTTileBaseFuelMachine implements IG
                 world.spawnParticle(EnumParticleTypes.FLAME, x, y, z, 0.0D, 0.0D, 0.0D);
             }
         }
-    }
-
-    public static void init(){
-        for (IMachineRecipeList.RecipeEntry entry : ClassicRecipes.compressor.getRecipeMap()){
-            addRecipe(entry.getInput(), entry.getOutput());
-        }
-    }
-
-    static void addRecipe(IRecipeInput input, MachineOutput output) {
-        List<IRecipeInput> inputs = new ArrayList<>();
-        inputs.add(input);
-        RECIPE_LIST.addRecipe(inputs, output, output.getAllOutputs().get(0).getUnlocalizedName(), 4);
     }
 }

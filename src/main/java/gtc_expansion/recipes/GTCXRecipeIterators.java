@@ -16,6 +16,7 @@ import gtc_expansion.tile.GTCXTileLathe;
 import gtc_expansion.tile.GTCXTileMicrowave;
 import gtc_expansion.tile.GTCXTilePlateBender;
 import gtc_expansion.tile.GTCXTilePlateCutter;
+import gtc_expansion.tile.steam.GTCXTileSteamForgeHammer;
 import gtc_expansion.util.GTCXHelperPipe;
 import gtclassic.api.helpers.GTHelperStack;
 import gtclassic.api.helpers.GTValues;
@@ -256,9 +257,11 @@ public class GTCXRecipeIterators {
             if (GTCXConfiguration.general.harderPlates) {
                 recipes.addRecipe(GTCXMaterialGen.getPlate(mat, 1), "H", "X", "X", 'H',
                         "craftingToolForgeHammer", 'X', ingot);
+                GTCXTileSteamForgeHammer.addRecipe(ingot, 3, 100, GTCXMaterialGen.getPlate(mat, 2));
             } else {
                 recipes.addRecipe(GTCXMaterialGen.getPlate(mat, 1), "H", "X", 'H',
                         "craftingToolForgeHammer", 'X', ingot);
+                GTCXTileSteamForgeHammer.addRecipe(ingot, 1, 100, GTCXMaterialGen.getPlate(mat, 1));
             }
             plateBenderBlacklist.add(ingot);
             GTCXTilePlateBender.addRecipe(ingot, 1, GTCXMaterialGen.getPlate(mat, 1));
@@ -452,8 +455,10 @@ public class GTCXRecipeIterators {
                             if (!Loader.isModLoaded(GTValues.MOD_ID_IC2_EXTRAS)) {
                                 if (GTCXConfiguration.general.harderPlates) {
                                     recipes.addRecipe(listPlates.get(0), "H", "I", "I", 'H', "craftingToolForgeHammer", 'I', id);
+                                    GTCXTileSteamForgeHammer.addRecipe(id, 3, 100, GTMaterialGen.getIc2(listPlates.get(0), 2));
                                 } else {
                                     recipes.addRecipe(listPlates.get(0), "H", "I", 'H', "craftingToolForgeHammer", 'I', id);
+                                    GTCXTileSteamForgeHammer.addRecipe(id, 1, 100, listPlates.get(0));
                                 }
                             }
                         }
