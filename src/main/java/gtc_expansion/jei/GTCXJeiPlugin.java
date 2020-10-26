@@ -68,6 +68,7 @@ public class GTCXJeiPlugin implements IModPlugin {
             wrapperUtil3(registry, GTCXRecipeLists.GAS_TURBINE_RECIPE_LIST, GTCXBlocks.gasTurbine, GTCXMachineGui.GTCXGasTurbineGui.class, 78, 35, 16, 17);
             wrapperUtil4(registry, GTTileMultiFusionReactor.RECIPE_LIST, GTCXBlocks.fusionComputer, GTCXMachineGui.GTCXFusionComputerGui.class, 155, 5, 16, 16);
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.alloyFurnace), "gt.alloysmelter");
+            registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.steamAlloySmelter), "gt.alloysmelter");
             registry.addRecipeClickArea(GTCXMachineGui.GTCXSteamAlloySmelterGui.class, 80, 34, 20, 18, "gt.alloysmelter");
             registry.addRecipeCatalyst(new ItemStack(GTCXBlocks.centrifuge), "gt.centrifuge");
             if (!GTCXConfiguration.general.gt2Mode){
