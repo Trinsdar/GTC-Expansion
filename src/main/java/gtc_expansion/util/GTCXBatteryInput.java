@@ -1,5 +1,6 @@
 package gtc_expansion.util;
 
+import ic2.api.item.ElectricItem;
 import ic2.api.recipe.IRecipeInput;
 import ic2.core.item.recipe.entry.RecipeInputElectricItem;
 import ic2.core.util.misc.StackUtil;
@@ -15,7 +16,7 @@ public class GTCXBatteryInput extends RecipeInputElectricItem {
 
     @Override
     public boolean matches(ItemStack subject) {
-        return !this.item.isEmpty() && !subject.isEmpty() && this.item.getItem() == subject.getItem();
+        return !this.item.isEmpty() && !subject.isEmpty() && this.item.getItem() == subject.getItem() && ElectricItem.manager.getCharge(subject) <= 0;
     }
 
     @Override

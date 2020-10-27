@@ -438,6 +438,11 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
     }
 
     @Override
+    public boolean canRemoveBlock(EntityPlayer player) {
+        return true;
+    }
+
+    @Override
     public void onUnloaded() {
         if (this.isRendering() && this.audioSource != null) {
             IC2.audioManager.removeSources(this);

@@ -94,6 +94,11 @@ public class GTCXIcons {
         setTexture(GTCXBlocks.cokeOven, t2, t2, t2, s(10,5), t2, t2, t2, t2, t2, s(11,5), t2, t2);
         setTexture(GTCXBlocks.steamCompressor, s(7,6), s(12,6), s(9,7), s(10,6), s(8,7), s(8,7), s(7,6), s(12,6), s(9,7), s(11,6), s(8,7), s(8,7));
         setTexture(GTCXBlocks.coalBoiler, s(9, 6), s(6, 6), s(5,6), s(3,6), s(5,6), s(5,6), s(9, 6), s(6, 6), s(5,6), s(4,6), s(5,6), s(5,6));
+        setTexture(GTCXBlocks.steamMacerator, s(7,6), s(6,7), s(9,7), s(4,7), s(8,7), s(8,7), s(7,6), s(7,7), s(9,7), s(5,7), s(8,7), s(8,7));
+        setTexture(GTCXBlocks.steamExtractor, s(7,6), s(10,7), s(9,7), s(13,6), s(8,7), s(8,7), s(7,6), s(10,7), s(9,7), s(14,6), s(8,7), s(8,7));
+        setTexture(GTCXBlocks.steamFurnace, s(9,6), s(10,7), s(9,7), s(0,7), s(2,6), s(2,6), s(9,6), s(10,7), s(9,7), s(1,7), s(2,6), s(2,6));
+        setTexture(GTCXBlocks.steamAlloySmelter, s(9,6), s(10,7), s(9,7), s(0,6), s(2,6), s(2,6), s(9,6), s(10,7), s(9,7), s(1,6), s(2,6), s(2,6));
+        setTexture(GTCXBlocks.steamForgeHammer, s(7,6), s(10,7), s(9,7), s(2,7), s(8,7), s(8,7), s(7,6), s(10,7), s(9,7), s(3,7), s(8,7), s(8,7));
     }
 
     private static ResourceLocation location(String name) {
