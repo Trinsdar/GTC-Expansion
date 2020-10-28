@@ -458,22 +458,30 @@ public class GTCXRecipe {
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.cokeOven), "FFF", "FCF", "FFF", 'F', GTCXBlocks.fireBrickBlock, 'C', GTBlocks.tileCharcoalPit);
         ItemStack cable = GTMaterialGen.get(GTCXBlocks.electrumCable);
         IRecipeInput rubber = combineRecipeObjects("itemRubber", "craftingToolDuctTape");
-        recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ELECTRUM);
-        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 1), 4),  " R ", "RER", " R ", 'R', "itemRubber", 'E', INGOT_ELECTRUM);
+        if (GTCXConfiguration.general.plateCableRecipes && !GTCXConfiguration.general.gt2Mode){
+            recipes.addShapelessRecipe(GTMaterialGen.getIc2(cable.copy(), 4), "plateElectrum", "craftingToolWireCutter");
+        } else {
+            recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ELECTRUM);
+            recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 1), 4),  " R ", "RER", " R ", 'R', "itemRubber", 'E', INGOT_ELECTRUM);
+            recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 2), 4),  "RRR", "RER", "RRR", 'R', "itemRubber", 'E', INGOT_ELECTRUM);
+        }
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 1), insulationSetting(cable, 0, 1), cable, rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 1, 2), cableWithInsulationTag(cable.copy(), 1), rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 0, 2), cable, rubber, rubber);
-        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 2), 4),  "RRR", "RER", "RRR", 'R', "itemRubber", 'E', INGOT_ELECTRUM);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 0, 3), cable, rubber, rubber, rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 1, 3), cableWithInsulationTag(cable.copy(), 1), rubber, rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 2, 3), cableWithInsulationTag(cable.copy(), 2), rubber);
         cable = GTMaterialGen.get(GTCXBlocks.aluminiumCable);
-        recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ALUMINIUM);
-        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 1), 4),  " R ", "RER", " R ", 'R', "itemRubber", 'E', INGOT_ALUMINIUM);
+        if (GTCXConfiguration.general.plateCableRecipes && !GTCXConfiguration.general.gt2Mode){
+            recipes.addShapelessRecipe(GTMaterialGen.getIc2(cable.copy(), 4), "plateAluminium", "craftingToolWireCutter");
+        } else {
+            recipes.addRecipe(GTMaterialGen.getIc2(cable.copy(), 12), "EEE", 'E', INGOT_ALUMINIUM);
+            recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 1), 4),  " R ", "RER", " R ", 'R', "itemRubber", 'E', INGOT_ALUMINIUM);
+            recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 2), 4),  "RRR", "RER", "RRR", 'R', "itemRubber", 'E', INGOT_ALUMINIUM);
+        }
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 1), insulationSetting(cable, 0, 1), cable, rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 1, 2), cableWithInsulationTag(cable.copy(), 1), rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 2), insulationSetting(cable, 0, 2), cable, rubber, rubber);
-        recipes.addRecipe(GTMaterialGen.getIc2(cableWithInsulationTag(cable.copy(), 2), 4),  "RRR", "RER", "RRR", 'R', "itemRubber", 'E', INGOT_ALUMINIUM);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 0, 3), cable, rubber, rubber, rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 1, 3), cableWithInsulationTag(cable.copy(), 1), rubber, rubber);
         recipes.addShapelessRecipe(cableWithInsulationTag(cable.copy(), 3), insulationSetting(cable, 2, 3), cableWithInsulationTag(cable.copy(), 2), rubber);
@@ -551,6 +559,14 @@ public class GTCXRecipe {
         //recipes.addRecipe(GTMaterialGen.getIc2(Ic2Items.industrialTNT, 5), "FTF", "FTF", "FTF", 'F', "dustFlint", 'T', Blocks.TNT);
         if (IC2.config.getFlag("CraftingNuke")){
             recipes.overrideRecipe("shaped_tile.blocknuke_-814805840", Ic2Items.nuke, "UCU", "BAB", "UCU", 'U', Ic2Items.reactorReEnrichedUraniumRod, 'C', CIRCUIT_ADVANCED, 'B', "blockUranium", 'A', MACHINE_ADV);
+        }
+        if (GTCXConfiguration.general.plateCableRecipes && !GTCXConfiguration.general.gt2Mode){
+            recipes.overrideRecipe("shaped_item.itemcable_-895690168", GTMaterialGen.getIc2(Ic2Items.copperCable, 2), "PW", 'P', "plateCopper", 'W', "craftingToolWireCutter");
+            recipes.overrideRecipe("shaped_item.itemgoldcable_-121137345", GTMaterialGen.getIc2(Ic2Items.goldCable, 4), "PW", 'P', "plateGold", 'W', "craftingToolWireCutter");
+            int recipeId = STEEL_MODE ? -1596711841 : 1314416875;
+            recipes.overrideRecipe("shaped_item.itemironcable_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironCable, 4), "PW", 'P', getRefinedIronPlate(), 'W', "craftingToolWireCutter");
+            recipes.overrideRecipe("shaped_item.itemtincable_1475909484", GTMaterialGen.getIc2(Ic2Items.tinCable, 3), "PW", 'P', "plateTin", 'W', "craftingToolWireCutter");
+            recipes.overrideRecipe("shaped_item.itembronzecable_1006731162", GTMaterialGen.getIc2(Ic2Items.bronzeCable, 2), "PW", 'P', "plateBronze", 'W', "craftingToolWireCutter");
         }
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.itemingotadviron_845672146");
         if (GTConfig.general.harderIC2Macerator) {
