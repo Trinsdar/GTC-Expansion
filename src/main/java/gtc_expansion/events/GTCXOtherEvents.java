@@ -9,27 +9,35 @@ import gtc_expansion.item.GTCXItemCover;
 import gtc_expansion.item.GTCXItemDiamondChainsaw;
 import gtc_expansion.item.tools.GTCXItemToolCrowbar;
 import gtc_expansion.material.GTCXMaterial;
+import gtc_expansion.recipes.GTCXRecipeLists;
 import gtc_expansion.render.GTCXRenderer;
 import gtc_expansion.tile.pipes.GTCXTileBasePipe;
 import gtc_expansion.tile.wiring.GTCXTileColoredCable;
 import gtc_expansion.util.GTCXWrenchUtils;
 import gtclassic.api.material.GTMaterialGen;
+import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.common.GTBlocks;
+import gtclassic.common.GTConfig;
 import ic2.api.classic.audio.PositionSpec;
 import ic2.api.classic.event.FoamEvent;
 import ic2.api.classic.event.RetextureEventClassic;
+import ic2.api.recipe.IRecipeInput;
 import ic2.core.IC2;
 import ic2.core.platform.registry.Ic2Sounds;
 import ic2.core.util.misc.StackUtil;
+import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -43,9 +51,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class GTCXOtherEvents {
 
@@ -131,6 +144,47 @@ public class GTCXOtherEvents {
     @SubscribeEvent
     public void onEvent(LivingEntityUseItemEvent event) {
         if (event.getItem().getItem() instanceof IGTWrench) event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public void onRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event){
+        if (event.getSide() == Side.SERVER){
+            IBlockState state = event.getWorld().getBlockState(event.getPos());
+            if (state.getBlock() == Blocks.CAULDRON && state.getValue(BlockCauldron.LEVEL) > 0){
+                EntityPlayer player = event.getEntityPlayer();
+                EnumHand hand = event.getHand();
+                ItemStack stack = player.getHeldItem(hand);
+                if (!stack.isEmpty()){
+                    GTRecipeMultiInputList.MultiRecipe recipe = getRecipe(stack);
+                    if (recipe != null){
+                        if (!player.capabilities.isCreativeMode) {
+                            player.getHeldItem(hand).shrink(recipe.getInput(0).getAmount());
+                        }
+                        Blocks.CAULDRON.setWaterLevel(event.getWorld(), event.getPos(), state, state.getValue(BlockCauldron.LEVEL) - 1);
+                        for (ItemStack output : recipe.getOutputs().getAllOutputs()) {
+                            ItemHandlerHelper.giveItemToPlayer(player, output);
+                        }
+                        event.getWorld().playSound(null, event.getPos(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F,
+                                1.0F);
+                        event.setCanceled(true);
+                    }
+                }
+            }
+        }
+    }
+
+    private GTRecipeMultiInputList.MultiRecipe getRecipe(ItemStack input){
+        GTRecipeMultiInputList.MultiRecipe recipe = GTCXRecipeLists.CAULDRON_RECIPE_LIST.getPriorityRecipe(t -> checkRecipe(t, input));
+        return recipe == GTRecipeMultiInputList.INVALID_RECIPE ? null : recipe;
+    }
+
+    public boolean checkRecipe(GTRecipeMultiInputList.MultiRecipe entry, ItemStack input) {
+        IRecipeInput key = entry.getInputs().get(0);
+        int toFind = key.getAmount();
+        if (key.matches(input)) {
+            return input.getCount() >= toFind;
+        }
+        return false;
     }
 
 

@@ -12,7 +12,9 @@ import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
 import gtclassic.api.tile.GTTileBaseFuelMachine;
 import gtclassic.common.util.GTIFilters;
+import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.core.RotationList;
+import ic2.core.block.base.tile.TileEntityBasicElectricMachine;
 import ic2.core.block.base.tile.TileEntityBlock;
 import ic2.core.inventory.container.ContainerIC2;
 import ic2.core.inventory.filters.CommonFilters;
@@ -25,6 +27,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -45,7 +48,7 @@ public class GTCXTileAlloyFurnace extends GTTileBaseFuelMachine implements IGTIt
     public IFilter filter = new GTIFilters.FuelMachineFilter(this);
 
     public GTCXTileAlloyFurnace() {
-        super(4, 200, 1);
+        super(4, 100, 8);
     }
 
     @Override
@@ -63,6 +66,30 @@ public class GTCXTileAlloyFurnace extends GTTileBaseFuelMachine implements IGTIt
         handler.registerSlotType(SlotType.Fuel, getFuelSlot());
         handler.registerSlotType(SlotType.Input, getInputSlots());
         handler.registerSlotType(SlotType.Output, getOutputSlots());
+    }
+
+    @Override
+    public void applyRecipeEffect(MachineOutput output) {
+        if (output == null || output.getMetadata() == null) {
+            if (recipeOperation != maxProgress) {
+                recipeOperation = maxProgress;
+                if (recipeOperation < 1) {
+                    recipeOperation = 1;
+                }
+                getNetwork().updateTileGuiField(this, "recipeOperation");
+            }
+            return;
+        }
+        NBTTagCompound nbt = output.getMetadata();
+        double progMod = nbt.hasKey("RecipeTimeModifier") ? nbt.getDouble("RecipeTimeModifier") : 1F;
+        int newProgress = TileEntityBasicElectricMachine.applyModifier(maxProgress, nbt.getInteger("RecipeTime"), progMod);
+        if (newProgress != recipeOperation) {
+            recipeOperation = newProgress * 2;
+            if (recipeOperation < 1) {
+                recipeOperation = 1;
+            }
+            getNetwork().updateTileGuiField(this, "recipeOperation");
+        }
     }
 
     @Override

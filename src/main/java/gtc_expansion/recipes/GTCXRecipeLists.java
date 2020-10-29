@@ -32,4 +32,5 @@ public class GTCXRecipeLists {
     public static final GTRecipeMultiInputList COMPRESSOR_RECIPE_LIST = new GTRecipeMultiInputList("gt.stonecompressor", 0);
     public static final GTRecipeMultiInputList EXTRACTOR_RECIPE_LIST = new GTRecipeMultiInputList("gt.stoneextractor", 0);
     public static final GTRecipeMultiInputList FORGE_HAMMER_RECIPE_LIST = new GTRecipeMultiInputList("gt.forgehammer");
+    public static final GTRecipeMultiInputList CAULDRON_RECIPE_LIST = new GTRecipeMultiInputList("gt.cauldron");
 }

@@ -158,6 +158,10 @@ public class GTCXConfiguration {
         public boolean forceSteelCasings = true;
         @Comment("Forces cable recipes to take plates and wire cutters.")
         public boolean plateCableRecipes = true;
+        @Comment("Enables steam machines like gt4 instead of the previous stone machines I had.")
+        public boolean enableSteamMachines = true;
+        @Comment("Enables crushed ores being able to be right clicked in a cauldron to get the washed stuff.")
+        public boolean cauldronOreWashing = true;
     }
 
     @Comment("Mod Compatability")

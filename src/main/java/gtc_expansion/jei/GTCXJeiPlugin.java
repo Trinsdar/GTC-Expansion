@@ -6,6 +6,7 @@ import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.item.tools.GTCXToolGen;
 import gtc_expansion.jei.category.GTCXJeiBurnableFluidCategory;
+import gtc_expansion.jei.category.GTCXJeiCauldronCategory;
 import gtc_expansion.jei.category.GTCXJeiCustomCategory;
 import gtc_expansion.jei.category.GTCXJeiIntegratedCircuitCategory;
 import gtc_expansion.jei.wrapper.GTCXJeiBurnableFluidWrapper;
@@ -18,6 +19,8 @@ import gtc_expansion.material.GTCXMaterialGen;
 import gtc_expansion.recipes.GTCXRecipe;
 import gtc_expansion.recipes.GTCXRecipeLists;
 import gtclassic.api.helpers.GTValues;
+import gtclassic.api.jei.GTJeiMultiRecipeCategory;
+import gtclassic.api.jei.GTJeiMultiRecipeWrapper;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialGen;
 import gtclassic.api.recipe.GTRecipeMultiInputList;
@@ -43,6 +46,8 @@ import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
@@ -85,6 +90,10 @@ public class GTCXJeiPlugin implements IModPlugin {
             registry.addRecipeCatalyst(Ic2Items.electroFurnace, "electricFurnace");
             registry.addRecipeCatalyst(Ic2Items.inductionFurnace, "electricFurnace");
 
+            registry.handleRecipes(GTRecipeMultiInputList.MultiRecipe.class, GTJeiMultiRecipeWrapper::new, "gt.cauldron");
+            registry.addRecipes(GTCXRecipeLists.CAULDRON_RECIPE_LIST.getRecipeList(), "gt.cauldron");
+            registry.addRecipeCatalyst(GTMaterialGen.get(Items.CAULDRON), "gt.cauldron");
+
             registry.addRecipeClickArea(GTGuiMachine.GTIndustrialCentrifugeGui.class, 69, 26, 20, 18, "gt.centrifuge");
             String recipeId = "gt.integratedcircuit";
             registry.handleRecipes(GTCXJeiIntegratedCircuitWrapper.IntegratedCircuitRecipe.class, GTCXJeiIntegratedCircuitWrapper::new, recipeId);
@@ -101,9 +110,18 @@ public class GTCXJeiPlugin implements IModPlugin {
                     }
                 }
             }
-            if (GTCXConfiguration.general.gt2Mode){
+            if (GTCXConfiguration.general.gt2Mode || GTCXConfiguration.general.enableSteamMachines){
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.stoneCompressor));
                 blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.stoneExtractor));
+            }
+            if (GTCXConfiguration.general.gt2Mode){
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.steamExtractor));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.steamCompressor));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.steamMacerator));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.steamFurnace));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.steamAlloySmelter));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.steamForgeHammer));
+                blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.coalBoiler));
             }
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXItems.dataOrbStorage));
             blacklist.addIngredientToBlacklist(GTMaterialGen.get(GTCXBlocks.dummyCover));
@@ -139,6 +157,7 @@ public class GTCXJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new MachineRecipeCategory(registry.getJeiHelpers().getGuiHelper(), "electricFurnace", Ic2Items.electroFurnace, Ic2Resources.electricFurnace));
+        registry.addRecipeCategories(new GTCXJeiCauldronCategory(registry.getJeiHelpers().getGuiHelper(), "gt.cauldron", Items.CAULDRON));
         categoryUtil(registry, GTCXRecipeLists.INDUSTRIAL_BLAST_FURNACE_RECIPE_LIST, GTCXBlocks.industrialBlastFurnace);
         categoryUtil(registry, GTCXRecipeLists.FLUID_SMELTER_RECIPE_LIST, GTCXBlocks.fluidSmelter);
         categoryUtil(registry, GTCXRecipeLists.FLUID_CASTER_RECIPE_LIST, GTCXBlocks.fluidCaster);

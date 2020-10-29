@@ -22,6 +22,7 @@ import gtclassic.common.recipe.GTRecipe;
 import gtclassic.common.tile.GTTileCentrifuge;
 import ic2.api.classic.recipe.ClassicRecipes;
 import ic2.api.classic.recipe.RecipeModifierHelpers;
+import ic2.api.classic.recipe.machine.MachineOutput;
 import ic2.core.block.machine.low.TileEntityCompressor;
 import ic2.core.block.machine.low.TileEntityExtractor;
 import ic2.core.block.machine.low.TileEntityMacerator;
@@ -34,6 +35,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.Collections;
 
 import static gtclassic.common.recipe.GTRecipeMods.input;
 
@@ -198,6 +201,9 @@ public class GTCXRecipeProcessing {
         } else {
             GTCXTileBath.addRecipe("crushed" + main.getDisplayName(), 1, GTMaterialGen.getFluidStack("water", 1000), 800, GTCXMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getDust(GTCXMaterial.Stone, 1));
             GTCXTileCentrifuge.addRecipe("crushedPurified" + main.getDisplayName(), 1, GTCXTileCentrifuge.totalEu(1280), new ItemStack[]{ GTCXRecipeIterators.getDust(main, 1), outputThermalSide });
+        }
+        if (GTCXConfiguration.general.cauldronOreWashing){
+            GTCXRecipeLists.CAULDRON_RECIPE_LIST.addRecipe(Collections.singletonList(input("crushed" + main.getDisplayName(), 1)), new MachineOutput(null, GTCXMaterialGen.getPurifiedCrushedOre(main, 1), outputWashSide, GTMaterialGen.getDust(GTCXMaterial.Stone, 1)), GTCXMaterialGen.getCrushedOre(main, 1).getUnlocalizedName(), 0);
         }
         TileEntityMacerator.addRecipe("crushed" + main.getDisplayName(), 1, GTCXRecipeIterators.getDust(main, 1));
         TileEntityMacerator.addRecipe("crushedPurified" + main.getDisplayName(), 1, GTCXRecipeIterators.getDust(main, 1));

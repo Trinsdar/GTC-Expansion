@@ -81,6 +81,7 @@ import java.util.List;
 import static gtc_expansion.data.GTCXValues.*;
 import static gtclassic.api.helpers.GTValues.*;
 import static gtclassic.api.recipe.GTRecipeCraftingHandler.combineRecipeObjects;
+import static gtclassic.api.recipe.GTRecipeCraftingHandler.removeRecipe;
 
 public class GTCXRecipe {
     static ICraftingRecipeList recipes = ClassicRecipes.advCrafting;
@@ -390,17 +391,6 @@ public class GTCXRecipe {
     }
 
     static void initShapedBlockRecipes(){
-        if (!GTCXConfiguration.general.gt2Mode){
-            IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
-            IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.coalBoiler), "PPP", "PWP", "BFB", 'P', BRONZE, 'W', wrench, 'B', Blocks.BRICK_BLOCK, 'F', Blocks.FURNACE);
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamMacerator), "WDH", "GMG", "BPB", 'W', wrench, 'D', "gemDiamond", 'H', hammer, 'G', "gearBronze", 'M', MACHINE_CHEAP, 'B', BRONZE, 'P', ANY_PISTON);
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamFurnace), "BWB", "BFB", "bMb", 'B', BRONZE, 'W', wrench, 'F', Blocks.FURNACE, 'b', Blocks.BRICK_BLOCK, 'M', MACHINE_CHEAP);
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamAlloySmelter), "BBB", "FWF", "bbb", 'B', BRONZE, 'F', GTCXBlocks.steamFurnace, 'W', wrench, 'b', Blocks.BRICK_BLOCK);
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamForgeHammer), "GPG", "BWB", "BMB", 'G', "gearBronze", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamCompressor), "BGB", "PWP", "BMB", 'G', "gearBronze", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamExtractor), "BBB", "PWP", "BMB", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
-        }
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.assemblingMachine), "CPC", "SMS", "CSC", 'C', CIRCUIT_BASIC, 'P', Blocks.PISTON, 'S', MATERIAL_STEELS, 'M', GTCXItems.conveyorModule);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.chemicalReactor), "PMP", "CcC", "PEP", 'P', MATERIAL_INVAR_ALUMINIUM, 'M', Ic2Items.magnetizer, 'C', CIRCUIT_ADVANCED, 'c', Ic2Items.compressor, 'E', Ic2Items.extractor);
         recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.distillationTower), "CEC", "PAP", "eEe", 'C', GTBlocks.tileCentrifuge, 'E', "circuitMaster", 'P', PUMP, 'A', "machineBlockHighlyAdvanced", 'e', GTCXBlocks.electrolyzer);
@@ -489,12 +479,35 @@ public class GTCXRecipe {
 
     static void initPreElectric(){
         if (!GTCXConfiguration.general.gt2Mode){
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
-            recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneExtractor), " H ", "TFT", "TPT", 'T', Ic2Items.treeTap, 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
-            recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneCompressor, 'C',
-                    CIRCUIT_BASIC);
-            recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneExtractor, 'C',
-                    CIRCUIT_BASIC);
+            if (GTCXConfiguration.general.enableSteamMachines){
+                IRecipeInput wrench = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolWrench") : null;
+                IRecipeInput hammer = GTCXConfiguration.general.enableCraftingTools ? input("craftingToolForgeHammer") : null;
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.coalBoiler), "PPP", "PWP", "BFB", 'P', BRONZE, 'W', wrench, 'B', Blocks.BRICK_BLOCK, 'F', Blocks.FURNACE);
+                IRecipeInput gem = GTConfig.general.harderIC2Macerator ? input("gemDiamond", 3) : input(GTMaterialGen.get(Items.FLINT, 3));
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamMacerator), "WDH", "GMG", "BPB", 'W', wrench, 'D', gem, 'H', hammer, 'G', "gearBronze", 'M', MACHINE_CHEAP, 'B', BRONZE, 'P', ANY_PISTON);
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamFurnace), "BWB", "BFB", "bMb", 'B', BRONZE, 'W', wrench, 'F', Blocks.FURNACE, 'b', Blocks.BRICK_BLOCK, 'M', MACHINE_CHEAP);
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamAlloySmelter), "BWB", "BMB", "bFb", 'B', BRONZE, 'F', GTCXBlocks.alloyFurnace, 'W', wrench, 'b', Blocks.BRICK_BLOCK, 'M', MACHINE_CHEAP);
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamForgeHammer), "GPG", "BWB", "BMB", 'G', "gearBronze", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamCompressor), "BGB", "PWP", "BMB", 'G', "gearBronze", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamExtractor), "BBB", "PWP", "BMB", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
+                removeRecipe("ic2", "shaped_tile.blockStoneMacerator_-130868445");
+                IRecipeInput advancedAlloy = GTCXConfiguration.general.forcePreElectricMachines ? input(Ic2Items.advancedAlloy.copy()) : MATERIAL_STEELS;
+                recipes.addRecipe(Ic2Items.macerator, "AAA", "SMS", "SCS", 'A', advancedAlloy, 'S', MATERIAL_STEELS, 'M', GTCXBlocks.steamMacerator, 'C', CIRCUIT_BASIC);
+                recipes.addRecipe(Ic2Items.compressor, "AAA", "SMS", "SCS", 'A', advancedAlloy, 'S', MATERIAL_STEELS, 'M', GTCXBlocks.steamCompressor, 'C', CIRCUIT_BASIC);
+                recipes.addRecipe(Ic2Items.extractor, "AAA", "SMS", "SCS", 'A', advancedAlloy, 'S', MATERIAL_STEELS, 'M', GTCXBlocks.steamExtractor, 'C', CIRCUIT_BASIC);
+                recipes.addRecipe(Ic2Items.electroFurnace, "AAA", "SMS", 'A', advancedAlloy, "SCS", 'S', MATERIAL_STEELS, 'M', GTCXBlocks.steamFurnace, 'C', CIRCUIT_BASIC);
+            } else {
+                if (GTConfig.general.harderIC2Macerator){
+                    recipes.overrideRecipe("shaped_tile.blockStoneMacerator_-130868445", Ic2Items.stoneMacerator.copy(), "FDF", "DPD", "FBF", 'D', GEM_DIAMOND, 'F', Items.FLINT, 'P', Blocks.PISTON, 'B',
+                            Blocks.FURNACE);
+                }
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneCompressor), "SHS", "SFS", "SPS", 'S', "stone", 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.stoneExtractor), " H ", "TFT", "TPT", 'T', Ic2Items.treeTap, 'H', Blocks.HOPPER, 'F', Blocks.FURNACE, 'P', ANY_PISTON);
+                recipes.addRecipe(Ic2Items.compressor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneCompressor, 'C',
+                        CIRCUIT_BASIC);
+                recipes.addRecipe(Ic2Items.extractor.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', GTCXBlocks.stoneExtractor, 'C',
+                        CIRCUIT_BASIC);
+            }
         }
 
     }
@@ -567,11 +580,20 @@ public class GTCXRecipe {
             recipes.overrideRecipe("shaped_item.itemironcable_" + recipeId, GTMaterialGen.getIc2(Ic2Items.ironCable, 4), "PW", 'P', getRefinedIronPlate(), 'W', "craftingToolWireCutter");
             recipes.overrideRecipe("shaped_item.itemtincable_1475909484", GTMaterialGen.getIc2(Ic2Items.tinCable, 3), "PW", 'P', "plateTin", 'W', "craftingToolWireCutter");
             recipes.overrideRecipe("shaped_item.itembronzecable_1006731162", GTMaterialGen.getIc2(Ic2Items.bronzeCable, 2), "PW", 'P', "plateBronze", 'W', "craftingToolWireCutter");
+            removeRecipe("ic2", "shaped_item.itemcablei_1114825827");
+            removeRecipe("ic2", "shaped_item.itemcablei_156664931");
+            removeRecipe("ic2", "shaped_item.itemgoldcablei_605816287");
+            removeRecipe("ic2", "shaped_item.itemgoldcableii_1066149022");
+            recipeId = STEEL_MODE ? 1790240415 : 926773675;
+            removeRecipe("ic2", "shaped_item.itemironcablei_" + recipeId);
+            recipeId = STEEL_MODE ? 1131313310 : 268464298;
+            removeRecipe("ic2", "shaped_item.itemironcableii_" + recipeId);
+            removeRecipe("ic2", "shaped_item.itembronzecablei_-251775529");
+            removeRecipe("ic2", "shaped_item.itembronzecablei_-1648233001");
+            removeRecipe("ic2", "shaped_item.itembronzecableii_-1797458595");
         }
         GTRecipeCraftingHandler.removeRecipe("ic2", "shaped_item.itemingotadviron_845672146");
         if (GTConfig.general.harderIC2Macerator) {
-            recipes.overrideRecipe("shaped_tile.blockStoneMacerator_-130868445", Ic2Items.stoneMacerator.copy(), "FDF", "DPD", "FBF", 'D', GEM_DIAMOND, 'F', Items.FLINT, 'P', Blocks.PISTON, 'B',
-                    Blocks.FURNACE);
             int recipeId = STEEL_MODE ? 2144549784 : 127744036;
             recipes.overrideRecipe("shaped_tile.blockMacerator_" + recipeId, Ic2Items.macerator.copy(), "III", "IMI", "ICI", 'I', MATERIAL_STEELS, 'M', Ic2Items.stoneMacerator.copy(), 'C',
                     CIRCUIT_ADVANCED);
@@ -619,7 +641,8 @@ public class GTCXRecipe {
             recipes.overrideRecipe("shaped_tile.blockreactorchamber_1490756150", Ic2Items.reactorChamber, " C ", "CMC", " C ", 'C', Ic2Items.denseCopperPlate, 'M', machineBlock);
         }
         recipes.overrideRecipe("shaped_tile.blockextractor_-1404085260", Ic2Items.extractor, "TMT", "TCT", 'T', Ic2Items.treeTap, 'M', machineBlock, 'C', circuit);
-        recipes.overrideRecipe("shaped_tile.blockcompressor_-1019977500", Ic2Items.compressor, "S S", "SMS", "SCS", 'S', "stone", 'M', machineBlock, 'C', circuit);
+        IRecipeInput stone = GTCXConfiguration.general.forcePreElectricMachines && !GTCXConfiguration.general.gt2Mode ? input(Ic2Items.reinforcedStone.copy()) : input("stone");
+        recipes.overrideRecipe("shaped_tile.blockcompressor_-1019977500", Ic2Items.compressor, "S S", "SMS", "SCS", 'S', stone, 'M', machineBlock, 'C', circuit);
         recipes.overrideRecipe("shaped_tile.blockcanner_-1437776888", Ic2Items.canner, "TCT", "TMT", "TTT", 'T', TIN, 'M', machineBlock, 'C', circuit);
         recipes.overrideRecipe("shaped_tile.blockelectrolyzer_-502750552", Ic2Items.electrolyzer, "c c", "cCc", "tMt", 'c', Ic2Items.insulatedCopperCable, 't', Ic2Items.emptyCell, 'M', machineBlock, 'C', circuit);
         recipes.overrideRecipe("shaped_tile.blockcropscanner_-1289883511", Ic2Items.cropAnalyzerBlock, " c ", "CMC", 'c', Ic2Items.cropAnalyzer, 'M', machineBlock, 'C', circuit);
