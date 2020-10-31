@@ -365,31 +365,31 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
             float f5;
             int facing = this.getFacing().getIndex();
             for (int i = 0; i < 8; i++){
-                f = (float)pos.getX() + 0.5F;
+                f = (float)pos.getX();
                 float f2 = (float)pos.getY() + 0.0F + world.rand.nextFloat() * 6.0F / 16.0F;
-                f3 = (float)pos.getZ() + 0.5F;
+                f3 = (float)pos.getZ();
                 f4 = 0.52F;
                 f5 = world.rand.nextFloat() * 0.6F - 0.3F;
                 double x = 0.0D;
                 double y = 0.0D;
                 double z = 0.0D;
                 boolean spawn = false;
-                if (facing == 4) {
+                if (facing == 2) {
                     x = f + f5;
                     y = f2;
                     z = f3 - f4;
                     spawn = true;
-                } else if (facing == 5) {
+                } else if (facing == 3) {
                     x = f + f5;
                     y = f2;
                     z = f3 + f4;
                     spawn = true;
-                } else if (facing == 2) {
+                } else if (facing == 4) {
                     x = f - f4;
                     y = f2;
                     z = f3 + f5;
                     spawn = true;
-                } else if (facing == 3) {
+                } else if (facing == 5) {
                     x = f + f4;
                     y = f2;
                     z = f3 + f5;
@@ -397,8 +397,7 @@ public abstract class GTCXTileBaseSteamMachine extends TileEntityMachine impleme
                 }
 
                 if (spawn) {
-                    world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0.0D, 0.0D, 0.0D);
-                    GTCExpansion.logger.info("Spawned Particle");
+                    world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, x, y, z, 0.0D, 0.1D, 0.0D);
                 }
             }
         }
