@@ -30,6 +30,16 @@
  - fixed second fusion material injector and fusion material extractor tank display slot being switched with each other, such that the output displays the second input and visa versa
  - fixed fusion reactor and large gas turbine not saving contents of tanks
  - added saw - currently just used to make vanilla amounts of planks and sticks, will add mod compat later
+ - added steam machines
+ - added gt2 config option
+ - fixed fusion reactor jei info
+ - fixed fusion reactor slot item setting
+ - made energy output hatches able to output less then the specified output
+ - fixed microwave explode issue
+ - added crafting table recipe for drain cover
+ - made alloy smelter have varying eu usage
+ - added plate cable config
+ - added crushed ore cauldron washing
 
 # 0.2
  - Greatly reduced the ram requirements of gtcx, there still might be more improvements to do yet.
