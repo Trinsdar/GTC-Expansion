@@ -7,6 +7,7 @@ import ic2.api.classic.network.adv.IInputBuffer;
 import ic2.api.classic.network.adv.IOutputBuffer;
 import ic2.core.IC2;
 import ic2.core.fluid.IC2Tank;
+import ic2.core.util.misc.FluidHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -33,14 +34,17 @@ public class GTCXPumpModuleLogic extends GTCXBaseCoverLogic {
             if (pipe.connection.contains(this.facing) && tile != null && !(tile instanceof GTCXTileBaseFluidPipe) & tile.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite()) && proceed){
                 IFluidHandler tileFluid = tile.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, this.facing.getOpposite());
                 if (tileFluid != null){
-                    for (int i = 0; i < fluidPipe.getTanks().length; i++){
-                        FluidStack drainSimulate = tileFluid.drain(fluidPipe.getTank().getCapacity(), false);
-                        if (drainSimulate != null){
-                            IC2Tank tank = fluidPipe.getFluidTankFillable2(drainSimulate);
-                            if (tank != null){
-                                FluidStack pipeFluid = tank.getFluid();
-                                if (pipeFluid == null || (pipeFluid.isFluidEqual(drainSimulate) && tank.getFluidAmount() < tank.getCapacity())){
-                                    tileFluid.drain(new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true), true);
+                    for (int i = 0; i < tileFluid.getTankProperties().length; i++){
+                        FluidStack fluid = tileFluid.getTankProperties()[i].getContents();
+                        if (fluid != null){
+                            FluidStack drainSimulate = tileFluid.drain(fluid, false);
+                            if (drainSimulate != null && drainSimulate.amount > 0){
+                                IC2Tank tank = fluidPipe.getFluidTankFillable2(drainSimulate);
+                                if (tank != null){
+                                    int added = new GTCXTileBaseFluidPipe.FacingFillWrapper(this.facing, fluidPipe).fill(drainSimulate, true);
+                                    if (added > 0){
+                                        tileFluid.drain(FluidHelper.copyWithSize(drainSimulate, added), true);
+                                    }
                                 }
                             }
                         }
