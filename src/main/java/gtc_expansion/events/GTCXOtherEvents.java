@@ -1,6 +1,7 @@
 package gtc_expansion.events;
 
 import gtc_expansion.GTCExpansion;
+import gtc_expansion.data.GTCXBlocks;
 import gtc_expansion.data.GTCXItems;
 import gtc_expansion.interfaces.IGTWrench;
 import gtc_expansion.interfaces.IGTScrewdriver;
@@ -35,6 +36,8 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -218,6 +221,21 @@ public class GTCXOtherEvents {
                                     player.swingArm(EnumHand.MAIN_HAND);
                                     IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                                 }
+                            }
+                        }
+                    } else if (held.getItem() instanceof GTCXItemCover){
+                        int meta = ((GTCXItemCover)held.getItem()).getMeta();
+                        GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
+                        EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
+                        if (event.isCancelable()) event.setCanceled(true);
+                        if (sideToggled != null && pipe.anchors.notContains(sideToggled)){
+                            pipe.addCover(sideToggled, GTCXBlocks.dummyCover.getStateFromMeta(meta));
+                            if (!player.isCreative()) {
+                                held.shrink(1);
+                            }
+                            player.swingArm(EnumHand.MAIN_HAND);
+                            if (event.getWorld().isRemote){
+                                IC2.audioManager.playOnce(player, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
                             }
                         }
                     } else if (offHeld.getItem() instanceof IGTWrench && !player.isSneaking() && ((IGTWrench) offHeld.getItem()).canBeUsed(offHeld)) {

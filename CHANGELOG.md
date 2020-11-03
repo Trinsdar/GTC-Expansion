@@ -40,6 +40,8 @@
  - made alloy smelter have varying eu usage
  - added plate cable config
  - added crushed ore cauldron washing
+ - fixed pump cover not pulling fluids from ic2c multitanks into quad pipes properly
+ - fixed  opening guis of blocks when trying to place cover on pipe
 
 # 0.2
  - Greatly reduced the ram requirements of gtcx, there still might be more improvements to do yet.

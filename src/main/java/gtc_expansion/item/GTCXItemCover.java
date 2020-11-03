@@ -13,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -32,28 +33,7 @@ public class GTCXItemCover extends GTCXItemMisc {
         this.meta = meta;
     }
 
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        RayTraceResult lookingAt = GTCXWrenchUtils.getBlockLookingAtIgnoreBB(playerIn);
-        if (lookingAt != null){
-            TileEntity tile = worldIn.getTileEntity(lookingAt.getBlockPos());
-            if (tile instanceof GTCXTileBasePipe){
-                ItemStack stack = playerIn.getHeldItem(handIn);
-                GTCXTileBasePipe pipe = (GTCXTileBasePipe) tile;
-                EnumFacing sideToggled = GTCXWrenchUtils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
-                if (sideToggled != null && pipe.anchors.notContains(sideToggled)){
-                    pipe.addCover(sideToggled, GTCXBlocks.dummyCover.getStateFromMeta(meta));
-                    if (!playerIn.isCreative()) {
-                        stack.shrink(1);
-                    }
-                    playerIn.swingArm(handIn);
-                    if (worldIn.isRemote){
-                        IC2.audioManager.playOnce(playerIn, PositionSpec.Hand, Ic2Sounds.wrenchUse, true, IC2.audioManager.defaultVolume);
-                    }
-                    return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-                }
-            }
-        }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+    public int getMeta() {
+        return meta;
     }
 }
