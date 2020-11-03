@@ -82,6 +82,7 @@ dependencies {
     deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
     deobfProvided "curse.maven:ic2c-extras:3033496"
+    deobfCompile("mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.22-13") { transitive = false }
     //runtime "curse.maven:ic2c-extras:3033496"
     deobfProvided("net.sengir.forestry:forestry_${mc_version}:${forestry_version}") {
         transitive = false
@@ -90,7 +91,7 @@ dependencies {
         transitive = false
     }
     compile "curse.maven:baubles:2518667"
-    compile "curse.maven:ic2-classic:2979877"
+    compile "curse.maven:ic2-classic:3093608"
     compile "curse.maven:gtclassic:3059975"
     compileOnly "curse.maven:railcraft:2687757"
     compileOnly "curse.maven:better-pipes:3050661"
