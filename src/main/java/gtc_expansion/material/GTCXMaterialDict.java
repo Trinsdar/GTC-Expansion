@@ -7,6 +7,7 @@ import gtclassic.api.helpers.GTValues;
 import gtclassic.api.material.GTMaterial;
 import gtclassic.api.material.GTMaterialFlag;
 import gtclassic.api.material.GTMaterialGen;
+import ic2.core.IC2;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
@@ -56,7 +57,7 @@ public class GTCXMaterialDict {
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Bronze, 1));
         OreDictionary.registerOre("machineBlockCheap", GTCXMaterialGen.getHull(GTCXMaterial.Brass, 1));
         if (!GTCXConfiguration.general.forceSteelCasings || GTCXConfiguration.general.gt2Mode){
-            if (GTCXValues.STEEL_MODE){
+            if (IC2.config.getFlag("SteelRecipes")){
                 OreDictionary.registerOre("machineBlockBasic", GTCXMaterialGen.getHull(GTCXMaterial.RefinedIron, 1));
             }
             OreDictionary.registerOre("machineBlockBasic", Ic2Items.machine);
