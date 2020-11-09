@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
+import stanhebben.zenscript.annotations.ZenMethodStatic;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -23,24 +24,24 @@ import java.util.Locale;
 @ZenExpansion("mods.gtclassic.IndustrialCentrifuge")
 @ZenRegister
 public class GTCXCentrifugeSupport {
-    @ZenMethod
+    @ZenMethodStatic
     public static void addRecipe(IItemStack[] output, IIngredient input1, IIngredient input2,
                                  @Optional(valueLong = 3200L) int totalEu) {
         GTCraftTweakerActions.apply(new IndustrialCentrifugeRecipeAction(new IRecipeInput[]{GTCraftTweakerActions.of(input1), GTCraftTweakerActions.of(input2)}, totalEu, CraftTweakerMC.getItemStacks(output)));
     }
 
-    @ZenMethod
+    @ZenMethodStatic
     public static void addRecipe(IItemStack[] output, IIngredient input1, @Optional(valueLong = 3200L) int totalEu) {
         GTCraftTweakerActions.apply(new IndustrialCentrifugeRecipeAction(new IRecipeInput[]{GTCraftTweakerActions.of(input1)}, totalEu, CraftTweakerMC.getItemStacks(output)));
     }
 
-    @ZenMethod
+    @ZenMethodStatic
     public static void addRecipe(IItemStack[] output, ILiquidStack[] fluidOutput, IIngredient input1, IIngredient input2,
                                  @Optional(valueLong = 3200L) int totalEu) {
         GTCraftTweakerActions.apply(new IndustrialCentrifugeRecipeAction(new IRecipeInput[]{GTCraftTweakerActions.of(input1), GTCraftTweakerActions.of(input2)}, totalEu, CraftTweakerMC.getItemStacks(output), CraftTweakerMC.getLiquidStacks(fluidOutput)));
     }
 
-    @ZenMethod
+    @ZenMethodStatic
     public static void addRecipe(IItemStack[] output, ILiquidStack[] fluidOutput, IIngredient input1, @Optional(valueLong = 3200L) int totalEu) {
         GTCraftTweakerActions.apply(new IndustrialCentrifugeRecipeAction(new IRecipeInput[]{GTCraftTweakerActions.of(input1)}, totalEu, CraftTweakerMC.getItemStacks(output), CraftTweakerMC.getLiquidStacks(fluidOutput)));
     }

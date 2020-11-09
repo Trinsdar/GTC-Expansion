@@ -17,40 +17,21 @@ import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenExpansion;
 import stanhebben.zenscript.annotations.ZenMethod;
+import stanhebben.zenscript.annotations.ZenMethodStatic;
 
 import java.util.Locale;
 
 @ZenRegister
 @ZenExpansion("mods.gtclassic.FusionReactor")
 public class GTCXFusionSupport {
-    @ZenMethod
-    public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int totalEu, int startEu) {
+    @ZenMethodStatic
+    public static void addRecipe(IItemStack output, IIngredient input1, IIngredient input2, int totalEu, @Optional int startEu) {
         GTCraftTweakerActions.apply(new FusionReactorRecipeAction(GTCraftTweakerActions.of(input1), GTCraftTweakerActions.of(input2), totalEu, startEu, CraftTweakerMC.getItemStack(output)));
     }
 
-    @ZenMethod
+    @ZenMethodStatic
     public static void addRecipe(ILiquidStack output, IIngredient input1, IIngredient input2, int totalEu, @Optional int startEu) {
         GTCraftTweakerActions.apply(new FusionReactorFluidRecipeAction(GTCraftTweakerActions.of(input1), GTCraftTweakerActions.of(input2), totalEu, startEu, CraftTweakerMC.getLiquidStack(output)));
-    }
-
-    @ZenMethod
-    public static void addRecipe(IItemStack output, ILiquidStack input1, IIngredient input2, int totalEu, @Optional int startEu) {
-        GTCraftTweakerActions.apply(new FusionReactorRecipeAction(new RecipeInputFluid(CraftTweakerMC.getLiquidStack(input1)), GTCraftTweakerActions.of(input2), totalEu, startEu, CraftTweakerMC.getItemStack(output)));
-    }
-
-    @ZenMethod
-    public static void addRecipe(ILiquidStack output, ILiquidStack input1, IIngredient input2, int totalEu, @Optional int startEu) {
-        GTCraftTweakerActions.apply(new FusionReactorFluidRecipeAction(new RecipeInputFluid(CraftTweakerMC.getLiquidStack(input1)), GTCraftTweakerActions.of(input2), totalEu, startEu, CraftTweakerMC.getLiquidStack(output)));
-    }
-
-    @ZenMethod
-    public static void addRecipe(IItemStack output, ILiquidStack input1, ILiquidStack input2, int totalEu, @Optional int startEu) {
-        GTCraftTweakerActions.apply(new FusionReactorRecipeAction(new RecipeInputFluid(CraftTweakerMC.getLiquidStack(input1)), new RecipeInputFluid(CraftTweakerMC.getLiquidStack(input2)), totalEu, startEu, CraftTweakerMC.getItemStack(output)));
-    }
-
-    @ZenMethod
-    public static void addRecipe(ILiquidStack output, ILiquidStack input1, ILiquidStack input2, int totalEu, @Optional int startEu) {
-        GTCraftTweakerActions.apply(new FusionReactorFluidRecipeAction(new RecipeInputFluid(CraftTweakerMC.getLiquidStack(input1)), new RecipeInputFluid(CraftTweakerMC.getLiquidStack(input2)), totalEu, startEu, CraftTweakerMC.getLiquidStack(output)));
     }
 
     private static final class FusionReactorRecipeAction implements IAction {
