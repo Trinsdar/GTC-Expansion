@@ -28,6 +28,7 @@ import ic2.core.block.machine.low.TileEntityExtractor;
 import ic2.core.block.machine.low.TileEntityMacerator;
 import ic2.core.platform.registry.Ic2Items;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -75,6 +76,7 @@ public class GTCXRecipeProcessing {
         if (OreDictionary.doesOreNameExist("stoneMarble")){
             GTRecipe.maceratorUtil("stoneMarble", 1, GTMaterialGen.getDust(GTCXMaterial.Marble, 1));
         }
+        TileEntityMacerator.addRecipe(GTMaterialGen.get(Blocks.END_STONE), GTMaterialGen.getDust(GTCXMaterial.Endstone, 1));
         GTRecipe.maceratorUtil("fuelCoke", 1, GTMaterialGen.getDust(GTCXMaterial.Coke, 1));
         TileEntityCompressor.addRecipe("dustIridium", 1, Ic2Items.iridiumOre.copy());
         TileEntityMacerator.addRecipe(GTMaterialGen.get(GTCXItems.constantanHeatingCoil), GTMaterialGen.getDust(GTCXMaterial.Constantan, 3));

@@ -5,6 +5,7 @@ import gtc_expansion.item.overrides.GTCXItemBlockMachineLV;
 import gtc_expansion.item.overrides.GTCXItemDrill;
 import gtc_expansion.item.overrides.GTCXItemElectricWrench;
 import gtc_expansion.item.overrides.GTCXItemPrecisionWrench;
+import gtc_expansion.item.overrides.GTCXItemUpgrade;
 import ic2.api.classic.addon.IC2Plugin;
 import ic2.api.classic.addon.PluginBase;
 import ic2.api.classic.addon.misc.IOverrideObject;
@@ -29,6 +30,7 @@ public class GTCXPlugin extends PluginBase {
         //map.put(getID(Ic2ItemLang.boatItem), new ModulLoader.ItemOverride(new GTCXItemElectricBoat()));
         map.put(getID(Ic2ItemLang.wrenchElectric), new ModulLoader.ItemOverride(new GTCXItemElectricWrench()));
         map.put(getID(Ic2ItemLang.wrenchPresision), new ModulLoader.ItemOverride(new GTCXItemPrecisionWrench()));
+        map.put(getID(Ic2ItemLang.upgradeBase), new ModulLoader.ItemOverride(new GTCXItemUpgrade()));
         map.put("blockMachineLV", new ModulLoader.BlockOverride(new GTCXBlockLVMachine(), GTCXItemBlockMachineLV.class));
     }
 
