@@ -9,6 +9,7 @@ import gtc_expansion.item.overrides.GTCXItemUpgrade;
 import ic2.api.classic.addon.IC2Plugin;
 import ic2.api.classic.addon.PluginBase;
 import ic2.api.classic.addon.misc.IOverrideObject;
+import ic2.core.IC2;
 import ic2.core.platform.lang.components.base.LocaleComp;
 import ic2.core.platform.lang.storage.Ic2ItemLang;
 import ic2.core.util.misc.ModulLoader;
@@ -26,11 +27,11 @@ public class GTCXPlugin extends PluginBase {
 
     @Override
     public void preInit(FMLPreInitializationEvent event, Map<String, IOverrideObject> map) {
-        map.put(getID(Ic2ItemLang.drillItem), new ModulLoader.ItemOverride(new GTCXItemDrill()));
+        map.put(getID(Ic2ItemLang.drillItem), new ModulLoader.ItemOverride(new GTCXItemDrill().setCreativeTab(IC2.tabIC2)));
         //map.put(getID(Ic2ItemLang.boatItem), new ModulLoader.ItemOverride(new GTCXItemElectricBoat()));
-        map.put(getID(Ic2ItemLang.wrenchElectric), new ModulLoader.ItemOverride(new GTCXItemElectricWrench()));
-        map.put(getID(Ic2ItemLang.wrenchPresision), new ModulLoader.ItemOverride(new GTCXItemPrecisionWrench()));
-        map.put(getID(Ic2ItemLang.upgradeBase), new ModulLoader.ItemOverride(new GTCXItemUpgrade()));
+        map.put(getID(Ic2ItemLang.wrenchElectric), new ModulLoader.ItemOverride(new GTCXItemElectricWrench().setCreativeTab(IC2.tabIC2)));
+        map.put(getID(Ic2ItemLang.wrenchPresision), new ModulLoader.ItemOverride(new GTCXItemPrecisionWrench().setCreativeTab(IC2.tabIC2)));
+        map.put(getID(Ic2ItemLang.upgradeBase), new ModulLoader.ItemOverride(new GTCXItemUpgrade().setCreativeTab(IC2.tabIC2)));
         map.put("blockMachineLV", new ModulLoader.BlockOverride(new GTCXBlockLVMachine(), GTCXItemBlockMachineLV.class));
     }
 
