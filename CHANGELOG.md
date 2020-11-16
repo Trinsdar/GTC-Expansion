@@ -1,6 +1,17 @@
 # Changelog
 
-# 0.2.1 (not released)
+#0.2.1.2
+ - fixed ct recipe expansions not working
+ - decreased stack size of efficiency upgrades from 16 to 4
+ - added endstone macerating recipe
+ - added support for overclocker and other such modifying upgrades to multiblocks
+ - fixed overridden items not showing up in jei
+ - added ct methods for forge hammer
+
+# 0.2.1.1
+ - fixed crash
+
+# 0.2.1
  - Moved tile texture into just a single large sprite sheet, should hopefully reduce ram usage a little
  - made recipes using ic2 pump also use bc pump if bc is loaded
  - renamed wrench interface, renamed method in scrwdriver interface. this means that gravisuit classic 1.0.8.3 will not load with this, you will need 1.0.8.4
