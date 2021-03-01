@@ -486,7 +486,7 @@ public class GTCXRecipe {
                 IRecipeInput gem = GTConfig.general.harderIC2Macerator ? input("gemDiamond", 3) : input(GTMaterialGen.get(Items.FLINT, 3));
                 recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamMacerator), "WDH", "GMG", "BPB", 'W', wrench, 'D', gem, 'H', hammer, 'G', "gearBronze", 'M', MACHINE_CHEAP, 'B', BRONZE, 'P', ANY_PISTON);
                 recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamFurnace), "BWB", "BFB", "bMb", 'B', BRONZE, 'W', wrench, 'F', Blocks.FURNACE, 'b', Blocks.BRICK_BLOCK, 'M', MACHINE_CHEAP);
-                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamAlloySmelter), "BWB", "BMB", "bFb", 'B', BRONZE, 'F', GTCXBlocks.alloyFurnace, 'W', wrench, 'b', Blocks.BRICK_BLOCK, 'M', MACHINE_CHEAP);
+                recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamAlloySmelter), "BBB", "FWF", "bbb", 'B', BRONZE, 'F', GTCXBlocks.steamFurnace, 'W', wrench, 'b', Blocks.BRICK_BLOCK, 'M', MACHINE_CHEAP);
                 recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamForgeHammer), "GPG", "BWB", "BMB", 'G', "gearBronze", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
                 recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamCompressor), "BGB", "PWP", "BMB", 'G', "gearBronze", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
                 recipes.addRecipe(GTMaterialGen.get(GTCXBlocks.steamExtractor), "BBB", "PWP", "BMB", 'P', ANY_PISTON, 'B', BRONZE, 'W', wrench, 'M', MACHINE_CHEAP);
