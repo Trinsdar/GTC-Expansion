@@ -464,8 +464,8 @@ public class GTCXTileChemicalReactor extends GTTileBaseMachine implements ITankL
         addRecipe(input("dustCarbon", 1), input(GTMaterialGen.getFluidStack(GTMaterial.Nitrogen)), 45000, GTMaterialGen.getFluidStack(GTCXMaterial.NitroCarbon, 2000));
         addRecipe(input("dustSulfur", 1), input(GTMaterialGen.getFluidStack(GTMaterial.Sodium)), 3000, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumSulfide, 2000));
         addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.NitroCarbon)), input(GTMaterialGen.getFluidStack("water", 1000)), 17490, GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl, 2000));
-        addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.SodiumSulfide)), input(GTMaterialGen.getFluidStack(GTMaterial.Oxygen)), 60000, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate, 2000));
-        addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Nitrogen)), input(GTMaterialGen.getFluidStack(GTMaterial.Oxygen)), 37500, GTMaterialGen.getFluidStack(GTCXMaterial.NitrogenDioxide, 2000));
+        addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.SodiumSulfide)), input(GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 2000)), 60000, GTMaterialGen.getFluidStack(GTCXMaterial.SodiumPersulfate, 3000));
+        addRecipe(input(GTMaterialGen.getFluidStack(GTMaterial.Nitrogen)), input(GTMaterialGen.getFluidStack(GTMaterial.Oxygen, 2000)), 37500, GTMaterialGen.getFluidStack(GTCXMaterial.NitrogenDioxide, 3000));
         addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl)), input(GTMaterialGen.getFluidStack(GTCXMaterial.Diesel, 4000)), 30000, GTMaterialGen.getFluidStack(GTCXMaterial.NitroDiesel, 5000));
         addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl)), input(GTMaterialGen.getIc2(Ic2Items.coalFuelCell, 4)), 30000, GTMaterialGen.getFluidStack(GTCXMaterial.NitroCoalFuel, 5000), GTMaterialGen.getIc2(Ic2Items.emptyCell, 4));
         addRecipe(input(GTMaterialGen.getFluidStack(GTCXMaterial.Glyceryl)), input(GTMaterialGen.getFluidStack(GTCXMaterial.CoalFuel, 4000)), 30000, GTMaterialGen.getFluidStack(GTCXMaterial.NitroCoalFuel, 5000));
