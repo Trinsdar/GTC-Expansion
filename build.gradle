@@ -81,7 +81,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
     deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
-    deobfProvided "curse.maven:ic2c-extras:3033496"
+    deobfProvided "curse.maven:ic2c-extras-302906:3087233"
     deobfCompile("mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.22-13") { transitive = false }
     //runtime "curse.maven:ic2c-extras:3033496"
     deobfProvided("net.sengir.forestry:forestry_${mc_version}:${forestry_version}") {
