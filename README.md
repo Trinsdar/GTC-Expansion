@@ -1,3 +1,5 @@
+# **_NOTICE : THIS MOD IS DEAD, AND I HAVE NO PLANS T FIX ANY ISSUES. USE AT YOUR OWN RISK._**
+
 # GTC Expansion
 # About 
 GTC Expansion is an addon to GT Classic adding various machines and such. currently it aims to make gtclassic more like gt4, but I will add other things.
